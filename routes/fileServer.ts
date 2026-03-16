@@ -12,8 +12,8 @@ import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
 
 export function servePublicFiles () {
-  return ({ params, query }: Request, res: Response, next: NextFunction) => {
-    const file = params.file
+  return ({ params }: Request, res: Response, next: NextFunction) => {
+    const file = path.basename(params.file)
 
     if (!file.includes('/')) {
       verify(file, res, next)
@@ -30,7 +30,7 @@ export function servePublicFiles () {
       challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
 
-      res.sendFile(path.resolve('ftp/', file))
+      res.sendFile(file, { root: path.resolve('ftp'), dotfiles: 'deny' })
     } else {
       res.status(403)
       next(new Error('Only .md and .pdf files are allowed!'))

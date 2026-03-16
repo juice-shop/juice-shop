@@ -19,7 +19,23 @@ export function captchas () {
     const secondOperator = operators[Math.floor((Math.random() * 3))]
 
     const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    const answer = eval(expression).toString() // eslint-disable-line no-eval
+    const applyOperator = (left: number, operator: string, right: number): number => {
+      switch (operator) {
+        case '*': return left * right
+        case '+': return left + right
+        case '-': return left - right
+        default: throw new Error('Unsupported operator')
+      }
+    }
+
+    const precedence: Record<string, number> = { '*': 2, '+': 1, '-': 1 }
+    let result: number
+    if (precedence[secondOperator] > precedence[firstOperator]) {
+      result = applyOperator(firstTerm, firstOperator, applyOperator(secondTerm, secondOperator, thirdTerm))
+    } else {
+      result = applyOperator(applyOperator(firstTerm, firstOperator, secondTerm), secondOperator, thirdTerm)
+    }
+    const answer = result.toString()
 
     const captcha = {
       captchaId,

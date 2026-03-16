@@ -50,7 +50,8 @@ html(lang='en')
             video(width='85vw', height='240', controls='controls')
                source(src='./video', type='video/mp4')
 
-        script#subtitle.
+        script#subtitle(type='application/json').
+          _subtitles_
 
 
         script.
@@ -106,9 +107,10 @@ html(lang='en')
             function init() {
             var video = document.querySelector('video');
             var subtitle = document.getElementById('subtitle');
+            var subtitleData = JSON.parse(subtitle.textContent || '""');
             var track = video.addTextTrack('subtitles', subtitle.dataset.label, subtitle.dataset.lang);
             track.mode = "showing";
-            quick_and_dirty_vtt_or_srt_parser(subtitle.innerHTML).map(function(cue) {
+            quick_and_dirty_vtt_or_srt_parser(subtitleData).map(function(cue) {
             track.addCue(cue);
             });
             }

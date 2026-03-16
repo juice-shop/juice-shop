@@ -78,7 +78,7 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
         body: bot.greet(`${user.id}`)
       })
     } catch (err) {
-      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      next(new Error('Blocked illegal activity'))
     }
     return
   }
@@ -87,7 +87,7 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
     try {
       bot.addUser(`${user.id}`, username)
     } catch (err) {
-      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      next(new Error('Blocked illegal activity'))
       return
     }
   }
@@ -205,7 +205,7 @@ export const status = function status () {
         body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
       })
     } catch (err) {
-      next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
+      next(new Error('Blocked illegal activity'))
     }
   }
 }

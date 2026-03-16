@@ -1,0 +1,3135 @@
+{
+    "version": "1.154.0",
+    "results": [
+        {
+            "check_id": "javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop",
+            "path": "/src/frontend/src/hacking-instructor/helpers/helpers.ts",
+            "start": {
+                "line": 53,
+                "col": 9,
+                "offset": 1618
+            },
+            "end": {
+                "line": 53,
+                "col": 54,
+                "offset": 1663
+            },
+            "extra": {
+                "message": "Possibility of prototype polluting function detected. By adding or modifying attributes of an object prototype, it is possible to create attributes that exist on every object, or replace critical attributes with malicious ones. This can be problematic if the software depends on existence or non-existence of certain attributes, or uses pre-defined attributes of object prototype (such as hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object prototype, using an object without prototypes (via Object.create(null) ), blocking modifications of attributes that resolve to object prototype, using Map instead of object.",
+                "metadata": {
+                    "cwe": [
+                        "CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes"
+                    ],
+                    "category": "security",
+                    "references": [
+                        "https://github.com/HoLyVieR/prototype-pollution-nsec18/blob/master/paper/JavaScript_prototype_pollution_attack_in_NodeJS.pdf"
+                    ],
+                    "technology": [
+                        "typescript"
+                    ],
+                    "owasp": [
+                        "A08:2021 - Software and Data Integrity Failures",
+                        "A08:2025 - Software or Data Integrity Failures"
+                    ],
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "LOW",
+                    "confidence": "LOW",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mass Assignment"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop.prototype-pollution-loop",
+                    "shortlink": "https://sg.run/w1DB"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+            "path": "/src/routes/chatbot.ts",
+            "start": {
+                "line": 205,
+                "col": 46,
+                "offset": 6439
+            },
+            "end": {
+                "line": 205,
+                "col": 56,
+                "offset": 6449
+            },
+            "extra": {
+                "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+                "metadata": {
+                    "cwe": [
+                        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                    ],
+                    "owasp": [
+                        "A07:2017 - Cross-Site Scripting (XSS)",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cross-Site-Scripting (XSS)"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.injection.raw-html-format.raw-html-format",
+                    "shortlink": "https://sg.run/5DO3"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.remote-property-injection.remote-property-injection",
+            "path": "/src/routes/currentUser.ts",
+            "start": {
+                "line": 32,
+                "col": 15,
+                "offset": 1352
+            },
+            "end": {
+                "line": 32,
+                "col": 76,
+                "offset": 1413
+            },
+            "extra": {
+                "message": "Bracket object notation with user input is present, this might allow an attacker to access all properties of the object and even it's prototype. Use literal values for object properties.",
+                "metadata": {
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A02:2017 - Broken Authentication",
+                        "A04:2021 - Insecure Design",
+                        "A06:2025 - Insecure Design"
+                    ],
+                    "cwe": [
+                        "CWE-522: Insufficiently Protected Credentials"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://github.com/nodesecurity/eslint-plugin-security/blob/3c7522ca1be800353513282867a1034c795d9eb4/docs/the-dangers-of-square-bracket-notation.md"
+                    ],
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "MEDIUM",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cryptographic Issues"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.remote-property-injection.remote-property-injection",
+                    "shortlink": "https://sg.run/Z4gn"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.lang.security.audit.unknown-value-with-script-tag.unknown-value-with-script-tag",
+            "path": "/src/routes/videoHandler.ts",
+            "start": {
+                "line": 58,
+                "col": 90,
+                "offset": 1950
+            },
+            "end": {
+                "line": 58,
+                "col": 94,
+                "offset": 1954
+            },
+            "extra": {
+                "message": "Cannot determine what 'subs' is and it is used with a '<script>' tag. This could be susceptible to cross-site scripting (XSS). Ensure 'subs' is not externally controlled, or sanitize this data.",
+                "metadata": {
+                    "owasp": [
+                        "A07:2017 - Cross-Site Scripting (XSS)",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe": [
+                        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                    ],
+                    "references": [
+                        "https://www.developsec.com/2017/11/09/xss-in-a-script-tag/",
+                        "https://github.com/juice-shop/juice-shop/blob/1ceb8751e986dacd3214a618c37e7411be6bc11a/routes/videoHandler.ts#L68"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "javascript"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "LOW",
+                    "confidence": "LOW",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cross-Site-Scripting (XSS)"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.lang.security.audit.unknown-value-with-script-tag.unknown-value-with-script-tag",
+                    "shortlink": "https://sg.run/1Zy1"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.xss.pug.explicit-unescape.template-explicit-unescape",
+            "path": "/src/views/promotionVideo.pug",
+            "start": {
+                "line": 79,
+                "col": 13,
+                "offset": 3941
+            },
+            "end": {
+                "line": 79,
+                "col": 41,
+                "offset": 3969
+            },
+            "extra": {
+                "message": "Detected an explicit unescape in a Pug template, using either '!=' or '!{...}'. If external data can reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If you must do this, ensure no external data can reach this location.",
+                "metadata": {
+                    "cwe": [
+                        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                    ],
+                    "owasp": [
+                        "A07:2017 - Cross-Site Scripting (XSS)",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "references": [
+                        "https://pugjs.org/language/code.html#unescaped-buffered-code",
+                        "https://pugjs.org/language/attributes.html#unescaped-attributes"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "confidence": "LOW",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cross-Site-Scripting (XSS)"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.xss.pug.explicit-unescape.template-explicit-unescape",
+                    "shortlink": "https://sg.run/3xbe"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/registerAdminChallenge_2.ts:1:\n `/* Generated API endpoints */\r\n  finale.initialize({ app, sequelize })\r\n\r\n  const autoModels = [\r\n    { name: 'Product', exclude: [], model: ProductModel },\r\n    { name: 'Feedback', exclude: [], model: FeedbackModel },\r\n    { name: 'BasketItem', exclude: [], model: BasketItemModel },\r\n    { name: 'Challenge', exclude: [], model: ChallengeModel },\r\n    { name: 'Complaint', exclude: [], model: ComplaintModel },\r\n    { name: 'Recycle', exclude: [], model: RecycleModel },\r\n    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },\r\n    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },\r\n    { name: 'Address', exclude: [], model: AddressModel },\r\n    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },\r\n    { name: 'Card', exclude: [], model: CardModel },\r\n    { name: 'Quantity', exclude: [], model: QuantityModel },\r\n    { name: 'Hint', exclude: [], model: HintModel }\r\n  ]\r\n\r\n  for (const { name, exclude, model } of autoModels) {\r\n    const resource = finale.resource({\r\n      model,\r\n      endpoints: [`/api/${name}s`, `/api/${name}s/:id`],\r\n      excludeAttributes: exclude,\r\n      pagination: false\r\n    })` was unexpected",
+            "path": "/src/data/static/codefixes/registerAdminChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/registerAdminChallenge_4.ts:1:\n `/* Generated API endpoints */\r\n  finale.initialize({ app, sequelize })\r\n\r\n  const autoModels = [\r\n    { name: 'User', exclude: ['password', 'totpSecret', 'role'], model: UserModel },\r\n    { name: 'Product', exclude: [], model: ProductModel },\r\n    { name: 'Feedback', exclude: [], model: FeedbackModel },\r\n    { name: 'BasketItem', exclude: [], model: BasketItemModel },\r\n    { name: 'Challenge', exclude: [], model: ChallengeModel },\r\n    { name: 'Complaint', exclude: [], model: ComplaintModel },\r\n    { name: 'Recycle', exclude: [], model: RecycleModel },\r\n    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },\r\n    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },\r\n    { name: 'Address', exclude: [], model: AddressModel },\r\n    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },\r\n    { name: 'Card', exclude: [], model: CardModel },\r\n    { name: 'Quantity', exclude: [], model: QuantityModel },\r\n    { name: 'Hint', exclude: [], model: HintModel }\r\n  ]\r\n\r\n  for (const { name, exclude, model } of autoModels) {\r\n    const resource = finale.resource({\r\n      model,\r\n      endpoints: [`/api/${name}s`, `/api/${name}s/:id`],\r\n      excludeAttributes: exclude,\r\n      pagination: false\r\n    })\r\n\r\n    // create a wallet when a new user is registered using API\r\n    if (name === 'User') {\r\n      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {\r\n        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {\r\n          console.log(err)\r\n        })\r\n        return context.continue\r\n      })\r\n    }` was unexpected",
+            "path": "/src/data/static/codefixes/registerAdminChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/registerAdminChallenge_3_correct.ts:1:\n `/* Generated API endpoints */\r\n  finale.initialize({ app, sequelize })\r\n\r\n  const autoModels = [\r\n    { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },\r\n    { name: 'Product', exclude: [], model: ProductModel },\r\n    { name: 'Feedback', exclude: [], model: FeedbackModel },\r\n    { name: 'BasketItem', exclude: [], model: BasketItemModel },\r\n    { name: 'Challenge', exclude: [], model: ChallengeModel },\r\n    { name: 'Complaint', exclude: [], model: ComplaintModel },\r\n    { name: 'Recycle', exclude: [], model: RecycleModel },\r\n    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },\r\n    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },\r\n    { name: 'Address', exclude: [], model: AddressModel },\r\n    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },\r\n    { name: 'Card', exclude: [], model: CardModel },\r\n    { name: 'Quantity', exclude: [], model: QuantityModel },\r\n    { name: 'Hint', exclude: [], model: HintModel }\r\n  ]\r\n\r\n  for (const { name, exclude, model } of autoModels) {\r\n    const resource = finale.resource({\r\n      model,\r\n      endpoints: [`/api/${name}s`, `/api/${name}s/:id`],\r\n      excludeAttributes: exclude,\r\n      pagination: false\r\n    })\r\n\r\n    // create a wallet when a new user is registered using API\r\n    if (name === 'User') {\r\n      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {\r\n        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {\r\n          console.log(err)\r\n        })\r\n        context.instance.role = 'customer'\r\n        return context.continue\r\n      })\r\n    }` was unexpected",
+            "path": "/src/data/static/codefixes/registerAdminChallenge_3_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/registerAdminChallenge_1.ts:1:\n `/* Generated API endpoints */\r\n  finale.initialize({ app, sequelize })\r\n\r\n  const autoModels = [\r\n    { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },\r\n    { name: 'Product', exclude: [], model: ProductModel },\r\n    { name: 'Feedback', exclude: [], model: FeedbackModel },\r\n    { name: 'BasketItem', exclude: [], model: BasketItemModel },\r\n    { name: 'Challenge', exclude: [], model: ChallengeModel },\r\n    { name: 'Complaint', exclude: [], model: ComplaintModel },\r\n    { name: 'Recycle', exclude: [], model: RecycleModel },\r\n    { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },\r\n    { name: 'SecurityAnswer', exclude: [], model: SecurityAnswerModel },\r\n    { name: 'Address', exclude: [], model: AddressModel },\r\n    { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },\r\n    { name: 'Card', exclude: [], model: CardModel },\r\n    { name: 'Quantity', exclude: [], model: QuantityModel },\r\n    { name: 'Hint', exclude: [], model: HintModel }\r\n  ]\r\n\r\n  for (const { name, exclude, model } of autoModels) {\r\n    const resource = finale.resource({\r\n      model,\r\n      endpoints: [`/api/${name}s`, `/api/${name}s/:id`],\r\n      excludeAttributes: exclude,\r\n      pagination: false\r\n    })\r\n\r\n    // create a wallet when a new user is registered using API\r\n    if (name === 'User') {\r\n      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => {\r\n        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {\r\n          console.log(err)\r\n        })\r\n        context.instance.role = context.instance.role ? context.instance.role : 'customer'\r\n        return context.continue\r\n      })\r\n    }` was unexpected",
+            "path": "/src/data/static/codefixes/registerAdminChallenge_1.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/weakPasswordChallenge_3.ts:1:\n `User.init(\r\n      password: {\r\n        type: DataTypes.STRING,\r\n        set (clearTextPassword: string) {\r\n          validatePasswordHasAtLeastOneNumber(clearTextPassword)\r\n          validatePasswordHasAtLeastOneSpecialChar(clearTextPassword)\r\n          validatePasswordHasAtLeastOneUpperCaseChar(clearTextPassword)\r\n          validatePasswordHasAtLeastOneLowerCaseChar(clearTextPassword)\r\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\r\n          this.setDataValue('password', security.hash(clearTextPassword))\r\n        }\r\n      },` was unexpected",
+            "path": "/src/data/static/codefixes/weakPasswordChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/weakPasswordChallenge_2.ts:1:\n `User.init(\r\n      password: {\r\n        type: DataTypes.STRING,\r\n        set (clearTextPassword: string) {\r\n          validatePasswordHasAtLeastOneNumber(clearTextPassword)\r\n          validatePasswordHasAtLeastOneSpecialChar(clearTextPassword)\r\n          validatePasswordHasAtLeastOneUpperCaseChar(clearTextPassword)\r\n          validatePasswordHasAtLeastOneLowerCaseChar(clearTextPassword)\r\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\r\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\r\n          this.setDataValue('password', security.hash(clearTextPassword))\r\n        }\r\n      },` was unexpected",
+            "path": "/src/data/static/codefixes/weakPasswordChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/weakPasswordChallenge_1_correct.ts:1:\n `User.init(\r\n      password: {\r\n        type: DataTypes.STRING,\r\n        set (clearTextPassword: string) {\r\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\r\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\r\n          this.setDataValue('password', security.hash(clearTextPassword))\r\n        }\r\n      },` was unexpected",
+            "path": "/src/data/static/codefixes/weakPasswordChallenge_1_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/weakPasswordChallenge_4.ts:1:\n `User.init(\r\n      password: {\r\n        type: DataTypes.STRING,\r\n        set (clearTextPassword: string) {\r\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\r\n          this.setDataValue('password', security.hash(clearTextPassword))\r\n        }\r\n      },` was unexpected",
+            "path": "/src/data/static/codefixes/weakPasswordChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginAdminChallenge_1.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\r\n      res.status(451).send(res.__('SQL Injection detected.'))\r\n    }\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginAdminChallenge_1.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginBenderChallenge_1.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\r\n      res.status(451).send(res.__('SQL Injection detected.'))\r\n    }\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginBenderChallenge_1.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginJimChallenge_4.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\r\n      res.status(451).send(res.__('SQL Injection detected.'))\r\n    }\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginJimChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginAdminChallenge_3.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\r\n      { bind: [ req.body.email, req.body.password ], model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginAdminChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginAdminChallenge_4_correct.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\r\n      { bind: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginAdminChallenge_4_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginJimChallenge_1_correct.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\r\n      { bind: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginJimChallenge_1_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginAdminChallenge_2.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`,\r\n      { bind: [ req.body.email ], model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginAdminChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginBenderChallenge_2_correct.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $mail AND password = $pass AND deletedAt IS NULL`,\r\n      { bind: { mail: req.body.email, pass: security.hash(req.body.password) }, model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginBenderChallenge_2_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginBenderChallenge_4.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginBenderChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginJimChallenge_2.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginJimChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginBenderChallenge_3.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = :mail AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`,\r\n      { replacements: { mail: req.body.email }, model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginBenderChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line /src/data/static/codefixes/loginJimChallenge_3.ts:1:\n `export function login () {\r\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\r\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\r\n      .then(([basket]: [BasketModel, boolean]) => {\r\n        const token = security.authorize(user)\r\n        user.bid = basket.id // keep track of original basket\r\n        security.authenticatedUsers.put(token, user)\r\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }\r\n\r\n  return (req: Request, res: Response, next: NextFunction) => {\r\n    models.sequelize.query(`SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL`,\r\n      { replacements: [ req.body.email, req.body.password ], model: models.User, plain: true })\r\n      .then((authenticatedUser) => {\r\n        const user = utils.queryResultToJson(authenticatedUser)\r\n        if (user.data?.id && user.data.totpSecret !== '') {\r\n          res.status(401).json({\r\n            status: 'totp_token_required',\r\n            data: {\r\n              tmpToken: security.authorize({\r\n                userId: user.data.id,\r\n                type: 'password_valid_needs_second_factor_token'\r\n              })\r\n            }\r\n          })\r\n        } else if (user.data?.id) {\r\n          afterLogin(user, res, next)\r\n        } else {\r\n          res.status(401).send(res.__('Invalid email or password.'))\r\n        }\r\n      }).catch((error: Error) => {\r\n        next(error)\r\n      })\r\n  }` was unexpected",
+            "path": "/src/data/static/codefixes/loginJimChallenge_3.ts"
+        },
+        {
+            "code": 2,
+            "level": "warn",
+            "type": "Timeout",
+            "rule_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+            "message": "Timeout when running javascript.express.security.injection.raw-html-format.raw-html-format on /src/frontend/src/assets/private/three.js:\n ",
+            "path": "/src/frontend/src/assets/private/three.js"
+        },
+        {
+            "code": 2,
+            "level": "warn",
+            "type": "Timeout",
+            "rule_id": "javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring",
+            "message": "Timeout when running javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring on /src/frontend/src/assets/private/three.js:\n ",
+            "path": "/src/frontend/src/assets/private/three.js"
+        },
+        {
+            "code": 2,
+            "level": "warn",
+            "type": "Timeout",
+            "rule_id": "javascript.lang.security.insecure-object-assign.insecure-object-assign",
+            "message": "Timeout when running javascript.lang.security.insecure-object-assign.insecure-object-assign on /src/frontend/src/assets/private/three.js:\n ",
+            "path": "/src/frontend/src/assets/private/three.js"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/.github/workflows/frontend-bundle-analysis.yml",
+                        "start": {
+                            "line": 49,
+                            "col": 32,
+                            "offset": 1124
+                        },
+                        "end": {
+                            "line": 49,
+                            "col": 50,
+                            "offset": 1142
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/.github/workflows/frontend-bundle-analysis.yml:49:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.workspace` was unexpected",
+            "path": "/src/.github/workflows/frontend-bundle-analysis.yml",
+            "spans": [
+                {
+                    "file": "/src/.github/workflows/frontend-bundle-analysis.yml",
+                    "start": {
+                        "line": 49,
+                        "col": 32,
+                        "offset": 1124
+                    },
+                    "end": {
+                        "line": 49,
+                        "col": 50,
+                        "offset": 1142
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/.github/workflows/frontend-bundle-analysis.yml",
+                        "start": {
+                            "line": 64,
+                            "col": 64,
+                            "offset": 1930
+                        },
+                        "end": {
+                            "line": 65,
+                            "col": 24,
+                            "offset": 1997
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/.github/workflows/frontend-bundle-analysis.yml:64:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `\"R`Ty Update bundle analysis screenshot\" -s\ngit push origin master\n` was unexpected",
+            "path": "/src/.github/workflows/frontend-bundle-analysis.yml",
+            "spans": [
+                {
+                    "file": "/src/.github/workflows/frontend-bundle-analysis.yml",
+                    "start": {
+                        "line": 64,
+                        "col": 64,
+                        "offset": 1930
+                    },
+                    "end": {
+                        "line": 65,
+                        "col": 24,
+                        "offset": 1997
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/.github/workflows/release.yml",
+                        "start": {
+                            "line": 24,
+                            "col": 55,
+                            "offset": 744
+                        },
+                        "end": {
+                            "line": 24,
+                            "col": 58,
+                            "offset": 747
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/.github/workflows/release.yml:24:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": "/src/.github/workflows/release.yml",
+            "spans": [
+                {
+                    "file": "/src/.github/workflows/release.yml",
+                    "start": {
+                        "line": 24,
+                        "col": 55,
+                        "offset": 744
+                    },
+                    "end": {
+                        "line": 24,
+                        "col": 58,
+                        "offset": 747
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/.github/workflows/release.yml",
+                        "start": {
+                            "line": 36,
+                            "col": 27,
+                            "offset": 929
+                        },
+                        "end": {
+                            "line": 36,
+                            "col": 48,
+                            "offset": 950
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/.github/workflows/release.yml:36:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ matrix.node-version` was unexpected",
+            "path": "/src/.github/workflows/release.yml",
+            "spans": [
+                {
+                    "file": "/src/.github/workflows/release.yml",
+                    "start": {
+                        "line": 36,
+                        "col": 27,
+                        "offset": 929
+                    },
+                    "end": {
+                        "line": 36,
+                        "col": 48,
+                        "offset": 950
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/.github/workflows/update-challenges-ebook.yml",
+                        "start": {
+                            "line": 24,
+                            "col": 62,
+                            "offset": 607
+                        },
+                        "end": {
+                            "line": 24,
+                            "col": 65,
+                            "offset": 610
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/.github/workflows/update-challenges-ebook.yml:24:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": "/src/.github/workflows/update-challenges-ebook.yml",
+            "spans": [
+                {
+                    "file": "/src/.github/workflows/update-challenges-ebook.yml",
+                    "start": {
+                        "line": 24,
+                        "col": 62,
+                        "offset": 607
+                    },
+                    "end": {
+                        "line": 24,
+                        "col": 65,
+                        "offset": 610
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 26,
+                            "col": 66,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 27,
+                            "col": 36,
+                            "offset": 38
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 27,
+                            "col": 55,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 28,
+                            "col": 41,
+                            "offset": 43
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 28,
+                            "col": 112,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 29,
+                            "col": 38,
+                            "offset": 40
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 29,
+                            "col": 86,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 30,
+                            "col": 36,
+                            "offset": 38
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 30,
+                            "col": 83,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 31,
+                            "col": 44,
+                            "offset": 46
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 31,
+                            "col": 76,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 32,
+                            "col": 38,
+                            "offset": 40
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 32,
+                            "col": 45,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 33,
+                            "col": 38,
+                            "offset": 40
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 33,
+                            "col": 47,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 34,
+                            "col": 33,
+                            "offset": 35
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 34,
+                            "col": 61,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 35,
+                            "col": 37,
+                            "offset": 39
+                        }
+                    },
+                    {
+                        "path": "/src/Dockerfile",
+                        "start": {
+                            "line": 35,
+                            "col": 80,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 37,
+                            "col": 37,
+                            "offset": 89
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/Dockerfile:26:\n `\\\r\n    org.opencontainers.image.title=` was unexpected",
+            "path": "/src/Dockerfile",
+            "spans": [
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 26,
+                        "col": 66,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 27,
+                        "col": 36,
+                        "offset": 38
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 27,
+                        "col": 55,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 28,
+                        "col": 41,
+                        "offset": 43
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 28,
+                        "col": 112,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 29,
+                        "col": 38,
+                        "offset": 40
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 29,
+                        "col": 86,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 30,
+                        "col": 36,
+                        "offset": 38
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 30,
+                        "col": 83,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 31,
+                        "col": 44,
+                        "offset": 46
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 31,
+                        "col": 76,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 32,
+                        "col": 38,
+                        "offset": 40
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 32,
+                        "col": 45,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 33,
+                        "col": 38,
+                        "offset": 40
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 33,
+                        "col": 47,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 34,
+                        "col": 33,
+                        "offset": 35
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 34,
+                        "col": 61,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 35,
+                        "col": 37,
+                        "offset": 39
+                    }
+                },
+                {
+                    "file": "/src/Dockerfile",
+                    "start": {
+                        "line": 35,
+                        "col": 80,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 37,
+                        "col": 37,
+                        "offset": 89
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                        "start": {
+                            "line": 46,
+                            "col": 18,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 46,
+                            "col": 23,
+                            "offset": 5
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                        "start": {
+                            "line": 50,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 50,
+                            "col": 56,
+                            "offset": 53
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                        "start": {
+                            "line": 56,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 56,
+                            "col": 4,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/restfulXssChallenge_1_correct.ts:46:\n `: any` was unexpected",
+            "path": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                    "start": {
+                        "line": 46,
+                        "col": 18,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 46,
+                        "col": 23,
+                        "offset": 5
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                    "start": {
+                        "line": 50,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 50,
+                        "col": 56,
+                        "offset": 53
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+                    "start": {
+                        "line": 56,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 56,
+                        "col": 4,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                        "start": {
+                            "line": 47,
+                            "col": 38,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 47,
+                            "col": 45,
+                            "offset": 7
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                        "start": {
+                            "line": 53,
+                            "col": 18,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "col": 23,
+                            "offset": 5
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                        "start": {
+                            "line": 57,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "col": 56,
+                            "offset": 53
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                        "start": {
+                            "line": 63,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 63,
+                            "col": 4,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/restfulXssChallenge_2.ts:47:\n `: any[]` was unexpected",
+            "path": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                    "start": {
+                        "line": 47,
+                        "col": 38,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "col": 45,
+                        "offset": 7
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                    "start": {
+                        "line": 53,
+                        "col": 18,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "col": 23,
+                        "offset": 5
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                    "start": {
+                        "line": 57,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "col": 56,
+                        "offset": 53
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+                    "start": {
+                        "line": 63,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 63,
+                        "col": 4,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_3.ts",
+                        "start": {
+                            "line": 46,
+                            "col": 37,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 46,
+                            "col": 44,
+                            "offset": 7
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/restfulXssChallenge_3.ts:46:\n `: any[]` was unexpected",
+            "path": "/src/data/static/codefixes/restfulXssChallenge_3.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_3.ts",
+                    "start": {
+                        "line": 46,
+                        "col": 37,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 46,
+                        "col": 44,
+                        "offset": 7
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 47,
+                            "col": 37,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 47,
+                            "col": 44,
+                            "offset": 7
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 53,
+                            "col": 18,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "col": 23,
+                            "offset": 5
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 57,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "col": 56,
+                            "offset": 53
+                        }
+                    },
+                    {
+                        "path": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 63,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 63,
+                            "col": 4,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/restfulXssChallenge_4.ts:47:\n `: any[]` was unexpected",
+            "path": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 47,
+                        "col": 37,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "col": 44,
+                        "offset": 7
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 53,
+                        "col": 18,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "col": 23,
+                        "offset": 5
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 57,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "col": 56,
+                        "offset": 53
+                    }
+                },
+                {
+                    "file": "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 63,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 63,
+                        "col": 4,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/tokenSaleChallenge_1.ts",
+                        "start": {
+                            "line": 18,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 18,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/tokenSaleChallenge_1.ts:18:\n `]` was unexpected",
+            "path": "/src/data/static/codefixes/tokenSaleChallenge_1.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/tokenSaleChallenge_1.ts",
+                    "start": {
+                        "line": 18,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 18,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/tokenSaleChallenge_2.ts",
+                        "start": {
+                            "line": 19,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 19,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/tokenSaleChallenge_2.ts:19:\n `]` was unexpected",
+            "path": "/src/data/static/codefixes/tokenSaleChallenge_2.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/tokenSaleChallenge_2.ts",
+                    "start": {
+                        "line": 19,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 19,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+                        "start": {
+                            "line": 14,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/data/static/codefixes/tokenSaleChallenge_3_correct.ts:14:\n `]` was unexpected",
+            "path": "/src/data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+            "spans": [
+                {
+                    "file": "/src/data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+                    "start": {
+                        "line": 14,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 14,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+                        "start": {
+                            "line": 6,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "col": 14,
+                            "offset": 13
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+                        "start": {
+                            "line": 10,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/deluxe-user/deluxe-user.component.html:6:\n `@if (error) {` was unexpected",
+            "path": "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+                    "start": {
+                        "line": 6,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 6,
+                        "col": 14,
+                        "offset": 13
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+                    "start": {
+                        "line": 10,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/order-completion/order-completion.component.html",
+                        "start": {
+                            "line": 15,
+                            "col": 41,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 15,
+                            "col": 77,
+                            "offset": 36
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/order-completion/order-completion.component.html:15:\n `&& orderDetails.eta !== undefined) {` was unexpected",
+            "path": "/src/frontend/src/app/order-completion/order-completion.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/order-completion/order-completion.component.html",
+                    "start": {
+                        "line": 15,
+                        "col": 41,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "col": 77,
+                        "offset": 36
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 42,
+                            "col": 31,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "col": 57,
+                            "offset": 26
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 47,
+                            "col": 24,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 47,
+                            "col": 50,
+                            "offset": 26
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 58,
+                            "col": 36,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 58,
+                            "col": 108,
+                            "offset": 72
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 160,
+                            "col": 32,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 160,
+                            "col": 55,
+                            "offset": 23
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/payment/payment.component.html:42:\n `&& !couponControl.dirty) {` was unexpected",
+            "path": "/src/frontend/src/app/payment/payment.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 42,
+                        "col": 31,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "col": 57,
+                        "offset": 26
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 47,
+                        "col": 24,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "col": 50,
+                        "offset": 26
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 58,
+                        "col": 36,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 58,
+                        "col": 108,
+                        "offset": 72
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 160,
+                        "col": 32,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 160,
+                        "col": 55,
+                        "offset": 23
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/photo-wall/photo-wall.component.html",
+                        "start": {
+                            "line": 62,
+                            "col": 40,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 62,
+                            "col": 85,
+                            "offset": 45
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/photo-wall/photo-wall.component.html:62:\n `&& imagePreview && form.get('image').valid) {` was unexpected",
+            "path": "/src/frontend/src/app/photo-wall/photo-wall.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/photo-wall/photo-wall.component.html",
+                    "start": {
+                        "line": 62,
+                        "col": 40,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 62,
+                        "col": 85,
+                        "offset": 45
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/privacy-policy/privacy-policy.component.html",
+                        "start": {
+                            "line": 58,
+                            "col": 25,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 58,
+                            "col": 39,
+                            "offset": 14
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/privacy-policy/privacy-policy.component.html:58:\n `& Cookies Data` was unexpected",
+            "path": "/src/frontend/src/app/privacy-policy/privacy-policy.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/privacy-policy/privacy-policy.component.html",
+                    "start": {
+                        "line": 58,
+                        "col": 25,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 58,
+                        "col": 39,
+                        "offset": 14
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 20,
+                            "col": 41,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 20,
+                            "col": 85,
+                            "offset": 44
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 37,
+                            "col": 82,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 37,
+                            "col": 116,
+                            "offset": 34
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 57,
+                            "col": 34,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "col": 56,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 70,
+                            "col": 27,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 70,
+                            "col": 86,
+                            "offset": 59
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 81,
+                            "col": 63,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 81,
+                            "col": 100,
+                            "offset": 37
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 91,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 91,
+                            "col": 41,
+                            "offset": 6
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html:20:\n `&& challenge.disabledEnv !== 'safetyMode') {` was unexpected",
+            "path": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 20,
+                        "col": 41,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 20,
+                        "col": 85,
+                        "offset": 44
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 37,
+                        "col": 82,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 37,
+                        "col": 116,
+                        "offset": 34
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 57,
+                        "col": 34,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "col": 56,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 70,
+                        "col": 27,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 70,
+                        "col": 86,
+                        "offset": 59
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 81,
+                        "col": 63,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 81,
+                        "col": 100,
+                        "offset": 37
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 91,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 91,
+                        "col": 41,
+                        "offset": 6
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/sidenav/sidenav.component.html",
+                        "start": {
+                            "line": 42,
+                            "col": 23,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "col": 43,
+                            "offset": 20
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/sidenav/sidenav.component.html",
+                        "start": {
+                            "line": 279,
+                            "col": 27,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 279,
+                            "col": 56,
+                            "offset": 29
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/sidenav/sidenav.component.html:42:\n `&& isAccounting()) {` was unexpected",
+            "path": "/src/frontend/src/app/sidenav/sidenav.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/sidenav/sidenav.component.html",
+                    "start": {
+                        "line": 42,
+                        "col": 23,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "col": 43,
+                        "offset": 20
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/sidenav/sidenav.component.html",
+                    "start": {
+                        "line": 279,
+                        "col": 27,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 279,
+                        "col": 56,
+                        "offset": 29
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "/src/frontend/src/app/wallet/wallet.component.html",
+                        "start": {
+                            "line": 24,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 24,
+                            "col": 71,
+                            "offset": 36
+                        }
+                    },
+                    {
+                        "path": "/src/frontend/src/app/wallet/wallet.component.html",
+                        "start": {
+                            "line": 29,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 29,
+                            "col": 97,
+                            "offset": 62
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line /src/frontend/src/app/wallet/wallet.component.html:24:\n `&& balanceControl.errors.required) {` was unexpected",
+            "path": "/src/frontend/src/app/wallet/wallet.component.html",
+            "spans": [
+                {
+                    "file": "/src/frontend/src/app/wallet/wallet.component.html",
+                    "start": {
+                        "line": 24,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 24,
+                        "col": 71,
+                        "offset": 36
+                    }
+                },
+                {
+                    "file": "/src/frontend/src/app/wallet/wallet.component.html",
+                    "start": {
+                        "line": 29,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 29,
+                        "col": 97,
+                        "offset": 62
+                    }
+                }
+            ]
+        }
+    ],
+    "paths": {
+        "scanned": [
+            "/src/.claude/CLAUDE.md",
+            "/src/.codeclimate.yml",
+            "/src/.codeium/instructions.md",
+            "/src/.continue/instructions.md",
+            "/src/.cursor/rules",
+            "/src/.dependabot/config.yml",
+            "/src/.devcontainer.json",
+            "/src/.dockerignore",
+            "/src/.eslintrc.js",
+            "/src/.github/FUNDING.yml",
+            "/src/.github/ISSUE_TEMPLATE/bug-report.md",
+            "/src/.github/ISSUE_TEMPLATE/challenge-idea.md",
+            "/src/.github/ISSUE_TEMPLATE/config.yml",
+            "/src/.github/ISSUE_TEMPLATE/feature-request.md",
+            "/src/.github/PULL_REQUEST_TEMPLATE.md",
+            "/src/.github/copilot-instructions.md",
+            "/src/.github/workflows/ci.yml",
+            "/src/.github/workflows/codeql-analysis.yml",
+            "/src/.github/workflows/frontend-bundle-analysis.yml",
+            "/src/.github/workflows/lint-fixer.yml",
+            "/src/.github/workflows/lock.yml",
+            "/src/.github/workflows/rebase.yml",
+            "/src/.github/workflows/release.yml",
+            "/src/.github/workflows/stale.yml",
+            "/src/.github/workflows/update-challenges-ebook.yml",
+            "/src/.github/workflows/update-challenges-www.yml",
+            "/src/.github/workflows/update-news-www.yml",
+            "/src/.github/workflows/zap_scan.yml",
+            "/src/.gitignore",
+            "/src/.gitlab/auto-deploy-values.yaml",
+            "/src/.gitlab-ci.yml",
+            "/src/.gitpod.yml",
+            "/src/.mailmap",
+            "/src/.npmrc",
+            "/src/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json",
+            "/src/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json.asc",
+            "/src/.well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json.sha512",
+            "/src/.well-known/csaf/2021/juice-shop-sa-20211014-proto.json",
+            "/src/.well-known/csaf/2021/juice-shop-sa-20211014-proto.json.asc",
+            "/src/.well-known/csaf/2021/juice-shop-sa-20211014-proto.json.sha512",
+            "/src/.well-known/csaf/2024/juice-shop-sa-disclaimer.json",
+            "/src/.well-known/csaf/2024/juice-shop-sa-disclaimer.json.asc",
+            "/src/.well-known/csaf/2024/juice-shop-sa-disclaimer.json.sha512",
+            "/src/.well-known/csaf/changes.csv",
+            "/src/.well-known/csaf/index.txt",
+            "/src/.well-known/csaf/provider-metadata.json",
+            "/src/.well-known/security.txt",
+            "/src/.zap/rules.tsv",
+            "/src/AGENTS.md",
+            "/src/CODE_OF_CONDUCT.md",
+            "/src/CONTRIBUTING.md",
+            "/src/Dockerfile",
+            "/src/Gruntfile.js",
+            "/src/HALL_OF_FAME.md",
+            "/src/LICENSE",
+            "/src/README.md",
+            "/src/REFERENCES.md",
+            "/src/SECURITY.md",
+            "/src/SOLUTIONS.md",
+            "/src/app.json",
+            "/src/app.ts",
+            "/src/config/7ms.yml",
+            "/src/config/addo.yml",
+            "/src/config/bodgeit.yml",
+            "/src/config/ctf.yml",
+            "/src/config/default.yml",
+            "/src/config/defcon33.yml",
+            "/src/config/fbctf.yml",
+            "/src/config/juicebox.yml",
+            "/src/config/mozilla.yml",
+            "/src/config/oss.yml",
+            "/src/config/quiet.yml",
+            "/src/config/test.yml",
+            "/src/config/tutorial.yml",
+            "/src/config/unsafe.yml",
+            "/src/config.schema.yml",
+            "/src/crowdin.yaml",
+            "/src/ctf.key",
+            "/src/cypress.config.ts",
+            "/src/data/chatbot/.gitkeep",
+            "/src/data/datacache.ts",
+            "/src/data/datacreator.ts",
+            "/src/data/mongodb.ts",
+            "/src/data/static/botDefaultTrainingData.json",
+            "/src/data/static/challenges.yml",
+            "/src/data/static/codefixes/.editorconfig",
+            "/src/data/static/codefixes/accessLogDisclosureChallenge.info.yml",
+            "/src/data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts",
+            "/src/data/static/codefixes/accessLogDisclosureChallenge_2.ts",
+            "/src/data/static/codefixes/accessLogDisclosureChallenge_3.ts",
+            "/src/data/static/codefixes/accessLogDisclosureChallenge_4.ts",
+            "/src/data/static/codefixes/adminSectionChallenge.info.yml",
+            "/src/data/static/codefixes/adminSectionChallenge_1_correct.ts",
+            "/src/data/static/codefixes/adminSectionChallenge_2.ts",
+            "/src/data/static/codefixes/adminSectionChallenge_3.ts",
+            "/src/data/static/codefixes/adminSectionChallenge_4.ts",
+            "/src/data/static/codefixes/changeProductChallenge.info.yml",
+            "/src/data/static/codefixes/changeProductChallenge_1.ts",
+            "/src/data/static/codefixes/changeProductChallenge_2.ts",
+            "/src/data/static/codefixes/changeProductChallenge_3_correct.ts",
+            "/src/data/static/codefixes/changeProductChallenge_4.ts",
+            "/src/data/static/codefixes/dbSchemaChallenge.info.yml",
+            "/src/data/static/codefixes/dbSchemaChallenge_1.ts",
+            "/src/data/static/codefixes/dbSchemaChallenge_2_correct.ts",
+            "/src/data/static/codefixes/dbSchemaChallenge_3.ts",
+            "/src/data/static/codefixes/directoryListingChallenge.info.yml",
+            "/src/data/static/codefixes/directoryListingChallenge_1_correct.ts",
+            "/src/data/static/codefixes/directoryListingChallenge_2.ts",
+            "/src/data/static/codefixes/directoryListingChallenge_3.ts",
+            "/src/data/static/codefixes/directoryListingChallenge_4.ts",
+            "/src/data/static/codefixes/exposedMetricsChallenge.info.yml",
+            "/src/data/static/codefixes/exposedMetricsChallenge_1.ts",
+            "/src/data/static/codefixes/exposedMetricsChallenge_2.ts",
+            "/src/data/static/codefixes/exposedMetricsChallenge_3_correct.ts",
+            "/src/data/static/codefixes/forgedReviewChallenge.info.yml",
+            "/src/data/static/codefixes/forgedReviewChallenge_1.ts",
+            "/src/data/static/codefixes/forgedReviewChallenge_2_correct.ts",
+            "/src/data/static/codefixes/forgedReviewChallenge_3.ts",
+            "/src/data/static/codefixes/localXssChallenge.info.yml",
+            "/src/data/static/codefixes/localXssChallenge_1.ts",
+            "/src/data/static/codefixes/localXssChallenge_2_correct.ts",
+            "/src/data/static/codefixes/localXssChallenge_3.ts",
+            "/src/data/static/codefixes/localXssChallenge_4.ts",
+            "/src/data/static/codefixes/loginAdminChallenge.info.yml",
+            "/src/data/static/codefixes/loginAdminChallenge_1.ts",
+            "/src/data/static/codefixes/loginAdminChallenge_2.ts",
+            "/src/data/static/codefixes/loginAdminChallenge_3.ts",
+            "/src/data/static/codefixes/loginAdminChallenge_4_correct.ts",
+            "/src/data/static/codefixes/loginBenderChallenge.info.yml",
+            "/src/data/static/codefixes/loginBenderChallenge_1.ts",
+            "/src/data/static/codefixes/loginBenderChallenge_2_correct.ts",
+            "/src/data/static/codefixes/loginBenderChallenge_3.ts",
+            "/src/data/static/codefixes/loginBenderChallenge_4.ts",
+            "/src/data/static/codefixes/loginJimChallenge.info.yml",
+            "/src/data/static/codefixes/loginJimChallenge_1_correct.ts",
+            "/src/data/static/codefixes/loginJimChallenge_2.ts",
+            "/src/data/static/codefixes/loginJimChallenge_3.ts",
+            "/src/data/static/codefixes/loginJimChallenge_4.ts",
+            "/src/data/static/codefixes/nftMintChallenge.info.yml",
+            "/src/data/static/codefixes/nftMintChallenge_1.sol",
+            "/src/data/static/codefixes/nftMintChallenge_2.sol",
+            "/src/data/static/codefixes/nftMintChallenge_3.sol",
+            "/src/data/static/codefixes/nftMintChallenge_4_correct.sol",
+            "/src/data/static/codefixes/nftUnlockChallenge.info.yml",
+            "/src/data/static/codefixes/nftUnlockChallenge_1.sol",
+            "/src/data/static/codefixes/nftUnlockChallenge_2_correct.sol",
+            "/src/data/static/codefixes/nftUnlockChallenge_3.sol",
+            "/src/data/static/codefixes/nftUnlockChallenge_4.sol",
+            "/src/data/static/codefixes/noSqlReviewsChallenge.info.yml",
+            "/src/data/static/codefixes/noSqlReviewsChallenge_1.ts",
+            "/src/data/static/codefixes/noSqlReviewsChallenge_2.ts",
+            "/src/data/static/codefixes/noSqlReviewsChallenge_3_correct.ts",
+            "/src/data/static/codefixes/redirectChallenge.info.yml",
+            "/src/data/static/codefixes/redirectChallenge_1.ts",
+            "/src/data/static/codefixes/redirectChallenge_2.ts",
+            "/src/data/static/codefixes/redirectChallenge_3.ts",
+            "/src/data/static/codefixes/redirectChallenge_4_correct.ts",
+            "/src/data/static/codefixes/redirectCryptoCurrencyChallenge.info.yml",
+            "/src/data/static/codefixes/redirectCryptoCurrencyChallenge_1.ts",
+            "/src/data/static/codefixes/redirectCryptoCurrencyChallenge_2.ts",
+            "/src/data/static/codefixes/redirectCryptoCurrencyChallenge_3_correct.ts",
+            "/src/data/static/codefixes/redirectCryptoCurrencyChallenge_4.ts",
+            "/src/data/static/codefixes/registerAdminChallenge.info.yml",
+            "/src/data/static/codefixes/registerAdminChallenge_1.ts",
+            "/src/data/static/codefixes/registerAdminChallenge_2.ts",
+            "/src/data/static/codefixes/registerAdminChallenge_3_correct.ts",
+            "/src/data/static/codefixes/registerAdminChallenge_4.ts",
+            "/src/data/static/codefixes/resetPasswordBenderChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordBenderChallenge_1.yml",
+            "/src/data/static/codefixes/resetPasswordBenderChallenge_2_correct.yml",
+            "/src/data/static/codefixes/resetPasswordBenderChallenge_3.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernChallenge_1_correct.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernChallenge_2.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernChallenge_3.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernOwaspChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernOwaspChallenge_1.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernOwaspChallenge_2_correct.yml",
+            "/src/data/static/codefixes/resetPasswordBjoernOwaspChallenge_3.yml",
+            "/src/data/static/codefixes/resetPasswordJimChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordJimChallenge_1.yml",
+            "/src/data/static/codefixes/resetPasswordJimChallenge_2.yml",
+            "/src/data/static/codefixes/resetPasswordJimChallenge_3_correct.yml",
+            "/src/data/static/codefixes/resetPasswordMortyChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordMortyChallenge_1.ts",
+            "/src/data/static/codefixes/resetPasswordMortyChallenge_2.ts",
+            "/src/data/static/codefixes/resetPasswordMortyChallenge_3.ts",
+            "/src/data/static/codefixes/resetPasswordMortyChallenge_4_correct.ts",
+            "/src/data/static/codefixes/resetPasswordUvoginChallenge.info.yml",
+            "/src/data/static/codefixes/resetPasswordUvoginChallenge_1.yml",
+            "/src/data/static/codefixes/resetPasswordUvoginChallenge_2.yml",
+            "/src/data/static/codefixes/resetPasswordUvoginChallenge_3_correct.yml",
+            "/src/data/static/codefixes/restfulXssChallenge.info.yml",
+            "/src/data/static/codefixes/restfulXssChallenge_1_correct.ts",
+            "/src/data/static/codefixes/restfulXssChallenge_2.ts",
+            "/src/data/static/codefixes/restfulXssChallenge_3.ts",
+            "/src/data/static/codefixes/restfulXssChallenge_4.ts",
+            "/src/data/static/codefixes/scoreBoardChallenge.info.yml",
+            "/src/data/static/codefixes/scoreBoardChallenge_1_correct.ts",
+            "/src/data/static/codefixes/scoreBoardChallenge_2.ts",
+            "/src/data/static/codefixes/scoreBoardChallenge_3.ts",
+            "/src/data/static/codefixes/tokenSaleChallenge.info.yml",
+            "/src/data/static/codefixes/tokenSaleChallenge_1.ts",
+            "/src/data/static/codefixes/tokenSaleChallenge_2.ts",
+            "/src/data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+            "/src/data/static/codefixes/unionSqlInjectionChallenge.info.yml",
+            "/src/data/static/codefixes/unionSqlInjectionChallenge_1.ts",
+            "/src/data/static/codefixes/unionSqlInjectionChallenge_2_correct.ts",
+            "/src/data/static/codefixes/unionSqlInjectionChallenge_3.ts",
+            "/src/data/static/codefixes/weakPasswordChallenge.info.yml",
+            "/src/data/static/codefixes/weakPasswordChallenge_1_correct.ts",
+            "/src/data/static/codefixes/weakPasswordChallenge_2.ts",
+            "/src/data/static/codefixes/weakPasswordChallenge_3.ts",
+            "/src/data/static/codefixes/weakPasswordChallenge_4.ts",
+            "/src/data/static/codefixes/web3SandboxChallenge.info.yml",
+            "/src/data/static/codefixes/web3SandboxChallenge_1_correct.ts",
+            "/src/data/static/codefixes/web3SandboxChallenge_2.ts",
+            "/src/data/static/codefixes/web3SandboxChallenge_3.ts",
+            "/src/data/static/codefixes/web3WalletChallenge.info.yml",
+            "/src/data/static/codefixes/web3WalletChallenge_1.sol",
+            "/src/data/static/codefixes/web3WalletChallenge_2.sol",
+            "/src/data/static/codefixes/web3WalletChallenge_3_correct.sol",
+            "/src/data/static/codefixes/web3WalletChallenge_4.sol",
+            "/src/data/static/codefixes/xssBonusChallenge.info.yml",
+            "/src/data/static/codefixes/xssBonusChallenge_1_correct.ts",
+            "/src/data/static/codefixes/xssBonusChallenge_2.ts",
+            "/src/data/static/codefixes/xssBonusChallenge_3.ts",
+            "/src/data/static/codefixes/xssBonusChallenge_4.ts",
+            "/src/data/static/contractABIs.ts",
+            "/src/data/static/deliveries.yml",
+            "/src/data/static/i18n/ar_SA.json",
+            "/src/data/static/i18n/az_AZ.json",
+            "/src/data/static/i18n/bg_BG.json",
+            "/src/data/static/i18n/bn_BD.json",
+            "/src/data/static/i18n/ca_ES.json",
+            "/src/data/static/i18n/cs_CZ.json",
+            "/src/data/static/i18n/da_DK.json",
+            "/src/data/static/i18n/de_CH.json",
+            "/src/data/static/i18n/de_DE.json",
+            "/src/data/static/i18n/el_GR.json",
+            "/src/data/static/i18n/en.json",
+            "/src/data/static/i18n/es_ES.json",
+            "/src/data/static/i18n/et_EE.json",
+            "/src/data/static/i18n/fa_IR.json",
+            "/src/data/static/i18n/fi_FI.json",
+            "/src/data/static/i18n/fr_FR.json",
+            "/src/data/static/i18n/ga_IE.json",
+            "/src/data/static/i18n/he_IL.json",
+            "/src/data/static/i18n/hi_IN.json",
+            "/src/data/static/i18n/hu_HU.json",
+            "/src/data/static/i18n/id_ID.json",
+            "/src/data/static/i18n/it_IT.json",
+            "/src/data/static/i18n/ja_JP.json",
+            "/src/data/static/i18n/ka_GE.json",
+            "/src/data/static/i18n/ko_KR.json",
+            "/src/data/static/i18n/lv_LV.json",
+            "/src/data/static/i18n/my_MM.json",
+            "/src/data/static/i18n/nl_NL.json",
+            "/src/data/static/i18n/no_NO.json",
+            "/src/data/static/i18n/pl_PL.json",
+            "/src/data/static/i18n/pt_BR.json",
+            "/src/data/static/i18n/pt_PT.json",
+            "/src/data/static/i18n/ro_RO.json",
+            "/src/data/static/i18n/ru_RU.json",
+            "/src/data/static/i18n/si_LK.json",
+            "/src/data/static/i18n/sv_SE.json",
+            "/src/data/static/i18n/th_TH.json",
+            "/src/data/static/i18n/tlh_AA.json",
+            "/src/data/static/i18n/tr_TR.json",
+            "/src/data/static/i18n/uk_UA.json",
+            "/src/data/static/i18n/zh_CN.json",
+            "/src/data/static/i18n/zh_HK.json",
+            "/src/data/static/i18n/zh_TW.json",
+            "/src/data/static/legal.md",
+            "/src/data/static/locales.json",
+            "/src/data/static/owasp_promo.vtt",
+            "/src/data/static/securityQuestions.yml",
+            "/src/data/static/users.yml",
+            "/src/data/static/web3-snippets/BEEToken.sol",
+            "/src/data/static/web3-snippets/BeeFaucet.sol",
+            "/src/data/static/web3-snippets/ETHWalletBank.sol",
+            "/src/data/static/web3-snippets/HoneyPotNFT.sol",
+            "/src/data/static/web3-snippets/JuiceShopSBT.sol",
+            "/src/data/staticData.ts",
+            "/src/data/types.ts",
+            "/src/docker-compose.test.yml",
+            "/src/encryptionkeys/jwt.pub",
+            "/src/encryptionkeys/premium.key",
+            "/src/frontend/.browserslistrc",
+            "/src/frontend/.editorconfig",
+            "/src/frontend/.gitignore",
+            "/src/frontend/.npmrc",
+            "/src/frontend/angular.json",
+            "/src/frontend/eslint.config.js",
+            "/src/frontend/package.json",
+            "/src/frontend/src/app/Models/backup.model.ts",
+            "/src/frontend/src/app/Models/challenge.model.ts",
+            "/src/frontend/src/app/Models/deliveryMethod.model.ts",
+            "/src/frontend/src/app/Models/hint.model.ts",
+            "/src/frontend/src/app/Models/product.model.ts",
+            "/src/frontend/src/app/Models/review.model.ts",
+            "/src/frontend/src/app/Models/securityQuestion.model.ts",
+            "/src/frontend/src/app/Services/address.service.spec.ts",
+            "/src/frontend/src/app/Services/address.service.ts",
+            "/src/frontend/src/app/Services/administration.service.spec.ts",
+            "/src/frontend/src/app/Services/administration.service.ts",
+            "/src/frontend/src/app/Services/basket.service.spec.ts",
+            "/src/frontend/src/app/Services/basket.service.ts",
+            "/src/frontend/src/app/Services/captcha.service.spec.ts",
+            "/src/frontend/src/app/Services/captcha.service.ts",
+            "/src/frontend/src/app/Services/challenge.service.spec.ts",
+            "/src/frontend/src/app/Services/challenge.service.ts",
+            "/src/frontend/src/app/Services/chatbot.service.spec.ts",
+            "/src/frontend/src/app/Services/chatbot.service.ts",
+            "/src/frontend/src/app/Services/code-fixes.service.spec.ts",
+            "/src/frontend/src/app/Services/code-fixes.service.ts",
+            "/src/frontend/src/app/Services/code-snippet.service.spec.ts",
+            "/src/frontend/src/app/Services/code-snippet.service.ts",
+            "/src/frontend/src/app/Services/complaint.service.spec.ts",
+            "/src/frontend/src/app/Services/complaint.service.ts",
+            "/src/frontend/src/app/Services/configuration.service.spec.ts",
+            "/src/frontend/src/app/Services/configuration.service.ts",
+            "/src/frontend/src/app/Services/country-mapping.service.spec.ts",
+            "/src/frontend/src/app/Services/country-mapping.service.ts",
+            "/src/frontend/src/app/Services/ctf-system-wide-notification.service.ts",
+            "/src/frontend/src/app/Services/data-subject.service.spec.ts",
+            "/src/frontend/src/app/Services/data-subject.service.ts",
+            "/src/frontend/src/app/Services/delivery.service.spec.ts",
+            "/src/frontend/src/app/Services/delivery.service.ts",
+            "/src/frontend/src/app/Services/feedback.service.spec.ts",
+            "/src/frontend/src/app/Services/feedback.service.ts",
+            "/src/frontend/src/app/Services/form-submit.service.spec.ts",
+            "/src/frontend/src/app/Services/form-submit.service.ts",
+            "/src/frontend/src/app/Services/hint.service.ts",
+            "/src/frontend/src/app/Services/hints.service.spec.ts",
+            "/src/frontend/src/app/Services/image-captcha.service.spec.ts",
+            "/src/frontend/src/app/Services/image-captcha.service.ts",
+            "/src/frontend/src/app/Services/keys.service.ts",
+            "/src/frontend/src/app/Services/languages.service.spec.ts",
+            "/src/frontend/src/app/Services/languages.service.ts",
+            "/src/frontend/src/app/Services/local-backup.service.spec.ts",
+            "/src/frontend/src/app/Services/local-backup.service.ts",
+            "/src/frontend/src/app/Services/order-history.service.spec.ts",
+            "/src/frontend/src/app/Services/order-history.service.ts",
+            "/src/frontend/src/app/Services/payment.service.spec.ts",
+            "/src/frontend/src/app/Services/payment.service.ts",
+            "/src/frontend/src/app/Services/photo-wall.service.spec.ts",
+            "/src/frontend/src/app/Services/photo-wall.service.ts",
+            "/src/frontend/src/app/Services/product-review.service.spec.ts",
+            "/src/frontend/src/app/Services/product-review.service.ts",
+            "/src/frontend/src/app/Services/product.service.spec.ts",
+            "/src/frontend/src/app/Services/product.service.ts",
+            "/src/frontend/src/app/Services/quantity.service.spec.ts",
+            "/src/frontend/src/app/Services/quantity.service.ts",
+            "/src/frontend/src/app/Services/recycle.service.spec.ts",
+            "/src/frontend/src/app/Services/recycle.service.ts",
+            "/src/frontend/src/app/Services/request.interceptor.ts",
+            "/src/frontend/src/app/Services/security-answer.service.spec.ts",
+            "/src/frontend/src/app/Services/security-answer.service.ts",
+            "/src/frontend/src/app/Services/security-question.service.spec.ts",
+            "/src/frontend/src/app/Services/security-question.service.ts",
+            "/src/frontend/src/app/Services/snack-bar-helper.service.spec.ts",
+            "/src/frontend/src/app/Services/snack-bar-helper.service.ts",
+            "/src/frontend/src/app/Services/socket-io.service.spec.ts",
+            "/src/frontend/src/app/Services/socket-io.service.ts",
+            "/src/frontend/src/app/Services/track-order.service.spec.ts",
+            "/src/frontend/src/app/Services/track-order.service.ts",
+            "/src/frontend/src/app/Services/two-factor-auth-service.spec.ts",
+            "/src/frontend/src/app/Services/two-factor-auth-service.ts",
+            "/src/frontend/src/app/Services/user.service.spec.ts",
+            "/src/frontend/src/app/Services/user.service.ts",
+            "/src/frontend/src/app/Services/vuln-lines.service.spec.ts",
+            "/src/frontend/src/app/Services/vuln-lines.service.ts",
+            "/src/frontend/src/app/Services/wallet.service.spec.ts",
+            "/src/frontend/src/app/Services/wallet.service.ts",
+            "/src/frontend/src/app/Services/window-ref.service.spec.ts",
+            "/src/frontend/src/app/Services/window-ref.service.ts",
+            "/src/frontend/src/app/about/about.component.html",
+            "/src/frontend/src/app/about/about.component.scss",
+            "/src/frontend/src/app/about/about.component.spec.ts",
+            "/src/frontend/src/app/about/about.component.ts",
+            "/src/frontend/src/app/accounting/accounting.component.html",
+            "/src/frontend/src/app/accounting/accounting.component.scss",
+            "/src/frontend/src/app/accounting/accounting.component.spec.ts",
+            "/src/frontend/src/app/accounting/accounting.component.ts",
+            "/src/frontend/src/app/address/address.component.html",
+            "/src/frontend/src/app/address/address.component.scss",
+            "/src/frontend/src/app/address/address.component.spec.ts",
+            "/src/frontend/src/app/address/address.component.ts",
+            "/src/frontend/src/app/address-create/address-create.component.html",
+            "/src/frontend/src/app/address-create/address-create.component.scss",
+            "/src/frontend/src/app/address-create/address-create.component.spec.ts",
+            "/src/frontend/src/app/address-create/address-create.component.ts",
+            "/src/frontend/src/app/address-select/address-select.component.html",
+            "/src/frontend/src/app/address-select/address-select.component.scss",
+            "/src/frontend/src/app/address-select/address-select.component.spec.ts",
+            "/src/frontend/src/app/address-select/address-select.component.ts",
+            "/src/frontend/src/app/administration/administration.component.html",
+            "/src/frontend/src/app/administration/administration.component.scss",
+            "/src/frontend/src/app/administration/administration.component.spec.ts",
+            "/src/frontend/src/app/administration/administration.component.ts",
+            "/src/frontend/src/app/app.component.html",
+            "/src/frontend/src/app/app.component.scss",
+            "/src/frontend/src/app/app.component.spec.ts",
+            "/src/frontend/src/app/app.component.ts",
+            "/src/frontend/src/app/app.guard.spec.ts",
+            "/src/frontend/src/app/app.guard.ts",
+            "/src/frontend/src/app/app.routing.ts",
+            "/src/frontend/src/app/basket/basket.component.html",
+            "/src/frontend/src/app/basket/basket.component.scss",
+            "/src/frontend/src/app/basket/basket.component.spec.ts",
+            "/src/frontend/src/app/basket/basket.component.ts",
+            "/src/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.html",
+            "/src/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.scss",
+            "/src/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.spec.ts",
+            "/src/frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.ts",
+            "/src/frontend/src/app/challenge-status-badge/challenge-status-badge.component.html",
+            "/src/frontend/src/app/challenge-status-badge/challenge-status-badge.component.scss",
+            "/src/frontend/src/app/challenge-status-badge/challenge-status-badge.component.spec.ts",
+            "/src/frontend/src/app/challenge-status-badge/challenge-status-badge.component.ts",
+            "/src/frontend/src/app/change-password/change-password.component.html",
+            "/src/frontend/src/app/change-password/change-password.component.scss",
+            "/src/frontend/src/app/change-password/change-password.component.spec.ts",
+            "/src/frontend/src/app/change-password/change-password.component.ts",
+            "/src/frontend/src/app/chatbot/chatbot.component.html",
+            "/src/frontend/src/app/chatbot/chatbot.component.scss",
+            "/src/frontend/src/app/chatbot/chatbot.component.spec.ts",
+            "/src/frontend/src/app/chatbot/chatbot.component.ts",
+            "/src/frontend/src/app/code-area/code-area.component.html",
+            "/src/frontend/src/app/code-area/code-area.component.scss",
+            "/src/frontend/src/app/code-area/code-area.component.spec.ts",
+            "/src/frontend/src/app/code-area/code-area.component.ts",
+            "/src/frontend/src/app/code-fixes/code-fixes.component.html",
+            "/src/frontend/src/app/code-fixes/code-fixes.component.scss",
+            "/src/frontend/src/app/code-fixes/code-fixes.component.spec.ts",
+            "/src/frontend/src/app/code-fixes/code-fixes.component.ts",
+            "/src/frontend/src/app/code-snippet/code-snippet.component.html",
+            "/src/frontend/src/app/code-snippet/code-snippet.component.scss",
+            "/src/frontend/src/app/code-snippet/code-snippet.component.spec.ts",
+            "/src/frontend/src/app/code-snippet/code-snippet.component.ts",
+            "/src/frontend/src/app/complaint/complaint.component.html",
+            "/src/frontend/src/app/complaint/complaint.component.scss",
+            "/src/frontend/src/app/complaint/complaint.component.spec.ts",
+            "/src/frontend/src/app/complaint/complaint.component.ts",
+            "/src/frontend/src/app/contact/contact.component.html",
+            "/src/frontend/src/app/contact/contact.component.scss",
+            "/src/frontend/src/app/contact/contact.component.spec.ts",
+            "/src/frontend/src/app/contact/contact.component.ts",
+            "/src/frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.html",
+            "/src/frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.scss",
+            "/src/frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.spec.ts",
+            "/src/frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.ts",
+            "/src/frontend/src/app/data-export/data-export.component.html",
+            "/src/frontend/src/app/data-export/data-export.component.scss",
+            "/src/frontend/src/app/data-export/data-export.component.spec.ts",
+            "/src/frontend/src/app/data-export/data-export.component.ts",
+            "/src/frontend/src/app/delivery-method/delivery-method.component.html",
+            "/src/frontend/src/app/delivery-method/delivery-method.component.scss",
+            "/src/frontend/src/app/delivery-method/delivery-method.component.spec.ts",
+            "/src/frontend/src/app/delivery-method/delivery-method.component.ts",
+            "/src/frontend/src/app/deluxe-user/deluxe-user.component.html",
+            "/src/frontend/src/app/deluxe-user/deluxe-user.component.scss",
+            "/src/frontend/src/app/deluxe-user/deluxe-user.component.spec.ts",
+            "/src/frontend/src/app/deluxe-user/deluxe-user.component.ts",
+            "/src/frontend/src/app/error-page/error-page.component.html",
+            "/src/frontend/src/app/error-page/error-page.component.scss",
+            "/src/frontend/src/app/error-page/error-page.component.spec.ts",
+            "/src/frontend/src/app/error-page/error-page.component.ts",
+            "/src/frontend/src/app/faucet/faucet.component.html",
+            "/src/frontend/src/app/faucet/faucet.component.scss",
+            "/src/frontend/src/app/faucet/faucet.component.ts",
+            "/src/frontend/src/app/faucet/faucet.module.ts",
+            "/src/frontend/src/app/feedback-details/feedback-details.component.html",
+            "/src/frontend/src/app/feedback-details/feedback-details.component.scss",
+            "/src/frontend/src/app/feedback-details/feedback-details.component.spec.ts",
+            "/src/frontend/src/app/feedback-details/feedback-details.component.ts",
+            "/src/frontend/src/app/forgot-password/forgot-password.component.html",
+            "/src/frontend/src/app/forgot-password/forgot-password.component.scss",
+            "/src/frontend/src/app/forgot-password/forgot-password.component.spec.ts",
+            "/src/frontend/src/app/forgot-password/forgot-password.component.ts",
+            "/src/frontend/src/app/last-login-ip/last-login-ip.component.html",
+            "/src/frontend/src/app/last-login-ip/last-login-ip.component.scss",
+            "/src/frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+            "/src/frontend/src/app/last-login-ip/last-login-ip.component.ts",
+            "/src/frontend/src/app/login/login.component.html",
+            "/src/frontend/src/app/login/login.component.scss",
+            "/src/frontend/src/app/login/login.component.spec.ts",
+            "/src/frontend/src/app/login/login.component.ts",
+            "/src/frontend/src/app/mat-search-bar/abstract-value-accessor.ts",
+            "/src/frontend/src/app/mat-search-bar/mat-search-bar.component.html",
+            "/src/frontend/src/app/mat-search-bar/mat-search-bar.component.scss",
+            "/src/frontend/src/app/mat-search-bar/mat-search-bar.component.spec.ts",
+            "/src/frontend/src/app/mat-search-bar/mat-search-bar.component.ts",
+            "/src/frontend/src/app/navbar/navbar.component.html",
+            "/src/frontend/src/app/navbar/navbar.component.scss",
+            "/src/frontend/src/app/navbar/navbar.component.spec.ts",
+            "/src/frontend/src/app/navbar/navbar.component.ts",
+            "/src/frontend/src/app/nft-unlock/nft-unlock.component.html",
+            "/src/frontend/src/app/nft-unlock/nft-unlock.component.scss",
+            "/src/frontend/src/app/nft-unlock/nft-unlock.component.spec.ts",
+            "/src/frontend/src/app/nft-unlock/nft-unlock.component.ts",
+            "/src/frontend/src/app/oauth/oauth.component.html",
+            "/src/frontend/src/app/oauth/oauth.component.scss",
+            "/src/frontend/src/app/oauth/oauth.component.spec.ts",
+            "/src/frontend/src/app/oauth/oauth.component.ts",
+            "/src/frontend/src/app/order-completion/order-completion.component.html",
+            "/src/frontend/src/app/order-completion/order-completion.component.scss",
+            "/src/frontend/src/app/order-completion/order-completion.component.spec.ts",
+            "/src/frontend/src/app/order-completion/order-completion.component.ts",
+            "/src/frontend/src/app/order-history/order-history.component.html",
+            "/src/frontend/src/app/order-history/order-history.component.scss",
+            "/src/frontend/src/app/order-history/order-history.component.spec.ts",
+            "/src/frontend/src/app/order-history/order-history.component.ts",
+            "/src/frontend/src/app/order-summary/order-summary.component.html",
+            "/src/frontend/src/app/order-summary/order-summary.component.scss",
+            "/src/frontend/src/app/order-summary/order-summary.component.spec.ts",
+            "/src/frontend/src/app/order-summary/order-summary.component.ts",
+            "/src/frontend/src/app/password-strength/password-strength.component.html",
+            "/src/frontend/src/app/password-strength/password-strength.component.scss",
+            "/src/frontend/src/app/password-strength/password-strength.component.spec.ts",
+            "/src/frontend/src/app/password-strength/password-strength.component.ts",
+            "/src/frontend/src/app/password-strength-info/password-strength-info.component.html",
+            "/src/frontend/src/app/password-strength-info/password-strength-info.component.scss",
+            "/src/frontend/src/app/password-strength-info/password-strength-info.component.spec.ts",
+            "/src/frontend/src/app/password-strength-info/password-strength-info.component.ts",
+            "/src/frontend/src/app/payment/payment.component.html",
+            "/src/frontend/src/app/payment/payment.component.scss",
+            "/src/frontend/src/app/payment/payment.component.spec.ts",
+            "/src/frontend/src/app/payment/payment.component.ts",
+            "/src/frontend/src/app/payment-method/payment-method.component.html",
+            "/src/frontend/src/app/payment-method/payment-method.component.scss",
+            "/src/frontend/src/app/payment-method/payment-method.component.spec.ts",
+            "/src/frontend/src/app/payment-method/payment-method.component.ts",
+            "/src/frontend/src/app/photo-wall/mime-type.validator.ts",
+            "/src/frontend/src/app/photo-wall/photo-wall.component.html",
+            "/src/frontend/src/app/photo-wall/photo-wall.component.scss",
+            "/src/frontend/src/app/photo-wall/photo-wall.component.spec.ts",
+            "/src/frontend/src/app/photo-wall/photo-wall.component.ts",
+            "/src/frontend/src/app/privacy-policy/privacy-policy.component.html",
+            "/src/frontend/src/app/privacy-policy/privacy-policy.component.scss",
+            "/src/frontend/src/app/privacy-policy/privacy-policy.component.spec.ts",
+            "/src/frontend/src/app/privacy-policy/privacy-policy.component.ts",
+            "/src/frontend/src/app/privacy-security/privacy-security.component.html",
+            "/src/frontend/src/app/privacy-security/privacy-security.component.scss",
+            "/src/frontend/src/app/privacy-security/privacy-security.component.spec.ts",
+            "/src/frontend/src/app/privacy-security/privacy-security.component.ts",
+            "/src/frontend/src/app/product-details/product-details.component.html",
+            "/src/frontend/src/app/product-details/product-details.component.scss",
+            "/src/frontend/src/app/product-details/product-details.component.spec.ts",
+            "/src/frontend/src/app/product-details/product-details.component.ts",
+            "/src/frontend/src/app/product-review-edit/product-review-edit.component.html",
+            "/src/frontend/src/app/product-review-edit/product-review-edit.component.scss",
+            "/src/frontend/src/app/product-review-edit/product-review-edit.component.spec.ts",
+            "/src/frontend/src/app/product-review-edit/product-review-edit.component.ts",
+            "/src/frontend/src/app/purchase-basket/purchase-basket.component.html",
+            "/src/frontend/src/app/purchase-basket/purchase-basket.component.scss",
+            "/src/frontend/src/app/purchase-basket/purchase-basket.component.spec.ts",
+            "/src/frontend/src/app/purchase-basket/purchase-basket.component.ts",
+            "/src/frontend/src/app/qr-code/qr-code.component.html",
+            "/src/frontend/src/app/qr-code/qr-code.component.scss",
+            "/src/frontend/src/app/qr-code/qr-code.component.spec.ts",
+            "/src/frontend/src/app/qr-code/qr-code.component.ts",
+            "/src/frontend/src/app/recycle/recycle.component.html",
+            "/src/frontend/src/app/recycle/recycle.component.scss",
+            "/src/frontend/src/app/recycle/recycle.component.spec.ts",
+            "/src/frontend/src/app/recycle/recycle.component.ts",
+            "/src/frontend/src/app/register/register.component.html",
+            "/src/frontend/src/app/register/register.component.scss",
+            "/src/frontend/src/app/register/register.component.spec.ts",
+            "/src/frontend/src/app/register/register.component.ts",
+            "/src/frontend/src/app/roles.ts",
+            "/src/frontend/src/app/saved-address/saved-address.component.html",
+            "/src/frontend/src/app/saved-address/saved-address.component.scss",
+            "/src/frontend/src/app/saved-address/saved-address.component.spec.ts",
+            "/src/frontend/src/app/saved-address/saved-address.component.ts",
+            "/src/frontend/src/app/saved-payment-methods/saved-payment-methods.component.html",
+            "/src/frontend/src/app/saved-payment-methods/saved-payment-methods.component.scss",
+            "/src/frontend/src/app/saved-payment-methods/saved-payment-methods.component.spec.ts",
+            "/src/frontend/src/app/saved-payment-methods/saved-payment-methods.component.ts",
+            "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+            "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.scss",
+            "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/challenge-card/challenge-card.component.ts",
+            "/src/frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.html",
+            "/src/frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.scss",
+            "/src/frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.ts",
+            "/src/frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.html",
+            "/src/frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.scss",
+            "/src/frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.ts",
+            "/src/frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.html",
+            "/src/frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.scss",
+            "/src/frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.ts",
+            "/src/frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.html",
+            "/src/frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.scss",
+            "/src/frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.html",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.scss",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.html",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.scss",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/filter-settings.component.html",
+            "/src/frontend/src/app/score-board/components/filter-settings/filter-settings.component.scss",
+            "/src/frontend/src/app/score-board/components/filter-settings/filter-settings.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/filter-settings.component.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/pipes/difficulty-selection-summary.pipe.spec.ts",
+            "/src/frontend/src/app/score-board/components/filter-settings/pipes/difficulty-selection-summary.pipe.ts",
+            "/src/frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.html",
+            "/src/frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.scss",
+            "/src/frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.ts",
+            "/src/frontend/src/app/score-board/components/score-card/score-card.component.html",
+            "/src/frontend/src/app/score-board/components/score-card/score-card.component.scss",
+            "/src/frontend/src/app/score-board/components/score-card/score-card.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/score-card/score-card.component.ts",
+            "/src/frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.html",
+            "/src/frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.spec.ts",
+            "/src/frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.ts",
+            "/src/frontend/src/app/score-board/components/warning-card/warning-card.component.html",
+            "/src/frontend/src/app/score-board/components/warning-card/warning-card.component.scss",
+            "/src/frontend/src/app/score-board/components/warning-card/warning-card.component.ts",
+            "/src/frontend/src/app/score-board/filter-settings/FilterSetting.ts",
+            "/src/frontend/src/app/score-board/filter-settings/query-params-converters.ts",
+            "/src/frontend/src/app/score-board/filter-settings/query-params-coverter.spec.ts",
+            "/src/frontend/src/app/score-board/helpers/challenge-filtering.spec.ts",
+            "/src/frontend/src/app/score-board/helpers/challenge-filtering.ts",
+            "/src/frontend/src/app/score-board/helpers/challenge-sorting.spec.ts",
+            "/src/frontend/src/app/score-board/helpers/challenge-sorting.ts",
+            "/src/frontend/src/app/score-board/score-board.component.html",
+            "/src/frontend/src/app/score-board/score-board.component.scss",
+            "/src/frontend/src/app/score-board/score-board.component.spec.ts",
+            "/src/frontend/src/app/score-board/score-board.component.ts",
+            "/src/frontend/src/app/score-board/types/EnrichedChallenge.ts",
+            "/src/frontend/src/app/search-result/search-result.component.html",
+            "/src/frontend/src/app/search-result/search-result.component.scss",
+            "/src/frontend/src/app/search-result/search-result.component.spec.ts",
+            "/src/frontend/src/app/search-result/search-result.component.ts",
+            "/src/frontend/src/app/server-started-notification/server-started-notification.component.html",
+            "/src/frontend/src/app/server-started-notification/server-started-notification.component.scss",
+            "/src/frontend/src/app/server-started-notification/server-started-notification.component.spec.ts",
+            "/src/frontend/src/app/server-started-notification/server-started-notification.component.ts",
+            "/src/frontend/src/app/sidenav/sidenav.component.html",
+            "/src/frontend/src/app/sidenav/sidenav.component.scss",
+            "/src/frontend/src/app/sidenav/sidenav.component.spec.ts",
+            "/src/frontend/src/app/sidenav/sidenav.component.ts",
+            "/src/frontend/src/app/token-sale/token-sale.component.html",
+            "/src/frontend/src/app/token-sale/token-sale.component.scss",
+            "/src/frontend/src/app/token-sale/token-sale.component.spec.ts",
+            "/src/frontend/src/app/token-sale/token-sale.component.ts",
+            "/src/frontend/src/app/track-result/track-result.component.html",
+            "/src/frontend/src/app/track-result/track-result.component.scss",
+            "/src/frontend/src/app/track-result/track-result.component.spec.ts",
+            "/src/frontend/src/app/track-result/track-result.component.ts",
+            "/src/frontend/src/app/two-factor-auth/two-factor-auth.component.html",
+            "/src/frontend/src/app/two-factor-auth/two-factor-auth.component.scss",
+            "/src/frontend/src/app/two-factor-auth/two-factor-auth.component.spec.ts",
+            "/src/frontend/src/app/two-factor-auth/two-factor-auth.component.ts",
+            "/src/frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.html",
+            "/src/frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.scss",
+            "/src/frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.spec.ts",
+            "/src/frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.ts",
+            "/src/frontend/src/app/user-details/user-details.component.html",
+            "/src/frontend/src/app/user-details/user-details.component.scss",
+            "/src/frontend/src/app/user-details/user-details.component.spec.ts",
+            "/src/frontend/src/app/user-details/user-details.component.ts",
+            "/src/frontend/src/app/wallet/wallet.component.html",
+            "/src/frontend/src/app/wallet/wallet.component.scss",
+            "/src/frontend/src/app/wallet/wallet.component.spec.ts",
+            "/src/frontend/src/app/wallet/wallet.component.ts",
+            "/src/frontend/src/app/wallet-web3/wallet-web3.component.html",
+            "/src/frontend/src/app/wallet-web3/wallet-web3.component.scss",
+            "/src/frontend/src/app/wallet-web3/wallet-web3.component.ts",
+            "/src/frontend/src/app/wallet-web3/wallet-web3.module.ts",
+            "/src/frontend/src/app/web3-sandbox/web3-sandbox.component.html",
+            "/src/frontend/src/app/web3-sandbox/web3-sandbox.component.scss",
+            "/src/frontend/src/app/web3-sandbox/web3-sandbox.component.ts",
+            "/src/frontend/src/app/web3-sandbox/web3-sandbox.module.ts",
+            "/src/frontend/src/app/welcome/welcome.component.html",
+            "/src/frontend/src/app/welcome/welcome.component.scss",
+            "/src/frontend/src/app/welcome/welcome.component.spec.ts",
+            "/src/frontend/src/app/welcome/welcome.component.ts",
+            "/src/frontend/src/app/welcome-banner/welcome-banner.component.html",
+            "/src/frontend/src/app/welcome-banner/welcome-banner.component.scss",
+            "/src/frontend/src/app/welcome-banner/welcome-banner.component.spec.ts",
+            "/src/frontend/src/app/welcome-banner/welcome-banner.component.ts",
+            "/src/frontend/src/assets/i18n/ar_SA.json",
+            "/src/frontend/src/assets/i18n/az_AZ.json",
+            "/src/frontend/src/assets/i18n/bg_BG.json",
+            "/src/frontend/src/assets/i18n/bn_BD.json",
+            "/src/frontend/src/assets/i18n/ca_ES.json",
+            "/src/frontend/src/assets/i18n/cs_CZ.json",
+            "/src/frontend/src/assets/i18n/da_DK.json",
+            "/src/frontend/src/assets/i18n/de_CH.json",
+            "/src/frontend/src/assets/i18n/de_DE.json",
+            "/src/frontend/src/assets/i18n/el_GR.json",
+            "/src/frontend/src/assets/i18n/en.json",
+            "/src/frontend/src/assets/i18n/es_ES.json",
+            "/src/frontend/src/assets/i18n/et_EE.json",
+            "/src/frontend/src/assets/i18n/fa_IR.json",
+            "/src/frontend/src/assets/i18n/fi_FI.json",
+            "/src/frontend/src/assets/i18n/fr_FR.json",
+            "/src/frontend/src/assets/i18n/ga_IE.json",
+            "/src/frontend/src/assets/i18n/he_IL.json",
+            "/src/frontend/src/assets/i18n/hi_IN.json",
+            "/src/frontend/src/assets/i18n/hu_HU.json",
+            "/src/frontend/src/assets/i18n/id_ID.json",
+            "/src/frontend/src/assets/i18n/it_IT.json",
+            "/src/frontend/src/assets/i18n/ja_JP.json",
+            "/src/frontend/src/assets/i18n/ka_GE.json",
+            "/src/frontend/src/assets/i18n/ko_KR.json",
+            "/src/frontend/src/assets/i18n/lv_LV.json",
+            "/src/frontend/src/assets/i18n/my_MM.json",
+            "/src/frontend/src/assets/i18n/nl_NL.json",
+            "/src/frontend/src/assets/i18n/no_NO.json",
+            "/src/frontend/src/assets/i18n/pl_PL.json",
+            "/src/frontend/src/assets/i18n/pt_BR.json",
+            "/src/frontend/src/assets/i18n/pt_PT.json",
+            "/src/frontend/src/assets/i18n/ro_RO.json",
+            "/src/frontend/src/assets/i18n/ru_RU.json",
+            "/src/frontend/src/assets/i18n/si_LK.json",
+            "/src/frontend/src/assets/i18n/sv_SE.json",
+            "/src/frontend/src/assets/i18n/th_TH.json",
+            "/src/frontend/src/assets/i18n/tlh_AA.json",
+            "/src/frontend/src/assets/i18n/tr_TR.json",
+            "/src/frontend/src/assets/i18n/uk_UA.json",
+            "/src/frontend/src/assets/i18n/zh_CN.json",
+            "/src/frontend/src/assets/i18n/zh_HK.json",
+            "/src/frontend/src/assets/i18n/zh_TW.json",
+            "/src/frontend/src/assets/private/CopyShader.js",
+            "/src/frontend/src/assets/private/EffectComposer.js",
+            "/src/frontend/src/assets/private/JuiceShop_Wallpaper_1920x1080_VR.jpg",
+            "/src/frontend/src/assets/private/MaskPass.js",
+            "/src/frontend/src/assets/private/OrbitControls.js",
+            "/src/frontend/src/assets/private/RenderPass.js",
+            "/src/frontend/src/assets/private/ShaderPass.js",
+            "/src/frontend/src/assets/private/earthspec4k.jpg",
+            "/src/frontend/src/assets/private/orangemap2k.jpg",
+            "/src/frontend/src/assets/private/three.js",
+            "/src/frontend/src/assets/private/threejs-demo.html",
+            "/src/frontend/src/assets/public/ContractABIs.ts",
+            "/src/frontend/src/assets/public/css/dataErasure.css",
+            "/src/frontend/src/assets/public/css/roboto.css",
+            "/src/frontend/src/assets/public/css/userProfile.css",
+            "/src/frontend/src/assets/public/favicon_ctf.ico",
+            "/src/frontend/src/assets/public/favicon_js.ico",
+            "/src/frontend/src/assets/public/images/BeeOwner.png",
+            "/src/frontend/src/assets/public/images/HoneyPot.png",
+            "/src/frontend/src/assets/public/images/JuiceShopCTF_Logo.png",
+            "/src/frontend/src/assets/public/images/JuiceShopCTF_Logo_400px.png",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo.ai",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo.png",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo.svg",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo_100px.png",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo_400px.png",
+            "/src/frontend/src/assets/public/images/JuiceShop_Logo_50px.png",
+            "/src/frontend/src/assets/public/images/JuicyBot.png",
+            "/src/frontend/src/assets/public/images/JuicyBot_MedicalMask.png",
+            "/src/frontend/src/assets/public/images/JuicyChatBot.png",
+            "/src/frontend/src/assets/public/images/Welcome_Banner.svg",
+            "/src/frontend/src/assets/public/images/carousel/1.jpg",
+            "/src/frontend/src/assets/public/images/carousel/2.jpg",
+            "/src/frontend/src/assets/public/images/carousel/3.jpg",
+            "/src/frontend/src/assets/public/images/carousel/4.jpg",
+            "/src/frontend/src/assets/public/images/carousel/5.png",
+            "/src/frontend/src/assets/public/images/carousel/6.jpg",
+            "/src/frontend/src/assets/public/images/carousel/7.jpg",
+            "/src/frontend/src/assets/public/images/deluxe/blankBoxes.png",
+            "/src/frontend/src/assets/public/images/juicyEvilWasp.png",
+            "/src/frontend/src/assets/public/images/padding/11px.png",
+            "/src/frontend/src/assets/public/images/padding/19px.png",
+            "/src/frontend/src/assets/public/images/padding/1px.png",
+            "/src/frontend/src/assets/public/images/padding/56px.png",
+            "/src/frontend/src/assets/public/images/padding/81px.png",
+            "/src/frontend/src/assets/public/images/products/3d_keychain.jpg",
+            "/src/frontend/src/assets/public/images/products/JuiceShop.stl",
+            "/src/frontend/src/assets/public/images/products/apple_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/apple_pressings.jpg",
+            "/src/frontend/src/assets/public/images/products/artwork.jpg",
+            "/src/frontend/src/assets/public/images/products/artwork2.jpg",
+            "/src/frontend/src/assets/public/images/products/banana_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/card_alpha.jpg",
+            "/src/frontend/src/assets/public/images/products/carrot_juice.jpeg",
+            "/src/frontend/src/assets/public/images/products/ccg_common.png",
+            "/src/frontend/src/assets/public/images/products/ccg_foil.png",
+            "/src/frontend/src/assets/public/images/products/coaster.jpg",
+            "/src/frontend/src/assets/public/images/products/cover_small.jpg",
+            "/src/frontend/src/assets/public/images/products/eggfruit_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/fan_facemask.jpg",
+            "/src/frontend/src/assets/public/images/products/fan_girlie.jpg",
+            "/src/frontend/src/assets/public/images/products/fan_hoodie.jpg",
+            "/src/frontend/src/assets/public/images/products/fan_mug.jpg",
+            "/src/frontend/src/assets/public/images/products/fan_shirt.jpg",
+            "/src/frontend/src/assets/public/images/products/fruit_press.jpg",
+            "/src/frontend/src/assets/public/images/products/green_smoothie.jpg",
+            "/src/frontend/src/assets/public/images/products/holo_sticker.png",
+            "/src/frontend/src/assets/public/images/products/iron-on.jpg",
+            "/src/frontend/src/assets/public/images/products/juicy_chatbot.jpg",
+            "/src/frontend/src/assets/public/images/products/lego_case.jpg",
+            "/src/frontend/src/assets/public/images/products/lemon_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/magnets.jpg",
+            "/src/frontend/src/assets/public/images/products/melon_bike.jpeg",
+            "/src/frontend/src/assets/public/images/products/no-results.png",
+            "/src/frontend/src/assets/public/images/products/orange_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/permafrost.jpg",
+            "/src/frontend/src/assets/public/images/products/quince.jpg",
+            "/src/frontend/src/assets/public/images/products/raspberry_juice.jpg",
+            "/src/frontend/src/assets/public/images/products/snakes_ladders.jpg",
+            "/src/frontend/src/assets/public/images/products/snakes_ladders_m.jpg",
+            "/src/frontend/src/assets/public/images/products/squareBox1-40x40x40.stl",
+            "/src/frontend/src/assets/public/images/products/sticker.png",
+            "/src/frontend/src/assets/public/images/products/sticker_page.jpg",
+            "/src/frontend/src/assets/public/images/products/sticker_single.jpg",
+            "/src/frontend/src/assets/public/images/products/stickersheet_se.png",
+            "/src/frontend/src/assets/public/images/products/strawberry_juice.jpeg",
+            "/src/frontend/src/assets/public/images/products/tattoo.jpg",
+            "/src/frontend/src/assets/public/images/products/thingie1.jpg",
+            "/src/frontend/src/assets/public/images/products/undefined.png",
+            "/src/frontend/src/assets/public/images/products/user_day_ticket.png",
+            "/src/frontend/src/assets/public/images/products/velcro-patch.jpg",
+            "/src/frontend/src/assets/public/images/products/waspy.png",
+            "/src/frontend/src/assets/public/images/products/woodruff_syrup.jpg",
+            "/src/frontend/src/assets/public/images/uploads/12.png",
+            "/src/frontend/src/assets/public/images/uploads/13.jpg",
+            "/src/frontend/src/assets/public/images/uploads/20.jpg",
+            "/src/frontend/src/assets/public/images/uploads/BeeHaven.png",
+            "/src/frontend/src/assets/public/images/uploads/building-something-literally-bottom-up-1721152342603.jpg",
+            "/src/frontend/src/assets/public/images/uploads/default.svg",
+            "/src/frontend/src/assets/public/images/uploads/defaultAdmin.png",
+            "/src/frontend/src/assets/public/images/uploads/everything-up-and-running!-1721152385146.jpg",
+            "/src/frontend/src/assets/public/images/uploads/favorite-hiking-place.png",
+            "/src/frontend/src/assets/public/images/uploads/magn(et)ificent!-1571814229653.jpg",
+            "/src/frontend/src/assets/public/images/uploads/my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg",
+            "/src/frontend/src/assets/public/images/uploads/putting-in-the-hardware-1721152366854.jpg",
+            "/src/frontend/src/assets/public/images/uploads/sorted-the-pieces,-starting-assembly-process-1721152307290.jpg",
+            "/src/frontend/src/assets/public/images/uploads/ᓚᘏᗢ-#zatschi-#whoneedsfourlegs-1572600969477.jpg",
+            "/src/frontend/src/confetti/index.ts",
+            "/src/frontend/src/environments/environment.prod.ts",
+            "/src/frontend/src/environments/environment.ts",
+            "/src/frontend/src/hacking-instructor/challenges/adminSection.ts",
+            "/src/frontend/src/hacking-instructor/challenges/bonusPayload.ts",
+            "/src/frontend/src/hacking-instructor/challenges/codingChallenges.ts",
+            "/src/frontend/src/hacking-instructor/challenges/domXss.ts",
+            "/src/frontend/src/hacking-instructor/challenges/exposedCredentials.ts",
+            "/src/frontend/src/hacking-instructor/challenges/forgedFeedback.ts",
+            "/src/frontend/src/hacking-instructor/challenges/loginAdmin.ts",
+            "/src/frontend/src/hacking-instructor/challenges/loginBender.ts",
+            "/src/frontend/src/hacking-instructor/challenges/loginJim.ts",
+            "/src/frontend/src/hacking-instructor/challenges/passwordStrength.ts",
+            "/src/frontend/src/hacking-instructor/challenges/privacyPolicy.ts",
+            "/src/frontend/src/hacking-instructor/challenges/reflectedXss.ts",
+            "/src/frontend/src/hacking-instructor/challenges/scoreBoard.ts",
+            "/src/frontend/src/hacking-instructor/challenges/viewBasket.ts",
+            "/src/frontend/src/hacking-instructor/hacking-instructor.scss",
+            "/src/frontend/src/hacking-instructor/helpers/helpers.ts",
+            "/src/frontend/src/hacking-instructor/index.ts",
+            "/src/frontend/src/hacking-instructor/tutorialUnavailable.ts",
+            "/src/frontend/src/index.html",
+            "/src/frontend/src/karma.conf.js",
+            "/src/frontend/src/main.ts",
+            "/src/frontend/src/styles/_variables.scss",
+            "/src/frontend/src/styles/theme.scss",
+            "/src/frontend/src/styles.scss",
+            "/src/frontend/src/test.ts",
+            "/src/frontend/src/tsconfig.app.json",
+            "/src/frontend/src/tsconfig.spec.json",
+            "/src/frontend/stylelint-plugin-spacing-fixer.mjs",
+            "/src/frontend/stylelint.config.mjs",
+            "/src/frontend/tsconfig.base.json",
+            "/src/frontend/tsconfig.json",
+            "/src/ftp/acquisitions.md",
+            "/src/ftp/announcement_encrypted.md",
+            "/src/ftp/coupons_2013.md.bak",
+            "/src/ftp/eastere.gg",
+            "/src/ftp/encrypt.pyc",
+            "/src/ftp/incident-support.kdbx",
+            "/src/ftp/package-lock.json.bak",
+            "/src/ftp/package.json.bak",
+            "/src/ftp/quarantine/juicy_malware_linux_amd_64.url",
+            "/src/ftp/quarantine/juicy_malware_linux_arm_64.url",
+            "/src/ftp/quarantine/juicy_malware_macos_64.url",
+            "/src/ftp/quarantine/juicy_malware_windows_64.exe.url",
+            "/src/ftp/suspicious_errors.yml",
+            "/src/i18n/.gitkeep",
+            "/src/lib/accuracy.ts",
+            "/src/lib/antiCheat.ts",
+            "/src/lib/botUtils.ts",
+            "/src/lib/challengeUtils.ts",
+            "/src/lib/codingChallenges.ts",
+            "/src/lib/config.types.ts",
+            "/src/lib/insecurity.ts",
+            "/src/lib/is-docker.ts",
+            "/src/lib/is-heroku.ts",
+            "/src/lib/is-windows.ts",
+            "/src/lib/logger.ts",
+            "/src/lib/noUpdate.ts",
+            "/src/lib/startup/cleanupFtpFolder.ts",
+            "/src/lib/startup/customizeApplication.ts",
+            "/src/lib/startup/customizeEasterEgg.ts",
+            "/src/lib/startup/registerWebsocketEvents.ts",
+            "/src/lib/startup/restoreOverwrittenFilesWithOriginals.ts",
+            "/src/lib/startup/validateChatBot.ts",
+            "/src/lib/startup/validateConfig.ts",
+            "/src/lib/startup/validateDependencies.ts",
+            "/src/lib/startup/validateDependenciesBasic.ts",
+            "/src/lib/startup/validatePreconditions.ts",
+            "/src/lib/utils.ts",
+            "/src/lib/webhook.ts",
+            "/src/models/address.ts",
+            "/src/models/basket.ts",
+            "/src/models/basketitem.ts",
+            "/src/models/captcha.ts",
+            "/src/models/card.ts",
+            "/src/models/challenge.ts",
+            "/src/models/complaint.ts",
+            "/src/models/delivery.ts",
+            "/src/models/feedback.ts",
+            "/src/models/hint.ts",
+            "/src/models/imageCaptcha.ts",
+            "/src/models/index.ts",
+            "/src/models/memory.ts",
+            "/src/models/privacyRequests.ts",
+            "/src/models/product.ts",
+            "/src/models/quantity.ts",
+            "/src/models/recycle.ts",
+            "/src/models/relations.ts",
+            "/src/models/securityAnswer.ts",
+            "/src/models/securityQuestion.ts",
+            "/src/models/user.ts",
+            "/src/models/wallet.ts",
+            "/src/monitoring/grafana-dashboard.json",
+            "/src/package.json",
+            "/src/routes/2fa.ts",
+            "/src/routes/address.ts",
+            "/src/routes/angular.ts",
+            "/src/routes/appConfiguration.ts",
+            "/src/routes/appVersion.ts",
+            "/src/routes/authenticatedUsers.ts",
+            "/src/routes/b2bOrder.ts",
+            "/src/routes/basket.ts",
+            "/src/routes/basketItems.ts",
+            "/src/routes/captcha.ts",
+            "/src/routes/changePassword.ts",
+            "/src/routes/chatbot.ts",
+            "/src/routes/checkKeys.ts",
+            "/src/routes/continueCode.ts",
+            "/src/routes/countryMapping.ts",
+            "/src/routes/coupon.ts",
+            "/src/routes/createProductReviews.ts",
+            "/src/routes/currentUser.ts",
+            "/src/routes/dataErasure.ts",
+            "/src/routes/dataExport.ts",
+            "/src/routes/delivery.ts",
+            "/src/routes/deluxe.ts",
+            "/src/routes/easterEgg.ts",
+            "/src/routes/fileServer.ts",
+            "/src/routes/fileUpload.ts",
+            "/src/routes/imageCaptcha.ts",
+            "/src/routes/keyServer.ts",
+            "/src/routes/languages.ts",
+            "/src/routes/likeProductReviews.ts",
+            "/src/routes/logfileServer.ts",
+            "/src/routes/login.ts",
+            "/src/routes/memory.ts",
+            "/src/routes/metrics.ts",
+            "/src/routes/nftMint.ts",
+            "/src/routes/order.ts",
+            "/src/routes/orderHistory.ts",
+            "/src/routes/payment.ts",
+            "/src/routes/premiumReward.ts",
+            "/src/routes/privacyPolicyProof.ts",
+            "/src/routes/profileImageFileUpload.ts",
+            "/src/routes/profileImageUrlUpload.ts",
+            "/src/routes/quarantineServer.ts",
+            "/src/routes/recycles.ts",
+            "/src/routes/redirect.ts",
+            "/src/routes/repeatNotification.ts",
+            "/src/routes/resetPassword.ts",
+            "/src/routes/restoreProgress.ts",
+            "/src/routes/saveLoginIp.ts",
+            "/src/routes/search.ts",
+            "/src/routes/securityQuestion.ts",
+            "/src/routes/showProductReviews.ts",
+            "/src/routes/trackOrder.ts",
+            "/src/routes/updateProductReviews.ts",
+            "/src/routes/updateUserProfile.ts",
+            "/src/routes/userProfile.ts",
+            "/src/routes/verify.ts",
+            "/src/routes/videoHandler.ts",
+            "/src/routes/vulnCodeFixes.ts",
+            "/src/routes/vulnCodeSnippet.ts",
+            "/src/routes/wallet.ts",
+            "/src/routes/web3Wallet.ts",
+            "/src/rsn/cache.json",
+            "/src/rsn/rsn-update.ts",
+            "/src/rsn/rsn-verbose.ts",
+            "/src/rsn/rsn.ts",
+            "/src/rsn/rsnUtil.ts",
+            "/src/sast-reports/semgrep-auto.json",
+            "/src/screenshots/bundle-analysis.png",
+            "/src/screenshots/git-stats.png",
+            "/src/screenshots/screenshot00.png",
+            "/src/screenshots/screenshot01.png",
+            "/src/screenshots/screenshot02.png",
+            "/src/screenshots/screenshot03.png",
+            "/src/screenshots/screenshot04.png",
+            "/src/screenshots/screenshot05.png",
+            "/src/screenshots/screenshot06.png",
+            "/src/screenshots/screenshot08.png",
+            "/src/screenshots/screenshot09.png",
+            "/src/screenshots/screenshot10.png",
+            "/src/screenshots/screenshot11.png",
+            "/src/screenshots/screenshot12.png",
+            "/src/screenshots/screenshot13.png",
+            "/src/server.ts",
+            "/src/swagger.yml",
+            "/src/threat-model.json",
+            "/src/tsconfig.json",
+            "/src/uploads/complaints/.gitkeep",
+            "/src/vagrant/Vagrantfile",
+            "/src/vagrant/bootstrap.sh",
+            "/src/vagrant/default.conf",
+            "/src/views/dataErasureForm.hbs",
+            "/src/views/dataErasureResult.hbs",
+            "/src/views/promotionVideo.pug",
+            "/src/views/themes/themes.ts",
+            "/src/views/userProfile.pug"
+        ]
+    },
+    "time": {
+        "rules": [],
+        "rules_parse_time": 27.34012007713318,
+        "profiling_times": {
+            "config_time": 5.3817713260650635,
+            "core_time": 228.91833329200745,
+            "ignores_time": 0.005099773406982422,
+            "total_time": 234.3246145248413
+        },
+        "parsing_time": {
+            "total_time": 0.0,
+            "per_file_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_files": []
+        },
+        "scanning_time": {
+            "total_time": 168.7841374874115,
+            "per_file_time": {
+                "mean": 0.05943103432655332,
+                "std_dev": 0.028931841014292414
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.06009102572217026,
+                "count_ratio": 0.0007042253521126761
+            },
+            "very_slow_files": [
+                {
+                    "fpath": "/src/server.ts",
+                    "ftime": 2.8737480640411377
+                },
+                {
+                    "fpath": "/src/frontend/src/assets/private/three.js",
+                    "ftime": 7.2686638832092285
+                }
+            ]
+        },
+        "matching_time": {
+            "total_time": 0.0,
+            "per_file_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_files": []
+        },
+        "tainting_time": {
+            "total_time": 0.0,
+            "per_def_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_defs": []
+        },
+        "fixpoint_timeouts": [
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at /src/rsn/rsnUtil.ts:1:0 [rules: 2, first: javascript.lang.security.audit.unsafe-formatstring.unsafe-formatstring]",
+                "location": {
+                    "path": "/src/rsn/rsnUtil.ts",
+                    "start": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at /src/server.ts:1:0 [rules: 3, first: javascript.express.security.injection.raw-html-format.raw-html-format]",
+                "location": {
+                    "path": "/src/server.ts",
+                    "start": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    }
+                }
+            }
+        ],
+        "prefiltering": {
+            "project_level_time": 0.0,
+            "file_level_time": 0.0,
+            "rules_with_project_prefilters_ratio": 0.0,
+            "rules_with_file_prefilters_ratio": 0.9667224362614929,
+            "rules_selected_ratio": 0.08625612058512026,
+            "rules_matched_ratio": 0.08625612058512026
+        },
+        "targets": [],
+        "total_bytes": 0,
+        "max_memory_bytes": 2381636608
+    },
+    "engine_requested": "OSS",
+    "skipped_rules": [],
+    "profiling_results": []
+}

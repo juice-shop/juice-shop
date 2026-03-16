@@ -46,9 +46,15 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
       const propertyChain = options.replacement[1].split('.')
       let replacementValue = config
       for (const property of propertyChain) {
+        if (!/^[A-Za-z0-9_]+$/.test(property) || !Object.prototype.hasOwnProperty.call(replacementValue, property)) {
+          replacementValue = undefined
+          break
+        }
         replacementValue = replacementValue[property]
       }
-      value = value.replace(options.replacement[0], replacementValue)
+      if (replacementValue !== undefined) {
+        value = value.replace(options.replacement[0], replacementValue)
+      }
     }
 
     while (true) {
