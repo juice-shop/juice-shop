@@ -21,10 +21,10 @@ This file provides guidelines for AI agents and automated code assistants that d
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
-- **Key Technologies**: Node.js, Express, SQLite/MongoDB, Angular
-- **Testing**: Jest (unit tests), Frisby (API integration), Cypress (E2E tests)
+- **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Jest/Frisby (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
-- **Repository**: [OWASP/juice-shop](https://github.com/OWASP/juice-shop)
+- **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
 ## Important Constraints
 
@@ -41,13 +41,18 @@ See [CLAUDE.md](./.claude/CLAUDE.md#important-constraints) for the full context.
 - `app.ts` / `server.ts` - Application entry points
 - `lib/` - Utility functions and libraries (including `lib/startup/` for initialization)
 - `routes/` - Express route handlers
-- `models/` - Data models
-- `data/` - Data creation and management
-- `test/` - Unit and integration tests
-- `frontend/src/` - Angular frontend code
-- `cypress/` - E2E tests
-- `config/` - Configuration files
+- `models/` - Sequelize data models (SQLite)
+- `data/` - Data creation and management (`data/static/` for challenges, users, codefixes)
+- `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
+- `test/server/` - Server unit tests (Mocha/Chai/Sinon)
+- `test/api/` - API integration tests (Jest/Frisby)
+- `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
+- `cypress/` - E2E tests (Cypress)
+- `rsn/` - Refactoring Safety Net scripts and cache
+- `config/` - Configuration files (YAML, multiple themed configs like `ctf.yml`, `default.yml`)
 - `i18n/` - Internationalization files (do NOT modify directly)
+- `ftp/` - Files served via the simulated FTP directory
+- `monitoring/` - Grafana dashboard config
 - `.github/workflows/` - CI/CD pipelines
 - `encryptionkeys/` - Encryption key files
 
@@ -132,10 +137,11 @@ git commit -s     # Sign-off commit
 - Run `npm run rsn` after modifying code that is part of a coding challenge
 - If changes are intentional, update cache: `npm run rsn:update`
 
-**Testing Frameworks**: Jest (unit), Frisby (API), Cypress (E2E)
-- `npm test` - Run all tests
-- `npm run frisby` - API tests only
-- `npm run cypress:run` - Interactive E2E tests
+**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Jest/Frisby (API), Jasmine/Karma (frontend unit), Cypress (E2E)
+- `npm test` - Run frontend unit tests + server unit tests
+- `npm run test:server` - Server unit tests only (Mocha)
+- `npm run frisby` (or `npm run test:api`) - API integration tests only (Jest/Frisby)
+- `npm run cypress:run` (or `npm run test:e2e`) - E2E tests (Cypress)
 
 ## Contribution Guidelines Summary
 
@@ -161,5 +167,5 @@ AI agents are productivity tools for enhancing development. You (or the person r
 
 **For comprehensive guidelines, see [CLAUDE.md](./.claude/CLAUDE.md).**
 
-**Last Updated**: January 2026
+**Last Updated**: March 2026
 

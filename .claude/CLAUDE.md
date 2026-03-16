@@ -11,6 +11,43 @@ This guide helps contributors use Claude (AI assistant) effectively when working
 
 Claude can assist with various development tasks, but all contributions must still meet the requirements in [CONTRIBUTING.md](../CONTRIBUTING.md). The AI is a tool to enhance productivity, not a replacement for understanding the codebase and contribution guidelines.
 
+## Project Overview
+
+- **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
+- **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
+- **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Jest/Frisby (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Code Style**: JS Standard Style (enforced via ESLint)
+- **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
+
+## Key Files and Directories
+
+- `app.ts` / `server.ts` - Application entry points
+- `lib/` - Utility functions and libraries (including `lib/startup/` for initialization)
+- `routes/` - Express route handlers
+- `models/` - Sequelize data models (SQLite)
+- `data/` - Data creation and management (`data/static/` for challenges, users, codefixes)
+- `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
+- `test/server/` - Server unit tests (Mocha/Chai/Sinon)
+- `test/api/` - API integration tests (Jest/Frisby)
+- `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
+- `cypress/` - E2E tests (Cypress)
+- `rsn/` - Refactoring Safety Net scripts and cache
+- `config/` - Configuration files (YAML, multiple themed configs like `ctf.yml`, `default.yml`)
+- `i18n/` - Internationalization files (do NOT modify directly)
+- `ftp/` - Files served via the simulated FTP directory
+- `monitoring/` - Grafana dashboard config
+- `.github/workflows/` - CI/CD pipelines
+- `encryptionkeys/` - Encryption key files
+
+## Important Constraints
+
+1. **Security Context**: This project contains intentional vulnerabilities for training. New vulnerabilities must be approved by maintainers and well-documented.
+2. **Challenge Development**: Consult maintainers before creating new challenges.
+3. **Code Changes and RSN**: When modifying challenge-related code, the Refactoring Safety Net must pass.
+4. **Dependency Updates**: Verify compatibility with `package.json` and `frontend/package.json`.
+5. **Translation Modifications**: Use [Crowdin](https://crowdin.com/project/owasp-juice-shop), not direct file editing.
+
 ## Recommended Use Cases
 
 ### ✅ Good Use Cases
@@ -62,9 +99,10 @@ For any code changes Claude helps with:
 - **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge
 - **Run Tests Locally**:
   ```bash
-  npm test                    # Unit tests
-  npm run frisby              # API integration tests
-  npm start & npm run cypress:run  # E2E tests
+  npm test                    # Frontend unit tests (Jasmine/Karma) + server unit tests (Mocha)
+  npm run test:server         # Server unit tests only (Mocha/Chai/Sinon)
+  npm run frisby              # API integration tests (Jest/Frisby), alias: npm run test:api
+  npm start & npm run cypress:run  # E2E tests (Cypress), alias: npm run test:e2e
   npm run rsn                 # Refactoring Safety Net (for code changes impacting coding challenge snippets)
   ```
 
@@ -172,7 +210,6 @@ Before submitting a Claude-assisted PR:
 - [ ] PR based on `develop` branch
 - [ ] Single, focused scope
 - [ ] All CI checks passing
-- [ ] PR based on `develop` branch
 - [ ] PR contains AI Tool Disclosure and Affirmation
 
 ## Refactoring Safety Net (RSN)
