@@ -3,7 +3,10 @@ on:
   push:
     branches:
       - master
+      - failles
   pull_request:
+    branches:
+      - master
     types: [opened, synchronize, reopened]
 jobs:
   sonarqube:
