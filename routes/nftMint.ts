@@ -5,7 +5,7 @@ import * as challengeUtils from '../lib/challengeUtils'
 import { nftABI } from '../data/static/contractABIs'
 import { challenges } from '../data/datacache'
 import * as utils from '../lib/utils'
-import { getAlchemyProvider } from '../lib/web3Provider'
+import { getAlchemyProvider } from '../lib/web3utils'
 
 const nftAddress = '0x41427790c94E7a592B17ad694eD9c06A02bb9C39'
 const addressesMinted = new Set()

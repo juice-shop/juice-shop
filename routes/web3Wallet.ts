@@ -5,7 +5,7 @@ import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
 import { web3WalletABI } from '../data/static/contractABIs'
-import { getAlchemyProvider } from '../lib/web3Provider'
+import { getAlchemyProvider } from '../lib/web3utils'
 
 const web3WalletAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
 const walletsConnected = new Set()
