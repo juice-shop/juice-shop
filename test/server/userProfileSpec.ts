@@ -57,9 +57,9 @@ describe('userProfile', () => {
   it('renders the profile for stored image URLs with control characters', async () => {
     await getUserProfile()(req, res, next)
 
-    expect(res.set).to.have.been.calledOnce
+    expect(res.set.calledOnce).to.equal(true)
     expect(res.set.firstCall.args[0]['Content-Security-Policy']).to.not.match(/[\r\n]/)
     expect(res.send).to.have.been.calledOnceWith('<html>profile</html>')
-    expect(next).to.not.have.been.called
+    expect(next.called).to.equal(false)
   })
 })
