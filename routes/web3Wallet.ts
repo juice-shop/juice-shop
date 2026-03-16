@@ -5,18 +5,42 @@ import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
 import { web3WalletABI } from '../data/static/contractABIs'
+import logger from '../lib/logger'
 
 const web3WalletAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
 const walletsConnected = new Set()
+let provider: WebSocketProvider | null = null
 let isEventListenerCreated = false
+
+function getProvider (): WebSocketProvider | null {
+  if (provider !== null) {
+    return provider
+  }
+  try {
+    provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
+    provider.websocket.on('error', (err: Error) => {
+      logger.warn('WebSocket error for Wallet Exploit provider: ' + err.message)
+      provider = null
+      isEventListenerCreated = false
+    })
+    return provider
+  } catch (err) {
+    logger.warn('Failed to create Wallet Exploit provider: ' + utils.getErrorMessage(err))
+    return null
+  }
+}
 
 export function contractExploitListener () {
   return async (req: Request, res: Response) => {
     const metamaskAddress = req.body.walletAddress
     walletsConnected.add(metamaskAddress)
     try {
-      const provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
-      const contract = new Contract(web3WalletAddress, web3WalletABI, provider)
+      const wsProvider = getProvider()
+      if (wsProvider === null) {
+        res.status(503).json({ success: false, message: 'Blockchain provider unavailable. Please try again later.' })
+        return
+      }
+      const contract = new Contract(web3WalletAddress, web3WalletABI, wsProvider)
       if (!isEventListenerCreated) {
         void contract.on('ContractExploited', (exploiter: string) => {
           if (walletsConnected.has(exploiter)) {
