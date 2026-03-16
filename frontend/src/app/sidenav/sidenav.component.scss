@@ -60,9 +60,8 @@ mat-nav-list {
 }
 
 .improved-tag {
-  background-color: var(--mdc-filled-button-container-color, #ff6d00);
+  background-color: var(--theme-warn-light);
   border-radius: $space-2xs;
-  color: var(--mdc-filled-button-label-text-color, #fff);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
