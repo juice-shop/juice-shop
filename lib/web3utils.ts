@@ -11,10 +11,10 @@ export function getAlchemyProvider (): WebSocketProvider | null {
   }
   try {
     provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
-    provider.websocket.on('error', (err: Error) => {
-      logger.warn('Alchemy WebSocket error: ' + err.message)
+    provider.websocket.onerror = (err) => {
+      logger.warn('Alchemy WebSocket error: ' + String(err.message ?? err))
       provider = null
-    })
+    }
     return provider
   } catch (err) {
     logger.warn('Failed to create Alchemy WebSocket provider: ' + utils.getErrorMessage(err))
