@@ -59,7 +59,8 @@ export function getUserProfile () {
         if (!code) {
           throw new Error('Username is null')
         }
-        username = eval(code) // eslint-disable-line no-eval
+        const vm = require('node:vm')
+        username = vm.runInNewContext(code)
       } catch (err) {
         username = '\\' + username
       }

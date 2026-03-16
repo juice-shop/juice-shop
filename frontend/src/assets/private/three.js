@@ -11372,7 +11372,7 @@ THREE.Loader.prototype = {
 
 		}
 
-		this.statusDomElement.innerHTML = message;
+		this.statusDomElement.textContent = message;
 
 	},
 

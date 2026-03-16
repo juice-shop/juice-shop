@@ -11,7 +11,13 @@ export function serveQuarantineFiles () {
     const file = params.file
 
     if (!file.includes('/')) {
-      res.sendFile(path.resolve('ftp/quarantine/', file))
+      const resolvedPath = path.resolve('ftp/quarantine/', file)
+      if (!resolvedPath.startsWith(path.resolve('ftp/quarantine/'))) {
+        res.status(403)
+        next(new Error('File traversal detected.'))
+        return
+      }
+      res.sendFile(resolvedPath)
     } else {
       res.status(403)
       next(new Error('File names cannot contain forward slashes!'))

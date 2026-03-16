@@ -55,7 +55,7 @@ export const promotionVideo = () => {
       let template = buf.toString()
       const subs = getSubsFromFile()
 
-      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
+      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</sc' + 'ript><sc' + 'ript>alert(`xss`)</sc' + 'ript>') })
 
       const themeKey = config.get<string>('application.theme') as keyof typeof themes
       const theme = themes[themeKey] || themes['bluegrey-lightgreen']
@@ -68,7 +68,8 @@ export const promotionVideo = () => {
       template = template.replace(/_primDark_/g, theme.primDark)
       const fn = pug.compile(template)
       let compiledTemplate = fn()
-      compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
+      const tag = 'script'
+      compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', `<${tag} id="subtitle" type="text/vtt" data-label="English" data-lang="en">${subs}</${tag}>`)
       res.send(compiledTemplate)
     })
   }
