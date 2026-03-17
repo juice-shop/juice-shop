@@ -136,6 +136,7 @@ git commit -s     # Sign-off commit
 **RSN**: See [CLAUDE.md](./.claude/CLAUDE.md#refactoring-safety-net-rsn) for details.
 - Run `npm run rsn` after modifying code that is part of a coding challenge
 - If changes are intentional, update cache: `npm run rsn:update`
+- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
 
 **Testing Frameworks**: Mocha/Chai/Sinon (server unit), Jest/Frisby (API), Jasmine/Karma (frontend unit), Cypress (E2E)
 - `npm test` - Run frontend unit tests + server unit tests

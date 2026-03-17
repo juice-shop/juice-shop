@@ -236,6 +236,7 @@ npm run rsn
   ```bash
   npm run rsn:update
   ```
+- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
 - If changes are unintentional, fix the affected files
 
 Learn more: [Code Snippets Documentation](https://pwning.owasp-juice.shop/companion-guide/latest/part5/code-snippets.html)
