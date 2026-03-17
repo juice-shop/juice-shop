@@ -1,7 +1,7 @@
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics()
-app.get('/metrics', security.isAdmin(), metrics.serveMetrics())
+app.get('/metrics', security.isAdmin(), utils.asyncHandler(metrics.serveMetrics()))
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {

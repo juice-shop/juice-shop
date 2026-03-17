@@ -232,3 +232,11 @@ export const matchesEtcPasswdFile = (text: string) => {
   const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
   return match !== null && match.length >= 1
 }
+
+/**
+ * Wrapper for asynchronous Express route handlers to ensure any rejected promises are caught and passed to the next() function.
+ * TODO: Revisit the need for this wrapper once the project is migrated to Express 5 which supports async handlers natively.
+ */
+export const asyncHandler = (fn: (req: any, res: any, next: any) => Promise<any> | any) => (req: any, res: any, next: any) => {
+  void Promise.resolve(fn(req, res, next)).catch(next)
+}
