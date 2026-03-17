@@ -13,7 +13,7 @@ For comprehensive guidelines on using AI assistants (including Copilot) with thi
 - Development workflow best practices
 - Quality checklists
 
-**All contributors using Copilot must follow the guidelines in [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) before submitting pull requests.**
+**All contributors using Copilot must follow the guidelines in [CLAUDE.md](../.claude/CLAUDE.md) before submitting pull requests.**
 
 ## Copilot-Specific Context
 
