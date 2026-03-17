@@ -44,10 +44,12 @@ export function placeOrder () {
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
-          fileWriter.on('finish', async () => {
-            void basket.update({ coupon: null })
-            await BasketItemModel.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
+          fileWriter.on('finish', () => {
+            void (async () => {
+              void basket.update({ coupon: null })
+              await BasketItemModel.destroy({ where: { BasketId: id } })
+              res.json({ orderConfirmation: orderId })
+            })()
           })
 
           doc.font('Times-Roman').fontSize(40).text(config.get<string>('application.name'), { align: 'center' })

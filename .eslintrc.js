@@ -41,7 +41,6 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'off', // 394 violations in 126 files (checked 2026-03-16)
         '@typescript-eslint/strict-boolean-expressions': 'off', // 243 violations in 74 files (checked 2026-03-16)
         '@typescript-eslint/no-var-requires': 'off', // 1 violation in 1 file (checked 2026-03-16)
-        '@typescript-eslint/no-misused-promises': 'off', // 54 violations in 3 files (checked 2026-03-16)
         '@typescript-eslint/no-unsafe-argument': 'off' // 333 violations in 55 files (checked 2026-03-16)
       }
     }

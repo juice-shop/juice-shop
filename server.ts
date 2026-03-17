@@ -308,9 +308,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(bodyParser.urlencoded({ extended: true }))
   /* File Upload */
   app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
-  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
-  app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
+  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(profileImageFileUpload()))
+  app.post('/profile/image/url', uploadToMemory.single('file'), utils.asyncHandler(profileImageUrlUpload()))
+  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(addMemory()))
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
@@ -401,7 +401,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Challenge evaluation before finale takes over */ // vuln-code-snippet hide-start
   app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
   /* Captcha verification before finale takes over */
-  app.post('/api/Feedbacks', verifyCaptcha())
+  app.post('/api/Feedbacks', utils.asyncHandler(verifyCaptcha()))
   /* Captcha Bypass challenge verification */
   app.post('/api/Feedbacks', verify.captchaBypassChallenge())
   /* User registration challenge verifications before finale takes over */
@@ -423,8 +423,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
-  app.put('/api/BasketItems/:id', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
-  app.post('/api/BasketItems', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+  app.put('/api/BasketItems/:id', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemUpdate()))
+  app.post('/api/BasketItems', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemAddition()), utils.asyncHandler(basketItems.addBasketItem()))
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
@@ -436,42 +436,42 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/api/PrivacyRequests/:id', security.isAuthorized())
   /* PaymentMethodRequests: Only allowed for authenticated users */
   app.post('/api/Cards', security.appendUserId())
-  app.get('/api/Cards', security.appendUserId(), payment.getPaymentMethods())
+  app.get('/api/Cards', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethods()))
   app.put('/api/Cards/:id', security.denyAll())
-  app.delete('/api/Cards/:id', security.appendUserId(), payment.delPaymentMethodById())
-  app.get('/api/Cards/:id', security.appendUserId(), payment.getPaymentMethodById())
+  app.delete('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.delPaymentMethodById()))
+  app.get('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethodById()))
   /* PrivacyRequests: Only POST allowed for authenticated users */
   app.post('/api/PrivacyRequests', security.isAuthorized())
   app.get('/api/PrivacyRequests', security.denyAll())
   app.use('/api/PrivacyRequests/:id', security.denyAll())
 
   app.post('/api/Addresss', security.appendUserId())
-  app.get('/api/Addresss', security.appendUserId(), address.getAddress())
+  app.get('/api/Addresss', security.appendUserId(), utils.asyncHandler(address.getAddress()))
   app.put('/api/Addresss/:id', security.appendUserId())
-  app.delete('/api/Addresss/:id', security.appendUserId(), address.delAddressById())
-  app.get('/api/Addresss/:id', security.appendUserId(), address.getAddressById())
-  app.get('/api/Deliverys', delivery.getDeliveryMethods())
-  app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
+  app.delete('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.delAddressById()))
+  app.get('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.getAddressById()))
+  app.get('/api/Deliverys', utils.asyncHandler(delivery.getDeliveryMethods()))
+  app.get('/api/Deliverys/:id', utils.asyncHandler(delivery.getDeliveryMethod()))
   // vuln-code-snippet end changeProductChallenge
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
-    twoFactorAuth.verify
+    utils.asyncHandler(twoFactorAuth.verify)
   )
   /* Check 2FA Status for the current User */
-  app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status)
+  app.get('/rest/2fa/status', security.isAuthorized(), utils.asyncHandler(twoFactorAuth.status))
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
-    twoFactorAuth.setup
+    utils.asyncHandler(twoFactorAuth.setup)
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
-    twoFactorAuth.disable
+    utils.asyncHandler(twoFactorAuth.disable)
   )
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
@@ -594,55 +594,55 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Custom Restful API */
   app.post('/rest/user/login', login())
-  app.get('/rest/user/change-password', changePassword())
-  app.post('/rest/user/reset-password', resetPassword())
-  app.get('/rest/user/security-question', securityQuestion())
-  app.get('/rest/user/whoami', security.updateAuthenticatedUsers(), retrieveLoggedInUser())
-  app.get('/rest/user/authentication-details', authenticatedUsers())
-  app.get('/rest/products/search', searchProducts())
-  app.get('/rest/basket/:id', retrieveBasket())
+  app.get('/rest/user/change-password', utils.asyncHandler(changePassword()))
+  app.post('/rest/user/reset-password', utils.asyncHandler(resetPassword()))
+  app.get('/rest/user/security-question', utils.asyncHandler(securityQuestion()))
+  app.get('/rest/user/whoami', security.updateAuthenticatedUsers(), utils.asyncHandler(retrieveLoggedInUser()))
+  app.get('/rest/user/authentication-details', utils.asyncHandler(authenticatedUsers()))
+  app.get('/rest/products/search', utils.asyncHandler(searchProducts()))
+  app.get('/rest/basket/:id', utils.asyncHandler(retrieveBasket()))
   app.post('/rest/basket/:id/checkout', placeOrder())
-  app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
-  app.get('/rest/admin/application-version', retrieveAppVersion())
-  app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
-  app.get('/rest/repeat-notification', repeatNotification())
-  app.get('/rest/continue-code', continueCode())
-  app.get('/rest/continue-code-findIt', continueCodeFindIt())
-  app.get('/rest/continue-code-fixIt', continueCodeFixIt())
-  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
-  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
-  app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
-  app.get('/rest/captcha', captchas())
-  app.get('/rest/image-captcha', imageCaptchas())
+  app.put('/rest/basket/:id/coupon/:coupon', utils.asyncHandler(applyCoupon()))
+  app.get('/rest/admin/application-version', utils.asyncHandler(retrieveAppVersion()))
+  app.get('/rest/admin/application-configuration', utils.asyncHandler(retrieveAppConfiguration()))
+  app.get('/rest/repeat-notification', utils.asyncHandler(repeatNotification()))
+  app.get('/rest/continue-code', utils.asyncHandler(continueCode()))
+  app.get('/rest/continue-code-findIt', utils.asyncHandler(continueCodeFindIt()))
+  app.get('/rest/continue-code-fixIt', utils.asyncHandler(continueCodeFixIt()))
+  app.put('/rest/continue-code-findIt/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgressFindIt()))
+  app.put('/rest/continue-code-fixIt/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgressFixIt()))
+  app.put('/rest/continue-code/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgress()))
+  app.get('/rest/captcha', utils.asyncHandler(captchas()))
+  app.get('/rest/image-captcha', utils.asyncHandler(imageCaptchas()))
   app.get('/rest/track-order/:id', trackOrder())
-  app.get('/rest/country-mapping', countryMapping())
-  app.get('/rest/saveLoginIp', saveLoginIp())
-  app.post('/rest/user/data-export', security.appendUserId(), verifyImageCaptcha())
-  app.post('/rest/user/data-export', security.appendUserId(), dataExport())
-  app.get('/rest/languages', getLanguageList())
-  app.get('/rest/order-history', orderHistory())
-  app.get('/rest/order-history/orders', security.isAccounting(), allOrders())
-  app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), toggleDeliveryStatus())
-  app.get('/rest/wallet/balance', security.appendUserId(), getWalletBalance())
-  app.put('/rest/wallet/balance', security.appendUserId(), addWalletBalance())
+  app.get('/rest/country-mapping', utils.asyncHandler(countryMapping()))
+  app.get('/rest/saveLoginIp', utils.asyncHandler(saveLoginIp()))
+  app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(verifyImageCaptcha()))
+  app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(dataExport()))
+  app.get('/rest/languages', utils.asyncHandler(getLanguageList()))
+  app.get('/rest/order-history', utils.asyncHandler(orderHistory()))
+  app.get('/rest/order-history/orders', security.isAccounting(), utils.asyncHandler(allOrders()))
+  app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), utils.asyncHandler(toggleDeliveryStatus()))
+  app.get('/rest/wallet/balance', security.appendUserId(), utils.asyncHandler(getWalletBalance()))
+  app.put('/rest/wallet/balance', security.appendUserId(), utils.asyncHandler(addWalletBalance()))
   app.get('/rest/deluxe-membership', deluxeMembershipStatus())
-  app.post('/rest/deluxe-membership', security.appendUserId(), upgradeToDeluxe())
-  app.get('/rest/memories', getMemories())
+  app.post('/rest/deluxe-membership', security.appendUserId(), utils.asyncHandler(upgradeToDeluxe()))
+  app.get('/rest/memories', utils.asyncHandler(getMemories()))
   /* NoSQL API endpoints */
   app.get('/rest/products/:id/reviews', showProductReviews())
-  app.put('/rest/products/:id/reviews', createProductReviews())
+  app.put('/rest/products/:id/reviews', utils.asyncHandler(createProductReviews()))
   app.patch('/rest/products/reviews', security.isAuthorized(), updateProductReviews())
-  app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
+  app.post('/rest/products/reviews', security.isAuthorized(), utils.asyncHandler(likeProductReviews()))
 
   /* Chat API endpoint */
-  app.post('/rest/chat', chat())
+  app.post('/rest/chat', utils.asyncHandler(chat()))
 
   /* Web3 API endpoints */
-  app.post('/rest/web3/submitKey', checkKeys())
+  app.post('/rest/web3/submitKey', utils.asyncHandler(checkKeys()))
   app.get('/rest/web3/nftUnlocked', nftUnlocked())
-  app.get('/rest/web3/nftMintListen', nftMintListener())
+  app.get('/rest/web3/nftMintListen', utils.asyncHandler(nftMintListener()))
   app.post('/rest/web3/walletNFTVerify', walletNFTVerify())
-  app.post('/rest/web3/walletExploitAddress', contractExploitListener())
+  app.post('/rest/web3/walletExploitAddress', utils.asyncHandler(contractExploitListener()))
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())
@@ -663,16 +663,16 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/video', getVideo())
 
   /* Routes for profile page */
-  app.get('/profile', security.updateAuthenticatedUsers(), getUserProfile())
-  app.post('/profile', updateUserProfile())
+  app.get('/profile', security.updateAuthenticatedUsers(), utils.asyncHandler(getUserProfile()))
+  app.post('/profile', utils.asyncHandler(updateUserProfile()))
 
   /* Route for vulnerable code snippets */
-  app.get('/snippets/:challenge', serveCodeSnippet())
-  app.post('/snippets/verdict', checkVulnLines())
-  app.get('/snippets/fixes/:key', serveCodeFixes())
-  app.post('/snippets/fixes', checkCorrectFix())
+  app.get('/snippets/:challenge', utils.asyncHandler(serveCodeSnippet()))
+  app.post('/snippets/verdict', utils.asyncHandler(checkVulnLines()))
+  app.get('/snippets/fixes/:key', utils.asyncHandler(serveCodeFixes()))
+  app.post('/snippets/fixes', utils.asyncHandler(checkCorrectFix()))
 
-  app.use(serveAngularClient())
+  app.use(utils.asyncHandler(serveAngularClient()))
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
@@ -718,7 +718,7 @@ logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.to
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
