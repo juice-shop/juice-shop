@@ -131,6 +131,7 @@ const app = express()
 const server = new http.Server(app)
 
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
