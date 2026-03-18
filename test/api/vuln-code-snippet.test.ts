@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
 import * as http from 'http'
-import { io as ioClient, type Socket } from 'socket.io-client'
+import ioClient from 'socket.io-client'
 import { createTestApp } from './helpers/setup'
 import registerWebsocketEvents from '../../lib/startup/registerWebsocketEvents'
 
@@ -65,7 +65,7 @@ void describe('/snippets/:challenge', () => {
 })
 
 void describe('snippets/verdict', () => {
-  let socket: Socket
+  let socket: ReturnType<typeof ioClient>
 
   beforeEach(async () => {
     await new Promise<void>((resolve) => {
