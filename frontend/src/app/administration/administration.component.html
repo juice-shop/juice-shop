@@ -89,6 +89,14 @@
           color="accent">
         </mat-paginator>
       </div>
+      <div class="settings-section">
+        <div class="heading">
+          <span translate>SECTION_SETTINGS</span>
+        </div>
+        <mat-checkbox [checked]="showToolCalls()" (change)="toggleShowToolCalls($event)">
+          <span translate>LABEL_SHOW_TOOL_CALLS</span>
+        </mat-checkbox>
+      </div>
     </div>
   </div>
 </mat-card>

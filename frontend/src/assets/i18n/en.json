@@ -45,6 +45,8 @@
   "TITLE_ABOUT": "About Us",
   "SECTION_CORPORATE_HISTORY": "Corporate History & Policy",
   "SECTION_CUSTOMER_FEEDBACK": "Customer Feedback",
+  "SECTION_SETTINGS": "Settings",
+  "LABEL_SHOW_TOOL_CALLS": "Show tool calls in AI chat",
   "SECTION_AI_CHAT": "AI Chat",
   "TAG_IMPROVED": "Improved",
   "ASK_ME_ANYTHING_PLACEHOLDER": "Ask me anything",
