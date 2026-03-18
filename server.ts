@@ -726,21 +726,6 @@ const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line expos
 app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
-export async function createApp (options?: { inMemoryDb?: boolean }) {
-  const seq = options?.inMemoryDb ? createSequelize({ inMemory: true }) : sequelize
-  if (options?.inMemoryDb) {
-    initModels(seq)
-    setSequelize(seq)
-  }
-  Prometheus.register.clear()
-  const testApp = express()
-  testApp.set('view engine', 'hbs')
-  configureApp(testApp, seq)
-  await seq.sync({ force: true })
-  await datacreator()
-  return { app: testApp, sequelize: seq }
-}
-
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
@@ -778,6 +763,21 @@ export function close (exitCode: number | undefined) {
   }
 }
 // vuln-code-snippet end exposedMetricsChallenge
+
+export async function createApp (options?: { inMemoryDb?: boolean }) {
+  const seq = options?.inMemoryDb ? createSequelize({ inMemory: true }) : sequelize
+  if (options?.inMemoryDb) {
+    initModels(seq)
+    setSequelize(seq)
+  }
+  Prometheus.register.clear()
+  const testApp = express()
+  testApp.set('view engine', 'hbs')
+  configureApp(testApp, seq)
+  await seq.sync({ force: true })
+  await datacreator()
+  return { app: testApp, sequelize: seq }
+}
 
 // stop server on sigint or sigterm signals
 process.on('SIGINT', () => { close(0) })

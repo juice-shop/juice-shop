@@ -1,5 +1,5 @@
 /* Generated API endpoints */
-  finale.initialize({ app, sequelize })
+  finale.initialize({ app, sequelize: seq })
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
