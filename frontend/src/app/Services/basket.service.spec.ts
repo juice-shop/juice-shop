@@ -114,6 +114,7 @@ describe('BasketService', () => {
 
   it('should emit total number of items when updating number of cart items', inject([BasketService, HttpTestingController],
     fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      localStorage.setItem('token', 'token')
       sessionStorage.setItem('bid', '42')
       const totals: number[] = []
       service.getItemTotal().subscribe((t) => totals.push(t))
@@ -132,12 +133,14 @@ describe('BasketService', () => {
 
       tick()
       expect(totals).toEqual([5])
+      localStorage.removeItem('token')
       httpMock.verify()
     })
   ))
 
   it('should log error when updating number of cart items fails', inject([BasketService, HttpTestingController],
     fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      localStorage.setItem('token', 'token')
       sessionStorage.setItem('bid', '99')
       let consoleSpy: jasmine.Spy
       const anyJ = (jasmine as any)
@@ -154,6 +157,84 @@ describe('BasketService', () => {
       tick()
 
       expect(consoleSpy).toHaveBeenCalled()
+      localStorage.removeItem('token')
+      httpMock.verify()
+    })
+  ))
+
+  it('should emit total number of guest basket items when anonymous', inject([BasketService],
+    (service: BasketService) => {
+      localStorage.removeItem('token')
+      sessionStorage.setItem('guestBasket', JSON.stringify([
+        { ProductId: 1, quantity: 2 },
+        { ProductId: 2, quantity: 3 }
+      ]))
+
+      const totals: number[] = []
+      service.getItemTotal().subscribe((t) => totals.push(t))
+      service.updateNumberOfCartItems()
+
+      expect(totals).toEqual([5])
+      sessionStorage.removeItem('guestBasket')
+    }
+  ))
+
+  it('should silently drop malformed guest basket items', inject([BasketService],
+    (service: BasketService) => {
+      sessionStorage.setItem('guestBasket', JSON.stringify([
+        { ProductId: 1, quantity: 2 },
+        { ProductId: '2', quantity: '3' },
+        { ProductId: 0, quantity: 5 },
+        { ProductId: 5, quantity: -1 },
+        { ProductId: null, quantity: 4 },
+        { foo: 'bar' }
+      ]))
+
+      expect(service.getGuestBasketItems()).toEqual([
+        { ProductId: 1, quantity: 2 },
+        { ProductId: 2, quantity: 3 }
+      ])
+      sessionStorage.removeItem('guestBasket')
+    }
+  ))
+
+  it('should merge guest basket as best effort and continue on item errors', inject([BasketService, HttpTestingController],
+    fakeAsync((service: BasketService, httpMock: HttpTestingController) => {
+      localStorage.removeItem('token')
+      sessionStorage.setItem('guestBasket', JSON.stringify([
+        { ProductId: 1, quantity: 2 },
+        { ProductId: 1, quantity: 1 },
+        { ProductId: 2, quantity: 3 }
+      ]))
+
+      let completed = false
+      service.mergeGuestBasketIntoUserBasket(42).subscribe(() => {
+        completed = true
+      })
+
+      const findReq = httpMock.expectOne('http://localhost:3000/rest/basket/42')
+      findReq.flush({
+        data: {
+          Products: [
+            { id: 1, BasketItem: { id: 100, quantity: 4 } }
+          ]
+        }
+      })
+
+      const putReq = httpMock.expectOne('http://localhost:3000/api/BasketItems/100')
+      expect(putReq.request.method).toBe('PUT')
+      expect(putReq.request.body).toEqual({ quantity: 7 })
+      putReq.error(new ErrorEvent('Merge failed'), { status: 500, statusText: 'Internal Error' })
+
+      const postReq = httpMock.expectOne('http://localhost:3000/api/BasketItems/')
+      expect(postReq.request.method).toBe('POST')
+      expect(postReq.request.body).toEqual({ ProductId: 2, BasketId: 42, quantity: 3 })
+      postReq.flush({ data: {} })
+
+      tick()
+
+      expect(completed).toBeTrue()
+      expect(sessionStorage.getItem('guestBasket')).toBeNull()
       httpMock.verify()
     })
   ))

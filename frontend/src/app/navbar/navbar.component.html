@@ -101,16 +101,14 @@
       }
     </mat-menu>
 
-    @if (isLoggedIn()) {
-      <button mat-button routerLink="/basket" class="buttons nav-button"
-        aria-label="Show the shopping cart">
-        <mat-icon>
-          shopping_cart
-        </mat-icon>
-        <span class="hide-lt-md basket-label"> {{"TITLE_BASKET" | translate}}</span>
-        <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification">{{itemTotal}}</span>
-      </button>
-    }
+    <button mat-button routerLink="/basket" class="buttons nav-button"
+      aria-label="Show the shopping cart">
+      <mat-icon>
+        shopping_cart
+      </mat-icon>
+      <span class="hide-lt-md basket-label"> {{"TITLE_BASKET" | translate}}</span>
+      <span class="fa-layers-counter fa-layers-top-right fa-3x warn-notification">{{itemTotal}}</span>
+    </button>
 
     <button id="navbarLanguageButton" [matMenuTriggerFor]="menu" mat-button class="buttons nav-square-button"
       aria-label="Language selection menu"
