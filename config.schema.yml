@@ -752,3 +752,8 @@ ctf:
         type: string
       code:
         type: string
+    aiDebuggingChallenge:
+      name:
+        type: string
+      code:
+        type: string
