@@ -7,7 +7,7 @@ import { describe, it, before, after, beforeEach, afterEach } from 'node:test'
 import assert from 'node:assert/strict'
 import type { Express } from 'express'
 import * as http from 'http'
-import { io as ioClient, type Socket } from 'socket.io-client'
+import ioClient from 'socket.io-client'
 import { createTestApp } from './helpers/setup'
 import registerWebsocketEvents from '../../lib/startup/registerWebsocketEvents'
 
@@ -38,7 +38,7 @@ after(() => {
 })
 
 void describe('WebSocket', () => {
-  let socket: Socket
+  let socket: ReturnType<typeof ioClient>
 
   beforeEach(async () => {
     await new Promise<void>((resolve) => {
