@@ -96,4 +96,12 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
     const dependency = this.challenge.ChallengeDependencies.find((dep) => dep.name === dependencyName)
     return dependency ? dependency.documentation : null
   }
+
+  getDependency (tag: string) {
+    if (!this.challenge.ChallengeDependencies) {
+      return null
+    }
+    const dependencyName = tag.substring('Requires '.length)
+    return this.challenge.ChallengeDependencies.find((dep) => dep.name === dependencyName)
+  }
 }

@@ -12,9 +12,9 @@
     @for (tag of challenge.tagList; track tag) {
       @if (tag?.startsWith('Requires ')) {
         @if (isDependencyMissing(tag)) {
-          <a class="tag tag-missing-dependency" [href]="getDependencyDocumentation(tag)" target="_blank" [matTooltip]="'TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate"><mat-icon class="dependency-icon">cable</mat-icon>{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</a>
+          <a class="tag tag-missing-dependency" [href]="getDependencyDocumentation(tag)" target="_blank" [matTooltip]="('TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate) + '\n\n' + ('TAG_EXTERNAL_DEPENDENCY_MISSING' | translate:{ dependency: getDependency(tag)?.key })" matTooltipClass="multiline-tooltip"><mat-icon class="dependency-icon">extension_off</mat-icon>{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</a>
         } @else {
-          <span class="tag tag-available-dependency" [matTooltip]="'TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate"><mat-icon class="dependency-icon">cable</mat-icon>{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</span>
+          <span class="tag tag-available-dependency" [matTooltip]="('TAG_EXTERNAL_DEPENDENCY_DESCRIPTION' | translate) + '\n\n' + ('TAG_EXTERNAL_DEPENDENCY_PRESENT' | translate:{ dependency: getDependency(tag)?.key })" matTooltipClass="multiline-tooltip"><mat-icon class="dependency-icon">extension</mat-icon>{{ 'TAG_EXTERNAL_DEPENDENCY' | translate:{ dependency: tag?.substring('Requires '.length) } }}</span>
         }
       } @else {
         <span class="tag" [matTooltip]="'TAG_' + tag?.toUpperCase().split(' ').join('_') + '_DESCRIPTION' | translate">{{ ('TAG_' + tag?.toUpperCase().split(' ').join('_')) | translate }}</span>
