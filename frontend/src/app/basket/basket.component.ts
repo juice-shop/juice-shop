@@ -28,6 +28,15 @@ export class BasketComponent {
   public bonus = 0
 
   checkout (): void {
+    if (localStorage.getItem('token') == null) {
+      this.ngZone.run(async () => await this.router.navigate(['/login'], {
+        queryParams: {
+          redirectUrl: '/basket'
+        }
+      }))
+      return
+    }
+
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 

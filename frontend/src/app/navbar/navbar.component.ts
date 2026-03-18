@@ -115,6 +115,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit (): void {
     this.getLanguages()
     this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
+    this.basketService.updateNumberOfCartItems()
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
@@ -157,6 +158,7 @@ export class NavbarComponent implements OnInit {
         this.getUserDetails()
       } else {
         this.userEmail = ''
+        this.basketService.updateNumberOfCartItems()
       }
     })
 
@@ -239,6 +241,7 @@ export class NavbarComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
+    sessionStorage.removeItem('guestBasket')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(async () => await this.router.navigate(['/']))
   }

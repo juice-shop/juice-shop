@@ -17,6 +17,7 @@ import { throwError } from 'rxjs/internal/observable/throwError'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { UserService } from '../Services/user.service'
+import { ProductService } from '../Services/product.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
@@ -27,19 +28,25 @@ describe('PurchaseBasketComponent', () => {
   let fixture: ComponentFixture<PurchaseBasketComponent>
   let basketService
   let userService
+  let productService
   let translateService: any
   let deluxeGuard
   let snackBar: any
 
   beforeEach(waitForAsync(() => {
-    basketService = jasmine.createSpyObj('BasketService', ['find', 'del', 'get', 'put', 'updateNumberOfCartItems'])
+    basketService = jasmine.createSpyObj('BasketService', ['find', 'del', 'get', 'put', 'updateNumberOfCartItems', 'getGuestBasketItems', 'removeGuestBasketItem', 'updateGuestBasketItemQuantity'])
     basketService.find.and.returnValue(of({ Products: [] }))
     basketService.del.and.returnValue(of({}))
     basketService.get.and.returnValue(of({}))
     basketService.put.and.returnValue(of({}))
     basketService.updateNumberOfCartItems.and.returnValue(of({}))
+    basketService.getGuestBasketItems.and.returnValue([])
+    basketService.removeGuestBasketItem.and.stub()
+    basketService.updateGuestBasketItemQuantity.and.stub()
     userService = jasmine.createSpyObj('UserService', ['whoAmI'])
     userService.whoAmI.and.returnValue(of({}))
+    productService = jasmine.createSpyObj('ProductService', ['get'])
+    productService.get.and.returnValue(of({ id: 1, name: 'Product', price: 1, deluxePrice: 1 }))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
@@ -65,6 +72,7 @@ describe('PurchaseBasketComponent', () => {
         { provide: BasketService, useValue: basketService },
         { provide: MatSnackBar, useValue: snackBar },
         { provide: UserService, useValue: userService },
+        { provide: ProductService, useValue: productService },
         { provide: DeluxeGuard, useValue: deluxeGuard },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
@@ -74,6 +82,7 @@ describe('PurchaseBasketComponent', () => {
   }))
 
   beforeEach(() => {
+    localStorage.setItem('token', 'token')
     fixture = TestBed.createComponent(PurchaseBasketComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
@@ -89,12 +98,21 @@ describe('PurchaseBasketComponent', () => {
     expect(component.userEmail).toBe('(a@a)')
   })
 
-  it('should log an error if userService fails to fetch the user', fakeAsync(() => {
+  it('should default to anonymous user label if userService fails to fetch the user', fakeAsync(() => {
     userService.whoAmI.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
     component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
+    expect(component.userEmail).toBe('(anonymous)')
   }))
+
+  it('should skip userService call and use anonymous label for guests', () => {
+    userService.whoAmI.calls.reset()
+    localStorage.removeItem('token')
+
+    component.ngOnInit()
+
+    expect(userService.whoAmI).not.toHaveBeenCalled()
+    expect(component.userEmail).toBe('(anonymous)')
+  })
 
   it('should hold products returned by backend API', () => {
     basketService.find.and.returnValue(of({ Products: [{ name: 'Product1', price: 1, deluxePrice: 1, BasketItem: { quantity: 1 } }, { name: 'Product2', price: 2, deluxePrice: 2, BasketItem: { quantity: 2 } }] }))
@@ -136,6 +154,23 @@ describe('PurchaseBasketComponent', () => {
     basketService.find.and.returnValue(of({ Products: [] }))
     component.load()
     expect(component.dataSource).toEqual([])
+  })
+
+  it('should keep valid guest basket products when one guest product fetch fails', () => {
+    localStorage.removeItem('token')
+    basketService.getGuestBasketItems.and.returnValue([
+      { ProductId: 1, quantity: 2 },
+      { ProductId: 2, quantity: 3 }
+    ])
+    productService.get.withArgs(1).and.returnValue(of({ id: 1, name: 'P1', price: 2, deluxePrice: 2 }))
+    productService.get.withArgs(2).and.returnValue(throwError('Error'))
+
+    component.load()
+
+    expect(component.dataSource.length).toBe(1)
+    expect(component.dataSource[0].id).toBe(1)
+    expect(component.dataSource[0].BasketItem.quantity).toBe(2)
+    expect(component.itemTotal).toBe(4)
   })
 
   it('should log error while getting Products from backend API directly to browser console', fakeAsync(() => {

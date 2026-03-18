@@ -5,7 +5,7 @@
 
 import { CookieService } from 'ngy-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
-import { Router, RouterLink } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { Component, NgZone, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -22,6 +22,8 @@ import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
+import { of } from 'rxjs'
+import { catchError } from 'rxjs/operators'
 
 import { MatCardModule } from '@angular/material/card'
 
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
   private readonly windowRefService = inject(WindowRefService)
   private readonly cookieService = inject(CookieService)
   private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
   private readonly formSubmitService = inject(FormSubmitService)
   private readonly basketService = inject(BasketService)
   private readonly ngZone = inject(NgZone)
@@ -98,14 +101,23 @@ export class LoginComponent implements OnInit {
     this.user.password = this.passwordControl.value
     this.userService.login(this.user).subscribe({
       next: (authentication: any) => {
+        const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
         localStorage.setItem('token', authentication.token)
         const expires = new Date()
         expires.setHours(expires.getHours() + 8)
         this.cookieService.put('token', authentication.token, { expires })
         sessionStorage.setItem('bid', authentication.bid)
-        this.basketService.updateNumberOfCartItems()
-        this.userService.isLoggedIn.next(true)
-        this.ngZone.run(async () => await this.router.navigate(['/search']))
+
+        this.basketService.mergeGuestBasketIntoUserBasket(authentication.bid)
+          .pipe(
+            catchError((err) => {
+              console.log(err)
+              return of(void 0)
+            })
+          )
+          .subscribe(() => {
+            this.completeLogin(redirectUrl)
+          })
       },
       error: ({ error }) => {
         if (error.status && error.data && error.status === 'totp_token_required') {
@@ -128,6 +140,12 @@ export class LoginComponent implements OnInit {
     } else {
       localStorage.removeItem('email')
     }
+  }
+
+  private completeLogin (redirectUrl: string): void {
+    this.basketService.updateNumberOfCartItems()
+    this.userService.isLoggedIn.next(true)
+    this.ngZone.run(async () => await this.router.navigateByUrl(redirectUrl))
   }
 
   googleLogin () {
