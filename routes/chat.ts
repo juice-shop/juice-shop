@@ -15,6 +15,7 @@ import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
+import { roles } from '../lib/insecurity'
 import logger from '../lib/logger'
 
 function summarizeLlmError (error: unknown): string {
@@ -148,6 +149,12 @@ export function chat () {
             res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
             break
           case 'tool-call':
+            challengeUtils.solveIf(challenges.aiDebuggingChallenge, () => {
+              const token = utils.jwtFrom(req)
+              const decoded = token ? security.decode(token) as { data?: { role?: string } } : undefined
+              const role = decoded?.data?.role
+              return req.cookies.show_tool_calls === 'true' && role !== roles.admin
+            })
             res.write(`data: ${JSON.stringify({
               choices: [{
                 delta: {

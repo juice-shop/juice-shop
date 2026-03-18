@@ -347,3 +347,6 @@ ctf:
     chatbotGreedyInjectionChallenge:
       name: Norway
       code: NO
+    aiDebuggingChallenge:
+      name: Iceland
+      code: IS

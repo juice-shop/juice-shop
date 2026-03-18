@@ -13,7 +13,6 @@ import { ConfigurationService } from '../../Services/configuration.service'
 import { CookieService } from 'ngy-cookie'
 import { UserService } from '../../Services/user.service'
 import { LoginGuard } from '../../app.guard'
-import { roles } from '../../roles'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 import { type ChatMessage, type StoredConversation } from '../chat.model'
 
@@ -65,9 +64,7 @@ export class ChatConversationComponent implements OnInit {
       error: (err) => { console.log(err) }
     })
 
-    const payload = this.loginGuard.tokenDecode()
-    const isAdmin = payload?.data && payload.data.role === roles.admin
-    this.showToolCalls.set(isAdmin && this.cookieService.get('show_tool_calls') === 'true')
+    this.showToolCalls.set(this.cookieService.get('show_tool_calls') === 'true')
 
     this.conversationId = this.route.snapshot.params['id']
     const existing = this.conversationStorage.getById(this.conversationId)

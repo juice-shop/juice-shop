@@ -37,7 +37,7 @@ export const domainDependencies: Record<string, Dependency> = {
   [config.get<string>('application.chatBot.llmApiUrl')]: {
     dependency: 'LLM API',
     documentation: 'https://howto-llm.owasp-juice.shop',
-    dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+    dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge', '"AI Debugging" challenge']
   }
 }
 
@@ -83,14 +83,14 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     variableDependencies[llmModel] = {
       dependency: 'LLM Model',
       documentation: 'https://howto-llm.owasp-juice.shop',
-      dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+      dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge', '"AI Debugging" challenge']
     }
     preconditionResults[llmModel] = llmModelAvailable
     if (!isOllamaUrl(llmApiUrl)) {
       variableDependencies.LLM_API_KEY = {
         dependency: 'LLM API Key',
         documentation: 'https://howto-llm.owasp-juice.shop',
-        dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
+        dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge', '"AI Debugging" challenge']
       }
       llmApiKeyEnvVarExists = checkIfEnvironmentVariableExists('LLM_API_KEY')
       preconditionResults.LLM_API_KEY = llmApiKeyEnvVarExists
