@@ -81,7 +81,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
     const llmModel = config.get<string>('application.chatBot.model')
     llmModelAvailable = await checkIfLlmModelAvailable(llmApiUrl)
     variableDependencies[llmModel] = {
-      dependency: `LLM Model`,
+      dependency: 'LLM Model',
       documentation: 'https://howto-llm.owasp-juice.shop',
       dependentChallenges: ['"Chatbot Prompt Injection" challenge', '"Greedy Chatbot Manipulation" challenge']
     }
