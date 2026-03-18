@@ -41,11 +41,12 @@ describe('SecurityQuestionService', () => {
       let res: any
       service.findBy('x@y.z').subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/user/security-question?email=x@y.z')
-      req.flush({ question: 'apiResponse' })
+      req.flush({ question: 'apiResponse', mode: 'question' })
       tick()
 
       expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
+      expect(res.question).toBe('apiResponse')
+      expect(res.mode).toBe('question')
       httpMock.verify()
     })
   ))

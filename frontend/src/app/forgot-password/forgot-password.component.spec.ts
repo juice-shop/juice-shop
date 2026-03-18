@@ -29,7 +29,7 @@ describe('ForgotPasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['findBy'])
-    securityQuestionService.findBy.and.returnValue(of({}))
+    securityQuestionService.findBy.and.returnValue(of({ question: 'Your eldest siblings middle name?', mode: 'question' }))
     userService = jasmine.createSpyObj('UserService', ['resetPassword'])
     userService.resetPassword.and.returnValue(of({}))
 
@@ -157,11 +157,23 @@ describe('ForgotPasswordComponent', () => {
   }))
 
   it('should find the security question of a user with a known email address', fakeAsync(() => {
-    securityQuestionService.findBy.and.returnValue(of({ question: 'What is your favorite test tool?' }))
+    securityQuestionService.findBy.and.returnValue(of({ question: 'What is your favorite test tool?', mode: 'question' }))
     component.emailControl.setValue('known@user.test')
     tick(component.timeoutDuration)
     component.findSecurityQuestion()
     expect(component.securityQuestion).toBe('What is your favorite test tool?')
+    expect(component.resetMode).toBe('question')
+    flush()
+  }))
+
+  it('should switch to token reset mode for privileged accounts', fakeAsync(() => {
+    securityQuestionService.findBy.and.returnValue(of({ mode: 'token' }))
+    component.emailControl.setValue('admin@user.test')
+    tick(component.timeoutDuration)
+    component.findSecurityQuestion()
+    expect(component.resetMode).toBe('token')
+    expect(component.securityQuestion).toBeUndefined()
+    expect(component.securityQuestionControl.enabled).toBe(true)
     flush()
   }))
 

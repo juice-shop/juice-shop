@@ -41,6 +41,7 @@ export class ForgotPasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
   public repeatPasswordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestion?: string
+  public resetMode: 'question' | 'token' = 'question'
   public error?: string
   public confirmation?: string
   public timeoutDuration = 1000
@@ -53,12 +54,21 @@ export class ForgotPasswordComponent {
       if (this.emailControl.value) {
         this.securityQuestionService.findBy(this.emailControl.value).subscribe({
           next: (securityQuestion: SecurityQuestion) => {
-            if (securityQuestion) {
+            if (securityQuestion?.mode === 'token') {
+              this.resetMode = 'token'
+              this.securityQuestion = undefined
+              this.securityQuestionControl.enable()
+              this.passwordControl.enable()
+              this.repeatPasswordControl.enable()
+            } else if (securityQuestion?.question) {
+              this.resetMode = 'question'
               this.securityQuestion = securityQuestion.question
               this.securityQuestionControl.enable()
               this.passwordControl.enable()
               this.repeatPasswordControl.enable()
             } else {
+              this.resetMode = 'question'
+              this.securityQuestion = undefined
               this.securityQuestionControl.disable()
               this.passwordControl.disable()
               this.repeatPasswordControl.disable()
@@ -68,6 +78,8 @@ export class ForgotPasswordComponent {
         }
         )
       } else {
+        this.resetMode = 'question'
+        this.securityQuestion = undefined
         this.securityQuestionControl.disable()
         this.passwordControl.disable()
         this.repeatPasswordControl.disable()
@@ -76,12 +88,19 @@ export class ForgotPasswordComponent {
   }
 
   resetPassword () {
-    this.userService.resetPassword({
+    const params: any = {
       email: this.emailControl.value,
-      answer: this.securityQuestionControl.value,
       new: this.passwordControl.value,
       repeat: this.repeatPasswordControl.value
-    }).subscribe({
+    }
+
+    if (this.resetMode === 'token') {
+      params.token = this.securityQuestionControl.value
+    } else {
+      params.answer = this.securityQuestionControl.value
+    }
+
+    this.userService.resetPassword(params).subscribe({
       next: () => {
         this.error = undefined
         this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe({

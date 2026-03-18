@@ -146,6 +146,9 @@ ctf:
     resetPasswordBenderChallenge:
       name: Moldova
       code: MD
+    resetPasswordAdminChallenge:
+      name: Romania
+      code: RO
     resetPasswordMortyChallenge:
       name: Czech Republic
       code: CZ

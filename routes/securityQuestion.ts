@@ -7,11 +7,18 @@ import { type Request, type Response, type NextFunction } from 'express'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import { UserModel } from '../models/user'
 import { SecurityQuestionModel } from '../models/securityQuestion'
+import { isTokenResetAccount, issueResetPasswordToken } from '../lib/resetPasswordTokens'
 
 export function securityQuestion () {
   return async ({ query }: Request, res: Response, next: NextFunction) => {
     const email = query.email
+    const emailAddress = email?.toString()
     try {
+      if (emailAddress && isTokenResetAccount(emailAddress)) {
+        await issueResetPasswordToken(emailAddress)
+        res.json({ mode: 'token' })
+        return
+      }
       const answer = await SecurityAnswerModel.findOne({
         include: [{
           model: UserModel,
@@ -20,7 +27,7 @@ export function securityQuestion () {
       })
       if (answer != null) {
         const question = await SecurityQuestionModel.findByPk(answer.SecurityQuestionId)
-        res.json({ question })
+        res.json({ mode: 'question', question })
       } else {
         res.json({})
       }

@@ -11,15 +11,17 @@ import { SecurityAnswerModel } from '../models/securityAnswer'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges, users } from '../data/datacache'
 import * as security from '../lib/insecurity'
+import { isTokenResetAccount, verifyResetPasswordToken } from '../lib/resetPasswordTokens'
 import { UserModel } from '../models/user'
 
 export function resetPassword () {
   return async ({ body, connection }: Request, res: Response, next: NextFunction) => {
     const email = body.email
     const answer = body.answer
+    const token = body.token
     const newPassword = body.new
     const repeatPassword = body.repeat
-    if (!email || !answer) {
+    if (!email || (!answer && !token)) {
       next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
       return
     }
@@ -32,6 +34,22 @@ export function resetPassword () {
       return
     }
     try {
+      const user = await UserModel.findOne({ where: { email } })
+      if (isTokenResetAccount(email)) {
+        if (user && token && await verifyResetPasswordToken(email, token)) {
+          const updatedUser = await user.update({ password: newPassword })
+          verifyResetTokenChallenges(updatedUser)
+          res.json({ user: updatedUser })
+        } else {
+          res.status(401).send(res.__('Wrong password reset token.'))
+        }
+        return
+      }
+      if (!answer) {
+        next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
+        return
+      }
+
       const data = await SecurityAnswerModel.findOne({
         include: [{
           model: UserModel,
@@ -52,6 +70,12 @@ export function resetPassword () {
       next(error)
     }
   }
+}
+
+function verifyResetTokenChallenges (user: UserModel) {
+  challengeUtils.solveIf(challenges.resetPasswordAdminChallenge, () => {
+    return user.id === users.admin.id
+  })
 }
 
 function verifySecurityAnswerChallenges (user: UserModel, answer: string) {

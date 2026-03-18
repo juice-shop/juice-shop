@@ -61,8 +61,19 @@ describe('/rest/user/security-question', () => {
   it('GET security question for an existing user\'s email address', () => {
     return frisby.get(`${REST_URL}/user/security-question?email=jim@${config.get<string>('application.domain')}`)
       .expect('status', 200)
-      .expect('json', 'question', {
-        question: 'Your eldest siblings middle name?'
+      .expect('json', {
+        mode: 'question',
+        question: {
+          question: 'Your eldest siblings middle name?'
+        }
+      })
+  })
+
+  it('GET security question switches admin account lookup into token mode', () => {
+    return frisby.get(`${REST_URL}/user/security-question?email=admin@${config.get<string>('application.domain')}`)
+      .expect('status', 200)
+      .expect('json', {
+        mode: 'token'
       })
   })
 

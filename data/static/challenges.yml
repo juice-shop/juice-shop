@@ -982,6 +982,17 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: resetPasswordJimChallenge
 -
+  name: 'Reset Admin''s Password'
+  category: 'Broken Authentication'
+  description: 'Reset the password of the administrator via the <a href="/#/forgot-password">Forgot Password</a> mechanism by leaking a token that should never have been exposed.'
+  difficulty: 3
+  hints:
+    - 'The forgot-password flow does not necessarily use the same recovery mechanism for every account type.'
+    - 'Try entering an administrator email address into the reset form and compare the UI with a normal customer account.'
+    - 'If a reset token gets generated server-side, see whether some internal support-related data exposes it.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html'
+  key: resetPasswordAdminChallenge
+-
   name: 'Reset Morty''s Password'
   category: 'Broken Anti Automation'
   tags:

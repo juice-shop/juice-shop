@@ -5,11 +5,15 @@
 
 import * as frisby from 'frisby'
 import config from 'config'
+import * as security from '../../lib/insecurity'
+import { extractResetPasswordToken } from '../../lib/resetPasswordTokens'
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
+const unchangedAdminPassword = `admin${123}`
 
 const jsonHeader = { 'content-type': 'application/json' }
+const authHeader = { Authorization: `Bearer ${security.authorize()}`, 'content-type': 'application/json' }
 
 describe('/rest/user/change-password', () => {
   it('GET password change for newly created user with recognized token as Authorization header', () => {
@@ -104,6 +108,36 @@ describe('/rest/user/change-password', () => {
 })
 
 describe('/rest/user/reset-password', () => {
+  it('POST password reset for Admin with token leaked via complaints', () => {
+    const email = 'admin@' + config.get<string>('application.domain')
+    return frisby.get(`${REST_URL}/user/security-question?email=${email}`)
+      .expect('status', 200)
+      .expect('json', { mode: 'token' })
+      .then(() => frisby.get(`${API_URL}/Complaints`, { headers: authHeader })
+        .expect('status', 200)
+        .then(({ json }) => {
+          const complaint = [...json.data].reverse().find((entry: { message?: string }) => entry.message?.includes(email))
+          if (!complaint) {
+            throw new Error(`No leaked reset token complaint found for ${email}`)
+          }
+          const token = extractResetPasswordToken(complaint?.message)
+          if (!token?.match(/^[a-f0-9]{32}$/)) {
+            throw new Error('Leaked admin reset token is missing or malformed')
+          }
+
+          return frisby.post(REST_URL + '/user/reset-password', {
+            headers: jsonHeader,
+            body: {
+              email,
+              token,
+              new: unchangedAdminPassword,
+              repeat: unchangedAdminPassword
+            }
+          })
+            .expect('status', 200)
+        }))
+  })
+
   it('POST password reset for Jim with correct answer to his security question', () => {
     return frisby.post(REST_URL + '/user/reset-password', {
       headers: jsonHeader,
@@ -181,6 +215,23 @@ describe('/rest/user/reset-password', () => {
     })
       .expect('status', 401)
       .expect('bodyContains', 'Wrong answer to security question.')
+  })
+
+  it('POST password reset for Admin with wrong token', () => {
+    const email = 'admin@' + config.get<string>('application.domain')
+    return frisby.get(`${REST_URL}/user/security-question?email=${email}`)
+      .expect('status', 200)
+      .then(() => frisby.post(REST_URL + '/user/reset-password', {
+        headers: jsonHeader,
+        body: {
+          email,
+          token: 'definitely-wrong-token',
+          new: unchangedAdminPassword,
+          repeat: unchangedAdminPassword
+        }
+      })
+        .expect('status', 401)
+        .expect('bodyContains', 'Wrong password reset token.'))
   })
 
   it('POST password reset without any data is blocked', () => {
