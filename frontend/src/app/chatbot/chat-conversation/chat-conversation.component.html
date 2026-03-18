@@ -15,7 +15,7 @@
       } @else {
         <span class="message-content">{{ message.content }}</span>
       }
-      @if (message.tool_calls?.length) {
+      @if (message.tool_calls?.length && showToolCalls()) {
         @for (tool of message.tool_calls; track tool.id) {
           <div class="tool-call-card">
             <mat-icon class="tool-icon">build</mat-icon>

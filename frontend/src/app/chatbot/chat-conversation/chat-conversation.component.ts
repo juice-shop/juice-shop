@@ -10,6 +10,10 @@ import { TranslateModule } from '@ngx-translate/core'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
 import { ConfigurationService } from '../../Services/configuration.service'
+import { CookieService } from 'ngy-cookie'
+import { UserService } from '../../Services/user.service'
+import { LoginGuard } from '../../app.guard'
+import { roles } from '../../roles'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 import { type ChatMessage, type StoredConversation } from '../chat.model'
 
@@ -30,6 +34,9 @@ export class ChatConversationComponent implements OnInit {
   private readonly chatService = inject(ChatService)
   private readonly conversationStorage = inject(ConversationStorageService)
   private readonly configurationService = inject(ConfigurationService)
+  private readonly cookieService = inject(CookieService)
+  private readonly userService = inject(UserService)
+  private readonly loginGuard = inject(LoginGuard)
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly injector = inject(Injector)
@@ -38,6 +45,7 @@ export class ChatConversationComponent implements OnInit {
 
   messages = signal<ChatMessage[]>([])
   isLoading = signal(false)
+  showToolCalls = signal(false)
   messageInput = signal('')
   chatBotName = signal('Juicy')
   chatBotAvatar = signal('assets/public/images/JuicyBot.png')
@@ -56,6 +64,10 @@ export class ChatConversationComponent implements OnInit {
       },
       error: (err) => { console.log(err) }
     })
+
+    const payload = this.loginGuard.tokenDecode()
+    const isAdmin = payload?.data && payload.data.role === roles.admin
+    this.showToolCalls.set(isAdmin && this.cookieService.get('show_tool_calls') === 'true')
 
     this.conversationId = this.route.snapshot.params['id']
     const existing = this.conversationStorage.getById(this.conversationId)
