@@ -9,6 +9,11 @@ import { ActivatedRoute } from '@angular/router'
 import { ChatConversationComponent } from './chat-conversation.component'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { ConfigurationService } from '../../Services/configuration.service'
+import { UserService } from '../../Services/user.service'
+import { LoginGuard } from '../../app.guard'
+import { CookieService } from 'ngy-cookie'
+import { of } from 'rxjs'
 import { ChatInputBoxComponent } from '../chat-input-box/chat-input-box.component'
 
 describe('ChatConversationComponent', () => {
@@ -16,12 +21,21 @@ describe('ChatConversationComponent', () => {
   let fixture: ComponentFixture<ChatConversationComponent>
   let chatService: jasmine.SpyObj<ChatService>
   let conversationStorage: jasmine.SpyObj<ConversationStorageService>
+  let configurationService: jasmine.SpyObj<ConfigurationService>
+  let userService: jasmine.SpyObj<UserService>
+  let loginGuard: jasmine.SpyObj<LoginGuard>
+  let cookieService: jasmine.SpyObj<CookieService>
 
   beforeEach(() => {
     chatService = jasmine.createSpyObj('ChatService', ['streamMessages'])
     conversationStorage = jasmine.createSpyObj('ConversationStorageService', ['getById', 'save', 'generateTitle'])
     conversationStorage.getById.and.returnValue(undefined)
     conversationStorage.generateTitle.and.callFake((msg: string) => msg.substring(0, 50))
+    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { chatBot: { name: 'Juicy', avatar: 'JuicyBot.png' } } } as any))
+    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
+    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
+    cookieService = jasmine.createSpyObj('CookieService', ['get', 'put'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -31,6 +45,10 @@ describe('ChatConversationComponent', () => {
       providers: [
         { provide: ChatService, useValue: chatService },
         { provide: ConversationStorageService, useValue: conversationStorage },
+        { provide: ConfigurationService, useValue: configurationService },
+        { provide: UserService, useValue: userService },
+        { provide: LoginGuard, useValue: loginGuard },
+        { provide: CookieService, useValue: cookieService },
         {
           provide: ActivatedRoute,
           useValue: {
