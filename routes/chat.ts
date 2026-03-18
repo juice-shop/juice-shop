@@ -46,6 +46,13 @@ async function getUserNameFromToken (req: Request): Promise<string | undefined> 
   return user?.username ?? undefined
 }
 
+export function isAiDebuggingExploited (req: Request): boolean {
+  const token = utils.jwtFrom(req)
+  const decoded = token ? security.decode(token) as { data?: { role?: string } } : undefined
+  const role = decoded?.data?.role
+  return req.cookies.show_tool_calls === 'true' && role !== roles.admin
+}
+
 // vuln-code-snippet start chatbotGreedyInjectionChallenge
 function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
@@ -149,12 +156,7 @@ export function chat () {
             res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
             break
           case 'tool-call':
-            challengeUtils.solveIf(challenges.aiDebuggingChallenge, () => {
-              const token = utils.jwtFrom(req)
-              const decoded = token ? security.decode(token) as { data?: { role?: string } } : undefined
-              const role = decoded?.data?.role
-              return req.cookies.show_tool_calls === 'true' && role !== roles.admin
-            })
+            challengeUtils.solveIf(challenges.aiDebuggingChallenge, () => isAiDebuggingExploited(req))
             res.write(`data: ${JSON.stringify({
               choices: [{
                 delta: {
