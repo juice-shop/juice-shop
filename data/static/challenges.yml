@@ -1550,8 +1550,8 @@
   difficulty: 2
   hints:
     - 'The chatbot has a debugging feature that shows how it interacts with its tools. It is only supposed to be visible for admins.'
-    - 'Did you notice that sometimes an empty "response bubble" already appears while the chatbot is still thinking? Might be worth inspecting.'
     - 'Access control for the debugging feature is only implemented on the client-side.'
     - 'Find the cookie that controls the visibility of tool calls and set it to <code>true</code>.'
+    - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
   key: aiDebuggingChallenge
