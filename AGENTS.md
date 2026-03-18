@@ -22,7 +22,7 @@ This file provides guidelines for AI agents and automated code assistants that d
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
 - **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Jest/Frisby (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -45,7 +45,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#important-constraints) for the full context.
 - `data/` - Data creation and management (`data/static/` for challenges, users, codefixes)
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
 - `test/server/` - Server unit tests (Mocha/Chai/Sinon)
-- `test/api/` - API integration tests (Jest/Frisby)
+- `test/api/` - API integration tests (Supertest)
 - `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
@@ -71,7 +71,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#recommended-use-cases) for the full list. In
 See [CLAUDE.md](./.claude/CLAUDE.md#testing-requirements) for detailed guidelines. Essential checklist:
 
 - **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/))
-- **Tests**: `npm test`, `npm run frisby`, `npm run cypress:run` (all must pass)
+- **Tests**: `npm test`, `npm run test:api`, `npm run cypress:run` (all must pass)
 - **RSN**: `npm run rsn` (required if modifying challenge-related code)
 - **No AI noise**: Remove verbose/redundant comments
 - **Sign-off**: `git commit -s` (DCO required)
@@ -113,7 +113,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#anti-patterns-to-avoid) for detailed explana
 See [CLAUDE.md](./.claude/CLAUDE.md#quality-checklist) for the full checklist. Before submitting:
 
 - [ ] ESLint passes (`npm run lint`)
-- [ ] Tests pass (`npm test`, `npm run frisby`)
+- [ ] Tests pass (`npm test`, `npm run test:api`)
 - [ ] RSN passes if applicable (`npm run rsn`)
 - [ ] AI noise removed, meaningful comments only
 - [ ] Commits signed off (`git commit -s`)
@@ -138,10 +138,10 @@ git commit -s     # Sign-off commit
 - If changes are intentional, update cache: `npm run rsn:update`
 - IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
 
-**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Jest/Frisby (API), Jasmine/Karma (frontend unit), Cypress (E2E)
+**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Jasmine/Karma (frontend unit), Cypress (E2E)
 - `npm test` - Run frontend unit tests + server unit tests
 - `npm run test:server` - Server unit tests only (Mocha)
-- `npm run frisby` (or `npm run test:api`) - API integration tests only (Jest/Frisby)
+- `npm run test:api`) - API integration tests only (Supertest)
 - `npm run cypress:run` (or `npm run test:e2e`) - E2E tests (Cypress)
 
 ## Contribution Guidelines Summary
@@ -169,4 +169,3 @@ AI agents are productivity tools for enhancing development. You (or the person r
 **For comprehensive guidelines, see [CLAUDE.md](./.claude/CLAUDE.md).**
 
 **Last Updated**: March 2026
-

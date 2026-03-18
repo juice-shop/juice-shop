@@ -132,7 +132,7 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 3
-          command: npm run frisby
+          command: npm run test:api
       - name: "Copy API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22'
         run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
