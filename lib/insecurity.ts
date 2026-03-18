@@ -12,6 +12,7 @@ import jwt from 'jsonwebtoken'
 import jws from 'jws'
 import sanitizeHtmlLib from 'sanitize-html'
 import sanitizeFilenameLib from 'sanitize-filename'
+import bcrypt from 'bcrypt'
 import * as utils from './utils'
 
 /* jslint node: true */
@@ -40,7 +41,14 @@ interface IAuthenticatedUsers {
   updateFrom: (req: Request, user: ResponseWithUser) => any
 }
 
-export const hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')
+const SALT_ROUNDS = 12
+export const hash = async (data: string): Promise<string> => {
+    return await bcrypt.hash(data, SALT_ROUNDS)
+}
+export const verifyHash = async (data: string, hash: string): Promise<boolean> => {
+    return await bcrypt.compare(data, hash)
+}
+
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
 
 export const cutOffPoisonNullByte = (str: string) => {
@@ -132,13 +140,23 @@ export const redirectAllowlist = new Set([
   'http://leanpub.com/juice-shop'
 ])
 
-export const isRedirectAllowed = (url: string) => {
-  let allowed = false
-  for (const allowedUrl of redirectAllowlist) {
-    allowed = allowed || url.includes(allowedUrl) // vuln-code-snippet vuln-line redirectChallenge
+export const isRedirectAllowed = (url: string): boolean => {
+  try {
+    const targetUrl = new URL(url)
+    for (const allowedUrl of redirectAllowlist) {
+      const allowed = new URL(allowedUrl)
+      // сравниваем только протокол + хост, а не всю строку
+      if (targetUrl.origin === allowed.origin &&
+          targetUrl.pathname.startsWith(allowed.pathname)) {
+        return true
+      }
+    }
+  } catch {
+    return false // невалидный URL — отклонить
   }
-  return allowed
+  return false
 }
+
 // vuln-code-snippet end redirectCryptoCurrencyChallenge redirectChallenge
 
 export const roles = {
