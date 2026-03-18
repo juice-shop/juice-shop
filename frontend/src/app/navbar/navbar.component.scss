@@ -52,8 +52,8 @@ mat-toolbar {
 }
 
 .warn-notification {
-  font-size: 47px;
   left: 15px;
+  text-overflow: clip;
   top: -15px;
 }
 

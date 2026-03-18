@@ -36,6 +36,38 @@ export class ProductComponent {
   isDeluxe = input.required<boolean>()
 
   addToBasket(id?: number) {
+    if (id == null) {
+      return
+    }
+
+    if (!this.isLoggedIn()) {
+      this.basketService.addToGuestBasket(id)
+      this.productService.get(id).subscribe({
+        next: (product) => {
+          this.translateService
+            .get('BASKET_ADD_PRODUCT', { product: product.name })
+            .subscribe({
+              next: (basketAddProduct) => {
+                this.snackBarHelperService.open(
+                  basketAddProduct,
+                  'confirmBar'
+                )
+              },
+              error: (translationId) => {
+                this.snackBarHelperService.open(
+                  translationId,
+                  'confirmBar'
+                )
+              }
+            })
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+      return
+    }
+
     this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
       next: (basket) => {
         const productsInBasket: any = basket.Products
