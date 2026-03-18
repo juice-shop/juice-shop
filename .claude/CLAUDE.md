@@ -16,7 +16,7 @@ Claude can assist with various development tasks, but all contributions must sti
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
 - **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Jest/Frisby (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -29,7 +29,7 @@ Claude can assist with various development tasks, but all contributions must sti
 - `data/` - Data creation and management (`data/static/` for challenges, users, codefixes)
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
 - `test/server/` - Server unit tests (Mocha/Chai/Sinon)
-- `test/api/` - API integration tests (Jest/Frisby)
+- `test/api/` - API integration tests (Supertest)
 - `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
@@ -101,7 +101,7 @@ For any code changes Claude helps with:
   ```bash
   npm test                    # Frontend unit tests (Jasmine/Karma) + server unit tests (Mocha)
   npm run test:server         # Server unit tests only (Mocha/Chai/Sinon)
-  npm run frisby              # API integration tests (Jest/Frisby), alias: npm run test:api
+  npm run test:api              # API integration tests (Supertest), alias: npm run test:api
   npm start & npm run cypress:run  # E2E tests (Cypress), alias: npm run test:e2e
   npm run rsn                 # Refactoring Safety Net (for code changes impacting coding challenge snippets)
   ```
