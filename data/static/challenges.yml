@@ -1541,3 +1541,17 @@
     - 'The chatbot trusts whatever discount value it decides to pass to its tool. Make it decide on a very generous number.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
   key: chatbotGreedyInjectionChallenge
+-
+  name: 'AI Debugging'
+  category: 'Broken Access Control'
+  tags:
+    - AI/LLM
+  description: 'Reveal some behind-the-scenes information on the chatbot as a non-admin user.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a debugging feature that shows how it interacts with its tools. It is only supposed to be visible for admins.'
+    - 'Did you notice that sometimes an empty "response bubble" already appears while the chatbot is still thinking? Might be worth inspecting.'
+    - 'Access control for the debugging feature is only implemented on the client-side.'
+    - 'Find the cookie that controls the visibility of tool calls and set it to <code>true</code>.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
+  key: aiDebuggingChallenge

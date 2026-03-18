@@ -205,4 +205,13 @@ describe('ChatConversationComponent', () => {
 
     expect(chatInputComponent.focus).toHaveBeenCalledTimes(2)
   })
+  it('should initialize showToolCalls based on cookie only', () => {
+    cookieService.get.and.returnValue('true')
+    component.ngOnInit()
+    expect(component.showToolCalls()).toBeTrue()
+
+    cookieService.get.and.returnValue('false')
+    component.ngOnInit()
+    expect(component.showToolCalls()).toBeFalse()
+  })
 })
