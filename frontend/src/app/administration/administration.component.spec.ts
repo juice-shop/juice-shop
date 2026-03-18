@@ -8,6 +8,7 @@ import { FeedbackDetailsComponent } from '../feedback-details/feedback-details.c
 
 import { FeedbackService } from '../Services/feedback.service'
 import { UserService } from '../Services/user.service'
+import { CookieService } from 'ngy-cookie'
 import { type ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing'
 
 import { AdministrationComponent } from './administration.component'
@@ -29,6 +30,7 @@ describe('AdministrationComponent', () => {
   let dialog: any
   let userService: any
   let feedbackService: any
+  let cookieService: jasmine.SpyObj<CookieService>
 
   beforeEach(waitForAsync(() => {
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
@@ -38,6 +40,8 @@ describe('AdministrationComponent', () => {
     feedbackService = jasmine.createSpyObj('FeedbackService', ['find', 'del'])
     feedbackService.find.and.returnValue(of([{ comment: 'Feedback1' }, { comment: 'Feedback2' }]))
     feedbackService.del.and.returnValue(of(null))
+    cookieService = jasmine.createSpyObj('CookieService', ['get', 'put'])
+    cookieService.get.and.returnValue('false')
 
     TestBed.configureTestingModule({
       imports: [MatTableModule,
@@ -52,6 +56,7 @@ describe('AdministrationComponent', () => {
         { provide: MatDialog, useValue: dialog },
         { provide: UserService, useValue: userService },
         { provide: FeedbackService, useValue: feedbackService },
+        { provide: CookieService, useValue: cookieService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting()
       ]
@@ -140,5 +145,25 @@ describe('AdministrationComponent', () => {
     expect(component.feedbackColumns[1]).toBe('comment')
     expect(component.feedbackColumns[2]).toBe('rating')
     expect(component.feedbackColumns[3]).toBe('remove')
+  })
+
+  it('should initialize showToolCalls based on cookie', () => {
+    cookieService.get.and.returnValue('true')
+    component.ngOnInit()
+    expect(component.showToolCalls()).toBeTrue()
+
+    cookieService.get.and.returnValue('false')
+    component.ngOnInit()
+    expect(component.showToolCalls()).toBeFalse()
+  })
+
+  it('should toggle showToolCalls and update cookie', () => {
+    component.toggleShowToolCalls({ checked: true })
+    expect(component.showToolCalls()).toBeTrue()
+    expect(cookieService.put).toHaveBeenCalledWith('show_tool_calls', 'true', jasmine.any(Object))
+
+    component.toggleShowToolCalls({ checked: false })
+    expect(component.showToolCalls()).toBeFalse()
+    expect(cookieService.put).toHaveBeenCalledWith('show_tool_calls', 'false', jasmine.any(Object))
   })
 })
