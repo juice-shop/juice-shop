@@ -101,6 +101,28 @@ export const generateCoupon = (discount: number, date = new Date()) => {
   return z85.encode(coupon)
 }
 
+// Generates predictable reset token based on email + current date
+// Intentionally insecure for challenge purposes
+export const generateResetToken = (email: string, date = new Date()) => {
+  const yyyy = date.getFullYear()
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const dd = String(date.getDate()).padStart(2, '0')
+
+  const payload = `${email}${yyyy}-${mm}-${dd}`
+
+  return z85.encode(payload)
+}
+
+// Decodes predictable reset token (returns empty string for invalid input)
+export const decodeResetToken = (token: string): string => {
+  try {
+    const decoded = z85.decode(token)
+    return decoded ? decoded.toString() : ''
+  } catch {
+    return ''
+  }
+}
+
 export const discountFromCoupon = (coupon?: string) => {
   if (!coupon) {
     return undefined
