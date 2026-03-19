@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 @if (notifications.length > 0) {
-<div class="container challenge-solved-toast mat-elevation-z4">
+<div class="container challenge-solved-toast notification-panel mat-elevation-z4" role="region" aria-live="polite">
   @for (notification of notifications; track notification.key) {
     <mat-card appearance="outlined" class="accent-notification">
       <div class="mdc-card">

@@ -124,6 +124,17 @@ describe('ChallengeSolvedNotificationComponent', () => {
     expect(component.notifications).toEqual([{ key: 'test', message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined, codingChallenge: false }])
   }))
 
+  it('should render solved notifications inside the notification panel', fakeAsync(() => {
+    translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
+    component.notifications = []
+    component.showNotification({ key: 'test', challenge: 'Test', flag: '1234' })
+    tick()
+    fixture.detectChanges()
+
+    const panel = fixture.nativeElement.querySelector('.notification-panel')
+    expect(panel).not.toBeNull()
+  }))
+
   it('should store retrieved continue code as cookie for 1 year', () => {
     challengeService.continueCode.and.returnValue(of('12345'))
 

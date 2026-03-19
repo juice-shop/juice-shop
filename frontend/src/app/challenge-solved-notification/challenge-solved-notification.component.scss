@@ -10,6 +10,18 @@
   margin: $space-l;
 }
 
+.challenge-solved-toast {
+  box-sizing: border-box;
+  left: 0;
+  margin-top: 0;
+  max-height: calc(100vh - $navbar-height - (2 * #{$space-l}));
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  top: calc($navbar-height + $space-l);
+  z-index: 20;
+}
+
 mat-card {
   margin-bottom: $space-s;
 
