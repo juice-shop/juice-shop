@@ -1,0 +1,807 @@
+                     
+                     
+┌───────────────────┐
+│ 120 Code Findings │
+└───────────────────┘
+                                    
+  [36m[22m[24m  cypress.config.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.best-practice.lazy-load-module[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Lazy loading can complicate code bundling if care is not taken, also `require`s are run         
+          synchronously by Node.js. If they are called from within a function, it may block other requests
+          from being handled at a more critical time. The best practice is to `require` modules at the    
+          beginning of each file, before and outside of any functions.                                    
+                                                                                                          
+           39┆ const trainingData = require(`data/chatbot/${utils.extractFilename(
+           40┆   config.get('application.chatBot.trainingData')
+           41┆ )}`)
+                                                               
+  [36m[22m[24m  data/static/codefixes/dbSchemaChallenge_1.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+            5┆ models.sequelize.query("SELECT * FROM Products WHERE ((name LIKE '%"+criteria+"%' OR
+               description LIKE '%"+criteria+"%') AND deletedAt IS NULL) ORDER BY name")           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+            5┆ models.sequelize.query("SELECT * FROM Products WHERE ((name LIKE '%"+criteria+"%' OR
+               description LIKE '%"+criteria+"%') AND deletedAt IS NULL) ORDER BY name")           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+            5┆ models.sequelize.query("SELECT * FROM Products WHERE ((name LIKE '%"+criteria+"%' OR
+               description LIKE '%"+criteria+"%') AND deletedAt IS NULL) ORDER BY name")           
+                                                               
+  [36m[22m[24m  data/static/codefixes/dbSchemaChallenge_3.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+           11┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+           11┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           11┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+                                                                 
+  [36m[22m[24m  data/static/codefixes/restfulXssChallenge_2.ts[0m
+     ❱ [1msemgrep-rules.javascript.audit.detect-replaceall-sanitization[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a call to `replaceAll()` in an attempt to HTML escape the string                        
+          `tableData[i].description`. Manually sanitizing input through a manually built list can be       
+          circumvented in many situations, and it's better to use a well known sanitization library such as
+          `sanitize-html` or `DOMPurify`.                                                                  
+                                                                                                           
+           49┆ tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>',
+               '&gt;')                                                                                    
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.correctness.no-replaceall[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The string method replaceAll is not supported in all versions of javascript, and is not supported by
+          older browser versions. Consider using replace() with a regex as the first argument instead like    
+          mystring.replace(/bad/g, "good") instead of mystring.replaceAll("bad", "good")                      
+          (https://discourse.threejs.org/t/replaceall-is-not-a-function/14585)                                
+                                                                                                              
+           49┆ tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>',
+               '&gt;')                                                                                    
+   
+     ❱ [1msemgrep-rules.javascript.audit.detect-replaceall-sanitization[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a call to `replaceAll()` in an attempt to HTML escape the string                          
+          `tableData[i].description.replaceAll('<', '&lt;')`. Manually sanitizing input through a manually   
+          built list can be circumvented in many situations, and it's better to use a well known sanitization
+          library such as `sanitize-html` or `DOMPurify`.                                                    
+                                                                                                             
+           49┆ tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>',
+               '&gt;')                                                                                    
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.correctness.no-replaceall[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The string method replaceAll is not supported in all versions of javascript, and is not supported by
+          older browser versions. Consider using replace() with a regex as the first argument instead like    
+          mystring.replace(/bad/g, "good") instead of mystring.replaceAll("bad", "good")                      
+          (https://discourse.threejs.org/t/replaceall-is-not-a-function/14585)                                
+                                                                                                              
+           49┆ tableData[i].description = tableData[i].description.replaceAll('<', '&lt;').replaceAll('>',
+               '&gt;')                                                                                    
+                                                                        
+  [36m[22m[24m  data/static/codefixes/unionSqlInjectionChallenge_1.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+            6┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+            6┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+            6┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+                                                                        
+  [36m[22m[24m  data/static/codefixes/unionSqlInjectionChallenge_3.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+           10┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+           10┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           10┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`)           
+                                                            
+  [36m[22m[24m  frontend/src/app/about/about.component.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+          116┆ feedbacks[i].comment = `<figcaption><p class="feedback-comment">${
+          117┆   feedbacks[i].comment
+          118┆ }</p><div class="feedback-stars">(${this.stars[feedbacks[i].rating]})</div></figcaption>`
+                                                                              
+  [36m[22m[24m  frontend/src/app/administration/administration.component.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           60┆ user.email = this.sanitizer.bypassSecurityTrustHtml(`<span        
+               class="${this.doesUserHaveAnActiveSession(user) ? 'confirmation' :
+               'error'}">${user.email}</span>`)                                  
+                                                                            
+  [36m[22m[24m  frontend/src/app/last-login-ip/last-login-ip.component.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           39┆ this.lastLoginIp =                                                                  
+               this.sanitizer.bypassSecurityTrustHtml(`<small>${payload.data.lastLoginIp}</small>`)
+                                                                          
+  [36m[22m[24m  frontend/src/app/track-result/track-result.component.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           48┆ this.results.orderNo =                                                           
+               this.sanitizer.bypassSecurityTrustHtml(`<code>${results.data[0].orderId}</code>`)
+                                                                          
+  [36m[22m[24m  frontend/src/app/web3-sandbox/web3-sandbox.component.ts[0m
+     ❱ [1msemgrep-rules.javascript.lang.correctness.missing-template-string-indicator[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This looks like a JavaScript template string. Are you missing a '$' in front of '{...}'?
+                                                                                                  
+           72┆   code = `// SPDX-License-Identifier: MIT
+           73┆ pragma solidity ^0.8.14;
+           74┆
+           75┆ contract HelloWorld {
+           76┆     function get()public pure returns (string memory){
+           77┆         return 'Hello Contracts';
+           78┆     }
+           79┆ }`
+            ⋮┆----------------------------------------
+           72┆   code = `// SPDX-License-Identifier: MIT
+           73┆ pragma solidity ^0.8.14;
+           74┆
+           75┆ contract HelloWorld {
+           76┆     function get()public pure returns (string memory){
+           77┆         return 'Hello Contracts';
+           78┆     }
+           79┆ }`
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.unsafe-dynamic-method[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Using non-static data to retrieve and run functions from the object is dangerous. If the data is
+          user-controlled, it may allow executing arbitrary code.                                         
+                                                                                                          
+          220┆ const transaction = await contract.functions[func.name](
+          221┆   ...inputs,
+          222┆   transactionOptions
+          223┆ )
+                                                       
+  [36m[22m[24m  frontend/src/assets/private/three.js[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.prototype-pollution.prototype-pollution-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Possibility of prototype polluting assignment detected. By adding or modifying attributes of an     
+          object prototype, it is possible to create attributes that exist on every object, or replace        
+          critical attributes with malicious ones. This can be problematic if the software depends on         
+          existence or non-existence of certain attributes, or uses pre-defined attributes of object prototype
+          (such as hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object   
+          prototype, using an object without prototypes (via Object.create(null) ), blocking modifications of 
+          attributes that resolve to object prototype, using Map instead of object.                           
+                                                                                                              
+          9879┆ sortedAttr[ new_vid * attrSize + k ] = attrArray[ vid * attrSize + k ];
+   
+   ❯❯❱ [1msemgrep-rules.javascript.browser.security.insecure-document-method[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern
+          that can lead to XSS vulnerabilities                                                                
+                                                                                                              
+          11375┆ this.statusDomElement.innerHTML = message;
+   
+   ❯❯❱ [1msemgrep-rules.javascript.browser.security.insecure-innerhtml[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          User controlled data in a `this.statusDomElement.innerHTML` is an anti-pattern that can lead to XSS
+          vulnerabilities                                                                                    
+                                                                                                             
+          11375┆ this.statusDomElement.innerHTML = message;
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.prototype-pollution.prototype-pollution-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Possibility of prototype polluting assignment detected. By adding or modifying attributes of an     
+          object prototype, it is possible to create attributes that exist on every object, or replace        
+          critical attributes with malicious ones. This can be problematic if the software depends on         
+          existence or non-existence of certain attributes, or uses pre-defined attributes of object prototype
+          (such as hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object   
+          prototype, using an object without prototypes (via Object.create(null) ), blocking modifications of 
+          attributes that resolve to object prototype, using Map instead of object.                           
+                                                                                                              
+          22519┆ vka[ offset_morphTarget + 1 ] = v1.y;
+            ⋮┆----------------------------------------
+          22520┆ vka[ offset_morphTarget + 2 ] = v1.z;
+            ⋮┆----------------------------------------
+          22522┆ vka[ offset_morphTarget + 3 ] = v2.x;
+            ⋮┆----------------------------------------
+          22523┆ vka[ offset_morphTarget + 4 ] = v2.y;
+            ⋮┆----------------------------------------
+          22524┆ vka[ offset_morphTarget + 5 ] = v2.z;
+            ⋮┆----------------------------------------
+          22526┆ vka[ offset_morphTarget + 6 ] = v3.x;
+            ⋮┆----------------------------------------
+          22527┆ vka[ offset_morphTarget + 7 ] = v3.y;
+            ⋮┆----------------------------------------
+          22528┆ vka[ offset_morphTarget + 8 ] = v3.z;
+            ⋮┆----------------------------------------
+          22553┆ nka[ offset_morphTarget + 1 ] = n1.y;
+            ⋮┆----------------------------------------
+          22554┆ nka[ offset_morphTarget + 2 ] = n1.z;
+            ⋮┆----------------------------------------
+          22556┆ nka[ offset_morphTarget + 3 ] = n2.x;
+            ⋮┆----------------------------------------
+          22557┆ nka[ offset_morphTarget + 4 ] = n2.y;
+            ⋮┆----------------------------------------
+          22558┆ nka[ offset_morphTarget + 5 ] = n2.z;
+            ⋮┆----------------------------------------
+          22560┆ nka[ offset_morphTarget + 6 ] = n3.x;
+            ⋮┆----------------------------------------
+          22561┆ nka[ offset_morphTarget + 7 ] = n3.y;
+            ⋮┆----------------------------------------
+          22562┆ nka[ offset_morphTarget + 8 ] = n3.z;
+   
+     ❱ [1msemgrep-rules.javascript.lang.correctness.useless-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          `ThreeFont.faces[ family ][ data.cssFontWeight ][ data.cssFontStyle ]` is assigned twice; the first
+          assignment is useless                                                                              
+                                                                                                             
+          28593┆ ThreeFont.faces[ family ][ data.cssFontWeight ][ data.cssFontStyle ] = data;
+          28594┆
+          28595┆ var face = ThreeFont.faces[ family ][ data.cssFontWeight ][ data.cssFontStyle ] = data;
+            ⋮┆----------------------------------------
+     ❱ [1msemgrep-rules.javascript.lang.correctness.useless-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          `coords[ index ++ ]` is assigned twice; the first assignment is useless
+                                                                                 
+          35765┆ coords[ index ++ ] = vertex.x;
+          35766┆ coords[ index ++ ] = vertex.y;
+            ⋮┆----------------------------------------
+          35766┆ coords[ index ++ ] = vertex.y;
+          35767┆ coords[ index ++ ] = vertex.z;
+            ⋮┆----------------------------------------
+          35770┆ coords[ index ++ ] = vertex.x;
+          35771┆ coords[ index ++ ] = vertex.y;
+            ⋮┆----------------------------------------
+          35771┆ coords[ index ++ ] = vertex.y;
+          35772┆ coords[ index ++ ] = vertex.z;
+            ⋮┆----------------------------------------
+     ❱ [1msemgrep-rules.javascript.lang.correctness.useless-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          `_lensFlare.vertices[ i++ ]` is assigned twice; the first assignment is useless
+                                                                                         
+          36961┆ _lensFlare.vertices[ i++ ] = -1; _lensFlare.vertices[ i++ ] = -1;        // vertex
+            ⋮┆----------------------------------------
+          36961┆ _lensFlare.vertices[ i++ ] = -1; _lensFlare.vertices[ i++ ] = -1;        // vertex
+          36962┆ _lensFlare.vertices[ i++ ] = 0;  _lensFlare.vertices[ i++ ] = 0; // uv... etc.
+            ⋮┆----------------------------------------
+          36962┆ _lensFlare.vertices[ i++ ] = 0;  _lensFlare.vertices[ i++ ] = 0; // uv... etc.
+            ⋮┆----------------------------------------
+          36962┆ _lensFlare.vertices[ i++ ] = 0;  _lensFlare.vertices[ i++ ] = 0; // uv... etc.
+          36963┆
+          36964┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = -1;
+            ⋮┆----------------------------------------
+          36964┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = -1;
+            ⋮┆----------------------------------------
+          36964┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = -1;
+          36965┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 0;
+            ⋮┆----------------------------------------
+          36965┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 0;
+            ⋮┆----------------------------------------
+          36965┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 0;
+          36966┆
+          36967┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36967┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36967┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+          36968┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36968┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36968┆ _lensFlare.vertices[ i++ ] = 1;  _lensFlare.vertices[ i++ ] = 1;
+          36969┆
+          36970┆ _lensFlare.vertices[ i++ ] = -1; _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36970┆ _lensFlare.vertices[ i++ ] = -1; _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36970┆ _lensFlare.vertices[ i++ ] = -1; _lensFlare.vertices[ i++ ] = 1;
+          36971┆ _lensFlare.vertices[ i++ ] = 0;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+          36971┆ _lensFlare.vertices[ i++ ] = 0;  _lensFlare.vertices[ i++ ] = 1;
+            ⋮┆----------------------------------------
+     ❱ [1msemgrep-rules.javascript.lang.correctness.useless-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          `_lensFlare.faces[ i++ ]` is assigned twice; the first assignment is useless
+                                                                                      
+          36974┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 1; _lensFlare.faces[ i++ ] = 2;
+            ⋮┆----------------------------------------
+          36974┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 1; _lensFlare.faces[ i++ ] = 2;
+            ⋮┆----------------------------------------
+          36974┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 1; _lensFlare.faces[ i++ ] = 2;
+          36975┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 2; _lensFlare.faces[ i++ ] = 3;
+            ⋮┆----------------------------------------
+          36975┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 2; _lensFlare.faces[ i++ ] = 3;
+            ⋮┆----------------------------------------
+          36975┆ _lensFlare.faces[ i++ ] = 0; _lensFlare.faces[ i++ ] = 2; _lensFlare.faces[ i++ ] = 3;
+                                                                     
+  [36m[22m[24m  frontend/src/hacking-instructor/helpers/helpers.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.prototype-pollution.prototype-pollution-loop[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Possibility of prototype polluting function detected. By adding or modifying attributes of an object
+          prototype, it is possible to create attributes that exist on every object, or replace critical      
+          attributes with malicious ones. This can be problematic if the software depends on existence or non-
+          existence of certain attributes, or uses pre-defined attributes of object prototype (such as        
+          hasOwnProperty, toString or valueOf). Possible mitigations might be: freezing the object prototype, 
+          using an object without prototypes (via Object.create(null) ), blocking modifications of attributes 
+          that resolve to object prototype, using Map instead of object.                                      
+                                                                                                              
+           49┆ replacementValue = replacementValue[property]
+   
+     ❱ [1msemgrep-rules.javascript.lang.correctness.useless-assignment[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          `delay` is assigned twice; the first assignment is useless
+                                                                    
+          153┆ let delay = playbackDelays[config.hackingInstructor.hintPlaybackSpeed]
+          154┆ delay ??= 1.0
+                                                           
+  [36m[22m[24m  frontend/src/hacking-instructor/index.ts[0m
+   ❯❯❱ [1msemgrep-rules.javascript.browser.security.insecure-document-method[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          User controlled data in methods like `innerHTML`, `outerHTML` or `document.write` is an anti-pattern
+          that can lead to XSS vulnerabilities                                                                
+                                                                                                              
+          126┆ textBox.innerHTML = snarkdown(hint.text)
+   
+   ❯❯❱ [1msemgrep-rules.javascript.browser.security.insecure-innerhtml[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          User controlled data in a `textBox.innerHTML` is an anti-pattern that can lead to XSS
+          vulnerabilities                                                                      
+                                                                                               
+          126┆ textBox.innerHTML = snarkdown(hint.text)
+                                          
+  [36m[22m[24m  lib/codingChallenges.ts[0m
+     ❱ [1msemgrep-rules.javascript.lang.correctness.missing-template-string-indicator[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This looks like a JavaScript template string. Are you missing a '$' in front of '{...}'?
+                                                                                                  
+           59┆ const snippets = source.match(`[/#]{0,2} vuln-code-snippet          
+               start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
+            ⋮┆----------------------------------------
+           59┆ const snippets = source.match(`[/#]{0,2} vuln-code-snippet          
+               start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.detect-non-literal-regexp[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          RegExp() called with a `challengeKey` function argument, this might allow an attacker to cause a    
+          Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main      
+          thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on
+          user-controlled input, consider performing input validation or use a regex checking/sanitization    
+          library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear      
+          vulnerable to ReDoS.                                                                                
+                                                                                                              
+           76┆ if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+            ⋮┆----------------------------------------
+           78┆ } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) !=
+               null) {                                                                                   
+                                    
+  [36m[22m[24m  lib/insecurity.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.hardcoded-hmac-key[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a hardcoded hmac key. Avoid hardcoding secrets and consider using an alternate option such
+          as reading the secret from a config file or using an environment variable.                         
+                                                                                                             
+           44┆ export const hmac = (data: string) => crypto.createHmac('sha256',
+               'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')           
+   
+    ❯❱ [1msemgrep-rules.javascript.jsonwebtoken.security.hardcoded-jwt-secret[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          A hard-coded credential was detected. It is not recommended to store credentials in source-code, as
+          this risks secrets being leaked and used by either an internal or external malicious adversary. It 
+          is recommended to use environment variables to securely provide credentials or retrieve credentials
+          from a secure vault or HSM (Hardware Security Module).                                             
+                                                                                                             
+           56┆ export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h',
+               algorithm: 'RS256' })                                                                
+   
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.hardcoded-hmac-key[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a hardcoded hmac key. Avoid hardcoding secrets and consider using an alternate option such
+          as reading the secret from a config file or using an environment variable.                         
+                                                                                                             
+          152┆ const hmac = crypto.createHmac('sha256', privateKey)
+                                                      
+  [36m[22m[24m  lib/startup/customizeApplication.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+           84┆ const title = `<title>${config.get<string>('application.name')}</title>`
+                                                
+  [36m[22m[24m  lib/startup/validateConfig.ts[0m
+     ❱ [1msemgrep-rules.javascript.lang.correctness.missing-template-string-indicator[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This looks like a JavaScript template string. Are you missing a '$' in front of '{...}'?
+                                                                                                  
+          114┆ logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({   
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          114┆ logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({   
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          114┆ logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({   
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          114┆ logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({   
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          114┆ logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({   
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          162┆ logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({  
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          162┆ logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({  
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          162┆ logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({  
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          162┆ logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({  
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+            ⋮┆----------------------------------------
+          162┆ logger.warn(`Memory ${colors.italic(memory.caption)} is used as ${appliedSpecials.map(({  
+               name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge
+               (${colors.red('NOT OK')})`)                                                               
+                                     
+  [36m[22m[24m  routes/b2bOrder.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-detect-notevil-usage[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected usage of the `notevil` package, which is unmaintained and has vulnerabilities. Using any 
+          sort of `eval()` functionality can be very dangerous, but if you must, the `eval` package is an up
+          to date alternative. Be sure that only trusted input reaches an `eval()` function.                
+                                                                                                            
+           23┆ vm.runInContext('safeEval(orderLinesData)', sandbox, { timeout: 2000 })
+                                    
+  [36m[22m[24m  routes/captcha.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.browser.security.eval-detected[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this 
+          content can be input from outside the program, this may be a code injection vulnerability. Ensure
+          evaluated content is not definable by external sources.                                          
+                                                                                                           
+           22┆ const answer = eval(expression).toString() // eslint-disable-line no-eval
+                                    
+  [36m[22m[24m  routes/chatbot.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.unsafe-dynamic-method[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Using non-static data to retrieve and run functions from the object is dangerous. If the data is
+          user-controlled, it may allow executing arbitrary code.                                         
+                                                                                                          
+          109┆ res.status(200).json(await botUtils[response.handler](req.body.query, user))
+   
+     ❱ [1msemgrep-rules.javascript.lang.correctness.eqeq-is-bad[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a useless comparison operation `bot == bot` or `bot != bot`. This operation is always true.
+          If testing for floating point NaN, use `math.isnan`, or `cmath.isnan` if the number is complex.     
+                                                                                                              
+          167┆ if (bot == null) {
+   
+    ❯❱ [1msemgrep-rules.javascript.express.security.injection.raw-html-format[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-
+          Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a         
+          sanitization library such as DOMPurify to sanitize the HTML within.                                 
+                                                                                                              
+          205┆ body: bot.training.state ? bot.greet(`${user.id}`) :                                     
+               `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait
+               while I set things up`                                                                   
+                                        
+  [36m[22m[24m  routes/currentUser.ts[0m
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.audit.remote-property-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Bracket object notation with user input is present, this might allow an attacker to access all
+          properties of the object and even it's prototype. Use literal values for object properties.   
+                                                                                                        
+           31┆ baseUser[field] = user?.data[field as keyof typeof user.data]
+                                       
+  [36m[22m[24m  routes/fileServer.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-res-sendfile[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The application processes user-input, this is passed to res.sendFile which can allow an attacker to
+          arbitrarily read files on the system through path traversal. It is recommended to perform input    
+          validation in addition to canonicalizing the path. This allows you to validate the path against the
+          intended directory it should be accessing.                                                         
+                                                                                                             
+           33┆ res.sendFile(path.resolve('ftp/', file))
+                                       
+  [36m[22m[24m  routes/fileUpload.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-libxml-vm-noent[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected use of parseXml() function with the `noent` field set to `true`. This can lead to an XML
+          External Entities (XXE) attack if untrusted data is passed into it.                              
+                                                                                                           
+           83┆ const xmlDoc = vm.runInContext('libxml.parseXml(data, { noblanks: true, noent: true,
+               nocdata: true })', sandbox, { timeout: 2000 })                                      
+                                      
+  [36m[22m[24m  routes/keyServer.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-res-sendfile[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The application processes user-input, this is passed to res.sendFile which can allow an attacker to
+          arbitrarily read files on the system through path traversal. It is recommended to perform input    
+          validation in addition to canonicalizing the path. This allows you to validate the path against the
+          intended directory it should be accessing.                                                         
+                                                                                                             
+           14┆ res.sendFile(path.resolve('encryptionkeys/', file))
+                                          
+  [36m[22m[24m  routes/logfileServer.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-res-sendfile[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The application processes user-input, this is passed to res.sendFile which can allow an attacker to
+          arbitrarily read files on the system through path traversal. It is recommended to perform input    
+          validation in addition to canonicalizing the path. This allows you to validate the path against the
+          intended directory it should be accessing.                                                         
+                                                                                                             
+           14┆ res.sendFile(path.resolve('logs/', file))
+                                  
+  [36m[22m[24m  routes/login.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+           34┆ models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND
+               password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model:
+               UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge           
+               loginBenderChallenge loginJimChallenge                                                 
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+           34┆ models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND
+               password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model:
+               UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge           
+               loginBenderChallenge loginJimChallenge                                                 
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           34┆ models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND
+               password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model:
+               UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge           
+               loginBenderChallenge loginJimChallenge                                                 
+                                             
+  [36m[22m[24m  routes/quarantineServer.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-res-sendfile[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The application processes user-input, this is passed to res.sendFile which can allow an attacker to
+          arbitrarily read files on the system through path traversal. It is recommended to perform input    
+          validation in addition to canonicalizing the path. This allows you to validate the path against the
+          intended directory it should be accessing.                                                         
+                                                                                                             
+           14┆ res.sendFile(path.resolve('ftp/quarantine/', file))
+                                     
+  [36m[22m[24m  routes/redirect.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.unknown-value-in-redirect[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          It looks like 'toUrl' is read from user input and it is used to as a redirect. Ensure 'toUrl' is not
+          externally controlled, otherwise this is an open redirect.                                          
+                                                                                                              
+           19┆ res.redirect(toUrl)
+   
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-open-redirect[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          The application redirects to a URL specified by user-supplied input `query` that is not validated. 
+          This could redirect users to malicious locations. Consider using an allow-list approach to validate
+          URLs, or warn users they are being redirected to a third-party website.                            
+                                                                                                             
+           19┆ res.redirect(toUrl)
+                                   
+  [36m[22m[24m  routes/search.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.sequelize-raw-query[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Avoiding SQL string concatenation: untrusted input concatenated with raw SQL query can result in SQL
+          Injection. Data replacement or data binding should be used. See                                     
+          https://sequelize.org/master/manual/raw-queries.html                                                
+                                                                                                              
+           23┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR   
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-
+               snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge                        
+   
+   ❯❯❱ [1msemgrep-rules.javascript.sequelize.security.audit.express-sequelize-injection[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if   
+          the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it
+          is recommended to use parameterized queries or prepared statements.                                 
+                                                                                                              
+           23┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR   
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-
+               snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge                        
+   
+   ❯❯❱ [1msemgrep-rules.javascript.express.security.injection.tainted-sql-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected user input used to manually construct a SQL string. This is usually bad practice because 
+          manual construction could accidentally result in a SQL injection. An attacker could use a SQL     
+          injection to steal or modify contents of the database. Instead, use a parameterized query which is
+          available by default in most database engines. Alternatively, consider using an object-relational 
+          mapper (ORM) such as Sequelize which will protect your queries.                                   
+                                                                                                            
+           23┆ models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR   
+               description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-
+               snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge                        
+                                        
+  [36m[22m[24m  routes/userProfile.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.browser.security.eval-detected[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this 
+          content can be input from outside the program, this may be a code injection vulnerability. Ensure
+          evaluated content is not definable by external sources.                                          
+                                                                                                           
+           62┆ username = eval(code) // eslint-disable-line no-eval
+   
+   ❯❯❱ [1msemgrep-rules.javascript.lang.security.audit.code-string-concat[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable
+          this can lead to execution of arbitrary system commands in the context of your application process.
+          Avoid `eval` whenever possible.                                                                    
+                                                                                                             
+           62┆ username = eval(code) // eslint-disable-line no-eval
+                                   
+  [36m[22m[24m  routes/verify.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.html-in-template-string[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          This template literal looks like HTML and has interpolated variables. These variables are not HTML-
+          encoded by default. If the variables contain HTML tags, these may be interpreted by the browser,   
+          resulting in cross-site scripting (XSS).                                                           
+                                                                                                             
+          211┆ if (utils.contains(osaft.description, `<a                                          
+               href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}"
+               target="_blank">`)) {                                                              
+                                         
+  [36m[22m[24m  routes/videoHandler.ts[0m
+    ❯❱ [1msemgrep-rules.javascript.lang.security.audit.unknown-value-with-script-tag[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Cannot determine what 'subs' is and it is used with a '<script>' tag. This could be susceptible to
+          cross-site scripting (XSS). Ensure 'subs' is not externally controlled, or sanitize this data.    
+                                                                                                            
+           58┆ challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs,
+               '</script><script>alert(`xss`)</script>') })                                            
+            ⋮┆----------------------------------------
+           71┆ compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script  
+               id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
+                            
+  [36m[22m[24m  server.ts[0m
+     ❱ [1msemgrep-rules.javascript.lang.security.audit.unsafe-formatstring[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected string concatenation with a non-literal variable in a util.format / console.log function.
+          If an attacker injects a format specifier in the string, it will forge the log message. Try to use
+          constant values for the format string.                                                            
+                                                                                                            
+          155┆ console.error('Error in timed startup function: ' + name, err)
+   
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.express-check-directory-listing[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Directory listing/indexing is enabled, which may lead to disclosure of sensitive directories and 
+          files. It is recommended to disable directory listing unless it is a public resource. If you need
+          directory listing, ensure that sensitive files are inaccessible when querying the resource.      
+                                                                                                           
+          269┆ app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-
+               snippet vuln-line directoryListingChallenge                                            
+            ⋮┆----------------------------------------
+          273┆ app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true,
+               view: 'details' }))                                                                   
+            ⋮┆----------------------------------------
+          277┆ app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons:
+               true, view: 'details' }))                                                             
+            ⋮┆----------------------------------------
+          281┆ app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view:
+               'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge             
+                                           
+  [36m[22m[24m  views/promotionVideo.pug[0m
+    ❯❱ [1msemgrep-rules.javascript.express.security.audit.xss.pug.template-explicit-unescape[0m
+          [31m[1m[24m❰❰ Blocking ❱❱[0m
+          Detected an explicit unescape in a Pug template, using either '!=' or '!{...}'. If external data can
+          reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If
+          you must do this, ensure no external data can reach this location.                                  
+                                                                                                              
+           78┆ if (splitted.length != 2) {
