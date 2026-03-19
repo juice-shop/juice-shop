@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'Removing the counter increment only guarantees that every mint attempt keeps reusing the same token id, so the contract breaks as soon as a second NFT is minted.'
   - id: 2
-    explanation: 'Correct!'
+    explanation: 'Incrementing the counter before reading it avoids minting the first NFT with token id 0 and keeps every future soulbound token on a unique, non-default identifier.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'Hardcoding the token id to 1 prevents token id 0, but it also makes every mint attempt collide on the exact same NFT identifier.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'Multiplying the current counter value still leaves the first mint on token id 0 and only changes the predictable numbering scheme for later mints.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'Look closely at the very first token id that gets minted from a freshly deployed contract.'
+  - 'What value does a Solidity counter return before it has been incremented for the first time?'
+  - 'The best fix should preserve unique token ids without relying on a default zero identifier.'

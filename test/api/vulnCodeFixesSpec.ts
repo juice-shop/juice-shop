@@ -27,6 +27,18 @@ describe('/snippets/fixes/:key', () => {
         fixes: Joi.array().length(3)
       })
   })
+
+  it('GET fixes for nftUnlockChallenge returns distinct fix options', async () => {
+    const response = await frisby.get(URL + '/snippets/fixes/nftUnlockChallenge')
+      .expect('status', 200)
+      .expect('jsonTypes', {
+        fixes: Joi.array().items(Joi.string())
+      })
+      .promise()
+
+    expect(response.json.fixes).toHaveLength(4)
+    expect(new Set(response.json.fixes).size).toBe(4)
+  })
 })
 
 describe('/snippets/fixes', () => {
@@ -112,5 +124,19 @@ describe('/snippets/fixes', () => {
       .promise()
 
     await websocketReceivedPromise
+  })
+
+  it('POST correct fix for nftUnlockChallenge gives positive verdict and non-placeholder explanation', () => {
+    return frisby.post(URL + '/snippets/fixes', {
+      body: {
+        key: 'nftUnlockChallenge',
+        selectedFix: 1
+      }
+    })
+      .expect('status', 200)
+      .expect('json', {
+        verdict: true,
+        explanation: 'Incrementing the counter before reading it avoids minting the first NFT with token id 0 and keeps every future soulbound token on a unique, non-default identifier.'
+      })
   })
 })
