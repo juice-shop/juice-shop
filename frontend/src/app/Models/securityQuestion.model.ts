@@ -4,6 +4,7 @@
  */
 
 export interface SecurityQuestion {
-  id: number
-  question: string
+  id?: number
+  question?: string
+  mode?: 'question' | 'token'
 }

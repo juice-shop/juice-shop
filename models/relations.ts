@@ -13,6 +13,7 @@ import { PrivacyRequestModel } from './privacyRequests'
 import { ProductModel } from './product'
 import { QuantityModel } from './quantity'
 import { RecycleModel } from './recycle'
+import { ResetPasswordTokenModel } from './resetPasswordToken'
 import { SecurityAnswerModel } from './securityAnswer'
 import { SecurityQuestionModel } from './securityQuestion'
 import { UserModel } from './user'
@@ -123,6 +124,13 @@ const relationsInit = (_sequelize: Sequelize) => {
   })
 
   SecurityAnswerModel.belongsTo(UserModel, {
+    foreignKey: {
+      name: 'UserId'
+    }
+  })
+  ResetPasswordTokenModel.belongsTo(UserModel, {
+    constraints: true,
+    foreignKeyConstraint: true,
     foreignKey: {
       name: 'UserId'
     }

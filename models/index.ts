@@ -20,6 +20,7 @@ import { PrivacyRequestModelInit } from './privacyRequests'
 import { ProductModelInit } from './product'
 import { QuantityModelInit } from './quantity'
 import { RecycleModelInit } from './recycle'
+import { ResetPasswordTokenModelInit } from './resetPasswordToken'
 import { relationsInit } from './relations'
 import { SecurityAnswerModelInit } from './securityAnswer'
 import { SecurityQuestionModelInit } from './securityQuestion'
@@ -56,6 +57,7 @@ PrivacyRequestModelInit(sequelize)
 ProductModelInit(sequelize)
 QuantityModelInit(sequelize)
 RecycleModelInit(sequelize)
+ResetPasswordTokenModelInit(sequelize)
 SecurityAnswerModelInit(sequelize)
 SecurityQuestionModelInit(sequelize)
 UserModelInit(sequelize)

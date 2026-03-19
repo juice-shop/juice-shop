@@ -350,3 +350,6 @@ ctf:
     aiDebuggingChallenge:
       name: Iceland
       code: IS
+    resetPasswordAdminChallenge:
+      name: Romania
+      code: RO

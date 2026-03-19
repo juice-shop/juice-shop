@@ -997,6 +997,18 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html'
   key: resetPasswordMortyChallenge
 -
+  name: 'Reset Admin''s Password'
+  category: 'Broken Authentication'
+  description: 'Reset the administrator''s password via the <a href="/#/forgot-password">Forgot Password</a> mechanism by reverse-engineering the predictable token format.'
+  difficulty: 4
+  hints:
+    - 'The administrator no longer answers a security question during password reset. A token is supposedly sent by email and only valid today.'
+    - 'Use SQL Injection to inspect the password reset token storage and look for recurring patterns in tokens belonging to the same user or date.'
+    - 'The beginning of a token stays stable for the same user while the end stays stable for the same date.'
+    - 'Juice Shop already uses a quirky encoding library for coupon-related values. That might be relevant here as well.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Forgot_Password_Cheat_Sheet.html'
+  key: resetPasswordAdminChallenge
+-
   name: 'Retrieve Blueprint'
   category: 'Sensitive Data Exposure'
   description: 'Deprive the shop of earnings by downloading the blueprint for one of its products.'

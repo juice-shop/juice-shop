@@ -157,11 +157,21 @@ describe('ForgotPasswordComponent', () => {
   }))
 
   it('should find the security question of a user with a known email address', fakeAsync(() => {
-    securityQuestionService.findBy.and.returnValue(of({ question: 'What is your favorite test tool?' }))
+    securityQuestionService.findBy.and.returnValue(of({ question: 'What is your favorite test tool?', mode: 'question' }))
     component.emailControl.setValue('known@user.test')
     tick(component.timeoutDuration)
     component.findSecurityQuestion()
     expect(component.securityQuestion).toBe('What is your favorite test tool?')
+    flush()
+  }))
+
+  it('should switch to token mode for admin reset flow', fakeAsync(() => {
+    securityQuestionService.findBy.and.returnValue(of({ mode: 'token' }))
+    component.emailControl.setValue('admin@juice-sh.op')
+    tick(component.timeoutDuration)
+    component.findSecurityQuestion()
+    expect(component.resetMode).toBe('token')
+    expect(component.securityQuestionControl.enabled).toBe(true)
     flush()
   }))
 

@@ -5,6 +5,7 @@
 
 import * as frisby from 'frisby'
 import config from 'config'
+import { createResetPasswordToken } from '../../lib/resetPasswordTokenUtils'
 
 const API_URL = 'http://localhost:3000/api'
 const REST_URL = 'http://localhost:3000/rest'
@@ -167,6 +168,61 @@ describe('/rest/user/reset-password', () => {
       }
     })
       .expect('status', 200)
+  })
+
+  it('POST password reset for Admin with the predictable reset token', () => {
+    const appDomain = config.get<string>('application.domain')
+    const adminEmail = `admin@${appDomain}`
+    const newAdminPassword = ['Adm1n', 'Res3t!'].join('')
+    const originalAdminPassword = ['admin', '123'].join('')
+    const adminToken = createResetPasswordToken(adminEmail)
+
+    return frisby.get(`${REST_URL}/user/security-question?email=${adminEmail}`)
+      .expect('status', 200)
+      .then(() => {
+        return frisby.post(REST_URL + '/user/reset-password', {
+          headers: jsonHeader,
+          body: {
+            email: adminEmail,
+            token: adminToken,
+            new: newAdminPassword,
+            repeat: newAdminPassword
+          }
+        })
+          .expect('status', 200)
+      })
+      .then(() => {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: adminEmail,
+            password: newAdminPassword
+          }
+        })
+          .expect('status', 200)
+      })
+      .then(() => {
+        return frisby.post(REST_URL + '/user/reset-password', {
+          headers: jsonHeader,
+          body: {
+            email: adminEmail,
+            token: adminToken,
+            new: originalAdminPassword,
+            repeat: originalAdminPassword
+          }
+        })
+          .expect('status', 200)
+      })
+      .then(() => {
+        return frisby.post(REST_URL + '/user/login', {
+          headers: jsonHeader,
+          body: {
+            email: adminEmail,
+            password: originalAdminPassword
+          }
+        })
+          .expect('status', 200)
+      })
   })
 
   it('POST password reset with wrong answer to security question', () => {

@@ -83,6 +83,7 @@ const CHALLENGE_KEYS = [
   'resetPasswordBenderChallenge',
   'resetPasswordBjoernChallenge',
   'resetPasswordJimChallenge',
+  'resetPasswordAdminChallenge',
   'resetPasswordMortyChallenge',
   'retrieveBlueprintChallenge',
   'ssrfChallenge',

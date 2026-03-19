@@ -1,3 +1,5 @@
+import { createResetPasswordToken } from '../../../lib/resetPasswordTokenUtils'
+
 describe('/#/forgot-password', () => {
   beforeEach(() => {
     cy.get('body').then(($body) => {
@@ -118,6 +120,27 @@ describe('/#/forgot-password', () => {
 
       cy.get('.confirmation').should('not.be.hidden')
       cy.expectChallengeSolved({ challenge: "Reset Uvogin's Password" })
+    })
+  })
+
+  describe('as Admin', () => {
+    it('should switch to token mode and reset the password with a predictable token', () => {
+      cy.task<string>('GetFromConfig', 'application.domain').then(
+        (appDomain: string) => {
+          const adminEmail = `admin@${appDomain}`
+          const newPassword = ['Adm1n', 'Res3t!'].join('')
+
+          cy.get('#email').type(adminEmail)
+          cy.wait('@securityQuestion')
+          cy.get('#resetToken').should('not.be.disabled').focus().type(createResetPasswordToken(adminEmail))
+          cy.get('#newPassword').focus().type(newPassword)
+          cy.get('#newPasswordRepeat').focus().type(newPassword)
+          cy.get('#resetButton').click()
+
+          cy.get('.confirmation').should('not.be.hidden')
+          cy.expectChallengeSolved({ challenge: "Reset Admin's Password" })
+        }
+      )
     })
   })
 })

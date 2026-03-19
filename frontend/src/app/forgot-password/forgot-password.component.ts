@@ -41,6 +41,7 @@ export class ForgotPasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
   public repeatPasswordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, matchValidator(this.passwordControl)])
   public securityQuestion?: string
+  public resetMode: 'question' | 'token' = 'question'
   public error?: string
   public confirmation?: string
   public timeoutDuration = 1000
@@ -53,12 +54,20 @@ export class ForgotPasswordComponent {
       if (this.emailControl.value) {
         this.securityQuestionService.findBy(this.emailControl.value).subscribe({
           next: (securityQuestion: SecurityQuestion) => {
-            if (securityQuestion) {
+            if (securityQuestion?.mode === 'token') {
+              this.resetMode = 'token'
+              this.securityQuestion = 'A reset token was sent via email and is only valid today.'
+              this.securityQuestionControl.enable()
+              this.passwordControl.enable()
+              this.repeatPasswordControl.enable()
+            } else if (securityQuestion?.question) {
+              this.resetMode = 'question'
               this.securityQuestion = securityQuestion.question
               this.securityQuestionControl.enable()
               this.passwordControl.enable()
               this.repeatPasswordControl.enable()
             } else {
+              this.resetMode = 'question'
               this.securityQuestionControl.disable()
               this.passwordControl.disable()
               this.repeatPasswordControl.disable()
@@ -68,6 +77,7 @@ export class ForgotPasswordComponent {
         }
         )
       } else {
+        this.resetMode = 'question'
         this.securityQuestionControl.disable()
         this.passwordControl.disable()
         this.repeatPasswordControl.disable()
@@ -78,7 +88,8 @@ export class ForgotPasswordComponent {
   resetPassword () {
     this.userService.resetPassword({
       email: this.emailControl.value,
-      answer: this.securityQuestionControl.value,
+      answer: this.resetMode === 'question' ? this.securityQuestionControl.value : undefined,
+      token: this.resetMode === 'token' ? this.securityQuestionControl.value : undefined,
       new: this.passwordControl.value,
       repeat: this.repeatPasswordControl.value
     }).subscribe({
@@ -103,6 +114,8 @@ export class ForgotPasswordComponent {
   }
 
   resetForm () {
+    this.resetMode = 'question'
+    this.securityQuestion = undefined
     this.emailControl.setValue('')
     this.emailControl.markAsPristine()
     this.emailControl.markAsUntouched()
@@ -118,6 +131,7 @@ export class ForgotPasswordComponent {
   }
 
   resetErrorForm () {
+    this.resetMode = 'question'
     this.emailControl.markAsPristine()
     this.emailControl.markAsUntouched()
     this.securityQuestionControl.setValue('')
