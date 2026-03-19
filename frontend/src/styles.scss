@@ -307,3 +307,12 @@ div.mdc-card {
 .mat-mdc-tooltip-surface {
   max-height: none !important;
 }
+/* Fix: Prevent snackbar stacking from affecting layout */
+.custom-snackbar {
+  position: fixed !important;
+  top: 70px !important; /* below navbar */
+  right: 20px !important;
+  z-index: 1000 !important;
+
+  max-width: 350px;
+}
