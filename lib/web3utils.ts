@@ -12,7 +12,7 @@ export function getAlchemyProvider (): WebSocketProvider | null {
   try {
     provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
     provider.websocket.onerror = (err) => {
-      logger.warn('Alchemy WebSocket error: ' + ((err as any).message || (err as any).error?.message || 'connection failed'))
+      logger.warn('Alchemy WebSocket error: ' + (err.message || err.error?.message || 'connection failed'))
       provider = null
     }
     return provider
