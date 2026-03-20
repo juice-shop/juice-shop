@@ -196,6 +196,9 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
     leakedApiKeyChallenge()
   }
+  if (challengeUtils.notSolved(challenges.systemPromptExtractionChallenge)) {
+    systemPromptExtractionChallenge()
+  }
   next()
 }
 
@@ -322,6 +325,13 @@ function leakedApiKeyChallenge () {
   void checkPatternInFeedbackAndComplaints(
     challenges.leakedApiKeyChallenge,
     { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' }
+  )
+}
+
+function systemPromptExtractionChallenge () {
+  void checkPatternInFeedbackAndComplaints(
+    challenges.systemPromptExtractionChallenge,
+    { [Op.like]: '%JSHP-2026-INTERNAL-0x4A5543%' }
   )
 }
 
