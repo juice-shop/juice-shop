@@ -62,6 +62,21 @@ jobs:
               );
             }
 
+            // Check DCO (Signed-off-by)
+            const { data: commits } = await github.rest.pulls.listCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            const dcoMissing = commits.some(c => !c.commit.message.includes('Signed-off-by:'));
+            if (dcoMissing) {
+              violations.push(
+                '**Missing DCO Sign-off:** All commits in this PR must be signed off to indicate your agreement ' +
+                'with the [Developer Certificate of Origin](https://developercertificate.org/). ' +
+                'Please use `git commit -s` for all your commits.'
+              );
+            }
+
             if (violations.length === 0) {
               console.log('All compliance checks passed.');
               return;
