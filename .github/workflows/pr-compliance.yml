@@ -84,7 +84,7 @@ jobs:
                 repo: context.repo.repo,
                 pull_number: pr.number
               });
-              const i18nModified = files.some(f => f.filename.startsWith('i18n/'));
+              const i18nModified = files.some(f.filename.startsWith('frontend/src/assets/i18n/') || f.filename.startsWith('data/static/i18n/')) && !f.filename.endsWith('en.json'));
               if (i18nModified) {
                 violations.push(
                   '**Direct I18N Modification:** Translations must be contributed via ' +
