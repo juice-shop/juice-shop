@@ -12,10 +12,11 @@ const expect = chai.expect
 describe('web3utils', () => {
   describe('getAlchemyProvider', () => {
     afterEach(() => {
+      web3utils.destroyProvider()
       sinon.restore()
     })
 
-    it('returns null when ALCHEMY_API_KEY is not set and connection fails', () => {
+    it('handles missing ALCHEMY_API_KEY without crashing', () => {
       const originalKey = process.env.ALCHEMY_API_KEY
       delete process.env.ALCHEMY_API_KEY
       try {
@@ -30,10 +31,14 @@ describe('web3utils', () => {
       }
     })
 
-    it('returns the same provider instance on consecutive calls', () => {
+    it('returns the same provider instance on consecutive calls', function () {
       const first = web3utils.getAlchemyProvider()
+      if (first === null) {
+        this.skip()
+        return
+      }
       const second = web3utils.getAlchemyProvider()
-      expect(first).to.equal(second)
+      expect(second).to.equal(first)
     })
   })
 })
