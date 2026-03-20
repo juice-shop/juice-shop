@@ -12,7 +12,7 @@ jobs:
   check-compliance:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b #v7.1.0
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -62,41 +62,6 @@ jobs:
               );
             }
 
-<<<<<<< HEAD
-            // Check DCO (Signed-off-by)
-            const { data: commits } = await github.rest.pulls.listCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number
-            });
-            const dcoMissing = commits.some(c => !c.commit.message.includes('Signed-off-by:'));
-            if (dcoMissing) {
-              violations.push(
-                '**Missing DCO Sign-off:** All commits in this PR must be signed off to indicate your agreement ' +
-                'with the [Developer Certificate of Origin](https://developercertificate.org/). ' +
-                'Please use `git commit -s` for all your commits.'
-              );
-            }
-
-            // Check for translation file changes (except for bkimminich as Crowdin uses his account for the official PRs)
-            if (author !== 'bkimminich') {
-              const { data: files } = await github.rest.pulls.listFiles({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number
-              });
-              const i18nModified = files.some(f.filename.startsWith('frontend/src/assets/i18n/') || f.filename.startsWith('data/static/i18n/')) && !f.filename.endsWith('en.json'));
-              if (i18nModified) {
-                violations.push(
-                  '**Direct I18N Modification:** Translations must be contributed via ' +
-                  '[Crowdin](https://crowdin.com/project/owasp-juice-shop) and not via GitHub PRs. ' +
-                  'Please see our [translation guidelines](https://pwning.owasp-juice.shop/companion-guide/latest/part3/translation.html) for more details.'
-                );
-              }
-            }
-
-=======
->>>>>>> b1f320b74 (Add action to auto close pr not following the template / contributing)
             if (violations.length === 0) {
               console.log('All compliance checks passed.');
               return;
@@ -135,7 +100,11 @@ jobs:
             });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
 =======
             console.log(`PR #${pr.number} closed for violations: ${violations.length}`);
 >>>>>>> b1f320b74 (Add action to auto close pr not following the template / contributing)
+=======
+            console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
+>>>>>>> 67820218d (Update action to latest version)
