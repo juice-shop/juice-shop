@@ -77,6 +77,23 @@ jobs:
               );
             }
 
+            // Check for translation file changes (except for bkimminich as Crowdin uses his account for the official PRs)
+            if (author !== 'bkimminich') {
+              const { data: files } = await github.rest.pulls.listFiles({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number
+              });
+              const i18nModified = files.some(f => f.filename.startsWith('i18n/'));
+              if (i18nModified) {
+                violations.push(
+                  '**Direct I18N Modification:** Translations must be contributed via ' +
+                  '[Crowdin](https://crowdin.com/project/owasp-juice-shop) and not via GitHub PRs. ' +
+                  'Please see our [translation guidelines](https://pwning.owasp-juice.shop/companion-guide/latest/part3/translation.html) for more details.'
+                );
+              }
+            }
+
             if (violations.length === 0) {
               console.log('All compliance checks passed.');
               return;
