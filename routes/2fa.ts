@@ -58,7 +58,7 @@ function isTokenUsed (userId: string, token: string): boolean {
 }
 
 function markTokenUsed (userId: string, token: string): void {
-  usedTokens.set(`${userId}:${token}`, Date.now() + + 2 * 60 * 1000)
+  usedTokens.set(`${userId}:${token}`, Date.now() + +2 * 60 * 1000)
 }
 
 export async function verify (req: Request, res: Response) {
@@ -75,7 +75,7 @@ export async function verify (req: Request, res: Response) {
       throw new Error('Invalid token type')
     }
 
-    if (isTokenUsed(userId , totpToken)) {
+    if (isTokenUsed(userId, totpToken)) {
       return res.status(401).send()
     }
 
