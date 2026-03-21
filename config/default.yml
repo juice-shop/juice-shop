@@ -450,6 +450,26 @@ products:
     image: basil_smoothie.png
     reviews:
       - { text: "(ง'̀-'́)ง", author: basil }
+  -
+    name: 'Bragă (500ml)'
+    description: 'Traditional Balkan drink made from fermented millet. Lightly sweet-sour, refreshing, and naturally energizing.'
+    price: 2.49
+    image: braga.jpg
+  -
+    name: 'Elderflower Cordial (500ml)'
+    description: 'Floral and fragrant soft drink made from elderflowers. Traditionally enjoyed chilled.'
+    price: 3.29
+    image: elderflower_cordial.jpg
+  -
+    name: 'Sea Buckthorn Juice (500ml)'
+    description: 'Tangy and slightly sour juice, extremely rich in Vitamin C and antioxidants.'
+    price: 3.99
+    image: sea_buckthorn_juice.jpg
+  -
+    name: 'Pomegranate Drink (500ml)'
+    description: 'A sweet and tart refreshment inspired by classic grenadine flavors.'
+    price: 4.49
+    image: pomegranate_drink.jpg
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'
