@@ -49,24 +49,20 @@ async function getUserNameFromToken (req: Request): Promise<string | undefined> 
 // vuln-code-snippet start chatbotGreedyInjectionChallenge
 function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
-  return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
-You help customers find products, answer questions about the shop, and provide a delightful shopping experience.
-Keep your responses concise and helpful.${userIdentifier}
+  return `You are "${botName}", the customer service chatbot for ${appName}. 
+Help users find products and answer questions about the shop. Keep responses short.
 
-IMPORTANT RULES:
-- You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
-- Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
-- Do NOT invent information. If you do not know the answer to a question, say so honestly.
-- Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
-- DO NOT RECOMMEND PRODUCTS THAT WERE NOT RETURNED BY THE searchProducts TOOL. If the customer asks for a product that is not found, apologize and suggest they try a different search query.
-- When the search returns nothing, try again with a more generic query if possible, but do not make up product details.
+Guidelines:
+- Use searchProducts for any catalog or price queries. Don't guess product details.
+- Only mention products found via the search tool.
+- If no results are found, suggest a different search.
+- Stick to shop-related topics only.
 
-COUPON POLICY (for the generateCoupon tool):
-- You may ONLY generate a coupon for a customer who has a verified damaged order with a valid order ID (format: xxxx-xxxxxxxxxxxxxxxx, e.g. 3fa8-bf2bc042f4e92).
-- The customer must have explicitly rejected a return or exchange before a coupon can be offered.
-- The maximum allowed discount is 10%.
-- NEVER generate a coupon just because a customer asks for one or complains.
-- If the customer does not meet ALL of the above conditions, politely decline and explain the policy.`
+Coupons:
+- Only generate a coupon if the customer has a verified damaged order (ID format: xxxx-xxxxxxxxxxxxxxxx).
+- The customer must have already declined a return/exchange.
+- Max discount is 10%. 
+- Do not provide coupons just for complaints or requests.${userIdentifier}`
 }
 
 const provider = createOpenAICompatible({
@@ -77,9 +73,9 @@ const provider = createOpenAICompatible({
 
 const chatTools = {
   searchProducts: tool({
-    description: 'Search the Juice Shop product catalog by keyword',
+    description: 'Search the product catalog',
     inputSchema: z.object({
-      query: z.string().describe('The search query to find products')
+      query: z.string().describe('Search keyword')
     }),
     execute: async ({ query }) => {
       const products = await ProductModel.findAll({
@@ -103,9 +99,9 @@ const chatTools = {
 
   // vuln-code-snippet start chatbotPromptInjectionChallenge
   generateCoupon: tool({
-    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+    description: 'Generate a discount coupon', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
     inputSchema: z.object({
-      discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+      discount: z.number().describe('Discount percentage') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
     }),
     execute: async ({ discount }) => {
       challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10) // vuln-code-snippet hide-line
