@@ -97,7 +97,7 @@
     width: 16px;
     height: 16px;
     color: var(--theme-text-fade-40);
-    margin-top: 2px;
+    margin-top: $space-3xs;
   }
 
   .tool-details {
@@ -117,7 +117,7 @@
     font-size: 11px;
     color: var(--theme-text-fade-40);
     word-break: break-all;
-    margin-top: 2px;
+    margin-top: $space-3xs;
   }
 }
 
@@ -139,8 +139,13 @@
 }
 
 @keyframes typing-bounce {
-  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1); }
+  0%,
+ 80%,
+ 100% { opacity: 0.3;
+    transform: scale(0.8); }
+
+  40% { opacity: 1;
+    transform: scale(1); }
 }
 
 // Input area
