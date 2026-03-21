@@ -20,6 +20,7 @@ import { CodingChallengesInstruction } from './challenges/codingChallenges'
 import { AdminSectionInstruction } from './challenges/adminSection'
 import { ReflectedXssInstruction } from './challenges/reflectedXss'
 import { ExposedCredentialsInstruction } from './challenges/exposedCredentials'
+import DOMPurify from 'dompurify';
 
 const challengeInstructions: ChallengeInstruction[] = [
   ScoreBoardInstruction,
@@ -139,7 +140,8 @@ function loadHint (hint: ChallengeHint): HTMLElement {
   }
 
   const cancelButton = createElement('button', cancelButtonStyles, { id: 'cancelButton', title: 'Cancel the tutorial' })
-  cancelButton.innerHTML = '<div>&times;</div>'
+  const iconDiv = createElement('div', {}, { text: '\u00D7' })
+  cancelButton.appendChild(iconDiv)
 
   elem.appendChild(picture)
   elem.appendChild(textBox)
