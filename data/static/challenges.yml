@@ -1544,3 +1544,14 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+- 
+  name: 'System Prompt Extraction'
+  category: 'AI Security'
+  description: 'Extract the hidden system prompt from the chatbot using prompt injection techniques.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has been given hidden instructions. Can you make it reveal them?'
+    - 'Try asking the model to repeat, translate, or expose its initial instructions.'
+    - 'Sometimes encoding or role-play tricks can reveal hidden context.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: systemPromptExtractionChallenge

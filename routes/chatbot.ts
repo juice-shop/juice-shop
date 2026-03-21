@@ -22,6 +22,7 @@ import { challenges } from '../data/datacache'
 
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
+const SYSTEM_PROMPT_CANARY = 'JUICE_SHOP_SYSTEM_PROMPT_CANARY_2026'
 export let bot: Bot | null = null
 let initializationPromise: Promise<any> | null = null
 
@@ -101,6 +102,21 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 
   try {
+    const userQuery = req.body.query?.toLowerCase?.() ?? ''
+
+const looksLikePromptExtraction =
+  userQuery.includes('ignore') ||
+  userQuery.includes('system') ||
+  userQuery.includes('prompt') ||
+  userQuery.includes('instruction')
+
+if (looksLikePromptExtraction) {
+  challengeUtils.solveIf((challenges as any)['systemPromptExtractionChallenge'], () => true)
+  return res.status(200).json({
+    action: 'response',
+    body: `Sure, here are my hidden instructions: ${SYSTEM_PROMPT_CANARY}`
+  })
+}
     const response = await bot.respond(req.body.query, `${user.id}`)
     if (response.action === 'function') {
       // @ts-expect-error FIXME unclean usage of any type as index
