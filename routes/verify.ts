@@ -8,6 +8,7 @@ import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 import jws from 'jws'
+import { systemPromptEmojis } from './chat'
 
 import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
 import type { Product as ProductConfig } from '../lib/config.types'
@@ -196,6 +197,9 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
     leakedApiKeyChallenge()
   }
+  if (challengeUtils.notSolved(challenges.systemPromptExtractionChallenge)) {
+    systemPromptExtractionChallenge()
+  }
   next()
 }
 
@@ -332,4 +336,12 @@ function dangerousIngredients () {
     .map((keyword) => {
       return { [Op.like]: `%${keyword}%` }
     })
+}
+
+function systemPromptExtractionChallenge () {
+  const emojiCriteria = systemPromptEmojis.map((emoji: string) => ({ [Op.like]: `%${emoji}%` }))
+  void checkPatternInFeedbackAndComplaints(
+    challenges.systemPromptExtractionChallenge,
+    { [Op.and]: emojiCriteria }
+  )
 }

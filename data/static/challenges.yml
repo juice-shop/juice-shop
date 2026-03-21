@@ -1555,3 +1555,18 @@
     - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
   key: aiDebuggingChallenge
+-
+  name: 'System Prompt Extraction'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Extract all confidential service markers from the chatbot system prompt and submit them via customer feedback.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has been instructed to keep certain information confidential. That does not mean it actually will.'
+    - 'Prompt injection can convince an LLM to reveal its own instructions, including hidden markers.'
+    - 'There are multiple hidden markers scattered across the system prompt. You need to find all of them.'
+    - 'Once you have extracted all the hidden markers, submit them together in a single customer feedback message.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
+  key: systemPromptExtractionChallenge
+  
