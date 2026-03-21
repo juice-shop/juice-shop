@@ -14,7 +14,6 @@
 }
 
 // Chat header
-
 .chat-header {
   display: flex;
   align-items: center;
@@ -41,7 +40,6 @@
 }
 
 // Chat window
-
 .chat-window {
   flex: 1;
   overflow-y: auto;
@@ -83,42 +81,43 @@
   }
 }
 
-.tool-call-card {
+// System tool call display
+.tool-call-indicator {
   display: flex;
   align-items: flex-start;
   gap: $space-xs;
-  margin-top: $space-xs;
+  margin-top: $space-s;
   padding: $space-xs $space-s;
   background-color: var(--theme-background-darker);
-  border-radius: 8px;
-  border: 1px solid var(--theme-background-darkest);
+  border-radius: 4px;
+  border-left: 3px solid var(--theme-primary-fade-40);
 
   .tool-icon {
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
-    color: var(--theme-text-fade-50);
-    flex-shrink: 0;
-    margin-top: $space-3xs;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: var(--theme-text-fade-40);
+    margin-top: 2px;
   }
 
-  .tool-info {
+  .tool-details {
     display: flex;
     flex-direction: column;
-    gap: $space-2xs;
     min-width: 0;
   }
 
   .tool-name {
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--theme-text-fade-60);
   }
 
   .tool-args {
     font-family: monospace;
-    font-size: 12px;
-    color: var(--theme-text-fade-50);
+    font-size: 11px;
+    color: var(--theme-text-fade-40);
     word-break: break-all;
+    margin-top: 2px;
   }
 }
 
@@ -140,17 +139,11 @@
 }
 
 @keyframes typing-bounce {
-  0%,
-  80%,
-  100% { opacity: 0.3;
-    transform: scale(0.8); }
-
-  40% { opacity: 1;
-    transform: scale(1); }
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
 }
 
 // Input area
-
 .input-area {
   padding: $space-s 0 $space-l;
   flex-shrink: 0;

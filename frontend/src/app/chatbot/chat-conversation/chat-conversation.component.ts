@@ -61,10 +61,11 @@ export class ChatConversationComponent implements OnInit {
           this.chatBotAvatar.set('assets/public/images/' + config.application.chatBot.avatar)
         }
       },
-      error: (err) => { console.log(err) }
+      error: (err) => { console.error('Config load failed', err) }
     })
 
-    this.showToolCalls.set(this.cookieService.get('show_tool_calls') === 'true')
+    // Enable tool calls view for debugging/transparency
+    this.showToolCalls.set(true)
 
     this.conversationId = this.route.snapshot.params['id']
     const existing = this.conversationStorage.getById(this.conversationId)
@@ -93,9 +94,12 @@ export class ChatConversationComponent implements OnInit {
 
   private persistConversation () {
     const msgs = this.messages()
+    if (msgs.length === 0) return
+
     const firstUserMsg = msgs.find(m => m.role === 'user')
     const title = firstUserMsg ? this.conversationStorage.generateTitle(firstUserMsg.content) : 'New conversation'
     const existing = this.conversationStorage.getById(this.conversationId)
+    
     const conversation: StoredConversation = {
       id: this.conversationId,
       title: existing?.title || title,
@@ -109,12 +113,14 @@ export class ChatConversationComponent implements OnInit {
   async sendMessage (content: string) {
     if (!content || this.isLoading()) return
 
+    // Update UI with user message
     this.messages.update(prev => [...prev, { role: 'user', content }])
     this.messageInput.set('')
     this.isLoading.set(true)
     this.scrollToBottom()
     this.chatInput()?.focus()
 
+    // Placeholder for bot response
     const assistantIndex = this.messages().length
     this.messages.update(prev => [...prev, { role: 'assistant', content: '' }])
 
@@ -123,45 +129,54 @@ export class ChatConversationComponent implements OnInit {
       .filter(m => !m.error)
       .map(m => ({ role: m.role, content: m.content }))
 
-    const stream = this.chatService.streamMessages(apiMessages)
-    for await (const chunk of stream) {
-      if (chunk.error) {
-        this.messages.update(prev => {
-          const updated = [...prev]
-          updated[assistantIndex] = {
-            role: 'assistant',
-            content: 'CHATBOT_ERROR_LLM_UNREACHABLE',
-            error: true
-          }
-          return updated
-        })
+    try {
+      const stream = this.chatService.streamMessages(apiMessages)
+      for await (const chunk of stream) {
+        if (chunk.error) {
+          this.handleStreamError(assistantIndex)
+          break
+        }
+
+        this.updateMessageStream(assistantIndex, chunk)
         this.scrollToBottom()
-        break
       }
-      if (chunk.deltaContent) {
-        this.messages.update(prev => {
-          const updated = [...prev]
-          updated[assistantIndex] = {
-            ...updated[assistantIndex],
-            content: updated[assistantIndex].content + chunk.deltaContent
-          }
-          return updated
-        })
-      }
-      if (chunk.deltaToolCalls) {
-        this.messages.update(prev => {
-          const updated = [...prev]
-          updated[assistantIndex] = {
-            ...updated[assistantIndex],
-            tool_calls: [...(updated[assistantIndex].tool_calls || []), ...chunk.deltaToolCalls!]
-          }
-          return updated
-        })
-      }
-      this.scrollToBottom()
+    } catch (err) {
+      console.error('Chat stream error:', err)
+      this.handleStreamError(assistantIndex)
+    } finally {
+      this.isLoading.set(false)
+      this.chatInput()?.focus()
+      this.persistConversation()
     }
-    this.isLoading.set(false)
-    this.chatInput()?.focus()
-    this.persistConversation()
+  }
+
+  private updateMessageStream (index: number, chunk: any) {
+    this.messages.update(prev => {
+      const updated = [...prev]
+      const msg = { ...updated[index] }
+      
+      if (chunk.deltaContent) {
+        msg.content += chunk.deltaContent
+      }
+      
+      if (chunk.deltaToolCalls) {
+        msg.tool_calls = [...(msg.tool_calls || []), ...chunk.deltaToolCalls]
+      }
+      
+      updated[index] = msg
+      return updated
+    })
+  }
+
+  private handleStreamError (index: number) {
+    this.messages.update(prev => {
+      const updated = [...prev]
+      updated[index] = {
+        role: 'assistant',
+        content: 'CHATBOT_ERROR_LLM_UNREACHABLE',
+        error: true
+      }
+      return updated
+    })
   }
 }
