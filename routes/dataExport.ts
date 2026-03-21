@@ -2,9 +2,7 @@
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
-
 import { type Request, type Response, type NextFunction } from 'express'
-
 import * as challengeUtils from '../lib/challengeUtils'
 import { type ProductModel } from '../models/product'
 import { MemoryModel } from '../models/memory'
@@ -21,25 +19,34 @@ export function dataExport () {
         const email = loggedInUser.data.email
         const updatedEmail = email.replace(/[aeiou]/gi, '*')
 
+        // ✅ FIX: sanitize email strings before passing into MongoDB
+        // prevents NoSQL operator injection e.g. { $gt: "" }
+        const safeEmail = String(email).replace(/[^\w@.\-*]/g, '')
+        const safeUpdatedEmail = String(updatedEmail).replace(/[^\w@.\-*]/g, '')
+
         let memories, orders, reviews
+
         try {
-          memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
+          // ✅ FIX: use loggedInUser.data.id (not req.body.UserId) — prevents IDOR
+          memories = await MemoryModel.findAll({ where: { UserId: Number(loggedInUser.data.id) } })
         } catch (error) {
           next(error)
           return
         }
 
         try {
-          orders = await db.ordersCollection.find({ email: updatedEmail })
+          // ✅ FIX: use sanitized email string
+          orders = await db.ordersCollection.find({ email: safeUpdatedEmail })
         } catch (error) {
-          next(new Error(`Error retrieving orders for ${updatedEmail}`))
+          next(new Error(`Error retrieving orders for ${safeUpdatedEmail}`))
           return
         }
 
         try {
-          reviews = await db.reviewsCollection.find({ author: email })
+          // ✅ FIX: use sanitized email string
+          reviews = await db.reviewsCollection.find({ author: safeEmail })
         } catch (error) {
-          next(new Error(`Error retrieving reviews for ${updatedEmail}`))
+          next(new Error(`Error retrieving reviews for ${safeUpdatedEmail}`))
           return
         }
 
@@ -105,6 +112,7 @@ export function dataExport () {
         for (const order of userData.orders) {
           challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
         }
+
         res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
       } else {
         next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
