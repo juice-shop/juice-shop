@@ -199,3 +199,7 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
   }
   next()
 }
+
+export const totpEncryptionKey = (): Buffer => {
+  return crypto.createHash('sha256').update(privateKey).digest()
+}

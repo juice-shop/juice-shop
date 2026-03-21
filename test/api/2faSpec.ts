@@ -169,11 +169,11 @@ describe('/rest/2fa/verify', () => {
 
 describe('/rest/2fa/status', () => {
   it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
-    const { token } = await login({
-      email: `wurstbrot@${config.get<string>('application.domain')}`,
-      password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
-    })
+    const email = `status_test_${Date.now()}@bar.com`
+    const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+    const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+    await register({ email, password, totpSecret })
+    const { token } = await login({ email, password, totpSecret })
 
     // @ts-expect-error FIXME promise return handling broken
     await frisby.get(
@@ -365,10 +365,10 @@ describe('/rest/2fa/setup', () => {
   })
 
   it('POST should fail if the account has already set up 2fa', async () => {
-    const email = `wurstbrot@${config.get<string>('application.domain')}`
+    const email = `setup_test_${Date.now()}@bar.com`
     const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
     const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
-
+    await register({ email, password, totpSecret })
     const { token } = await login({ email, password, totpSecret })
 
     // @ts-expect-error FIXME promise return handling broken
@@ -431,7 +431,7 @@ describe('/rest/2fa/disable', () => {
   })
 
   it('POST should not be possible to disable 2fa without the correct password', async () => {
-    const email = 'fooooodisable1@bar.com'
+    const email = `disable_test_${Date.now()}@bar.com`
     const password = '123456'
     const totpSecret = 'ASDVAJSDUASZGDIADBJS'
 

@@ -12,6 +12,7 @@ import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 import * as otplib from 'otplib'
 import * as security from '../lib/insecurity'
+import crypto from 'node:crypto'
 
 otplib.authenticator.options = {
   // Accepts tokens as valid even when they are 30sec to old or to new
@@ -19,14 +20,63 @@ otplib.authenticator.options = {
   window: 1
 }
 
+function encryptSecret (secret: string): string {
+  const randomBytes = crypto.randomBytes(16)
+  const cipher = crypto.createCipheriv('aes-256-gcm', security.totpEncryptionKey(), randomBytes)
+  const encrypted = Buffer.concat([cipher.update(secret, 'utf8'), cipher.final()])
+  const authTag = cipher.getAuthTag()
+  return `${randomBytes.toString('hex')}:${authTag.toString('hex')}:${encrypted.toString('hex')}`
+}
+
+function decryptSecret (stored: string): string {
+  try {
+    const parts = stored.split(':')
+    if (parts.length !== 3) {
+      return stored
+    }
+
+    const [randomBytes, authTag, encrypted] = stored.split(':').map(s => Buffer.from(s, 'hex'))
+    const decipher = crypto.createDecipheriv('aes-256-gcm', security.totpEncryptionKey(), randomBytes)
+    decipher.setAuthTag(authTag)
+    return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString('utf8')
+  } catch (error) {
+    throw new Error('Failed to decrypt TOTP secret')
+  }
+}
+
+const usedTokens = new Map<string, number>()
+
+function isTokenUsed (userId: string, token: string): boolean {
+  if (!token) return false
+  const now = Date.now()
+  for (const [t, expiry] of usedTokens.entries()) {
+    if (now > expiry) {
+      usedTokens.delete(t)
+    }
+  }
+  return usedTokens.has(`${userId}:${token}`)
+}
+
+function markTokenUsed (userId: string, token: string): void {
+  usedTokens.set(`${userId}:${token}`, Date.now() + + 2 * 60 * 1000)
+}
+
 export async function verify (req: Request, res: Response) {
   const { tmpToken, totpToken } = req.body
 
   try {
+    if (!totpToken || !/^\d{6}$/.test(totpToken)) {
+      return res.status(401).send()
+    }
+
     const { userId, type } = security.verify(tmpToken) && security.decode(tmpToken)
 
     if (type !== 'password_valid_needs_second_factor_token') {
       throw new Error('Invalid token type')
+    }
+
+    if (isTokenUsed(userId , totpToken)) {
+      return res.status(401).send()
     }
 
     const user = await UserModel.findByPk(userId)
@@ -34,13 +84,20 @@ export async function verify (req: Request, res: Response) {
       throw new Error('No such user found!')
     }
 
-    const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
+    if (!user.totpSecret) {
+      return res.status(401).send()
+    }
+
+    const isValid = otplib.authenticator.check(totpToken, decryptSecret(user.totpSecret))
 
     const plainUser = utils.queryResultToJson(user)
 
     if (!isValid) {
       return res.status(401).send()
     }
+
+    markTokenUsed(totpToken, userId)
+
     challengeUtils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get<string>('application.domain') })
 
     const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
@@ -132,7 +189,7 @@ export async function setup (req: Request, res: Response) {
       throw new Error('No such user found!')
     }
 
-    userModel.totpSecret = secret
+    userModel.totpSecret = encryptSecret(secret)
     await userModel.save()
     security.authenticatedUsers.updateFrom(req, utils.queryResultToJson(userModel))
 
@@ -149,7 +206,7 @@ export async function disable (req: Request, res: Response) {
   try {
     const data = security.authenticatedUsers.from(req)
     if (!data) {
-      throw new Error('Need to login before setting up 2FA')
+      throw new Error('Need to login before disabling 2FA')
     }
     const { data: user } = data
 
