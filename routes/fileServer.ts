@@ -11,6 +11,8 @@ import * as security from '../lib/insecurity'
 import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
 
+const FTP_DIR = 'ftp'
+
 export function servePublicFiles () {
   return ({ params, query }: Request, res: Response, next: NextFunction) => {
     const file = params.file
@@ -30,7 +32,15 @@ export function servePublicFiles () {
       challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
 
-      res.sendFile(path.resolve('ftp/', file))
+      const safePath = path.join(FTP_DIR, file)
+      const resolvedPath = path.resolve(safePath)
+      const resolvedRoot = path.resolve(FTP_DIR)
+
+      if (!resolvedPath.startsWith(resolvedRoot)) {
+        return res.status(403).send('Access denied')
+      }
+
+      res.sendFile(resolvedPath)
     } else {
       res.status(403)
       next(new Error('Only .md and .pdf files are allowed!'))

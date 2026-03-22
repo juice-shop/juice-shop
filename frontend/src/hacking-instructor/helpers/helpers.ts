@@ -36,19 +36,42 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
     const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
     )
+    let safeConfigMap = new Map()
 
     if (options.replacement?.length === 2) {
       if (!config) {
         const res = await fetch('/rest/admin/application-configuration')
         const json = await res.json()
         config = json.config
+
+        function objectToMap(obj: any, path: string[] = []): Map<string, any> {
+          const map = new Map()
+          for (const [key, value] of Object.entries(obj)) {
+            const currentPath = [...path, key].join('.')
+            if (value && typeof value === 'object' && !Array.isArray(value)) {
+              map.set(currentPath, value)
+              const nestedMap = objectToMap(value, [...path, key])
+              for (const [nestedKey, nestedValue] of nestedMap) {
+                map.set(nestedKey, nestedValue)
+              }
+            } else {
+              map.set(currentPath, value)
+            }
+          }
+          return map
+        }
+
+        safeConfigMap = objectToMap(config)
       }
+
       const propertyChain = options.replacement[1].split('.')
-      let replacementValue = config
-      for (const property of propertyChain) {
-        replacementValue = replacementValue[property]
+      const fullPath = propertyChain.join('.')
+
+      const replacementValue = safeConfigMap.get(fullPath)
+
+      if (replacementValue !== undefined) {
+        value = value.replace(options.replacement[0], replacementValue)
       }
-      value = value.replace(options.replacement[0], replacementValue)
     }
 
     while (true) {
