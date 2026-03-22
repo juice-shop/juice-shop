@@ -76,19 +76,28 @@ jobs:
             const maintainerFiles = [
               'HALL_OF_FAME.md', 'LICENSE', 'LICENSE.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md',
               'CONTRIBUTING.md', 'crowdin.yaml', 'threat-model.json', 'bom.json', 'AGENTS.md',
-              'REFERENCES.md', 'SOLUTIONS.md', '.github/PULL_REQUEST_TEMPLATE.md',
-              '.github/FUNDING.yml', 'CODEOWNERS', '.github/CODEOWNERS', 'config.schema.yml',
-              'ctf.key', '.github/copilot-instructions.md'
+              'REFERENCES.md', 'SOLUTIONS.md', 'CODEOWNERS', 'config.schema.yml', 'ctf.key'
             ];
             const maintainerFileCount = files.filter(f => 
               maintainerFiles.includes(f.filename) || 
-              f.filename.startsWith('.github/ISSUE_TEMPLATE/') ||
-              f.filename.startsWith('.github/workflows/')
+              f.filename.startsWith('.github/') ||
+              f.filename.startsWith('.circleci/')
             ).length;
             
             if (maintainerFileCount > 0) {
               spamScore += 40;
               if (maintainerFileCount > 1) spamScore += 20;
+            }
+            // Extra penalty for new YAML or dotfiles in root or dotfolders
+            if (files.some(f => {
+              if (f.status !== 'added') return false;
+              const isYaml = f.filename.endsWith('.yml') || f.filename.endsWith('.yaml');
+              const isDotFile = f.filename.split('/').pop().startsWith('.');
+              const isRoot = !f.filename.includes('/');
+              const isInDotFolder = f.filename.startsWith('.') || f.filename.includes('/.');
+              return (isYaml || isDotFile) && (isRoot || isInDotFolder);
+            })) {
+              spamScore += 20;
             }
             // Miniscule edits to README.md are often low-effort spam
             if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) spamScore += 20;
