@@ -1,0 +1,346 @@
+{
+  "info": {
+    "name": "CyberArk Privilege Cloud - User Licenses",
+    "_postman_id": "cyberark-pcloud-licenses-v1",
+    "description": "Collection para consultar licenças de usuários no CyberArk Privilege Cloud (ISPSS).\n\n**Pré-requisitos:**\n1. Crie um Service User do tipo OAuth Confidential Client no Identity Administration\n2. Atribua a role adequada ao Service User\n3. Configure as variáveis de ambiente abaixo\n\n**Ordem de execução:**\n1. Autenticação → Obter Token\n2. Use qualquer requisição das pastas seguintes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "SEU-TENANT",
+      "description": "Subdomínio do tenant (ex: acme → acme.id.cyberark.cloud)"
+    },
+    {
+      "key": "client_id",
+      "value": "SEU-CLIENT-ID",
+      "description": "Username do Service User (OAuth Confidential Client)"
+    },
+    {
+      "key": "client_secret",
+      "value": "SEU-CLIENT-SECRET",
+      "description": "Senha do Service User"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "description": "Preenchido automaticamente após autenticação"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Autenticação",
+      "item": [
+        {
+          "name": "Obter Token (OAuth2 Client Credentials)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "",
+                  "if (jsonData.access_token) {",
+                  "    pm.collectionVariables.set('access_token', jsonData.access_token);",
+                  "    console.log('Token salvo com sucesso!');",
+                  "    pm.test('Token obtido com sucesso', function () {",
+                  "        pm.response.to.have.status(200);",
+                  "    });",
+                  "} else {",
+                  "    console.error('Falha ao obter token:', JSON.stringify(jsonData));",
+                  "    pm.test('Falha ao obter token', function () {",
+                  "        pm.expect(jsonData.access_token).to.not.be.undefined;",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "description": "Tipo de autenticação (não altere)"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{client_id}}",
+                  "description": "Username do Service User"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{client_secret}}",
+                  "description": "Senha do Service User"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/oauth2/platformtoken",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["oauth2", "platformtoken"]
+            },
+            "description": "Obtém o token de acesso OAuth2 usando client_credentials.\nO token é salvo automaticamente na variável 'access_token' via script de teste.\n\n**Pré-requisito:** Service User deve ser do tipo 'OAuth Confidential Client' no Identity Administration."
+          },
+          "response": []
+        }
+      ],
+      "description": "Autenticação OAuth2 para Privilege Cloud ISPSS"
+    },
+    {
+      "name": "2. Licenças de Usuários",
+      "item": [
+        {
+          "name": "Relatório de Licenças por Tipo",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://{{tenant}}.privilegecloud.cyberark.cloud/PasswordVault/api/userslicensesreport",
+              "protocol": "https",
+              "host": ["{{tenant}}", "privilegecloud", "cyberark", "cloud"],
+              "path": ["PasswordVault", "api", "userslicensesreport"]
+            },
+            "description": "Retorna o relatório de uso de licenças do Privilege Cloud.\nMostra quantas licenças de cada tipo estão em uso vs. disponíveis."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Todos os Usuários com Detalhes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://{{tenant}}.privilegecloud.cyberark.cloud/PasswordVault/api/Users?ExtendedDetails=true",
+              "protocol": "https",
+              "host": ["{{tenant}}", "privilegecloud", "cyberark", "cloud"],
+              "path": ["PasswordVault", "api", "Users"],
+              "query": [
+                {
+                  "key": "ExtendedDetails",
+                  "value": "true",
+                  "description": "Retorna detalhes adicionais do usuário"
+                },
+                {
+                  "key": "componentUser",
+                  "value": "false",
+                  "description": "false = apenas usuários humanos | true = inclui usuários de componente",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "description": "Filtrar por nome/username",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Lista todos os usuários do Privilege Cloud com detalhes estendidos.\nCom ExtendedDetails=true retorna informações adicionais incluindo roles associadas."
+          },
+          "response": []
+        }
+      ],
+      "description": "Endpoints oficiais da API do Privilege Cloud para licenças"
+    },
+    {
+      "name": "3. RedRock Queries (Identity)",
+      "item": [
+        {
+          "name": "Usuários e Roles (Mapeamento de Licença)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Script\": \"SELECT u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u JOIN RoleMember rm ON u.ID = rm.MemberEntityID JOIN Role r ON rm.RoleID = r.ID WHERE r.Name LIKE '%Privilege Cloud%' ORDER BY u.Username COLLATE NOCASE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["Redrock", "query"]
+            },
+            "description": "Retorna usuários com suas roles do Privilege Cloud.\nComo a licença é determinada pela role, este query mapeia usuário → role → tipo de licença.\n\nFiltro padrão: roles que contém 'Privilege Cloud' no nome.\nRemova o WHERE para trazer todas as roles."
+          },
+          "response": []
+        },
+        {
+          "name": "Todos os Usuários (Básico)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Script\": \"SELECT ID, Username, DisplayName, Email, LastLogin, Enabled FROM User ORDER BY Username COLLATE NOCASE\",\n    \"Args\": {\n        \"PageNumber\": 1,\n        \"PageSize\": 100,\n        \"Limit\": 100,\n        \"SortBy\": \"\",\n        \"direction\": \"ASC\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["Redrock", "query"]
+            },
+            "description": "Lista todos os usuários do Identity com informações básicas.\nAjuste PageNumber e PageSize para paginar resultados.\nLimite máximo: queries ficam em timeout após 2 minutos."
+          },
+          "response": []
+        },
+        {
+          "name": "Explorar Colunas da Tabela User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Script\": \"SELECT * FROM User LIMIT 1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["Redrock", "query"]
+            },
+            "description": "Retorna 1 usuário com TODAS as colunas disponíveis.\nUse para descobrir quais campos existem no seu tenant específico.\n\nIMPORTANTE: Execute este primeiro para validar os campos disponíveis."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Todas as Roles (com tipo de licença)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Script\": \"SELECT ID, Name, Description FROM Role WHERE Name LIKE '%Privilege Cloud%' OR Name LIKE '%Admin%' ORDER BY Name COLLATE NOCASE\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["Redrock", "query"]
+            },
+            "description": "Lista as roles existentes que mapeiam para licenças.\nExemplos de mapeamento role → licença:\n- 'Privilege Cloud Administrators' → Privileged Standard User\n- 'Privilege Cloud Administrators Basic' → Privileged Basic User\n- 'Privilege Cloud Users' → Privileged Standard User\n- 'Privilege Cloud Users Basic' → Privileged Basic User"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuário Específico por Username",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"Script\": \"SELECT u.ID, u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u LEFT JOIN RoleMember rm ON u.ID = rm.MemberEntityID LEFT JOIN Role r ON rm.RoleID = r.ID WHERE u.Username = 'usuario@dominio.com'\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["Redrock", "query"]
+            },
+            "description": "Busca um usuário específico e suas roles.\nSubstitua 'usuario@dominio.com' pelo username desejado."
+          },
+          "response": []
+        }
+      ],
+      "description": "Queries SQL via API RedRock do CyberArk Identity.\nNOTA: Tabela correta é 'User' (singular). 'Users' retorna erro."
+    }
+  ]
+}
