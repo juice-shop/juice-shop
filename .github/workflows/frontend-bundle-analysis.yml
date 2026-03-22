@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_DEFAULT_VERSION: 22
+  NODE_DEFAULT_VERSION: 24
   NODE_OPTIONS: "--max_old_space_size=4096"
 
 jobs:
