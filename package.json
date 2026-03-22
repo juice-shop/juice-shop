@@ -225,7 +225,7 @@
     "typescript-eslint": "^8.57.1"
   },
   "engines": {
-    "node": "20 - 24"
+    "node": "22 - 25"
   },
   "os": [
     "win32",
