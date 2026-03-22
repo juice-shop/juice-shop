@@ -206,11 +206,12 @@ jobs:
               const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
               if (orgAdminToken) {
                 try {
-                  const { getOctokit } = require('@actions/github');
-                  const orgAdmin = getOctokit(orgAdminToken);
-                  await orgAdmin.rest.orgs.blockUser({
+                  await github.request('PUT /orgs/{org}/blocks/{username}', {
                     org: 'juice-shop',
-                    username: author
+                    username: author,
+                    headers: {
+                      authorization: `token ${orgAdminToken}`
+                    }
                   });
                   console.log(`User ${author} blocked due to spam.`);
                 } catch (e) {
