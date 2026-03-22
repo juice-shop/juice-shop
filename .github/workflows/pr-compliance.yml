@@ -206,14 +206,20 @@ jobs:
               const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
               if (orgAdminToken) {
                 try {
-                  await github.request('PUT /orgs/{org}/blocks/{username}', {
-                    org: 'juice-shop',
-                    username: author,
+                  const response = await fetch(`https://api.github.com/orgs/juice-shop/blocks/${encodeURIComponent(author)}`, {
+                    method: 'PUT',
                     headers: {
-                      authorization: `token ${orgAdminToken}`
+                      'Authorization': `Bearer ${orgAdminToken}`,
+                      'Accept': 'application/vnd.github+json',
+                      'User-Agent': 'actions/github-script'
                     }
                   });
-                  console.log(`User ${author} blocked due to spam.`);
+                  if (response.ok) {
+                    console.log(`User ${author} blocked due to spam.`);
+                  } else {
+                    const errorText = await response.text();
+                    console.log(`Failed to block user ${author}: ${response.status} ${errorText}`);
+                  }
                 } catch (e) {
                   console.log(`Failed to block user ${author}: ${e.message}`);
                 }
