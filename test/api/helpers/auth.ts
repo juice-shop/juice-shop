@@ -4,7 +4,7 @@
  */
 
 import request from 'supertest'
-import * as otplib from 'otplib'
+import { generateSync } from 'otplib'
 import type { Express } from 'express'
 import * as security from '../../../lib/insecurity'
 
@@ -30,7 +30,7 @@ export async function login (app: Express, { email, password, totpSecret }: { em
       .set(jsonHeader)
       .send({
         tmpToken: loginRes.body.data.tmpToken,
-        totpToken: otplib.authenticator.generate(totpSecret)
+        totpToken: generateSync({ secret: totpSecret })
       })
 
     return totpRes.body.authentication
@@ -70,7 +70,7 @@ export async function register (app: Express, { email, password, totpSecret }: {
           secret: totpSecret,
           type: 'totp_setup_secret'
         }),
-        initialToken: otplib.authenticator.generate(totpSecret)
+        initialToken: generateSync({ secret: totpSecret })
       })
 
     if (setupRes.status !== 200) {
