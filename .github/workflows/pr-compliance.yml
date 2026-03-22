@@ -114,8 +114,7 @@ jobs:
 
             if (isSpam) {
               violations.push(
-                '**Potential Spam Detected:** This PR has been identified as potential spam (Rating: ' + spamRating + '/100) based on recurring indicators ' +
-                '(e.g., trivial changes, unfilled template, or missing compliance affirmations). ' +
+                '🚨 **Potential Spam Detected:** _This PR has been identified as potential spam (Rating: ' + spamRating + '/100) based on recurring indicators._ ' +
                 'We sincerely appreciate your interest in OWASP Juice Shop, but we must focus our limited reviewer ' +
                 'resources on meaningful contributions that significantly improve the project. Thank you for your understanding. ' +
                 'See our [spam handling guide](https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html#_handling_of_spam_prs) for more details.'
@@ -125,7 +124,7 @@ jobs:
             // Check target branch
             if (wrongBranch) {
               violations.push(
-                '**Wrong target branch:** This PR targets the `master` branch. ' +
+                '🎯 **Wrong target branch:** This PR targets the `master` branch. ' +
                 'Per our [contributing guidelines](https://github.com/juice-shop/juice-shop/blob/develop/CONTRIBUTING.md), ' +
                 'all PRs must be based on the `develop` branch. Please re-open this PR against `develop`.'
               );
@@ -134,7 +133,7 @@ jobs:
             // Check AI disclosure for violations
             if (aiMissing) {
               violations.push(
-                '**Missing AI Tool Disclosure:** This PR is missing the required AI Tool Disclosure. ' +
+                '🤖 **Missing AI Tool Disclosure:** This PR is missing the required AI Tool Disclosure. ' +
                 'Please check one of the AI disclosure boxes in the PR template.'
               );
             }
@@ -142,7 +141,7 @@ jobs:
             // Check affirmation for violations
             if (affirmationMissing) {
               violations.push(
-                '**Missing Affirmation:** This PR is missing the required affirmation that your code follows the ' +
+                '🧾 **Missing Affirmation:** This PR is missing the required affirmation that your code follows the ' +
                 '[CONTRIBUTING.md](https://github.com/juice-shop/juice-shop/blob/develop/CONTRIBUTING.md) guidelines.'
               );
             }
@@ -150,7 +149,7 @@ jobs:
             // Check DCO (Signed-off-by)
             if (dcoMissing) {
               violations.push(
-                '**Missing DCO Sign-off:** All commits in this PR must be signed off to indicate your agreement ' +
+                '✍️ **Missing DCO Sign-off:** All commits in this PR must be signed off to indicate your agreement ' +
                 'with the [Developer Certificate of Origin](https://developercertificate.org/). ' +
                 'Please use `git commit -s` for all your commits.'
               );
@@ -159,7 +158,7 @@ jobs:
             // Check for translation file changes violation
             if (i18nModified) {
               violations.push(
-                '**Direct I18N Modification:** Translations must be contributed via ' +
+                '🌐 **Direct I18N Modification:** Translations must be contributed via ' +
                 '[Crowdin](https://crowdin.com/project/owasp-juice-shop) and not via GitHub PRs. ' +
                 'Please see our [translation guidelines](https://pwning.owasp-juice.shop/companion-guide/latest/part3/translation.html) for more details.'
               );
@@ -207,9 +206,9 @@ jobs:
               const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
               if (orgAdminToken) {
                 try {
-                  const { Octokit } = require('@octokit/rest');
-                  const orgAdmin = new Octokit({ auth: orgAdminToken });
-                  await orgAdmin.orgs.blockUser({
+                  const { getOctokit } = require('@actions/github');
+                  const orgAdmin = getOctokit(orgAdminToken);
+                  await orgAdmin.rest.orgs.blockUser({
                     org: 'juice-shop',
                     username: author
                   });
