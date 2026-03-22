@@ -207,9 +207,9 @@ jobs:
               const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
               if (orgAdminToken) {
                 try {
-                  const { Octokit } = require('@octokit/rest');
-                  const orgAdmin = new Octokit({ auth: orgAdminToken });
-                  await orgAdmin.orgs.blockUser({
+                  const { getOctokit } = require('@actions/github');
+                  const orgAdmin = getOctokit(orgAdminToken);
+                  await orgAdmin.rest.orgs.blockUser({
                     org: 'juice-shop',
                     username: author
                   });
