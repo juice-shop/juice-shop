@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        id: check
         env:
           ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
         with:
@@ -75,19 +76,28 @@ jobs:
             const maintainerFiles = [
               'HALL_OF_FAME.md', 'LICENSE', 'LICENSE.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md',
               'CONTRIBUTING.md', 'crowdin.yaml', 'threat-model.json', 'bom.json', 'AGENTS.md',
-              'REFERENCES.md', 'SOLUTIONS.md', '.github/PULL_REQUEST_TEMPLATE.md',
-              '.github/FUNDING.yml', 'CODEOWNERS', '.github/CODEOWNERS', 'config.schema.yml',
-              'ctf.key', '.github/copilot-instructions.md'
+              'REFERENCES.md', 'SOLUTIONS.md', 'CODEOWNERS', 'config.schema.yml', 'ctf.key'
             ];
             const maintainerFileCount = files.filter(f => 
               maintainerFiles.includes(f.filename) || 
-              f.filename.startsWith('.github/ISSUE_TEMPLATE/') ||
-              f.filename.startsWith('.github/workflows/')
+              f.filename.startsWith('.github/') ||
+              f.filename.startsWith('.circleci/')
             ).length;
             
             if (maintainerFileCount > 0) {
               spamScore += 40;
               if (maintainerFileCount > 1) spamScore += 20;
+            }
+            // Extra penalty for new YAML or dotfiles in root or dotfolders
+            if (files.some(f => {
+              if (f.status !== 'added') return false;
+              const isYaml = f.filename.endsWith('.yml') || f.filename.endsWith('.yaml');
+              const isDotFile = f.filename.split('/').pop().startsWith('.');
+              const isRoot = !f.filename.includes('/');
+              const isInDotFolder = f.filename.startsWith('.') || f.filename.includes('/.');
+              return (isYaml || isDotFile) && (isRoot || isInDotFolder);
+            })) {
+              spamScore += 20;
             }
             // Miniscule edits to README.md are often low-effort spam
             if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) spamScore += 20;
@@ -111,6 +121,16 @@ jobs:
 
             const spamRating = Math.max(0, Math.min(100, spamScore));
             const isSpam = spamRating >= 75;
+
+            const checkEmojis = [
+              !wrongBranch ? '✅' : '❌',
+              !aiMissing ? '✅' : '❌',
+              !affirmationMissing ? '✅' : '❌',
+              !dcoMissing ? '✅' : '❌',
+              !i18nModified ? '✅' : '❌'
+            ].join('');
+            const spamPrefix = isSpam ? '🚨 ' : (spamRating >= 40 ? '⚠️ ' : '✅ ');
+            core.setOutput('results', `${checkEmojis}${spamRating > 0 ? ` (${spamPrefix}Spam: ${spamRating}%)` : ''} - ${author}`);
 
             if (isSpam) {
               violations.push(
@@ -243,3 +263,10 @@ jobs:
             });
 
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
+      - name: "Slack Notification"
+        if: always() && steps.check.outputs.results
+        uses: Gamesight/slack-workflow-status@68bf00d0dbdbcb206c278399aa1ef6c14f74347a #v1.3.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          name: "PR Compliance: ${{ steps.check.outputs.results }}"
