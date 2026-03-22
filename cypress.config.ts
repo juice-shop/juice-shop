@@ -3,7 +3,7 @@ import * as security from './lib/insecurity'
 import config from 'config'
 import type { Memory as MemoryConfig, Product as ProductConfig } from './lib/config.types'
 import * as utils from './lib/utils'
-import * as otplib from 'otplib'
+import { generateSync } from 'otplib'
 
 export default defineConfig({
   projectId: '3hrkhu',
@@ -62,7 +62,7 @@ export default defineConfig({
           }
         },
         GenerateAuthenticator (inputString: string) {
-          return otplib.authenticator.generate(inputString)
+          return generateSync({ secret: inputString })
         },
         toISO8601 () {
           const date = new Date()
