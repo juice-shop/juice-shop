@@ -218,66 +218,6 @@
             }
         },
         {
-            "check_id": "javascript.jsonwebtoken.security.jwt-hardcode.hardcoded-jwt-secret",
-            "path": "lib/insecurity.ts",
-            "start": {
-                "line": 56,
-                "col": 56,
-                "offset": 2827
-            },
-            "end": {
-                "line": 56,
-                "col": 66,
-                "offset": 2837
-            },
-            "extra": {
-                "message": "A hard-coded credential was detected. It is not recommended to store credentials in source-code, as this risks secrets being leaked and used by either an internal or external malicious adversary. It is recommended to use environment variables to securely provide credentials or retrieve credentials from a secure vault or HSM (Hardware Security Module).",
-                "metadata": {
-                    "cwe": [
-                        "CWE-798: Use of Hard-coded Credentials"
-                    ],
-                    "references": [
-                        "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
-                    ],
-                    "owasp": [
-                        "A07:2021 - Identification and Authentication Failures",
-                        "A07:2025 - Authentication Failures"
-                    ],
-                    "asvs": {
-                        "control_id": "3.5.2 Static API keys or secret",
-                        "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x12-V3-Session-management.md#v35-token-based-session-management",
-                        "section": "V3: Session Management Verification Requirements",
-                        "version": "4"
-                    },
-                    "category": "security",
-                    "technology": [
-                        "jwt",
-                        "javascript",
-                        "secrets"
-                    ],
-                    "cwe2022-top25": true,
-                    "cwe2021-top25": true,
-                    "subcategory": [
-                        "vuln"
-                    ],
-                    "likelihood": "HIGH",
-                    "impact": "MEDIUM",
-                    "confidence": "HIGH",
-                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-                    "vulnerability_class": [
-                        "Hard-coded Secrets"
-                    ],
-                    "source": "https://semgrep.dev/r/javascript.jsonwebtoken.security.jwt-hardcode.hardcoded-jwt-secret",
-                    "shortlink": "https://sg.run/4xN9"
-                },
-                "severity": "WARNING",
-                "fingerprint": "requires login",
-                "lines": "requires login",
-                "validation_state": "NO_VALIDATOR",
-                "engine_kind": "OSS"
-            }
-        },
-        {
             "check_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
             "path": "routes/chatbot.ts",
             "start": {
@@ -1952,6 +1892,7 @@
             ".dependabot/config.yml",
             ".devcontainer.json",
             ".dockerignore",
+            ".env",
             ".eslintrc.js",
             ".github/FUNDING.yml",
             ".github/ISSUE_TEMPLATE/bug-report.md",
@@ -2962,6 +2903,7 @@
             "screenshots/screenshot11.png",
             "screenshots/screenshot12.png",
             "screenshots/screenshot13.png",
+            "semgrep-report.json",
             "server.ts",
             "swagger.yml",
             "threat-model.json",
@@ -2979,12 +2921,12 @@
     },
     "time": {
         "rules": [],
-        "rules_parse_time": 0.33971285820007324,
+        "rules_parse_time": 0.36365604400634766,
         "profiling_times": {
-            "config_time": 5.322493076324463,
-            "core_time": 13.657737016677856,
-            "ignores_time": 0.00034928321838378906,
-            "total_time": 18.987605094909668
+            "config_time": 1.2593681812286377,
+            "core_time": 11.570475101470947,
+            "ignores_time": 0.0003590583801269531,
+            "total_time": 12.837221145629883
         },
         "parsing_time": {
             "total_time": 0.0,
@@ -2999,19 +2941,23 @@
             "very_slow_files": []
         },
         "scanning_time": {
-            "total_time": 33.549172163009644,
+            "total_time": 30.96602725982666,
             "per_file_time": {
-                "mean": 0.011817249793240428,
-                "std_dev": 0.04799098344271391
+                "mean": 0.01088819523903892,
+                "std_dev": 0.033169531468650745
             },
             "very_slow_stats": {
-                "time_ratio": 0.3409026573895128,
-                "count_ratio": 0.0003522367030644593
+                "time_ratio": 0.35351354731578305,
+                "count_ratio": 0.0007032348804500703
             },
             "very_slow_files": [
                 {
+                    "fpath": "ftp/package-lock.json.bak",
+                    "ftime": 1.5242090225219727
+                },
+                {
                     "fpath": "frontend/src/assets/private/three.js",
-                    "ftime": 11.437001943588257
+                    "ftime": 9.422701120376587
                 }
             ]
         },
@@ -3040,24 +2986,6 @@
             "very_slow_rules_on_defs": []
         },
         "fixpoint_timeouts": [
-            {
-                "error_type": "Fixpoint timeout",
-                "severity": "warn",
-                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:12036:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
-                "location": {
-                    "path": "frontend/src/assets/private/three.js",
-                    "start": {
-                        "line": 12036,
-                        "col": 11,
-                        "offset": 237694
-                    },
-                    "end": {
-                        "line": 12036,
-                        "col": 21,
-                        "offset": 237704
-                    }
-                }
-            },
             {
                 "error_type": "Fixpoint timeout",
                 "severity": "warn",
@@ -3097,24 +3025,6 @@
             {
                 "error_type": "Fixpoint timeout",
                 "severity": "warn",
-                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:21884:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
-                "location": {
-                    "path": "frontend/src/assets/private/three.js",
-                    "start": {
-                        "line": 21884,
-                        "col": 11,
-                        "offset": 460711
-                    },
-                    "end": {
-                        "line": 21884,
-                        "col": 29,
-                        "offset": 460729
-                    }
-                }
-            },
-            {
-                "error_type": "Fixpoint timeout",
-                "severity": "warn",
                 "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:22377:10 [rules: 2, first: typescript.react.security.audit.react-unsanitized-property.react-unsanitized-property]",
                 "location": {
                     "path": "frontend/src/assets/private/three.js",
@@ -3129,37 +3039,19 @@
                         "offset": 470998
                     }
                 }
-            },
-            {
-                "error_type": "Fixpoint timeout",
-                "severity": "warn",
-                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:25542:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
-                "location": {
-                    "path": "frontend/src/assets/private/three.js",
-                    "start": {
-                        "line": 25542,
-                        "col": 11,
-                        "offset": 546691
-                    },
-                    "end": {
-                        "line": 25542,
-                        "col": 30,
-                        "offset": 546710
-                    }
-                }
             }
         ],
         "prefiltering": {
             "project_level_time": 0.0,
             "file_level_time": 0.0,
             "rules_with_project_prefilters_ratio": 0.0,
-            "rules_with_file_prefilters_ratio": 0.9506443045445603,
-            "rules_selected_ratio": 0.08845662010623648,
-            "rules_matched_ratio": 0.08845662010623648
+            "rules_with_file_prefilters_ratio": 0.9505863264252526,
+            "rules_selected_ratio": 0.08852668584212209,
+            "rules_matched_ratio": 0.08852668584212209
         },
         "targets": [],
         "total_bytes": 0,
-        "max_memory_bytes": 2551565376
+        "max_memory_bytes": 2525022976
     },
     "engine_requested": "OSS",
     "skipped_rules": [],

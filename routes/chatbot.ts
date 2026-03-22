@@ -25,7 +25,7 @@ let testCommand: string
 export let bot: Bot | null = null
 let initializationPromise: Promise<any> | null = null
 
-export async function initializeChatbot () {
+export async function initializeChatbot() {
   if (initializationPromise !== null) {
     return await initializationPromise
   }
@@ -56,7 +56,7 @@ export async function initializeChatbot () {
 
 void initializeChatbot()
 
-async function processQuery (user: User, req: Request, res: Response, next: NextFunction) {
+async function processQuery(user: User, req: Request, res: Response, next: NextFunction) {
   if (bot == null) {
     res.status(503).send()
     return
@@ -133,7 +133,7 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 }
 
-async function setUserName (user: User, req: Request, res: Response) {
+async function setUserName(user: User, req: Request, res: Response) {
   if (bot == null) {
     return
   }
@@ -162,7 +162,7 @@ async function setUserName (user: User, req: Request, res: Response) {
   }
 }
 
-export const status = function status () {
+export const status = function status() {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (bot == null) {
       res.status(200).json({
@@ -202,7 +202,9 @@ export const status = function status () {
       bot.addUser(`${user.id}`, username)
       res.status(200).json({
         status: bot.training.state,
-        body: bot.training.state ? bot.greet(`${user.id}`) : `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
+        body: bot.training.state
+          ? sanitizeHtml(bot.greet(`${user.id}`))
+          : `${config.get<string>('application.chatBot.name')} isn't ready at the moment...`
       })
     } catch (err) {
       next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
@@ -210,7 +212,7 @@ export const status = function status () {
   }
 }
 
-export function process () {
+export function process() {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (bot == null) {
       res.status(200).json({
@@ -243,7 +245,7 @@ export function process () {
   }
 }
 
-async function getUserFromJwt (token: string): Promise<User | null> {
+async function getUserFromJwt(token: string): Promise<User | null> {
   return await new Promise((resolve) => {
     jwt.verify(token, security.publicKey, (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
       if (err !== null || !decoded || isString(decoded)) {
@@ -253,4 +255,13 @@ async function getUserFromJwt (token: string): Promise<User | null> {
       }
     })
   })
+}
+
+function sanitizeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
 }
