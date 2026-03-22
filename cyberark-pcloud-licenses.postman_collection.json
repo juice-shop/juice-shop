@@ -8,7 +8,7 @@
   "variable": [
     {
       "key": "tenant",
-      "value": "SEU-TENANT",
+      "value": "ace4869",
       "description": "Subdomínio do tenant (ex: acme → acme.id.cyberark.cloud)"
     },
     {
