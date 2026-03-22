@@ -5,20 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "json" # See documentation for possible values
+  - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
-    open pull requests-limit: 10
+    open-pull-requests-limit: 10
     groups:
       minor-and-patch:
          update-types:
             - "minor"
             - "patch"
-
-  - package-ecosystem: "npm"
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-    open pull requests-limit: 10
     
