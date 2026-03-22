@@ -9,7 +9,6 @@ import request from 'supertest'
 import type { Express } from 'express'
 import config from 'config'
 import path from 'node:path'
-import fs from 'node:fs'
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
 
