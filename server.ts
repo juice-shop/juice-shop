@@ -131,7 +131,7 @@ const app = express()
 const server = new http.Server(app)
 
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
 const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
@@ -239,13 +239,12 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const origEnd = res.end
     // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
         const currentFolder = reqPath.split('/').pop()!
         arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
