@@ -12,30 +12,26 @@ import * as utils from '../lib/utils'
 
 export function performRedirect () {
   return ({ query }: Request, res: Response, next: NextFunction) => {
-    const toUrl: string = query.to as string
-
-    const allowedHosts = ['github.com', 'blockchain.info', 'explorer.dash.org', 'etherscan.io']
-
-    let parsedUrl: URL
-    try {
-      parsedUrl = new URL(toUrl)
-    } catch {
-      res.status(406)
-      next(new Error('Invalid URL for redirect: ' + toUrl))
-      return
+    const allowedRedirects: Record<string, string> = {
+      'github': 'https://github.com/nicejuiceshop',
+      'dash': 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
+      'btc': 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
+      'eth': 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
     }
 
-    if (!allowedHosts.includes(parsedUrl.hostname)) {
-      res.status(406)
-      next(new Error('Unrecognized target URL for redirect: ' + toUrl))
-      return
-    }
+    const key = query.to as string
+    const target = allowedRedirects[key]
 
-    if (security.isRedirectAllowed(toUrl)) {
-      res.redirect(toUrl)
+    if (target) {
+      challengeUtils.solveIf(challenges.redirectCryptoCurrencyChallenge, () => {
+        return target === 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW' ||
+          target === 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm' ||
+          target === 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
+      })
+      res.redirect(target)
     } else {
       res.status(406)
-      next(new Error('Unrecognized target URL for redirect: ' + toUrl))
+      next(new Error('Unrecognized target URL for redirect: ' + key))
     }
   }
 }
