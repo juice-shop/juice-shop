@@ -110,10 +110,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [20, 22, 24]
-        exclude:
-          - os: windows-latest
-            node-version: 20 # node 20 test runner doesn't support glob patterns, linux and macos auto expand globs so they work there
+        node-version: [22, 24] # api tests have already dropped node 20 as it has limited support for glob patterns for the node test runner
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '22')
