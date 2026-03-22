@@ -218,59 +218,6 @@
             }
         },
         {
-            "check_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
-            "path": "routes/chatbot.ts",
-            "start": {
-                "line": 205,
-                "col": 46,
-                "offset": 6297
-            },
-            "end": {
-                "line": 205,
-                "col": 56,
-                "offset": 6307
-            },
-            "extra": {
-                "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
-                "metadata": {
-                    "cwe": [
-                        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
-                    ],
-                    "owasp": [
-                        "A07:2017 - Cross-Site Scripting (XSS)",
-                        "A03:2021 - Injection",
-                        "A05:2025 - Injection"
-                    ],
-                    "references": [
-                        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
-                    ],
-                    "category": "security",
-                    "technology": [
-                        "express"
-                    ],
-                    "cwe2022-top25": true,
-                    "cwe2021-top25": true,
-                    "subcategory": [
-                        "vuln"
-                    ],
-                    "likelihood": "HIGH",
-                    "impact": "MEDIUM",
-                    "confidence": "MEDIUM",
-                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-                    "vulnerability_class": [
-                        "Cross-Site-Scripting (XSS)"
-                    ],
-                    "source": "https://semgrep.dev/r/javascript.express.security.injection.raw-html-format.raw-html-format",
-                    "shortlink": "https://sg.run/5DO3"
-                },
-                "severity": "WARNING",
-                "fingerprint": "requires login",
-                "lines": "requires login",
-                "validation_state": "NO_VALIDATOR",
-                "engine_kind": "OSS"
-            }
-        },
-        {
             "check_id": "javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
             "path": "routes/fileServer.ts",
             "start": {
@@ -2921,12 +2868,12 @@
     },
     "time": {
         "rules": [],
-        "rules_parse_time": 0.36365604400634766,
+        "rules_parse_time": 0.347322940826416,
         "profiling_times": {
-            "config_time": 1.2593681812286377,
-            "core_time": 11.570475101470947,
-            "ignores_time": 0.0003590583801269531,
-            "total_time": 12.837221145629883
+            "config_time": 1.2212731838226318,
+            "core_time": 10.561333894729614,
+            "ignores_time": 0.0003571510314941406,
+            "total_time": 11.79003643989563
         },
         "parsing_time": {
             "total_time": 0.0,
@@ -2941,23 +2888,19 @@
             "very_slow_files": []
         },
         "scanning_time": {
-            "total_time": 30.96602725982666,
+            "total_time": 34.15314865112305,
             "per_file_time": {
-                "mean": 0.01088819523903892,
-                "std_dev": 0.033169531468650745
+                "mean": 0.012008842704333002,
+                "std_dev": 0.024633043242150352
             },
             "very_slow_stats": {
-                "time_ratio": 0.35351354731578305,
-                "count_ratio": 0.0007032348804500703
+                "time_ratio": 0.2338959153329209,
+                "count_ratio": 0.00035161744022503517
             },
             "very_slow_files": [
                 {
-                    "fpath": "ftp/package-lock.json.bak",
-                    "ftime": 1.5242090225219727
-                },
-                {
                     "fpath": "frontend/src/assets/private/three.js",
-                    "ftime": 9.422701120376587
+                    "ftime": 7.988281965255737
                 }
             ]
         },
@@ -3051,7 +2994,7 @@
         },
         "targets": [],
         "total_bytes": 0,
-        "max_memory_bytes": 2525022976
+        "max_memory_bytes": 2640984000
     },
     "engine_requested": "OSS",
     "skipped_rules": [],
