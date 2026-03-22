@@ -1,0 +1,3167 @@
+{
+    "version": "1.156.0",
+    "results": [
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "data/static/codefixes/dbSchemaChallenge_1.ts",
+            "start": {
+                "line": 5,
+                "col": 28,
+                "offset": 284
+            },
+            "end": {
+                "line": 5,
+                "col": 162,
+                "offset": 418
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "data/static/codefixes/dbSchemaChallenge_3.ts",
+            "start": {
+                "line": 11,
+                "col": 28,
+                "offset": 419
+            },
+            "end": {
+                "line": 11,
+                "col": 159,
+                "offset": 550
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "data/static/codefixes/unionSqlInjectionChallenge_1.ts",
+            "start": {
+                "line": 6,
+                "col": 28,
+                "offset": 326
+            },
+            "end": {
+                "line": 6,
+                "col": 159,
+                "offset": 457
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "data/static/codefixes/unionSqlInjectionChallenge_3.ts",
+            "start": {
+                "line": 10,
+                "col": 28,
+                "offset": 458
+            },
+            "end": {
+                "line": 10,
+                "col": 159,
+                "offset": 589
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.jsonwebtoken.security.jwt-hardcode.hardcoded-jwt-secret",
+            "path": "lib/insecurity.ts",
+            "start": {
+                "line": 56,
+                "col": 56,
+                "offset": 2827
+            },
+            "end": {
+                "line": 56,
+                "col": 66,
+                "offset": 2837
+            },
+            "extra": {
+                "message": "A hard-coded credential was detected. It is not recommended to store credentials in source-code, as this risks secrets being leaked and used by either an internal or external malicious adversary. It is recommended to use environment variables to securely provide credentials or retrieve credentials from a secure vault or HSM (Hardware Security Module).",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+                    ],
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures",
+                        "A07:2025 - Authentication Failures"
+                    ],
+                    "asvs": {
+                        "control_id": "3.5.2 Static API keys or secret",
+                        "control_url": "https://github.com/OWASP/ASVS/blob/master/4.0/en/0x12-V3-Session-management.md#v35-token-based-session-management",
+                        "section": "V3: Session Management Verification Requirements",
+                        "version": "4"
+                    },
+                    "category": "security",
+                    "technology": [
+                        "jwt",
+                        "javascript",
+                        "secrets"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.jsonwebtoken.security.jwt-hardcode.hardcoded-jwt-secret",
+                    "shortlink": "https://sg.run/4xN9"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.injection.raw-html-format.raw-html-format",
+            "path": "routes/chatbot.ts",
+            "start": {
+                "line": 205,
+                "col": 46,
+                "offset": 6297
+            },
+            "end": {
+                "line": 205,
+                "col": 56,
+                "offset": 6307
+            },
+            "extra": {
+                "message": "User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.",
+                "metadata": {
+                    "cwe": [
+                        "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                    ],
+                    "owasp": [
+                        "A07:2017 - Cross-Site Scripting (XSS)",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cross-Site-Scripting (XSS)"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.injection.raw-html-format.raw-html-format",
+                    "shortlink": "https://sg.run/5DO3"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+            "path": "routes/fileServer.ts",
+            "start": {
+                "line": 33,
+                "col": 20,
+                "offset": 1142
+            },
+            "end": {
+                "line": 33,
+                "col": 46,
+                "offset": 1168
+            },
+            "extra": {
+                "message": "The application processes user-input, this is passed to res.sendFile which can allow an attacker to arbitrarily read files on the system through path traversal. It is recommended to perform input validation in addition to canonicalizing the path. This allows you to validate the path against the intended directory it should be accessing.",
+                "metadata": {
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+                    ],
+                    "technology": [
+                        "express"
+                    ],
+                    "category": "security",
+                    "cwe": [
+                        "CWE-73: External Control of File Name or Path"
+                    ],
+                    "owasp": [
+                        "A04:2021 - Insecure Design",
+                        "A06:2025 - Insecure Design"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Path Traversal"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+                    "shortlink": "https://sg.run/7DJk"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+            "path": "routes/keyServer.ts",
+            "start": {
+                "line": 14,
+                "col": 20,
+                "offset": 410
+            },
+            "end": {
+                "line": 14,
+                "col": 57,
+                "offset": 447
+            },
+            "extra": {
+                "message": "The application processes user-input, this is passed to res.sendFile which can allow an attacker to arbitrarily read files on the system through path traversal. It is recommended to perform input validation in addition to canonicalizing the path. This allows you to validate the path against the intended directory it should be accessing.",
+                "metadata": {
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+                    ],
+                    "technology": [
+                        "express"
+                    ],
+                    "category": "security",
+                    "cwe": [
+                        "CWE-73: External Control of File Name or Path"
+                    ],
+                    "owasp": [
+                        "A04:2021 - Insecure Design",
+                        "A06:2025 - Insecure Design"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Path Traversal"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+                    "shortlink": "https://sg.run/7DJk"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+            "path": "routes/logfileServer.ts",
+            "start": {
+                "line": 14,
+                "col": 20,
+                "offset": 410
+            },
+            "end": {
+                "line": 14,
+                "col": 47,
+                "offset": 437
+            },
+            "extra": {
+                "message": "The application processes user-input, this is passed to res.sendFile which can allow an attacker to arbitrarily read files on the system through path traversal. It is recommended to perform input validation in addition to canonicalizing the path. This allows you to validate the path against the intended directory it should be accessing.",
+                "metadata": {
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+                    ],
+                    "technology": [
+                        "express"
+                    ],
+                    "category": "security",
+                    "cwe": [
+                        "CWE-73: External Control of File Name or Path"
+                    ],
+                    "owasp": [
+                        "A04:2021 - Insecure Design",
+                        "A06:2025 - Insecure Design"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Path Traversal"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+                    "shortlink": "https://sg.run/7DJk"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "routes/login.ts",
+            "start": {
+                "line": 34,
+                "col": 28,
+                "offset": 1459
+            },
+            "end": {
+                "line": 34,
+                "col": 169,
+                "offset": 1600
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+            "path": "routes/quarantineServer.ts",
+            "start": {
+                "line": 14,
+                "col": 20,
+                "offset": 424
+            },
+            "end": {
+                "line": 14,
+                "col": 57,
+                "offset": 461
+            },
+            "extra": {
+                "message": "The application processes user-input, this is passed to res.sendFile which can allow an attacker to arbitrarily read files on the system through path traversal. It is recommended to perform input validation in addition to canonicalizing the path. This allows you to validate the path against the intended directory it should be accessing.",
+                "metadata": {
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html"
+                    ],
+                    "technology": [
+                        "express"
+                    ],
+                    "category": "security",
+                    "cwe": [
+                        "CWE-73: External Control of File Name or Path"
+                    ],
+                    "owasp": [
+                        "A04:2021 - Insecure Design",
+                        "A06:2025 - Insecure Design"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Path Traversal"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-res-sendfile.express-res-sendfile",
+                    "shortlink": "https://sg.run/7DJk"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-open-redirect.express-open-redirect",
+            "path": "routes/redirect.ts",
+            "start": {
+                "line": 19,
+                "col": 20,
+                "offset": 1045
+            },
+            "end": {
+                "line": 19,
+                "col": 25,
+                "offset": 1050
+            },
+            "extra": {
+                "message": "The application redirects to a URL specified by user-supplied input `query` that is not validated. This could redirect users to malicious locations. Consider using an allow-list approach to validate URLs, or warn users they are being redirected to a third-party website.",
+                "metadata": {
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html"
+                    ],
+                    "cwe": [
+                        "CWE-601: URL Redirection to Untrusted Site ('Open Redirect')"
+                    ],
+                    "category": "security",
+                    "owasp": [
+                        "A01:2021 - Broken Access Control",
+                        "A01:2025 - Broken Access Control"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Open Redirect"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-open-redirect.express-open-redirect",
+                    "shortlink": "https://sg.run/EpoP"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+            "path": "routes/search.ts",
+            "start": {
+                "line": 23,
+                "col": 28,
+                "offset": 847
+            },
+            "end": {
+                "line": 23,
+                "col": 159,
+                "offset": 978
+            },
+            "extra": {
+                "message": "Detected a sequelize statement that is tainted by user-input. This could lead to SQL injection if the variable is user-controlled and is not properly sanitized. In order to prevent SQL injection, it is recommended to use parameterized queries or prepared statements.",
+                "metadata": {
+                    "interfile": true,
+                    "references": [
+                        "https://sequelize.org/docs/v6/core-concepts/raw-queries/#replacements"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "cwe": [
+                        "CWE-89: Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "SQL Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.sequelize.security.audit.sequelize-injection-express.express-sequelize-injection",
+                    "shortlink": "https://sg.run/gjoe"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.lang.security.audit.code-string-concat.code-string-concat",
+            "path": "routes/userProfile.ts",
+            "start": {
+                "line": 62,
+                "col": 20,
+                "offset": 1855
+            },
+            "end": {
+                "line": 62,
+                "col": 30,
+                "offset": 1865
+            },
+            "extra": {
+                "message": "Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.",
+                "metadata": {
+                    "interfile": true,
+                    "confidence": "HIGH",
+                    "owasp": [
+                        "A03:2021 - Injection",
+                        "A05:2025 - Injection"
+                    ],
+                    "cwe": [
+                        "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code ('Eval Injection')"
+                    ],
+                    "references": [
+                        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval",
+                        "https://nodejs.org/api/child_process.html#child_processexeccommand-options-callback",
+                        "https://www.stackhawk.com/blog/nodejs-command-injection-examples-and-prevention/",
+                        "https://ckarande.gitbooks.io/owasp-nodegoat-tutorial/content/tutorial/a1_-_server_side_js_injection.html"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "node.js",
+                        "Express",
+                        "Next.js"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "MEDIUM",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Code Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.lang.security.audit.code-string-concat.code-string-concat",
+                    "shortlink": "https://sg.run/96Yk"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+            "path": "server.ts",
+            "start": {
+                "line": 269,
+                "col": 3,
+                "offset": 12274
+            },
+            "end": {
+                "line": 269,
+                "col": 76,
+                "offset": 12347
+            },
+            "extra": {
+                "message": "Directory listing/indexing is enabled, which may lead to disclosure of sensitive directories and files. It is recommended to disable directory listing unless it is a public resource. If you need directory listing, ensure that sensitive files are inaccessible when querying the resource.",
+                "metadata": {
+                    "interfile": true,
+                    "cwe": [
+                        "CWE-548: Exposure of Information Through Directory Listing"
+                    ],
+                    "owasp": [
+                        "A06:2017 - Security Misconfiguration",
+                        "A01:2021 - Broken Access Control",
+                        "A01:2025 - Broken Access Control"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://www.npmjs.com/package/serve-index",
+                        "https://www.acunetix.com/blog/articles/directory-listing-information-disclosure/"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mishandled Sensitive Information"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+                    "shortlink": "https://sg.run/DX2G"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+            "path": "server.ts",
+            "start": {
+                "line": 273,
+                "col": 3,
+                "offset": 12643
+            },
+            "end": {
+                "line": 273,
+                "col": 109,
+                "offset": 12749
+            },
+            "extra": {
+                "message": "Directory listing/indexing is enabled, which may lead to disclosure of sensitive directories and files. It is recommended to disable directory listing unless it is a public resource. If you need directory listing, ensure that sensitive files are inaccessible when querying the resource.",
+                "metadata": {
+                    "interfile": true,
+                    "cwe": [
+                        "CWE-548: Exposure of Information Through Directory Listing"
+                    ],
+                    "owasp": [
+                        "A06:2017 - Security Misconfiguration",
+                        "A01:2021 - Broken Access Control",
+                        "A01:2025 - Broken Access Control"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://www.npmjs.com/package/serve-index",
+                        "https://www.acunetix.com/blog/articles/directory-listing-information-disclosure/"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mishandled Sensitive Information"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+                    "shortlink": "https://sg.run/DX2G"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+            "path": "server.ts",
+            "start": {
+                "line": 277,
+                "col": 3,
+                "offset": 12853
+            },
+            "end": {
+                "line": 277,
+                "col": 115,
+                "offset": 12965
+            },
+            "extra": {
+                "message": "Directory listing/indexing is enabled, which may lead to disclosure of sensitive directories and files. It is recommended to disable directory listing unless it is a public resource. If you need directory listing, ensure that sensitive files are inaccessible when querying the resource.",
+                "metadata": {
+                    "interfile": true,
+                    "cwe": [
+                        "CWE-548: Exposure of Information Through Directory Listing"
+                    ],
+                    "owasp": [
+                        "A06:2017 - Security Misconfiguration",
+                        "A01:2021 - Broken Access Control",
+                        "A01:2025 - Broken Access Control"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://www.npmjs.com/package/serve-index",
+                        "https://www.acunetix.com/blog/articles/directory-listing-information-disclosure/"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mishandled Sensitive Information"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+                    "shortlink": "https://sg.run/DX2G"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+            "path": "server.ts",
+            "start": {
+                "line": 281,
+                "col": 3,
+                "offset": 13117
+            },
+            "end": {
+                "line": 281,
+                "col": 103,
+                "offset": 13217
+            },
+            "extra": {
+                "message": "Directory listing/indexing is enabled, which may lead to disclosure of sensitive directories and files. It is recommended to disable directory listing unless it is a public resource. If you need directory listing, ensure that sensitive files are inaccessible when querying the resource.",
+                "metadata": {
+                    "interfile": true,
+                    "cwe": [
+                        "CWE-548: Exposure of Information Through Directory Listing"
+                    ],
+                    "owasp": [
+                        "A06:2017 - Security Misconfiguration",
+                        "A01:2021 - Broken Access Control",
+                        "A01:2025 - Broken Access Control"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "express"
+                    ],
+                    "references": [
+                        "https://www.npmjs.com/package/serve-index",
+                        "https://www.acunetix.com/blog/articles/directory-listing-information-disclosure/"
+                    ],
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "MEDIUM",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mishandled Sensitive Information"
+                    ],
+                    "source": "https://semgrep.dev/r/javascript.express.security.audit.express-check-directory-listing.express-check-directory-listing",
+                    "shortlink": "https://sg.run/DX2G"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/weakPasswordChallenge_3.ts:1:\n `User.init(\n      password: {\n        type: DataTypes.STRING,\n        set (clearTextPassword: string) {\n          validatePasswordHasAtLeastOneNumber(clearTextPassword)\n          validatePasswordHasAtLeastOneSpecialChar(clearTextPassword)\n          validatePasswordHasAtLeastOneUpperCaseChar(clearTextPassword)\n          validatePasswordHasAtLeastOneLowerCaseChar(clearTextPassword)\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\n          this.setDataValue('password', security.hash(clearTextPassword))\n        }\n      },` was unexpected",
+            "path": "data/static/codefixes/weakPasswordChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/weakPasswordChallenge_2.ts:1:\n `User.init(\n      password: {\n        type: DataTypes.STRING,\n        set (clearTextPassword: string) {\n          validatePasswordHasAtLeastOneNumber(clearTextPassword)\n          validatePasswordHasAtLeastOneSpecialChar(clearTextPassword)\n          validatePasswordHasAtLeastOneUpperCaseChar(clearTextPassword)\n          validatePasswordHasAtLeastOneLowerCaseChar(clearTextPassword)\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\n          this.setDataValue('password', security.hash(clearTextPassword))\n        }\n      },` was unexpected",
+            "path": "data/static/codefixes/weakPasswordChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/weakPasswordChallenge_1_correct.ts:1:\n `User.init(\n      password: {\n        type: DataTypes.STRING,\n        set (clearTextPassword: string) {\n          validatePasswordHasAtLeastTenChar(clearTextPassword)\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\n          this.setDataValue('password', security.hash(clearTextPassword))\n        }\n      },` was unexpected",
+            "path": "data/static/codefixes/weakPasswordChallenge_1_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/weakPasswordChallenge_4.ts:1:\n `User.init(\n      password: {\n        type: DataTypes.STRING,\n        set (clearTextPassword: string) {\n          validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)\n          this.setDataValue('password', security.hash(clearTextPassword))\n        }\n      },` was unexpected",
+            "path": "data/static/codefixes/weakPasswordChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginAdminChallenge_1.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\n      res.status(451).send(res.__('SQL Injection detected.'))\n    }\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginAdminChallenge_1.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginBenderChallenge_1.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\n      res.status(451).send(res.__('SQL Injection detected.'))\n    }\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginBenderChallenge_1.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginJimChallenge_4.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    if (req.body.email.match(/.*['-;].*/) || req.body.password.match(/.*['-;].*/)) {\n      res.status(451).send(res.__('SQL Injection detected.'))\n    }\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginJimChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginAdminChallenge_3.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\n      { bind: [ req.body.email, req.body.password ], model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginAdminChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginAdminChallenge_4_correct.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\n      { bind: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginAdminChallenge_4_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginJimChallenge_1_correct.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = $2 AND deletedAt IS NULL`,\n      { bind: [ req.body.email, security.hash(req.body.password) ], model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginJimChallenge_1_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginAdminChallenge_2.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $1 AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`,\n      { bind: [ req.body.email ], model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginAdminChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginBenderChallenge_2_correct.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = $mail AND password = $pass AND deletedAt IS NULL`,\n      { bind: { mail: req.body.email, pass: security.hash(req.body.password) }, model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginBenderChallenge_2_correct.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginBenderChallenge_4.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginBenderChallenge_4.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginJimChallenge_2.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: models.User, plain: false })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginJimChallenge_2.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginBenderChallenge_3.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = :mail AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`,\n      { replacements: { mail: req.body.email }, model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginBenderChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line data/static/codefixes/loginJimChallenge_3.ts:1:\n `export function login () {\n  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {\n    BasketModel.findOrCreate({ where: { UserId: user.data.id } })\n      .then(([basket]: [BasketModel, boolean]) => {\n        const token = security.authorize(user)\n        user.bid = basket.id // keep track of original basket\n        security.authenticatedUsers.put(token, user)\n        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }\n\n  return (req: Request, res: Response, next: NextFunction) => {\n    models.sequelize.query(`SELECT * FROM Users WHERE email = ? AND password = ? AND deletedAt IS NULL`,\n      { replacements: [ req.body.email, req.body.password ], model: models.User, plain: true })\n      .then((authenticatedUser) => {\n        const user = utils.queryResultToJson(authenticatedUser)\n        if (user.data?.id && user.data.totpSecret !== '') {\n          res.status(401).json({\n            status: 'totp_token_required',\n            data: {\n              tmpToken: security.authorize({\n                userId: user.data.id,\n                type: 'password_valid_needs_second_factor_token'\n              })\n            }\n          })\n        } else if (user.data?.id) {\n          afterLogin(user, res, next)\n        } else {\n          res.status(401).send(res.__('Invalid email or password.'))\n        }\n      }).catch((error: Error) => {\n        next(error)\n      })\n  }` was unexpected",
+            "path": "data/static/codefixes/loginJimChallenge_3.ts"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "data/static/codefixes/restfulXssChallenge_3.ts",
+                        "start": {
+                            "line": 46,
+                            "col": 37,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 46,
+                            "col": 44,
+                            "offset": 7
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line data/static/codefixes/restfulXssChallenge_3.ts:46:\n `: any[]` was unexpected",
+            "path": "data/static/codefixes/restfulXssChallenge_3.ts",
+            "spans": [
+                {
+                    "file": "data/static/codefixes/restfulXssChallenge_3.ts",
+                    "start": {
+                        "line": 46,
+                        "col": 37,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 46,
+                        "col": 44,
+                        "offset": 7
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 47,
+                            "col": 37,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 47,
+                            "col": 44,
+                            "offset": 7
+                        }
+                    },
+                    {
+                        "path": "data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 53,
+                            "col": 18,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 53,
+                            "col": 23,
+                            "offset": 5
+                        }
+                    },
+                    {
+                        "path": "data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 57,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "col": 56,
+                            "offset": 53
+                        }
+                    },
+                    {
+                        "path": "data/static/codefixes/restfulXssChallenge_4.ts",
+                        "start": {
+                            "line": 63,
+                            "col": 3,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 63,
+                            "col": 4,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line data/static/codefixes/restfulXssChallenge_4.ts:47:\n `: any[]` was unexpected",
+            "path": "data/static/codefixes/restfulXssChallenge_4.ts",
+            "spans": [
+                {
+                    "file": "data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 47,
+                        "col": 37,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "col": 44,
+                        "offset": 7
+                    }
+                },
+                {
+                    "file": "data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 53,
+                        "col": 18,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 53,
+                        "col": 23,
+                        "offset": 5
+                    }
+                },
+                {
+                    "file": "data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 57,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "col": 56,
+                        "offset": 53
+                    }
+                },
+                {
+                    "file": "data/static/codefixes/restfulXssChallenge_4.ts",
+                    "start": {
+                        "line": 63,
+                        "col": 3,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 63,
+                        "col": 4,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "data/static/codefixes/tokenSaleChallenge_1.ts",
+                        "start": {
+                            "line": 18,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 18,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line data/static/codefixes/tokenSaleChallenge_1.ts:18:\n `]` was unexpected",
+            "path": "data/static/codefixes/tokenSaleChallenge_1.ts",
+            "spans": [
+                {
+                    "file": "data/static/codefixes/tokenSaleChallenge_1.ts",
+                    "start": {
+                        "line": 18,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 18,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "data/static/codefixes/tokenSaleChallenge_2.ts",
+                        "start": {
+                            "line": 19,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 19,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line data/static/codefixes/tokenSaleChallenge_2.ts:19:\n `]` was unexpected",
+            "path": "data/static/codefixes/tokenSaleChallenge_2.ts",
+            "spans": [
+                {
+                    "file": "data/static/codefixes/tokenSaleChallenge_2.ts",
+                    "start": {
+                        "line": 19,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 19,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+                        "start": {
+                            "line": 14,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line data/static/codefixes/tokenSaleChallenge_3_correct.ts:14:\n `]` was unexpected",
+            "path": "data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+            "spans": [
+                {
+                    "file": "data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+                    "start": {
+                        "line": 14,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 14,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/deluxe-user/deluxe-user.component.html",
+                        "start": {
+                            "line": 6,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "col": 14,
+                            "offset": 13
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/deluxe-user/deluxe-user.component.html",
+                        "start": {
+                            "line": 10,
+                            "col": 1,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 2,
+                            "offset": 1
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/deluxe-user/deluxe-user.component.html:6:\n `@if (error) {` was unexpected",
+            "path": "frontend/src/app/deluxe-user/deluxe-user.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/deluxe-user/deluxe-user.component.html",
+                    "start": {
+                        "line": 6,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 6,
+                        "col": 14,
+                        "offset": 13
+                    }
+                },
+                {
+                    "file": "frontend/src/app/deluxe-user/deluxe-user.component.html",
+                    "start": {
+                        "line": 10,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 2,
+                        "offset": 1
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/order-completion/order-completion.component.html",
+                        "start": {
+                            "line": 15,
+                            "col": 41,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 15,
+                            "col": 77,
+                            "offset": 36
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/order-completion/order-completion.component.html:15:\n `&& orderDetails.eta !== undefined) {` was unexpected",
+            "path": "frontend/src/app/order-completion/order-completion.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/order-completion/order-completion.component.html",
+                    "start": {
+                        "line": 15,
+                        "col": 41,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "col": 77,
+                        "offset": 36
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 42,
+                            "col": 31,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "col": 57,
+                            "offset": 26
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 47,
+                            "col": 24,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 47,
+                            "col": 50,
+                            "offset": 26
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 58,
+                            "col": 36,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 58,
+                            "col": 108,
+                            "offset": 72
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/payment/payment.component.html",
+                        "start": {
+                            "line": 160,
+                            "col": 32,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 160,
+                            "col": 55,
+                            "offset": 23
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/payment/payment.component.html:42:\n `&& !couponControl.dirty) {` was unexpected",
+            "path": "frontend/src/app/payment/payment.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 42,
+                        "col": 31,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "col": 57,
+                        "offset": 26
+                    }
+                },
+                {
+                    "file": "frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 47,
+                        "col": 24,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 47,
+                        "col": 50,
+                        "offset": 26
+                    }
+                },
+                {
+                    "file": "frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 58,
+                        "col": 36,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 58,
+                        "col": 108,
+                        "offset": 72
+                    }
+                },
+                {
+                    "file": "frontend/src/app/payment/payment.component.html",
+                    "start": {
+                        "line": 160,
+                        "col": 32,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 160,
+                        "col": 55,
+                        "offset": 23
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/photo-wall/photo-wall.component.html",
+                        "start": {
+                            "line": 62,
+                            "col": 40,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 62,
+                            "col": 85,
+                            "offset": 45
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/photo-wall/photo-wall.component.html:62:\n `&& imagePreview && form.get('image').valid) {` was unexpected",
+            "path": "frontend/src/app/photo-wall/photo-wall.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/photo-wall/photo-wall.component.html",
+                    "start": {
+                        "line": 62,
+                        "col": 40,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 62,
+                        "col": 85,
+                        "offset": 45
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/privacy-policy/privacy-policy.component.html",
+                        "start": {
+                            "line": 58,
+                            "col": 25,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 58,
+                            "col": 39,
+                            "offset": 14
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/privacy-policy/privacy-policy.component.html:58:\n `& Cookies Data` was unexpected",
+            "path": "frontend/src/app/privacy-policy/privacy-policy.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/privacy-policy/privacy-policy.component.html",
+                    "start": {
+                        "line": 58,
+                        "col": 25,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 58,
+                        "col": 39,
+                        "offset": 14
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 20,
+                            "col": 41,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 20,
+                            "col": 85,
+                            "offset": 44
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 37,
+                            "col": 82,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 37,
+                            "col": 116,
+                            "offset": 34
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 57,
+                            "col": 34,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 57,
+                            "col": 56,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 70,
+                            "col": 27,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 70,
+                            "col": 86,
+                            "offset": 59
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 81,
+                            "col": 63,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 81,
+                            "col": 100,
+                            "offset": 37
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                        "start": {
+                            "line": 91,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 91,
+                            "col": 41,
+                            "offset": 6
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/score-board/components/challenge-card/challenge-card.component.html:20:\n `&& challenge.disabledEnv !== 'safetyMode') {` was unexpected",
+            "path": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 20,
+                        "col": 41,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 20,
+                        "col": 85,
+                        "offset": 44
+                    }
+                },
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 37,
+                        "col": 82,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 37,
+                        "col": 116,
+                        "offset": 34
+                    }
+                },
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 57,
+                        "col": 34,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 57,
+                        "col": 56,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 70,
+                        "col": 27,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 70,
+                        "col": 86,
+                        "offset": 59
+                    }
+                },
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 81,
+                        "col": 63,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 81,
+                        "col": 100,
+                        "offset": 37
+                    }
+                },
+                {
+                    "file": "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+                    "start": {
+                        "line": 91,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 91,
+                        "col": 41,
+                        "offset": 6
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/sidenav/sidenav.component.html",
+                        "start": {
+                            "line": 42,
+                            "col": 23,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 42,
+                            "col": 43,
+                            "offset": 20
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/sidenav/sidenav.component.html",
+                        "start": {
+                            "line": 279,
+                            "col": 27,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 279,
+                            "col": 56,
+                            "offset": 29
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/sidenav/sidenav.component.html:42:\n `&& isAccounting()) {` was unexpected",
+            "path": "frontend/src/app/sidenav/sidenav.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/sidenav/sidenav.component.html",
+                    "start": {
+                        "line": 42,
+                        "col": 23,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 42,
+                        "col": 43,
+                        "offset": 20
+                    }
+                },
+                {
+                    "file": "frontend/src/app/sidenav/sidenav.component.html",
+                    "start": {
+                        "line": 279,
+                        "col": 27,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 279,
+                        "col": 56,
+                        "offset": 29
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": "frontend/src/app/wallet/wallet.component.html",
+                        "start": {
+                            "line": 24,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 24,
+                            "col": 71,
+                            "offset": 36
+                        }
+                    },
+                    {
+                        "path": "frontend/src/app/wallet/wallet.component.html",
+                        "start": {
+                            "line": 29,
+                            "col": 35,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 29,
+                            "col": 97,
+                            "offset": 62
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line frontend/src/app/wallet/wallet.component.html:24:\n `&& balanceControl.errors.required) {` was unexpected",
+            "path": "frontend/src/app/wallet/wallet.component.html",
+            "spans": [
+                {
+                    "file": "frontend/src/app/wallet/wallet.component.html",
+                    "start": {
+                        "line": 24,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 24,
+                        "col": 71,
+                        "offset": 36
+                    }
+                },
+                {
+                    "file": "frontend/src/app/wallet/wallet.component.html",
+                    "start": {
+                        "line": 29,
+                        "col": 35,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 29,
+                        "col": 97,
+                        "offset": 62
+                    }
+                }
+            ]
+        }
+    ],
+    "paths": {
+        "scanned": [
+            ".claude/CLAUDE.md",
+            ".codeclimate.yml",
+            ".codeium/instructions.md",
+            ".continue/instructions.md",
+            ".cursor/rules",
+            ".dependabot/config.yml",
+            ".devcontainer.json",
+            ".dockerignore",
+            ".eslintrc.js",
+            ".github/FUNDING.yml",
+            ".github/ISSUE_TEMPLATE/bug-report.md",
+            ".github/ISSUE_TEMPLATE/challenge-idea.md",
+            ".github/ISSUE_TEMPLATE/config.yml",
+            ".github/ISSUE_TEMPLATE/feature-request.md",
+            ".github/PULL_REQUEST_TEMPLATE.md",
+            ".github/copilot-instructions.md",
+            ".github/workflows/ci.yml",
+            ".github/workflows/codeql-analysis.yml",
+            ".github/workflows/frontend-bundle-analysis.yml",
+            ".github/workflows/lint-fixer.yml",
+            ".github/workflows/lock.yml",
+            ".github/workflows/pr-compliance.yml",
+            ".github/workflows/rebase.yml",
+            ".github/workflows/release.yml",
+            ".github/workflows/stale.yml",
+            ".github/workflows/update-challenges-ebook.yml",
+            ".github/workflows/update-challenges-www.yml",
+            ".github/workflows/update-news-www.yml",
+            ".github/workflows/zap_scan.yml",
+            ".gitignore",
+            ".gitlab/auto-deploy-values.yaml",
+            ".gitlab-ci.yml",
+            ".gitpod.yml",
+            ".mailmap",
+            ".npmrc",
+            ".well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json",
+            ".well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json.asc",
+            ".well-known/csaf/2017/juice-shop-sa-20200513-express-jwt.json.sha512",
+            ".well-known/csaf/2021/juice-shop-sa-20211014-proto.json",
+            ".well-known/csaf/2021/juice-shop-sa-20211014-proto.json.asc",
+            ".well-known/csaf/2021/juice-shop-sa-20211014-proto.json.sha512",
+            ".well-known/csaf/2024/juice-shop-sa-disclaimer.json",
+            ".well-known/csaf/2024/juice-shop-sa-disclaimer.json.asc",
+            ".well-known/csaf/2024/juice-shop-sa-disclaimer.json.sha512",
+            ".well-known/csaf/changes.csv",
+            ".well-known/csaf/index.txt",
+            ".well-known/csaf/provider-metadata.json",
+            ".well-known/security.txt",
+            ".zap/rules.tsv",
+            "AGENTS.md",
+            "CODE_OF_CONDUCT.md",
+            "CONTRIBUTING.md",
+            "Dockerfile",
+            "Gruntfile.js",
+            "HALL_OF_FAME.md",
+            "LICENSE",
+            "README.md",
+            "REFERENCES.md",
+            "SECURITY.md",
+            "SOLUTIONS.md",
+            "app.json",
+            "app.ts",
+            "config/7ms.yml",
+            "config/addo.yml",
+            "config/bodgeit.yml",
+            "config/ctf.yml",
+            "config/default.yml",
+            "config/defcon33.yml",
+            "config/fbctf.yml",
+            "config/juicebox.yml",
+            "config/mozilla.yml",
+            "config/oss.yml",
+            "config/quiet.yml",
+            "config/test.yml",
+            "config/tutorial.yml",
+            "config/unsafe.yml",
+            "config.schema.yml",
+            "crowdin.yaml",
+            "ctf.key",
+            "cypress.config.ts",
+            "data/chatbot/.gitkeep",
+            "data/datacache.ts",
+            "data/datacreator.ts",
+            "data/mongodb.ts",
+            "data/static/botDefaultTrainingData.json",
+            "data/static/challenges.yml",
+            "data/static/codefixes/.editorconfig",
+            "data/static/codefixes/accessLogDisclosureChallenge.info.yml",
+            "data/static/codefixes/accessLogDisclosureChallenge_1_correct.ts",
+            "data/static/codefixes/accessLogDisclosureChallenge_2.ts",
+            "data/static/codefixes/accessLogDisclosureChallenge_3.ts",
+            "data/static/codefixes/accessLogDisclosureChallenge_4.ts",
+            "data/static/codefixes/adminSectionChallenge.info.yml",
+            "data/static/codefixes/adminSectionChallenge_1_correct.ts",
+            "data/static/codefixes/adminSectionChallenge_2.ts",
+            "data/static/codefixes/adminSectionChallenge_3.ts",
+            "data/static/codefixes/adminSectionChallenge_4.ts",
+            "data/static/codefixes/changeProductChallenge.info.yml",
+            "data/static/codefixes/changeProductChallenge_1.ts",
+            "data/static/codefixes/changeProductChallenge_2.ts",
+            "data/static/codefixes/changeProductChallenge_3_correct.ts",
+            "data/static/codefixes/changeProductChallenge_4.ts",
+            "data/static/codefixes/dbSchemaChallenge.info.yml",
+            "data/static/codefixes/dbSchemaChallenge_1.ts",
+            "data/static/codefixes/dbSchemaChallenge_2_correct.ts",
+            "data/static/codefixes/dbSchemaChallenge_3.ts",
+            "data/static/codefixes/directoryListingChallenge.info.yml",
+            "data/static/codefixes/directoryListingChallenge_1_correct.ts",
+            "data/static/codefixes/directoryListingChallenge_2.ts",
+            "data/static/codefixes/directoryListingChallenge_3.ts",
+            "data/static/codefixes/directoryListingChallenge_4.ts",
+            "data/static/codefixes/exposedMetricsChallenge.info.yml",
+            "data/static/codefixes/exposedMetricsChallenge_1.ts",
+            "data/static/codefixes/exposedMetricsChallenge_2.ts",
+            "data/static/codefixes/exposedMetricsChallenge_3_correct.ts",
+            "data/static/codefixes/forgedReviewChallenge.info.yml",
+            "data/static/codefixes/forgedReviewChallenge_1.ts",
+            "data/static/codefixes/forgedReviewChallenge_2_correct.ts",
+            "data/static/codefixes/forgedReviewChallenge_3.ts",
+            "data/static/codefixes/localXssChallenge.info.yml",
+            "data/static/codefixes/localXssChallenge_1.ts",
+            "data/static/codefixes/localXssChallenge_2_correct.ts",
+            "data/static/codefixes/localXssChallenge_3.ts",
+            "data/static/codefixes/localXssChallenge_4.ts",
+            "data/static/codefixes/loginAdminChallenge.info.yml",
+            "data/static/codefixes/loginAdminChallenge_1.ts",
+            "data/static/codefixes/loginAdminChallenge_2.ts",
+            "data/static/codefixes/loginAdminChallenge_3.ts",
+            "data/static/codefixes/loginAdminChallenge_4_correct.ts",
+            "data/static/codefixes/loginBenderChallenge.info.yml",
+            "data/static/codefixes/loginBenderChallenge_1.ts",
+            "data/static/codefixes/loginBenderChallenge_2_correct.ts",
+            "data/static/codefixes/loginBenderChallenge_3.ts",
+            "data/static/codefixes/loginBenderChallenge_4.ts",
+            "data/static/codefixes/loginJimChallenge.info.yml",
+            "data/static/codefixes/loginJimChallenge_1_correct.ts",
+            "data/static/codefixes/loginJimChallenge_2.ts",
+            "data/static/codefixes/loginJimChallenge_3.ts",
+            "data/static/codefixes/loginJimChallenge_4.ts",
+            "data/static/codefixes/nftMintChallenge.info.yml",
+            "data/static/codefixes/nftMintChallenge_1.sol",
+            "data/static/codefixes/nftMintChallenge_2.sol",
+            "data/static/codefixes/nftMintChallenge_3.sol",
+            "data/static/codefixes/nftMintChallenge_4_correct.sol",
+            "data/static/codefixes/nftUnlockChallenge.info.yml",
+            "data/static/codefixes/nftUnlockChallenge_1.sol",
+            "data/static/codefixes/nftUnlockChallenge_2_correct.sol",
+            "data/static/codefixes/nftUnlockChallenge_3.sol",
+            "data/static/codefixes/nftUnlockChallenge_4.sol",
+            "data/static/codefixes/noSqlReviewsChallenge.info.yml",
+            "data/static/codefixes/noSqlReviewsChallenge_1.ts",
+            "data/static/codefixes/noSqlReviewsChallenge_2.ts",
+            "data/static/codefixes/noSqlReviewsChallenge_3_correct.ts",
+            "data/static/codefixes/redirectChallenge.info.yml",
+            "data/static/codefixes/redirectChallenge_1.ts",
+            "data/static/codefixes/redirectChallenge_2.ts",
+            "data/static/codefixes/redirectChallenge_3.ts",
+            "data/static/codefixes/redirectChallenge_4_correct.ts",
+            "data/static/codefixes/redirectCryptoCurrencyChallenge.info.yml",
+            "data/static/codefixes/redirectCryptoCurrencyChallenge_1.ts",
+            "data/static/codefixes/redirectCryptoCurrencyChallenge_2.ts",
+            "data/static/codefixes/redirectCryptoCurrencyChallenge_3_correct.ts",
+            "data/static/codefixes/redirectCryptoCurrencyChallenge_4.ts",
+            "data/static/codefixes/registerAdminChallenge.info.yml",
+            "data/static/codefixes/registerAdminChallenge_1.ts",
+            "data/static/codefixes/registerAdminChallenge_2.ts",
+            "data/static/codefixes/registerAdminChallenge_3_correct.ts",
+            "data/static/codefixes/registerAdminChallenge_4.ts",
+            "data/static/codefixes/resetPasswordBenderChallenge.info.yml",
+            "data/static/codefixes/resetPasswordBenderChallenge_1.yml",
+            "data/static/codefixes/resetPasswordBenderChallenge_2_correct.yml",
+            "data/static/codefixes/resetPasswordBenderChallenge_3.yml",
+            "data/static/codefixes/resetPasswordBjoernChallenge.info.yml",
+            "data/static/codefixes/resetPasswordBjoernChallenge_1_correct.yml",
+            "data/static/codefixes/resetPasswordBjoernChallenge_2.yml",
+            "data/static/codefixes/resetPasswordBjoernChallenge_3.yml",
+            "data/static/codefixes/resetPasswordBjoernOwaspChallenge.info.yml",
+            "data/static/codefixes/resetPasswordBjoernOwaspChallenge_1.yml",
+            "data/static/codefixes/resetPasswordBjoernOwaspChallenge_2_correct.yml",
+            "data/static/codefixes/resetPasswordBjoernOwaspChallenge_3.yml",
+            "data/static/codefixes/resetPasswordJimChallenge.info.yml",
+            "data/static/codefixes/resetPasswordJimChallenge_1.yml",
+            "data/static/codefixes/resetPasswordJimChallenge_2.yml",
+            "data/static/codefixes/resetPasswordJimChallenge_3_correct.yml",
+            "data/static/codefixes/resetPasswordMortyChallenge.info.yml",
+            "data/static/codefixes/resetPasswordMortyChallenge_1.ts",
+            "data/static/codefixes/resetPasswordMortyChallenge_2.ts",
+            "data/static/codefixes/resetPasswordMortyChallenge_3.ts",
+            "data/static/codefixes/resetPasswordMortyChallenge_4_correct.ts",
+            "data/static/codefixes/resetPasswordUvoginChallenge.info.yml",
+            "data/static/codefixes/resetPasswordUvoginChallenge_1.yml",
+            "data/static/codefixes/resetPasswordUvoginChallenge_2.yml",
+            "data/static/codefixes/resetPasswordUvoginChallenge_3_correct.yml",
+            "data/static/codefixes/restfulXssChallenge.info.yml",
+            "data/static/codefixes/restfulXssChallenge_1_correct.ts",
+            "data/static/codefixes/restfulXssChallenge_2.ts",
+            "data/static/codefixes/restfulXssChallenge_3.ts",
+            "data/static/codefixes/restfulXssChallenge_4.ts",
+            "data/static/codefixes/scoreBoardChallenge.info.yml",
+            "data/static/codefixes/scoreBoardChallenge_1_correct.ts",
+            "data/static/codefixes/scoreBoardChallenge_2.ts",
+            "data/static/codefixes/scoreBoardChallenge_3.ts",
+            "data/static/codefixes/tokenSaleChallenge.info.yml",
+            "data/static/codefixes/tokenSaleChallenge_1.ts",
+            "data/static/codefixes/tokenSaleChallenge_2.ts",
+            "data/static/codefixes/tokenSaleChallenge_3_correct.ts",
+            "data/static/codefixes/unionSqlInjectionChallenge.info.yml",
+            "data/static/codefixes/unionSqlInjectionChallenge_1.ts",
+            "data/static/codefixes/unionSqlInjectionChallenge_2_correct.ts",
+            "data/static/codefixes/unionSqlInjectionChallenge_3.ts",
+            "data/static/codefixes/weakPasswordChallenge.info.yml",
+            "data/static/codefixes/weakPasswordChallenge_1_correct.ts",
+            "data/static/codefixes/weakPasswordChallenge_2.ts",
+            "data/static/codefixes/weakPasswordChallenge_3.ts",
+            "data/static/codefixes/weakPasswordChallenge_4.ts",
+            "data/static/codefixes/web3SandboxChallenge.info.yml",
+            "data/static/codefixes/web3SandboxChallenge_1_correct.ts",
+            "data/static/codefixes/web3SandboxChallenge_2.ts",
+            "data/static/codefixes/web3SandboxChallenge_3.ts",
+            "data/static/codefixes/web3WalletChallenge.info.yml",
+            "data/static/codefixes/web3WalletChallenge_1.sol",
+            "data/static/codefixes/web3WalletChallenge_2.sol",
+            "data/static/codefixes/web3WalletChallenge_3_correct.sol",
+            "data/static/codefixes/web3WalletChallenge_4.sol",
+            "data/static/codefixes/xssBonusChallenge.info.yml",
+            "data/static/codefixes/xssBonusChallenge_1_correct.ts",
+            "data/static/codefixes/xssBonusChallenge_2.ts",
+            "data/static/codefixes/xssBonusChallenge_3.ts",
+            "data/static/codefixes/xssBonusChallenge_4.ts",
+            "data/static/contractABIs.ts",
+            "data/static/deliveries.yml",
+            "data/static/i18n/ar_SA.json",
+            "data/static/i18n/az_AZ.json",
+            "data/static/i18n/bg_BG.json",
+            "data/static/i18n/bn_BD.json",
+            "data/static/i18n/ca_ES.json",
+            "data/static/i18n/cs_CZ.json",
+            "data/static/i18n/da_DK.json",
+            "data/static/i18n/de_CH.json",
+            "data/static/i18n/de_DE.json",
+            "data/static/i18n/el_GR.json",
+            "data/static/i18n/en.json",
+            "data/static/i18n/es_ES.json",
+            "data/static/i18n/et_EE.json",
+            "data/static/i18n/fa_IR.json",
+            "data/static/i18n/fi_FI.json",
+            "data/static/i18n/fr_FR.json",
+            "data/static/i18n/ga_IE.json",
+            "data/static/i18n/he_IL.json",
+            "data/static/i18n/hi_IN.json",
+            "data/static/i18n/hu_HU.json",
+            "data/static/i18n/id_ID.json",
+            "data/static/i18n/it_IT.json",
+            "data/static/i18n/ja_JP.json",
+            "data/static/i18n/ka_GE.json",
+            "data/static/i18n/ko_KR.json",
+            "data/static/i18n/lv_LV.json",
+            "data/static/i18n/my_MM.json",
+            "data/static/i18n/nl_NL.json",
+            "data/static/i18n/no_NO.json",
+            "data/static/i18n/pl_PL.json",
+            "data/static/i18n/pt_BR.json",
+            "data/static/i18n/pt_PT.json",
+            "data/static/i18n/ro_RO.json",
+            "data/static/i18n/ru_RU.json",
+            "data/static/i18n/si_LK.json",
+            "data/static/i18n/sv_SE.json",
+            "data/static/i18n/th_TH.json",
+            "data/static/i18n/tlh_AA.json",
+            "data/static/i18n/tr_TR.json",
+            "data/static/i18n/uk_UA.json",
+            "data/static/i18n/zh_CN.json",
+            "data/static/i18n/zh_HK.json",
+            "data/static/i18n/zh_TW.json",
+            "data/static/legal.md",
+            "data/static/locales.json",
+            "data/static/owasp_promo.vtt",
+            "data/static/securityQuestions.yml",
+            "data/static/users.yml",
+            "data/static/web3-snippets/BEEToken.sol",
+            "data/static/web3-snippets/BeeFaucet.sol",
+            "data/static/web3-snippets/ETHWalletBank.sol",
+            "data/static/web3-snippets/HoneyPotNFT.sol",
+            "data/static/web3-snippets/JuiceShopSBT.sol",
+            "data/staticData.ts",
+            "data/types.ts",
+            "docker-compose.test.yml",
+            "encryptionkeys/jwt.pub",
+            "encryptionkeys/premium.key",
+            "frontend/.browserslistrc",
+            "frontend/.editorconfig",
+            "frontend/.gitignore",
+            "frontend/.npmrc",
+            "frontend/angular.json",
+            "frontend/eslint.config.js",
+            "frontend/package.json",
+            "frontend/src/app/Models/backup.model.ts",
+            "frontend/src/app/Models/challenge.model.ts",
+            "frontend/src/app/Models/deliveryMethod.model.ts",
+            "frontend/src/app/Models/hint.model.ts",
+            "frontend/src/app/Models/product.model.ts",
+            "frontend/src/app/Models/review.model.ts",
+            "frontend/src/app/Models/securityQuestion.model.ts",
+            "frontend/src/app/Services/address.service.spec.ts",
+            "frontend/src/app/Services/address.service.ts",
+            "frontend/src/app/Services/administration.service.spec.ts",
+            "frontend/src/app/Services/administration.service.ts",
+            "frontend/src/app/Services/basket.service.spec.ts",
+            "frontend/src/app/Services/basket.service.ts",
+            "frontend/src/app/Services/captcha.service.spec.ts",
+            "frontend/src/app/Services/captcha.service.ts",
+            "frontend/src/app/Services/challenge.service.spec.ts",
+            "frontend/src/app/Services/challenge.service.ts",
+            "frontend/src/app/Services/chatbot.service.spec.ts",
+            "frontend/src/app/Services/chatbot.service.ts",
+            "frontend/src/app/Services/code-fixes.service.spec.ts",
+            "frontend/src/app/Services/code-fixes.service.ts",
+            "frontend/src/app/Services/code-snippet.service.spec.ts",
+            "frontend/src/app/Services/code-snippet.service.ts",
+            "frontend/src/app/Services/complaint.service.spec.ts",
+            "frontend/src/app/Services/complaint.service.ts",
+            "frontend/src/app/Services/configuration.service.spec.ts",
+            "frontend/src/app/Services/configuration.service.ts",
+            "frontend/src/app/Services/country-mapping.service.spec.ts",
+            "frontend/src/app/Services/country-mapping.service.ts",
+            "frontend/src/app/Services/ctf-system-wide-notification.service.ts",
+            "frontend/src/app/Services/data-subject.service.spec.ts",
+            "frontend/src/app/Services/data-subject.service.ts",
+            "frontend/src/app/Services/delivery.service.spec.ts",
+            "frontend/src/app/Services/delivery.service.ts",
+            "frontend/src/app/Services/feedback.service.spec.ts",
+            "frontend/src/app/Services/feedback.service.ts",
+            "frontend/src/app/Services/form-submit.service.spec.ts",
+            "frontend/src/app/Services/form-submit.service.ts",
+            "frontend/src/app/Services/hint.service.ts",
+            "frontend/src/app/Services/hints.service.spec.ts",
+            "frontend/src/app/Services/image-captcha.service.spec.ts",
+            "frontend/src/app/Services/image-captcha.service.ts",
+            "frontend/src/app/Services/keys.service.ts",
+            "frontend/src/app/Services/languages.service.spec.ts",
+            "frontend/src/app/Services/languages.service.ts",
+            "frontend/src/app/Services/local-backup.service.spec.ts",
+            "frontend/src/app/Services/local-backup.service.ts",
+            "frontend/src/app/Services/order-history.service.spec.ts",
+            "frontend/src/app/Services/order-history.service.ts",
+            "frontend/src/app/Services/payment.service.spec.ts",
+            "frontend/src/app/Services/payment.service.ts",
+            "frontend/src/app/Services/photo-wall.service.spec.ts",
+            "frontend/src/app/Services/photo-wall.service.ts",
+            "frontend/src/app/Services/product-review.service.spec.ts",
+            "frontend/src/app/Services/product-review.service.ts",
+            "frontend/src/app/Services/product.service.spec.ts",
+            "frontend/src/app/Services/product.service.ts",
+            "frontend/src/app/Services/quantity.service.spec.ts",
+            "frontend/src/app/Services/quantity.service.ts",
+            "frontend/src/app/Services/recycle.service.spec.ts",
+            "frontend/src/app/Services/recycle.service.ts",
+            "frontend/src/app/Services/request.interceptor.ts",
+            "frontend/src/app/Services/security-answer.service.spec.ts",
+            "frontend/src/app/Services/security-answer.service.ts",
+            "frontend/src/app/Services/security-question.service.spec.ts",
+            "frontend/src/app/Services/security-question.service.ts",
+            "frontend/src/app/Services/snack-bar-helper.service.spec.ts",
+            "frontend/src/app/Services/snack-bar-helper.service.ts",
+            "frontend/src/app/Services/socket-io.service.spec.ts",
+            "frontend/src/app/Services/socket-io.service.ts",
+            "frontend/src/app/Services/track-order.service.spec.ts",
+            "frontend/src/app/Services/track-order.service.ts",
+            "frontend/src/app/Services/two-factor-auth-service.spec.ts",
+            "frontend/src/app/Services/two-factor-auth-service.ts",
+            "frontend/src/app/Services/user.service.spec.ts",
+            "frontend/src/app/Services/user.service.ts",
+            "frontend/src/app/Services/vuln-lines.service.spec.ts",
+            "frontend/src/app/Services/vuln-lines.service.ts",
+            "frontend/src/app/Services/wallet.service.spec.ts",
+            "frontend/src/app/Services/wallet.service.ts",
+            "frontend/src/app/Services/window-ref.service.spec.ts",
+            "frontend/src/app/Services/window-ref.service.ts",
+            "frontend/src/app/about/about.component.html",
+            "frontend/src/app/about/about.component.scss",
+            "frontend/src/app/about/about.component.spec.ts",
+            "frontend/src/app/about/about.component.ts",
+            "frontend/src/app/accounting/accounting.component.html",
+            "frontend/src/app/accounting/accounting.component.scss",
+            "frontend/src/app/accounting/accounting.component.spec.ts",
+            "frontend/src/app/accounting/accounting.component.ts",
+            "frontend/src/app/address/address.component.html",
+            "frontend/src/app/address/address.component.scss",
+            "frontend/src/app/address/address.component.spec.ts",
+            "frontend/src/app/address/address.component.ts",
+            "frontend/src/app/address-create/address-create.component.html",
+            "frontend/src/app/address-create/address-create.component.scss",
+            "frontend/src/app/address-create/address-create.component.spec.ts",
+            "frontend/src/app/address-create/address-create.component.ts",
+            "frontend/src/app/address-select/address-select.component.html",
+            "frontend/src/app/address-select/address-select.component.scss",
+            "frontend/src/app/address-select/address-select.component.spec.ts",
+            "frontend/src/app/address-select/address-select.component.ts",
+            "frontend/src/app/administration/administration.component.html",
+            "frontend/src/app/administration/administration.component.scss",
+            "frontend/src/app/administration/administration.component.spec.ts",
+            "frontend/src/app/administration/administration.component.ts",
+            "frontend/src/app/app.component.html",
+            "frontend/src/app/app.component.scss",
+            "frontend/src/app/app.component.spec.ts",
+            "frontend/src/app/app.component.ts",
+            "frontend/src/app/app.guard.spec.ts",
+            "frontend/src/app/app.guard.ts",
+            "frontend/src/app/app.routing.ts",
+            "frontend/src/app/basket/basket.component.html",
+            "frontend/src/app/basket/basket.component.scss",
+            "frontend/src/app/basket/basket.component.spec.ts",
+            "frontend/src/app/basket/basket.component.ts",
+            "frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.html",
+            "frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.scss",
+            "frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.spec.ts",
+            "frontend/src/app/challenge-solved-notification/challenge-solved-notification.component.ts",
+            "frontend/src/app/challenge-status-badge/challenge-status-badge.component.html",
+            "frontend/src/app/challenge-status-badge/challenge-status-badge.component.scss",
+            "frontend/src/app/challenge-status-badge/challenge-status-badge.component.spec.ts",
+            "frontend/src/app/challenge-status-badge/challenge-status-badge.component.ts",
+            "frontend/src/app/change-password/change-password.component.html",
+            "frontend/src/app/change-password/change-password.component.scss",
+            "frontend/src/app/change-password/change-password.component.spec.ts",
+            "frontend/src/app/change-password/change-password.component.ts",
+            "frontend/src/app/chatbot/chatbot.component.html",
+            "frontend/src/app/chatbot/chatbot.component.scss",
+            "frontend/src/app/chatbot/chatbot.component.spec.ts",
+            "frontend/src/app/chatbot/chatbot.component.ts",
+            "frontend/src/app/code-area/code-area.component.html",
+            "frontend/src/app/code-area/code-area.component.scss",
+            "frontend/src/app/code-area/code-area.component.spec.ts",
+            "frontend/src/app/code-area/code-area.component.ts",
+            "frontend/src/app/code-fixes/code-fixes.component.html",
+            "frontend/src/app/code-fixes/code-fixes.component.scss",
+            "frontend/src/app/code-fixes/code-fixes.component.spec.ts",
+            "frontend/src/app/code-fixes/code-fixes.component.ts",
+            "frontend/src/app/code-snippet/code-snippet.component.html",
+            "frontend/src/app/code-snippet/code-snippet.component.scss",
+            "frontend/src/app/code-snippet/code-snippet.component.spec.ts",
+            "frontend/src/app/code-snippet/code-snippet.component.ts",
+            "frontend/src/app/complaint/complaint.component.html",
+            "frontend/src/app/complaint/complaint.component.scss",
+            "frontend/src/app/complaint/complaint.component.spec.ts",
+            "frontend/src/app/complaint/complaint.component.ts",
+            "frontend/src/app/contact/contact.component.html",
+            "frontend/src/app/contact/contact.component.scss",
+            "frontend/src/app/contact/contact.component.spec.ts",
+            "frontend/src/app/contact/contact.component.ts",
+            "frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.html",
+            "frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.scss",
+            "frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.spec.ts",
+            "frontend/src/app/ctf-system-wide-notification/ctf-system-wide-notification.component.ts",
+            "frontend/src/app/data-export/data-export.component.html",
+            "frontend/src/app/data-export/data-export.component.scss",
+            "frontend/src/app/data-export/data-export.component.spec.ts",
+            "frontend/src/app/data-export/data-export.component.ts",
+            "frontend/src/app/delivery-method/delivery-method.component.html",
+            "frontend/src/app/delivery-method/delivery-method.component.scss",
+            "frontend/src/app/delivery-method/delivery-method.component.spec.ts",
+            "frontend/src/app/delivery-method/delivery-method.component.ts",
+            "frontend/src/app/deluxe-user/deluxe-user.component.html",
+            "frontend/src/app/deluxe-user/deluxe-user.component.scss",
+            "frontend/src/app/deluxe-user/deluxe-user.component.spec.ts",
+            "frontend/src/app/deluxe-user/deluxe-user.component.ts",
+            "frontend/src/app/error-page/error-page.component.html",
+            "frontend/src/app/error-page/error-page.component.scss",
+            "frontend/src/app/error-page/error-page.component.spec.ts",
+            "frontend/src/app/error-page/error-page.component.ts",
+            "frontend/src/app/faucet/faucet.component.html",
+            "frontend/src/app/faucet/faucet.component.scss",
+            "frontend/src/app/faucet/faucet.component.ts",
+            "frontend/src/app/faucet/faucet.module.ts",
+            "frontend/src/app/feedback-details/feedback-details.component.html",
+            "frontend/src/app/feedback-details/feedback-details.component.scss",
+            "frontend/src/app/feedback-details/feedback-details.component.spec.ts",
+            "frontend/src/app/feedback-details/feedback-details.component.ts",
+            "frontend/src/app/forgot-password/forgot-password.component.html",
+            "frontend/src/app/forgot-password/forgot-password.component.scss",
+            "frontend/src/app/forgot-password/forgot-password.component.spec.ts",
+            "frontend/src/app/forgot-password/forgot-password.component.ts",
+            "frontend/src/app/last-login-ip/last-login-ip.component.html",
+            "frontend/src/app/last-login-ip/last-login-ip.component.scss",
+            "frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+            "frontend/src/app/last-login-ip/last-login-ip.component.ts",
+            "frontend/src/app/login/login.component.html",
+            "frontend/src/app/login/login.component.scss",
+            "frontend/src/app/login/login.component.spec.ts",
+            "frontend/src/app/login/login.component.ts",
+            "frontend/src/app/mat-search-bar/abstract-value-accessor.ts",
+            "frontend/src/app/mat-search-bar/mat-search-bar.component.html",
+            "frontend/src/app/mat-search-bar/mat-search-bar.component.scss",
+            "frontend/src/app/mat-search-bar/mat-search-bar.component.spec.ts",
+            "frontend/src/app/mat-search-bar/mat-search-bar.component.ts",
+            "frontend/src/app/navbar/navbar.component.html",
+            "frontend/src/app/navbar/navbar.component.scss",
+            "frontend/src/app/navbar/navbar.component.spec.ts",
+            "frontend/src/app/navbar/navbar.component.ts",
+            "frontend/src/app/nft-unlock/nft-unlock.component.html",
+            "frontend/src/app/nft-unlock/nft-unlock.component.scss",
+            "frontend/src/app/nft-unlock/nft-unlock.component.spec.ts",
+            "frontend/src/app/nft-unlock/nft-unlock.component.ts",
+            "frontend/src/app/oauth/oauth.component.html",
+            "frontend/src/app/oauth/oauth.component.scss",
+            "frontend/src/app/oauth/oauth.component.spec.ts",
+            "frontend/src/app/oauth/oauth.component.ts",
+            "frontend/src/app/order-completion/order-completion.component.html",
+            "frontend/src/app/order-completion/order-completion.component.scss",
+            "frontend/src/app/order-completion/order-completion.component.spec.ts",
+            "frontend/src/app/order-completion/order-completion.component.ts",
+            "frontend/src/app/order-history/order-history.component.html",
+            "frontend/src/app/order-history/order-history.component.scss",
+            "frontend/src/app/order-history/order-history.component.spec.ts",
+            "frontend/src/app/order-history/order-history.component.ts",
+            "frontend/src/app/order-summary/order-summary.component.html",
+            "frontend/src/app/order-summary/order-summary.component.scss",
+            "frontend/src/app/order-summary/order-summary.component.spec.ts",
+            "frontend/src/app/order-summary/order-summary.component.ts",
+            "frontend/src/app/password-strength/password-strength.component.html",
+            "frontend/src/app/password-strength/password-strength.component.scss",
+            "frontend/src/app/password-strength/password-strength.component.spec.ts",
+            "frontend/src/app/password-strength/password-strength.component.ts",
+            "frontend/src/app/password-strength-info/password-strength-info.component.html",
+            "frontend/src/app/password-strength-info/password-strength-info.component.scss",
+            "frontend/src/app/password-strength-info/password-strength-info.component.spec.ts",
+            "frontend/src/app/password-strength-info/password-strength-info.component.ts",
+            "frontend/src/app/payment/payment.component.html",
+            "frontend/src/app/payment/payment.component.scss",
+            "frontend/src/app/payment/payment.component.spec.ts",
+            "frontend/src/app/payment/payment.component.ts",
+            "frontend/src/app/payment-method/payment-method.component.html",
+            "frontend/src/app/payment-method/payment-method.component.scss",
+            "frontend/src/app/payment-method/payment-method.component.spec.ts",
+            "frontend/src/app/payment-method/payment-method.component.ts",
+            "frontend/src/app/photo-wall/mime-type.validator.ts",
+            "frontend/src/app/photo-wall/photo-wall.component.html",
+            "frontend/src/app/photo-wall/photo-wall.component.scss",
+            "frontend/src/app/photo-wall/photo-wall.component.spec.ts",
+            "frontend/src/app/photo-wall/photo-wall.component.ts",
+            "frontend/src/app/privacy-policy/privacy-policy.component.html",
+            "frontend/src/app/privacy-policy/privacy-policy.component.scss",
+            "frontend/src/app/privacy-policy/privacy-policy.component.spec.ts",
+            "frontend/src/app/privacy-policy/privacy-policy.component.ts",
+            "frontend/src/app/privacy-security/privacy-security.component.html",
+            "frontend/src/app/privacy-security/privacy-security.component.scss",
+            "frontend/src/app/privacy-security/privacy-security.component.spec.ts",
+            "frontend/src/app/privacy-security/privacy-security.component.ts",
+            "frontend/src/app/product-details/product-details.component.html",
+            "frontend/src/app/product-details/product-details.component.scss",
+            "frontend/src/app/product-details/product-details.component.spec.ts",
+            "frontend/src/app/product-details/product-details.component.ts",
+            "frontend/src/app/product-review-edit/product-review-edit.component.html",
+            "frontend/src/app/product-review-edit/product-review-edit.component.scss",
+            "frontend/src/app/product-review-edit/product-review-edit.component.spec.ts",
+            "frontend/src/app/product-review-edit/product-review-edit.component.ts",
+            "frontend/src/app/purchase-basket/purchase-basket.component.html",
+            "frontend/src/app/purchase-basket/purchase-basket.component.scss",
+            "frontend/src/app/purchase-basket/purchase-basket.component.spec.ts",
+            "frontend/src/app/purchase-basket/purchase-basket.component.ts",
+            "frontend/src/app/qr-code/qr-code.component.html",
+            "frontend/src/app/qr-code/qr-code.component.scss",
+            "frontend/src/app/qr-code/qr-code.component.spec.ts",
+            "frontend/src/app/qr-code/qr-code.component.ts",
+            "frontend/src/app/recycle/recycle.component.html",
+            "frontend/src/app/recycle/recycle.component.scss",
+            "frontend/src/app/recycle/recycle.component.spec.ts",
+            "frontend/src/app/recycle/recycle.component.ts",
+            "frontend/src/app/register/register.component.html",
+            "frontend/src/app/register/register.component.scss",
+            "frontend/src/app/register/register.component.spec.ts",
+            "frontend/src/app/register/register.component.ts",
+            "frontend/src/app/roles.ts",
+            "frontend/src/app/saved-address/saved-address.component.html",
+            "frontend/src/app/saved-address/saved-address.component.scss",
+            "frontend/src/app/saved-address/saved-address.component.spec.ts",
+            "frontend/src/app/saved-address/saved-address.component.ts",
+            "frontend/src/app/saved-payment-methods/saved-payment-methods.component.html",
+            "frontend/src/app/saved-payment-methods/saved-payment-methods.component.scss",
+            "frontend/src/app/saved-payment-methods/saved-payment-methods.component.spec.ts",
+            "frontend/src/app/saved-payment-methods/saved-payment-methods.component.ts",
+            "frontend/src/app/score-board/components/challenge-card/challenge-card.component.html",
+            "frontend/src/app/score-board/components/challenge-card/challenge-card.component.scss",
+            "frontend/src/app/score-board/components/challenge-card/challenge-card.component.spec.ts",
+            "frontend/src/app/score-board/components/challenge-card/challenge-card.component.ts",
+            "frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.html",
+            "frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.scss",
+            "frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.spec.ts",
+            "frontend/src/app/score-board/components/challenges-unavailable-warning/challenges-unavailable-warning.component.ts",
+            "frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.html",
+            "frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.scss",
+            "frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.spec.ts",
+            "frontend/src/app/score-board/components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component.ts",
+            "frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.html",
+            "frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.scss",
+            "frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.spec.ts",
+            "frontend/src/app/score-board/components/difficulty-overview-score-card/difficulty-overview-score-card.component.ts",
+            "frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.html",
+            "frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.scss",
+            "frontend/src/app/score-board/components/difficulty-stars/difficulty-stars.component.ts",
+            "frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.html",
+            "frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.scss",
+            "frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.spec.ts",
+            "frontend/src/app/score-board/components/filter-settings/components/category-filter/category-filter.component.ts",
+            "frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.html",
+            "frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.scss",
+            "frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.spec.ts",
+            "frontend/src/app/score-board/components/filter-settings/components/score-board-additional-settings-dialog/score-board-additional-settings-dialog.component.ts",
+            "frontend/src/app/score-board/components/filter-settings/filter-settings.component.html",
+            "frontend/src/app/score-board/components/filter-settings/filter-settings.component.scss",
+            "frontend/src/app/score-board/components/filter-settings/filter-settings.component.spec.ts",
+            "frontend/src/app/score-board/components/filter-settings/filter-settings.component.ts",
+            "frontend/src/app/score-board/components/filter-settings/pipes/difficulty-selection-summary.pipe.spec.ts",
+            "frontend/src/app/score-board/components/filter-settings/pipes/difficulty-selection-summary.pipe.ts",
+            "frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.html",
+            "frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.scss",
+            "frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.spec.ts",
+            "frontend/src/app/score-board/components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component.ts",
+            "frontend/src/app/score-board/components/score-card/score-card.component.html",
+            "frontend/src/app/score-board/components/score-card/score-card.component.scss",
+            "frontend/src/app/score-board/components/score-card/score-card.component.spec.ts",
+            "frontend/src/app/score-board/components/score-card/score-card.component.ts",
+            "frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.html",
+            "frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.spec.ts",
+            "frontend/src/app/score-board/components/tutorial-mode-warning/tutorial-mode-warning.component.ts",
+            "frontend/src/app/score-board/components/warning-card/warning-card.component.html",
+            "frontend/src/app/score-board/components/warning-card/warning-card.component.scss",
+            "frontend/src/app/score-board/components/warning-card/warning-card.component.ts",
+            "frontend/src/app/score-board/filter-settings/FilterSetting.ts",
+            "frontend/src/app/score-board/filter-settings/query-params-converters.ts",
+            "frontend/src/app/score-board/filter-settings/query-params-coverter.spec.ts",
+            "frontend/src/app/score-board/helpers/challenge-filtering.spec.ts",
+            "frontend/src/app/score-board/helpers/challenge-filtering.ts",
+            "frontend/src/app/score-board/helpers/challenge-sorting.spec.ts",
+            "frontend/src/app/score-board/helpers/challenge-sorting.ts",
+            "frontend/src/app/score-board/score-board.component.html",
+            "frontend/src/app/score-board/score-board.component.scss",
+            "frontend/src/app/score-board/score-board.component.spec.ts",
+            "frontend/src/app/score-board/score-board.component.ts",
+            "frontend/src/app/score-board/types/EnrichedChallenge.ts",
+            "frontend/src/app/search-result/search-result.component.html",
+            "frontend/src/app/search-result/search-result.component.scss",
+            "frontend/src/app/search-result/search-result.component.spec.ts",
+            "frontend/src/app/search-result/search-result.component.ts",
+            "frontend/src/app/server-started-notification/server-started-notification.component.html",
+            "frontend/src/app/server-started-notification/server-started-notification.component.scss",
+            "frontend/src/app/server-started-notification/server-started-notification.component.spec.ts",
+            "frontend/src/app/server-started-notification/server-started-notification.component.ts",
+            "frontend/src/app/sidenav/sidenav.component.html",
+            "frontend/src/app/sidenav/sidenav.component.scss",
+            "frontend/src/app/sidenav/sidenav.component.spec.ts",
+            "frontend/src/app/sidenav/sidenav.component.ts",
+            "frontend/src/app/token-sale/token-sale.component.html",
+            "frontend/src/app/token-sale/token-sale.component.scss",
+            "frontend/src/app/token-sale/token-sale.component.spec.ts",
+            "frontend/src/app/token-sale/token-sale.component.ts",
+            "frontend/src/app/track-result/track-result.component.html",
+            "frontend/src/app/track-result/track-result.component.scss",
+            "frontend/src/app/track-result/track-result.component.spec.ts",
+            "frontend/src/app/track-result/track-result.component.ts",
+            "frontend/src/app/two-factor-auth/two-factor-auth.component.html",
+            "frontend/src/app/two-factor-auth/two-factor-auth.component.scss",
+            "frontend/src/app/two-factor-auth/two-factor-auth.component.spec.ts",
+            "frontend/src/app/two-factor-auth/two-factor-auth.component.ts",
+            "frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.html",
+            "frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.scss",
+            "frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.spec.ts",
+            "frontend/src/app/two-factor-auth-enter/two-factor-auth-enter.component.ts",
+            "frontend/src/app/user-details/user-details.component.html",
+            "frontend/src/app/user-details/user-details.component.scss",
+            "frontend/src/app/user-details/user-details.component.spec.ts",
+            "frontend/src/app/user-details/user-details.component.ts",
+            "frontend/src/app/wallet/wallet.component.html",
+            "frontend/src/app/wallet/wallet.component.scss",
+            "frontend/src/app/wallet/wallet.component.spec.ts",
+            "frontend/src/app/wallet/wallet.component.ts",
+            "frontend/src/app/wallet-web3/wallet-web3.component.html",
+            "frontend/src/app/wallet-web3/wallet-web3.component.scss",
+            "frontend/src/app/wallet-web3/wallet-web3.component.ts",
+            "frontend/src/app/wallet-web3/wallet-web3.module.ts",
+            "frontend/src/app/web3-sandbox/web3-sandbox.component.html",
+            "frontend/src/app/web3-sandbox/web3-sandbox.component.scss",
+            "frontend/src/app/web3-sandbox/web3-sandbox.component.ts",
+            "frontend/src/app/web3-sandbox/web3-sandbox.module.ts",
+            "frontend/src/app/welcome/welcome.component.html",
+            "frontend/src/app/welcome/welcome.component.scss",
+            "frontend/src/app/welcome/welcome.component.spec.ts",
+            "frontend/src/app/welcome/welcome.component.ts",
+            "frontend/src/app/welcome-banner/welcome-banner.component.html",
+            "frontend/src/app/welcome-banner/welcome-banner.component.scss",
+            "frontend/src/app/welcome-banner/welcome-banner.component.spec.ts",
+            "frontend/src/app/welcome-banner/welcome-banner.component.ts",
+            "frontend/src/assets/i18n/ar_SA.json",
+            "frontend/src/assets/i18n/az_AZ.json",
+            "frontend/src/assets/i18n/bg_BG.json",
+            "frontend/src/assets/i18n/bn_BD.json",
+            "frontend/src/assets/i18n/ca_ES.json",
+            "frontend/src/assets/i18n/cs_CZ.json",
+            "frontend/src/assets/i18n/da_DK.json",
+            "frontend/src/assets/i18n/de_CH.json",
+            "frontend/src/assets/i18n/de_DE.json",
+            "frontend/src/assets/i18n/el_GR.json",
+            "frontend/src/assets/i18n/en.json",
+            "frontend/src/assets/i18n/es_ES.json",
+            "frontend/src/assets/i18n/et_EE.json",
+            "frontend/src/assets/i18n/fa_IR.json",
+            "frontend/src/assets/i18n/fi_FI.json",
+            "frontend/src/assets/i18n/fr_FR.json",
+            "frontend/src/assets/i18n/ga_IE.json",
+            "frontend/src/assets/i18n/he_IL.json",
+            "frontend/src/assets/i18n/hi_IN.json",
+            "frontend/src/assets/i18n/hu_HU.json",
+            "frontend/src/assets/i18n/id_ID.json",
+            "frontend/src/assets/i18n/it_IT.json",
+            "frontend/src/assets/i18n/ja_JP.json",
+            "frontend/src/assets/i18n/ka_GE.json",
+            "frontend/src/assets/i18n/ko_KR.json",
+            "frontend/src/assets/i18n/lv_LV.json",
+            "frontend/src/assets/i18n/my_MM.json",
+            "frontend/src/assets/i18n/nl_NL.json",
+            "frontend/src/assets/i18n/no_NO.json",
+            "frontend/src/assets/i18n/pl_PL.json",
+            "frontend/src/assets/i18n/pt_BR.json",
+            "frontend/src/assets/i18n/pt_PT.json",
+            "frontend/src/assets/i18n/ro_RO.json",
+            "frontend/src/assets/i18n/ru_RU.json",
+            "frontend/src/assets/i18n/si_LK.json",
+            "frontend/src/assets/i18n/sv_SE.json",
+            "frontend/src/assets/i18n/th_TH.json",
+            "frontend/src/assets/i18n/tlh_AA.json",
+            "frontend/src/assets/i18n/tr_TR.json",
+            "frontend/src/assets/i18n/uk_UA.json",
+            "frontend/src/assets/i18n/zh_CN.json",
+            "frontend/src/assets/i18n/zh_HK.json",
+            "frontend/src/assets/i18n/zh_TW.json",
+            "frontend/src/assets/private/CopyShader.js",
+            "frontend/src/assets/private/EffectComposer.js",
+            "frontend/src/assets/private/JuiceShop_Wallpaper_1920x1080_VR.jpg",
+            "frontend/src/assets/private/MaskPass.js",
+            "frontend/src/assets/private/OrbitControls.js",
+            "frontend/src/assets/private/RenderPass.js",
+            "frontend/src/assets/private/ShaderPass.js",
+            "frontend/src/assets/private/earthspec4k.jpg",
+            "frontend/src/assets/private/orangemap2k.jpg",
+            "frontend/src/assets/private/three.js",
+            "frontend/src/assets/private/threejs-demo.html",
+            "frontend/src/assets/public/ContractABIs.ts",
+            "frontend/src/assets/public/css/dataErasure.css",
+            "frontend/src/assets/public/css/roboto.css",
+            "frontend/src/assets/public/css/userProfile.css",
+            "frontend/src/assets/public/favicon_ctf.ico",
+            "frontend/src/assets/public/favicon_js.ico",
+            "frontend/src/assets/public/images/BeeOwner.png",
+            "frontend/src/assets/public/images/HoneyPot.png",
+            "frontend/src/assets/public/images/JuiceShopCTF_Logo.png",
+            "frontend/src/assets/public/images/JuiceShopCTF_Logo_400px.png",
+            "frontend/src/assets/public/images/JuiceShop_Logo.ai",
+            "frontend/src/assets/public/images/JuiceShop_Logo.png",
+            "frontend/src/assets/public/images/JuiceShop_Logo.svg",
+            "frontend/src/assets/public/images/JuiceShop_Logo_100px.png",
+            "frontend/src/assets/public/images/JuiceShop_Logo_400px.png",
+            "frontend/src/assets/public/images/JuiceShop_Logo_50px.png",
+            "frontend/src/assets/public/images/JuicyBot.png",
+            "frontend/src/assets/public/images/JuicyBot_MedicalMask.png",
+            "frontend/src/assets/public/images/JuicyChatBot.png",
+            "frontend/src/assets/public/images/Welcome_Banner.svg",
+            "frontend/src/assets/public/images/carousel/1.jpg",
+            "frontend/src/assets/public/images/carousel/2.jpg",
+            "frontend/src/assets/public/images/carousel/3.jpg",
+            "frontend/src/assets/public/images/carousel/4.jpg",
+            "frontend/src/assets/public/images/carousel/5.png",
+            "frontend/src/assets/public/images/carousel/6.jpg",
+            "frontend/src/assets/public/images/carousel/7.jpg",
+            "frontend/src/assets/public/images/deluxe/blankBoxes.png",
+            "frontend/src/assets/public/images/juicyEvilWasp.png",
+            "frontend/src/assets/public/images/padding/11px.png",
+            "frontend/src/assets/public/images/padding/19px.png",
+            "frontend/src/assets/public/images/padding/1px.png",
+            "frontend/src/assets/public/images/padding/56px.png",
+            "frontend/src/assets/public/images/padding/81px.png",
+            "frontend/src/assets/public/images/products/3d_keychain.jpg",
+            "frontend/src/assets/public/images/products/JuiceShop.stl",
+            "frontend/src/assets/public/images/products/apple_juice.jpg",
+            "frontend/src/assets/public/images/products/apple_pressings.jpg",
+            "frontend/src/assets/public/images/products/artwork.jpg",
+            "frontend/src/assets/public/images/products/artwork2.jpg",
+            "frontend/src/assets/public/images/products/banana_juice.jpg",
+            "frontend/src/assets/public/images/products/card_alpha.jpg",
+            "frontend/src/assets/public/images/products/carrot_juice.jpeg",
+            "frontend/src/assets/public/images/products/ccg_common.png",
+            "frontend/src/assets/public/images/products/ccg_foil.png",
+            "frontend/src/assets/public/images/products/coaster.jpg",
+            "frontend/src/assets/public/images/products/cover_small.jpg",
+            "frontend/src/assets/public/images/products/eggfruit_juice.jpg",
+            "frontend/src/assets/public/images/products/fan_facemask.jpg",
+            "frontend/src/assets/public/images/products/fan_girlie.jpg",
+            "frontend/src/assets/public/images/products/fan_hoodie.jpg",
+            "frontend/src/assets/public/images/products/fan_mug.jpg",
+            "frontend/src/assets/public/images/products/fan_shirt.jpg",
+            "frontend/src/assets/public/images/products/fruit_press.jpg",
+            "frontend/src/assets/public/images/products/green_smoothie.jpg",
+            "frontend/src/assets/public/images/products/holo_sticker.png",
+            "frontend/src/assets/public/images/products/iron-on.jpg",
+            "frontend/src/assets/public/images/products/juicy_chatbot.jpg",
+            "frontend/src/assets/public/images/products/lego_case.jpg",
+            "frontend/src/assets/public/images/products/lemon_juice.jpg",
+            "frontend/src/assets/public/images/products/magnets.jpg",
+            "frontend/src/assets/public/images/products/melon_bike.jpeg",
+            "frontend/src/assets/public/images/products/no-results.png",
+            "frontend/src/assets/public/images/products/orange_juice.jpg",
+            "frontend/src/assets/public/images/products/permafrost.jpg",
+            "frontend/src/assets/public/images/products/quince.jpg",
+            "frontend/src/assets/public/images/products/raspberry_juice.jpg",
+            "frontend/src/assets/public/images/products/snakes_ladders.jpg",
+            "frontend/src/assets/public/images/products/snakes_ladders_m.jpg",
+            "frontend/src/assets/public/images/products/squareBox1-40x40x40.stl",
+            "frontend/src/assets/public/images/products/sticker.png",
+            "frontend/src/assets/public/images/products/sticker_page.jpg",
+            "frontend/src/assets/public/images/products/sticker_single.jpg",
+            "frontend/src/assets/public/images/products/stickersheet_se.png",
+            "frontend/src/assets/public/images/products/strawberry_juice.jpeg",
+            "frontend/src/assets/public/images/products/tattoo.jpg",
+            "frontend/src/assets/public/images/products/thingie1.jpg",
+            "frontend/src/assets/public/images/products/undefined.png",
+            "frontend/src/assets/public/images/products/user_day_ticket.png",
+            "frontend/src/assets/public/images/products/velcro-patch.jpg",
+            "frontend/src/assets/public/images/products/waspy.png",
+            "frontend/src/assets/public/images/products/woodruff_syrup.jpg",
+            "frontend/src/assets/public/images/uploads/12.png",
+            "frontend/src/assets/public/images/uploads/13.jpg",
+            "frontend/src/assets/public/images/uploads/20.jpg",
+            "frontend/src/assets/public/images/uploads/BeeHaven.png",
+            "frontend/src/assets/public/images/uploads/building-something-literally-bottom-up-1721152342603.jpg",
+            "frontend/src/assets/public/images/uploads/default.svg",
+            "frontend/src/assets/public/images/uploads/defaultAdmin.png",
+            "frontend/src/assets/public/images/uploads/everything-up-and-running!-1721152385146.jpg",
+            "frontend/src/assets/public/images/uploads/favorite-hiking-place.png",
+            "frontend/src/assets/public/images/uploads/magn(et)ificent!-1571814229653.jpg",
+            "frontend/src/assets/public/images/uploads/my-rare-collectors-item!-[̲̅$̲̅(̲̅-͡°-͜ʖ-͡°̲̅)̲̅$̲̅]-1572603645543.jpg",
+            "frontend/src/assets/public/images/uploads/putting-in-the-hardware-1721152366854.jpg",
+            "frontend/src/assets/public/images/uploads/sorted-the-pieces,-starting-assembly-process-1721152307290.jpg",
+            "frontend/src/assets/public/images/uploads/ᓚᘏᗢ-#zatschi-#whoneedsfourlegs-1572600969477.jpg",
+            "frontend/src/confetti/index.ts",
+            "frontend/src/environments/environment.prod.ts",
+            "frontend/src/environments/environment.ts",
+            "frontend/src/hacking-instructor/challenges/adminSection.ts",
+            "frontend/src/hacking-instructor/challenges/bonusPayload.ts",
+            "frontend/src/hacking-instructor/challenges/codingChallenges.ts",
+            "frontend/src/hacking-instructor/challenges/domXss.ts",
+            "frontend/src/hacking-instructor/challenges/exposedCredentials.ts",
+            "frontend/src/hacking-instructor/challenges/forgedFeedback.ts",
+            "frontend/src/hacking-instructor/challenges/loginAdmin.ts",
+            "frontend/src/hacking-instructor/challenges/loginBender.ts",
+            "frontend/src/hacking-instructor/challenges/loginJim.ts",
+            "frontend/src/hacking-instructor/challenges/passwordStrength.ts",
+            "frontend/src/hacking-instructor/challenges/privacyPolicy.ts",
+            "frontend/src/hacking-instructor/challenges/reflectedXss.ts",
+            "frontend/src/hacking-instructor/challenges/scoreBoard.ts",
+            "frontend/src/hacking-instructor/challenges/viewBasket.ts",
+            "frontend/src/hacking-instructor/hacking-instructor.scss",
+            "frontend/src/hacking-instructor/helpers/helpers.ts",
+            "frontend/src/hacking-instructor/index.ts",
+            "frontend/src/hacking-instructor/tutorialUnavailable.ts",
+            "frontend/src/index.html",
+            "frontend/src/karma.conf.js",
+            "frontend/src/main.ts",
+            "frontend/src/styles/_variables.scss",
+            "frontend/src/styles/theme.scss",
+            "frontend/src/styles.scss",
+            "frontend/src/test.ts",
+            "frontend/src/tsconfig.app.json",
+            "frontend/src/tsconfig.spec.json",
+            "frontend/stylelint-plugin-spacing-fixer.mjs",
+            "frontend/stylelint.config.mjs",
+            "frontend/tsconfig.base.json",
+            "frontend/tsconfig.json",
+            "ftp/acquisitions.md",
+            "ftp/announcement_encrypted.md",
+            "ftp/coupons_2013.md.bak",
+            "ftp/eastere.gg",
+            "ftp/encrypt.pyc",
+            "ftp/incident-support.kdbx",
+            "ftp/package-lock.json.bak",
+            "ftp/package.json.bak",
+            "ftp/quarantine/juicy_malware_linux_amd_64.url",
+            "ftp/quarantine/juicy_malware_linux_arm_64.url",
+            "ftp/quarantine/juicy_malware_macos_64.url",
+            "ftp/quarantine/juicy_malware_windows_64.exe.url",
+            "ftp/suspicious_errors.yml",
+            "i18n/.gitkeep",
+            "lib/accuracy.ts",
+            "lib/antiCheat.ts",
+            "lib/botUtils.ts",
+            "lib/challengeUtils.ts",
+            "lib/codingChallenges.ts",
+            "lib/config.types.ts",
+            "lib/insecurity.ts",
+            "lib/is-docker.ts",
+            "lib/is-heroku.ts",
+            "lib/is-windows.ts",
+            "lib/logger.ts",
+            "lib/noUpdate.ts",
+            "lib/startup/cleanupFtpFolder.ts",
+            "lib/startup/customizeApplication.ts",
+            "lib/startup/customizeEasterEgg.ts",
+            "lib/startup/registerWebsocketEvents.ts",
+            "lib/startup/restoreOverwrittenFilesWithOriginals.ts",
+            "lib/startup/validateChatBot.ts",
+            "lib/startup/validateConfig.ts",
+            "lib/startup/validateDependencies.ts",
+            "lib/startup/validateDependenciesBasic.ts",
+            "lib/startup/validatePreconditions.ts",
+            "lib/utils.ts",
+            "lib/webhook.ts",
+            "models/address.ts",
+            "models/basket.ts",
+            "models/basketitem.ts",
+            "models/captcha.ts",
+            "models/card.ts",
+            "models/challenge.ts",
+            "models/complaint.ts",
+            "models/delivery.ts",
+            "models/feedback.ts",
+            "models/hint.ts",
+            "models/imageCaptcha.ts",
+            "models/index.ts",
+            "models/memory.ts",
+            "models/privacyRequests.ts",
+            "models/product.ts",
+            "models/quantity.ts",
+            "models/recycle.ts",
+            "models/relations.ts",
+            "models/securityAnswer.ts",
+            "models/securityQuestion.ts",
+            "models/user.ts",
+            "models/wallet.ts",
+            "monitoring/grafana-dashboard.json",
+            "package.json",
+            "routes/2fa.ts",
+            "routes/address.ts",
+            "routes/angular.ts",
+            "routes/appConfiguration.ts",
+            "routes/appVersion.ts",
+            "routes/authenticatedUsers.ts",
+            "routes/b2bOrder.ts",
+            "routes/basket.ts",
+            "routes/basketItems.ts",
+            "routes/captcha.ts",
+            "routes/changePassword.ts",
+            "routes/chatbot.ts",
+            "routes/checkKeys.ts",
+            "routes/continueCode.ts",
+            "routes/countryMapping.ts",
+            "routes/coupon.ts",
+            "routes/createProductReviews.ts",
+            "routes/currentUser.ts",
+            "routes/dataErasure.ts",
+            "routes/dataExport.ts",
+            "routes/delivery.ts",
+            "routes/deluxe.ts",
+            "routes/easterEgg.ts",
+            "routes/fileServer.ts",
+            "routes/fileUpload.ts",
+            "routes/imageCaptcha.ts",
+            "routes/keyServer.ts",
+            "routes/languages.ts",
+            "routes/likeProductReviews.ts",
+            "routes/logfileServer.ts",
+            "routes/login.ts",
+            "routes/memory.ts",
+            "routes/metrics.ts",
+            "routes/nftMint.ts",
+            "routes/order.ts",
+            "routes/orderHistory.ts",
+            "routes/payment.ts",
+            "routes/premiumReward.ts",
+            "routes/privacyPolicyProof.ts",
+            "routes/profileImageFileUpload.ts",
+            "routes/profileImageUrlUpload.ts",
+            "routes/quarantineServer.ts",
+            "routes/recycles.ts",
+            "routes/redirect.ts",
+            "routes/repeatNotification.ts",
+            "routes/resetPassword.ts",
+            "routes/restoreProgress.ts",
+            "routes/saveLoginIp.ts",
+            "routes/search.ts",
+            "routes/securityQuestion.ts",
+            "routes/showProductReviews.ts",
+            "routes/trackOrder.ts",
+            "routes/updateProductReviews.ts",
+            "routes/updateUserProfile.ts",
+            "routes/userProfile.ts",
+            "routes/verify.ts",
+            "routes/videoHandler.ts",
+            "routes/vulnCodeFixes.ts",
+            "routes/vulnCodeSnippet.ts",
+            "routes/wallet.ts",
+            "routes/web3Wallet.ts",
+            "rsn/cache.json",
+            "rsn/rsn-update.ts",
+            "rsn/rsn-verbose.ts",
+            "rsn/rsn.ts",
+            "rsn/rsnUtil.ts",
+            "screenshots/bundle-analysis.png",
+            "screenshots/git-stats.png",
+            "screenshots/screenshot00.png",
+            "screenshots/screenshot01.png",
+            "screenshots/screenshot02.png",
+            "screenshots/screenshot03.png",
+            "screenshots/screenshot04.png",
+            "screenshots/screenshot05.png",
+            "screenshots/screenshot06.png",
+            "screenshots/screenshot08.png",
+            "screenshots/screenshot09.png",
+            "screenshots/screenshot10.png",
+            "screenshots/screenshot11.png",
+            "screenshots/screenshot12.png",
+            "screenshots/screenshot13.png",
+            "server.ts",
+            "swagger.yml",
+            "threat-model.json",
+            "tsconfig.json",
+            "uploads/complaints/.gitkeep",
+            "vagrant/Vagrantfile",
+            "vagrant/bootstrap.sh",
+            "vagrant/default.conf",
+            "views/dataErasureForm.hbs",
+            "views/dataErasureResult.hbs",
+            "views/promotionVideo.pug",
+            "views/themes/themes.ts",
+            "views/userProfile.pug"
+        ]
+    },
+    "time": {
+        "rules": [],
+        "rules_parse_time": 0.33971285820007324,
+        "profiling_times": {
+            "config_time": 5.322493076324463,
+            "core_time": 13.657737016677856,
+            "ignores_time": 0.00034928321838378906,
+            "total_time": 18.987605094909668
+        },
+        "parsing_time": {
+            "total_time": 0.0,
+            "per_file_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_files": []
+        },
+        "scanning_time": {
+            "total_time": 33.549172163009644,
+            "per_file_time": {
+                "mean": 0.011817249793240428,
+                "std_dev": 0.04799098344271391
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.3409026573895128,
+                "count_ratio": 0.0003522367030644593
+            },
+            "very_slow_files": [
+                {
+                    "fpath": "frontend/src/assets/private/three.js",
+                    "ftime": 11.437001943588257
+                }
+            ]
+        },
+        "matching_time": {
+            "total_time": 0.0,
+            "per_file_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_files": []
+        },
+        "tainting_time": {
+            "total_time": 0.0,
+            "per_def_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_defs": []
+        },
+        "fixpoint_timeouts": [
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:12036:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 12036,
+                        "col": 11,
+                        "offset": 237694
+                    },
+                    "end": {
+                        "line": 12036,
+                        "col": 21,
+                        "offset": 237704
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:13159:11 [rules: 2, first: typescript.react.security.audit.react-unsanitized-property.react-unsanitized-property]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 13159,
+                        "col": 12,
+                        "offset": 259807
+                    },
+                    "end": {
+                        "line": 13159,
+                        "col": 27,
+                        "offset": 259822
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:1:0 [rules: 5, first: javascript.express.security.injection.raw-html-format.raw-html-format]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 1,
+                        "col": 1,
+                        "offset": 0
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:21884:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 21884,
+                        "col": 11,
+                        "offset": 460711
+                    },
+                    "end": {
+                        "line": 21884,
+                        "col": 29,
+                        "offset": 460729
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:22377:10 [rules: 2, first: typescript.react.security.audit.react-unsanitized-property.react-unsanitized-property]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 22377,
+                        "col": 11,
+                        "offset": 470984
+                    },
+                    "end": {
+                        "line": 22377,
+                        "col": 25,
+                        "offset": 470998
+                    }
+                }
+            },
+            {
+                "error_type": "Fixpoint timeout",
+                "severity": "warn",
+                "message": "Fixpoint timeout while performing taint analysis at frontend/src/assets/private/three.js:25542:10 [rules: 1, first: typescript.react.security.audit.react-unsanitized-method.react-unsanitized-method]",
+                "location": {
+                    "path": "frontend/src/assets/private/three.js",
+                    "start": {
+                        "line": 25542,
+                        "col": 11,
+                        "offset": 546691
+                    },
+                    "end": {
+                        "line": 25542,
+                        "col": 30,
+                        "offset": 546710
+                    }
+                }
+            }
+        ],
+        "prefiltering": {
+            "project_level_time": 0.0,
+            "file_level_time": 0.0,
+            "rules_with_project_prefilters_ratio": 0.0,
+            "rules_with_file_prefilters_ratio": 0.9506443045445603,
+            "rules_selected_ratio": 0.08845662010623648,
+            "rules_matched_ratio": 0.08845662010623648
+        },
+        "targets": [],
+        "total_bytes": 0,
+        "max_memory_bytes": 2551565376
+    },
+    "engine_requested": "OSS",
+    "skipped_rules": [],
+    "profiling_results": []
+}
