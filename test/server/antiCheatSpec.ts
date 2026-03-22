@@ -5,7 +5,6 @@ const expect = chai.expect
 describe('antiCheat', () => {
   let antiCheat: any
   beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete require.cache[require.resolve('../../lib/antiCheat')]
     antiCheat = require('../../lib/antiCheat')
     antiCheat.reset()
