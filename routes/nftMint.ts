@@ -16,10 +16,10 @@ export function nftMintListener () {
     try {
       if (!isEventListenerCreated) {
         const provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
-        provider.websocket.on('error', (error: any) => {
+        provider.websocket.onerror = (error: any) => {
           logger.error(`WebSocket error (NFT Mint Listener): ${error.message || error}`)
           isEventListenerCreated = false
-        })
+        }
         const contract = new Contract(nftAddress, nftABI, provider)
         void contract.on('NFTMinted', (minter: string) => {
           if (!addressesMinted.has(minter)) {
