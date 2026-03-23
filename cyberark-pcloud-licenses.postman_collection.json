@@ -175,7 +175,7 @@
       "name": "3. RedRock Queries (Identity)",
       "item": [
         {
-          "name": "Usuários e Roles (Mapeamento de Licença)",
+          "name": "Membros - Privilege Cloud Users",
           "request": {
             "method": "POST",
             "header": [
@@ -190,7 +190,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"Script\": \"SELECT u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, CASE WHEN rm.ID LIKE '%_Privilege_Cloud_Admins_ID' THEN 'Privilege Cloud Administrators' WHEN rm.ID LIKE '%_Privilege_Cloud_Users_ID' THEN 'Privilege Cloud Users' WHEN rm.ID LIKE '%_Privilege_Cloud_Safe_managers_ID' THEN 'Privilege Cloud Safe Managers' WHEN rm.ID LIKE '%_Privilege_Cloud_Auditors_ID' THEN 'Privilege Cloud Auditors' WHEN rm.ID LIKE '%_Privilege_Cloud_External_Users_ID' THEN 'Privilege Cloud External Vendors' WHEN rm.ID LIKE '%_Privilege_Cloud_Session_Admin_ID' THEN 'Privilege Cloud Session Admin' WHEN rm.ID LIKE '%_Privilege_Cloud_Session_Risk_Managers_ID' THEN 'Privilege Cloud Session Risk Managers' WHEN rm.ID LIKE '%_Privilege_Cloud_Discovery_Source_ID' THEN 'Privilege Cloud Discovery Source' WHEN rm.ID LIKE '%_Secure_Infrastructure_Privilege_Cloud_Ephemeral_Access' THEN 'Secure Infrastructure Privilege Cloud Ephemeral Access' WHEN rm.ID LIKE '%_DPA_RDP_Privilege_Cloud_Secrets_Access' THEN 'DPA RDP Privilege Cloud Secrets Access' ELSE 'Other' END AS RoleName FROM User u JOIN RoleMember rm ON rm.ID LIKE u.ID || '_%' WHERE (rm.ID LIKE '%_Privilege_Cloud_Admins_ID' OR rm.ID LIKE '%_Privilege_Cloud_Users_ID' OR rm.ID LIKE '%_Privilege_Cloud_Safe_managers_ID' OR rm.ID LIKE '%_Privilege_Cloud_Auditors_ID' OR rm.ID LIKE '%_Privilege_Cloud_External_Users_ID' OR rm.ID LIKE '%_Privilege_Cloud_Session_Admin_ID' OR rm.ID LIKE '%_Privilege_Cloud_Session_Risk_Managers_ID' OR rm.ID LIKE '%_Privilege_Cloud_Discovery_Source_ID' OR rm.ID LIKE '%_Secure_Infrastructure_Privilege_Cloud_Ephemeral_Access' OR rm.ID LIKE '%_DPA_RDP_Privilege_Cloud_Secrets_Access') ORDER BY u.Username COLLATE NOCASE\"\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -198,12 +198,174 @@
               }
             },
             "url": {
-              "raw": "https://{{tenant}}.id.cyberark.cloud/Redrock/query",
+              "raw": "https://{{tenant}}.id.cyberark.cloud/SaasManage/GetRoleMembers?Name=Privilege_Cloud_Users_ID",
               "protocol": "https",
               "host": ["{{tenant}}", "id", "cyberark", "cloud"],
-              "path": ["Redrock", "query"]
+              "path": ["SaasManage", "GetRoleMembers"],
+              "query": [
+                {
+                  "key": "Name",
+                  "value": "Privilege_Cloud_Users_ID"
+                }
+              ]
             },
-            "description": "Retorna usuários com suas roles do Privilege Cloud.\nComo a licença é determinada pela role, este query mapeia usuário → role → tipo de licença.\n\nFiltro padrão: roles que contém 'Privilege Cloud' no nome.\nRemova o WHERE para trazer todas as roles."
+            "description": "Retorna todos os membros da role 'Privilege Cloud Users'.\nLicença: Privileged Standard User.\n\nEndpoint: POST /SaasManage/GetRoleMembers?Name={roleID}"
+          },
+          "response": []
+        },
+        {
+          "name": "Membros - Privilege Cloud Administrators",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/SaasManage/GetRoleMembers?Name=Privilege_Cloud_Admins_ID",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["SaasManage", "GetRoleMembers"],
+              "query": [
+                {
+                  "key": "Name",
+                  "value": "Privilege_Cloud_Admins_ID"
+                }
+              ]
+            },
+            "description": "Retorna todos os membros da role 'Privilege Cloud Administrators'.\nLicença: Privileged Standard User (admin)."
+          },
+          "response": []
+        },
+        {
+          "name": "Membros - Privilege Cloud Auditors",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/SaasManage/GetRoleMembers?Name=Privilege_Cloud_Auditors_ID",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["SaasManage", "GetRoleMembers"],
+              "query": [
+                {
+                  "key": "Name",
+                  "value": "Privilege_Cloud_Auditors_ID"
+                }
+              ]
+            },
+            "description": "Retorna todos os membros da role 'Privilege Cloud Auditors'.\nLicença: Privileged Standard User (read-only)."
+          },
+          "response": []
+        },
+        {
+          "name": "Membros - Privilege Cloud Safe Managers",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/SaasManage/GetRoleMembers?Name=Privilege_Cloud_Safe_managers_ID",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["SaasManage", "GetRoleMembers"],
+              "query": [
+                {
+                  "key": "Name",
+                  "value": "Privilege_Cloud_Safe_managers_ID"
+                }
+              ]
+            },
+            "description": "Retorna todos os membros da role 'Privilege Cloud Safe Managers'.\nLicença: Privileged Standard User."
+          },
+          "response": []
+        },
+        {
+          "name": "Membros - Privilege Cloud External Vendors",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://{{tenant}}.id.cyberark.cloud/SaasManage/GetRoleMembers?Name=Privilege_Cloud_External_Users_ID",
+              "protocol": "https",
+              "host": ["{{tenant}}", "id", "cyberark", "cloud"],
+              "path": ["SaasManage", "GetRoleMembers"],
+              "query": [
+                {
+                  "key": "Name",
+                  "value": "Privilege_Cloud_External_Users_ID"
+                }
+              ]
+            },
+            "description": "Retorna todos os membros da role 'Privilege Cloud External Vendors'.\nLicença: External Vendor."
           },
           "response": []
         },
@@ -223,7 +385,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"Script\": \"SELECT ID, Username, DisplayName, Email, LastLogin, Enabled FROM User ORDER BY Username COLLATE NOCASE\",\n    \"Args\": {\n        \"PageNumber\": 1,\n        \"PageSize\": 100,\n        \"Limit\": 100,\n        \"SortBy\": \"\",\n        \"direction\": \"ASC\"\n    }\n}",
+              "raw": "{\n    \"Script\": \"SELECT ID, Username, DisplayName, Email, LastLogin FROM User ORDER BY Username COLLATE NOCASE\",\n    \"Args\": {\n        \"PageNumber\": 1,\n        \"PageSize\": 100,\n        \"Limit\": 100,\n        \"SortBy\": \"\",\n        \"direction\": \"ASC\"\n    }\n}",
               "options": {
                 "raw": {
                   "language": "json"
