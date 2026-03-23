@@ -4,6 +4,9 @@ filterTable () {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustIframe(queryParam)
+      if (this.gridDataSourceSubscription) {
+        this.gridDataSourceSubscription.unsubscribe()
+      }
       this.gridDataSourceSubscription = this.gridDataSource.subscribe((result: ProductTableEntry[]) => {
         if (result.length === 0) {
           this.emptyState = true
