@@ -217,7 +217,7 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
 
 The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
 for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
-tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
+tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find out more
 about donations and how they are used here:
 
 <https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
