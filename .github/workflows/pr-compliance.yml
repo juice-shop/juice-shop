@@ -209,12 +209,16 @@ jobs:
               if (f.status !== 'added') return false;
               const isYaml = f.filename.endsWith('.yml') || f.filename.endsWith('.yaml');
               const isDotFile = f.filename.split('/').pop().startsWith('.');
+              const isMdOrLog = f.filename.endsWith('.md') || f.filename.endsWith('.log');
               const isRoot = !f.filename.includes('/');
               const isInDotFolder = f.filename.startsWith('.') || f.filename.includes('/.');
-              return (isYaml || isDotFile) && (isRoot || isInDotFolder);
+              
+              if ((isYaml || isDotFile) && (isRoot || isInDotFolder)) return true;
+              if (isMdOrLog) return true;
+              return false;
             })) {
               spamScore += 20;
-              console.log(`+20 Score (Suspicious new dotfile or YAML in root/dotfolder) - Current: ${spamScore}`);
+              console.log(`+20 Score (Suspicious new file: .md, .log, dotfile or YAML in root/dotfolder) - Current: ${spamScore}`);
             }
             if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) {
               spamScore += 20;
