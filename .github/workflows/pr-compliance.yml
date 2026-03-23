@@ -21,20 +21,39 @@ jobs:
             const author = pr.user.login;
             
             // Fetch files changed in PR
-            const { data: files } = await github.rest.pulls.listFiles({
+            const { data: filesData } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pr.number
             });
+            const files = filesData.map(f => ({
+              filename: f.filename,
+              status: f.status,
+              additions: f.additions,
+              deletions: f.deletions
+            }));
             
             // Fetch commits for DCO check
-            const { data: commits } = await github.rest.pulls.listCommits({
+            const { data: commitsData } = await github.rest.pulls.listCommits({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: pr.number
             });
+            const commits = commitsData.map(c => ({
+              commit: {
+                message: c.commit.message
+              }
+            }));
             
-            core.setOutput('pr', JSON.stringify(pr));
+            const filteredPr = {
+              number: pr.number,
+              body: pr.body,
+              title: pr.title,
+              base: { ref: pr.base.ref },
+              user: { login: pr.user.login }
+            };
+            
+            core.setOutput('pr', JSON.stringify(filteredPr));
             core.setOutput('author', author);
             core.setOutput('files', JSON.stringify(files));
             core.setOutput('commits', JSON.stringify(commits));
