@@ -139,11 +139,30 @@ jobs:
           script: |
             const pr = JSON.parse(process.env.PR_JSON);
             const files = JSON.parse(process.env.FILES_JSON);
+            const commits = JSON.parse(process.env.COMMITS_JSON);
             const body = (pr.body || '').toLowerCase();
             const title = (pr.title || '').toLowerCase();
             const prBody = pr.body || '';
             
             let spamScore = 0;
+            
+            const sastDastTools = /semgrep|snyk|sonar|fortify|checkmarx|veracode|trivy|grype|zap|burp/i;
+            if (sastDastTools.test(title)) {
+              spamScore += 25;
+              console.log(`+25 Score (SAST/DAST tool name in title: "${title}") - Current: ${spamScore}`);
+            }
+            if (sastDastTools.test(body)) {
+              spamScore += 25;
+              console.log(`+25 Score (SAST/DAST tool name in body) - Current: ${spamScore}`);
+            }
+            if (commits.some(c => sastDastTools.test(c.commit.message))) {
+              spamScore += 25;
+              console.log(`+25 Score (SAST/DAST tool name in commit messages) - Current: ${spamScore}`);
+            }
+            if (files.some(f => sastDastTools.test(f.filename))) {
+              spamScore += 25;
+              console.log(`+25 Score (SAST/DAST tool name in filenames) - Current: ${spamScore}`);
+            }
             
             if (title.length <= 5 || /^(update|fix|patch|docs|hi|hello|test|bug fix|typo|lab|homework|fixes|problem)$/i.test(title)) {
               spamScore += 20;
@@ -190,12 +209,16 @@ jobs:
               if (f.status !== 'added') return false;
               const isYaml = f.filename.endsWith('.yml') || f.filename.endsWith('.yaml');
               const isDotFile = f.filename.split('/').pop().startsWith('.');
+              const isMdOrLog = f.filename.endsWith('.md') || f.filename.endsWith('.log');
               const isRoot = !f.filename.includes('/');
               const isInDotFolder = f.filename.startsWith('.') || f.filename.includes('/.');
-              return (isYaml || isDotFile) && (isRoot || isInDotFolder);
+              
+              if ((isYaml || isDotFile) && (isRoot || isInDotFolder)) return true;
+              if (isMdOrLog) return true;
+              return false;
             })) {
               spamScore += 20;
-              console.log(`+20 Score (Suspicious new dotfile or YAML in root/dotfolder) - Current: ${spamScore}`);
+              console.log(`+20 Score (Suspicious new file: .md, .log, dotfile or YAML in root/dotfolder) - Current: ${spamScore}`);
             }
             if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) {
               spamScore += 20;
@@ -246,6 +269,7 @@ jobs:
         env:
           PR_JSON: ${{ steps.init.outputs.pr }}
           FILES_JSON: ${{ steps.init.outputs.files }}
+          COMMITS_JSON: ${{ steps.init.outputs.commits }}
           BRANCH_VIOLATION: ${{ steps.branch.outputs.violation }}
           AI_VIOLATION: ${{ steps.ai.outputs.violation }}
           AFFIRMATION_VIOLATION: ${{ steps.affirmation.outputs.violation }}
@@ -343,26 +367,38 @@ jobs:
             const labels = ['invalid'];
             if (isSpam) labels.push('spam');
             
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              labels: labels
-            });
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: labels
+              });
+            } catch (e) {
+              console.log(`Failed to add labels to PR #${pr.number}: ${e.message}`);
+            }
             
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              body: comment
-            });
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: comment
+              });
+            } catch (e) {
+              console.log(`Failed to create comment on PR #${pr.number}: ${e.message}`);
+            }
             
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              state: 'closed'
-            });
+            try {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                state: 'closed'
+              });
+            } catch (e) {
+              console.log(`Failed to close PR #${pr.number}: ${e.message}`);
+            }
             
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s). Applied labels: ${labels.join(', ')}`);
         env:
