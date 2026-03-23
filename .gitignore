@@ -1,4 +1,5 @@
 # App
+.env
 node_modules/
 juiceshop.sqlite
 order_*.pdf
@@ -65,3 +66,7 @@ config/*.yml
 
 # System Files
 .DS_Store
+.env
+.env
+.env
+.env
