@@ -45,7 +45,7 @@ jobs:
         id: membership
         with:
           script: |
-            const author = '${{ steps.init.outputs.author }}';
+            const author = process.env.AUTHOR;
             try {
               await github.rest.orgs.checkPublicMembershipForUser({
                 org: 'juice-shop',
@@ -57,6 +57,8 @@ jobs:
               console.log(`${author} is not a juice-shop org member, running checks.`);
               core.setOutput('is_member', 'false');
             }
+        env:
+          AUTHOR: ${{ steps.init.outputs.author }}
 
       - name: "Check Target Branch"
         if: steps.membership.outputs.is_member == 'false'
@@ -64,10 +66,12 @@ jobs:
         id: branch
         with:
           script: |
-            const pr = JSON.parse('${{ steps.init.outputs.pr }}');
+            const pr = JSON.parse(process.env.PR_JSON);
             const wrongBranch = pr.base.ref === 'master';
             core.setOutput('violation', wrongBranch ? 'true' : 'false');
             console.log(`Target branch check: ${wrongBranch ? '❌ FAILED' : '✅ PASSED'}`);
+        env:
+          PR_JSON: ${{ steps.init.outputs.pr }}
 
       - name: "Check AI Tool Disclosure"
         if: steps.membership.outputs.is_member == 'false'
@@ -75,13 +79,15 @@ jobs:
         id: ai
         with:
           script: |
-            const pr = JSON.parse('${{ steps.init.outputs.pr }}');
+            const pr = JSON.parse(process.env.PR_JSON);
             const prBody = pr.body || '';
             const aiNoContent = prBody.includes('[x] My contribution does not include any AI-generated content');
             const aiWithContent = prBody.includes('[x] My contribution includes AI-generated content, as disclosed below');
             const aiMissing = !aiNoContent && !aiWithContent;
             core.setOutput('violation', aiMissing ? 'true' : 'false');
             console.log(`AI disclosure check: ${aiMissing ? '❌ FAILED' : '✅ PASSED'}`);
+        env:
+          PR_JSON: ${{ steps.init.outputs.pr }}
 
       - name: "Check Affirmation"
         if: steps.membership.outputs.is_member == 'false'
@@ -89,11 +95,13 @@ jobs:
         id: affirmation
         with:
           script: |
-            const pr = JSON.parse('${{ steps.init.outputs.pr }}');
+            const pr = JSON.parse(process.env.PR_JSON);
             const prBody = pr.body || '';
             const affirmationMissing = !prBody.includes('[x] My code follows the [CONTRIBUTING.md]');
             core.setOutput('violation', affirmationMissing ? 'true' : 'false');
             console.log(`Affirmation check: ${affirmationMissing ? '❌ FAILED' : '✅ PASSED'}`);
+        env:
+          PR_JSON: ${{ steps.init.outputs.pr }}
 
       - name: "Check DCO Sign-off"
         if: steps.membership.outputs.is_member == 'false'
@@ -101,10 +109,12 @@ jobs:
         id: dco
         with:
           script: |
-            const commits = JSON.parse('${{ steps.init.outputs.commits }}');
+            const commits = JSON.parse(process.env.COMMITS_JSON);
             const dcoMissing = commits.some(c => !c.commit.message.includes('Signed-off-by:'));
             core.setOutput('violation', dcoMissing ? 'true' : 'false');
             console.log(`DCO check: ${dcoMissing ? '❌ FAILED' : '✅ PASSED'}`);
+        env:
+          COMMITS_JSON: ${{ steps.init.outputs.commits }}
 
       - name: "Check I18N Modification"
         if: steps.membership.outputs.is_member == 'false'
@@ -112,11 +122,14 @@ jobs:
         id: i18n
         with:
           script: |
-            const author = '${{ steps.init.outputs.author }}';
-            const files = JSON.parse('${{ steps.init.outputs.files }}');
+            const author = process.env.AUTHOR;
+            const files = JSON.parse(process.env.FILES_JSON);
             const i18nModified = author !== 'bkimminich' && files.some(f => (f.filename.startsWith('frontend/src/assets/i18n/') || f.filename.startsWith('data/static/i18n/')) && !f.filename.endsWith('en.json'));
             core.setOutput('violation', i18nModified ? 'true' : 'false');
             console.log(`I18N modification check: ${i18nModified ? '❌ FAILED' : '✅ PASSED'}`);
+        env:
+          AUTHOR: ${{ steps.init.outputs.author }}
+          FILES_JSON: ${{ steps.init.outputs.files }}
 
       - name: "Perform Spam Detection"
         if: steps.membership.outputs.is_member == 'false'
@@ -124,8 +137,8 @@ jobs:
         id: spam
         with:
           script: |
-            const pr = JSON.parse('${{ steps.init.outputs.pr }}');
-            const files = JSON.parse('${{ steps.init.outputs.files }}');
+            const pr = JSON.parse(process.env.PR_JSON);
+            const files = JSON.parse(process.env.FILES_JSON);
             const body = (pr.body || '').toLowerCase();
             const title = (pr.title || '').toLowerCase();
             const prBody = pr.body || '';
@@ -173,11 +186,11 @@ jobs:
               if (totalChanges < 5) spamScore += 30;
             }
             
-            if ('${{ steps.branch.outputs.violation }}' === 'true') spamScore += 15;
-            if ('${{ steps.ai.outputs.violation }}' === 'true') spamScore += 15;
-            if ('${{ steps.affirmation.outputs.violation }}' === 'true') spamScore += 15;
-            if ('${{ steps.dco.outputs.violation }}' === 'true') spamScore += 15;
-            if ('${{ steps.i18n.outputs.violation }}' === 'true') spamScore += 15;
+            if (process.env.BRANCH_VIOLATION === 'true') spamScore += 15;
+            if (process.env.AI_VIOLATION === 'true') spamScore += 15;
+            if (process.env.AFFIRMATION_VIOLATION === 'true') spamScore += 15;
+            if (process.env.DCO_VIOLATION === 'true') spamScore += 15;
+            if (process.env.I18N_VIOLATION === 'true') spamScore += 15;
             
             if (/(?:closes|fixes|resolves)\s+#\d+/i.test(prBody)) spamScore -= 50;
             if (/#\d+/.test(title)) spamScore -= 30;
@@ -185,6 +198,14 @@ jobs:
             const spamRating = Math.max(0, Math.min(100, spamScore));
             core.setOutput('spamRating', spamRating);
             console.log(`Spam detection check: Rating ${spamRating}%`);
+        env:
+          PR_JSON: ${{ steps.init.outputs.pr }}
+          FILES_JSON: ${{ steps.init.outputs.files }}
+          BRANCH_VIOLATION: ${{ steps.branch.outputs.violation }}
+          AI_VIOLATION: ${{ steps.ai.outputs.violation }}
+          AFFIRMATION_VIOLATION: ${{ steps.affirmation.outputs.violation }}
+          DCO_VIOLATION: ${{ steps.dco.outputs.violation }}
+          I18N_VIOLATION: ${{ steps.i18n.outputs.violation }}
 
       - name: "Finalize Compliance Check"
         if: always() && steps.membership.outputs.is_member == 'false'
@@ -192,14 +213,14 @@ jobs:
         id: check
         with:
           script: |
-            const pr = JSON.parse('${{ steps.init.outputs.pr }}');
-            const author = '${{ steps.init.outputs.author }}';
-            const wrongBranch = '${{ steps.branch.outputs.violation }}' === 'true';
-            const aiMissing = '${{ steps.ai.outputs.violation }}' === 'true';
-            const affirmationMissing = '${{ steps.affirmation.outputs.violation }}' === 'true';
-            const dcoMissing = '${{ steps.dco.outputs.violation }}' === 'true';
-            const i18nModified = '${{ steps.i18n.outputs.violation }}' === 'true';
-            const spamRating = parseInt('${{ steps.spam.outputs.spamRating }}');
+            const pr = JSON.parse(process.env.PR_JSON);
+            const author = process.env.AUTHOR;
+            const wrongBranch = process.env.BRANCH_VIOLATION === 'true';
+            const aiMissing = process.env.AI_VIOLATION === 'true';
+            const affirmationMissing = process.env.AFFIRMATION_VIOLATION === 'true';
+            const dcoMissing = process.env.DCO_VIOLATION === 'true';
+            const i18nModified = process.env.I18N_VIOLATION === 'true';
+            const spamRating = parseInt(process.env.SPAM_RATING);
             const isSpam = spamRating >= 75;
             
             const violations = [];
@@ -299,15 +320,25 @@ jobs:
             });
             
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
+        env:
+          PR_JSON: ${{ steps.init.outputs.pr }}
+          AUTHOR: ${{ steps.init.outputs.author }}
+          BRANCH_VIOLATION: ${{ steps.branch.outputs.violation }}
+          AI_VIOLATION: ${{ steps.ai.outputs.violation }}
+          AFFIRMATION_VIOLATION: ${{ steps.affirmation.outputs.violation }}
+          DCO_VIOLATION: ${{ steps.dco.outputs.violation }}
+          I18N_VIOLATION: ${{ steps.i18n.outputs.violation }}
+          SPAM_RATING: ${{ steps.spam.outputs.spamRating }}
 
       - name: "Block Spammer"
         if: always() && steps.membership.outputs.is_member == 'false' && steps.spam.outputs.spamRating >= 75
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
         env:
+          AUTHOR: ${{ steps.init.outputs.author }}
           ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
         with:
           script: |
-            const author = '${{ steps.init.outputs.author }}';
+            const author = process.env.AUTHOR;
             const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
             if (orgAdminToken) {
               try {
