@@ -145,10 +145,22 @@ jobs:
             
             let spamScore = 0;
             
-            if (title.length <= 5 || /^(update|fix|patch|docs|hi|hello|test|bug fix|typo|lab|homework|fixes|problem)$/i.test(title)) spamScore += 20;
-            if (body.length <= 5 || /^(fixed|update|hi|hello|done|check|fix)$/i.test(body) || body === '') spamScore += 20;
-            if (body.includes('<!-- ✍️-->') || /### description\s+a clear and concise summary/i.test(body)) spamScore += 40;
-            if (files.length === 1 && files[0].filename === 'lib/insecurity.ts') spamScore += 50;
+            if (title.length <= 5 || /^(update|fix|patch|docs|hi|hello|test|bug fix|typo|lab|homework|fixes|problem)$/i.test(title)) {
+              spamScore += 20;
+              console.log(`+20 Score (Low quality title: "${title}") - Current: ${spamScore}`);
+            }
+            if (body.length <= 5 || /^(fixed|update|hi|hello|done|check|fix)$/i.test(body) || body === '') {
+              spamScore += 20;
+              console.log(`+20 Score (Low quality body: "${body}") - Current: ${spamScore}`);
+            }
+            if (body.includes('<!-- ✍️-->') || /### description\s+a clear and concise summary/i.test(body)) {
+              spamScore += 40;
+              console.log(`+40 Score (Default template instructions not removed) - Current: ${spamScore}`);
+            }
+            if (files.length === 1 && files[0].filename === 'lib/insecurity.ts') {
+              spamScore += 50;
+              console.log(`+50 Score (Common fake change to lib/insecurity.ts detected) - Current: ${spamScore}`);
+            }
             
             const maintainerFiles = [
               'HALL_OF_FAME.md', 'LICENSE', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'crowdin.yaml',
@@ -168,7 +180,11 @@ jobs:
             
             if (maintainerFileCount > 0) {
               spamScore += 40;
-              if (maintainerFileCount > 1) spamScore += 20;
+              console.log(`+40 Score (Modified maintainer-only files) - Current: ${spamScore}`);
+              if (maintainerFileCount > 1) {
+                spamScore += 20;
+                console.log(`+20 Score (Multiple maintainer-only files modified) - Current: ${spamScore}`);
+              }
             }
             if (files.some(f => {
               if (f.status !== 'added') return false;
@@ -179,25 +195,54 @@ jobs:
               return (isYaml || isDotFile) && (isRoot || isInDotFolder);
             })) {
               spamScore += 20;
+              console.log(`+20 Score (Suspicious new dotfile or YAML in root/dotfolder) - Current: ${spamScore}`);
             }
-            if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) spamScore += 20;
+            if (files.length === 1 && files[0].filename === 'README.md' && (files[0].additions + files[0].deletions) < 5) {
+              spamScore += 20;
+              console.log(`+20 Score (Trivial README.md change) - Current: ${spamScore}`);
+            }
             if (files.length <= 2 && maintainerFileCount === 0) {
               const totalChanges = files.reduce((sum, f) => sum + f.additions + f.deletions, 0);
-              if (totalChanges < 5) spamScore += 30;
+              if (totalChanges < 5) {
+                spamScore += 30;
+                console.log(`+30 Score (Low amount of total changes) - Current: ${spamScore}`);
+              }
             }
             
-            if (process.env.BRANCH_VIOLATION === 'true') spamScore += 15;
-            if (process.env.AI_VIOLATION === 'true') spamScore += 15;
-            if (process.env.AFFIRMATION_VIOLATION === 'true') spamScore += 15;
-            if (process.env.DCO_VIOLATION === 'true') spamScore += 15;
-            if (process.env.I18N_VIOLATION === 'true') spamScore += 15;
+            if (process.env.BRANCH_VIOLATION === 'true') {
+              spamScore += 15;
+              console.log(`+15 Score (Wrong target branch) - Current: ${spamScore}`);
+            }
+            if (process.env.AI_VIOLATION === 'true') {
+              spamScore += 15;
+              console.log(`+15 Score (Missing AI Tool Disclosure) - Current: ${spamScore}`);
+            }
+            if (process.env.AFFIRMATION_VIOLATION === 'true') {
+              spamScore += 15;
+              console.log(`+15 Score (Missing Affirmation) - Current: ${spamScore}`);
+            }
+            if (process.env.DCO_VIOLATION === 'true') {
+              spamScore += 15;
+              console.log(`+15 Score (Missing DCO Sign-off) - Current: ${spamScore}`);
+            }
+            if (process.env.I18N_VIOLATION === 'true') {
+              spamScore += 15;
+              console.log(`+15 Score (Direct I18N Modification) - Current: ${spamScore}`);
+            }
             
-            if (/(?:closes|fixes|resolves)\s+#\d+/i.test(prBody)) spamScore -= 50;
-            if (/#\d+/.test(title)) spamScore -= 30;
+            if (/(?:closes|fixes|resolves)\s+#\d+/i.test(prBody)) {
+              spamScore -= 50;
+              console.log(`-50 Score (References an issue) - Current: ${spamScore}`);
+            }
+            if (/#\d+/.test(title)) {
+              spamScore -= 30;
+              console.log(`-30 Score (References an issue in title) - Current: ${spamScore}`);
+            }
             
             const spamRating = Math.max(0, Math.min(100, spamScore));
             core.setOutput('spamRating', spamRating);
-            console.log(`Spam detection check: Rating ${spamRating}%`);
+            console.log(`===================================`);
+            console.log(`Final Spam Score: ${spamRating}/100`);
         env:
           PR_JSON: ${{ steps.init.outputs.pr }}
           FILES_JSON: ${{ steps.init.outputs.files }}
