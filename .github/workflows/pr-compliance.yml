@@ -278,7 +278,7 @@ jobs:
               !i18nModified ? '✅' : '❌'
             ].join('');
             const spamPrefix = isSpam ? '🚨 ' : (spamRating >= 40 ? '⚠️ ' : '✅ ');
-            core.setOutput('results', `${checkEmojis}${spamRating > 0 ? ` (${spamPrefix}Spam: ${spamRating}%)` : ''} - ${author}`);
+            core.setOutput('results', `${checkEmojis}${spamRating > 0 ? ` (${spamPrefix}Spam Score: ${spamRating}/100)` : ''} - ${author}`);
             
             if (isSpam) {
               violations.push(
@@ -364,7 +364,7 @@ jobs:
               state: 'closed'
             });
             
-            console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s).`);
+            console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s). Applied labels: ${labels.join(', ')}`);
         env:
           PR_JSON: ${{ steps.init.outputs.pr }}
           AUTHOR: ${{ steps.init.outputs.author }}
