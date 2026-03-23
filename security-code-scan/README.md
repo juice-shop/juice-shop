@@ -54,6 +54,41 @@ security-code-scan/
 - `jq` (optional, for report parsing)
 - `python3` (optional, for JSON extraction)
 
+### Authentication
+
+**Option A: Anthropic API directly**
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+**Option B: AWS Bedrock**
+```bash
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-east-1
+export AWS_BEARER_TOKEN_BEDROCK="your-bedrock-api-key"
+export CLAUDE_MODEL=global.anthropic.claude-opus-4-6-v1
+```
+
+### GitHub Actions Setup
+
+Add these secrets in your repo's **Settings → Secrets and variables → Actions**:
+
+For Bedrock (recommended):
+- `AWS_BEARER_TOKEN_BEDROCK` — Your Bedrock API key
+
+For Anthropic API directly:
+- `ANTHROPIC_API_KEY` — Your Anthropic API key
+
+### Model Selection
+
+Set `CLAUDE_MODEL` environment variable to override the default model:
+
+```bash
+# Use Opus 4.6 via Bedrock
+export CLAUDE_MODEL=global.anthropic.claude-opus-4-6-v1
+./security-code-scan/scan.sh
+```
+
 ## Example Output
 
 ```

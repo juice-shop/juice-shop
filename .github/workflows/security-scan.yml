@@ -46,7 +46,10 @@ jobs:
       - name: Run security scan (PR diff mode)
         if: github.event_name == 'pull_request'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_USE_BEDROCK: "1"
+          AWS_REGION: us-east-1
+          AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+          CLAUDE_MODEL: global.anthropic.claude-opus-4-6-v1
         run: |
           chmod +x security-code-scan/scan.sh
           ./security-code-scan/scan.sh --diff ${{ github.event.pull_request.base.ref }}
@@ -54,7 +57,10 @@ jobs:
       - name: Run security scan (full mode)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.scan_mode == 'full'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_USE_BEDROCK: "1"
+          AWS_REGION: us-east-1
+          AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+          CLAUDE_MODEL: global.anthropic.claude-opus-4-6-v1
         run: |
           chmod +x security-code-scan/scan.sh
           ./security-code-scan/scan.sh
@@ -62,7 +68,10 @@ jobs:
       - name: Run security scan (diff mode - manual)
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.scan_mode == 'diff'
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_USE_BEDROCK: "1"
+          AWS_REGION: us-east-1
+          AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
+          CLAUDE_MODEL: global.anthropic.claude-opus-4-6-v1
         run: |
           chmod +x security-code-scan/scan.sh
           ./security-code-scan/scan.sh --diff main

@@ -114,11 +114,16 @@ EOF
 
 PROMPT="$(build_prompt)"
 
+# Build Claude Code arguments
+CLAUDE_ARGS=(-p --output-format json --max-turns 30)
+if [[ -n "${CLAUDE_MODEL:-}" ]]; then
+  CLAUDE_ARGS+=(--model "$CLAUDE_MODEL")
+  echo -e "${CYAN}Model:${NC} ${CLAUDE_MODEL}"
+fi
+
 # Run Claude Code in print mode
 cd "$PROJECT_ROOT"
-claude -p \
-  --output-format json \
-  --max-turns 30 \
+claude "${CLAUDE_ARGS[@]}" \
   "$PROMPT" > "$REPORT_DIR/.scan_raw_${TIMESTAMP}.json" 2>/dev/null
 
 # Extract the text content from Claude's response
