@@ -64,90 +64,6 @@
 		],
 		"removed": []
 	},
-	"chatbotGreedyInjectionChallenge_1.ts": {
-		"added": [
-			2,
-			5,
-			55
-		],
-		"removed": [
-			4,
-			54
-		]
-	},
-	"chatbotGreedyInjectionChallenge_2_correct.ts": {
-		"added": [
-			55
-		],
-		"removed": [
-			55
-		]
-	},
-	"chatbotGreedyInjectionChallenge_3.ts": {
-		"added": [
-			55
-		],
-		"removed": [
-			55,
-			57,
-			59,
-			60,
-			61,
-			62
-		]
-	},
-	"chatbotGreedyInjectionChallenge_4.ts": {
-		"added": [
-			18
-		],
-		"removed": [
-			18
-		]
-	},
-	"chatbotPromptInjectionChallenge_1.ts": {
-		"added": [],
-		"removed": []
-	},
-	"chatbotPromptInjectionChallenge_2_correct.ts": {
-		"added": [
-			6
-		],
-		"removed": [
-			5,
-			6,
-			11,
-			12,
-			13,
-			14,
-			15,
-			16,
-			17,
-			18,
-			19,
-			20,
-			21,
-			22
-		]
-	},
-	"chatbotPromptInjectionChallenge_3.ts": {
-		"added": [],
-		"removed": [
-			3,
-			5,
-			6
-		]
-	},
-	"chatbotPromptInjectionChallenge_4.ts": {
-		"added": [
-			6
-		],
-		"removed": [
-			5,
-			6,
-			9,
-			10
-		]
-	},
 	"dbSchemaChallenge_1.ts": {
 		"added": [],
 		"removed": []
@@ -197,8 +113,8 @@
 	"exposedMetricsChallenge_2.ts": {
 		"added": [
 			2,
-			17,
-			34
+			16,
+			33
 		],
 		"removed": []
 	},
@@ -228,20 +144,56 @@
 		]
 	},
 	"localXssChallenge_1.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"localXssChallenge_2_correct.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"localXssChallenge_3.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"localXssChallenge_4.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"loginAdminChallenge_1.ts": {
 		"added": [],
@@ -417,15 +369,15 @@
 	"registerAdminChallenge_2.ts": {
 		"added": [
 			5,
+			27,
 			28,
 			29,
-			30,
+			32,
 			33,
-			34,
-			35
+			34
 		],
 		"removed": [
-			28
+			27
 		]
 	},
 	"registerAdminChallenge_3_correct.ts": {
@@ -684,8 +636,7 @@
 	},
 	"restfulXssChallenge_1_correct.ts": {
 		"added": [
-			42,
-			43
+			52
 		],
 		"removed": []
 	},
@@ -694,7 +645,20 @@
 		"removed": []
 	},
 	"restfulXssChallenge_3.ts": {
-		"added": [],
+		"added": [
+			40,
+			52,
+			53,
+			54,
+			55,
+			56,
+			57,
+			58,
+			59,
+			60,
+			61,
+			62
+		],
 		"removed": []
 	},
 	"restfulXssChallenge_4.ts": {
@@ -711,38 +675,38 @@
 	},
 	"scoreBoardChallenge_3.ts": {
 		"added": [
-			113
+			117
 		],
 		"removed": []
 	},
 	"tokenSaleChallenge_1.ts": {
 		"added": [
-			24
+			20
 		],
 		"removed": [
-			24
+			20
 		]
 	},
 	"tokenSaleChallenge_2.ts": {
 		"added": [
-			24
+			20
 		],
 		"removed": [
-			24
+			20
 		]
 	},
 	"tokenSaleChallenge_3_correct.ts": {
 		"added": [
 			10,
-			24,
-			36,
-			37,
-			44,
-			51,
-			59
+			20,
+			32,
+			33,
+			40,
+			47,
+			55
 		],
 		"removed": [
-			21
+			17
 		]
 	},
 	"unionSqlInjectionChallenge_1.ts": {
@@ -799,7 +763,7 @@
 	},
 	"web3SandboxChallenge_1_correct.ts": {
 		"added": [
-			166
+			170
 		],
 		"removed": []
 	},
@@ -840,19 +804,55 @@
 		]
 	},
 	"xssBonusChallenge_1_correct.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"xssBonusChallenge_2.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"xssBonusChallenge_3.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	},
 	"xssBonusChallenge_4.ts": {
-		"added": [],
-		"removed": []
+		"added": [
+			7,
+			8,
+			9,
+			10,
+			11,
+			12
+		],
+		"removed": [
+			7
+		]
 	}
 }
