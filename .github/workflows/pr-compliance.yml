@@ -74,14 +74,19 @@ jobs:
             if (files.length === 1 && files[0].filename === 'lib/insecurity.ts') spamScore += 50;
             // Maintainer-managed files are possible targets for low-effort spam or unauthorized edits
             const maintainerFiles = [
-              'HALL_OF_FAME.md', 'LICENSE', 'LICENSE.md', 'SECURITY.md', 'CODE_OF_CONDUCT.md',
-              'CONTRIBUTING.md', 'crowdin.yaml', 'threat-model.json', 'bom.json', 'AGENTS.md',
-              'REFERENCES.md', 'SOLUTIONS.md', 'CODEOWNERS', 'config.schema.yml', 'ctf.key'
+              'HALL_OF_FAME.md', 'LICENSE', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'crowdin.yaml',
+              'AGENTS.md', 'CODEOWNERS', 'config.schema.yml', 'ctf.key', 'app.json'
             ];
             const maintainerFileCount = files.filter(f => 
               maintainerFiles.includes(f.filename) || 
+              f.filename.startsWith('.claude/') ||
+              f.filename.startsWith('.codeium/') ||
+              f.filename.startsWith('.continue/') ||
+              f.filename.startsWith('.cursor/') ||
+              f.filename.startsWith('.dependabot/') ||
               f.filename.startsWith('.github/') ||
-              f.filename.startsWith('.circleci/')
+              f.filename.startsWith('.gitlab/') ||
+              f.filename.startsWith('.zap/')
             ).length;
             
             if (maintainerFileCount > 0) {
