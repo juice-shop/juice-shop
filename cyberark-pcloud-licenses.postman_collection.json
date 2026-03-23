@@ -190,7 +190,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"Script\": \"SELECT u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u JOIN RoleMember rm ON u.ID = rm.MemberEntityID JOIN Role r ON rm.RoleID = r.ID WHERE r.Name LIKE '%Privilege Cloud%' ORDER BY u.Username COLLATE NOCASE\"\n}",
+              "raw": "{\n    \"Script\": \"SELECT u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u JOIN RoleMember rm ON u.ID = rm.MemberID JOIN Role r ON rm.RoleID = r.ID WHERE r.Name LIKE '%Privilege Cloud%' ORDER BY u.Username COLLATE NOCASE\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -322,7 +322,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"Script\": \"SELECT u.ID, u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u LEFT JOIN RoleMember rm ON u.ID = rm.MemberEntityID LEFT JOIN Role r ON rm.RoleID = r.ID WHERE u.Username = 'usuario@dominio.com'\"\n}",
+              "raw": "{\n    \"Script\": \"SELECT u.ID, u.Username, u.DisplayName, u.Email, u.LastLogin, u.Enabled, r.Name AS RoleName FROM User u LEFT JOIN RoleMember rm ON u.ID = rm.MemberID LEFT JOIN Role r ON rm.RoleID = r.ID WHERE u.Username = 'usuario@dominio.com'\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
