@@ -363,26 +363,38 @@ jobs:
             const labels = ['invalid'];
             if (isSpam) labels.push('spam');
             
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              labels: labels
-            });
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: labels
+              });
+            } catch (e) {
+              console.log(`Failed to add labels to PR #${pr.number}: ${e.message}`);
+            }
             
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              body: comment
-            });
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: comment
+              });
+            } catch (e) {
+              console.log(`Failed to create comment on PR #${pr.number}: ${e.message}`);
+            }
             
-            await github.rest.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              state: 'closed'
-            });
+            try {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                state: 'closed'
+              });
+            } catch (e) {
+              console.log(`Failed to close PR #${pr.number}: ${e.message}`);
+            }
             
             console.log(`PR #${pr.number} closed due to ${violations.length} compliance violation(s). Applied labels: ${labels.join(', ')}`);
         env:
