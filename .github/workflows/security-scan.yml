@@ -1,0 +1,145 @@
+name: Security Scan (Claude Code)
+
+on:
+  pull_request:
+    branches: [main, master, develop]
+    paths:
+      - 'routes/**'
+      - 'lib/**'
+      - 'models/**'
+      - 'data/**'
+      - 'server.ts'
+      - 'frontend/src/**'
+  workflow_dispatch:
+    inputs:
+      scan_mode:
+        description: 'Scan mode'
+        required: true
+        default: 'diff'
+        type: choice
+        options:
+          - full
+          - diff
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for diff mode
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run security scan (PR diff mode)
+        if: github.event_name == 'pull_request'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          chmod +x security-code-scan/scan.sh
+          ./security-code-scan/scan.sh --diff ${{ github.event.pull_request.base.ref }}
+
+      - name: Run security scan (full mode)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.scan_mode == 'full'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          chmod +x security-code-scan/scan.sh
+          ./security-code-scan/scan.sh
+
+      - name: Run security scan (diff mode - manual)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.scan_mode == 'diff'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          chmod +x security-code-scan/scan.sh
+          ./security-code-scan/scan.sh --diff main
+
+      - name: Upload scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-scan-report
+          path: security-code-scan/reports/
+          retention-days: 30
+
+      - name: Comment PR with findings
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const reportsDir = 'security-code-scan/reports';
+
+            // Find the latest summary file
+            const files = fs.readdirSync(reportsDir)
+              .filter(f => f.endsWith('_summary.md'))
+              .sort()
+              .reverse();
+
+            if (files.length === 0) {
+              // Try JSON report
+              const jsonFiles = fs.readdirSync(reportsDir)
+                .filter(f => f.endsWith('.json'))
+                .sort()
+                .reverse();
+
+              if (jsonFiles.length === 0) {
+                console.log('No scan reports found');
+                return;
+              }
+
+              const report = JSON.parse(fs.readFileSync(path.join(reportsDir, jsonFiles[0]), 'utf8'));
+              const s = report.summary;
+
+              let body = `## 🔒 Security Scan Results\n\n`;
+              body += `| Severity | Count |\n|----------|-------|\n`;
+              body += `| 🔴 Critical | ${s.critical} |\n`;
+              body += `| 🟠 High | ${s.high} |\n`;
+              body += `| 🟡 Medium | ${s.medium} |\n`;
+              body += `| 🟢 Low | ${s.low} |\n`;
+              body += `| **Total** | **${s.total_findings}** |\n\n`;
+
+              for (const f of report.findings.slice(0, 10)) {
+                const emoji = {CRITICAL:'🔴',HIGH:'🟠',MEDIUM:'🟡',LOW:'🟢'}[f.severity];
+                body += `### ${emoji} ${f.id}: ${f.title}\n`;
+                body += `- **File:** \`${f.file}:${f.line_start}\`\n`;
+                body += `- **CWE:** ${f.cwe_id} | **OWASP:** ${f.owasp_category}\n`;
+                body += `- ${f.description}\n`;
+                body += `- **Fix:** ${f.remediation}\n\n`;
+              }
+
+              if (report.findings.length > 10) {
+                body += `\n> _...and ${report.findings.length - 10} more findings. See full report in artifacts._\n`;
+              }
+
+              body += `\n---\n_Scanned by Claude Code Security Audit_`;
+
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            } else {
+              const summary = fs.readFileSync(path.join(reportsDir, files[0]), 'utf8');
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `## 🔒 Security Scan Results\n\n${summary}\n\n---\n_Scanned by Claude Code Security Audit_`
+              });
+            }
