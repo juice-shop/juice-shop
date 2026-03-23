@@ -10,6 +10,8 @@ on:
       - 'data/**'
       - 'server.ts'
       - 'frontend/src/**'
+      - 'security-code-scan/**'
+      - '.github/workflows/security-scan.yml'
   workflow_dispatch:
     inputs:
       scan_mode:
