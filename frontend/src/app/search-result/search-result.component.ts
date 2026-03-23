@@ -141,6 +141,9 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
+      if (this.gridDataSourceSubscription) {
+        this.gridDataSourceSubscription.unsubscribe()
+      }
       this.gridDataSourceSubscription = this.gridDataSource.subscribe((result: ProductTableEntry[]) => {
         if (result.length === 0) {
           this.emptyState = true
