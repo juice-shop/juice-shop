@@ -5,6 +5,7 @@
 
 import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
+import { safeSendFile } from '../lib/security';
 
 import * as utils from '../lib/utils'
 import * as security from '../lib/insecurity'
@@ -30,7 +31,7 @@ export function servePublicFiles () {
       challengeUtils.solveIf(challenges.directoryListingChallenge, () => { return file.toLowerCase() === 'acquisitions.md' })
       verifySuccessfulPoisonNullByteExploit(file)
 
-      res.sendFile(path.resolve('ftp/', file))
+      safeSendFile(res, path.resolve('ftp/'), file);
     } else {
       res.status(403)
       next(new Error('Only .md and .pdf files are allowed!'))

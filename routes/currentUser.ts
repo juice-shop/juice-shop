@@ -27,8 +27,10 @@ export function retrieveLoggedInUser () {
         if (requestedFields.length > 0) {
           // When fields are specified, return only those fields
           for (const field of requestedFields) {
-            if (user?.data[field as keyof typeof user.data] !== undefined) {
-              baseUser[field] = user?.data[field as keyof typeof user.data]
+            const allowedFields = ['email', 'username', 'role', 'id']; // белый список
+            if (allowedFields.includes(field)) {
+              baseUser[field] = user?.data[field as keyof typeof user.data];
+            }
             }
           }
         } else {
