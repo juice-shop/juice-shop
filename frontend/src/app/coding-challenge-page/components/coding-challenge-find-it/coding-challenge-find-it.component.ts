@@ -156,6 +156,18 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
         backgroundColor: 'rgba(100, 181, 246, 0.25) !important',
         outline: '1px solid rgba(100, 181, 246, 0.5)'
       },
+      '.cm-line:hover': {
+        backgroundColor: 'rgba(100, 181, 246, 0.25) !important',
+        outline: '1px solid rgba(100, 181, 246, 0.5)'
+      },
+      '.cm-selected-line.cm-keyboard-focused-line': {
+        backgroundColor: 'rgba(156, 204, 101, 0.3) !important',
+        outline: '1px solid rgba(156, 204, 101, 0.6)'
+      },
+      '.cm-selected-line:hover': {
+        backgroundColor: 'rgba(156, 204, 101, 0.3) !important',
+        outline: '1px solid rgba(156, 204, 101, 0.6)'
+      },
       '.cm-content': {
         cursor: 'pointer'
       },
