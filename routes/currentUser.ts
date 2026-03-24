@@ -8,6 +8,19 @@ import { type Request, type Response } from 'express'
 import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 
+// fields= раньше шёл в user.data[field] — можно было дернуть чужие ключи
+// добавили whitelist с колонками User из models/user.ts
+const user_profile_field_allowlist = new Set([
+  'id',
+  'username',
+  'email',
+  'lastLoginIp',
+  'profileImage',
+  'role',
+  'deluxeToken',
+  'isActive'
+])
+
 export function retrieveLoggedInUser () {
   return (req: Request, res: Response) => {
     let user
@@ -25,10 +38,27 @@ export function retrieveLoggedInUser () {
         let baseUser: any = {}
 
         if (requestedFields.length > 0) {
-          // When fields are specified, return only those fields
           for (const field of requestedFields) {
-            if (user?.data[field as keyof typeof user.data] !== undefined) {
-              baseUser[field] = user?.data[field as keyof typeof user.data]
+            if (!user_profile_field_allowlist.has(field)) {
+              continue
+            }
+            // без user.data[field] — semgrep remote-property-injection
+            if (field === 'id' && user?.data.id !== undefined) {
+              baseUser.id = user.data.id
+            } else if (field === 'username' && user?.data.username !== undefined) {
+              baseUser.username = user.data.username
+            } else if (field === 'email' && user?.data.email !== undefined) {
+              baseUser.email = user.data.email
+            } else if (field === 'lastLoginIp' && user?.data.lastLoginIp !== undefined) {
+              baseUser.lastLoginIp = user.data.lastLoginIp
+            } else if (field === 'profileImage' && user?.data.profileImage !== undefined) {
+              baseUser.profileImage = user.data.profileImage
+            } else if (field === 'role' && user?.data.role !== undefined) {
+              baseUser.role = user.data.role
+            } else if (field === 'deluxeToken' && user?.data.deluxeToken !== undefined) {
+              baseUser.deluxeToken = user.data.deluxeToken
+            } else if (field === 'isActive' && user?.data.isActive !== undefined) {
+              baseUser.isActive = user.data.isActive
             }
           }
         } else {

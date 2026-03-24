@@ -20,7 +20,11 @@ export function searchProducts () {
   return (req: Request, res: Response, next: NextFunction) => {
     let criteria: any = req.query.q === 'undefined' ? '' : req.query.q ?? ''
     criteria = (criteria.length <= 200) ? criteria : criteria.substring(0, 200)
-    models.sequelize.query(`SELECT * FROM Products WHERE ((name LIKE '%${criteria}%' OR description LIKE '%${criteria}%') AND deletedAt IS NULL) ORDER BY name`) // vuln-code-snippet vuln-line unionSqlInjectionChallenge dbSchemaChallenge
+    // строка поиска не вшивается в запрос, чтобы q не ломал SQL; замена на bind позволяет экранировать специальные символы
+    models.sequelize.query(
+      'SELECT * FROM Products WHERE ((name LIKE $1 OR description LIKE $1) AND deletedAt IS NULL) ORDER BY name',
+      { bind: [`%${criteria}%`] }
+    )
       .then(([products]: any) => {
         const dataString = JSON.stringify(products)
         if (challengeUtils.notSolved(challenges.unionSqlInjectionChallenge)) { // vuln-code-snippet hide-start

@@ -19,7 +19,8 @@ export function captchas () {
     const secondOperator = operators[Math.floor((Math.random() * 3))]
 
     const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    const answer = eval(expression).toString() // eslint-disable-line no-eval
+    // без eval
+    const answer = evaluate_captcha_expression(firstTerm, firstOperator, secondTerm, secondOperator, thirdTerm).toString()
 
     const captcha = {
       captchaId,
@@ -43,4 +44,17 @@ export const verifyCaptcha = () => async (req: Request, res: Response, next: Nex
   } catch (error) {
     next(error)
   }
+}
+
+function evaluate_captcha_expression (
+  first_term: number,
+  first_op: string,
+  second_term: number,
+  second_op: string,
+  third_term: number
+): number {
+  const bin = (x: number, op: string, y: number) => (op === '+' ? x + y : op === '-' ? x - y : x * y)
+  if (second_op === '*') return bin(first_term, first_op, bin(second_term, second_op, third_term))
+  if (first_op === '*') return bin(bin(first_term, first_op, second_term), second_op, third_term)
+  return bin(bin(first_term, first_op, second_term), second_op, third_term)
 }

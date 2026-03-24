@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import fs from 'node:fs'
 import crypto from 'node:crypto'
+import fs from 'node:fs'
 import { type Request, type Response, type NextFunction } from 'express'
 import { type UserModel } from 'models/user'
 import expressJwt from 'express-jwt'
@@ -132,13 +132,17 @@ export const redirectAllowlist = new Set([
   'http://leanpub.com/juice-shop'
 ])
 
-export const isRedirectAllowed = (url: string) => {
-  let allowed = false
-  for (const allowedUrl of redirectAllowlist) {
-    allowed = allowed || url.includes(allowedUrl) // vuln-code-snippet vuln-line redirectChallenge
+// редирект разрешен только если параметр to целиком равен одной из строк ниже
+export function canonicalRedirectTarget (url: string): string | undefined {
+  for (const allowed_url of redirectAllowlist) {
+    if (url === allowed_url) {
+      return allowed_url
+    }
   }
-  return allowed
+  return undefined
 }
+
+export const isRedirectAllowed = (url: string) => canonicalRedirectTarget(url) !== undefined
 // vuln-code-snippet end redirectCryptoCurrencyChallenge redirectChallenge
 
 export const roles = {
