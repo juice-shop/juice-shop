@@ -39,29 +39,6 @@ let sequelize = new Sequelize('database', 'username', 'password', {
   storage: 'data/juiceshop.sqlite',
   logging: false
 })
-AddressModelInit(sequelize)
-BasketModelInit(sequelize)
-BasketItemModelInit(sequelize)
-CaptchaModelInit(sequelize)
-CardModelInit(sequelize)
-ChallengeModelInit(sequelize)
-ChallengeDependencyModelInit(sequelize)
-ComplaintModelInit(sequelize)
-DeliveryModelInit(sequelize)
-FeedbackModelInit(sequelize)
-HintModelInit(sequelize)
-ImageCaptchaModelInit(sequelize)
-MemoryModelInit(sequelize)
-PrivacyRequestModelInit(sequelize)
-ProductModelInit(sequelize)
-QuantityModelInit(sequelize)
-RecycleModelInit(sequelize)
-SecurityAnswerModelInit(sequelize)
-SecurityQuestionModelInit(sequelize)
-UserModelInit(sequelize)
-WalletModelInit(sequelize)
-
-relationsInit(sequelize)
 
 function createSequelize (options?: { inMemory?: boolean }) {
   return new Sequelize('database', 'username', 'password', {
@@ -84,6 +61,7 @@ function initModels (seq: Sequelize) {
   CaptchaModelInit(seq)
   CardModelInit(seq)
   ChallengeModelInit(seq)
+  ChallengeDependencyModelInit(seq)
   ComplaintModelInit(seq)
   DeliveryModelInit(seq)
   FeedbackModelInit(seq)
@@ -104,5 +82,7 @@ function initModels (seq: Sequelize) {
 function setSequelize (seq: Sequelize) {
   sequelize = seq
 }
+
+initModels(sequelize)
 
 export { sequelize, createSequelize, initModels, setSequelize }
