@@ -1,5 +1,5 @@
 body {
-  background-color: #303030;
+  background-color: #303030 !important;
 }
 .main-content {
   display: flex;
@@ -10,82 +10,65 @@ body {
   margin-top: 50px;
   background-color: #424242;
   width: 600px;
-  height: 400px;
   border-radius: 0.5rem;
   padding: 20px;
   box-shadow: 5px 10px 18px #202020;
-}
-form {
-  margin-top: 10px;
-  display: grid;
 }
 h4,
 p,
 h5 {
   color: whitesmoke;
 }
-.deleteButton{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.form-field {
+  display: block !important;
+  margin-bottom: 16px;
 }
-input {
-  border-radius: 0.4rem;
-  width: 100%;
-  padding: 13px 13px 13px 2px;
-  background-color: #424242;
-  border: 1px solid #999898;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  color: whitesmoke;
+.form-field label {
+  color: whitesmoke !important;
+  font-size: 14px !important;
+  display: block !important;
+  margin-bottom: 6px;
 }
-input:hover {
-  cursor: text;
+.form-field input {
+  border-radius: 0.4rem !important;
+  width: 100% !important;
+  padding: 12px !important;
+  background-color: #424242 !important;
+  border: 1px solid #999898 !important;
+  color: whitesmoke !important;
+  height: auto !important;
+  min-height: 44px !important;
+  font-size: 14px !important;
+  box-sizing: border-box !important;
+  display: block !important;
 }
-button {
-  width: 200px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #546e7a;
-  color: whitesmoke;
-  border-radius: 0.2rem;
-  margin-left: 200px;
-  font-weight: 500;
-  box-shadow: 1px 1px 1px 1px #302f2f;
-  font-size: 18px;
-}
-input::placeholder {
-  color: #999898;
+.form-field input::placeholder {
+  color: #999898 !important;
   font-size: 13px;
 }
-.header {
-  height: auto;
-  color: whitesmoke;
-  font-size: 25px;
-  box-shadow: 5px 10px 18px #201f1f;
-  background-color: #546e7a;
+.deleteButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
 }
-.header-text {
-  color: whitesmoke;
-  font-size: 20px;
-  padding-top: 10px;
-  margin-top: 10px;
+button {
+  width: 200px !important;
+  height: 40px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: #546e7a !important;
+  color: whitesmoke !important;
+  border-radius: 0.2rem !important;
   font-weight: 500;
+  box-shadow: 1px 1px 1px 1px #302f2f;
+  font-size: 16px;
+  border: none;
 }
 .cross {
   font-size: 1.4em;
   padding-right: 5px;
-}
-a {
-  color: whitesmoke;
-  text-decoration: none;
-  padding-top: 10px;
-}
-img {
-  width: 50px;
-  height: 60px;
 }
 .message {
   display: flex;
@@ -93,48 +76,39 @@ img {
   padding-top: 60px;
   font-size: 19px;
   width: 100%;
-}
-.inputLable {
-  height: 20px;
-  width: 500px !important;
+  color: whitesmoke;
 }
 .home-page {
   margin-top: 30px;
 }
-img {
-  padding-top: 5px;
-  padding-left: 50px;
-}
-.back {
+a {
   color: whitesmoke;
-  position: absolute;
-  font-size: 15px;
-  top: 8px;
+  text-decoration: none;
 }
-label {
+.brand {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
   color: whitesmoke;
-  font-size: 15px;
 }
-
-i {
-  color: whitesmoke;
-  margin-left: 20px;
-  margin-right: 5px;
+.brand img {
+  max-height: 50px;
+  width: auto;
+  padding: 0 !important;
 }
-.anchor {
-  font-size: 15px;
+.brand span {
+  font: 500 20px/32px Roboto, 'Helvetica Neue', sans-serif;
 }
 
 @media only screen and (max-width: 650px) {
-  .formBlock{
+  .formBlock {
     width: 500px;
-    height: 420px;
   }
 }
 
 @media only screen and (max-width: 440px) {
-  .formBlock{
+  .formBlock {
     width: 370px;
-    height: 480px;
   }
 }

@@ -7,75 +7,65 @@ html(lang='en')
         meta(name='keywords', content='')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         link(rel='icon', type='image/x-icon', href='./assets/public/_favicon_')
-        link(rel='stylesheet', href='/vendor/material-design-lite/material.min.css')
+        link(rel='stylesheet', href='/vendor/beercss/beer.min.css')
         link(rel='stylesheet', href='/vendor/material-icons/material-icons.css')
-        link(rel='stylesheet', href='./assets/public/css/userProfile.css', type='text/css')
         link(rel='stylesheet', href='./assets/public/css/roboto.css', type='text/css')
-        script(src='/vendor/material-design-lite/material.min.js')
+        link(rel='stylesheet', href='./assets/public/css/userProfile.css', type='text/css')
+        script(type='module', src='/vendor/beercss/beer.min.js')
         style.
-            .mdl-textfield__input {
-            border-bottom: 1px solid _textColor_ !important;
-            font-size: 13px !important;
-            }
-    body(style='background: _bgColor_;color:_textColor_;')
-        .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-          header.mdl-layout__header.mdl-shadow--8dp(style= 'background: _navColor_; height: auto; min-width: 100%; padding-bottom: 5px; width: 100%;')
-            .mdl-layout__header-row
-              a(href='./#/' style='color: _textColor_; text-decoration:none; margin-left: -50px;')
-                i(class='material-icons', style='display: block;margin-bottom: auto;margin-top: auto; margin-right: 10px;') arrow_back
-              a(href='./#/' style='color: _textColor_; text-decoration:none;')
-                span(style='margin-right: 20px;')
-                  | Back
-              // Logo
-              a(href='./#/')
-                img(src='assets/public/images/_logo_', style='max-height: 60px; width: auto;', alt='_title_ Logo')
-              // Title
-              a(href='./#/' style='color: _textColor_; text-decoration:none;')
-                span.mdl-layout-title(style='font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;')
-                  | _title_
+            body { background: _bgColor_ !important; color: _textColor_ !important; }
+            article { background: _primLight_ !important; }
+            button.fill { background-color: _navColor_ !important; color: _textColor_ !important; }
+            .profile-field label { color: _textColor_ !important; font-size: 13px !important; display: block !important; margin-bottom: 4px; }
+            .profile-field input { border: 1px solid _textColor_ !important; border-radius: 4px !important; padding: 12px !important; font-size: 14px !important; color: _textColor_ !important; background: transparent !important; width: 100% !important; box-sizing: border-box !important; height: auto !important; min-height: 44px !important; }
+            .profile-field input::placeholder { color: rgba(255,255,255,0.5); font-size: 0.85em; }
+            .profile-field { margin-bottom: 12px; }
+            .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: _textColor_; }
+            .brand img { max-height: 50px; width: auto; }
+            .brand span { font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif; }
+    body
+        header(style='background: _navColor_; padding: 8px 16px;')
+          nav
+            a(href='./#/' style='color: _textColor_; text-decoration:none;')
+              i.material-icons arrow_back
+            a(href='./#/' style='color: _textColor_; text-decoration:none;') Back
+            a.brand(href='./#/')
+              img(src='assets/public/images/_logo_', alt='_title_ Logo')
+              span.app-title _title_
+            div.max
 
-        main.mdl-layout__content(style=' display: block; margin-left: auto; margin-right:auto;')
-          section.section--center.mdl-grid.mdl-grid--no-spacing
-            .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='height: auto; min-width: 300px;  width: 40%; display: block; margin-left: auto; margin-right:auto; background: _primLight_; margin-bottom: 50px; margin-top: 110px;')
-              .mdl-card__supporting-text.mdl-grid.mdl-grid--no-spacing
-                 h1.mdl-cell.mdl-cell--12-col(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400;') User Profile
-                 .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
-                    img.img-rounded(src=profileImage, alt='profile picture', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
-                    p(style='margin-top:8%; color: _textColor_; text-align: center;') _username_
-                    form(action='./profile/image/file' , style='margin-top:10%; width: 90%; margin-right: auto; margin-left: auto;', method='post', enctype='multipart/form-data')
-                      .form-group
-                        label(for='picture', style='color: _textColor_; font-size: 12px;') File Upload:
-                        input#picture(type='file', accept='image/*', name='file', size='150', style='color: _textColor_; margin-top: 4px;', aria-label='Input for selecting the profile picture')
-                        .mdl-tooltip(for='picture', style='width: 150px; text-align: left;')
-                          | &bull; Maximum file size 150Kb
-                          br
-                          | &bull; All image formats are accepted
-                      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect(type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: 3%; text-transform: capitalize;', aria-label='Button to upload the profile picture') Upload Picture
+        main(style='padding: 16px;')
+          article#card(style='min-width: 300px; max-width: 900px; margin: 24px auto; padding: 24px; border-radius: 12px;')
+            h5(style='color: _textColor_; margin-bottom: 16px;') User Profile
+            div.grid
+               div.s12.m12.l6
+                  img.img-rounded(src=profileImage, alt='profile picture', width='90%', height='236', style='margin-right: 5%; margin-left: 5%;')
+                  p(style='margin-top: 8px; color: _textColor_; text-align: center;') _username_
+                  form(action='./profile/image/file', style='margin-top: 16px; width: 90%; margin-right: auto; margin-left: auto;', method='post', enctype='multipart/form-data')
+                    .profile-field
+                      label(for='picture') File Upload:
+                      input#picture(type='file', accept='image/*', name='file', size='150', aria-label='Input for selecting the profile picture')
+                    button.fill(type='submit', style='margin-top: 8px; text-transform: capitalize;', aria-label='Button to upload the profile picture') Upload Picture
 
-                    .breakLine(style='margin-top: 3%; margin-bottom: 3%; width: 90%; margin-right: auto; margin-left: auto;')
-                      .line
-                        div
-                      .textOnLine(style='color: _textColor_;') or
-                      .line
-                        div
+                  .breakLine(style='margin-top: 12px; margin-bottom: 12px; width: 90%; margin-right: auto; margin-left: auto;')
+                    .line
+                      div
+                    .textOnLine(style='color: _textColor_;') or
+                    .line
+                      div
 
-                    form(action='./profile/image/url' , style='margin-top:5%; width: 90%; margin-right: auto; margin-left: auto;', method='post')
-                      .form-group
-                        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
-                          input#url.form-control.mdl-textfield__input(type='text', name='imageUrl', style='color: _textColor_;', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_', aria-label='Text field for the image link')
-                          label.mdl-textfield__label(for='url', style='color: _textColor_;') Image URL:
-                      button(id='submitUrl', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to include image from link').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Link Image
-                      p(style='margin-bottom:10%;')
+                  form(action='./profile/image/url', style='margin-top: 8px; width: 90%; margin-right: auto; margin-left: auto;', method='post')
+                    .profile-field
+                      label(for='url') Image URL:
+                      input#url(type='text', name='imageUrl', placeholder='e.g. https://www.gravatar.com/avatar/_emailHash_', aria-label='Text field for the image link')
+                    button#submitUrl.fill(type='submit', style='margin-top: 8px; text-transform: capitalize;', aria-label='Button to include image from link') Link Image
 
-                 .mdl-cell.mdl-cell--6-col-desktop.mdl-cell--12-col-tablet.mdl-cell--12-col-phone
-                   form(action='./profile', method='post', style='width: 90%; margin-right: auto; margin-left: auto;')
-                     .form-group
-                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%; opacity: 0.7')
-                            input#email.form-control.mdl-textfield__input(type='email', name='email', value=email, disabled=true, style='color: _textColor_;', aria-label='Disabled - Text field for the email')
-                            label.mdl-textfield__label(for='email', style='color: _textColor_;') Email:
-                     .form-group
-                         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(style='width: 100%;')
-                            input#username.form-control.mdl-textfield__input(type='text', name='username', value=username ,style='color: _textColor_;', placeholder='e.g. SuperUser', aria-label='Text field for the username')
-                            label.mdl-textfield__label(for='username', style='color: _textColor_;') Username:
-                     button(id='submit', type='submit', style='background-color:_navColor_; color: _textColor_; margin-top: -10px; text-transform: capitalize;', aria-label='Button to save/set the username').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect Set Username
-                     p(style='margin-bottom:10%;')
+               div.s12.m12.l6
+                 form(action='./profile', method='post', style='width: 90%; margin-right: auto; margin-left: auto;')
+                   .profile-field
+                     label(for='email') Email:
+                     input#email(type='email', name='email', value=email, disabled=true, style='opacity: 0.7;', aria-label='Disabled - Text field for the email')
+                   .profile-field
+                     label(for='username') Username:
+                     input#username(type='text', name='username', value=username, placeholder='e.g. SuperUser', aria-label='Text field for the username')
+                   button#submit.fill(type='submit', style='margin-top: 8px; text-transform: capitalize;', aria-label='Button to save/set the username') Set Username

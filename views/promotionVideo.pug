@@ -7,47 +7,44 @@ html(lang='en')
         meta(name='keywords', content='')
         meta(name='viewport' content='width=device-width, initial-scale=1.0')
         link(rel='icon', type='image/x-icon', href='./assets/public/_favicon_')
-        link(rel='stylesheet', href='/vendor/material-design-lite/material.min.css')
+        link(rel='stylesheet', href='/vendor/beercss/beer.min.css')
         link(rel='stylesheet', href='/vendor/material-icons/material-icons.css')
         link(rel='stylesheet', href='./assets/public/css/roboto.css', type='text/css')
-        script(defer='', src='/vendor/material-design-lite/material.min.js')
+        script(type='module', src='/vendor/beercss/beer.min.js')
         style.
+            body { background: _bgColor_ !important; color: _textColor_ !important; }
+            article { background: _primLight_ !important; }
+            .brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: _textColor_; }
+            .brand img { max-height: 50px; width: auto; }
+            .brand span { font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif; }
             video {
             min-width: 320px;
-            width: 44vw;
+            width: 100%;
             display: block;
-            margin-left: auto;
-            margin-right:auto;
             margin-bottom: 5px;
             height: 50vh;
             outline: none;
             }
             @media (max-width: 900px) {
-              .mdl-layout-title {
+              .app-title {
                 display: none !important;
               }
             }
-    body(style='background: _bgColor_;color:_textColor_;')
-        .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-          header.mdl-layout__header.mdl-shadow--8dp(style= 'background: _navColor_; height: auto; min-width: 100%; padding-bottom: 5px; width: 100%;')
-            .mdl-layout__header-row
-              a(href='./#/' style='color: _textColor_; text-decoration:none; margin-left: -50px;')
-                i(class='material-icons', style='display: block;margin-bottom: auto;margin-top: auto; margin-right: 10px;') arrow_back
-              a(href='./#/' style='color: _textColor_; text-decoration:none;')
-                span(style='margin-right: 20px;')
-                  | Back
-              // Logo
-              a(href='./#/')
-                img(src='assets/public/images/JuiceShop_Logo.png', style='max-height: 60px; width: auto;', alt='_title_ Logo')
-              // Title
-              a(href='./#/' style='color: _textColor_; text-decoration:none;')
-               span.mdl-layout-title(style='font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif;')
-                 | _title_
+    body
+        header(style='background: _navColor_; padding: 8px 16px;')
+          nav
+            a(href='./#/' style='color: _textColor_; text-decoration:none;')
+              i.material-icons arrow_back
+            a(href='./#/' style='color: _textColor_; text-decoration:none;') Back
+            a.brand(href='./#/')
+              img(src='assets/public/images/JuiceShop_Logo.png', alt='_title_ Logo')
+              span.app-title _title_
+            div.max
 
-        section.section--center.mdl-grid.mdl-grid--no-spacing
-           .mdl-card#card.mdl-cell.mdl-cell--12-col.mdl-shadow--8dp(style='width: 45vw; min-width: 320px; height: 58vh; background: _primLight_; margin-bottom: 50px; margin-top: 110px; display: block; margin-left: auto; margin-right:auto; ')
-            h1(style='color: _textColor_; font-size: 24px; line-height: 32px; margin-top: 16px; margin-bottom: 16px; font-weight: 400; margin-left: 16px;') Promotion Video
-            video(width='85vw', height='240', controls='controls')
+        main(style='padding: 16px;')
+          article(style='min-width: 320px; max-width: 700px; margin: 24px auto 50px; padding: 16px; border-radius: 12px;')
+            h5(style='color: _textColor_;') Promotion Video
+            video(controls='controls')
                source(src='./video', type='video/mp4')
 
         script#subtitle.
