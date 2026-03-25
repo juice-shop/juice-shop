@@ -16,6 +16,7 @@ application:
     type: string
   theme:
     type: string
+    enum: ['deeppurple-amber', 'indigo-pink', 'pink-bluegrey', 'purple-green', 'blue-lightblue', 'bluegrey-lightgreen', 'deeporange-indigo', 'lime-green']
   showVersionNumber:
     type: boolean
   showGitHubLinks:
@@ -119,6 +120,7 @@ challenges:
     type: boolean
   codingChallengesEnabled:
     type: string
+    enum: ['never', 'solved', 'always']
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
@@ -139,6 +141,7 @@ hackingInstructor:
     type: string
   hintPlaybackSpeed:
     type: string
+    enum: ['faster', 'fast', 'normal', 'slow', 'slower']
 products:
   - name:
       type: string
@@ -191,6 +194,7 @@ ctf:
     type: boolean
   showCountryDetailsInNotifications:
     type: string
+    enum: ['none', 'name', 'flag', 'both']
   systemWideNotifications:
     url:
       type: string
