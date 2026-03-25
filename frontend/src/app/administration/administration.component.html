@@ -23,7 +23,9 @@
 
           <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-            <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
+            <mat-cell *matCellDef="let user" class="cell-middle">
+              <span [class.confirmation]="doesUserHaveAnActiveSession(user)" [class.error]="!doesUserHaveAnActiveSession(user)">{{ user.email }}</span>
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="user_detail">
@@ -57,7 +59,7 @@
           <ng-container matColumnDef="comment">
             <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
             <mat-cell *matCellDef="let feedback" (click)="showFeedbackDetails(feedback.comment, feedback.UserId)">
-              <p [innerHTML]="feedback.comment" matTooltip="Click for more information" matTooltipPosition="above"></p>
+              <p matTooltip="Click for more information" matTooltipPosition="above">{{ feedback.comment }}</p>
             </mat-cell>
           </ng-container>
 
@@ -102,7 +104,9 @@
 
   <ng-container matColumnDef="email">
     <mat-header-cell *matHeaderCellDef translate></mat-header-cell>
-    <mat-cell *matCellDef="let user" [innerHTML]="user.email" class="cell-middle"></mat-cell>
+    <mat-cell *matCellDef="let user" class="cell-middle">
+      <span [class.confirmation]="doesUserHaveAnActiveSession(user)" [class.error]="!doesUserHaveAnActiveSession(user)">{{ user.email }}</span>
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="user_detail">

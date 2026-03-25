@@ -101,6 +101,15 @@ export class AboutComponent implements OnInit {
       })
   }
 
+  private escapeHtml (text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+  }
+
   populateSlideshowFromFeedbacks () {
     this.feedbackService
       .find()
@@ -112,13 +121,15 @@ export class AboutComponent implements OnInit {
       )
       .subscribe((feedbacks) => {
         for (let i = 0; i < feedbacks.length; i++) {
-
-          feedbacks[i].comment = `<figcaption><p class="feedback-comment">${
-            feedbacks[i].comment
-          }</p><div class="feedback-stars">(${this.stars[feedbacks[i].rating]})</div></figcaption>`
-          feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(
-            feedbacks[i].comment
-          )
+          const safeComment = this.escapeHtml(String(feedbacks[i].comment ?? ''))
+          const starsHtml = this.stars[feedbacks[i].rating] ?? ''
+          const captionHtml =
+            '<figcaption><p class="feedback-comment">' +
+            safeComment +
+            '</p><div class="feedback-stars">(' +
+            starsHtml +
+            ')</div></figcaption>'
+          feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(captionHtml)
 
           this.galleryRef.addImage({
             src: this.images[i % this.images.length],
