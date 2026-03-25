@@ -91,11 +91,32 @@ export class LoginComponent implements OnInit {
 
     this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => { this.login() })
   }
-
+  detectAttack(input: string): boolean {
+    if (!input) return false
+  
+    const patterns = [
+      /<script.*?>.*?<\/script>/i,
+      /onerror\s*=/i,
+      /onload\s*=/i,
+      /javascript:/i,
+      /' OR '1'='1/i,
+      /--/i
+    ]
+  
+    return patterns.some(pattern => pattern.test(input))
+  }
   login () {
+    const email = this.emailControl.value
+    const password = this.passwordControl.value
+
+    if (this.detectAttack(email) || this.detectAttack(password)) {
+      alert('⚠️ Suspicious input detected.')
+      return
+    }
+
     this.user = {}
-    this.user.email = this.emailControl.value
-    this.user.password = this.passwordControl.value
+    this.user.email = email
+    this.user.password = password
     this.userService.login(this.user).subscribe({
       next: (authentication: any) => {
         localStorage.setItem('token', authentication.token)
