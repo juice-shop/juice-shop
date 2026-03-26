@@ -11,6 +11,12 @@ import { ErrorPageComponent } from './error-page/error-page.component'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LoginGuard', () => {
+  const validToken = [
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
+    'eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ',
+    'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+  ].join('.')
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([
@@ -35,7 +41,7 @@ describe('LoginGuard', () => {
   }))
 
   it('returns payload from decoding a valid JWT', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+    localStorage.setItem('token', validToken)
     expect(guard.tokenDecode()).toEqual({
       sub: '1234567890',
       name: 'John Doe',
