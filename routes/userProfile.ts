@@ -59,7 +59,7 @@ export function getUserProfile () {
         if (!code) {
           throw new Error('Username is null')
         }
-        username = eval(code) // eslint-disable-line no-eval
+        username = String(code).replace(/[^a-zA-Z0-9 _\-@.]/g, '') // sanitized instead of eval
       } catch (err) {
         username = '\\' + username
       }
