@@ -1,4 +1,4 @@
-FROM node:24 AS installer
+FROM node:24-alpine AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
 RUN npm i -g typescript ts-node
