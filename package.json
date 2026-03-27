@@ -116,6 +116,7 @@
     ]
   },
   "dependencies": {
+    "@braintree/sanitize-url": "5.0.0",
     "@fontsource/roboto": "^5.2.9",
     "body-parser": "^1.20.4",
     "check-dependencies": "^1.1.1",
