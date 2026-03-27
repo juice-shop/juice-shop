@@ -2,7 +2,7 @@ name: "Update challenges on owasp-juice.shop"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
     paths:
       - 'data/static/challenges.yml'
       - 'data/static/codefixes/*.info.yml'
@@ -25,17 +25,27 @@ jobs:
         path: juice-shop
     - name: Update challenges.yml
       run: |
-        rm -f _data/challenges.yml
-        cp juice-shop/data/static/challenges.yml _data/challenges.yml
-    - name: Update snippets.json
+        if [ "${{ github.ref_name }}" = "master" ]; then
+          DEST_FILE="_data/challenges.yml"
+        else
+          DEST_FILE="_data/challenges_dev.yml"
+        fi
+        rm -f $DEST_FILE
+        cp juice-shop/data/static/challenges.yml $DEST_FILE
+    - name: Update snippets
       run: |
-        rm -f _data/snippets.json
+        if [ "${{ github.ref_name }}" = "master" ]; then
+          DEST_FILE="_data/snippets.json"
+        else
+          DEST_FILE="_data/snippets_dev.yml"
+        fi
+        rm -f $DEST_FILE
         CHALLENGES=$(ls juice-shop/data/static/codefixes/*.info.yml | xargs -n 1 basename | sed 's/\.info\.yml//' | jq -R . | jq -s -c '{"challenges": .}')
-        echo $CHALLENGES > _data/snippets.json
+        echo $CHALLENGES > $DEST_FILE
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        file_pattern: '_data/challenges.yml _data/snippets.json'
-        commit_message: "🤖 Auto-update challenges.yml and snippets.json from ${{ github.sha }}"
+        file_pattern: '_data/challenges.yml _data/snippets.json _data/challenges_dev.yml _data/snippets_dev.yml'
+        commit_message: "🤖 Auto-update challenges and snippets for ${{ github.ref_name }} from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
 
