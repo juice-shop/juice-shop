@@ -37,14 +37,14 @@ jobs:
         if [ "${{ github.ref_name }}" = "master" ]; then
           DEST_FILE="_data/snippets.json"
         else
-          DEST_FILE="_data/snippets_dev.yml"
+          DEST_FILE="_data/snippets_dev.json"
         fi
         rm -f $DEST_FILE
         CHALLENGES=$(ls juice-shop/data/static/codefixes/*.info.yml | xargs -n 1 basename | sed 's/\.info\.yml//' | jq -R . | jq -s -c '{"challenges": .}')
         echo $CHALLENGES > $DEST_FILE
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        file_pattern: '_data/challenges.yml _data/snippets.json _data/challenges_dev.yml _data/snippets_dev.yml'
+        file_pattern: '_data/challenges.yml _data/snippets.json _data/challenges_dev.yml _data/snippets_dev.json'
         commit_message: "🤖 Auto-update challenges and snippets for ${{ github.ref_name }} from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
