@@ -221,6 +221,11 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   @include css-vars($lime-green-theme);
 }
 
+.neon-cyberpunk-theme {
+  @include custom-components-theme($neon-cyberpunk-theme);
+  @include css-vars($neon-cyberpunk-theme);
+}
+
 .close-dialog {
   float: right;
   width: fit-content;

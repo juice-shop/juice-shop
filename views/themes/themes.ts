@@ -59,5 +59,12 @@ export const themes = {
     navColor: '#cddc39',
     primLight: '#ddee48',
     primDark: '#97a621'
+  },
+  'neon-cyberpunk': {
+    bgColor: '#303030',
+    textColor: '#FFFFFF',
+    navColor: '#f50057',
+    primLight: '#ff4081',
+    primDark: '#c51162'
   }
 } as const

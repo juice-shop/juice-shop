@@ -108,3 +108,17 @@ $lime-green-theme: mat.m2-define-dark-theme((
 
 .lime-green-theme {
   @include mat.all-component-colors($lime-green-theme); }
+
+$neon-cyberpunk-primary: mat.m2-define-palette(mat.$m2-pink-palette, A400, A200, A700);
+$neon-cyberpunk-accent: mat.m2-define-palette(mat.$m2-amber-palette, 500, 300, 700);
+$neon-cyberpunk-warn: mat.m2-define-palette(mat.$m2-deep-orange-palette);
+$neon-cyberpunk-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $neon-cyberpunk-primary,
+    accent: $neon-cyberpunk-accent,
+    warn: $neon-cyberpunk-warn,
+  ),
+));
+
+.neon-cyberpunk-theme {
+  @include mat.all-component-colors($neon-cyberpunk-theme); }

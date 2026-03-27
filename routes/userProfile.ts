@@ -68,7 +68,7 @@ export function getUserProfile () {
     }
 
     const themeKey = config.get<string>('application.theme') as keyof typeof themes
-    const theme = themes[themeKey] || themes['bluegrey-lightgreen']
+    const theme = themes[themeKey] || themes['neon-cyberpunk']
 
     if (username) {
       template = template.replace(/_username_/g, username)
