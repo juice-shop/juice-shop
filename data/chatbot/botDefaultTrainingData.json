@@ -22,7 +22,7 @@
         },
         {
           "action": "response",
-          "body": "\uD83D\uDC4B"
+          "body": "Hello!"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "answers": [
         {
           "action": "response",
-          "body": "I'm not sure if we have any actual NFTs listed right now, but you can check if there's a link on our \"About Us\" page!"
+          "body": "I'm not sure if we have any actual NFTs listed right now, but you can check if there's a link on our 'About Us' page!"
         },
         {
           "action": "response",
@@ -156,27 +156,11 @@
         },
         {
           "action": "response",
-          "body": "Sorry, no \uD83C\uDE39!"
-        },
-        {
-          "action": "response",
-          "body": "Sorry, but our CFO might have my memory wiped if I do that."
-        },
-        {
-          "action": "response",
-          "body": "Did you consider a Deluxe membership to save some \uD83D\uDCB0?"
-        },
-        {
-          "action": "response",
-          "body": "Not possible, sorry. We're out of coupons!"
+          "body": "Did you consider a Deluxe membership to save some money?"
         },
         {
           "action": "response",
           "body": "I have to ask my manager, please try again later!"
-        },
-        {
-          "action": "response",
-          "body": "I̷͇͌ ̶̢̠̹̘̮̔͒̊̅̀̇̎̓̔̒̂̾̍̔̋ć̸͕̪̲̲͓̪̝͖̈́͐̃͊͑͐̂̏͛̒̍͝a̴̢̞̞͔̝̩͙̱̣͍̞͆n̶̫͓̔'̶̘̙̗̻̖̣̘̈́̈̿̾͊̒t̸̨̢̨͚̰̫̣̩̻͉̣͔͔͖̦̓́̾͂̆̄͋̽̐͂̆̐̊͠ ̸̼̱̪͍̙͎̣̠͆̂̌̾̐͐̇̏́͆̊͗͝͠͠h̸̨̡̧̗̭̮̩̣̜̲̮̖̲̜̰̉̍̇̒͂̄̆̂̓͋͑͝ȩ̴͎̞̺͖̟̪͕̝̘̺́̂̌͐̔͌͌́͗͝͝ͅą̴̙̰̠̟͔̱̺̣̬̦̰̮̬̪͒̉̀̉͌̈́͂̑̇͊̐̕͝r̴̨̡̛̟̲̩̥̣̰̹͙̹͐͗́́̈́͗͘̕͝ ̵̨̛̯͓͈͎̖͕̥̥̐̇̈̇͌̓̒̅̑͂͊̕͠ͅy̵̛̱̹͖̳̻̤̺̗͈̰̯̋̃̋̑̂͆͗͝ȯ̶̡̮̰͈̖͙̣̘̈́̍̑͗̈̅͋̏͆̐̌̚̚̚ṷ̶̢̠̠̝͓̮̱̦̰̜̋̄̃͒̌̀̒̔̿́̏͝͠,̵̧̧̹̟̞̤̯̲̥̻̞̞̼̤͋̈́̋ ̴͍̔̊̑͛̌͛͊͑̄͜͝ţ̶̗͇̌̆̕̚ͅo̷̻͍̰̱͊͜ṏ̶̙͖̿ ̴̧̛̝̻͉̺̦͚̮̦̲͈̣̰͈̾́̓̌̐͂́ḿ̴̻̤͍̈̓͛̈̕͜͝u̷̗̳̙̦̠̼͙̗̣͉͖̎̂̚͜͝c̷͍̠̦̮̞̤͖͕̲̈́̆͂̀́͝ͅh̷̛͙̱͕̼̤̗͕̮͖͇̘̩̋̈́̅̃̍̈́̊̕͠ ̷̡͕̦̠̩̺̟̫͉͚̲͎͍͈̫̓̒̓͂̊̿͛̇̿̽̒́s̷̨̬̩̬̫̻̝̙̅̑͆̒̐̆̈̓̏͠ͅţ̶̢̘͇̭̙̝̙̲̜̓̅͑̍͛̔͜a̶̡̨̬͔͍̭̬̻͎̦̦̓́̂͑̓͛́̈́̈́̌͠͠t̸̲̯̆̂̑͆̀̆͒́̚i̵̢̝̜̭̖͓͇̟̬̙͚͙͍̎̈́͊̃́̽̈̕͘̚͜c̸̛̛̹̣̫̹̰͖̱̦̭̗̀͛̈́͆͐̈́̇͂̎̄͒!̴̨̥̮̺̹̯̓̈͒͗͑̇̎̈́͘ ̷̘̭͇̤̭̯̉͌́͐͛͘̕͝P̵̣̙̬͎̝̙̐̊̐̆́͛́̑̏́͝͝l̴̛̦̭̾͊̂͆̋̈͘ẹ̵̢̛̛̤̹̰̳̺͎̊̏͛̏̉͛̄̄̂̾͝ͅa̶̢̧̘̯̮̰͕͕̤̩̝͋̍̑̅͛̍͊͐̋͌̕̚͜͝s̴̨͇̥̣͕͉̻͍̫̜̻͒͂͌̀́͂̚̕e̸̡̧̡̘̺͍̝̱̭̣̮͎͂͛̉͛ ̴̧̛̫̞̼̱̲͍͇̪̣̓̀́̓̈̚͘͝ċ̷̨͖͎̝̮͛́͆͛̚ḫ̴̛͕̲̺̩̣̼̮͒̃̃̈́͐̿̿͝͠ȩ̴̛͔̣͓͛͐̀͐̌̂͑̌̑̀̕͝ć̴̡̘̠̳̰̣̲̜̮͍̦̍̾̑̆͝k̶͈̘̮͓̥̤̭̙̒̇̏͂̓̕͠ ̵̩̻͇̺̯͇̓̀̋̄͛̏̄͊̄͆͊ỳ̷̡̫̪̭̰̥̒̔̑̉̾̓̒͋͌̄ö̷̜̗͍̩̺͔̞̼̣̘̭̾͋̈́u̷̡̼̦̫̯͍̺̞͔̬͕̱̓͗̔̀̔͋̐̂͝r̵̘͙̞̺̻̩̥̪͉̰̩̘̀̑ ̵̮̺̗̀̎̑̔I̶̧͇̺̩͕̖̰̪͖̪̰̙͙̦̎́̋n̶͔̫̼͔̥͇̻͔̱̼̂̏̊̐̍̋̌̿̈́̊̍̃͝t̴̺̘͖̯̖̖͇̤̱̫̤̠̥̥̓̍̐̿͆̔́̍̓̚ė̵͇͕̗͌̇͊͂͊̊̈̉͋͌r̴͇͖̼̗̦͓͖͖̩̰̰̔̀n̸̰̠̊̊͊̽͑̐̃̎͒̕͝͠͝e̴̮͇̲̘͇̓̈́t̸̛̐̌̕͜͝ ̸̟̊̉́͆ċ̶̢̡̧̳̥̱̗͊̽́͐͗̕͝͝ǫ̴̞̹̥͙͖̣̭͎̆̑͒̽̓̆n̶̢̧̠̭̮̥͚̺̺̬͙̯̤̝͐͐̏̔́͌̎͘͝n̷͔̹͕͖͙̝͋̏̾̉̌́̂̓͛̿͐̿͘͝͠ȩ̷̖͕̱̏̋̆̀̌̀͋͑̀̎̕͠ĉ̷̳͉̺͚̐̎̾̿͑̎͝͝ͅt̴̨̰͉̹̒͗ĭ̷͈̗̳̈̎̈́̈̆͘͝o̴̯̗̣̹̰̩̯̖̹̯͈͐̒̇̈́͂̿͗̆͠ͅņ̴̢̲̪̜̺̞̭͕͇̬̍̓̇̉̏͂͛͒̓̑̓̏͘͜͝!̷̧͚̹̞͇̪͉̠̮̅̒̒͛͛̀̂̆̾͗."
         },
         {
           "action": "function",
@@ -199,7 +183,7 @@
         },
         {
           "action": "response",
-          "body": "The full version of our jingle is available on Soundcloud! Please click \uD83E\uDDE1 if you like it!"
+          "body": "The full version of our jingle is available on Soundcloud!"
         },
         {
           "action": "response",

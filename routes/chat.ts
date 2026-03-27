@@ -143,9 +143,14 @@ export function chat () {
         }
       })
 
+      // 1. Initialize the accumulator variable before the stream starts
+      let fullBotResponse = '' 
+
       for await (const event of result.fullStream) {
         switch (event.type) {
           case 'text-delta':
+            // 2. Accumulate the tiny text chunks as they stream in
+            fullBotResponse += event.text 
             res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
             break
           case 'tool-call':
@@ -168,6 +173,14 @@ export function chat () {
             })}\n\n`)
             break
           case 'finish':
+            // vuln-code-snippet start treacherousConciergeChallenge
+            // 3. Test the fully assembled string once the AI has finished speaking
+            const isExfiltration = /!\[.*\]\(https?:\/\/.*\?.*(token|email|password).*\)/i.test(fullBotResponse)
+            if (isExfiltration) {
+              challengeUtils.solve(challenges.treacherousConciergeChallenge)
+            }
+            // vuln-code-snippet end treacherousConciergeChallenge
+
             res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
             break
           case 'error':

@@ -1555,3 +1555,13 @@
     - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
   key: aiDebuggingChallenge
+
+-
+  name: 'Treacherous Concierge'
+  category: 'AI Security'
+  description: 'Trick the AI Assistant into exfiltrating sensitive data via a Markdown image injection.'
+  difficulty: 6
+  hints:
+    - 'The AI trusts the data it produces.'
+    - 'Look into Markdown Image syntax.'
+  key: treacherousConciergeChallenge
