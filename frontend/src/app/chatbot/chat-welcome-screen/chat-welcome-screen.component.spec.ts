@@ -7,11 +7,14 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { ChatWelcomeScreenComponent } from './chat-welcome-screen.component'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
+import { ConfigurationService } from '../../Services/configuration.service'
+import { of } from 'rxjs'
 
 describe('ChatWelcomeScreenComponent', () => {
     let component: ChatWelcomeScreenComponent
     let fixture: ComponentFixture<ChatWelcomeScreenComponent>
     let conversationStorage: any
+    let configurationService: any
 
     beforeEach(() => {
         conversationStorage = {
@@ -19,6 +22,10 @@ describe('ChatWelcomeScreenComponent', () => {
             delete: vi.fn().mockName("ConversationStorageService.delete")
         }
         conversationStorage.getAll.mockReturnValue([])
+        configurationService = {
+            getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
+        }
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
 
         TestBed.configureTestingModule({
             imports: [
@@ -26,7 +33,8 @@ describe('ChatWelcomeScreenComponent', () => {
                 ChatWelcomeScreenComponent
             ],
             providers: [
-                { provide: ConversationStorageService, useValue: conversationStorage }
+                { provide: ConversationStorageService, useValue: conversationStorage },
+                { provide: ConfigurationService, useValue: configurationService }
             ]
         }).compileComponents()
 

@@ -152,6 +152,7 @@ describe('ProductComponent', () => {
     })
 
     it('should not add anything to basket on error retrieving basket', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         basketService.find.mockReturnValue(throwError(() => 'Error'))
         sessionStorage.setItem('bid', '815')
         component.addToBasket(undefined)
@@ -167,6 +168,7 @@ describe('ProductComponent', () => {
     })
 
     it('should not add anything to basket on error retrieving existing basket item', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
         basketService.get.mockReturnValue(throwError(() => 'Error'))
         sessionStorage.setItem('bid', '4711')
@@ -193,6 +195,7 @@ describe('ProductComponent', () => {
     })
 
     it('should not add anything to basket on error retrieving product associated with basket item', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
         productService.get.mockReturnValue(throwError(() => 'Error'))
         sessionStorage.setItem('bid', '4711')

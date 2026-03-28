@@ -168,6 +168,7 @@ describe('NavbarComponent', () => {
     })
 
     it('should show nothing on error retrieving application version', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         administrationService.getApplicationVersion.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         expect(component.version).toBe('')

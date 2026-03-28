@@ -63,7 +63,7 @@ describe('NFTUnlockComponent', () => {
     })
 
     it('should handle error when checking NFT status on init', () => {
-        vi.spyOn(console, 'error')
+        vi.spyOn(console, 'error').mockImplementation(() => {})
         keysServiceSpy.nftUnlocked.mockReturnValue(throwError(() => new Error('Network error')))
         component.ngOnInit()
         expect(component.successResponse).toBe(false)

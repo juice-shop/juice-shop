@@ -108,6 +108,7 @@ describe('ComplaintComponent', () => {
     })
 
     it('should miss complaint object if retrieving currently logged in user fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.whoAmI.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         expect(component.complaint).toBeUndefined()

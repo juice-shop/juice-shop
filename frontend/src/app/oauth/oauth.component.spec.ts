@@ -78,6 +78,7 @@ describe('OAuthComponent', () => {
     })
 
     it('removes authentication token and basket id on failed OAuth login attempt', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.oauthLogin.mockReturnValue(throwError({ error: 'Error' }))
         component.ngOnInit()
         expect(localStorage.getItem('token')).toBeNull()
@@ -98,6 +99,7 @@ describe('OAuthComponent', () => {
     })
 
     it('removes authentication token and basket id on failed subsequent regular login attempt', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.login.mockReturnValue(throwError({ error: 'Error' }))
         component.login({ email: '' })
         expect(localStorage.getItem('token')).toBeNull()

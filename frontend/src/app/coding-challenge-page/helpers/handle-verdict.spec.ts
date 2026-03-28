@@ -12,6 +12,7 @@ describe('handleVerdict', () => {
     let challengeService: any
     let cookieService: any
     let solved: any
+    let destroyRef: any
     let setResult: Mock
     let setShaking: Mock
 
@@ -26,6 +27,9 @@ describe('handleVerdict', () => {
         solved = {
             emit: vi.fn().mockName("OutputEmitterRef.emit")
         }
+        destroyRef = {
+            onDestroy: vi.fn().mockName("DestroyRef.onDestroy")
+        }
         setResult = vi.fn()
         setShaking = vi.fn()
     })
@@ -37,6 +41,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -53,6 +58,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -67,6 +73,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -81,6 +88,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -95,6 +103,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -120,6 +129,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })
@@ -128,7 +138,7 @@ describe('handleVerdict', () => {
     })
 
     it('should log error when continueCode observable fails', () => {
-        const logSpy = vi.spyOn(console, 'log')
+        const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
         logSpy.mockClear()
         challengeService.continueCodeFindIt.mockReturnValue(throwError(() => new Error('network error')))
         handleVerdict({
@@ -137,6 +147,7 @@ describe('handleVerdict', () => {
             challengeService,
             cookieService,
             solved,
+            destroyRef,
             setResult,
             setShaking
         })

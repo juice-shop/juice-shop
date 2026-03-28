@@ -73,7 +73,8 @@ describe('WelcomeBannerComponent', () => {
     })
 
     it('should dismiss and add cookie when starting hacking instructor', () => {
-        vi.spyOn(component as any, 'launchHackingInstructor')
+        vi.spyOn(console, 'log').mockImplementation(() => {})
+        vi.spyOn(component as any, 'launchHackingInstructor').mockImplementation(() => {})
         component.startHackingInstructor()
         expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
         expect(matDialogRef.close).toHaveBeenCalled()

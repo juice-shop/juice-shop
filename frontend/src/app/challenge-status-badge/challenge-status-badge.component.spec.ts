@@ -71,6 +71,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     it('should show notification for selected challenge when enabled', () => {
         component.allowRepeatNotifications = true
         component.challenge = { name: 'Challenge #1', solved: true } as Challenge
+        vi.spyOn(windowRefService.nativeWindow, 'scrollTo').mockImplementation(() => {})
         component.repeatNotification()
         expect(challengeService.repeatNotification).toHaveBeenCalledWith(encodeURIComponent('Challenge #1'))
     })
@@ -78,7 +79,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     it('should scroll to top of screen when notification is repeated', () => {
         component.allowRepeatNotifications = true
         component.challenge = { name: 'Challenge #1', solved: true } as Challenge
-        vi.spyOn(windowRefService.nativeWindow, 'scrollTo')
+        vi.spyOn(windowRefService.nativeWindow, 'scrollTo').mockImplementation(() => {})
         component.repeatNotification()
         expect(windowRefService.nativeWindow.scrollTo).toHaveBeenCalledWith(0, 0)
     })

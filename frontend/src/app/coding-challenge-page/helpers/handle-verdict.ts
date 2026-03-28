@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { type OutputEmitterRef } from '@angular/core'
+import { type DestroyRef, type OutputEmitterRef } from '@angular/core'
 import { type ChallengeService } from '../../Services/challenge.service'
 import { type CookieService } from 'ngy-cookie'
 import { ResultState } from '../coding-challenge.types'
@@ -14,9 +14,12 @@ export function handleVerdict (config: {
   challengeService: ChallengeService
   cookieService: CookieService
   solved: OutputEmitterRef<void>
+  destroyRef: DestroyRef
   setResult: (result: ResultState) => void
   setShaking: (shaking: boolean) => void
 }): void {
+  let destroyed = false
+  config.destroyRef.onDestroy(() => { destroyed = true })
   if (config.verdict) {
     config.setResult(ResultState.Right)
     const continueMethod = config.variant === 'FindIt'
@@ -36,7 +39,9 @@ export function handleVerdict (config: {
     import('../../../confetti').then(module => {
       module.shootConfetti()
     }).then(() => {
-      config.solved.emit(undefined)
+      if (!destroyed) {
+        config.solved.emit(undefined)
+      }
     })
   } else {
     config.setResult(ResultState.Wrong)
