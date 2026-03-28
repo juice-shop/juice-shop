@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-export const ResultState = Object.freeze({
-  Undecided: 0,
-  Right: 1,
-  Wrong: 2
-} as const)
-
-export type ResultState = (typeof ResultState)[keyof typeof ResultState]
+export enum ResultState {
+  Undecided = 0,
+  Right = 1,
+  Wrong = 2
+}
 
 export interface RandomFixes {
   fix: string

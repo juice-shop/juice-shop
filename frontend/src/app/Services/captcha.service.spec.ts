@@ -4,47 +4,47 @@
  */
 
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
 import { CaptchaService } from './captcha.service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('CaptchaService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-      providers: [CaptchaService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [],
+            providers: [CaptchaService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        })
     })
-  })
 
-  it('should be created', inject([CaptchaService], (service: CaptchaService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(CaptchaService)
 
-  it('should get captcha directly from the rest api', inject([CaptchaService, HttpTestingController],
-    fakeAsync((service: CaptchaService, httpMock: HttpTestingController) => {
-      let res: any
-      service.getCaptcha().subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/rest/captcha/')
-      req.flush('apiResponse')
-
-      tick()
-      expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+        expect(service).toBeTruthy()
     })
-  ))
 
-  it('should handle error when getting captcha', inject([CaptchaService, HttpTestingController],
-    fakeAsync((service: CaptchaService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.getCaptcha().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/rest/captcha/')
-      req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+    it('should get captcha directly from the rest api', () => {
+        const service = TestBed.inject(CaptchaService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError.status).toBe(500)
-      httpMock.verify()
+        let res: any
+        service.getCaptcha().subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/rest/captcha/')
+        req.flush('apiResponse')
+        expect(req.request.method).toBe('GET')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
+
+    it('should handle error when getting captcha', () => {
+        const service = TestBed.inject(CaptchaService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let capturedError: any
+        service.getCaptcha().subscribe({ next: () => { throw new Error('expected error') }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/rest/captcha/')
+        req.error(new ErrorEvent('Request failed'), { status: 500, statusText: 'Internal Server Error' })
+        expect(capturedError.status).toBe(500)
+        httpMock.verify()
+    })
 })

@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
 import { SocketIoService } from './socket-io.service'
 
 describe('SocketIoService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [SocketIoService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [SocketIoService]
+        })
     })
-  })
 
-  it('should be created', inject([SocketIoService], (service: SocketIoService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(SocketIoService)
+
+        expect(service).toBeTruthy()
+    })
 })

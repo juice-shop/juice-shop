@@ -9,119 +9,122 @@ import { ChatWelcomeScreenComponent } from './chat-welcome-screen.component'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
 
 describe('ChatWelcomeScreenComponent', () => {
-  let component: ChatWelcomeScreenComponent
-  let fixture: ComponentFixture<ChatWelcomeScreenComponent>
-  let conversationStorage: jasmine.SpyObj<ConversationStorageService>
+    let component: ChatWelcomeScreenComponent
+    let fixture: ComponentFixture<ChatWelcomeScreenComponent>
+    let conversationStorage: any
 
-  beforeEach(() => {
-    conversationStorage = jasmine.createSpyObj('ConversationStorageService', ['getAll', 'delete'])
-    conversationStorage.getAll.and.returnValue([])
+    beforeEach(() => {
+        conversationStorage = {
+            getAll: vi.fn().mockName("ConversationStorageService.getAll"),
+            delete: vi.fn().mockName("ConversationStorageService.delete")
+        }
+        conversationStorage.getAll.mockReturnValue([])
 
-    TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        ChatWelcomeScreenComponent
-      ],
-      providers: [
-        { provide: ConversationStorageService, useValue: conversationStorage }
-      ]
-    }).compileComponents()
+        TestBed.configureTestingModule({
+            imports: [
+                TranslateModule.forRoot(),
+                ChatWelcomeScreenComponent
+            ],
+            providers: [
+                { provide: ConversationStorageService, useValue: conversationStorage }
+            ]
+        }).compileComponents()
 
-    fixture = TestBed.createComponent(ChatWelcomeScreenComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+        fixture = TestBed.createComponent(ChatWelcomeScreenComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should render the welcome title', () => {
-    const title = fixture.nativeElement.querySelector('.welcome-title')
-    expect(title.textContent).toContain('Juicy')
-  })
+    it('should render the welcome title', () => {
+        const title = fixture.nativeElement.querySelector('.welcome-title')
+        expect(title.textContent).toContain('Juicy')
+    })
 
-  it('should render the welcome subtitle', () => {
-    const subtitle = fixture.nativeElement.querySelector('.welcome-subtitle')
-    expect(subtitle.textContent).toContain('CHATBOT_SUBTITLE')
-  })
+    it('should render the welcome subtitle', () => {
+        const subtitle = fixture.nativeElement.querySelector('.welcome-subtitle')
+        expect(subtitle.textContent).toContain('CHATBOT_SUBTITLE')
+    })
 
-  it('should render the JuicyBot avatar', () => {
-    const avatar = fixture.nativeElement.querySelector('.welcome-avatar')
-    expect(avatar).toBeTruthy()
-    expect(avatar.getAttribute('alt')).toBe('CHATBOT_AVATAR_ALT')
-  })
+    it('should render the JuicyBot avatar', () => {
+        const avatar = fixture.nativeElement.querySelector('.welcome-avatar')
+        expect(avatar).toBeTruthy()
+        expect(avatar.getAttribute('alt')).toBe('CHATBOT_AVATAR_ALT')
+    })
 
-  it('should render suggestion chips', () => {
-    const chips = fixture.nativeElement.querySelectorAll('.suggestion-chip')
-    expect(chips.length).toBe(2)
-  })
+    it('should render suggestion chips', () => {
+        const chips = fixture.nativeElement.querySelectorAll('.suggestion-chip')
+        expect(chips.length).toBe(2)
+    })
 
-  it('should set message when suggestion is clicked', () => {
-    component.applySuggestion('Test suggestion')
-    expect(component.message()).toBe('Test suggestion')
-  })
+    it('should set message when suggestion is clicked', () => {
+        component.applySuggestion('Test suggestion')
+        expect(component.message()).toBe('Test suggestion')
+    })
 
-  it('should render the input box sub-component', () => {
-    const inputBox = fixture.nativeElement.querySelector('app-chat-input-box')
-    expect(inputBox).toBeTruthy()
-  })
+    it('should render the input box sub-component', () => {
+        const inputBox = fixture.nativeElement.querySelector('app-chat-input-box')
+        expect(inputBox).toBeTruthy()
+    })
 
-  it('should emit messageSent when input box emits', () => {
-    spyOn(component.messageSent, 'emit')
-    component.messageSent.emit('Hello')
-    expect(component.messageSent.emit).toHaveBeenCalledWith('Hello')
-  })
+    it('should emit messageSent when input box emits', () => {
+        vi.spyOn(component.messageSent, 'emit')
+        component.messageSent.emit('Hello')
+        expect(component.messageSent.emit).toHaveBeenCalledWith('Hello')
+    })
 
-  it('should not show history section when no conversations', () => {
-    const section = fixture.nativeElement.querySelector('.history-section')
-    expect(section).toBeNull()
-  })
+    it('should not show history section when no conversations', () => {
+        const section = fixture.nativeElement.querySelector('.history-section')
+        expect(section).toBeNull()
+    })
 
-  it('should show history section when conversations exist', () => {
-    component.conversations.set([
-      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
-    ])
-    fixture.detectChanges()
+    it('should show history section when conversations exist', () => {
+        component.conversations.set([
+            { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+        ])
+        fixture.detectChanges()
 
-    const section = fixture.nativeElement.querySelector('.history-section')
-    expect(section).toBeTruthy()
-  })
+        const section = fixture.nativeElement.querySelector('.history-section')
+        expect(section).toBeTruthy()
+    })
 
-  it('should render history items', () => {
-    component.conversations.set([
-      { id: 'conv_1', title: 'First conv', messages: [], createdAt: 1000, updatedAt: 2000 },
-      { id: 'conv_2', title: 'Second conv', messages: [], createdAt: 1000, updatedAt: 3000 }
-    ])
-    fixture.detectChanges()
+    it('should render history items', () => {
+        component.conversations.set([
+            { id: 'conv_1', title: 'First conv', messages: [], createdAt: 1000, updatedAt: 2000 },
+            { id: 'conv_2', title: 'Second conv', messages: [], createdAt: 1000, updatedAt: 3000 }
+        ])
+        fixture.detectChanges()
 
-    const items = fixture.nativeElement.querySelectorAll('.history-item')
-    expect(items.length).toBe(2)
-  })
+        const items = fixture.nativeElement.querySelectorAll('.history-item')
+        expect(items.length).toBe(2)
+    })
 
-  it('should emit conversationSelected when history item is clicked', () => {
-    spyOn(component.conversationSelected, 'emit')
-    component.conversations.set([
-      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
-    ])
-    fixture.detectChanges()
+    it('should emit conversationSelected when history item is clicked', () => {
+        vi.spyOn(component.conversationSelected, 'emit')
+        component.conversations.set([
+            { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+        ])
+        fixture.detectChanges()
 
-    const item = fixture.nativeElement.querySelector('.history-item')
-    item.click()
-    expect(component.conversationSelected.emit).toHaveBeenCalledWith('conv_1')
-  })
+        const item = fixture.nativeElement.querySelector('.history-item')
+        item.click()
+        expect(component.conversationSelected.emit).toHaveBeenCalledWith('conv_1')
+    })
 
-  it('should delete conversation and refresh list', () => {
-    conversationStorage.getAll.and.returnValue([])
-    component.conversations.set([
-      { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
-    ])
-    fixture.detectChanges()
+    it('should delete conversation and refresh list', () => {
+        conversationStorage.getAll.mockReturnValue([])
+        component.conversations.set([
+            { id: 'conv_1', title: 'Test', messages: [], createdAt: 1000, updatedAt: 2000 }
+        ])
+        fixture.detectChanges()
 
-    const event = new Event('click')
-    component.deleteConversation(event, 'conv_1')
+        const event = new Event('click')
+        component.deleteConversation(event, 'conv_1')
 
-    expect(conversationStorage.delete).toHaveBeenCalledWith('conv_1')
-    expect(component.conversations().length).toBe(0)
-  })
+        expect(conversationStorage.delete).toHaveBeenCalledWith('conv_1')
+        expect(component.conversations().length).toBe(0)
+    })
 })

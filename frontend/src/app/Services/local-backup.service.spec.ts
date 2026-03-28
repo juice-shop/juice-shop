@@ -3,94 +3,108 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed } from '@angular/core/testing'
-import { firstValueFrom, throwError } from 'rxjs'
+import { TestBed } from '@angular/core/testing'
+import { firstValueFrom, of, throwError } from 'rxjs'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateNoOpLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import * as FileSaver from 'file-saver'
 import { ChallengeService } from './challenge.service'
 
 describe('LocalBackupService', () => {
-  let snackBar: any
-  let cookieService: any
-  let challengeService: any
+    let snackBar: any
+    let cookieService: any
+    let challengeService: any
 
-  beforeEach(() => {
-    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
-    snackBar.open.and.returnValue(null)
-    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress', 'continueCode', 'continueCodeFindIt', 'continueCodeFixIt'])
+    beforeEach(() => {
+        snackBar = {
+            open: vi.fn().mockName("MatSnackBar.open")
+        }
+        snackBar.open.mockReturnValue(null)
+        challengeService = {
+            restoreProgress: vi.fn().mockName("ChallengeService.restoreProgress"),
+            continueCode: vi.fn().mockName("ChallengeService.continueCode"),
+            continueCodeFindIt: vi.fn().mockName("ChallengeService.continueCodeFindIt"),
+            continueCodeFixIt: vi.fn().mockName("ChallengeService.continueCodeFixIt")
+        }
+        challengeService.continueCode.mockReturnValue(of('code'))
+        challengeService.continueCodeFindIt.mockReturnValue(of('codeFindIt'))
+        challengeService.continueCodeFixIt.mockReturnValue(of('codeFixIt'))
 
-    TestBed.configureTestingModule({
-      imports: [
-        CookieModule.forRoot(),
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateNoOpLoader
-          }
+        TestBed.configureTestingModule({
+            imports: [
+                CookieModule.forRoot(),
+                TranslateModule.forRoot({
+                    loader: {
+                        provide: TranslateLoader,
+                        useClass: TranslateNoOpLoader
+                    }
+                })
+            ],
+            providers: [
+                { provide: MatSnackBar, useValue: snackBar },
+                { provide: ChallengeService, useValue: challengeService },
+                CookieService,
+                LocalBackupService
+            ]
         })
-      ],
-      providers: [
-        { provide: MatSnackBar, useValue: snackBar },
-        { provide: ChallengeService, useValue: challengeService },
-        CookieService,
-        LocalBackupService
-      ]
+        cookieService = TestBed.inject(CookieService)
     })
-    cookieService = TestBed.inject(CookieService)
-  })
 
-  it('should be created', inject([LocalBackupService], (service: LocalBackupService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(LocalBackupService)
 
-  it('should save language to file', inject([LocalBackupService], (service: LocalBackupService) => {
-    spyOn(FileSaver, 'saveAs').and.stub()
+        expect(service).toBeTruthy()
+    })
 
-    cookieService.put('language', 'de')
-    service.save()
+    it('should save language to file', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        const saveFileSpy = vi.spyOn(service, 'saveFile').mockImplementation(() => {})
 
-    const blob = new Blob([JSON.stringify({ version: 1, language: 'de' })], { type: 'text/plain;charset=utf-8' })
-    expect(FileSaver.saveAs).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
-  }))
+        cookieService.put('language', 'de')
+        await service.save()
 
-  it('should restore language from backup file', async () => {
-    const service = TestBed.inject(LocalBackupService)
-    cookieService.put('language', 'de')
-    await firstValueFrom(service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')))
-    expect(cookieService.get('language')).toBe('cn')
-    expect(snackBar.open).toHaveBeenCalled()
-  })
+        const blob = new Blob([JSON.stringify({ version: 1, language: 'de' })], { type: 'text/plain;charset=utf-8' })
+        expect(saveFileSpy).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
+    })
 
-  it('should not restore language from an outdated backup version', async () => {
-    const service = TestBed.inject(LocalBackupService)
-    cookieService.put('language', 'de')
-    await firstValueFrom(service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')))
-    expect(cookieService.get('language')).toBe('de')
-    expect(snackBar.open).toHaveBeenCalled()
-  })
+    it('should restore language from backup file', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        cookieService.put('language', 'de')
+        await firstValueFrom(service.restore(new File(['{ "version": 1, "language": "cn" }'], 'test.json')))
+        expect(cookieService.get('language')).toBe('cn')
+        expect(snackBar.open).toHaveBeenCalled()
+    })
 
-  it('should log and fallback to cookies when continue code retrieval fails during save', inject([LocalBackupService], (service: LocalBackupService) => {
-    spyOn(FileSaver, 'saveAs').and.stub()
-    // ensure cookie fallback values exist
-    cookieService.put('continueCode', 'C1')
-    cookieService.put('continueCodeFindIt', 'C2')
-    cookieService.put('continueCodeFixIt', 'C3')
+    it('should not restore language from an outdated backup version', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        cookieService.put('language', 'de')
+        await firstValueFrom(service.restore(new File(['{ "version": 0, "language": "cn" }'], 'test.json')))
+        expect(cookieService.get('language')).toBe('de')
+        expect(snackBar.open).toHaveBeenCalled()
+    })
 
-    // simulate server failure for continue codes
-    challengeService.continueCode.and.returnValue(throwError('Error'))
-    challengeService.continueCodeFindIt.and.returnValue(throwError('Error'))
-    challengeService.continueCodeFixIt.and.returnValue(throwError('Error'))
+    it('should log and fallback to cookies when continue code retrieval fails during save', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        const saveFileSpy = vi.spyOn(service, 'saveFile').mockImplementation(() => {})
 
-    console.log = jasmine.createSpy('log')
+        // ensure cookie fallback values exist
+        cookieService.put('continueCode', 'C1')
+        cookieService.put('continueCodeFindIt', 'C2')
+        cookieService.put('continueCodeFixIt', 'C3')
 
-    service.save('test-backup')
+        // simulate server failure for continue codes
+        challengeService.continueCode.mockReturnValue(throwError('Error'))
+        challengeService.continueCodeFindIt.mockReturnValue(throwError('Error'))
+        challengeService.continueCodeFixIt.mockReturnValue(throwError('Error'))
 
-    expect(console.log).toHaveBeenCalledWith('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
-    expect(FileSaver.saveAs).toHaveBeenCalled()
-  }))
+        console.log = vi.fn()
+
+        await service.save('test-backup')
+
+        expect(console.log).toHaveBeenCalledWith('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+        expect(saveFileSpy).toHaveBeenCalled()
+    })
 
 })

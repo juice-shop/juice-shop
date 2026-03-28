@@ -130,7 +130,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
 
   readonly solved = output<void>()
 
-  readonly ResultState = ResultState
+  get ResultState () { return ResultState }
 
   public selectedLines: number[] = []
   public markedLines = new Set<number>()

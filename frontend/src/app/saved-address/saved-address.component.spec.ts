@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -26,39 +26,39 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('SavedAddressComponent', () => {
-  let component: SavedAddressComponent
-  let fixture: ComponentFixture<SavedAddressComponent>
-  let snackBar: any
+    let component: SavedAddressComponent
+    let fixture: ComponentFixture<SavedAddressComponent>
+    let snackBar: any
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        MatCardModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatExpansionModule,
-        MatDividerModule,
-        MatRadioModule,
-        MatDialogModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatCheckboxModule,
-        SavedAddressComponent, AddressComponent],
-      providers: [{ provide: MatSnackBar, useValue: snackBar }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [RouterTestingModule,
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatCardModule,
+                MatTableModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatExpansionModule,
+                MatDividerModule,
+                MatRadioModule,
+                MatDialogModule,
+                MatIconModule,
+                MatTooltipModule,
+                MatCheckboxModule,
+                SavedAddressComponent, AddressComponent],
+            providers: [{ provide: MatSnackBar, useValue: snackBar }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SavedAddressComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SavedAddressComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 })

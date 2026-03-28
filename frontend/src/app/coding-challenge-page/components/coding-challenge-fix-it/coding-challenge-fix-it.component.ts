@@ -45,7 +45,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
 
   readonly solved = output<void>()
 
-  readonly ResultState = ResultState
+  get ResultState () { return ResultState }
 
   public selectedFix = 0
   public randomFixes: RandomFixes[] = []
