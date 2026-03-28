@@ -105,7 +105,8 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "src/tsconfig.spec.json",
-            "setupFiles": ["src/test-setup.ts"]
+            "setupFiles": ["src/test-setup.ts"],
+            "watch": false
           }
         },
         "lint": {
