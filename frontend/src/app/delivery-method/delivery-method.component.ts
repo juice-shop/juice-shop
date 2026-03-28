@@ -54,7 +54,6 @@ export class DeliveryMethodComponent implements OnInit {
 
     this.deliverySerivce.get().subscribe({
       next: (methods) => {
-        console.log(methods)
         this.methods = methods
         this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
       },

@@ -93,6 +93,7 @@ describe('PaymentMethodComponent', () => {
     })
 
     it('should hold no cards on error in backend API', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         paymentService.get.mockReturnValue(throwError('Error'))
         component.load()
         expect(component.storedCards.length).toBe(0)

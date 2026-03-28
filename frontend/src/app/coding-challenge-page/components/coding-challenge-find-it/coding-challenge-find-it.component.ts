@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
 import { MatCardModule } from '@angular/material/card'
 import { TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
@@ -120,6 +120,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
   readonly editorHost = viewChild.required<ElementRef<HTMLDivElement>>('editorHost')
   private editorView!: EditorView
   private readonly cdr = inject(ChangeDetectorRef)
+  private readonly destroyRef = inject(DestroyRef)
   private readonly vulnLinesService = inject(VulnLinesService)
   private readonly challengeService = inject(ChallengeService)
   private readonly cookieService = inject(CookieService)
@@ -331,6 +332,7 @@ export class CodingChallengeFindItComponent implements OnInit, AfterViewInit, On
       challengeService: this.challengeService,
       cookieService: this.cookieService,
       solved: this.solved,
+      destroyRef: this.destroyRef,
       setResult: (r) => { this.result = r },
       setShaking: (s) => { this.shaking = s }
     })

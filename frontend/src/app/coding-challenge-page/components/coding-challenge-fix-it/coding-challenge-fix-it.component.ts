@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
+import { Component, DestroyRef, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
@@ -37,6 +37,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
   private readonly codeFixesService = inject(CodeFixesService)
   private readonly challengeService = inject(ChallengeService)
   private readonly cookieService = inject(CookieService)
+  private readonly destroyRef = inject(DestroyRef)
 
   readonly challengeKey = input.required<string>()
   readonly snippet = input.required<CodeSnippet>()
@@ -139,6 +140,7 @@ export class CodingChallengeFixItComponent implements OnInit, AfterViewInit, OnD
       challengeService: this.challengeService,
       cookieService: this.cookieService,
       solved: this.solved,
+      destroyRef: this.destroyRef,
       setResult: (r) => { this.result = r },
       setShaking: (s) => { this.shaking = s }
     })

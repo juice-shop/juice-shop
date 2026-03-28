@@ -44,6 +44,7 @@ describe('TwoFactorAuthComponent', () => {
             setup: vi.fn().mockName("TwoFactorAuthService.setup"),
             disable: vi.fn().mockName("TwoFactorAuthService.disable")
         }
+        twoFactorAuthService.status.mockReturnValue(of({ setup: true, email: '', secret: '', setupToken: '' }))
         configurationService = {
             getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
         }

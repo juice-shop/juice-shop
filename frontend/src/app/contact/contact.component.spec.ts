@@ -144,12 +144,14 @@ describe('ContactComponent', () => {
     })
 
     it('should hold no user id if current user is not logged in', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.whoAmI.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         expect(component.userIdControl.value).toBeUndefined()
     })
 
     it('should miss feedback object if retrieving currently logged in user fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.whoAmI.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         expect(component.feedback).toBeUndefined()

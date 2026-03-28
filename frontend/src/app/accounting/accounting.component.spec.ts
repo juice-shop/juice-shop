@@ -105,6 +105,7 @@ describe('AccountingComponent', () => {
     })
 
     it('should hold no products when product search API call fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         productService.search.mockReturnValue(throwError('Error'))
         component.loadProducts()
         fixture.detectChanges()
@@ -112,6 +113,7 @@ describe('AccountingComponent', () => {
     })
 
     it('should hold no orders when getAll orders API call fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         orderHistoryService.getAll.mockReturnValue(throwError('Error'))
         component.loadOrders()
         fixture.detectChanges()
@@ -119,6 +121,7 @@ describe('AccountingComponent', () => {
     })
 
     it('should hold no quantities when getAll quanitity API call fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         quantityService.getAll.mockReturnValue(throwError('Error'))
         component.loadQuantity()
         fixture.detectChanges()

@@ -92,6 +92,7 @@ describe('AdministrationComponent', () => {
     })
 
     it('should give an error if UserService fails to find all users', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.find.mockReturnValue(throwError('Error'))
         component.findAllUsers()
 
@@ -106,6 +107,7 @@ describe('AdministrationComponent', () => {
     })
 
     it('should give an error if FeedbackService fails to find all feedbacks', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         feedbackService.find.mockReturnValue(throwError('Error'))
         component.findAllFeedbacks()
 
@@ -120,6 +122,7 @@ describe('AdministrationComponent', () => {
     })
 
     it('should give an error if FeedbackService fails to delete feedback', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         feedbackService.del.mockReturnValue(throwError('Error'))
         component.deleteFeedback(1)
 

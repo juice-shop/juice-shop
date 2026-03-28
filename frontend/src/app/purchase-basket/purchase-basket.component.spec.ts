@@ -120,6 +120,7 @@ describe('PurchaseBasketComponent', () => {
     })
 
     it('should default to anonymous user label if userService fails to fetch the user', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         userService.whoAmI.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         expect(component.userEmail).toBe('(anonymous)')

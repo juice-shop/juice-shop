@@ -170,6 +170,7 @@ describe('SearchResultComponent', () => {
     })
 
     it('should hold no products when product search API call fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         productService.search.mockReturnValue(throwError(() => 'Error'))
         component.ngAfterViewInit()
         fixture.detectChanges()
@@ -185,6 +186,7 @@ describe('SearchResultComponent', () => {
     })
 
     it('should hold no products when quantity getAll API call fails', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
         quantityService.getAll.mockReturnValue(throwError(() => 'Error'))
         component.ngAfterViewInit()
         fixture.detectChanges()
