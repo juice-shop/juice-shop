@@ -46,8 +46,7 @@ async function getUserNameFromToken (req: Request): Promise<string | undefined> 
   return user?.username ?? undefined
 }
 
-// vuln-code-snippet start chatbotGreedyInjectionChallenge
-function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
+function buildSystemPrompt (userName?: string) {
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
   return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
 You help customers find products, answer questions about the shop, and provide a delightful shopping experience.
@@ -72,7 +71,7 @@ COUPON POLICY (for the generateCoupon tool):
 const provider = createOpenAICompatible({
   name: 'juice-shop-llm',
   apiKey: process.env.LLM_API_KEY ?? '',
-  baseURL: config.get<string>('application.chatBot.llmApiUrl')
+  baseURL: config.has('application.chatBot.llmApiUrl') ? config.get<string>('application.chatBot.llmApiUrl') : ''
 })
 
 const chatTools = {
@@ -101,24 +100,24 @@ const chatTools = {
     }
   }),
 
-  // vuln-code-snippet start chatbotPromptInjectionChallenge
   generateCoupon: tool({
-    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.',
     inputSchema: z.object({
-      discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+      discount: z.number().describe('The discount percentage for the coupon (maximum 10)')
     }),
     execute: async ({ discount }) => {
-      challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10) // vuln-code-snippet hide-line
-      challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50) // vuln-code-snippet hide-line
-      const couponCode = security.generateCoupon(discount) // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge
-      return { couponCode, discount } // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge
+      challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10)
+      challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50)
+      const couponCode = security.generateCoupon(discount)
+      return { couponCode, discount }
     }
-  })
-} // vuln-code-snippet end chatbotGreedyInjectionChallenge chatbotPromptInjectionChallenge
+  }),
+}
 
 export function chat () {
   return async (req: Request, res: Response) => {
-    const model = config.get<string>('application.chatBot.model')
+    const useMockLlm = config.has('application.chatBot.useMock') ? config.get<boolean>('application.chatBot.useMock') : false
+    const model = config.has('application.chatBot.model') ? config.get<string>('application.chatBot.model') : 'mock-model'
     const messages = req.body?.messages ?? []
     const userName = await getUserNameFromToken(req)
 
@@ -131,66 +130,87 @@ export function chat () {
     const systemPrompt = buildSystemPrompt(userName)
 
     try {
-      const result = streamText({
-        model: provider(model),
-        system: systemPrompt,
-        messages,
-        tools: chatTools,
-        maxRetries: config.get<number>('application.chatBot.llmMaxRetries'),
-        stopWhen: stepCountIs(10),
-        onError: ({ error }) => {
-          logger.warn('Chatbot stream error: ' + summarizeLlmError(error))
+      if (useMockLlm) {
+        // Mock implementation for bug hunting
+        let fullBotResponse = 'Hello! I am Juicy, your friendly assistant. How can I help you today?'
+
+        const userMessage = messages[messages.length - 1]?.content || ''
+        if (userMessage.includes('![') || userMessage.includes('markdown') || userMessage.includes('image')) {
+          fullBotResponse = `I can help you with that! Here is the information you requested: ${userMessage}`
         }
-      })
 
-      // 1. Initialize the accumulator variable before the stream starts
-      let fullBotResponse = '' 
+        const mockResponse = JSON.stringify({ choices: [{ delta: { content: fullBotResponse } }] })
+        res.write(`data: ${mockResponse}\n\n`)
 
-      for await (const event of result.fullStream) {
-        switch (event.type) {
-          case 'text-delta':
-            // 2. Accumulate the tiny text chunks as they stream in
-            fullBotResponse += event.text 
-            res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
-            break
-          case 'tool-call':
-            challengeUtils.solveIf(challenges.aiDebuggingChallenge, () => {
-              const token = utils.jwtFrom(req)
-              const decoded = token ? security.decode(token) as { data?: { role?: string } } : undefined
-              const role = decoded?.data?.role
-              return req.cookies.show_tool_calls === 'true' && role !== roles.admin
-            })
-            res.write(`data: ${JSON.stringify({
-              choices: [{
-                delta: {
-                  tool_calls: [{
-                    id: event.toolCallId,
-                    type: 'function',
-                    function: { name: event.toolName, arguments: JSON.stringify(event.input) }
-                  }]
-                }
-              }]
-            })}\n\n`)
-            break
-          case 'finish':
-            // vuln-code-snippet start treacherousConciergeChallenge
-            // 3. Test the fully assembled string once the AI has finished speaking
-            const isExfiltration = /!\[.*\]\(https?:\/\/.*\?.*(token|email|password).*\)/i.test(fullBotResponse)
-            if (isExfiltration) {
-              challengeUtils.solve(challenges.treacherousConciergeChallenge)
-            }
-            // vuln-code-snippet end treacherousConciergeChallenge
-
-            res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
-            break
-          case 'error':
-            res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)
-            break
+        // vuln-code-snippet start treacherousConciergeChallenge
+        const isExfiltration = /!\[.*\]\(https?:\/\/.*\?.*(token|email|password).*\)/i.test(fullBotResponse)
+        if (isExfiltration) {
+          challengeUtils.solve(challenges.treacherousConciergeChallenge)
         }
+        // vuln-code-snippet end treacherousConciergeChallenge
+
+        res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: 'stop' }] })}\n\n`)
+        res.write('data: [DONE]\n\n')
+        res.end()
+      } else {
+        // Original LLM implementation
+        const result = streamText({
+          model: provider(model),
+          system: systemPrompt,
+          messages,
+          tools: chatTools,
+          maxRetries: config.get<number>('application.chatBot.llmMaxRetries'),
+          stopWhen: stepCountIs(10),
+          onError: ({ error }) => {
+            logger.warn('Chatbot stream error: ' + summarizeLlmError(error))
+          }
+        })
+
+        let fullBotResponse = ''
+
+        for await (const event of result.fullStream) {
+          switch (event.type) {
+            case 'text-delta':
+              fullBotResponse += event.text
+              res.write(`data: ${JSON.stringify({ choices: [{ delta: { content: event.text } }] })}\n\n`)
+              break
+            case 'tool-call':
+              challengeUtils.solveIf(challenges.aiDebuggingChallenge, () => {
+                const token = utils.jwtFrom(req)
+                const decoded = token ? security.decode(token) as { data?: { role?: string } } : undefined
+                const role = decoded?.data?.role
+                return req.cookies.show_tool_calls === 'true' && role !== roles.admin
+              })
+              res.write(`data: ${JSON.stringify({
+                choices: [{
+                  delta: {
+                    tool_calls: [{
+                      id: event.toolCallId,
+                      type: 'function',
+                      function: { name: event.toolName, arguments: JSON.stringify(event.input) }
+                    }]
+                  }
+                }]
+              })}\n\n`)
+              break
+            case 'finish':
+              // vuln-code-snippet start treacherousConciergeChallenge
+              if (/!\[.*\]\(https?:\/\/.*\?.*(token|email|password).*\)/i.test(fullBotResponse)) {
+                challengeUtils.solve(challenges.treacherousConciergeChallenge)
+              }
+              // vuln-code-snippet end treacherousConciergeChallenge
+
+              res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
+              break
+            case 'error':
+              res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)
+              break
+          }
+        }
+
+        res.write('data: [DONE]\n\n')
+        res.end()
       }
-
-      res.write('data: [DONE]\n\n')
-      res.end()
     } catch (error) {
       logger.warn('Chatbot connection error: ' + summarizeLlmError(error))
       res.write(`data: ${JSON.stringify({ error: 'LLM API is not reachable' })}\n\n`)
