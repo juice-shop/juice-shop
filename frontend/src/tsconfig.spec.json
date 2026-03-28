@@ -6,7 +6,10 @@
     "allowSyntheticDefaultImports": true,
     "types": [
       "node"
-    ]
+    ],
+    "paths": {
+      "ng-gallery": ["./src/mocks/ng-gallery.ts"]
+    }
   },
   "include": [
     "**/*.spec.ts",

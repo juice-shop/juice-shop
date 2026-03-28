@@ -3,26 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-vi.mock('ng-gallery', async () => {
-    const { Component, Injectable, Directive } = await import('@angular/core')
-
-    const MockGallery = Injectable({ providedIn: 'root' })(class MockGallery {
-        ref () {
-            return {
-                addImage: vi.fn(),
-                load: vi.fn()
-            }
-        }
-    })
-
-    return {
-        Gallery: MockGallery,
-        GalleryComponent: Component({ selector: 'gallery', template: '', standalone: true })(class {}),
-        GalleryImageDef: Directive({ selector: '[galleryImageDef]', standalone: true })(class {}),
-        GalleryRef: class {}
-    }
-})
-
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
@@ -137,4 +117,3 @@ describe('AboutComponent', () => {
         expect(component.nftUrl).toBe('NFT')
     })
 })
-
