@@ -15,8 +15,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "^21.2.1",
     "@angular/animations": "^21.2.1",
+    "@angular/build": "^21.2.1",
     "@angular/cdk": "^21.2.1",
     "@angular/cli": "^21.2.1",
     "@angular/common": "^21.2.1",
@@ -69,25 +69,17 @@
     "@eslint/js": "9.33.0",
     "@types/express-serve-static-core": "^4.17.9",
     "@types/file-saver": "^2.0.1",
-    "@types/jasmine": "~5.1.0",
-    "@types/jasminewd2": "^2.0.10",
     "@types/jwt-decode": "^2.2.1",
     "@types/node": "^20.17.19",
     "@types/socket.io-client": "^1.4.33",
     "angular-eslint": "^21.3.0",
     "esbuild-visualizer": "^0.7.0",
     "eslint": "^9.33.0",
-    "jasmine": "^5.1.0",
-    "jasmine-core": "~5.9.0",
-    "jasmine-spec-reporter": "~7.0.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "jsdom": "^29.0.1",
     "stylelint": "^16.10.0",
     "stylelint-config-sass-guidelines": "^12.1.0",
     "stylelint-scss": "^6.0.0",
-    "typescript-eslint": "^8.42.0"
+    "typescript-eslint": "^8.42.0",
+    "vitest": "^4.1.1"
   }
 }

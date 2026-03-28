@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
-import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -28,93 +28,101 @@ import { MatDividerModule } from '@angular/material/divider'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('DeliveryMethodComponent', () => {
-  let component: DeliveryMethodComponent
-  let fixture: ComponentFixture<DeliveryMethodComponent>
-  let addressService: any
-  let deliveryService: any
+    let component: DeliveryMethodComponent
+    let fixture: ComponentFixture<DeliveryMethodComponent>
+    let addressService: any
+    let deliveryService: any
 
-  beforeEach(waitForAsync(() => {
-    addressService = jasmine.createSpyObj('AddressService', ['getById'])
-    addressService.getById.and.returnValue(of([]))
-    deliveryService = jasmine.createSpyObj('DeliveryService', ['get'])
-    deliveryService.get.and.returnValue(of([]))
+    beforeEach(async () => {
+        addressService = {
+            getById: vi.fn().mockName("AddressService.getById")
+        }
+        addressService.getById.mockReturnValue(of([]))
+        deliveryService = {
+            get: vi.fn().mockName("DeliveryService.get")
+        }
+        deliveryService.get.mockReturnValue(of([]))
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: 'payment/shop', component: PaymentComponent }
-      ]),
-      TranslateModule.forRoot(),
-      ReactiveFormsModule,
-      MatInputModule,
-      MatCardModule,
-      MatTableModule,
-      MatButtonModule,
-      MatButtonToggleModule,
-      MatIconModule,
-      MatTooltipModule,
-      MatRadioModule,
-      MatExpansionModule,
-      MatDividerModule,
-      DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
-      providers: [
-        { provide: AddressService, useValue: addressService },
-        { provide: DeliveryService, useValue: deliveryService },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: 'payment/shop', component: PaymentComponent }
+                ]),
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatInputModule,
+                MatCardModule,
+                MatTableModule,
+                MatButtonModule,
+                MatButtonToggleModule,
+                MatIconModule,
+                MatTooltipModule,
+                MatRadioModule,
+                MatExpansionModule,
+                MatDividerModule,
+                DeliveryMethodComponent, PaymentComponent, PaymentMethodComponent],
+            providers: [
+                { provide: AddressService, useValue: addressService },
+                { provide: DeliveryService, useValue: deliveryService },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DeliveryMethodComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DeliveryMethodComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    afterEach(() => {
+        vi.restoreAllMocks()
+    })
 
-  it('should log errors from address service directly to browser console', fakeAsync(() => {
-    addressService.getById.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should log errors from delivery service directly to browser console', fakeAsync(() => {
-    deliveryService.get.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should log errors from address service directly to browser console', () => {
+        addressService.getById.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should hold address on ngOnInit', () => {
-    addressService.getById.and.returnValue(of({ address: 'address' }))
-    component.ngOnInit()
-    expect(component.address).toEqual({ address: 'address' })
-  })
+    it('should log errors from delivery service directly to browser console', () => {
+        deliveryService.get.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should hold delivery methods on ngOnInit', () => {
-    deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1, icon: '1' }]))
-    component.ngOnInit()
-    expect(component.methods[0].id).toEqual(1)
-    expect(component.methods[0].name).toEqual('1')
-    expect(component.methods[0].price).toEqual(1)
-    expect(component.methods[0].eta).toEqual(1)
-    expect(component.methods[0].icon).toEqual('1')
-  })
+    it('should hold address on ngOnInit', () => {
+        addressService.getById.mockReturnValue(of({ address: 'address' }))
+        component.ngOnInit()
+        expect(component.address).toEqual({ address: 'address' })
+    })
 
-  it('should store delivery method id on selectMethod', () => {
-    component.selectMethod(1)
-    expect(component.deliveryMethodId).toBe(1)
-  })
+    it('should hold delivery methods on ngOnInit', () => {
+        deliveryService.get.mockReturnValue(of([{ id: 1, name: '1', price: 1, eta: 1, icon: '1' }]))
+        component.ngOnInit()
+        expect(component.methods[0].id).toEqual(1)
+        expect(component.methods[0].name).toEqual('1')
+        expect(component.methods[0].price).toEqual(1)
+        expect(component.methods[0].eta).toEqual(1)
+        expect(component.methods[0].icon).toEqual('1')
+    })
 
-  it('should store address id in session storage', () => {
-    component.deliveryMethodId = 1
-    spyOn(sessionStorage, 'setItem')
-    component.chooseDeliveryMethod()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('deliveryMethodId', '1')
-  })
+    it('should store delivery method id on selectMethod', () => {
+        component.selectMethod(1)
+        expect(component.deliveryMethodId).toBe(1)
+    })
+
+    it('should store address id in session storage', () => {
+        component.deliveryMethodId = 1
+        const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
+        component.chooseDeliveryMethod()
+        expect(setItemSpy).toHaveBeenCalledWith('deliveryMethodId', '1')
+    })
 })

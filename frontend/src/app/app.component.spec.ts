@@ -8,7 +8,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { provideZoneChangeDetection } from '@angular/core'
-import { TestBed, waitForAsync } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { SidenavComponent } from './sidenav/sidenav.component'
@@ -38,8 +38,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 describe('AppComponent', () => {
   let app: AppComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [RouterTestingModule,
         MatToolbarModule,
         CookieModule.forRoot(),
@@ -67,7 +67,7 @@ describe('AppComponent', () => {
         AppComponent],
       providers: [TranslateService, LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting(), provideZoneChangeDetection()]
     }).compileComponents()
-  }))
+  })
 
   beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent)
@@ -75,7 +75,7 @@ describe('AppComponent', () => {
     fixture.detectChanges()
   })
 
-  it('should create the app', waitForAsync(() => {
+  it('should create the app', () => {
     expect(app).toBeTruthy()
-  }))
+  })
 })

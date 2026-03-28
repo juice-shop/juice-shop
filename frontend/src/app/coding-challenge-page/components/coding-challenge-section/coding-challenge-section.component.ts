@@ -27,7 +27,7 @@ export class CodingChallengeSectionComponent {
   readonly submitClicked = output<void>()
   readonly shakingDone = output<void>()
 
-  readonly ResultState = ResultState
+  get ResultState () { return ResultState }
 
   resultIcon (): string {
     switch (this.result()) {

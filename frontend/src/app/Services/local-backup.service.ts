@@ -9,7 +9,7 @@ import { CookieService } from 'ngy-cookie'
 import { saveAs } from 'file-saver'
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { forkJoin, from, of } from 'rxjs'
+import { firstValueFrom, forkJoin, from, of } from 'rxjs'
 import { ChallengeService } from './challenge.service'
 
 @Injectable({
@@ -23,7 +23,7 @@ export class LocalBackupService {
 
   private readonly VERSION = 1
 
-  save (fileName = 'owasp_juice_shop') {
+  async save (fileName = 'owasp_juice_shop'): Promise<void> {
     const backup: Backup = { version: this.VERSION }
 
     backup.banners = {
@@ -32,26 +32,28 @@ export class LocalBackupService {
     }
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
 
-    const continueCode = this.challengeService.continueCode()
-    const continueCodeFindIt = this.challengeService.continueCodeFindIt()
-    const continueCodeFixIt = this.challengeService.continueCodeFixIt()
-    forkJoin([continueCode, continueCodeFindIt, continueCodeFixIt]).subscribe({
-      next: ([continueCode, continueCodeFindIt, continueCodeFixIt]) => {
-        backup.continueCode = continueCode
-        backup.continueCodeFindIt = continueCodeFindIt
-        backup.continueCodeFixIt = continueCodeFixIt
-        const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-        saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-      },
-      error: () => {
-        console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
-        backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
-        backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
-        backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
-        const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-        saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-      }
-    })
+    try {
+      const [continueCode, continueCodeFindIt, continueCodeFixIt] = await firstValueFrom(forkJoin([
+        this.challengeService.continueCode(),
+        this.challengeService.continueCodeFindIt(),
+        this.challengeService.continueCodeFixIt()
+      ]))
+      backup.continueCode = continueCode
+      backup.continueCodeFindIt = continueCodeFindIt
+      backup.continueCodeFixIt = continueCodeFixIt
+    } catch {
+      console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+      backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
+      backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
+      backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
+    }
+
+    const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+    this.saveFile(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+  }
+
+  saveFile (blob: Blob, fileName: string) {
+    saveAs(blob, fileName)
   }
 
   restore (backupFile: File) {

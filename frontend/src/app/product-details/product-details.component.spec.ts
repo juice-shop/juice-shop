@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatBadgeModule } from '@angular/material/badge'
-import { type ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
@@ -29,148 +29,154 @@ import { type Product } from '../Models/product.model'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('ProductDetailsComponent', () => {
-  let component: ProductDetailsComponent
-  let fixture: ComponentFixture<ProductDetailsComponent>
-  let userService: any
-  let productReviewService: any
-  let dialog: any
-  let dialogRefMock
+    let component: ProductDetailsComponent
+    let fixture: ComponentFixture<ProductDetailsComponent>
+    let userService: any
+    let productReviewService: any
+    let dialog: any
+    let dialogRefMock
 
-  beforeEach(waitForAsync(() => {
-    userService = jasmine.createSpyObj('UserService', ['whoAmI'])
-    userService.whoAmI.and.returnValue(of({}))
-    productReviewService = jasmine.createSpyObj('ProductReviewService', ['get', 'create'])
-    productReviewService.get.and.returnValue(of([]))
-    productReviewService.create.and.returnValue(of({}))
-    dialog = jasmine.createSpyObj('Dialog', ['open'])
-    dialogRefMock = {
-      afterClosed: () => of({})
-    }
-    dialog.open.and.returnValue(dialogRefMock)
+    beforeEach(async () => {
+        userService = {
+            whoAmI: vi.fn().mockName("UserService.whoAmI")
+        }
+        userService.whoAmI.mockReturnValue(of({}))
+        productReviewService = {
+            get: vi.fn().mockName("ProductReviewService.get"),
+            create: vi.fn().mockName("ProductReviewService.create")
+        }
+        productReviewService.get.mockReturnValue(of([]))
+        productReviewService.create.mockReturnValue(of({}))
+        dialog = {
+            open: vi.fn().mockName("Dialog.open")
+        }
+        dialogRefMock = {
+            afterClosed: () => of({})
+        }
+        dialog.open.mockReturnValue(dialogRefMock)
 
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatBadgeModule,
-        MatIconModule,
-        MatTooltipModule,
-        MatExpansionModule,
-        MatSnackBarModule,
-        ProductDetailsComponent],
-      providers: [
-        { provide: UserService, useValue: userService },
-        { provide: ProductReviewService, useValue: productReviewService },
-        { provide: MatDialog, useValue: dialog },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-        provideZoneChangeDetection()
-      ]
+        TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatDialogModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatButtonModule,
+                MatDividerModule,
+                MatBadgeModule,
+                MatIconModule,
+                MatTooltipModule,
+                MatExpansionModule,
+                MatSnackBarModule,
+                ProductDetailsComponent],
+            providers: [
+                { provide: UserService, useValue: userService },
+                { provide: ProductReviewService, useValue: productReviewService },
+                { provide: MatDialog, useValue: dialog },
+                { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting(),
+                provideZoneChangeDetection()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProductDetailsComponent)
-    component = fixture.componentInstance
-    fixture.autoDetectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ProductDetailsComponent)
+        component = fixture.componentInstance
+        fixture.autoDetectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should post anonymous review if no user email is returned', () => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({}))
-    component.ngOnInit()
-    const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
-    textArea.value = 'Great product!'
-    const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
-    buttonDe.triggerEventHandler('click', null)
-    const reviewObject = { message: 'Great product!', author: 'Anonymous' }
-    expect(productReviewService.create.calls.count()).toBe(1)
-    expect(productReviewService.create.calls.argsFor(0)[0]).toBe(42)
-    expect(productReviewService.create.calls.argsFor(0)[1]).toEqual(reviewObject)
-  })
+    it('should post anonymous review if no user email is returned', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({}))
+        component.ngOnInit()
+        const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
+        textArea.value = 'Great product!'
+        const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
+        buttonDe.triggerEventHandler('click', null)
+        const reviewObject = { message: 'Great product!', author: 'Anonymous' }
+        expect(vi.mocked(productReviewService.create).mock.calls.length).toBe(1)
+        expect(vi.mocked(productReviewService.create).mock.calls[0][0]).toBe(42)
+        expect(vi.mocked(productReviewService.create).mock.calls[0][1]).toEqual(reviewObject)
+    })
 
-  it('should post review with user email as author', () => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    component.ngOnInit()
-    const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
-    textArea.value = 'Great product!'
-    const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
-    buttonDe.triggerEventHandler('click', null)
-    const reviewObject = { message: 'Great product!', author: 'horst@juice-sh.op' }
-    expect(productReviewService.create.calls.count()).toBe(1)
-    expect(productReviewService.create.calls.argsFor(0)[0]).toBe(42)
-    expect(productReviewService.create.calls.argsFor(0)[1]).toEqual(reviewObject)
-  })
+    it('should post review with user email as author', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        component.ngOnInit()
+        const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
+        textArea.value = 'Great product!'
+        const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
+        buttonDe.triggerEventHandler('click', null)
+        const reviewObject = { message: 'Great product!', author: 'horst@juice-sh.op' }
+        expect(vi.mocked(productReviewService.create).mock.calls.length).toBe(1)
+        expect(vi.mocked(productReviewService.create).mock.calls[0][0]).toBe(42)
+        expect(vi.mocked(productReviewService.create).mock.calls[0][1]).toEqual(reviewObject)
+    })
 
-  it('should log errors when retrieving user directly to browser console', fakeAsync(() => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should log errors when retrieving user directly to browser console', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should log errors when posting review directly to browser console', fakeAsync(() => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({}))
-    productReviewService.create.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
-    textArea.value = 'Great product!'
-    const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
-    buttonDe.triggerEventHandler('click', null)
-    expect(console.log).toHaveBeenCalledWith('Error')
-    fixture.destroy()
-    flush()
-  }))
+    it('should log errors when posting review directly to browser console', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({}))
+        productReviewService.create.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
+        textArea.value = 'Great product!'
+        const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
+        buttonDe.triggerEventHandler('click', null)
+        expect(console.log).toHaveBeenCalledWith('Error')
+        fixture.destroy()
+    })
 
-  it('should refresh reviews after posting a review', () => {
-    component.data = { productData: { id: 42 } as Product }
-    productReviewService.create.and.returnValue(of({}))
-    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Review 1', author: 'Anonymous' }]))
-    userService.whoAmI.and.returnValue(of({}))
-    component.ngOnInit()
-    const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
-    textArea.value = 'Great product!'
-    const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
-    buttonDe.triggerEventHandler('click', null)
-    expect(productReviewService.create).toHaveBeenCalled()
-    expect(productReviewService.get).toHaveBeenCalled()
-  })
+    it('should refresh reviews after posting a review', () => {
+        component.data = { productData: { id: 42 } as Product }
+        productReviewService.create.mockReturnValue(of({}))
+        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Review 1', author: 'Anonymous' }]))
+        userService.whoAmI.mockReturnValue(of({}))
+        component.ngOnInit()
+        const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
+        textArea.value = 'Great product!'
+        const buttonDe = fixture.debugElement.query(By.css('#submitButton'))
+        buttonDe.triggerEventHandler('click', null)
+        expect(productReviewService.create).toHaveBeenCalled()
+        expect(productReviewService.get).toHaveBeenCalled()
+    })
 
-  it('should open a modal dialog with review editor', () => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
-    component.ngOnInit()
-    fixture.detectChanges()
-    const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
-    buttonDe.triggerEventHandler('click', null)
-    expect(dialog.open.calls.count()).toBe(1)
-    expect(dialog.open.calls.argsFor(0)[0]).toBe(ProductReviewEditComponent)
-    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
-  })
+    it('should open a modal dialog with review editor', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
+        component.ngOnInit()
+        fixture.detectChanges()
+        const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
+        buttonDe.triggerEventHandler('click', null)
+        expect(vi.mocked(dialog.open).mock.calls.length).toBe(1)
+        expect(vi.mocked(dialog.open).mock.calls[0][0]).toBe(ProductReviewEditComponent)
+        expect(vi.mocked(dialog.open).mock.calls[0][1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
+    })
 
-  it('should refresh reviews of product after editing a review', () => {
-    component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
-    productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
-    component.ngOnInit()
-    fixture.detectChanges()
-    const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
-    buttonDe.triggerEventHandler('click', null)
-    expect(productReviewService.get).toHaveBeenCalledWith(42)
-  })
+    it('should refresh reviews of product after editing a review', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
+        component.ngOnInit()
+        fixture.detectChanges()
+        const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
+        buttonDe.triggerEventHandler('click', null)
+        expect(productReviewService.get).toHaveBeenCalledWith(42)
+    })
 })

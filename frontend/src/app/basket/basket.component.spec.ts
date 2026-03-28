@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialogModule } from '@angular/material/dialog'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { BasketComponent } from './basket.component'
 import { MatCardModule } from '@angular/material/card'
@@ -24,59 +24,63 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('BasketComponent', () => {
-  let component: BasketComponent
-  let fixture: ComponentFixture<BasketComponent>
-  let deluxeGuard
-  let snackBar: any
+    let component: BasketComponent
+    let fixture: ComponentFixture<BasketComponent>
+    let deluxeGuard
+    let snackBar: any
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatTableModule,
-        MatButtonModule,
-        MatExpansionModule,
-        MatDialogModule,
-        MatButtonToggleModule,
-        MatSnackBarModule,
-        BasketComponent, PurchaseBasketComponent],
-      providers: [
-        { provide: DeluxeGuard, useValue: deluxeGuard },
-        { provide: MatSnackBar, useValue: snackBar },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule,
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatCardModule,
+                MatTableModule,
+                MatButtonModule,
+                MatExpansionModule,
+                MatDialogModule,
+                MatButtonToggleModule,
+                MatSnackBarModule,
+                BasketComponent, PurchaseBasketComponent],
+            providers: [
+                { provide: DeluxeGuard, useValue: deluxeGuard },
+                { provide: MatSnackBar, useValue: snackBar },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BasketComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(BasketComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    afterEach(() => {
+        vi.restoreAllMocks()
+    })
 
-  it('should store product count on calling getProductCount', () => {
-    component.getProductCount(1)
-    expect(component.productCount).toBe(1)
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should store bonus points on calling getBonusPoints', () => {
-    component.getBonusPoints([1, 10])
-    expect(component.bonus).toBe(10)
-  })
+    it('should store product count on calling getProductCount', () => {
+        component.getProductCount(1)
+        expect(component.productCount).toBe(1)
+    })
 
-  it('should store itemTotal in session storage', () => {
-    spyOn(sessionStorage, 'setItem')
-    component.getBonusPoints([1, 10])
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', '1')
-  })
+    it('should store bonus points on calling getBonusPoints', () => {
+        component.getBonusPoints([1, 10])
+        expect(component.bonus).toBe(10)
+    })
+
+    it('should store itemTotal in session storage', () => {
+        const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
+        component.getBonusPoints([1, 10])
+        expect(setItemSpy).toHaveBeenCalledWith('itemTotal', '1')
+    })
 })

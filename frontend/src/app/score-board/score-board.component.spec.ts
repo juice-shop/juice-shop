@@ -21,183 +21,160 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HintService } from '../Services/hint.service'
 
 // allows to easily create a challenge with some overwrites
-function createChallenge (challengeOverwrites: Partial<Challenge>): Challenge {
-  return {
-    name: 'foobar',
-    key: 'challenge-1',
-    category: 'category-blue',
-    difficulty: 3,
-    description: '',
-    tags: '',
-    disabledEnv: null,
-    solved: false,
-    tutorialOrder: null,
-    hasTutorial: false,
-    hasSnippet: false,
-    codingChallengeStatus: 0,
-    mitigationUrl: '',
-    hasCodingChallenge: false,
-    ...challengeOverwrites
-  }
+function createChallenge(challengeOverwrites: Partial<Challenge>): Challenge {
+    return {
+        name: 'foobar',
+        key: 'challenge-1',
+        category: 'category-blue',
+        difficulty: 3,
+        description: '',
+        tags: '',
+        disabledEnv: null,
+        solved: false,
+        tutorialOrder: null,
+        hasTutorial: false,
+        hasSnippet: false,
+        codingChallengeStatus: 0,
+        mitigationUrl: '',
+        hasCodingChallenge: false,
+        ...challengeOverwrites
+    }
 }
 
 describe('ScoreBoardComponent', () => {
-  let component: ScoreBoardComponent
-  let fixture: ComponentFixture<ScoreBoardComponent>
-  let challengeService
-  let hintService
-  let configService
+    let component: ScoreBoardComponent
+    let fixture: ComponentFixture<ScoreBoardComponent>
+    let challengeService
+    let hintService
+    let configService
 
-  beforeEach(async () => {
-    challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
-    hintService = jasmine.createSpyObj('HintService', ['getAll', 'put'])
-    configService = jasmine.createSpyObj('ConfigurationService', [
-      'getApplicationConfiguration'
-    ])
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        RouterTestingModule,
-        MatProgressSpinnerModule,
-        MatIconModule,
-        ScoreBoardComponent,
-        HackingChallengeProgressScoreCardComponent,
-        CodingChallengeProgressScoreCardComponent,
-        DifficultyOverviewScoreCardComponent,
-        WarningCardComponent,
-        ChallengesUnavailableWarningComponent,
-        TutorialModeWarningComponent,
-        ScoreCardComponent],
-      providers: [
-        { provide: ChallengeService, useValue: challengeService },
-        { provide: HintService, useValue: hintService },
-        { provide: ConfigurationService, useValue: configService },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
-    }).compileComponents()
-
-    challengeService.find.and.returnValue(
-      of([
-        createChallenge({
-          name: 'Challenge 1',
-          key: 'challenge-1',
-          category: 'category-blue',
-          difficulty: 1,
-          solved: true
-        }),
-        createChallenge({
-          name: 'Challenge 2',
-          key: 'challenge-2',
-          category: 'category-blue',
-          difficulty: 5,
-          solved: false,
-          hasSnippet: true,
-          codingChallengeStatus: 1
-        }),
-        createChallenge({
-          name: 'Challenge 3',
-          key: 'challenge-3',
-          category: 'category-red',
-          difficulty: 3,
-          hasSnippet: true,
-          solved: false
-        })
-      ])
-    )
-
-    hintService.getAll.and.returnValue(of([]))
-
-    configService.getApplicationConfiguration.and.returnValue(
-      of({
-        challenges: {
-          restrictToTutorialsFirst: false,
-          codingChallengesEnabled: 'solved',
-          showHints: true,
-          showMitigations: true
-        },
-        ctf: {
-          showFlagsInNotifications: true
-        },
-        hackingInstructor: {
-          isEnabled: true
+    beforeEach(async () => {
+        challengeService = {
+            find: vi.fn().mockName("ChallengeService.find")
         }
-      })
-    )
+        hintService = {
+            getAll: vi.fn().mockName("HintService.getAll"),
+            put: vi.fn().mockName("HintService.put")
+        }
+        configService = {
+            getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
+        }
+        await TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                RouterTestingModule,
+                MatProgressSpinnerModule,
+                MatIconModule,
+                ScoreBoardComponent,
+                HackingChallengeProgressScoreCardComponent,
+                CodingChallengeProgressScoreCardComponent,
+                DifficultyOverviewScoreCardComponent,
+                WarningCardComponent,
+                ChallengesUnavailableWarningComponent,
+                TutorialModeWarningComponent,
+                ScoreCardComponent],
+            providers: [
+                { provide: ChallengeService, useValue: challengeService },
+                { provide: HintService, useValue: hintService },
+                { provide: ConfigurationService, useValue: configService },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        }).compileComponents()
 
-    fixture = TestBed.createComponent(ScoreBoardComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+        challengeService.find.mockReturnValue(of([
+            createChallenge({
+                name: 'Challenge 1',
+                key: 'challenge-1',
+                category: 'category-blue',
+                difficulty: 1,
+                solved: true
+            }),
+            createChallenge({
+                name: 'Challenge 2',
+                key: 'challenge-2',
+                category: 'category-blue',
+                difficulty: 5,
+                solved: false,
+                hasSnippet: true,
+                codingChallengeStatus: 1
+            }),
+            createChallenge({
+                name: 'Challenge 3',
+                key: 'challenge-3',
+                category: 'category-red',
+                difficulty: 3,
+                hasSnippet: true,
+                solved: false
+            })
+        ]))
 
-  it('should not filter any challenges on default settings', (): void => {
-    expect(component.filteredChallenges).toHaveSize(3)
-  })
+        hintService.getAll.mockReturnValue(of([]))
 
-  it('should handle error when unlocking a hint', (): void => {
-    hintService.put.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.unlockHint(123)
-    expect(console.log).toHaveBeenCalledWith('Error')
-  })
+        configService.getApplicationConfiguration.mockReturnValue(of({
+            challenges: {
+                restrictToTutorialsFirst: false,
+                codingChallengesEnabled: 'solved',
+                showHints: true,
+                showMitigations: true
+            },
+            ctf: {
+                showFlagsInNotifications: true
+            },
+            hackingInstructor: {
+                isEnabled: true
+            }
+        }))
 
-  it('should mark challenges as solved on "challenge solved" websocket', (): void => {
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-3'
-      ).solved
-    ).toBeFalse()
-
-    component.onChallengeSolvedWebsocket({
-      key: 'challenge-3',
-      name: '',
-      challenge: '',
-      flag: '',
-      hidden: false,
-      isRestore: false
+        fixture = TestBed.createComponent(ScoreBoardComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
     })
 
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-3'
-      ).solved
-    ).toBeTrue()
-  })
-
-  it('should mark find it code challenges as solved on "code challenge solved" websocket', (): void => {
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-3'
-      ).codingChallengeStatus
-    ).toBe(0)
-
-    component.onCodeChallengeSolvedWebsocket({
-      key: 'challenge-3',
-      codingChallengeStatus: 1
+    it('should not filter any challenges on default settings', (): void => {
+        expect(component.filteredChallenges).toHaveLength(3)
     })
 
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-3'
-      ).codingChallengeStatus
-    ).toBe(1)
-  })
-
-  it('should mark fix it code challenges as solved on "code challenge solved" websocket', (): void => {
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-2'
-      ).codingChallengeStatus
-    ).toBe(1)
-
-    component.onCodeChallengeSolvedWebsocket({
-      key: 'challenge-2',
-      codingChallengeStatus: 2
+    it('should handle error when unlocking a hint', (): void => {
+        hintService.put.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.unlockHint(123)
+        expect(console.log).toHaveBeenCalledWith('Error')
     })
 
-    expect(
-      component.filteredChallenges.find(
-        (challenge) => challenge.key === 'challenge-2'
-      ).codingChallengeStatus
-    ).toBe(2)
-  })
+    it('should mark challenges as solved on "challenge solved" websocket', (): void => {
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-3').solved).toBe(false)
+
+        component.onChallengeSolvedWebsocket({
+            key: 'challenge-3',
+            name: '',
+            challenge: '',
+            flag: '',
+            hidden: false,
+            isRestore: false
+        })
+
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-3').solved).toBe(true)
+    })
+
+    it('should mark find it code challenges as solved on "code challenge solved" websocket', (): void => {
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-3').codingChallengeStatus).toBe(0)
+
+        component.onCodeChallengeSolvedWebsocket({
+            key: 'challenge-3',
+            codingChallengeStatus: 1
+        })
+
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-3').codingChallengeStatus).toBe(1)
+    })
+
+    it('should mark fix it code challenges as solved on "code challenge solved" websocket', (): void => {
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-2').codingChallengeStatus).toBe(1)
+
+        component.onCodeChallengeSolvedWebsocket({
+            key: 'challenge-2',
+            codingChallengeStatus: 2
+        })
+
+        expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-2').codingChallengeStatus).toBe(2)
+    })
 })

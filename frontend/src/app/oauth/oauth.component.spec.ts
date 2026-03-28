@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -25,76 +25,82 @@ import { CookieModule } from 'ngy-cookie'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OAuthComponent', () => {
-  let component: OAuthComponent
-  let fixture: ComponentFixture<OAuthComponent>
-  let userService: any
+    let component: OAuthComponent
+    let fixture: ComponentFixture<OAuthComponent>
+    let userService: any
 
-  beforeEach(waitForAsync(() => {
-    userService = jasmine.createSpyObj('UserService', ['oauthLogin', 'login', 'save'])
-    userService.oauthLogin.and.returnValue(of({ email: '' }))
-    userService.login.and.returnValue(of({}))
-    userService.save.and.returnValue(of({}))
-    userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
-    userService.isLoggedIn.next.and.returnValue({})
+    beforeEach(async () => {
+        userService = {
+            oauthLogin: vi.fn().mockName("UserService.oauthLogin"),
+            login: vi.fn().mockName("UserService.login"),
+            save: vi.fn().mockName("UserService.save")
+        }
+        userService.oauthLogin.mockReturnValue(of({ email: '' }))
+        userService.login.mockReturnValue(of({}))
+        userService.save.mockReturnValue(of({}))
+        userService.isLoggedIn = {
+            next: vi.fn().mockName("userService.isLoggedIn.next")
+        }
+        userService.isLoggedIn.next.mockReturnValue({})
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: 'login', component: LoginComponent }
-      ]),
-      ReactiveFormsModule,
-      CookieModule.forRoot(),
-      TranslateModule.forRoot(),
-      MatInputModule,
-      MatIconModule,
-      MatCardModule,
-      MatFormFieldModule,
-      MatCheckboxModule,
-      MatTooltipModule,
-      OAuthComponent, LoginComponent],
-      providers: [
-        { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } },
-        { provide: UserService, useValue: userService },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: 'login', component: LoginComponent }
+                ]),
+                ReactiveFormsModule,
+                CookieModule.forRoot(),
+                TranslateModule.forRoot(),
+                MatInputModule,
+                MatIconModule,
+                MatCardModule,
+                MatFormFieldModule,
+                MatCheckboxModule,
+                MatTooltipModule,
+                OAuthComponent, LoginComponent],
+            providers: [
+                { provide: ActivatedRoute, useValue: { snapshot: { data: { params: '?alt=json&access_token=TEST' } } } },
+                { provide: UserService, useValue: userService },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OAuthComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(OAuthComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('removes authentication token and basket id on failed OAuth login attempt', fakeAsync(() => {
-    userService.oauthLogin.and.returnValue(throwError({ error: 'Error' }))
-    component.ngOnInit()
-    expect(localStorage.getItem('token')).toBeNull()
-    expect(sessionStorage.getItem('bid')).toBeNull()
-  }))
+    it('removes authentication token and basket id on failed OAuth login attempt', () => {
+        userService.oauthLogin.mockReturnValue(throwError({ error: 'Error' }))
+        component.ngOnInit()
+        expect(localStorage.getItem('token')).toBeNull()
+        expect(sessionStorage.getItem('bid')).toBeNull()
+    })
 
-  it('will create regular user account with base64 encoded reversed email as password', fakeAsync(() => {
-    userService.oauthLogin.and.returnValue(of({ email: 'test@test.com' }))
-    component.ngOnInit()
-    expect(userService.save).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', passwordRepeat: 'bW9jLnRzZXRAdHNldA==' })
-  }))
+    it('will create regular user account with base64 encoded reversed email as password', () => {
+        userService.oauthLogin.mockReturnValue(of({ email: 'test@test.com' }))
+        component.ngOnInit()
+        expect(userService.save).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', passwordRepeat: 'bW9jLnRzZXRAdHNldA==' })
+    })
 
-  it('logs in user even after failed account creation as account might already have existed from previous OAuth login', fakeAsync(() => {
-    userService.oauthLogin.and.returnValue(of({ email: 'test@test.com' }))
-    userService.save.and.returnValue(throwError({ error: 'Account already exists' }))
-    component.ngOnInit()
-    expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', oauth: true })
-  }))
+    it('logs in user even after failed account creation as account might already have existed from previous OAuth login', () => {
+        userService.oauthLogin.mockReturnValue(of({ email: 'test@test.com' }))
+        userService.save.mockReturnValue(throwError({ error: 'Account already exists' }))
+        component.ngOnInit()
+        expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', oauth: true })
+    })
 
-  it('removes authentication token and basket id on failed subsequent regular login attempt', fakeAsync(() => {
-    userService.login.and.returnValue(throwError({ error: 'Error' }))
-    component.login({ email: '' })
-    expect(localStorage.getItem('token')).toBeNull()
-    expect(sessionStorage.getItem('bid')).toBeNull()
-  }))
+    it('removes authentication token and basket id on failed subsequent regular login attempt', () => {
+        userService.login.mockReturnValue(throwError({ error: 'Error' }))
+        component.login({ email: '' })
+        expect(localStorage.getItem('token')).toBeNull()
+        expect(sessionStorage.getItem('bid')).toBeNull()
+    })
 })

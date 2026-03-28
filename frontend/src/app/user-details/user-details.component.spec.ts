@@ -8,57 +8,59 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { UserService } from '../Services/user.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { UserDetailsComponent } from './user-details.component'
 import { of, throwError } from 'rxjs'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('UserDetailsComponent', () => {
-  let component: UserDetailsComponent
-  let fixture: ComponentFixture<UserDetailsComponent>
-  let userService: any
+    let component: UserDetailsComponent
+    let fixture: ComponentFixture<UserDetailsComponent>
+    let userService: any
 
-  beforeEach(waitForAsync(() => {
-    userService = jasmine.createSpyObj('UserService', ['get'])
-    userService.get.and.returnValue(of({}))
+    beforeEach(async () => {
+        userService = {
+            get: vi.fn().mockName("UserService.get")
+        }
+        userService.get.mockReturnValue(of({}))
 
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        MatDividerModule,
-        MatDialogModule,
-        UserDetailsComponent],
-      providers: [
-        { provide: UserService, useValue: userService },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                MatDividerModule,
+                MatDialogModule,
+                UserDetailsComponent],
+            providers: [
+                { provide: UserService, useValue: userService },
+                { provide: MatDialogRef, useValue: {} },
+                { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(UserDetailsComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(UserDetailsComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should log the error on retrieving user', () => {
-    userService.get.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  })
+    it('should log the error on retrieving user', () => {
+        userService.get.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should set the retrieved user', () => {
-    userService.get.and.returnValue(of('User'))
-    component.ngOnInit()
-    expect(component.user).toBe('User')
-  })
+    it('should set the retrieved user', () => {
+        userService.get.mockReturnValue(of('User'))
+        component.ngOnInit()
+        expect(component.user).toBe('User')
+    })
 })
