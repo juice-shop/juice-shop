@@ -16,6 +16,7 @@ application:
   privacyContactEmail: donotreply@owasp-juice.shop
   customMetricsPrefix: juiceshop
   chatBot:
+    useMock: true  # Set to true for development/testing
     name: 'Juicy the Smart Assistant'
     avatar: 'JuicyChatBot.png'
     model: 'qwen3.5:9b'

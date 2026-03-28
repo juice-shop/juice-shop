@@ -38,6 +38,8 @@ application:
       type: string
     model:
       type: string
+    useMock:
+      type: boolean
     llmApiUrl:
       type: string
     llmMaxRetries:
