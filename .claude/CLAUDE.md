@@ -16,7 +16,7 @@ Claude can assist with various development tasks, but all contributions must sti
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
 - **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -30,7 +30,7 @@ Claude can assist with various development tasks, but all contributions must sti
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
 - `test/server/` - Server unit tests (Mocha/Chai/Sinon)
 - `test/api/` - API integration tests (Supertest)
-- `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
+- `frontend/src/` - Angular frontend code (tests use Vitest)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
 - `config/` - Configuration files (YAML, multiple themed configs like `ctf.yml`, `default.yml`)
@@ -99,7 +99,7 @@ For any code changes Claude helps with:
 - **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge
 - **Run Tests Locally**:
   ```bash
-  npm test                    # Frontend unit tests (Jasmine/Karma) + server unit tests (Mocha)
+  npm test                    # Frontend unit tests (Vitest) + server unit tests (Mocha)
   npm run test:server         # Server unit tests only (Mocha/Chai/Sinon)
   npm run test:api              # API integration tests (Supertest), alias: npm run test:api
   npm start & npm run cypress:run  # E2E tests (Cypress), alias: npm run test:e2e

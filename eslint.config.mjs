@@ -29,7 +29,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.jasmine,
+        ...globals.vitest,
         ...globals.mocha,
         ...globals.jest,
         Atomics: 'readonly',

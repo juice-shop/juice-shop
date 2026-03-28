@@ -22,7 +22,7 @@ This file provides guidelines for AI agents and automated code assistants that d
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
 - **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -46,7 +46,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#important-constraints) for the full context.
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
 - `test/server/` - Server unit tests (Mocha/Chai/Sinon)
 - `test/api/` - API integration tests (Supertest)
-- `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
+- `frontend/src/` - Angular frontend code (tests use Vitest)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
 - `config/` - Configuration files (YAML, multiple themed configs like `ctf.yml`, `default.yml`)
@@ -138,7 +138,7 @@ git commit -s     # Sign-off commit
 - If changes are intentional, update cache: `npm run rsn:update`
 - IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
 
-**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Jasmine/Karma (frontend unit), Cypress (E2E)
+**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Vitest (frontend unit), Cypress (E2E)
 - `npm test` - Run frontend unit tests + server unit tests
 - `npm run test:server` - Server unit tests only (Mocha)
 - `npm run test:api`) - API integration tests only (Supertest)
