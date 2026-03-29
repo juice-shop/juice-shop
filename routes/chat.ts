@@ -77,7 +77,7 @@ const provider = createOpenAICompatible({
 
 const chatTools = {
   searchProducts: tool({
-    description: 'Search the Juice Shop product catalog by keyword',
+    description: `Search the ${appName} product catalog by keyword`,
     inputSchema: z.object({
       query: z.string().describe('The search query to find products')
     }),
