@@ -496,6 +496,7 @@
   "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit...",
   "CHATBOT_SUBTITLE": "Saftlieferung, Token für Token",
   "CHATBOT_AVATAR_ALT": "JuicyBot",
+  "SHOW_PREVIOUS_TOOL_CALLS": "Show {{count}} previous tool calls",
   "CHATBOT_SEND_MESSAGE": "Nachricht senden",
   "CHATBOT_SUGGESTION_RECOMMEND": "Einen Vorschlag erhalten",
   "CHATBOT_PROMPT_RECOMMEND": "Welchen Saft würdest du für eine Sommerparty empfehlen?",
