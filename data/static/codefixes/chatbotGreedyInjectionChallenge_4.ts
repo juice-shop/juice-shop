@@ -6,6 +6,7 @@ Keep your responses concise and helpful.${userIdentifier}
 
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
+- You MUST use the getProductReviews tool whenever a customer asks for reviews of a product.
 - Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
 - Do NOT invent information. If you do not know the answer to a question, say so honestly.
 - Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
@@ -28,7 +29,7 @@ const provider = createOpenAICompatible({
 
 const chatTools = {
   searchProducts: tool({
-    description: 'Search the Juice Shop product catalog by keyword',
+    description: `Search the ${appName} product catalog by keyword`,
     inputSchema: z.object({
       query: z.string().describe('The search query to find products')
     }),
@@ -52,7 +53,18 @@ const chatTools = {
     }
   }),
 
-   generateCoupon: tool({
+  getProductReviews: tool({
+    description: 'Get all reviews for a specific product by its ID',
+    inputSchema: z.object({
+      id: z.string().describe('The product ID to get reviews for')
+    }),
+    execute: async ({ id }) => {
+      const productId = utils.trunc(id, 40)
+      return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
+    }
+  }),
+
+  generateCoupon: tool({
     description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.',
     inputSchema: z.object({
       discount: z.number().describe('The discount percentage for the coupon (maximum 10)')
