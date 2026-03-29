@@ -83,15 +83,70 @@
   }
 }
 
+.tool-calls-container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  margin-top: $space-xs;
+}
+
+.tool-calls-header {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+  padding: $space-2xs $space-xs;
+  background-color: var(--theme-background-darker);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--theme-text-fade-60);
+  width: fit-content;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background-color: var(--theme-background-darkest);
+  }
+}
+
+.previous-tool-calls {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  margin-bottom: $space-3xs;
+}
+
 .tool-call-card {
   display: flex;
   align-items: flex-start;
   gap: $space-xs;
-  margin-top: $space-xs;
   padding: $space-xs $space-s;
   background-color: var(--theme-background-darker);
   border-radius: 8px;
   border: 1px solid var(--theme-background-darkest);
+
+  &.mini {
+    padding: $space-2xs $space-xs;
+    opacity: 0.8;
+  }
+
+  &.mini .tool-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  &.mini .tool-name {
+    font-size: 12px;
+  }
+
+  &.mini .tool-args {
+    font-size: 11px;
+  }
 
   .tool-icon {
     font-size: 18px;

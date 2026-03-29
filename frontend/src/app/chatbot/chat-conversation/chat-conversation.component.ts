@@ -45,6 +45,7 @@ export class ChatConversationComponent implements OnInit {
   messages = signal<ChatMessage[]>([])
   isLoading = signal(false)
   showToolCalls = signal(false)
+  isToolCallsCollapsed = signal(true)
   messageInput = signal('')
   chatBotName = signal('Juicy')
   chatBotAvatar = signal('assets/public/images/JuicyBot.png')
@@ -104,6 +105,10 @@ export class ChatConversationComponent implements OnInit {
       updatedAt: Date.now()
     }
     this.conversationStorage.save(conversation)
+  }
+
+  toggleToolCalls () {
+    this.isToolCallsCollapsed.update(prev => !prev)
   }
 
   async sendMessage (content: string) {

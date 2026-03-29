@@ -16,15 +16,35 @@
         <span class="message-content">{{ message.content }}</span>
       }
       @if (message.tool_calls?.length && showToolCalls()) {
-        @for (tool of message.tool_calls; track tool.id) {
+        <div class="tool-calls-container">
+          @if (message.tool_calls.length > 1) {
+            <div class="tool-calls-header" (click)="toggleToolCalls()" (keydown.enter)="toggleToolCalls()" (keydown.space)="toggleToolCalls()" tabindex="0" role="button">
+              <mat-icon>{{ isToolCallsCollapsed() ? 'expand_more' : 'expand_less' }}</mat-icon>
+              <span>{{ 'SHOW_PREVIOUS_TOOL_CALLS' | translate: { count: message.tool_calls.length - 1 } }}</span>
+            </div>
+            @if (!isToolCallsCollapsed()) {
+              <div class="previous-tool-calls">
+                @for (tool of message.tool_calls.slice(0, -1); track tool.id) {
+                  <div class="tool-call-card mini">
+                    <mat-icon class="tool-icon">build</mat-icon>
+                    <div class="tool-info">
+                      <span class="tool-name">{{ tool.function.name }}</span>
+                      <code class="tool-args">{{ tool.function.arguments }}</code>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          }
+          @let lastTool = message.tool_calls[message.tool_calls.length - 1];
           <div class="tool-call-card">
             <mat-icon class="tool-icon">build</mat-icon>
             <div class="tool-info">
-              <span class="tool-name">{{ tool.function.name }}</span>
-              <code class="tool-args">{{ tool.function.arguments }}</code>
+              <span class="tool-name">{{ lastTool.function.name }}</span>
+              <code class="tool-args">{{ lastTool.function.arguments }}</code>
             </div>
           </div>
-        }
+        </div>
       }
     </div>
     }
