@@ -4,7 +4,7 @@ describe('/#/basket', () => {
       cy.login({
         email: 'wurstbrot',
         password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-        totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+        totpSecret: 'TESTTOTPSECRETFORLAB'
       })
     })
 
