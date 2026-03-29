@@ -164,7 +164,7 @@ void describe('/rest/chat', () => {
 
     assert.equal(res.status, 200)
     assert.ok(parsedBody.tools)
-    assert.equal(parsedBody.tools.length, 2)
+    assert.equal(parsedBody.tools.length, 3)
     const toolNames = parsedBody.tools.map((t: { function: { name: string } }) => t.function.name)
     assert.ok(toolNames.includes('searchProducts'))
     assert.ok(toolNames.includes('generateCoupon'))
