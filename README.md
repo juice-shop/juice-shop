@@ -1,5 +1,4 @@
 # ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
-
 [![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
 [![GitHub release](https://img.shields.io/github/release/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
 [![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
@@ -24,11 +23,11 @@
 > [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
 > ([@coderPatros' wife](https://twitter.com/coderPatros))
 
-OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security
-trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the
+OWASP Juice Shop is probably the most modern and sophisticated insecure web application!This project is a vulnerable application.It can be used in security
+trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the.
 entire
 [OWASP Top Ten](https://owasp.org/www-project-top-ten) along with many other security flaws found in real-world
-applications!
+applications.
 
 ![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
@@ -67,10 +66,10 @@ For a detailed introduction, full list of features and architecture overview ple
 2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
    clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
    of the repository)
-3. Go into the cloned folder with `cd juice-shop`
-4. Run `npm install` (only has to be done before first start or when you change the source code)
-5. Run `npm start`
-6. Browse to <http://localhost:3000>
+3. Go into the cloned folder with `cd juice-shop`.
+4. Run `npm install` (only has to be done before first start or when you change the source code).
+5. Run `npm start`.
+6. Browse to <http://localhost:3000>.
 
 ### Packaged Distributions
 
@@ -103,7 +102,7 @@ For a detailed introduction, full list of features and architecture overview ple
 2. Run `docker pull bkimminich/juice-shop`
 3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
 4. Browse to <http://localhost:3000> (on macOS and Windows browse to
-   <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
+   <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation).
 
 ### Vagrant
 
@@ -122,7 +121,7 @@ Feel free to have a look at the latest version of OWASP Juice Shop:
 
 > This is a deployment-test and sneak-peek instance only! You are __not
 > supposed__ to use this instance for your own hacking endeavours! No
-> guaranteed uptime! Guaranteed stern looks if you break it!
+> guaranteed uptime! Guaranteed stern looks if you break it .
 
 ## Documentation
 
@@ -148,7 +147,7 @@ offered accordingly.
 
 Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
 There is no guarantee that older minor node.js releases will always work with Juice Shop!
-Please make sure you stay up to date with your chosen version.
+Please make sure you stay up to date with your chosen version.This project is a vulnerable application designed for learning web security concepts such as XSS, SQL Injection, and authentication flaws.
 
 ### Troubleshooting
 
@@ -208,15 +207,15 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
   OWASP Juice Shop logo
 * On
   [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
-  you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print
+  you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print.
   magnets, iron-ons, sticker sheets and temporary tattoos.
 
 ## Donations
 
 [![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
 
-The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
-for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
+The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursementIt helps developers and security enthusiasts understand real-world vulnerabilities in a safe environment.
+for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to.
 tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
 about donations and how they are used here:
 
@@ -239,5 +238,5 @@ For a list of all contributors to the OWASP Juice Shop please visit our
 This program is free software: you can redistribute it and/or modify it under the terms of the [MIT license](LICENSE).
 OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors
 2014-2026.
-
+This project is useful for beginners to understand common web vulnerabilities and how they can be exploited and prevented.
 ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
