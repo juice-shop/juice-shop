@@ -112,7 +112,7 @@ export function chat () {
           id: z.string().describe('The product ID to get reviews for')
         }),
         execute: async ({ id }) => {
-          const productId = utils.trunc(id, 40)
+          const productId = Number(id)
           return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
         }
       }),
