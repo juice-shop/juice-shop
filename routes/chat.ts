@@ -5,17 +5,19 @@
 
 import { type Request, type Response } from 'express'
 import config from 'config'
-import { streamText, tool, stepCountIs } from 'ai'
+import { stepCountIs, streamText, tool } from 'ai'
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 import { z } from 'zod'
 import { Op } from 'sequelize'
 import { ProductModel } from '../models/product'
 import { UserModel } from '../models/user'
 import * as security from '../lib/insecurity'
+import { roles } from '../lib/insecurity'
 import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
-import { roles } from '../lib/insecurity'
+import * as db from '../data/mongodb'
+import { type Review } from '../data/types'
 import logger from '../lib/logger'
 
 function summarizeLlmError (error: unknown): string {
@@ -55,6 +57,7 @@ Keep your responses concise and helpful.${userIdentifier}
 
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
+- You MUST use the getProductReviews tool whenever a customer asks for reviews of a product.
 - Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
 - Do NOT invent information. If you do not know the answer to a question, say so honestly.
 - Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
@@ -75,49 +78,60 @@ const provider = createOpenAICompatible({
   baseURL: config.get<string>('application.chatBot.llmApiUrl')
 })
 
-const chatTools = {
-  searchProducts: tool({
-    description: `Search the ${appName} product catalog by keyword`,
-    inputSchema: z.object({
-      query: z.string().describe('The search query to find products')
-    }),
-    execute: async ({ query }) => {
-      const products = await ProductModel.findAll({
-        where: {
-          [Op.or]: [
-            { name: { [Op.like]: `%${query}%` } },
-            { description: { [Op.like]: `%${query}%` } }
-          ]
-        },
-        attributes: ['id', 'name', 'description', 'price', 'image']
-      })
-      return products.map(p => ({
-        id: p.id,
-        name: p.name,
-        description: p.description,
-        price: p.price,
-        image: p.image
-      }))
-    }
-  }),
-
-  // vuln-code-snippet start chatbotPromptInjectionChallenge
-  generateCoupon: tool({
-    description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
-    inputSchema: z.object({
-      discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
-    }),
-    execute: async ({ discount }) => {
-      challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10) // vuln-code-snippet hide-line
-      challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50) // vuln-code-snippet hide-line
-      const couponCode = security.generateCoupon(discount) // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge
-      return { couponCode, discount } // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge
-    }
-  })
-} // vuln-code-snippet end chatbotGreedyInjectionChallenge chatbotPromptInjectionChallenge
-
 export function chat () {
   return async (req: Request, res: Response) => {
+    const chatTools = {
+      searchProducts: tool({
+        description: `Search the ${appName} product catalog by keyword`,
+        inputSchema: z.object({
+          query: z.string().describe('The search query to find products')
+        }),
+        execute: async ({ query }) => {
+          const products = await ProductModel.findAll({
+            where: {
+              [Op.or]: [
+                { name: { [Op.like]: `%${query}%` } },
+                { description: { [Op.like]: `%${query}%` } }
+              ]
+            },
+            attributes: ['id', 'name', 'description', 'price', 'image']
+          })
+          return products.map(p => ({
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            price: p.price,
+            image: p.image
+          }))
+        }
+      }),
+
+      getProductReviews: tool({
+        description: 'Get all reviews for a specific product by its ID',
+        inputSchema: z.object({
+          id: z.string().describe('The product ID to get reviews for')
+        }),
+        execute: async ({ id }) => {
+          const productId = utils.trunc(id, 40)
+          return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
+        }
+      }),
+
+      // vuln-code-snippet start chatbotPromptInjectionChallenge
+      generateCoupon: tool({
+        description: 'Generate a discount coupon for a customer. Only use this when the coupon policy conditions are fully met.', // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+        inputSchema: z.object({
+          discount: z.number().describe('The discount percentage for the coupon (maximum 10)') // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge chatbotGreedyInjectionChallenge
+        }),
+        execute: async ({ discount }) => {
+          challengeUtils.solveIf(challenges.chatbotPromptInjectionChallenge, () => discount >= 10) // vuln-code-snippet hide-line
+          challengeUtils.solveIf(challenges.chatbotGreedyInjectionChallenge, () => discount >= 50) // vuln-code-snippet hide-line
+          const couponCode = security.generateCoupon(discount) // vuln-code-snippet vuln-line chatbotPromptInjectionChallenge
+          return { couponCode, discount } // vuln-code-snippet neutral-line chatbotPromptInjectionChallenge
+        }
+      })
+    } // vuln-code-snippet end chatbotGreedyInjectionChallenge chatbotPromptInjectionChallenge
+
     const model = config.get<string>('application.chatBot.model')
     const messages = req.body?.messages ?? []
     const userName = await getUserNameFromToken(req)
