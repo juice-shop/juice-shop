@@ -106,7 +106,10 @@
           "options": {
             "tsConfig": "src/tsconfig.spec.json",
             "setupFiles": ["src/test-setup.ts"],
-            "watch": false
+            "watch": false,
+            "coverage": true,
+            "coverageReporters": ["lcovonly"],
+            "coverageExclude": ["src/hacking-instructor/**/*.ts"]
           }
         },
         "lint": {
