@@ -157,6 +157,12 @@
   }
 }
 
+mat-toolbar,
+.mat-mdc-dialog-container .mdc-dialog__surface,
+.mat-mdc-card {
+  background-color: transparent !important;
+}
+
 @mixin google-button($theme) {
   .google-button {
     background-color: mat.get-theme-color($theme, tertiary, 30) !important;
