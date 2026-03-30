@@ -4,7 +4,6 @@
  */
 @use '@angular/material' as mat;
 
-@use 'sass:map';
 @use 'sass:color';
 
 @use './styles/theme' as *;
@@ -15,7 +14,7 @@
 @mixin link-theme($theme) {
   a:link,
   a:visited {
-    color: mat.m2-get-color-from-palette(map.get($theme, accent), lighter);
+    color: mat.get-theme-color($theme, tertiary);
     text-decoration: none;
   }
 
@@ -32,29 +31,29 @@
 
 @mixin deluxe-membership-theme($theme) {
   .deluxe-membership {
-    background: linear-gradient(90deg, mat.m2-get-color-from-palette(map.get($theme, primary), 1) 0%, mat.m2-get-color-from-palette(map.get($theme, background), card) 100%);
+    background: linear-gradient(90deg, mat.get-theme-color($theme, primary, 10) 0%, mat.get-theme-color($theme, surface-container) 100%);
   }
 }
 
 @mixin notification-theme($theme) {
   .confirmation {
-    color: mat.m2-get-color-from-palette(map.get($theme, accent));
+    color: mat.get-theme-color($theme, tertiary);
   }
 
   .error {
-    color: mat.m2-get-color-from-palette(map.get($theme, warn));
+    color: mat.get-theme-color($theme, error);
   }
 
   .primary-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, primary), darker);
+    background-color: mat.get-theme-color($theme, primary, 30);
   }
 
   .accent-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, accent), darker);
+    background-color: mat.get-theme-color($theme, tertiary, 30);
   }
 
   .warn-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, warn), darker);
+    background-color: mat.get-theme-color($theme, error, 30);
   }
 }
 
@@ -66,75 +65,77 @@
 
 @mixin score-star-theme($theme) {
   .empty-star {
-    stop-color: mat.m2-get-color-from-palette(map.get($theme, primary));
+    stop-color: mat.get-theme-color($theme, primary);
   }
 
   .filled-star {
-    stop-color: mat.m2-get-color-from-palette(map.get($theme, accent));
+    stop-color: mat.get-theme-color($theme, tertiary);
   }
 
   .star-border {
-    stroke: mat.m2-get-color-from-palette(map.get($theme, accent));
+    stroke: mat.get-theme-color($theme, tertiary);
   }
 }
 
 // sets css variables to be used across components during runtime
 @mixin css-vars($theme) {
-  --theme-primary: #{mat.m2-get-color-from-palette(map.get($theme, primary))};
-  --theme-primary-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: 6%)};
-  --theme-primary-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: 10%)};
-  --theme-primary-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: -6%)};
-  --theme-primary-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: -10%)};
-  --theme-primary-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.1)};
-  --theme-primary-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.2)};
-  --theme-primary-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.3)};
-  --theme-primary-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.4)};
-  --theme-primary-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.5)};
+  $primary-base: mat.get-theme-color($theme, primary, 60);
+  --theme-primary: #{$primary-base};
+  --theme-primary-lighter: #{color.adjust($primary-base, $lightness: 6%)};
+  --theme-primary-light: #{color.adjust($primary-base, $lightness: 10%)};
+  --theme-primary-darker: #{color.adjust($primary-base, $lightness: -6%)};
+  --theme-primary-dark: #{color.adjust($primary-base, $lightness: -10%)};
+  --theme-primary-fade-10: #{color.adjust($primary-base, $alpha: 0.1)};
+  --theme-primary-fade-20: #{color.adjust($primary-base, $alpha: 0.2)};
+  --theme-primary-fade-30: #{color.adjust($primary-base, $alpha: 0.3)};
+  --theme-primary-fade-40: #{color.adjust($primary-base, $alpha: 0.4)};
+  --theme-primary-fade-50: #{color.adjust($primary-base, $alpha: 0.5)};
 
-  --theme-accent: #{mat.m2-get-color-from-palette(map.get($theme, accent))};
-  --theme-accent-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: 6%)};
-  --theme-accent-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: 10%)};
-  --theme-accent-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: -6%)};
-  --theme-accent-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: -10%)};
-  --theme-accent-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.1)};
-  --theme-accent-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.2)};
-  --theme-accent-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.3)};
-  --theme-accent-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.4)};
-  --theme-accent-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.5)};
+  $accent-base: mat.get-theme-color($theme, tertiary, 60);
+  --theme-accent: #{$accent-base};
+  --theme-accent-lighter: #{color.adjust($accent-base, $lightness: 6%)};
+  --theme-accent-light: #{color.adjust($accent-base, $lightness: 10%)};
+  --theme-accent-darker: #{color.adjust($accent-base, $lightness: -6%)};
+  --theme-accent-dark: #{color.adjust($accent-base, $lightness: -10%)};
+  --theme-accent-fade-10: #{color.adjust($accent-base, $alpha: 0.1)};
+  --theme-accent-fade-20: #{color.adjust($accent-base, $alpha: 0.2)};
+  --theme-accent-fade-30: #{color.adjust($accent-base, $alpha: 0.3)};
+  --theme-accent-fade-40: #{color.adjust($accent-base, $alpha: 0.4)};
+  --theme-accent-fade-50: #{color.adjust($accent-base, $alpha: 0.5)};
 
-  --theme-warn: #{mat.m2-get-color-from-palette(map.get($theme, warn))};
-  --theme-warn-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: 6%)};
-  --theme-warn-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: 10%)};
-  --theme-warn-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: -6%)};
-  --theme-warn-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: -10%)};
-  --theme-warn-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.1)};
-  --theme-warn-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.2)};
-  --theme-warn-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.3)};
-  --theme-warn-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.4)};
-  --theme-warn-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.5)};
+  --theme-warn: #{mat.get-theme-color($theme, error)};
+  --theme-warn-lighter: #{color.adjust(mat.get-theme-color($theme, error), $lightness: 6%)};
+  --theme-warn-light: #{color.adjust(mat.get-theme-color($theme, error), $lightness: 10%)};
+  --theme-warn-darker: #{color.adjust(mat.get-theme-color($theme, error), $lightness: -6%)};
+  --theme-warn-dark: #{color.adjust(mat.get-theme-color($theme, error), $lightness: -10%)};
+  --theme-warn-fade-10: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.1)};
+  --theme-warn-fade-20: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.2)};
+  --theme-warn-fade-30: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.3)};
+  --theme-warn-fade-40: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.4)};
+  --theme-warn-fade-50: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.5)};
 
-  --theme-text: #{mat.m2-get-color-from-palette(map.get($theme, foreground), text)};
-  --theme-text-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: 6%)};
-  --theme-text-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: 10%)};
-  --theme-text-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: -10%)};
-  --theme-text-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: -25%)};
-  --theme-text-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.1)};
-  --theme-text-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.2)};
-  --theme-text-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.3)};
-  --theme-text-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.4)};
-  --theme-text-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.5)};
+  --theme-text: #{mat.get-theme-color($theme, on-surface)};
+  --theme-text-lighter: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: 6%)};
+  --theme-text-light: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: 10%)};
+  --theme-text-darker: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: -10%)};
+  --theme-text-dark: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: -25%)};
+  --theme-text-fade-10: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.1)};
+  --theme-text-fade-20: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.2)};
+  --theme-text-fade-30: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.3)};
+  --theme-text-fade-40: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.4)};
+  --theme-text-fade-50: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.5)};
 
-  --theme-text-invert-15: #{color.invert(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), 15%)};
-  --theme-text-invert-30: #{color.invert(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), 30%)};
+  --theme-text-invert-15: #{color.invert(mat.get-theme-color($theme, on-surface), 15%)};
+  --theme-text-invert-30: #{color.invert(mat.get-theme-color($theme, on-surface), 30%)};
 
-  --theme-background: #{mat.m2-get-color-from-palette(map.get($theme, background), card)};
-  --theme-background-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: 6%)};
-  --theme-background-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: 10%)};
-  --theme-background-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -6%)};
-  --theme-background-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -10%)};
-  --theme-background-darkest: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -14%)};
+  --theme-background: #{mat.get-theme-color($theme, surface-container)};
+  --theme-background-lighter: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: 6%)};
+  --theme-background-light: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: 10%)};
+  --theme-background-darker: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -6%)};
+  --theme-background-dark: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -10%)};
+  --theme-background-darkest: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -14%)};
 
-  --theme-thumbnail-border: 1px solid #{mat.m2-get-color-from-palette(map.get($theme, primary))};
+  --theme-thumbnail-border: 1px solid #{mat.get-theme-color($theme, primary)};
 
   // make background of search field transparent
   --mdc-filled-text-field-container-color: #0000;
@@ -158,13 +159,13 @@
 
 @mixin google-button($theme) {
   .google-button {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, accent), darker) !important;
+    background-color: mat.get-theme-color($theme, tertiary, 30) !important;
   }
 }
 
 @mixin overlay-theme($theme) {
   .overlay {
-    background: mat.m2-get-color-from-palette(map.get($theme, primary), darker, 0.7);
+    background: color.adjust(mat.get-theme-color($theme, primary, 30), $alpha: -0.3);
   }
 }
 

@@ -5,59 +5,59 @@
 
 export const themes = {
   'bluegrey-lightgreen': {
-    bgColor: '#303030',
-    textColor: '#FFFFFF',
-    navColor: '#546E7A',
-    primLight: '#424242',
-    primDark: '#263238'
+    bgColor: '#191e20',
+    textColor: '#ecf2f3',
+    navColor: '#607d8b',
+    primLight: '#90a4ae',
+    primDark: '#455a64'
   },
   'blue-lightblue': {
-    bgColor: '#FAFAFA',
-    textColor: '#000000',
-    navColor: '#1976D2',
-    primLight: '#29B6F6',
-    primDark: '#0277BD'
+    bgColor: '#fcf8fd',
+    textColor: '#1b1b1f',
+    navColor: '#7c84ff',
+    primLight: '#7c84ff',
+    primDark: '#4955ff'
   },
   'deeppurple-amber': {
-    bgColor: '#FAFAFA',
-    textColor: '#000000',
-    navColor: '#673AB7',
-    primLight: '#9575CD',
-    primDark: '#512DA8'
+    bgColor: '#fef8fc',
+    textColor: '#1d1b1e',
+    navColor: '#a974ff',
+    primLight: '#a974ff',
+    primDark: '#8941ff'
   },
   'indigo-pink': {
-    bgColor: '#FAFAFA',
-    textColor: '#000000',
-    navColor: '#3F51B5',
-    primLight: '#7986CB',
-    primDark: '#303F9F'
+    bgColor: '#faf9fd',
+    textColor: '#1a1b1f',
+    navColor: '#438fff',
+    primLight: '#438fff',
+    primDark: '#1071ff'
   },
   'pink-bluegrey': {
-    bgColor: '#303030',
-    textColor: '#FFFFFF',
-    navColor: '#C2185B',
-    primLight: '#E91E63',
-    primDark: '#880E4F'
+    bgColor: '#171213',
+    textColor: '#ece0e1',
+    navColor: '#ff4a8e',
+    primLight: '#ff4a8e',
+    primDark: '#ff176e'
   },
   'purple-green': {
-    bgColor: '#303030',
-    textColor: '#FFFFFF',
-    navColor: '#7B1FA2',
-    primLight: '#9C27B0',
-    primDark: '#4A148C'
+    bgColor: '#151316',
+    textColor: '#e6e1e6',
+    navColor: '#a974ff',
+    primLight: '#a974ff',
+    primDark: '#8941ff'
   },
   'deeporange-indigo': {
-    bgColor: '#FAFAFA',
-    textColor: '#000000',
-    navColor: '#E64A19',
-    primLight: '#FF5722',
-    primDark: '#BF360C'
+    bgColor: '#fff8f5',
+    textColor: '#201a17',
+    navColor: '#e37100',
+    primLight: '#e37100',
+    primDark: '#b05800'
   },
   'lime-green': {
-    bgColor: '#303030',
-    textColor: '#000000',
-    navColor: '#cddc39',
-    primLight: '#ddee48',
-    primDark: '#97a621'
+    bgColor: '#121410',
+    textColor: '#e3e3dc',
+    navColor: '#50a400',
+    primLight: '#50a400',
+    primDark: '#377100'
   }
 } as const
