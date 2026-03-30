@@ -89,7 +89,7 @@ jobs:
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: cd frontend && npm run test -- --coverage
+          command: cd frontend && npm run test
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -100,7 +100,7 @@ jobs:
       - name: "Copy unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         run: |
-          cp build/reports/coverage/frontend-tests/lcov.info frontend-lcov.info
+          cp frontend/coverage/frontend/lcov.info frontend-lcov.info
           cp build/reports/coverage/server-tests/lcov.info server-lcov.info
           sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
         shell: bash
