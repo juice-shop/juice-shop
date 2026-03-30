@@ -83,13 +83,20 @@ jobs:
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         run: npm install
-      - name: "Execute unit tests"
+      - name: "Execute frontend unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         with:
-          timeout_minutes: 15
+          timeout_minutes: 10
           max_attempts: 3
-          command: npm test
+          command: cd frontend && npm run test -- --coverage
+      - name: "Execute server unit tests"
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
+        uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          command: npm run test:server
       - name: "Copy unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         run: |
