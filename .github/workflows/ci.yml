@@ -86,12 +86,16 @@ jobs:
       - name: "Execute frontend unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
-        env:
-          NODE_OPTIONS: ${{ matrix.node-version >= 25 && '--max_old_space_size=4096 --no-webstorage' || '--max_old_space_size=4096' }}
         with:
+          shell: bash
           timeout_minutes: 10
           max_attempts: 3
-          command: cd frontend && npm run test
+          command: |
+            NODE_MAJOR=$(node -p 'process.versions.node.split(".")[0]')
+            if [ "$NODE_MAJOR" -ge 25 ]; then
+              export NODE_OPTIONS="$NODE_OPTIONS --no-webstorage"
+            fi
+            npm test
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
