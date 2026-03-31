@@ -206,6 +206,107 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 .bluegrey-lightgreen-theme {
   @include custom-components-theme($bluegrey-lightgreen-theme);
   @include css-vars($bluegrey-lightgreen-theme);
+
+  // --- Target Theme Overrides ---
+
+  // Overriding project-specific background/surface variables
+  --theme-background: #3e3e3e;
+  --theme-background-lighter: #4a4a4a;
+  --theme-background-light: #5a5a5a;
+  --theme-background-darker: #333638;
+  --theme-background-dark: #303030;
+  --theme-background-darkest: #2b2b2b;
+
+  // Overriding project-specific text variables
+  --theme-text: #e8ecef;
+  --theme-text-lighter: #f2f5f7;
+  --theme-text-light: #fff;
+  --theme-text-darker: #b8c0c7;
+  --theme-text-dark: #7f8a93;
+
+  // Explicit Material M3 System tokens (ensures charcoal grey canvas)
+  --mat-sys-surface: #333638;
+  --mat-sys-on-surface: #e8ecef;
+  --mat-sys-surface-container: #3e3e3e;
+  --mat-sys-surface-container-high: #404244;
+  --mat-sys-on-surface-variant: #b8c0c7;
+  --mat-sys-outline: #5a5a5a;
+  --mat-sys-outline-variant: #404244;
+
+  // Component-specific alignment
+
+  // Top app bar / Toolbar (mat-toolbar)
+  .mat-mdc-toolbar,
+  mat-toolbar {
+    --mat-toolbar-container-background-color: #4f6f7a;
+    --mat-toolbar-container-text-color: #f2f5f7;
+    color: var(--mat-toolbar-container-text-color);
+  }
+
+  // Cards / Tiles / Panels
+  .mat-mdc-card,
+  .mat-expansion-panel {
+    --mdc-elevated-card-container-color: #3e3e3e;
+    background-color: var(--mdc-elevated-card-container-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  // Dialogs
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    --mdc-dialog-container-color: #3f3f3f;
+    background-color: var(--mdc-dialog-container-color);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  // Form Fields
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: #4a4a4a;
+    --mdc-outlined-text-field-container-color: #4a4a4a;
+    --mat-form-field-focus-outline-color: #4f6f7a;
+  }
+
+  .mat-mdc-form-field-hint,
+  .mat-mdc-form-field-counter {
+    color: #b8c0c7;
+  }
+
+  // Chips (mat-chip, MDC chips)
+  .mat-mdc-standard-chip,
+  .mat-mdc-chip,
+  .suggestion-chip {
+    --mdc-chip-elevated-container-color: #4a626e;
+    --mdc-chip-label-text-color: #e8ecef;
+    background-color: var(--mdc-chip-elevated-container-color) !important;
+    color: var(--mdc-chip-label-text-color) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mat-mdc-chip-selected,
+  .mat-mdc-chip-highlighted {
+    --mdc-chip-elevated-container-color: #81a823;
+  }
+
+  // Buttons
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-container-color: #516b77;
+    background-color: var(--mdc-filled-button-container-color);
+  }
+
+  .mat-mdc-button:disabled,
+  .mat-mdc-raised-button:disabled,
+  .mat-mdc-unelevated-button:disabled {
+    --mdc-filled-button-disabled-container-color: #5a5a5a;
+    color: #7f8a93 !important;
+  }
+
+  // Slide toggles
+  .mat-mdc-slide-toggle {
+    --mat-slide-toggle-selected-handle-color: #4f6f7a;
+    --mat-slide-toggle-selected-track-color: rgba(79, 111, 122, 0.54);
+    --mat-slide-toggle-unselected-handle-color: #7f8a93;
+    --mat-slide-toggle-unselected-track-color: #4a4a4a;
+  }
 }
 
 .blue-lightblue-theme {
@@ -221,26 +322,6 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 .lime-green-theme {
   @include custom-components-theme($lime-green-theme);
   @include css-vars($lime-green-theme);
-}
-
-.neon-cyberpunk-theme {
-  --glow-color: rgba(255, 45, 85, 0.6);
-  @include custom-components-theme($neon-cyberpunk-theme);
-  @include css-vars($neon-cyberpunk-theme);
-  font-family: 'VT323', 'Courier New', Courier, monospace !important;
-
-  *:not(mat-icon):not(.mat-icon):not(.material-icons):not(.fa):not(.fab):not(.far):not(.fas):not(.fi) {
-    font-family: 'VT323', 'Courier New', Courier, monospace !important;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    text-shadow: 0 0 5px var(--glow-color);
-  }
 }
 
 .close-dialog {

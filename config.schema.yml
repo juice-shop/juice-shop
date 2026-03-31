@@ -16,7 +16,7 @@ application:
     type: string
   theme:
     type: string
-    enum: ['deeppurple-amber', 'indigo-pink', 'pink-bluegrey', 'purple-green', 'blue-lightblue', 'bluegrey-lightgreen', 'deeporange-indigo', 'lime-green', 'neon-cyberpunk']
+    enum: ['deeppurple-amber', 'indigo-pink', 'pink-bluegrey', 'purple-green', 'blue-lightblue', 'bluegrey-lightgreen', 'deeporange-indigo', 'lime-green']
   showVersionNumber:
     type: boolean
   showGitHubLinks:

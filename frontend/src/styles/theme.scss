@@ -85,8 +85,8 @@ $blue-lightblue-theme: mat.define-theme($blue-lightblue-config);
 $bluegrey-lightgreen-config: (
   color: (
     theme-type: dark,
-    primary: mat.$blue-palette,
-    tertiary: mat.$green-palette,
+    primary: mat.$azure-palette,
+    tertiary: mat.$chartreuse-palette,
   )
 );
 $bluegrey-lightgreen-theme: mat.define-theme($bluegrey-lightgreen-config);
@@ -125,21 +125,6 @@ $lime-green-theme: mat.define-theme($lime-green-config);
   @include mat.theme($lime-green-config);
   color: var(--mat-sys-on-surface);
   background-color: var(--mat-sys-surface);
-}
-
-$neon-cyberpunk-config: (
-  color: (
-    theme-type: dark,
-    primary: mat.$rose-palette,
-    tertiary: mat.$yellow-palette,
-  )
-);
-$neon-cyberpunk-theme: mat.define-theme($neon-cyberpunk-config);
-
-.neon-cyberpunk-theme {
-  @include mat.theme($neon-cyberpunk-config);
-  color: var(--mat-sys-on-surface);
-  background-color: #000;
 }
 
 html {
