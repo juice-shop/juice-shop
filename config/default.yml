@@ -7,7 +7,7 @@ application:
   name: 'OWASP Juice Shop'
   logo: JuiceShop_Logo.png
   favicon: favicon_js.ico
-  theme: indigo-pink # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo lime-green
+  theme: bluegrey-lightgreen # Options: bluegrey-lightgreen blue-lightblue deeppurple-amber indigo-pink pink-bluegrey purple-green deeporange-indigo lime-green
   showVersionNumber: true
   showGitHubLinks: true
   localBackupEnabled: true
