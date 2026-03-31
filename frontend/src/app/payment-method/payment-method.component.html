@@ -48,7 +48,7 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div>
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_NAME</mat-label>
           <input [formControl]="nameControl" type="text" matInput>
           @if (nameControl.invalid && nameControl.errors.required) {
@@ -57,7 +57,7 @@
             </mat-error>
           }
         </mat-form-field>
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_CARD_NUMBER</mat-label>
           <input #cardIn [formControl]="numberControl" type="number" matInput>
           <mat-hint align="end">{{cardIn .value?.length || 0}}/16</mat-hint>
@@ -72,7 +72,7 @@
             </mat-error>
           }
         </mat-form-field>
-        <mat-form-field class="half-field" appearance="outline" color="accent">
+        <mat-form-field class="half-field" appearance="outline" color="tertiary">
           <mat-label translate>LABEL_EXPIRY_MONTH</mat-label>
           <select matNativeControl [formControl]="monthControl" required>
             @for (month of monthRange; track month) {
@@ -85,7 +85,7 @@
             </mat-error>
           }
         </mat-form-field>
-        <mat-form-field class="half-field" appearance="outline" color="accent">
+        <mat-form-field class="half-field" appearance="outline" color="tertiary">
           <mat-label translate>LABEL_EXPIRY_YEAR</mat-label>
           <select matNativeControl [formControl]="yearControl" required>
             @for (year of yearRange; track year) {

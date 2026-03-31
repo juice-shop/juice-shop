@@ -7,7 +7,7 @@
     <div class="sandbox-container_body_right">
       <div class="playground-wallet">
         <div class="metamask-button">
-          <button mat-raised-button color="accent" type="button" (click)="handleAuth()">
+          <button mat-raised-button color="tertiary" type="button" (click)="handleAuth()">
             @if (session) {
             <span>{{ userData.address.substring(0, 6) }}...{{ userData.address.slice(-6) }}</span>
             } @else {
@@ -21,7 +21,7 @@
         <li translate>EXPLANATION_SMART_CONTRACT_DEPLOYMENT</li>
         <li translate>EXPLANATION_GWEI_VALUE_POST_COMPILATION</li>
       </ul>
-      <mat-form-field appearance="outline" color="accent">
+      <mat-form-field appearance="outline" color="tertiary">
         <mat-label>{{ "LABEL_SELECT_COMPILER_VERSION" | translate}}</mat-label>
         <select matNativeControl [(ngModel)]="selectedCompilerVersion">
           @for (version of compilerVersions; track version) {
@@ -51,7 +51,7 @@
       <div>
         <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
         <div class="form-fields-container">
-          <mat-form-field class="contract-selector" appearance="outline" color="accent">
+          <mat-form-field class="contract-selector" appearance="outline" color="tertiary">
             <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
             <select matNativeControl [(ngModel)]="selectedContractName">
               @for (contractName of contractNames; track contractName) {
@@ -61,7 +61,7 @@
               }
             </select>
           </mat-form-field>
-          <mat-form-field class="gwei-input" appearance="outline" color="accent">
+          <mat-form-field class="gwei-input" appearance="outline" color="tertiary">
             <mat-label>{{ "GWEI_VALUE_FOR_SENDING_ETH" | translate }}</mat-label>
             <input matInput type="number" [(ngModel)]="commonGweiValue" />
           </mat-form-field>
@@ -89,7 +89,7 @@
                 <mat-icon>call_to_action</mat-icon>
                 {{ "BTN_INVOKE" | translate: {name: func.name} }}
               </button>
-              <mat-form-field appearance="outline" color="accent">
+              <mat-form-field appearance="outline" color="tertiary">
                 <textarea matAutosizeMinRows="4" matAutosizeMaxRows="4" matTextareaAutosize matInput
                   placeholder="({{ func.inputHints }})" [(ngModel)]="func.inputValues"></textarea>
               </mat-form-field>

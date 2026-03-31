@@ -14,7 +14,7 @@
 <ng-content />
 <div class="action-row">
     <ng-content select="[notification]" />
-    <button mat-flat-button color="accent" (click)="submitClicked.emit()" [disabled]="submitDisabled()"
+    <button mat-flat-button color="tertiary" (click)="submitClicked.emit()" [disabled]="submitDisabled()"
         [class.shake]="shaking()" (animationend)="shakingDone.emit()">
         <ng-content select="[button-label]" />
         <mat-icon [class.result-icon-wrong]="result() === ResultState.Wrong">{{ resultIcon() }}</mat-icon>

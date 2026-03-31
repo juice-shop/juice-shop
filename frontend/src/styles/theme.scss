@@ -4,6 +4,7 @@
  */
 @use '@angular/material' as mat;
 
+@include mat.core();
 @include mat.elevation-classes();
 
 // Raw configs for mat.theme() (emits system-level CSS variables + component tokens)

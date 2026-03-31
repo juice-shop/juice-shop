@@ -3,18 +3,18 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-card class="mat-elevation-z6 mat-own-card recycle-container">
+<mat-card appearance="outlined" class="mat-elevation-z6 mat-own-card recycle-container">
   <!-- left -->
   <div class="left-container flex-50">
     <h1>{{"TITLE_RECYCLE" | translate}}</h1>
 
     <div class="form-container" id="recycle-form">
-      <mat-form-field appearance="outline" color="accent">
+      <mat-form-field appearance="outline" color="tertiary">
         <mat-label>{{"LABEL_REQUESTOR" | translate}}</mat-label>
         <input [formControl]="requestorControl" type="text" matInput>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" color="accent">
+      <mat-form-field appearance="outline" color="tertiary">
         <mat-label>{{"LABEL_QUANTITY" | translate}}</mat-label>
         <input [formControl]="recycleQuantityControl" type="number" [placeholder]="'IN_LITERS_PLACEHOLDER' | translate" matInput>
         @if (recycleQuantityControl.invalid && recycleQuantityControl.errors.required) {
@@ -60,7 +60,7 @@
     <div class="right-inner">
       <h3 class="responsibility-header">{{"SECTION_PRESS_JUICE_RESPONSIBLY" | translate}}</h3>
 
-      <mat-card class="mat-elevation-z0 card-row">
+      <mat-card appearance="outlined" class="mat-elevation-z0 card-row">
         <img mat-card-image [src]="topImage">
         <mat-card-content>
           <div>
@@ -72,7 +72,7 @@
         </mat-card-content>
       </mat-card>
 
-      <mat-card class="mat-elevation-z0 card-row">
+      <mat-card appearance="outlined" class="mat-elevation-z0 card-row">
         <img mat-card-image [src]="bottomImage">
         <mat-card-content>
           <div>

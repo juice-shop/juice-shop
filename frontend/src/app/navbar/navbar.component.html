@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-toolbar class="mat-elevation-z6 navbar-toolbar">
+<mat-toolbar color="primary" class="mat-elevation-z6 navbar-toolbar">
 
   <mat-toolbar-row class="navbar-row">
 
@@ -135,7 +135,7 @@
           [checked]="selectedLanguage === language"
           [aria-label]="language.lang"
           >
-          <div class="mat-body language-option-content">
+          <div class="mat-body-large language-option-content">
             @for (icon of language.icons; track icon) {
               <span [class]="'fi fi-' + icon"></span>
             }

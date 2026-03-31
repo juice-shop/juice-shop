@@ -7,14 +7,14 @@
       </div>
       <p>{{"BEE_HAVEN_INTRO" | translate}}</p>
       <div class="faucet-balance">
-        <span color="accent">
+        <span color="tertiary">
           {{'FAUCET_BALANCE' | translate}}: {{ BEEBalance }} | {{'BEE_BALANCE' | translate}}:
           {{ myBEEBalance }}
         </span>
         <div class="metamask-button">
           <button
             mat-raised-button
-            color="accent"
+            color="tertiary"
             type="button"
             (click)="handleAuth()"
             >
@@ -34,7 +34,7 @@
 
       <div class="withdraw-container">
         <div>
-          <mat-form-field class="full-width-field" color="accent" appearance="outline">
+          <mat-form-field class="full-width-field" color="tertiary" appearance="outline">
             <mat-label>{{"LABEL_NUMBER_OF_BEES" | translate}}</mat-label>
             <input
               matInput
@@ -72,7 +72,7 @@
       <button 
         class="mint_button"
         mat-raised-button
-        color="warn"
+        color="error"
         [disabled]="mintButtonDisabled"
         (click)="mintNFT()"
       >
