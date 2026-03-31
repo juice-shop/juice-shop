@@ -223,6 +223,26 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   @include css-vars($lime-green-theme);
 }
 
+.neon-cyberpunk-theme {
+  --glow-color: rgba(255, 45, 85, 0.6);
+  @include custom-components-theme($neon-cyberpunk-theme);
+  @include css-vars($neon-cyberpunk-theme);
+  font-family: 'VT323', 'Courier New', Courier, monospace !important;
+
+  *:not(mat-icon):not(.mat-icon):not(.material-icons):not(.fa):not(.fab):not(.far):not(.fas):not(.fi) {
+    font-family: 'VT323', 'Courier New', Courier, monospace !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-shadow: 0 0 5px var(--glow-color);
+  }
+}
+
 .close-dialog {
   float: right;
   width: fit-content;
