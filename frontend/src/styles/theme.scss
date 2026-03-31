@@ -7,9 +7,6 @@
 @include mat.core();
 @include mat.elevation-classes();
 
-// Raw configs for mat.theme() (emits system-level CSS variables + component tokens)
-// Theme objects from mat.define-theme() for mat.get-theme-color() in styles.scss
-
 $deeppurple-amber-config: (
   color: (
     theme-type: light,
@@ -19,11 +16,10 @@ $deeppurple-amber-config: (
 );
 $deeppurple-amber-theme: mat.define-theme($deeppurple-amber-config);
 
-html {
+.deeppurple-amber-theme {
   @include mat.theme($deeppurple-amber-config);
   color: var(--mat-sys-on-surface);
   background-color: var(--mat-sys-surface);
-  font-family: var(--mat-sys-body-medium-font, Roboto, 'Helvetica Neue', sans-serif);
 }
 
 $indigo-pink-config: (
@@ -129,4 +125,8 @@ $lime-green-theme: mat.define-theme($lime-green-config);
   @include mat.theme($lime-green-config);
   color: var(--mat-sys-on-surface);
   background-color: var(--mat-sys-surface);
+}
+
+html {
+  font-family: var(--mat-sys-body-medium-font, Roboto, 'Helvetica Neue', sans-serif);
 }
