@@ -11,7 +11,7 @@ describe('/#/privacy-security/data-export', () => {
       cy.get('#passwordControl').focus().type('admun123')
       cy.get('#repeatPasswordControl').focus().type('admun123')
 
-      cy.get('mat-select[name="securityQuestion"]').focus().click()
+      cy.get('mat-select[name="securityQuestion"]').focus().click({ force: true })
       cy.get('.mat-mdc-option')
         .contains('Your eldest siblings middle name?')
         .click()
