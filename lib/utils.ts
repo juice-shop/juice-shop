@@ -8,7 +8,6 @@ import packageJson from '../package.json'
 import fs from 'node:fs'
 import logger from './logger'
 import config from 'config'
-import jsSHA from 'jssha'
 import download from 'download'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
@@ -87,10 +86,7 @@ const getCtfKey = () => {
   return cachedCtfKey
 }
 export const ctfFlag = (text: string) => {
-  const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
-  shaObj.setHMACKey(getCtfKey(), 'TEXT')
-  shaObj.update(text)
-  return shaObj.getHMAC('HEX')
+  return crypto.createHmac('sha1', getCtfKey()).update(text).digest('hex')
 }
 
 export const toMMMYY = (date: Date) => {
