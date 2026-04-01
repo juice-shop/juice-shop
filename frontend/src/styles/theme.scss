@@ -127,6 +127,21 @@ $lime-green-theme: mat.define-theme($lime-green-config);
   background-color: var(--mat-sys-surface);
 }
 
+$neon-fire-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$rose-palette,
+    tertiary: mat.$yellow-palette,
+  )
+);
+$neon-fire-theme: mat.define-theme($neon-fire-config);
+
+.neon-fire-theme {
+  @include mat.theme($neon-fire-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
 html {
   font-family: var(--mat-sys-body-medium-font, Roboto, 'Helvetica Neue', sans-serif);
 }

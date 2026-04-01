@@ -59,5 +59,12 @@ export const themes = {
     navColor: '#cddc39',
     primLight: '#ddee48',
     primDark: '#97a621'
+  },
+  'neon-fire': {
+    bgColor: '#000000',
+    textColor: '#ff2d55',
+    navColor: '#000000',
+    primLight: '#ff2d55',
+    primDark: '#ff2d55'
   }
 } as const

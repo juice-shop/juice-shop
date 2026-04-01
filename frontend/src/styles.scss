@@ -205,27 +205,27 @@
 
   // Overriding project-specific background/surface variables
   --theme-background: #{$prim};
-  --theme-background-lighter: #{color.adjust($prim, $lightness: if(sass($is-dark): 5%; else: -5%))};
-  --theme-background-light: #{color.adjust($prim, $lightness: if(sass($is-dark): 10%; else: -10%))};
+  --theme-background-lighter: #{color.adjust($prim, $lightness: if($is-dark, 5%, -5%))};
+  --theme-background-light: #{color.adjust($prim, $lightness: if($is-dark, 10%, -10%))};
   --theme-background-darker: #{$bg};
-  --theme-background-dark: #{color.adjust($bg, $lightness: if(sass($is-dark): -5%; else: 5%))};
+  --theme-background-dark: #{color.adjust($bg, $lightness: if($is-dark, -5%, 5%))};
   --theme-background-darkest: #{color.adjust($bg, $lightness: -10%)};
 
   // Overriding project-specific text variables
   --theme-text: #{$text};
-  --theme-text-lighter: #{color.adjust($text, $lightness: if(sass($is-text-light): 5%; else: -5%))};
-  --theme-text-light: #{if(sass($is-text-light): #fff; else: #000)};
-  --theme-text-darker: #{color.adjust($text, $lightness: if(sass($is-text-light): -10%; else: 10%))};
-  --theme-text-dark: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+  --theme-text-lighter: #{color.adjust($text, $lightness: if($is-text-light, 5%, -5%))};
+  --theme-text-light: #{if($is-text-light, #fff, #000)};
+  --theme-text-darker: #{color.adjust($text, $lightness: if($is-text-light, -10%, 10%))};
+  --theme-text-dark: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
 
   // Explicit Material M3 System tokens
   --mat-sys-surface: #{$bg};
   --mat-sys-on-surface: #{$text};
   --mat-sys-surface-container: #{$prim};
-  --mat-sys-surface-container-high: #{color.adjust($prim, $lightness: if(sass($is-dark): 2%; else: -2%))};
-  --mat-sys-on-surface-variant: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
-  --mat-sys-outline: #{color.adjust($bg, $lightness: if(sass($is-dark): 20%; else: -20%))};
-  --mat-sys-outline-variant: #{color.adjust($bg, $lightness: if(sass($is-dark): 10%; else: -10%))};
+  --mat-sys-surface-container-high: #{color.adjust($prim, $lightness: if($is-dark, 2%, -2%))};
+  --mat-sys-on-surface-variant: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
+  --mat-sys-outline: #{color.adjust($bg, $lightness: if($is-dark, 20%, -20%))};
+  --mat-sys-outline-variant: #{color.adjust($bg, $lightness: if($is-dark, 10%, -10%))};
 
   // Component-specific alignment
 
@@ -233,12 +233,12 @@
   .mat-mdc-toolbar,
   mat-toolbar {
     --mat-toolbar-container-background-color: #{$nav};
-    --mat-toolbar-container-text-color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
+    --mat-toolbar-container-text-color: #{if(color.channel($nav, 'lightness', $space: hsl) > 60%, #000, #fff)};
     color: var(--mat-toolbar-container-text-color);
   }
 
   // Cards / Tiles / Panels
-  $border-color: if(sass($is-dark): rgba(255, 255, 255, 0.1); else: rgba(0, 0, 0, 0.1));
+  $border-color: if($is-dark, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
 
   .mat-mdc-card,
   .mat-expansion-panel {
@@ -263,14 +263,14 @@
 
   .mat-mdc-form-field-hint,
   .mat-mdc-form-field-counter {
-    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+    color: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
   }
 
   // Chips (mat-chip, MDC chips)
   .mat-mdc-standard-chip,
   .mat-mdc-chip,
   .suggestion-chip {
-    --mdc-chip-elevated-container-color: #{color.adjust($nav, $lightness: if(sass(color.channel($nav, 'lightness', $space: hsl) > 50%): -10%; else: 10%), $saturation: -10%)};
+    --mdc-chip-elevated-container-color: #{color.adjust($nav, $lightness: if(color.channel($nav, 'lightness', $space: hsl) > 50%, -10%, 10%), $saturation: -10%)};
     --mdc-chip-label-text-color: #{$text};
     background-color: var(--mdc-chip-elevated-container-color) !important;
     color: var(--mdc-chip-label-text-color) !important;
@@ -287,21 +287,21 @@
   .mat-mdc-unelevated-button.mat-primary {
     --mdc-filled-button-container-color: #{$nav};
     background-color: var(--mdc-filled-button-container-color);
-    color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
+    color: #{if(color.channel($nav, 'lightness', $space: hsl) > 60%, #000, #fff)};
   }
 
   .mat-mdc-button:disabled,
   .mat-mdc-raised-button:disabled,
   .mat-mdc-unelevated-button:disabled {
-    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if(sass($is-dark): 15%; else: -15%))};
-    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))} !important;
+    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if($is-dark, 15%, -15%))};
+    color: #{color.adjust($text, $lightness: if($is-text-light, -40%, 40%))} !important;
   }
 
   // Slide toggles
   .mat-mdc-slide-toggle {
     --mat-slide-toggle-selected-handle-color: #{$nav};
     --mat-slide-toggle-selected-track-color: #{color.adjust($nav, $alpha: -0.46)};
-    --mat-slide-toggle-unselected-handle-color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))};
+    --mat-slide-toggle-unselected-handle-color: #{color.adjust($text, $lightness: if($is-text-light, -40%, 40%))};
     --mat-slide-toggle-unselected-track-color: #{color.adjust($prim, $lightness: 5%)};
   }
 }
@@ -478,6 +478,179 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   @include custom-components-theme($lime-green-theme);
   @include css-vars($lime-green-theme);
   @include theme-overrides(#cddc39, #303030, #ddee48, #000);
+}
+
+.neon-fire-theme {
+  @include custom-components-theme($neon-fire-theme);
+  @include css-vars($neon-fire-theme);
+
+  // --- Neon Fire Theme Overrides ---
+
+  // Overriding project-specific background/surface variables
+  --theme-background: #000;
+  --theme-background-lighter: #111;
+  --theme-background-light: #222;
+  --theme-background-darker: #000;
+  --theme-background-dark: #000;
+  --theme-background-darkest: #000;
+
+  // Overriding project-specific text variables
+  --theme-text: #ff2d55;
+  --theme-text-lighter: #ff4d6e;
+  --theme-text-light: #ff708a;
+  --theme-text-darker: #e60039;
+  --theme-text-dark: #c03;
+
+  // Explicit Material M3 System tokens
+  --mat-sys-surface: #000;
+  --mat-sys-on-surface: #ff2d55;
+  --mat-sys-surface-container: #000;
+  --mat-sys-surface-container-high: #111;
+  --mat-sys-on-surface-variant: #ff4d6e;
+  --mat-sys-outline: #ff2d55;
+  --mat-sys-outline-variant: #e60039;
+
+  // Extra system tokens for neon-fire colors
+  --mat-sys-primary: #ff2d55;
+  --mat-sys-on-primary: #000;
+  --mat-sys-tertiary: #fc0;
+  --mat-sys-on-tertiary: #000;
+
+  // Custom font and typography
+  font-family: 'VT323', monospace;
+  --mat-sys-body-medium-font: 'VT323', monospace;
+  --mat-sys-body-large-font: 'VT323', monospace;
+  --mat-sys-display-large-font: 'VT323', monospace;
+  --mat-sys-headline-large-font: 'VT323', monospace;
+  --mat-sys-title-large-font: 'VT323', monospace;
+  --mat-sys-label-large-font: 'VT323', monospace;
+
+  // Link customizations
+  a {
+    color: #fc0;
+  }
+
+  a:hover {
+    text-shadow: 0 0 8px #fc0;
+  }
+
+  // Component-specific alignment
+
+  // Top app bar / Toolbar (mat-toolbar)
+  .mat-mdc-toolbar,
+  mat-toolbar {
+    --mat-toolbar-container-background-color: #000;
+    --mat-toolbar-container-text-color: #ff2d55;
+    color: var(--mat-toolbar-container-text-color);
+  }
+
+  // Cards / Tiles / Panels
+  .mat-mdc-card,
+  .mat-expansion-panel {
+    --mdc-elevated-card-container-color: #000;
+    background-color: var(--mdc-elevated-card-container-color);
+    border: 1px solid #ff2d55;
+    box-shadow: 0 0 10px rgba(255, 45, 85, 0.6);
+  }
+
+  // Dialogs
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    --mdc-dialog-container-color: #000;
+    background-color: var(--mdc-dialog-container-color);
+    border: 1px solid #ff2d55;
+  }
+
+  // Form Fields
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: #111;
+    --mdc-outlined-text-field-container-color: #111;
+    --mat-form-field-focus-outline-color: #ff2d55;
+  }
+
+  // Chips (mat-chip, MDC chips)
+  .mat-mdc-standard-chip,
+  .mat-mdc-chip,
+  .suggestion-chip {
+    --mdc-chip-elevated-container-color: #111;
+    --mdc-chip-label-text-color: #ff2d55;
+    background-color: var(--mdc-chip-elevated-container-color) !important;
+    color: var(--mdc-chip-label-text-color) !important;
+    border: 1px solid #ff2d55;
+  }
+
+  .mat-mdc-chip-selected,
+  .mat-mdc-chip-highlighted {
+    --mdc-chip-elevated-container-color: #ff2d55;
+    --mdc-chip-label-text-color: #000;
+  }
+
+  // Category filter pills
+  .pill {
+    background-color: #000 !important;
+    color: #ff2d55 !important;
+    border: 1px solid #ff2d55 !important;
+  }
+
+  .pill.selected {
+    background-color: #fc0 !important;
+    color: #000 !important;
+    border: 1px solid #fc0 !important;
+  }
+
+  // Buttons
+  .mat-mdc-button,
+  .mat-mdc-raised-button {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-container-color: #ff2d55;
+    background-color: var(--mdc-filled-button-container-color);
+    color: #000;
+  }
+
+  .mat-mdc-button:hover,
+  .mat-mdc-raised-button:hover {
+    box-shadow: 0 0 10px rgba(255, 45, 85, 0.6);
+  }
+
+  // Slide toggles
+  .mat-mdc-slide-toggle {
+    --mat-slide-toggle-selected-handle-color: #ff2d55;
+    --mat-slide-toggle-selected-track-color: rgba(255, 45, 85, 0.54);
+    --mat-slide-toggle-unselected-handle-color: #e60039;
+    --mat-slide-toggle-unselected-track-color: #111;
+  }
+
+  // Scrollbar overrides
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ff2d55;
+    box-shadow: 0 0 5px rgba(255, 45, 85, 0.6);
+  }
+
+  // Error / Warn color overrides (making them more neon-red)
+  --theme-warn: #ff3e3e;
+  --mat-sys-error: #ff3e3e;
+  --mat-sys-on-error: #000;
+
+  .error {
+    color: #ff3e3e !important;
+  }
+
+  .warn-notification {
+    background-color: #ff3e3e !important;
+    color: #000 !important;
+  }
 }
 
 .close-dialog {
