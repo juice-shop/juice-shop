@@ -187,27 +187,27 @@
 
   // Overriding project-specific background/surface variables
   --theme-background: #{$prim};
-  --theme-background-lighter: #{color.adjust($prim, $lightness: if($is-dark, 5%, -5%))};
-  --theme-background-light: #{color.adjust($prim, $lightness: if($is-dark, 10%, -10%))};
+  --theme-background-lighter: #{color.adjust($prim, $lightness: if(sass($is-dark): 5%; else: -5%))};
+  --theme-background-light: #{color.adjust($prim, $lightness: if(sass($is-dark): 10%; else: -10%))};
   --theme-background-darker: #{$bg};
-  --theme-background-dark: #{color.adjust($bg, $lightness: if($is-dark, -5%, 5%))};
+  --theme-background-dark: #{color.adjust($bg, $lightness: if(sass($is-dark): -5%; else: 5%))};
   --theme-background-darkest: #{color.adjust($bg, $lightness: -10%)};
 
   // Overriding project-specific text variables
   --theme-text: #{$text};
-  --theme-text-lighter: #{color.adjust($text, $lightness: if($is-text-light, 5%, -5%))};
-  --theme-text-light: #{if($is-text-light, #fff, #000)};
-  --theme-text-darker: #{color.adjust($text, $lightness: if($is-text-light, -10%, 10%))};
-  --theme-text-dark: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
+  --theme-text-lighter: #{color.adjust($text, $lightness: if(sass($is-text-light): 5%; else: -5%))};
+  --theme-text-light: #{if(sass($is-text-light): #fff; else: #000)};
+  --theme-text-darker: #{color.adjust($text, $lightness: if(sass($is-text-light): -10%; else: 10%))};
+  --theme-text-dark: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
 
   // Explicit Material M3 System tokens
   --mat-sys-surface: #{$bg};
   --mat-sys-on-surface: #{$text};
   --mat-sys-surface-container: #{$prim};
-  --mat-sys-surface-container-high: #{color.adjust($prim, $lightness: if($is-dark, 2%, -2%))};
-  --mat-sys-on-surface-variant: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
-  --mat-sys-outline: #{color.adjust($bg, $lightness: if($is-dark, 20%, -20%))};
-  --mat-sys-outline-variant: #{color.adjust($bg, $lightness: if($is-dark, 10%, -10%))};
+  --mat-sys-surface-container-high: #{color.adjust($prim, $lightness: if(sass($is-dark): 2%; else: -2%))};
+  --mat-sys-on-surface-variant: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+  --mat-sys-outline: #{color.adjust($bg, $lightness: if(sass($is-dark): 20%; else: -20%))};
+  --mat-sys-outline-variant: #{color.adjust($bg, $lightness: if(sass($is-dark): 10%; else: -10%))};
 
   // Component-specific alignment
 
@@ -215,12 +215,12 @@
   .mat-mdc-toolbar,
   mat-toolbar {
     --mat-toolbar-container-background-color: #{$nav};
-    --mat-toolbar-container-text-color: #{if(color.channel($nav, 'lightness', $space: hsl) > 60%, #000, #fff)};
+    --mat-toolbar-container-text-color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
     color: var(--mat-toolbar-container-text-color);
   }
 
   // Cards / Tiles / Panels
-  $border-color: if($is-dark, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1));
+  $border-color: if(sass($is-dark): rgba(255, 255, 255, 0.1); else: rgba(0, 0, 0, 0.1));
 
   .mat-mdc-card,
   .mat-expansion-panel {
@@ -245,14 +245,14 @@
 
   .mat-mdc-form-field-hint,
   .mat-mdc-form-field-counter {
-    color: #{color.adjust($text, $lightness: if($is-text-light, -25%, 25%))};
+    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
   }
 
   // Chips (mat-chip, MDC chips)
   .mat-mdc-standard-chip,
   .mat-mdc-chip,
   .suggestion-chip {
-    --mdc-chip-elevated-container-color: #{color.adjust($nav, $lightness: if(color.channel($nav, 'lightness', $space: hsl) > 50%, -10%, 10%), $saturation: -10%)};
+    --mdc-chip-elevated-container-color: #{color.adjust($nav, $lightness: if(sass(color.channel($nav, 'lightness', $space: hsl) > 50%): -10%; else: 10%), $saturation: -10%)};
     --mdc-chip-label-text-color: #{$text};
     background-color: var(--mdc-chip-elevated-container-color) !important;
     color: var(--mdc-chip-label-text-color) !important;
@@ -269,21 +269,21 @@
   .mat-mdc-unelevated-button.mat-primary {
     --mdc-filled-button-container-color: #{$nav};
     background-color: var(--mdc-filled-button-container-color);
-    color: #{if(color.channel($nav, 'lightness', $space: hsl) > 60%, #000, #fff)};
+    color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
   }
 
   .mat-mdc-button:disabled,
   .mat-mdc-raised-button:disabled,
   .mat-mdc-unelevated-button:disabled {
-    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if($is-dark, 15%, -15%))};
-    color: #{color.adjust($text, $lightness: if($is-text-light, -40%, 40%))} !important;
+    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if(sass($is-dark): 15%; else: -15%))};
+    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))} !important;
   }
 
   // Slide toggles
   .mat-mdc-slide-toggle {
     --mat-slide-toggle-selected-handle-color: #{$nav};
     --mat-slide-toggle-selected-track-color: #{color.adjust($nav, $alpha: -0.46)};
-    --mat-slide-toggle-unselected-handle-color: #{color.adjust($text, $lightness: if($is-text-light, -40%, 40%))};
+    --mat-slide-toggle-unselected-handle-color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))};
     --mat-slide-toggle-unselected-track-color: #{color.adjust($prim, $lightness: 5%)};
   }
 }
