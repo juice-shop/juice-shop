@@ -153,7 +153,6 @@
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
     "unzipper": "0.9.15",
-    "web3": "^4.13.0",
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2",
