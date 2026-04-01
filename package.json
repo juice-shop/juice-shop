@@ -115,7 +115,6 @@
     "file-type": "^16.5.4",
     "finale-rest": "^1.2.2",
     "fs-extra": "^9.1.0",
-    "fuzzball": "^1.4.0",
     "glob": "^10.4.5",
     "graceful-fs": "^4.2.11",
     "grunt": "^1.6.1",
