@@ -9,8 +9,7 @@ import logger from '../logger'
 // @ts-expect-error FIXME due to non-existing type definitions for check-dependencies
 import dependencyChecker from 'check-dependencies'
 
-const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } = {}) => {
-  let success = true
+const validateDependencies = async ({ packageDir = '.' } = {}) => {
   let dependencies: any = {}
   try {
     dependencies = await dependencyChecker({ packageDir, scopeList: ['dependencies'] })
@@ -20,17 +19,13 @@ const validateDependencies = async ({ packageDir = '.', exitOnFailure = true } =
 
   if (dependencies.depsWereOk === true) {
     logger.info(`All dependencies in ${colors.bold(packageDir + '/package.json')} are satisfied (${colors.green('SUCCESS')})`)
+    return true
   } else {
     logger.warn(`Dependencies in ${colors.bold(packageDir + '/package.json')} are not rightly satisfied (${colors.red('ERROR')})`)
-    success = false
     for (const err of dependencies.error) {
       logger.warn(err)
     }
-  }
-
-  if (!success && exitOnFailure) {
-    logger.error(colors.red('Exiting due to unsatisfied dependencies!'))
-    process.exit(1)
+    return false
   }
 }
 

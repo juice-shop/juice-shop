@@ -12,6 +12,7 @@ import { access, readdir } from 'node:fs/promises'
 import process from 'node:process'
 import semver from 'semver'
 import portscanner from 'portscanner'
+import validateDependencies from './validateDependencies'
 
 export interface Dependency {
   dependency: string
@@ -55,6 +56,7 @@ const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
   success = checkIfRunningOnSupportedCPU(process.arch) && success
 
   const asyncResults = await Promise.all([
+    validateDependencies(),
     checkIfRequiredFileExists('build/server.js'),
     checkIfRequiredFileExists('frontend/dist/frontend/index.html'),
     checkIfRequiredFileExists('frontend/dist/frontend/styles.css'),
