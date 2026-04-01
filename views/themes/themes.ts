@@ -64,7 +64,7 @@ export const themes = {
     bgColor: '#000000',
     textColor: '#ff2d55',
     navColor: '#000000',
-    primLight: '#ff2d55',
-    primDark: '#ff2d55'
+    primLight: '#1a1a1a',
+    primDark: '#000000'
   }
 } as const
