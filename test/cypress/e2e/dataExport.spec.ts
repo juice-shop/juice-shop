@@ -8,8 +8,8 @@ describe('/#/privacy-security/data-export', () => {
           cy.get('#emailControl').type(`admun@${appDomain}`)
         }
       )
-      cy.get('#passwordControl').type('admun123')
-      cy.get('#repeatPasswordControl').type('admun123')
+      cy.get('#passwordControl').focus().type('admun123')
+      cy.get('#repeatPasswordControl').focus().type('admun123')
 
       cy.get('mat-select[name="securityQuestion"]').click()
       cy.get('.mat-mdc-option')
