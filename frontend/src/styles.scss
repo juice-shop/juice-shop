@@ -45,15 +45,33 @@
   }
 
   .primary-notification {
-    background-color: mat.get-theme-color($theme, primary, 30);
+    background-color: mat.get-theme-color($theme, primary, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 
   .accent-notification {
-    background-color: mat.get-theme-color($theme, tertiary, 30);
+    background-color: mat.get-theme-color($theme, tertiary, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 
   .warn-notification {
-    background-color: mat.get-theme-color($theme, error, 30);
+    background-color: mat.get-theme-color($theme, error, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 }
 
@@ -417,6 +435,29 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     --mat-slide-toggle-selected-track-color: rgba(79, 111, 122, 0.54);
     --mat-slide-toggle-unselected-handle-color: #7f8a93;
     --mat-slide-toggle-unselected-track-color: #4a4a4a;
+  }
+
+  // Error / Warn color overrides (making them more red)
+  --theme-warn: #f44336;
+  --theme-warn-lighter: #{color.adjust(#f44336, $lightness: 6%)};
+  --theme-warn-light: #{color.adjust(#f44336, $lightness: 10%)};
+  --theme-warn-darker: #{color.adjust(#f44336, $lightness: -6%)};
+  --theme-warn-dark: #{color.adjust(#f44336, $lightness: -10%)};
+  --theme-warn-fade-10: #{color.adjust(#f44336, $alpha: 0.1)};
+  --theme-warn-fade-20: #{color.adjust(#f44336, $alpha: 0.2)};
+  --theme-warn-fade-30: #{color.adjust(#f44336, $alpha: 0.3)};
+  --theme-warn-fade-40: #{color.adjust(#f44336, $alpha: 0.4)};
+  --theme-warn-fade-50: #{color.adjust(#f44336, $alpha: 0.5)};
+
+  --mat-sys-error: #f44336;
+  --mat-sys-on-error: #fff;
+
+  .error {
+    color: #f44336 !important;
+  }
+
+  .warn-notification {
+    background-color: #d32f2f !important;
   }
 }
 
