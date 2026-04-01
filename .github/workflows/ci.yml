@@ -95,6 +95,7 @@ jobs:
             if [ "$NODE_MAJOR" -ge 25 ]; then
               export NODE_OPTIONS="$NODE_OPTIONS --no-webstorage"
             fi
+            cd frontend
             npm test
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
