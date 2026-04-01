@@ -484,6 +484,8 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   @include custom-components-theme($neon-fire-theme);
   @include css-vars($neon-fire-theme);
 
+  @include score-star-theme($neon-fire-theme); // Re-include to fix empty-star color
+
   // --- Neon Fire Theme Overrides ---
 
   // Overriding project-specific background/surface variables
@@ -584,6 +586,8 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     --mdc-chip-label-text-color: #000;
   }
 
+  // --- Score Board Specifics ---
+
   // Category filter pills
   .pill {
     background-color: #000 !important;
@@ -591,11 +595,31 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     border: 1px solid #ff2d55 !important;
   }
 
-  .pill.selected {
+  .pill.selected,
+  .pill.active {
     background-color: #fc0 !important;
     color: #000 !important;
     border: 1px solid #fc0 !important;
+    text-shadow: none !important;
   }
+
+  // Challenge tags
+  .tag {
+    background-color: #222 !important;
+    color: #fc0 !important;
+    border: 1px solid #333 !important;
+  }
+
+  .tag.tag-available-dependency {
+    color: #fc0 !important;
+  }
+
+  // Star gauge (challenges solved)
+  linearGradient[id^='solved-gradient-'] stop:last-child {
+    stop-color: #1a1a1a !important; // Use dark grey for "empty" part of star instead of pink
+  }
+
+  // --- End Score Board Specifics ---
 
   // Buttons
   .mat-mdc-button,
@@ -609,6 +633,12 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     --mdc-filled-button-container-color: #ff2d55;
     background-color: var(--mdc-filled-button-container-color);
     color: #000;
+  }
+
+  .mat-mdc-unelevated-button.mat-tertiary {
+    --mdc-filled-button-container-color: #fc0;
+    background-color: var(--mdc-filled-button-container-color);
+    color: #000 !important;
   }
 
   .mat-mdc-button:disabled,

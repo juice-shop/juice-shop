@@ -88,12 +88,12 @@
 }
 
 .description-row::-webkit-scrollbar-track {
-  background: var(--theme-primary-light);
+  background: var(--theme-background-darker);
   border-radius: 10px;
 }
 
 .description-row::-webkit-scrollbar-thumb {
-  background: var(--theme-primary-darker);
+  background: var(--theme-primary) !important;
   border-radius: 10px;
 }
 
@@ -129,9 +129,10 @@
   }
 
   .tag {
-    background: #3d3d3d;
+    background: var(--theme-background-lighter);
+    border: 1px solid var(--theme-background-light);
     border-radius: 1.82849px;
-    color: var(--theme-text-dark);
+    color: var(--theme-text-darker);
     font-size: 10px;
     font-style: normal;
     font-weight: 400;
