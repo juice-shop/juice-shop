@@ -610,6 +610,15 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     color: #000;
   }
 
+  .mat-mdc-button:disabled,
+  .mat-mdc-raised-button:disabled,
+  .mat-mdc-unelevated-button:disabled {
+    --mdc-filled-button-disabled-container-color: #111;
+    color: #444 !important;
+    border: 1px solid #444;
+    opacity: 0.7;
+  }
+
   .mat-mdc-button:hover,
   .mat-mdc-raised-button:hover {
     box-shadow: 0 0 10px rgba(255, 45, 85, 0.6);
