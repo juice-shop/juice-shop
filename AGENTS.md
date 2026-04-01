@@ -2,12 +2,13 @@
 
 ## ⚠️ STOP: Using a Supported AI Tool?
 
-**If you are Claude, GitHub Copilot, Codeium, or Continue.dev**, stop here and use your tool-specific context file instead:
+**If you are Claude, GitHub Copilot, Codeium, Continue.dev, or Junie**, stop here and use your tool-specific context file instead:
 
 - **Claude**: See [`.claude/CLAUDE.md`](./.claude/CLAUDE.md) ← **Primary reference for all AI tools**
 - **GitHub Copilot**: See [`.github/copilot-instructions.md`](./.github/copilot-instructions.md)
 - **Codeium**: See [`.codeium/instructions.md`](./.codeium/instructions.md)
 - **Continue.dev**: See [`.continue/instructions.md`](./.continue/instructions.md)
+- **Junie**: See [`.junie/instructions.md`](./.junie/instructions.md)
 
 ---
 
