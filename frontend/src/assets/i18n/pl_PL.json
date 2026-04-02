@@ -496,7 +496,7 @@
   "NFT_MINT_TEXT_IN_PROGRESS": "Tworzenie w toku...",
   "CHATBOT_SUBTITLE": "Dostarczanie soku po jednym żetonie na raz",
   "CHATBOT_AVATAR_ALT": "SoczystyBot",
-  "SHOW_PREVIOUS_TOOL_CALLS": "Show {{count}} previous tool calls",
+  "SHOW_PREVIOUS_TOOL_CALLS": "Pokaż {{count}} poprzednie wywołania narzędzi",
   "CHATBOT_SEND_MESSAGE": "Wyślij wiadomość",
   "CHATBOT_SUGGESTION_RECOMMEND": "Uzyskaj sugestię",
   "CHATBOT_PROMPT_RECOMMEND": "Jakiego soku poleciłbyś na letnią imprezę?",
