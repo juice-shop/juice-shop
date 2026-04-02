@@ -1,18 +1,24 @@
-<link rel='icon' href="./assets/public/images/JuiceShop_Logo_50px.png">
+<title>{{_title_}}</title>
+<link rel='icon' href="./assets/public/{{_favicon_}}">
 <link rel="stylesheet" href='/vendor/beercss/beer.min.css'>
 <link rel="stylesheet" href='/vendor/material-icons/material-icons.css'>
 <link rel="stylesheet" href='./assets/public/css/roboto.css' type='text/css'>
 <link rel="stylesheet" type="text/css" href="./assets/public/css/dataErasure.css">
 <script type="module" src="/vendor/beercss/beer.min.js"></script>
-<header style="background: #546e7a; padding: 8px 16px;">
+<style>
+    body { background: {{_bgColor_}} !important; color: {{_textColor_}} !important; }
+    .formBlock { background: {{_primLight_}} !important; }
+    .message, .brand { color: {{_textColor_}} !important; }
+</style>
+<header style="background: {{_navColor_}}; padding: 8px 16px;">
   <nav>
-    <a href="./#/" style="color: #FFFFFF; text-decoration:none;">
+    <a href="./#/" style="color: {{_textColor_}}; text-decoration:none;">
       <i class="material-icons">arrow_back</i>
     </a>
-    <a href="./#/" style="color: #FFFFFF; text-decoration:none;">Back</a>
+    <a href="./#/" style="color: {{_textColor_}}; text-decoration:none;">Back</a>
     <a href="./#/" class="brand">
-      <img src="./assets/public/images/JuiceShop_Logo.png" alt="" style="max-height: 50px; width: auto;">
-      <span>OWASP Juice Shop</span>
+      <img src="./assets/public/images/{{_logo_}}" alt="" style="max-height: 50px; width: auto;">
+      <span>{{_title_}}</span>
     </a>
     <div class="max"></div>
   </nav>
@@ -22,7 +28,7 @@
         <p class="message">Sorry to see you leave! Your erasure request will be processed shortly.</p>
         <div class="deleteButton">
         <a href="/" class="home-page"
-            style="background-color:#546E7A; color: #FFFFFF; display: inline-block; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500;">
+            style="background-color:{{_navColor_}}; color: {{_textColor_}}; display: inline-block; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-weight: 500;">
             Go To HomePage
         </a>
         </div>
