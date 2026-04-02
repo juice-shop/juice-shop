@@ -98,6 +98,7 @@ Before suggesting code or accepting Copilot suggestions, ensure:
 ## Skills
 
 - [create-m3-theme skill](../.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
 
 ---
 

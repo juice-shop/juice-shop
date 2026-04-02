@@ -134,10 +134,10 @@ git commit -s     # Sign-off commit
 
 ## Refactoring Safety Net (RSN) & Testing
 
-**RSN**: See [CLAUDE.md](./.claude/CLAUDE.md#refactoring-safety-net-rsn) for details.
+**RSN**: See [CLAUDE.md](./.claude/CLAUDE.md#refactoring-safety-net-rsn) and the [verify-rsn-fix skill](./.junie/skills/verify-rsn-fix/SKILL.md) for details.
 - Run `npm run rsn` after modifying code that is part of a coding challenge
-- If changes are intentional, update cache: `npm run rsn:update`
-- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
+- **DO NOT** just run `npm run rsn:update` to fix breaks. Instead, update the corresponding codefix files.
+- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency.
 
 **Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Vitest (frontend unit), Cypress (E2E)
 - `npm test` - Run frontend unit tests + server unit tests
@@ -163,7 +163,8 @@ See [CLAUDE.md](./.claude/CLAUDE.md#branch-and-pr-strategy) and [CONTRIBUTING.md
 
 ## Skills
 
-- [create-m3-theme skill](.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [create-m3-theme skill](./.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-rsn-fix skill](./.junie/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
 
 ## Remember
 
