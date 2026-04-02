@@ -72,7 +72,6 @@
     "test:api:coverage": "nyc --report-dir=./coverage/api-tests npm run test:api",
     "test:e2e": "npm run cypress:run",
     "rsn": "tsx rsn/rsn.ts",
-    "rsn:verbose": "tsx rsn/rsn-verbose.ts",
     "rsn:update": "tsx rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up",
     "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json"
