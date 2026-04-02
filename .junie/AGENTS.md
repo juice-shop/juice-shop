@@ -34,6 +34,7 @@ The following context is provided to help Junie better assist with contributions
 ## Getting Help
 
 - Review [CLAUDE.md](../.claude/CLAUDE.md) for detailed guidance
+- Refer to [create-m3-theme skill](skills/create-m3-theme/SKILL.md) for instructions on creating new Angular Material M3 themes
 - Check the [Contribution Guide](../CONTRIBUTING.md)
 - Refer to the [project documentation](https://pwning.owasp-juice.shop/)
 - Connect with the community via Slack or GitHub issues
