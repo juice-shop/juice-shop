@@ -161,6 +161,10 @@ See [CLAUDE.md](./.claude/CLAUDE.md#branch-and-pr-strategy) and [CONTRIBUTING.md
 - **Project Documentation**: [pwning.owasp-juice.shop](https://pwning.owasp-juice.shop/)
 - **Community**: GitHub issues and discussions
 
+## Skills
+
+- [create-m3-theme skill](.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+
 ## Remember
 
 AI agents are productivity tools for enhancing development. You (or the person reviewing the PR) are responsible for the quality, correctness, and security of all contributions. Always review AI-generated code critically, test thoroughly, and follow the project's guidelines.

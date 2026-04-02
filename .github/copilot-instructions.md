@@ -4,7 +4,7 @@ This file provides guidelines for using GitHub Copilot when contributing to OWAS
 
 ## Primary Reference
 
-For comprehensive guidelines on using AI assistants (including Copilot) with this project, please refer to [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md). That document covers:
+For comprehensive guidelines on using AI assistants (including Copilot) with this project, please refer to [CLAUDE.md](../.claude/CLAUDE.md). That document covers:
 
 - Recommended use cases
 - Code quality and style requirements
@@ -94,6 +94,10 @@ Before suggesting code or accepting Copilot suggestions, ensure:
 - Check the [Contribution Guide](../CONTRIBUTING.md)
 - Refer to the [project documentation](https://pwning.owasp-juice.shop/)
 - Connect with the community via Slack or GitHub issues
+
+## Skills
+
+- [create-m3-theme skill](../.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
 
 ---
 

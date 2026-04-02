@@ -244,10 +244,14 @@ Learn more: [Code Snippets Documentation](https://pwning.owasp-juice.shop/compan
 
 ## Getting Help
 
-- Review the [detailed contribution guidelines](https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html)
+- Refer to the [detailed contribution guidelines](https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html)
 - Check existing issues and PRs for examples
 - Join the community on Slack or Gitter
 - Ask questions via Slack or comment on the GitHub issue you are working on
+
+## Skills
+
+- [create-m3-theme skill](../.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
 
 ## Remember
 
