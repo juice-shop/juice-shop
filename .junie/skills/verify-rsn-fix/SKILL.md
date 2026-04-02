@@ -21,7 +21,7 @@ npm run rsn
 
 **IMPORTANT**: If you modify any code inside a `// vuln-code-snippet` block (like `chatbotGreedyInjectionChallenge` or `chatbotPromptInjectionChallenge`), you MUST run this command to ensure consistency across the project.
 
-If it reports "New file diffs recognized since last lock!", you have broken the RSN for one or more challenges. The output will list the affected codefix files.
+If it reports "Refactoring Safety Net check failed", you have broken the RSN for one or more challenges. The output will list the affected codefix files with diffs.
 
 ## How to Fix
 
@@ -47,7 +47,7 @@ Run the RSN check again:
 npm run rsn
 ```
 
-If it passes with "No new file diffs recognized since last lock!", your fix is correct.
+If it passes with "All codefix files match the locked state", your fix is correct.
 
 ## Note
 For more details about code snippets, codefix files, and the RSN, see the [OWASP Juice Shop Companion Guide](https://pwning.owasp-juice.shop/companion-guide/latest/part5/code-snippets.html).
