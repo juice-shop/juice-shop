@@ -8,7 +8,7 @@
 - **GitHub Copilot**: See [`.github/copilot-instructions.md`](./.github/copilot-instructions.md)
 - **Codeium**: See [`.codeium/instructions.md`](./.codeium/instructions.md)
 - **Continue.dev**: See [`.continue/instructions.md`](./.continue/instructions.md)
-- **Junie**: See [`.junie/instructions.md`](./.junie/instructions.md)
+- **Junie**: See [`.junie/AGENTS.md`](./.junie/AGENTS.md)
 
 ---
 

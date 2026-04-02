@@ -6,7 +6,7 @@ This guide helps contributors use Claude (AI assistant) effectively when working
 > * GitHub CoPilot ([`.github/copilot-instructions.md`](../.github/copilot-instructions.md))
 > * Codeium ([`.codeium/instructions.md`](../.codeium/instructions.md))
 > * Continue.dev ([`.continue/instructions.md`](../.continue/instructions.md))
-> * Junie ([`.junie/instructions.md`](../.junie/instructions.md))
+> * Junie ([`.junie/AGENTS.md`](../.junie/AGENTS.md))
 
 ## Before You Start
 
