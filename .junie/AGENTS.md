@@ -41,6 +41,7 @@ The following context is provided to help Junie better assist with contributions
 ## Skills
 
 - [create-m3-theme skill](skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-rsn-fix skill](skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
 
 ---
 

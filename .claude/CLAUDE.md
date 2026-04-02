@@ -97,7 +97,7 @@ Claude should suggest code following [JS Standard Style](http://standardjs.com/)
 For any code changes Claude helps with:
 - **Unit/Integration Tests**: New features and changes should have tests
 - **E2E Tests**: Required for new/modified challenges
-- **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge
+- **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge (see the [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md) for details)
 - **Run Tests Locally**:
   ```bash
   npm test                    # Frontend unit tests (Vitest) + server unit tests (Mocha)
@@ -252,6 +252,7 @@ Learn more: [Code Snippets Documentation](https://pwning.owasp-juice.shop/compan
 ## Skills
 
 - [create-m3-theme skill](../.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
 
 ## Remember
 
