@@ -5,6 +5,7 @@ on:
       - v*
 env:
   CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
+  TYPESCRIPT_VERSION: '~5.3.3'                      # keep in sync with package.json
 jobs:
   package:
     runs-on: ${{ matrix.os }}
@@ -22,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
-          npm install -g typescript
+          npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"

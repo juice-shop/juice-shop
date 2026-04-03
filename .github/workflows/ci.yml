@@ -257,7 +257,7 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: "--max_old_space_size=8192"
+      TYPESCRIPT_VERSION: '~5.3.3' # keep in sync with package.json
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
@@ -267,7 +267,7 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: |
-          npm install -g typescript
+          npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
