@@ -107,7 +107,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "setupFiles": ["src/test-setup.ts"],
             "watch": false,
-            "coverage": false
+            "coverage": false,
+            "coverageExclude": ["src/hacking-instructor/**/*"]
           },
           "configurations": {
             "coverage": {
