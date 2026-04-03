@@ -95,20 +95,29 @@ jobs:
             if [ "$NODE_MAJOR" -ge 25 ]; then
               export NODE_OPTIONS="$NODE_OPTIONS --no-webstorage"
             fi
-            cd frontend
-            npm test
+            if [ "$NODE_MAJOR" -eq 24 ]; then
+              npm run test:frontend:coverage
+            else
+              npm run test:frontend
+            fi
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         with:
           timeout_minutes: 10
           max_attempts: 3
-          command: npm run test:server
+          command: |
+            NODE_MAJOR=$(node -p 'process.versions.node.split(".")[0]')
+            if [ "$NODE_MAJOR" -eq 24 ]; then
+              npm run test:server:coverage
+            else
+              npm run test:server
+            fi
       - name: "Copy unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         run: |
           cp frontend/coverage/frontend/lcov.info frontend-lcov.info
-          cp build/reports/coverage/server-tests/lcov.info server-lcov.info
+          cp coverage/server-tests/lcov.info server-lcov.info
           sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
         shell: bash
       - name: "Upload unit test coverage data"
@@ -146,10 +155,16 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 3
-          command: npm run test:api:coverage
+          command: |
+            NODE_MAJOR=$(node -p 'process.versions.node.split(".")[0]')
+            if [ "$NODE_MAJOR" -eq 24 ]; then
+              npm run test:api:coverage
+            else
+              npm run test:api
+            fi
       - name: "Copy API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
-        run: cp build/reports/coverage/api-tests/lcov.info api-lcov.info
+        run: cp coverage/api-tests/lcov.info api-lcov.info
       - name: "Upload API test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b #v4.5.0
