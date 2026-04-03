@@ -39,6 +39,7 @@ out/
 *.iml
 *.iws
 *.swp
+.junie/memory/
 
 # Branch ghpages
 assets/
