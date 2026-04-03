@@ -19,6 +19,7 @@ i18n/*.invalid
 .sass-cache/
 build/
 cache/
+coverage/
 dist/
 logs/
 vagrant/.vagrant/

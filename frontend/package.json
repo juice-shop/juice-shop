@@ -9,6 +9,7 @@
     "bundle-visualizer": "node --experimental-strip-types filter-bundle-stats-for-diagram.mts && npx esbuild-visualizer --metadata dist/frontend/stats-filtered.json --filename dist/frontend/bundle-report.html",
     "bundle-visualizer:full": "npx esbuild-visualizer --metadata dist/frontend/stats.json --filename dist/frontend/bundle-report.html",
     "test": "ng test",
+    "test:coverage": "ng test --configuration=coverage --watch=false",
     "test:watch": "ng test --watch --reporters=default",
     "test:verbose": "ng test --reporters=verbose",
     "lint": "ng lint",
