@@ -275,17 +275,9 @@ jobs:
           echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
           echo "PCKG_NODE_VERSION=24" >> $GITHUB_ENV
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
-      - name: "Install Dependencies"
-        run: |
-          npm install --production --ignore-scripts
-          cd frontend
-          npm install --ignore-scripts
-      - name: "Build application"
-        run: |
-          npm run build:frontend
-          npm run build:server
       - name: "Package application"
         run: |
+          npm install --production
           npm run package:ci
       - name: "Unpack application archive"
         run: |
