@@ -168,10 +168,11 @@ void describe('/rest/chat', { timeout: 120000 }, () => {
 
     assert.equal(res.status, 200)
     assert.ok(parsedBody.tools)
-    assert.equal(parsedBody.tools.length, 3)
+    assert.equal(parsedBody.tools.length, 4)
     const toolNames = parsedBody.tools.map((t: { function: { name: string } }) => t.function.name)
     assert.ok(toolNames.includes('searchProducts'))
     assert.ok(toolNames.includes('generateCoupon'))
+    assert.ok(toolNames.includes('getOrderById'))
   })
 
   void it('POST handles searchProducts tool call and returns follow-up response', { timeout: 15000 }, async () => {

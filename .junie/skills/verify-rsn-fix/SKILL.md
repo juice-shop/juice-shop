@@ -19,6 +19,8 @@ To check if your changes have broken the RSN, run:
 npm run rsn
 ```
 
+**IMPORTANT**: If you modify any code inside a `// vuln-code-snippet` block (like `chatbotGreedyInjectionChallenge` or `chatbotPromptInjectionChallenge`), you MUST run this command to ensure consistency across the project.
+
 If it reports "New file diffs recognized since last lock!", you have broken the RSN for one or more challenges. The output will list the affected codefix files.
 
 ## How to Fix
