@@ -70,7 +70,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest] # FIXME: Removed "windows-latest" due to 'Error: ENOENT: no such file or directory, open' error breaking at least on Node 20.0 constantly
-        node-version: [22, 24, 25]
+        node-version: [22, 24] # FIXME: Removed 25 due to compatibility issues with Vitest
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
