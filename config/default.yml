@@ -18,7 +18,7 @@ application:
   chatBot:
     name: 'Juicy the Smart Assistant'
     avatar: 'JuicyChatBot.png'
-    model: 'qwen3:8b'
+    model: 'qwen3.5:9b'
     llmApiUrl: 'http://localhost:11434/v1'
     llmMaxRetries: 2
   social:
