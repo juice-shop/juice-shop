@@ -38,11 +38,15 @@ function summarizeLlmError (error: unknown): string {
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
 
-async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+async function getUserId (req: Request): Promise<number | undefined> {
   const token = utils.jwtFrom(req)
   if (!token) return undefined
   const decoded = security.decode(token) as { data?: { id?: number } } | undefined
-  const userId = decoded?.data?.id
+  return decoded?.data?.id
+}
+
+async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+  const userId = await getUserId(req)
   if (!userId) return undefined
   const user = await UserModel.findByPk(userId, { attributes: ['username'] })
   return user?.username ?? undefined
@@ -58,6 +62,7 @@ Keep your responses concise and helpful.${userIdentifier}
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
 - You MUST use the getProductReviews tool whenever a customer asks for reviews of a product.
+- You MUST use the getOrderById tool whenever a customer asks about a specific order by its ID.
 - Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
 - Do NOT invent information. If you do not know the answer to a question, say so honestly.
 - Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
@@ -114,6 +119,28 @@ export function chat () {
         execute: async ({ id }) => {
           const productId = Number(id)
           return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
+        }
+      }),
+
+      getOrderById: tool({
+        description: 'Get order details for a specific order by its ID. Only returns the order if it belongs to the current customer.',
+        inputSchema: z.object({
+          orderId: z.string().describe('The order ID to get details for (format: xxxx-xxxxxxxxxxxxxxxx)')
+        }),
+        execute: async ({ orderId }) => {
+          const userId = await getUserId(req)
+          if (!userId) return { error: 'Customer not authenticated' }
+
+          const user = await UserModel.findByPk(userId, { attributes: ['email'] })
+          if (!user) return { error: 'Customer not found' }
+
+          const maskedEmail = user.email ? user.email.replace(/[aeiou]/gi, '*') : undefined
+          const order = await db.ordersCollection.findOne({ orderId })
+
+          if (!order) return { error: 'Order not found' }
+          if (order.email !== maskedEmail) return { error: 'Order does not belong to the current customer' }
+
+          return order
         }
       }),
 
