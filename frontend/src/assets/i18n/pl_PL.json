@@ -437,7 +437,7 @@
   "TAB_FIND_IT": "Znajdź",
   "TAB_FIX_IT": "Napraw",
   "DESCRIPTION_FIND_IT": "Kliknij wiersz(e) zawierające podatność.",
-  "KEYBOARD_NAV_HINT": "Użyj ↑↓ do poruszania się po liniach, Spacja aby wybrać",
+  "KEYBOARD_NAV_HINT": "Użyj ↑↓ do poruszania się po liniach, spacja, aby wybrać",
   "DESCRIPTION_FIX_IT": "Wybierz poprawkę kodu, która zapobiegłaby luce w zabezpieczeniach.",
   "DESCRIPTION_FIX_IT_LOCKED": "Rozwiąż wyzwanie \"Znajdź to\" powyżej, aby odblokować tę sekcję.",
   "BTN_SUBMIT_VULNERABLE_LINES": "Prześlij linię {{lines}} jako podatną na zagrożenia",
