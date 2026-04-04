@@ -33,6 +33,7 @@ mentioned or used!
   - [2017](#2017)
   - [2016](#2016)
   - [2015](#2015)
+* [Usage in Tools & Products](#usage-in-tools--products)
 
 ## Awards :trophy:
 
