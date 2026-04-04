@@ -119,9 +119,13 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
       :broken_heart:
     * [★★★★★ Change Benders Password (Broken Authentication)](https://youtu.be/J3BSi-z9_7I)
     * [★★★★★ Extra Language (Broken Anti Automation)](https://youtu.be/KU2LzxABetk)
-* [Broken Authentication and SQL Injection - OWASP Juice Shop TryHackMe](https://youtu.be/W4MXUnZB2jc)
-  by
-  [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
+* [Try Hack Me - OWASP Juice Shop](https://www.youtube.com/watch?v=xDQt-I7pncY) by [Silesio Carvalho](https://www.youtube.com/@silesiocarvalho) (🧃`v12.x`)
+* [OWASP Juice Shop | TryHackMe](https://www.youtube.com/playlist?list=PLqM63j87R5p6Nc7XYSdQ7mnrdEsFGfUj0) series
+  by [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
+  as part of [TryHackMe OWASP Juice Shop | The Complete Guide](https://motasemhamdan.medium.com/tryhackme-owasp-juice-shop-the-complete-guide-80c996df25c7) (🧃`v12.x`)
+    * [Broken Authentication and SQL Injection](https://youtu.be/W4MXUnZB2jc)
+    * [Exposing Sensitive Data and Viewing other users shopping carts](https://youtu.be/AdncxIRp0SI)
+    * [Solving OWASP Juice Shop Stored and Reflected XSS](https://youtu.be/_s6VZRV-TDY)
 * Live Hacking von Online-Shop „Juice Shop” (:de:)
   [Twitch live stream](https://www.twitch.tv/GregorBiswanger) recordings by
   [Gregor Biswanger](https://www.youtube.com/channel/UCGMA9qDbIQ-EhgLD-ZrsHWw)
