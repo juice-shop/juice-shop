@@ -1,6 +1,24 @@
 # Skill: Adding a new Reference to REFERENCES.md
 
-This skill provides instructions for Junie to analyze a new reference (blog post, podcast, conference talk, etc.), determine its type, collect missing information, and add it to the correct section of `REFERENCES.md` following the existing format.
+This skill provides instructions for Junie to analyze a new reference (blog post, podcast, conference talk, etc.), determine if it belongs in `REFERENCES.md` or `SOLUTIONS.md`, collect missing information, and add it to the correct section of `REFERENCES.md` following the existing format.
+
+## Distinguishing Between SOLUTIONS.md and REFERENCES.md
+
+Unless the user explicitly specifies the target file, follow these rules:
+
+1.  **SOLUTIONS.md**: Use this for content that is specifically a "how-to" for hacking Juice Shop or a tool that automates/assists in hacking it.
+    -   *Walkthroughs*: Step-by-step guides for solving specific challenges.
+    -   *Hacking Videos*: Screencasts of hacking sessions.
+    -   *Scripts & Tools*: Python scripts, ZAP templates, etc., that solve or help solve challenges.
+    -   *Spoilers*: Any content that contains full spoilers for challenges should ideally go here.
+
+2.  **REFERENCES.md**: Use this for general mentions, news, blog posts about the project, conference talks, or appearances.
+    -   *News*: Announcements of new releases, leadership changes, or project milestones.
+    -   *General Mentions*: Blog posts or podcasts where Juice Shop is mentioned but not the primary focus or not a solution guide.
+    -   *Appearances*: Conference or meetup talks, lectures, and trainings.
+    -   *Educational*: General application security education that uses Juice Shop as an example but isn't a "how-to-solve-it" guide.
+
+If in doubt, and the content contains spoilers (indicated by `:godmode:` or `:bulb:`), prefer `SOLUTIONS.md` if it is a guide/video/tool. If it is a blog post or talk, prefer `REFERENCES.md` with the appropriate icon.
 
 ## General Workflow
 
