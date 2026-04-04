@@ -1,0 +1,63 @@
+{
+  "name": "Juice Shop AppSec Dev",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+  "workspaceFolder": "/workspaces/juice-shop-appsec-assessment",
+  "remoteUser": "node",
+  "updateRemoteUserUID": false,
+  "runArgs": [
+    "--init"
+  ],
+  "containerEnv": {
+    "NG_CLI_ANALYTICS": "ci",
+    "NG_FORCE_TTY": "false"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "configureZshAsDefaultShell": true
+    }
+  },
+  "forwardPorts": [
+    3000,
+    4200
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "Juice Shop API",
+      "onAutoForward": "notify"
+    },
+    "4200": {
+      "label": "Juice Shop Frontend",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "mounts": [
+    "source=juice-shop-appsec-assessment-node_modules,target=/workspaces/juice-shop-appsec-assessment/node_modules,type=volume",
+    "source=juice-shop-appsec-assessment-frontend-node_modules,target=/workspaces/juice-shop-appsec-assessment/frontend/node_modules,type=volume"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eg2.vscode-npm-script",
+        "angular.ng-template",
+        "dbaeumer.vscode-eslint",
+        "stylelint.vscode-stylelint"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/usr/bin/zsh"
+          }
+        },
+        "eslint.workingDirectories": [
+          {
+            "mode": "auto"
+          }
+        ]
+      }
+    }
+  },
+  "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh"
+}
