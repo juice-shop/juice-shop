@@ -138,9 +138,13 @@ mentioned or used!
 ### Blogs & Articles
 
 * Blog post on [ZAP](https://www.zaproxy.org) by Denis Podgurskii: [OWASP PTK Findings as ZAP Alerts (Juice Shop Walkthrough)](https://www.zaproxy.org/blog/2026-04-01-owasp-ptk-findings-to-zap-alerts/) ([YouTube](https://www.youtube.com/watch?v=m3YOB6JqS2c)) :godmode:
+* Blog post on [Stackademic](https://blog.stackademic.com/) by Srividya Sundaravadivelu: [My experiments with OWASP Juice Shop: What I Hacked, What I Couldn’t, and What I Learned](https://blog.stackademic.com/my-experiments-with-owasp-juice-shop-what-i-hacked-what-i-couldnt-and-what-i-learned-c56b18804389) :bulb:
+* Blog post on [Medium](https://medium.com/) by Hacked By Himel: [Turning OWASP Juice Shop into a Full Pentesting Portfolio](https://medium.com/@hackedbyhimel/turning-owasp-juice-shop-into-a-full-pentesting-portfolio-9d5aa3849a44) :bulb:
+* Article (:de:) on [Linux-Magazin](https://www.linux-magazin.de/) by Tim Schürmann: [Praktisches Einbrechen am Beispiel OWASP Juice Shop](https://www.linux-magazin.de/ausgaben/2025/06/pentesting-praxis/) :bulb:
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop leadership changes & contributor recognition](https://owasp.org/blog/2025/01/29/juice-shop-leadership)
-* Blog post on [A Tester's Journey](https://www.lisihocke.com/) by Lisi Hocke: [Open Security Conference 2024 - A Memorable Beginning](https://www.lisihocke.com/2024/10/open-security-conference-2024-a-memorable-beginning.html)
 * Blog post on [openunisau-engineering](https://medium.com/openunisau-engineering) by Peter Lobley: [OWASP Juice Shop CTF at OUA](https://medium.com/openunisau-engineering/owasp-juice-shop-ctf-at-oua-525e0564192b)
+* Blog post on [A Tester's Journey](https://www.lisihocke.com/) by Lisi Hocke: [Open Security Conference 2024 - A Memorable Beginning](https://www.lisihocke.com/2024/10/open-security-conference-2024-a-memorable-beginning.html)
+* Blog post on [bfcamara.com](https://www.bfcamara.com/) by Bruno Câmara: [Exploring AWS WAF rules with OWASP Juice Shop](https://www.bfcamara.com/posts/aws-waf-owasp-juice-shop) :bulb:
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop 2023 achievements and beyond](https://owasp.org/blog/2023/10/10/juice-shop-2023.html)
 * Article on [Cobalt.io Developer Best Practices](https://developer.cobalt.io/bestpractices/): [Validate User Input](https://developer.cobalt.io/bestpractices/input-validation/)
 * Blog post (:de:) on [Dev-Insider](https://www.dev-insider.de/): [OWASP Juice Shop lädt zum Hacken ein](https://www.dev-insider.de/owasp-juice-shop-laedt-zum-hacken-ein-a-968485/) :godmode:
