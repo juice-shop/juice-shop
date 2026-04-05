@@ -26,7 +26,13 @@ describe('ChatWelcomeScreenComponent', () => {
         configurationService = {
             getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
         }
-        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
+        configurationService.getApplicationConfiguration.mockReturnValue(of({
+            application: {
+                chatBot: {
+                    sampleQuestions: ['CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY']
+                }
+            }
+        }))
 
         TestBed.configureTestingModule({
             imports: [
@@ -72,6 +78,22 @@ describe('ChatWelcomeScreenComponent', () => {
     it('should set message when suggestion is clicked', () => {
         component.applySuggestion('Test suggestion')
         expect(component.message()).toBe('Test suggestion')
+    })
+
+    it('should set a different message when random suggestion is clicked multiple times', () => {
+        const questions = ['Query1', 'Query2']
+        component.sampleQuestions.set(questions)
+
+        // 1st click
+        component.applyRandomSuggestion()
+        const firstMessage = component.message()
+        expect(questions).toContain(firstMessage)
+
+        // 2nd click
+        component.applyRandomSuggestion()
+        const secondMessage = component.message()
+        expect(questions).toContain(secondMessage)
+        expect(secondMessage).not.toBe(firstMessage)
     })
 
     it('should render the input box sub-component', () => {

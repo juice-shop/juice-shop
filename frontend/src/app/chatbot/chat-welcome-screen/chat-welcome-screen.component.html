@@ -9,10 +9,12 @@
     <app-chat-input-box [(message)]="message" (messageSent)="messageSent.emit($event)" />
 
     <div class="suggestions">
-      <button class="suggestion-chip" (click)="applySuggestion('CHATBOT_PROMPT_RECOMMEND')">
-        <mat-icon>local_drink</mat-icon>
-        <span translate>CHATBOT_SUGGESTION_RECOMMEND</span>
-      </button>
+      @if (sampleQuestions().length > 0) {
+        <button class="suggestion-chip" (click)="applyRandomSuggestion()">
+          <mat-icon>local_drink</mat-icon>
+          <span translate>CHATBOT_SUGGESTION_RECOMMEND</span>
+        </button>
+      }
       <button class="suggestion-chip" (click)="applySuggestion('CHATBOT_PROMPT_HELP')">
         <mat-icon>help_outline</mat-icon>
         <span translate>CHATBOT_SUGGESTION_HELP</span>

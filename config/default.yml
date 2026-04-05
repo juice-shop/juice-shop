@@ -21,6 +21,12 @@ application:
     model: 'qwen3.5:9b'
     llmApiUrl: 'http://localhost:11434/v1'
     llmMaxRetries: 2
+    sampleQuestions:
+      - 'CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY'
+      - 'CHATBOT_PROMPT_RECOMMENDATION_POPULAR'
+      - 'CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE'
+      - 'CHATBOT_PROMPT_RECOMMENDATION_START_DAY'
+      - 'CHATBOT_PROMPT_RECOMMENDATION_SEASONAL'
   social:
     blueSkyUrl: 'https://bsky.app/profile/owasp-juice.shop'
     mastodonUrl: 'https://fosstodon.org/@owasp_juiceshop'

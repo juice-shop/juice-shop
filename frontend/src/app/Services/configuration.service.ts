@@ -42,6 +42,7 @@ export interface Config {
     chatBot: {
       name: string
       avatar: string
+      sampleQuestions: string[]
     }
     recyclePage: {
       topProductImage: string

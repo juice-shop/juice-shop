@@ -38,6 +38,7 @@ export class ChatWelcomeScreenComponent implements OnInit {
   conversations = signal<StoredConversation[]>(this.conversationStorage.getAll())
   chatBotName = signal('Juicy')
   chatBotAvatar = signal('assets/public/images/JuicyBot.png')
+  sampleQuestions = signal<string[]>([])
 
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe({
@@ -48,8 +49,31 @@ export class ChatWelcomeScreenComponent implements OnInit {
         if (config?.application?.chatBot?.avatar) {
           this.chatBotAvatar.set('assets/public/images/' + config.application?.chatBot?.avatar)
         }
+        if (config?.application?.chatBot?.sampleQuestions) {
+          this.sampleQuestions.set(config.application.chatBot.sampleQuestions)
+        }
       },
       error: (err) => { console.log(err) }
+    })
+  }
+
+  applyRandomSuggestion () {
+    const questions = this.sampleQuestions()
+    if (questions.length === 0) return
+
+    this.translate.get(questions).subscribe(translations => {
+      const allSuggestions = questions.map(q => translations[q] !== q ? translations[q] : q)
+
+      const currentMessage = this.message()
+      const availableSuggestions = allSuggestions.filter(s => s !== currentMessage)
+
+      if (availableSuggestions.length > 0) {
+        const chosen = availableSuggestions[Math.floor(Math.random() * availableSuggestions.length)]
+        this.message.set(chosen)
+      } else if (allSuggestions.length > 0) {
+        this.message.set(allSuggestions[0])
+      }
+      this.inputBox()?.focus()
     })
   }
 
