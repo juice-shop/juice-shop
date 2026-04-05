@@ -45,6 +45,7 @@ The following context is provided to help Junie better assist with contributions
 - [create-m3-theme skill](skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
 - [verify-challenge skill](skills/verify-challenge/SKILL.md): Instructions for verifying new challenges fulfill all project requirements and metadata
 - [verify-rsn-fix skill](skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
+- [generate-release-notes skill](skills/generate-release-notes/SKILL.md): Instructions for generating or completing release notes based on the project's iconography and structure
 
 ---
 
