@@ -22,7 +22,13 @@
 
   @if (conversations().length > 0) {
     <div class="history-section">
-      <h2 class="history-heading" translate>CHATBOT_RECENT_CONVERSATIONS</h2>
+      <div class="history-header">
+        <h2 class="history-heading" translate>CHATBOT_RECENT_CONVERSATIONS</h2>
+        <button class="history-delete-all" (click)="deleteAllConversations()" [attr.aria-label]="'CHATBOT_DELETE_ALL_CONVERSATIONS' | translate">
+          <mat-icon>delete_sweep</mat-icon>
+          <span translate>CHATBOT_DELETE_ALL</span>
+        </button>
+      </div>
       <div class="history-list">
         @for (conv of conversations(); track conv.id) {
           <button class="history-item" (click)="conversationSelected.emit(conv.id)">

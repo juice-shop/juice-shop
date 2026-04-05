@@ -65,4 +65,9 @@ export class ChatWelcomeScreenComponent implements OnInit {
     this.conversationStorage.delete(id)
     this.conversations.set(this.conversationStorage.getAll())
   }
+
+  deleteAllConversations () {
+    this.conversationStorage.deleteAll()
+    this.conversations.set([])
+  }
 }

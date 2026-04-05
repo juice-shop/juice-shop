@@ -48,4 +48,8 @@ export class ConversationStorageService {
     const all = this.getAll().filter(c => c.id !== id)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(all))
   }
+
+  deleteAll (): void {
+    localStorage.removeItem(STORAGE_KEY)
+  }
 }
