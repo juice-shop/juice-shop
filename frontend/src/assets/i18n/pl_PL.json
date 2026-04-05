@@ -499,10 +499,16 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Pokaż {{count}} poprzednie wywołania narzędzi",
   "CHATBOT_SEND_MESSAGE": "Wyślij wiadomość",
   "CHATBOT_SUGGESTION_RECOMMEND": "Uzyskaj sugestię",
-  "CHATBOT_PROMPT_RECOMMEND": "Jakiego soku poleciłbyś na letnią imprezę?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
+  "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SEASONAL": "Are there any seasonal specials?",
   "CHATBOT_SUGGESTION_HELP": "Uzyskaj pomoc",
   "CHATBOT_PROMPT_HELP": "Potrzebuję pomocy przy zamówieniu",
   "CHATBOT_RECENT_CONVERSATIONS": "Ostatnie rozmowy",
   "CHATBOT_DELETE_CONVERSATION": "Usuń rozmowę",
+  "CHATBOT_DELETE_ALL": "Delete all",
+  "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Ups! Wygląda na to, że nasz mózg AI robi sobie przerwę. Punkt końcowy AI nie jest skonfigurowany ani osiągalny. Proszę porozmawiać z administratorem sklepu, aby wrócić na właściwe tory!"
 }
