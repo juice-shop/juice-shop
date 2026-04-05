@@ -24,8 +24,8 @@ The following context is provided to help Junie better assist with contributions
 - **Code Style**: Ensure JS Standard Style is followed (enforced via ESLint).
 - **Quality Checklist**: 
   - [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.md) guidelines
-  - [ ] Code passes ESLint (`npm run lint`)
-  - [ ] Tests pass (`npm test`, `npm run test:api`, `npm run cypress:run`)
+  - [ ] Code passes ESLint (`npm run lint`) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
+  - [ ] Tests pass (`npm test`, `npm run test:api`, `npm run cypress:run`) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
   - [ ] RSN passes if applicable (`npm run rsn`)
   - [ ] AI-generated noise cleaned up
   - [ ] Commits signed off (`git commit -s`)

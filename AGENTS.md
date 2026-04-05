@@ -71,8 +71,8 @@ See [CLAUDE.md](./.claude/CLAUDE.md#recommended-use-cases) for the full list. In
 
 See [CLAUDE.md](./.claude/CLAUDE.md#testing-requirements) for detailed guidelines. Essential checklist:
 
-- **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/))
-- **Tests**: `npm test`, `npm run test:api`, `npm run cypress:run` (all must pass)
+- **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/)) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
+- **Tests**: `npm test`, `npm run test:api`, `npm run cypress:run` (all must pass) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
 - **RSN**: `npm run rsn` (required if modifying challenge-related code)
 - **No AI noise**: Remove verbose/redundant comments
 - **Sign-off**: `git commit -s` (DCO required)

@@ -85,7 +85,7 @@ Keep:
 
 ### 2. Code Style Compliance
 
-Always run ESLint before committing:
+Always run ESLint before committing (unless only `REFERENCES.md` or `SOLUTIONS.md` were modified):
 ```bash
 npm run lint
 ```
@@ -94,7 +94,7 @@ Claude should suggest code following [JS Standard Style](http://standardjs.com/)
 
 ### 3. Testing Requirements
 
-For any code changes Claude helps with:
+For any code changes Claude helps with (unless only `REFERENCES.md` or `SOLUTIONS.md` were modified):
 - **Unit/Integration Tests**: New features and changes should have tests
 - **E2E Tests**: Required for new/modified challenges
 - **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge (see the [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md) for details)
@@ -142,7 +142,7 @@ Ask Claude to:
 ```
 Before committing:
 1. Remove AI-generated noise
-2. Run npm run lint
+2. Run npm run lint (unless only `REFERENCES.md` or `SOLUTIONS.md` were modified)
 3. Run relevant test suites
 4. If you modified code that is part of a coding challenge, run npm run rsn
 5. Manually verify functionality
