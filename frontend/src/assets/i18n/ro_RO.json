@@ -496,7 +496,7 @@
   "NFT_MINT_TEXT_IN_PROGRESS": "Generare în curs...",
   "CHATBOT_SUBTITLE": "Livrând suc câte un token pe rând",
   "CHATBOT_AVATAR_ALT": "JuicyBot",
-  "SHOW_PREVIOUS_TOOL_CALLS": "Show {{count}} previous tool calls",
+  "SHOW_PREVIOUS_TOOL_CALLS": "Arată {{count}} apeluri de instrumente anterioare",
   "CHATBOT_SEND_MESSAGE": "Trimite mesaj",
   "CHATBOT_SUGGESTION_RECOMMEND": "Obține o sugestie",
   "CHATBOT_PROMPT_RECOMMEND": "Ce suc ai recomanda pentru o petrecere de vară?",
