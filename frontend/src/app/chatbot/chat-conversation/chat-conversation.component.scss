@@ -79,7 +79,7 @@
     gap: $space-xs;
     background-color: var(--theme-warn-fade-20);
     border: 1px solid var(--theme-warn-fade-40);
-    color: var(--theme-text);
+    color: var(--theme-text) !important;
   }
 }
 
