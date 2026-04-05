@@ -499,10 +499,16 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Show {{count}} previous tool calls",
   "CHATBOT_SEND_MESSAGE": "发送消息",
   "CHATBOT_SUGGESTION_RECOMMEND": "获取建议",
-  "CHATBOT_PROMPT_RECOMMEND": "你会推荐哪种果汁作为夏日派对的饮品？",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
+  "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SEASONAL": "Are there any seasonal specials?",
   "CHATBOT_SUGGESTION_HELP": "获取帮助",
   "CHATBOT_PROMPT_HELP": "我的订单有问题需要帮助",
   "CHATBOT_RECENT_CONVERSATIONS": "最近对话",
   "CHATBOT_DELETE_CONVERSATION": "删除会话",
+  "CHATBOT_DELETE_ALL": "Delete all",
+  "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "哎呀！看起来我们的AI大脑正在喝果汁。AI端点未配置或无法访问。请联系商店管理员以恢复正常运行！"
 }
