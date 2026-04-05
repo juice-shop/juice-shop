@@ -19,7 +19,8 @@ describe('ChatWelcomeScreenComponent', () => {
     beforeEach(() => {
         conversationStorage = {
             getAll: vi.fn().mockName("ConversationStorageService.getAll"),
-            delete: vi.fn().mockName("ConversationStorageService.delete")
+            delete: vi.fn().mockName("ConversationStorageService.delete"),
+            deleteAll: vi.fn().mockName("ConversationStorageService.deleteAll")
         }
         conversationStorage.getAll.mockReturnValue([])
         configurationService = {
@@ -133,6 +134,19 @@ describe('ChatWelcomeScreenComponent', () => {
         component.deleteConversation(event, 'conv_1')
 
         expect(conversationStorage.delete).toHaveBeenCalledWith('conv_1')
+        expect(component.conversations().length).toBe(0)
+    })
+
+    it('should delete all conversations and clear list', () => {
+        component.conversations.set([
+            { id: 'conv_1', title: 'Test 1', messages: [], createdAt: 1000, updatedAt: 2000 },
+            { id: 'conv_2', title: 'Test 2', messages: [], createdAt: 1000, updatedAt: 3000 }
+        ])
+        fixture.detectChanges()
+
+        component.deleteAllConversations()
+
+        expect(conversationStorage.deleteAll).toHaveBeenCalled()
         expect(component.conversations().length).toBe(0)
     })
 })
