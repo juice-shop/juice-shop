@@ -499,10 +499,16 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Arată {{count}} apeluri de instrumente anterioare",
   "CHATBOT_SEND_MESSAGE": "Trimite mesaj",
   "CHATBOT_SUGGESTION_RECOMMEND": "Obține o sugestie",
-  "CHATBOT_PROMPT_RECOMMEND": "Ce suc ai recomanda pentru o petrecere de vară?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
+  "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SEASONAL": "Are there any seasonal specials?",
   "CHATBOT_SUGGESTION_HELP": "Obține ajutor",
   "CHATBOT_PROMPT_HELP": "Am nevoie de ajutor cu comanda mea",
   "CHATBOT_RECENT_CONVERSATIONS": "Conversații recente",
   "CHATBOT_DELETE_CONVERSATION": "Șterge conversația",
+  "CHATBOT_DELETE_ALL": "Delete all",
+  "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Hopa! Se pare că „creierul” nostru AI a luat o pauză de suc. Endpoint-ul AI nu este configurat sau nu poate fi accesat. Te rugăm să contactezi administratorul magazinului pentru a-l repune în funcțiune!"
 }
