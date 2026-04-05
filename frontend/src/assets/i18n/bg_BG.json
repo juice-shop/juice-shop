@@ -499,10 +499,16 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Show {{count}} previous tool calls",
   "CHATBOT_SEND_MESSAGE": "Send message",
   "CHATBOT_SUGGESTION_RECOMMEND": "Get a suggestion",
-  "CHATBOT_PROMPT_RECOMMEND": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
+  "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SEASONAL": "Are there any seasonal specials?",
   "CHATBOT_SUGGESTION_HELP": "Get help",
   "CHATBOT_PROMPT_HELP": "I need help with my order",
   "CHATBOT_RECENT_CONVERSATIONS": "Recent conversations",
   "CHATBOT_DELETE_CONVERSATION": "Delete conversation",
+  "CHATBOT_DELETE_ALL": "Delete all",
+  "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Oops! Looks like our AI brain is taking a juice break. The AI endpoint is not configured or reachable. Please talk to the shop administrator to get it back on track!"
 }
