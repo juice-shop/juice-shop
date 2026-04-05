@@ -420,6 +420,7 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   .mat-mdc-unelevated-button.mat-primary {
     --mdc-filled-button-container-color: #516b77;
     background-color: var(--mdc-filled-button-container-color);
+    color: #fff;
   }
 
   .mat-mdc-button:disabled,
