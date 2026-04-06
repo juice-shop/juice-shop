@@ -30,6 +30,7 @@ import config from 'config'
 import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
+import type { CreationAttributes } from 'sequelize'
 import { ordersCollection, reviewsCollection } from './mongodb'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
@@ -73,68 +74,67 @@ async function createChallenges () {
   const codeChallenges = await getCodeChallenges()
   const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
 
-  const challengeRecords: any[] = []
+  const challengeRecords: Array<CreationAttributes<ChallengeModel>> = []
   const pendingDependencies: Array<{ challengeKey: ChallengeKey, deps: any[] }> = []
   const pendingHints: Array<{ challengeKey: ChallengeKey, hints: string[] }> = []
 
-  for (const { name, category, description: rawDescription, difficulty, hints, mitigationUrl, key, disabledEnv, tutorial, tags: rawTags } of challenges) {
-    // todo(@J12934) change this to use a proper challenge model or something
-    let description = rawDescription
-    let tags = rawTags
+  for (const challenge of challenges) {
+    let description = challenge.description
+    let tags = challenge.tags
 
-    const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
+    const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: challenge.disabledEnv?.join(';') ?? '' } as ChallengeModel)
     description = description.replace('juice-sh.op', config.get<string>('application.domain'))
     description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
-    const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(key)
+    const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(challenge.key)
 
     if (hasCodingChallenge) {
       tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
     }
 
-    Object.entries(variableDependencies).forEach(([variable, dependency]) => {
-      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+    for (const dependency of Object.values(variableDependencies)) {
+      if (dependency.dependentChallenges.some(dep => dep.includes(challenge.name) || dep.includes(challenge.key))) {
         tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
       }
-    })
-    Object.entries(domainDependencies).forEach(([domain, dependency]) => {
-      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+    }
+    for (const dependency of Object.values(domainDependencies)) {
+      if (dependency.dependentChallenges.some(dep => dep.includes(challenge.name) || dep.includes(challenge.key))) {
         tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
       }
-    })
+    }
 
     const challengeDependencies: any[] = []
-    Object.entries(variableDependencies).forEach(([variable, dependency]) => {
-      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+    for (const [variable, dependency] of Object.entries(variableDependencies)) {
+      if (dependency.dependentChallenges.some(dep => dep.includes(challenge.name) || dep.includes(challenge.key))) {
         challengeDependencies.push({ ...dependency, key: variable, missing: !preconditionResults[variable] })
       }
-    })
-    Object.entries(domainDependencies).forEach(([domain, dependency]) => {
-      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+    }
+    for (const [domain, dependency] of Object.entries(domainDependencies)) {
+      if (dependency.dependentChallenges.some(dep => dep.includes(challenge.name) || dep.includes(challenge.key))) {
         challengeDependencies.push({ ...dependency, key: domain, missing: !preconditionResults[domain] })
       }
-    })
+    }
 
     challengeRecords.push({
-      key,
-      name,
-      category,
+      key: challenge.key,
+      name: challenge.name,
+      category: challenge.category,
       tags: (tags != null) ? tags.join(',') : undefined,
       // todo(@J12934) currently missing the 'not available' text. Needs changes to the model and utils functions
       description: isChallengeEnabled ? description : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'),
-      difficulty,
+      difficulty: challenge.difficulty,
       solved: false,
-      mitigationUrl: showMitigations ? mitigationUrl : null,
+      mitigationUrl: showMitigations ? challenge.mitigationUrl : null,
       disabledEnv: disabledBecause,
-      tutorialOrder: (tutorial != null) ? tutorial.order : null,
+      tutorialOrder: (challenge.tutorial != null) ? challenge.tutorial.order : null,
       codingChallengeStatus: 0,
       hasCodingChallenge
     })
 
     if (challengeDependencies.length > 0) {
-      pendingDependencies.push({ challengeKey: key, deps: challengeDependencies })
+      pendingDependencies.push({ challengeKey: challenge.key, deps: challengeDependencies })
     }
-    if (showHints && hints?.length > 0) {
-      pendingHints.push({ challengeKey: key, hints })
+    if (showHints && challenge.hints?.length > 0) {
+      pendingHints.push({ challengeKey: challenge.key, hints: challenge.hints })
     }
   }
 
