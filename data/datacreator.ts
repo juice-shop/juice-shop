@@ -8,7 +8,7 @@ import { AddressModel } from '../models/address'
 import { BasketModel } from '../models/basket'
 import { BasketItemModel } from '../models/basketitem'
 import { CardModel } from '../models/card'
-import { ChallengeModel } from '../models/challenge'
+import { ChallengeModel, type ChallengeKey } from '../models/challenge'
 import { ChallengeDependencyModel } from '../models/challengeDependency'
 import { ComplaintModel } from '../models/complaint'
 import { DeliveryModel } from '../models/delivery'
@@ -73,94 +73,113 @@ async function createChallenges () {
   const codeChallenges = await getCodeChallenges()
   const challengeKeysWithCodeChallenges = [...codeChallenges.keys()]
 
-  await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hints, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
-      // todo(@J12934) change this to use a proper challenge model or something
+  const challengeRecords: any[] = []
+  const pendingDependencies: Array<{ challengeKey: ChallengeKey, deps: any[] }> = []
+  const pendingHints: Array<{ challengeKey: ChallengeKey, hints: string[] }> = []
 
-      const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
-      description = description.replace('juice-sh.op', config.get<string>('application.domain'))
-      description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
-      const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(key)
+  for (const { name, category, description: rawDescription, difficulty, hints, mitigationUrl, key, disabledEnv, tutorial, tags: rawTags } of challenges) {
+    // todo(@J12934) change this to use a proper challenge model or something
+    let description = rawDescription
+    let tags = rawTags
 
-      if (hasCodingChallenge) {
-        tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
-      }
+    const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
+    description = description.replace('juice-sh.op', config.get<string>('application.domain'))
+    description = description.replace('&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; allow=&quot;autoplay&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&quot;&gt;&lt;/iframe&gt;', entities.encode(config.get('challenges.xssBonusPayload')))
+    const hasCodingChallenge = challengeKeysWithCodeChallenges.includes(key)
 
-      Object.entries(variableDependencies).forEach(([variable, dependency]) => {
-        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
-          tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
-        }
-      })
-      Object.entries(domainDependencies).forEach(([domain, dependency]) => {
-        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
-          tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
-        }
-      })
+    if (hasCodingChallenge) {
+      tags = tags ? [...tags, 'With Coding Challenge'] : ['With Coding Challenge']
+    }
 
-      const challengeDependencies: any[] = []
-      Object.entries(variableDependencies).forEach(([variable, dependency]) => {
-        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
-          challengeDependencies.push({ ...dependency, key: variable, missing: !preconditionResults[variable] })
-        }
-      })
-      Object.entries(domainDependencies).forEach(([domain, dependency]) => {
-        if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
-          challengeDependencies.push({ ...dependency, key: domain, missing: !preconditionResults[domain] })
-        }
-      })
-
-      try {
-        datacache.challenges[key] = await ChallengeModel.create({
-          key,
-          name,
-          category,
-          tags: (tags != null) ? tags.join(',') : undefined,
-          // todo(@J12934) currently missing the 'not available' text. Needs changes to the model and utils functions
-          description: isChallengeEnabled ? description : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'),
-          difficulty,
-          solved: false,
-          mitigationUrl: showMitigations ? mitigationUrl : null,
-          disabledEnv: disabledBecause,
-          tutorialOrder: (tutorial != null) ? tutorial.order : null,
-          codingChallengeStatus: 0,
-          hasCodingChallenge
-        })
-        if (challengeDependencies.length > 0) {
-          await Promise.all(
-            challengeDependencies.map(async (dep) => {
-              await ChallengeDependencyModel.create({
-                ChallengeId: datacache.challenges[key].id,
-                name: dep.dependency,
-                documentation: dep.documentation,
-                key: dep.key,
-                missing: dep.missing
-              })
-            })
-          )
-        }
-        if (showHints && hints?.length > 0) await createHints(datacache.challenges[key].id, hints)
-      } catch (err) {
-        logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
+    Object.entries(variableDependencies).forEach(([variable, dependency]) => {
+      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+        tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
       }
     })
-  )
-}
+    Object.entries(domainDependencies).forEach(([domain, dependency]) => {
+      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+        tags = tags ? [...tags, `Requires ${dependency.dependency}`] : [`Requires ${dependency.dependency}`]
+      }
+    })
 
-async function createHints (ChallengeId: number, hints: string[]) {
-  let i: number = 0
-  return await Promise.all(
-    hints.map(async (hint) => {
-      hint = hint.replace(/OWASP Juice Shop/, `${config.get<string>('application.name')}`)
-      return await HintModel.create({
-        ChallengeId,
-        text: hint,
-        order: ++i,
+    const challengeDependencies: any[] = []
+    Object.entries(variableDependencies).forEach(([variable, dependency]) => {
+      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+        challengeDependencies.push({ ...dependency, key: variable, missing: !preconditionResults[variable] })
+      }
+    })
+    Object.entries(domainDependencies).forEach(([domain, dependency]) => {
+      if (dependency.dependentChallenges.some(dep => dep.includes(name) || dep.includes(key))) {
+        challengeDependencies.push({ ...dependency, key: domain, missing: !preconditionResults[domain] })
+      }
+    })
+
+    challengeRecords.push({
+      key,
+      name,
+      category,
+      tags: (tags != null) ? tags.join(',') : undefined,
+      // todo(@J12934) currently missing the 'not available' text. Needs changes to the model and utils functions
+      description: isChallengeEnabled ? description : (description + ' <em>(This challenge is <strong>potentially harmful</strong> on ' + disabledBecause + '!)</em>'),
+      difficulty,
+      solved: false,
+      mitigationUrl: showMitigations ? mitigationUrl : null,
+      disabledEnv: disabledBecause,
+      tutorialOrder: (tutorial != null) ? tutorial.order : null,
+      codingChallengeStatus: 0,
+      hasCodingChallenge
+    })
+
+    if (challengeDependencies.length > 0) {
+      pendingDependencies.push({ challengeKey: key, deps: challengeDependencies })
+    }
+    if (showHints && hints?.length > 0) {
+      pendingHints.push({ challengeKey: key, hints })
+    }
+  }
+
+  try {
+    const createdChallenges = await ChallengeModel.bulkCreate(challengeRecords)
+    for (const challenge of createdChallenges) {
+      datacache.challenges[challenge.key] = challenge
+    }
+  } catch (err) {
+    logger.error(`Could not bulk insert Challenges: ${utils.getErrorMessage(err)}`)
+    return
+  }
+
+  if (pendingDependencies.length > 0) {
+    const allDependencyRecords = pendingDependencies.flatMap(({ challengeKey, deps }) =>
+      deps.map(dep => ({
+        ChallengeId: datacache.challenges[challengeKey].id,
+        name: dep.dependency,
+        documentation: dep.documentation,
+        key: dep.key,
+        missing: dep.missing
+      }))
+    )
+    try {
+      await ChallengeDependencyModel.bulkCreate(allDependencyRecords)
+    } catch (err) {
+      logger.error(`Could not bulk insert ChallengeDependencies: ${utils.getErrorMessage(err)}`)
+    }
+  }
+
+  if (pendingHints.length > 0) {
+    const allHintRecords = pendingHints.flatMap(({ challengeKey, hints }) =>
+      hints.map((hint, index) => ({
+        ChallengeId: datacache.challenges[challengeKey].id,
+        text: hint.replace(/OWASP Juice Shop/, `${config.get<string>('application.name')}`),
+        order: index + 1,
         unlocked: false
-      }).catch((err: unknown) => {
-        logger.error(`Could not create hint: ${utils.getErrorMessage(err)}`)
-      })
-    })
-  )
+      }))
+    )
+    try {
+      await HintModel.bulkCreate(allHintRecords)
+    } catch (err) {
+      logger.error(`Could not bulk insert Hints: ${utils.getErrorMessage(err)}`)
+    }
+  }
 }
 
 async function createUsers () {
