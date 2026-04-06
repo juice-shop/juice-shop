@@ -746,6 +746,10 @@ export async function start (readyCallback?: () => void) {
     if (readyCallback) {
       readyCallback()
     }
+    if (process.env.EXIT_ON_READY === 'true') {
+      // used to benchmark startup time
+      process.exit(0)
+    }
   })
 
   void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
