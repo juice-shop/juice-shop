@@ -4,7 +4,6 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import svgCaptcha from 'svg-captcha'
 import { Op } from 'sequelize'
 
 import { ImageCaptchaModel } from '../models/imageCaptcha'
@@ -13,6 +12,7 @@ import * as security from '../lib/insecurity'
 export function imageCaptchas () {
   return async (req: Request, res: Response) => {
     try {
+      const { default: svgCaptcha } = await import('svg-captcha')
       const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
       const user = security.authenticatedUsers.from(req)

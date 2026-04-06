@@ -4,7 +4,6 @@
  */
 
 import fs from 'node:fs'
-import pug from 'pug'
 import config from 'config'
 import { type Request, type Response } from 'express'
 import { AllHtmlEntities as Entities } from 'html-entities'
@@ -50,7 +49,7 @@ export const getVideo = () => {
 
 export const promotionVideo = () => {
   return (req: Request, res: Response) => {
-    fs.readFile('views/promotionVideo.pug', function (err, buf) {
+    fs.readFile('views/promotionVideo.pug', async function (err, buf) {
       if (err != null) throw err
       let template = buf.toString()
       const subs = getSubsFromFile()
@@ -66,6 +65,7 @@ export const promotionVideo = () => {
       template = template.replace(/_navColor_/g, theme.navColor)
       template = template.replace(/_primLight_/g, theme.primLight)
       template = template.replace(/_primDark_/g, theme.primDark)
+      const pug = (await import('pug')).default
       const fn = pug.compile(template)
       let compiledTemplate = fn()
       compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
