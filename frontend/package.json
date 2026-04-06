@@ -87,6 +87,6 @@
     "vitest": "^4.1.1"
   },
   "overrides": {
-    "lru-cache": "~11.2.7"
+    "lru-cache@^11": "~11.2.7"
   }
 }
