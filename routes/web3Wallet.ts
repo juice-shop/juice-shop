@@ -1,5 +1,4 @@
 import { type Request, type Response } from 'express'
-import { WebSocketProvider, Contract } from 'ethers'
 
 import logger from '../lib/logger'
 import * as utils from '../lib/utils'
@@ -17,12 +16,13 @@ export function contractExploitListener () {
     walletsConnected.add(metamaskAddress)
     try {
       if (!isEventListenerCreated) {
+        const { WebSocketProvider, Contract } = await import('ethers')
         const provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
         provider.websocket.onerror = (error: any) => {
           logger.error(`WebSocket error (Contract Exploit Listener): ${error.message || error}`)
           isEventListenerCreated = false
         }
-        const contract = new Contract(web3WalletAddress, web3WalletABI, provider)
+        const contract = new Contract(web3WalletAddress, web3WalletABI, provider as any)
         void contract.on('ContractExploited', (exploiter: string) => {
           if (walletsConnected.has(exploiter)) {
             walletsConnected.delete(exploiter)
