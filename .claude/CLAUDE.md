@@ -16,7 +16,7 @@ Claude can assist with various development tasks, but all contributions must sti
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
-- **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Key Technologies**: Node.js (22–25 with 24 being the default), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
 - **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
