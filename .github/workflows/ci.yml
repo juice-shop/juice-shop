@@ -65,12 +65,12 @@ jobs:
         run: npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
-  test:
+  frontend-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # FIXME: Removed "windows-latest" due to 'Error: ENOENT: no such file or directory, open' error breaking at least on Node 20.0 constantly
-        node-version: [22, 24] # FIXME: Removed 25 due to compatibility issues with Vitest
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [22, 24]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
@@ -91,6 +91,37 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run test:frontend:coverage
+      - name: "Copy frontend unit test coverage data"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
+        run: |
+          cp frontend/coverage/frontend/lcov.info frontend-lcov.info
+          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
+        shell: bash
+      - name: "Upload frontend unit test coverage data"
+        if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b #v4.5.0
+        with:
+          name: frontend-test-lcov
+          path: |
+            frontend-lcov.info
+  server-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [22, 24, 25]
+    steps:
+      - name: "Check out Git repository"
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+      - name: "Use Node.js ${{ matrix.node-version }}"
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: "Install application"
+        if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
+        run: npm install
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -98,20 +129,17 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run test:server:coverage
-      - name: "Copy unit test coverage data"
+      - name: "Copy server unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         run: |
-          cp frontend/coverage/frontend/lcov.info frontend-lcov.info
           cp coverage/server-tests/lcov.info server-lcov.info
-          sed -i s/SF:/SF:frontend\\//g frontend-lcov.info
         shell: bash
-      - name: "Upload unit test coverage data"
+      - name: "Upload server unit test coverage data"
         if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24'
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b #v4.5.0
         with:
-          name: unit-test-lcov
+          name: server-test-lcov
           path: |
-            frontend-lcov.info
             server-lcov.info
   api-test:
     runs-on: ${{ matrix.os }}
@@ -152,16 +180,20 @@ jobs:
           path: |
             api-lcov.info
   coverage-report:
-    needs: [test, api-test]
+    needs: [frontend-test, server-test, api-test]
     runs-on: ubuntu-latest
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push'
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Download unit test coverage data"
+      - name: "Download frontend test coverage data"
         uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
         with:
-          name: unit-test-lcov
+          name: frontend-test-lcov
+      - name: "Download server test coverage data"
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
+        with:
+          name: server-test-lcov
       - name: "Download API test coverage data"
         uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 #v4.1.8
         with:
@@ -200,7 +232,7 @@ jobs:
             NODE_ENV=quiet npm run test:server &&
             NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
-  e2e:
+  e2e-test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -293,7 +325,7 @@ jobs:
         run: docker compose -f docker-compose.test.yml up --exit-code-from sut
   docker:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e, custom-config-test, docker-test]
+    needs: [frontend-test, server-test, api-test, e2e-test, custom-config-test, docker-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
@@ -331,7 +363,7 @@ jobs:
             CYCLONEDX_NPM_VERSION=${{ env.CYCLONEDX_NPM_VERSION }}
   heroku:
     if: github.repository == 'juice-shop/juice-shop' && github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
-    needs: [test, api-test, e2e, custom-config-test]
+    needs: [frontend-test, server-test, api-test, e2e-test, custom-config-test]
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
