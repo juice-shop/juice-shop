@@ -2,13 +2,12 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
-  EventEmitter,
   forwardRef,
   HostBinding,
-  Input,
+  input,
   type OnInit,
-  Output,
-  ViewChild
+  output,
+  viewChild
 } from '@angular/core'
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
 import { AbstractControlValueAccessor } from './abstract-value-accessor'
@@ -30,15 +29,15 @@ import { MatButtonModule } from '@angular/material/button'
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
   implements OnInit, AfterViewChecked {
-  @ViewChild('input') inputElement: ElementRef
+  readonly inputElement = viewChild<ElementRef>('input')
 
-  @Input() placeholder = ''
-  @Input() alwaysOpen = false
-  @Output() onBlur = new EventEmitter<string>()
-  @Output() onClose = new EventEmitter<void>()
-  @Output() onEnter = new EventEmitter<string>()
-  @Output() onFocus = new EventEmitter<string>()
-  @Output() onOpen = new EventEmitter<void>()
+  readonly placeholder = input('')
+  readonly alwaysOpen = input(false)
+  readonly onBlur = output<string>()
+  readonly onClose = output<void>()
+  readonly onEnter = output<string>()
+  readonly onFocus = output<string>()
+  readonly onOpen = output<void>()
 
   searchVisible = false
   private pendingFocus = false
@@ -48,20 +47,21 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
   }
 
   ngOnInit (): void {
-    if (this.alwaysOpen) {
+    if (this.alwaysOpen()) {
       this.searchVisible = true
     }
   }
 
   ngAfterViewChecked (): void {
-    if (this.pendingFocus && this.inputElement) {
-      this.inputElement.nativeElement.focus()
+    const el = this.inputElement()
+    if (this.pendingFocus && el) {
+      el.nativeElement.focus()
       this.pendingFocus = false
     }
   }
 
   public close (): void {
-    if (!this.alwaysOpen) {
+    if (!this.alwaysOpen()) {
       this.searchVisible = false
     }
     this.value = ''
@@ -76,7 +76,7 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
   }
 
   onBlurring (searchValue: string) {
-    if (!searchValue && !this.alwaysOpen) {
+    if (!searchValue && !this.alwaysOpen()) {
       this.searchVisible = false
     }
     this.onBlur.emit(searchValue)

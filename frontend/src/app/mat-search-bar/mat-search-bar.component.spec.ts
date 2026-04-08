@@ -20,7 +20,7 @@ describe('MatSearchBarComponent', () => {
         component = fixture.componentInstance
         fixture.detectChanges()
 
-        component.alwaysOpen = false
+        fixture.componentRef.setInput('alwaysOpen', false)
     })
 
     it('should create', () => {
@@ -33,7 +33,7 @@ describe('MatSearchBarComponent', () => {
         expect(component.searchVisible).toBe(true)
         expect(component.onOpen.emit).toHaveBeenCalled()
         fixture.detectChanges()
-        expect(document.activeElement).toBe(component.inputElement.nativeElement)
+        expect(document.activeElement).toBe(component.inputElement().nativeElement)
     })
 
     it('should add search-expanded class to host when search is visible', () => {
@@ -115,7 +115,7 @@ describe('MatSearchBarComponent', () => {
 
     it('should not close the search when set to be always open', () => {
         vi.spyOn(component.onClose, 'emit')
-        component.alwaysOpen = true
+        fixture.componentRef.setInput('alwaysOpen', true)
         component.searchVisible = true
         component.value = 'test'
         component.close()
@@ -125,7 +125,7 @@ describe('MatSearchBarComponent', () => {
     })
 
     it('should open search by default when set to be always open', () => {
-        component.alwaysOpen = true
+        fixture.componentRef.setInput('alwaysOpen', true)
         component.searchVisible = false
         component.ngOnInit()
         expect(component.searchVisible).toBe(true)
@@ -141,7 +141,7 @@ describe('MatSearchBarComponent', () => {
 
     it('should keep search visible on blur if set to be always open', () => {
         vi.spyOn(component.onBlur, 'emit')
-        component.alwaysOpen = true
+        fixture.componentRef.setInput('alwaysOpen', true)
         component.searchVisible = true
         component.onBlurring('')
         expect(component.onBlur.emit).toHaveBeenCalledWith('')
