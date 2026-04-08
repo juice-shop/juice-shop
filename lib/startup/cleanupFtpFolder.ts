@@ -10,7 +10,7 @@ import * as utils from '../utils'
 
 const cleanupFtpFolder = async () => {
   try {
-    const files = await glob('ftp/*.pdf')
+    const files = await glob('ftp/*.pdf', { windowsPathsNoEscape: true})
     for (const filename of files) {
       await fs.remove(filename)
     }
