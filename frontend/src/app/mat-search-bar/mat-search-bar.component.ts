@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   Component,
   ElementRef,
   EventEmitter,
@@ -28,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button'
   imports: [FormsModule, MatIconModule, MatButtonModule]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
-  implements OnInit {
+  implements OnInit, AfterViewChecked {
   @ViewChild('input') inputElement: ElementRef
 
   @Input() placeholder = ''
@@ -40,6 +41,7 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
   @Output() onOpen = new EventEmitter<void>()
 
   searchVisible = false
+  private pendingFocus = false
 
   @HostBinding('class.search-expanded') get expanded () {
     return this.searchVisible
@@ -48,6 +50,13 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
   ngOnInit (): void {
     if (this.alwaysOpen) {
       this.searchVisible = true
+    }
+  }
+
+  ngAfterViewChecked (): void {
+    if (this.pendingFocus && this.inputElement) {
+      this.inputElement.nativeElement.focus()
+      this.pendingFocus = false
     }
   }
 
@@ -62,7 +71,7 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
 
   public open (): void {
     this.searchVisible = true
-    this.inputElement.nativeElement.focus()
+    this.pendingFocus = true
     this.onOpen.emit()
   }
 
