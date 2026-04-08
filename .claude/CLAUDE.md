@@ -100,10 +100,11 @@ For any code changes Claude helps with (unless only `REFERENCES.md` or `SOLUTION
 - **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge (see the [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md) for details)
 - **Run Tests Locally**:
   ```bash
-  npm test                    # Frontend unit tests (Vitest) + server unit tests (Mocha)
+  npm test                    # Runs frontend, server, and api tests
+  npm run test:frontend       # Frontend unit tests (Vitest)
   npm run test:server         # Server unit tests only (Mocha/Chai/Sinon)
-  npm run test:api              # API integration tests (Supertest), alias: npm run test:api
-  npm start & npm run cypress:run  # E2E tests (Cypress), alias: npm run test:e2e
+  npm run test:api              # API integration tests (Supertest)
+  npm start & npm run test:e2e  # E2E tests (Cypress)
   npm run rsn                 # Refactoring Safety Net (for code changes impacting coding challenge snippets)
   ```
 
@@ -191,7 +192,7 @@ Ask Claude to:
 
 # 5. Quality checks
 npm run lint
-npm test
+npm run test:server # Run relevant tests (e.g. server)
 npm run rsn  # If the fix affects code used in a coding challenge
 
 # 6. Clean up and commit with sign-off
@@ -237,7 +238,8 @@ npm run rsn
   ```bash
   npm run rsn:update
   ```
-- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
+- IMPORTANT: Utilize the [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md)
+- When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
 - If changes are unintentional, fix the affected files
 
 Learn more: [Code Snippets Documentation](https://pwning.owasp-juice.shop/companion-guide/latest/part5/code-snippets.html)

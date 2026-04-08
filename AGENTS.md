@@ -72,7 +72,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#recommended-use-cases) for the full list. In
 See [CLAUDE.md](./.claude/CLAUDE.md#testing-requirements) for detailed guidelines. Essential checklist:
 
 - **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/)) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
-- **Tests**: `npm test`, `npm run test:api`, `npm run cypress:run` (all must pass) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
+- **Tests**: `npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e` (all must pass) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
 - **RSN**: `npm run rsn` (required if modifying challenge-related code)
 - **No AI noise**: Remove verbose/redundant comments
 - **Sign-off**: `git commit -s` (DCO required)
@@ -114,7 +114,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#anti-patterns-to-avoid) for detailed explana
 See [CLAUDE.md](./.claude/CLAUDE.md#quality-checklist) for the full checklist. Before submitting:
 
 - [ ] ESLint passes (`npm run lint`)
-- [ ] Tests pass (`npm test`, `npm run test:api`)
+- [ ] Tests pass (`npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`)
 - [ ] RSN passes if applicable (`npm run rsn`)
 - [ ] AI noise removed, meaningful comments only
 - [ ] Commits signed off (`git commit -s`)
@@ -127,7 +127,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#example-fixing-a-bug) for a detailed walkthr
 
 ```bash
 npm run lint      # Check code style
-npm test          # Run tests
+npm run test:frontend # Run relevant tests (e.g. frontend)
 npm run rsn       # If modifying challenge code
 git commit -s     # Sign-off commit
 ```
@@ -140,10 +140,11 @@ git commit -s     # Sign-off commit
 - IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency.
 
 **Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Vitest (frontend unit), Cypress (E2E)
-- `npm test` - Run frontend unit tests + server unit tests
-- `npm run test:server` - Server unit tests only (Mocha)
-- `npm run test:api`) - API integration tests only (Supertest)
-- `npm run cypress:run` (or `npm run test:e2e`) - E2E tests (Cypress)
+- `npm test` - Runs frontend, server, and api tests
+- `npm run test:frontend` - Frontend unit tests (Vitest)
+- `npm run test:server` - Server unit tests only (Mocha/Chai/Sinon)
+- `npm run test:api` - API integration tests (Supertest)
+- `npm start & npm run test:e2e` (or `npm run test:e2e`) - E2E tests (Cypress)
 
 ## Contribution Guidelines Summary
 
@@ -177,4 +178,4 @@ AI agents are productivity tools for enhancing development. You (or the person r
 
 **For comprehensive guidelines, see [CLAUDE.md](./.claude/CLAUDE.md).**
 
-**Last Updated**: March 2026
+**Last Updated**: April 2026

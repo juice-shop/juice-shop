@@ -23,8 +23,8 @@ The following context is provided to help Copilot better assist with contributio
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
-- **Key Technologies**: Node.js, Express, SQLite/MongoDB, Angular
-- **Testing**: Node.js Test Runner & Supertest, Cypress (E2E tests)
+- **Key Technologies**: Node.js (22–25 with 24 being the default), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 
 ### Important Constraints
@@ -60,7 +60,7 @@ The following context is provided to help Copilot better assist with contributio
 Before suggesting code or accepting Copilot suggestions, ensure:
 
 - ESLint compliance: `npm run lint`
-- Tests pass: `npm test`, `npm run test:api`, `npm run cypress:run`
+- Tests pass: `npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`
 - RSN passes (if modifying challenge-related code): `npm run rsn`
 - Code follows JS Standard Style
 - AI-generated noise is removed (see [CLAUDE.md](../.claude/CLAUDE.md#1-clean-up-ai-generated-noise))
@@ -80,7 +80,7 @@ Before suggesting code or accepting Copilot suggestions, ensure:
 
 - [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.md) guidelines
 - [ ] Code passes ESLint (`npm run lint`)
-- [ ] Tests pass (`npm test`, `npm run test:api`)
+- [ ] Tests pass (`npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`)
 - [ ] RSN passes if applicable (`npm run rsn`)
 - [ ] AI-generated noise cleaned up
 - [ ] Commits signed off (`git commit -s`)

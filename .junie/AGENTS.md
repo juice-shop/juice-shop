@@ -25,7 +25,7 @@ The following context is provided to help Junie better assist with contributions
 - **Quality Checklist**: 
   - [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.md) guidelines
   - [ ] Code passes ESLint (`npm run lint`) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
-  - [ ] Tests pass (`npm test`, `npm run test:api`, `npm run cypress:run`) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
+  - [ ] Tests pass (`npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
   - [ ] RSN passes if applicable (`npm run rsn`)
   - [ ] AI-generated noise cleaned up
   - [ ] Commits signed off (`git commit -s`)
