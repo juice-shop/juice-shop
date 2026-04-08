@@ -19,21 +19,20 @@
       </div>
     </button>
 
-    <span class="fill-remaining-space"></span>
-
-    <div>
+    <div class="search-area">
       <div id="product-search-fixture"></div>
+      <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+      aria-label="Click to search"></app-mat-search-bar>
     </div>
-    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-    aria-label="Click to search"></app-mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
-      aria-label="Show/hide account menu" id="navbarAccount">
-      <mat-icon>
-        account_circle
-      </mat-icon>
-      <span> {{"ACCOUNT" | translate}} </span>
-    </button>
+    <div class="navbar-actions">
+      <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
+        aria-label="Show/hide account menu" id="navbarAccount">
+        <mat-icon>
+          account_circle
+        </mat-icon>
+        <span> {{"ACCOUNT" | translate}} </span>
+      </button>
 
     <mat-menu #userMenu="matMenu">
       @if (isLoggedIn()) {
@@ -238,6 +237,7 @@
       }
 
     </mat-menu>
+    </div>
 
   </mat-toolbar-row>
 </mat-toolbar>

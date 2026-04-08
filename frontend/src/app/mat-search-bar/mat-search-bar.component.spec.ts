@@ -1,4 +1,3 @@
-import type { Mock } from "vitest"
 /*
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
@@ -21,7 +20,6 @@ describe('MatSearchBarComponent', () => {
         component = fixture.componentInstance
         fixture.detectChanges()
 
-        component.inputElement = { nativeElement: { focus: vi.fn() } } as any
         component.alwaysOpen = false
     })
 
@@ -29,22 +27,13 @@ describe('MatSearchBarComponent', () => {
         expect(component).toBeTruthy()
     })
 
-    it('should have disabled state when search is not visible', () => {
-        component.searchVisible = false
-        expect(component.isDisabled).toBe('disabled')
-    })
-
-    it('should be enabled when search is visible', () => {
-        component.searchVisible = true
-        expect(component.isDisabled).toBeNull()
-    })
-
     it('should focus input on opening the search', () => {
         vi.spyOn(component.onOpen, 'emit')
         component.open()
         expect(component.searchVisible).toBe(true)
-        expect((component.inputElement.nativeElement.focus as Mock)).toHaveBeenCalled()
         expect(component.onOpen.emit).toHaveBeenCalled()
+        fixture.detectChanges()
+        expect(document.activeElement).toBe(component.inputElement.nativeElement)
     })
 
     it('should clear value on closing the search', () => {

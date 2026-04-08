@@ -3,18 +3,16 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
+  HostBinding,
   Input,
   type OnInit,
   Output,
   ViewChild
 } from '@angular/core'
-import { FormControl, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
-import { MatAutocomplete } from '@angular/material/autocomplete'
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
 import { AbstractControlValueAccessor } from './abstract-value-accessor'
-import { MatRipple } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
 
 @Component({
   selector: 'app-mat-search-bar',
@@ -27,14 +25,12 @@ import { MatFormFieldModule } from '@angular/material/form-field'
       multi: true
     }
   ],
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
+  imports: [FormsModule, MatIconModule, MatButtonModule]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
   implements OnInit {
   @ViewChild('input') inputElement: ElementRef
 
-  @Input() formControl: FormControl
-  @Input() matAutocomplete: MatAutocomplete
   @Input() placeholder = ''
   @Input() alwaysOpen = false
   @Output() onBlur = new EventEmitter<string>()
@@ -45,8 +41,8 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
 
   searchVisible = false
 
-  get isDisabled (): string {
-    return this.searchVisible ? null : 'disabled'
+  @HostBinding('class.search-expanded') get expanded () {
+    return this.searchVisible
   }
 
   ngOnInit (): void {

@@ -25,7 +25,8 @@ mat-toolbar {
 
 .navbar-row {
   align-items: center;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
 }
 
 @media (max-width: 599.98px) {
@@ -79,8 +80,17 @@ mat-toolbar {
   pointer-events: none;
 }
 
-.fill-remaining-space {
-  flex: 1 1 auto;
+.search-area {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-left: $space-m;
+  min-width: 0;
+}
+
+.navbar-actions {
+  align-items: center;
+  display: flex;
 }
 
 .language-select {
@@ -105,11 +115,8 @@ mat-toolbar {
   background: transparent !important;
 }
 
-mat-search-bar {
-  font-size: 13px;
-  margin-right: $space-4xl;
-  min-width: 200px;
-  padding-right: $space-4xl;
+app-mat-search-bar {
+  margin-right: $space-xs;
 }
 
 .buttons {
