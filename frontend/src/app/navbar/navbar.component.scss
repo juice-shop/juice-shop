@@ -52,9 +52,10 @@ mat-toolbar {
 }
 
 .warn-notification {
-  left: 15px;
+  position: absolute;
+  right: -10px;
   text-overflow: clip;
-  top: -15px;
+  top: -10px;
 }
 
 .logo {
@@ -112,6 +113,7 @@ mat-search-bar {
 }
 
 .buttons {
+  overflow: visible;
   position: relative;
   width: auto;
 }
