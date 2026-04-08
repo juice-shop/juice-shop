@@ -22,7 +22,10 @@ a {
   padding-left: $space-s;
 }
 
-.mat-mdc-list-base,
+.mat-mdc-list-base {
+  padding: 0 $space-xs !important;
+}
+
 .mat-mdc-list-item,
 .mat-mdc-list-item-icon {
   padding: 0 !important;
