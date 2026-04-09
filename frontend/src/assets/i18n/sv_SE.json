@@ -286,7 +286,7 @@
   "WRITE_MESSAGE_PLACEHOLDER": "Vad skulle du vilja berätta för oss?",
   "SHOW_PWD_TOOLTIP": "Visa lösenord",
   "HIDE_PWD_TOOLTIP": "Dölj lösenord",
-  "DATA_EXPORT_HINT": "(Your data export will open in a new Browser window.)",
+  "DATA_EXPORT_HINT": "(Din dataexport öppnas i ett nytt webbläsarfönster.)",
   "LABEL_SOLD_OUT": "Slutsåld",
   "LABEL_ONLY_QUANTITY_LEFT": "Endast {{quantity}} kvar",
   "THANKS_FOR_PURCHASE": "Tack för ditt köp!",
