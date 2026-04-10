@@ -40,8 +40,9 @@ out/
 *.iml
 *.iws
 *.swp
-.junie/memory/
 .ai/mcp/mcp.json
+.junie/mcp/mcp.json
+.junie/memory/
 
 # Branch ghpages
 assets/
