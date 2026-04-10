@@ -19,6 +19,7 @@ import { challenges } from '../data/datacache'
 import * as db from '../data/mongodb'
 import { type Review } from '../data/types'
 import logger from '../lib/logger'
+import { Counter } from 'prom-client'
 
 function summarizeLlmError (error: unknown): string {
   if (!(error instanceof Error)) {
@@ -51,6 +52,31 @@ async function getUserNameFromToken (req: Request): Promise<string | undefined> 
   const user = await UserModel.findByPk(userId, { attributes: ['username'] })
   return user?.username ?? undefined
 }
+
+const app = config.get<string>('application.customMetricsPrefix')
+const metricInputTokensTotal = new Counter({
+  name: `${app}_llm_input_tokens_total`,
+  help: 'Number of total input tokens processed',
+})
+const metricInputTokens = new Counter({
+  name: `${app}_llm_input_tokens`,
+  help: 'Number of input tokens processed',
+  labelNames: ['type'],
+})
+const metricOutputTokensTotal = new Counter({
+  name: `${app}_llm_output_tokens_total`,
+  help: 'Number of total output tokens processed',
+})
+const metricOutputTokens = new Counter({
+  name: `${app}_llm_output_tokens`,
+  help: 'Number of output tokens processed',
+  labelNames: ['type'],
+})
+const metricToolCalls = new Counter({
+  name: `${app}_llm_tool_calls_total`,
+  help: 'Number of tool calls made',
+  labelNames: ['tool'],
+})
 
 // vuln-code-snippet start chatbotGreedyInjectionChallenge
 function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
@@ -196,6 +222,7 @@ export function chat () {
               const role = decoded?.data?.role
               return req.cookies.show_tool_calls === 'true' && role !== roles.admin
             })
+            metricToolCalls.labels({ tool: event.toolName }).inc()
             res.write(`data: ${JSON.stringify({
               choices: [{
                 delta: {
@@ -210,6 +237,17 @@ export function chat () {
             break
           case 'finish':
             res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
+            if (event.totalUsage.inputTokens) {
+              metricInputTokensTotal.inc(event.totalUsage.inputTokens)
+              metricInputTokens.labels({ type: 'cache_read' }).inc(event.totalUsage.inputTokenDetails?.cacheReadTokens ?? 0)
+              metricInputTokens.labels({ type: 'cache_write' }).inc(event.totalUsage.inputTokenDetails?.cacheWriteTokens ?? 0)
+              metricInputTokens.labels({ type: 'no_cache' }).inc(event.totalUsage.inputTokenDetails?.noCacheTokens ?? 0)
+            }
+            if (event.totalUsage.outputTokens) {
+              metricOutputTokensTotal.inc(event.totalUsage.outputTokens)
+              metricOutputTokens.labels({ type: 'reasoning' }).inc(event.totalUsage.outputTokenDetails?.reasoningTokens ?? 0)
+              metricOutputTokens.labels({ type: 'text' }).inc(event.totalUsage.outputTokenDetails?.textTokens ?? 0)
+            }
             break
           case 'error':
             res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)
