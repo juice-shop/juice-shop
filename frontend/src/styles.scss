@@ -4,7 +4,6 @@
  */
 @use '@angular/material' as mat;
 
-@use 'sass:map';
 @use 'sass:color';
 
 @use './styles/theme' as *;
@@ -15,7 +14,7 @@
 @mixin link-theme($theme) {
   a:link,
   a:visited {
-    color: mat.m2-get-color-from-palette(map.get($theme, accent), lighter);
+    color: mat.get-theme-color($theme, tertiary);
     text-decoration: none;
   }
 
@@ -32,29 +31,47 @@
 
 @mixin deluxe-membership-theme($theme) {
   .deluxe-membership {
-    background: linear-gradient(90deg, mat.m2-get-color-from-palette(map.get($theme, primary), 1) 0%, mat.m2-get-color-from-palette(map.get($theme, background), card) 100%);
+    background: linear-gradient(90deg, mat.get-theme-color($theme, primary, 10) 0%, mat.get-theme-color($theme, surface-container) 100%);
   }
 }
 
 @mixin notification-theme($theme) {
   .confirmation {
-    color: mat.m2-get-color-from-palette(map.get($theme, accent));
+    color: mat.get-theme-color($theme, tertiary);
   }
 
   .error {
-    color: mat.m2-get-color-from-palette(map.get($theme, warn));
+    color: mat.get-theme-color($theme, error);
   }
 
   .primary-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, primary), darker);
+    background-color: mat.get-theme-color($theme, primary, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 
   .accent-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, accent), darker);
+    background-color: mat.get-theme-color($theme, tertiary, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 
   .warn-notification {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, warn), darker);
+    background-color: mat.get-theme-color($theme, error, 30) !important;
+    color: #fff !important;
+
+    button,
+    mat-icon {
+      color: inherit !important;
+    }
   }
 }
 
@@ -66,75 +83,77 @@
 
 @mixin score-star-theme($theme) {
   .empty-star {
-    stop-color: mat.m2-get-color-from-palette(map.get($theme, primary));
+    stop-color: mat.get-theme-color($theme, primary);
   }
 
   .filled-star {
-    stop-color: mat.m2-get-color-from-palette(map.get($theme, accent));
+    stop-color: mat.get-theme-color($theme, tertiary);
   }
 
   .star-border {
-    stroke: mat.m2-get-color-from-palette(map.get($theme, accent));
+    stroke: mat.get-theme-color($theme, tertiary);
   }
 }
 
 // sets css variables to be used across components during runtime
 @mixin css-vars($theme) {
-  --theme-primary: #{mat.m2-get-color-from-palette(map.get($theme, primary))};
-  --theme-primary-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: 6%)};
-  --theme-primary-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: 10%)};
-  --theme-primary-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: -6%)};
-  --theme-primary-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $lightness: -10%)};
-  --theme-primary-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.1)};
-  --theme-primary-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.2)};
-  --theme-primary-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.3)};
-  --theme-primary-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.4)};
-  --theme-primary-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, primary)), $alpha: 0.5)};
+  $primary-base: mat.get-theme-color($theme, primary, 60);
+  --theme-primary: #{$primary-base};
+  --theme-primary-lighter: #{color.adjust($primary-base, $lightness: 6%)};
+  --theme-primary-light: #{color.adjust($primary-base, $lightness: 10%)};
+  --theme-primary-darker: #{color.adjust($primary-base, $lightness: -6%)};
+  --theme-primary-dark: #{color.adjust($primary-base, $lightness: -10%)};
+  --theme-primary-fade-10: #{color.adjust($primary-base, $alpha: 0.1)};
+  --theme-primary-fade-20: #{color.adjust($primary-base, $alpha: 0.2)};
+  --theme-primary-fade-30: #{color.adjust($primary-base, $alpha: 0.3)};
+  --theme-primary-fade-40: #{color.adjust($primary-base, $alpha: 0.4)};
+  --theme-primary-fade-50: #{color.adjust($primary-base, $alpha: 0.5)};
 
-  --theme-accent: #{mat.m2-get-color-from-palette(map.get($theme, accent))};
-  --theme-accent-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: 6%)};
-  --theme-accent-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: 10%)};
-  --theme-accent-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: -6%)};
-  --theme-accent-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $lightness: -10%)};
-  --theme-accent-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.1)};
-  --theme-accent-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.2)};
-  --theme-accent-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.3)};
-  --theme-accent-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.4)};
-  --theme-accent-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, accent)), $alpha: 0.5)};
+  $accent-base: mat.get-theme-color($theme, tertiary, 60);
+  --theme-accent: #{$accent-base};
+  --theme-accent-lighter: #{color.adjust($accent-base, $lightness: 6%)};
+  --theme-accent-light: #{color.adjust($accent-base, $lightness: 10%)};
+  --theme-accent-darker: #{color.adjust($accent-base, $lightness: -6%)};
+  --theme-accent-dark: #{color.adjust($accent-base, $lightness: -10%)};
+  --theme-accent-fade-10: #{color.adjust($accent-base, $alpha: 0.1)};
+  --theme-accent-fade-20: #{color.adjust($accent-base, $alpha: 0.2)};
+  --theme-accent-fade-30: #{color.adjust($accent-base, $alpha: 0.3)};
+  --theme-accent-fade-40: #{color.adjust($accent-base, $alpha: 0.4)};
+  --theme-accent-fade-50: #{color.adjust($accent-base, $alpha: 0.5)};
 
-  --theme-warn: #{mat.m2-get-color-from-palette(map.get($theme, warn))};
-  --theme-warn-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: 6%)};
-  --theme-warn-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: 10%)};
-  --theme-warn-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: -6%)};
-  --theme-warn-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $lightness: -10%)};
-  --theme-warn-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.1)};
-  --theme-warn-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.2)};
-  --theme-warn-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.3)};
-  --theme-warn-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.4)};
-  --theme-warn-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, warn)), $alpha: 0.5)};
+  --theme-warn: #{mat.get-theme-color($theme, error)};
+  --theme-warn-lighter: #{color.adjust(mat.get-theme-color($theme, error), $lightness: 6%)};
+  --theme-warn-light: #{color.adjust(mat.get-theme-color($theme, error), $lightness: 10%)};
+  --theme-warn-darker: #{color.adjust(mat.get-theme-color($theme, error), $lightness: -6%)};
+  --theme-warn-dark: #{color.adjust(mat.get-theme-color($theme, error), $lightness: -10%)};
+  --theme-warn-fade-10: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.1)};
+  --theme-warn-fade-20: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.2)};
+  --theme-warn-fade-30: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.3)};
+  --theme-warn-fade-40: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.4)};
+  --theme-warn-fade-50: #{color.adjust(mat.get-theme-color($theme, error), $alpha: 0.5)};
 
-  --theme-text: #{mat.m2-get-color-from-palette(map.get($theme, foreground), text)};
-  --theme-text-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: 6%)};
-  --theme-text-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: 10%)};
-  --theme-text-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: -10%)};
-  --theme-text-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $lightness: -25%)};
-  --theme-text-fade-10: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.1)};
-  --theme-text-fade-20: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.2)};
-  --theme-text-fade-30: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.3)};
-  --theme-text-fade-40: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.4)};
-  --theme-text-fade-50: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), $alpha: 0.5)};
+  --theme-text: #{mat.get-theme-color($theme, on-surface)};
+  --theme-text-lighter: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: 6%)};
+  --theme-text-light: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: 10%)};
+  --theme-text-darker: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: -10%)};
+  --theme-text-dark: #{color.adjust(mat.get-theme-color($theme, on-surface), $lightness: -25%)};
+  --theme-text-fade-10: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.1)};
+  --theme-text-fade-20: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.2)};
+  --theme-text-fade-30: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.3)};
+  --theme-text-fade-40: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.4)};
+  --theme-text-fade-50: #{color.adjust(mat.get-theme-color($theme, on-surface), $alpha: 0.5)};
 
-  --theme-text-invert-15: #{color.invert(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), 15%)};
-  --theme-text-invert-30: #{color.invert(mat.m2-get-color-from-palette(map.get($theme, foreground), text,), 30%)};
+  --theme-text-invert-15: #{color.invert(mat.get-theme-color($theme, on-surface), 15%)};
+  --theme-text-invert-30: #{color.invert(mat.get-theme-color($theme, on-surface), 30%)};
 
-  --theme-background: #{mat.m2-get-color-from-palette(map.get($theme, background), card)};
-  --theme-background-lighter: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: 6%)};
-  --theme-background-light: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: 10%)};
-  --theme-background-darker: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -6%)};
-  --theme-background-dark: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -10%)};
-  --theme-background-darkest: #{color.adjust(mat.m2-get-color-from-palette(map.get($theme, background), card), $lightness: -14%)};
+  --theme-background: #{mat.get-theme-color($theme, surface-container)};
+  --theme-background-lighter: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: 6%)};
+  --theme-background-light: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: 10%)};
+  --theme-background-darker: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -6%)};
+  --theme-background-dark: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -10%)};
+  --theme-background-darkest: #{color.adjust(mat.get-theme-color($theme, surface-container), $lightness: -14%)};
 
-  --theme-thumbnail-border: 1px solid #{mat.m2-get-color-from-palette(map.get($theme, primary))};
+  --theme-thumbnail-border: 1px solid #{mat.get-theme-color($theme, primary)};
 
   // make background of search field transparent
   --mdc-filled-text-field-container-color: #0000;
@@ -156,15 +175,16 @@
   }
 }
 
+
 @mixin google-button($theme) {
   .google-button {
-    background-color: mat.m2-get-color-from-palette(map.get($theme, accent), darker) !important;
+    background-color: mat.get-theme-color($theme, tertiary, 30) !important;
   }
 }
 
 @mixin overlay-theme($theme) {
   .overlay {
-    background: mat.m2-get-color-from-palette(map.get($theme, primary), darker, 0.7);
+    background: color.adjust(mat.get-theme-color($theme, primary, 30), $alpha: -0.3);
   }
 }
 
@@ -179,46 +199,285 @@
   @include overlay-theme($theme);
 }
 
+@mixin theme-overrides($nav, $bg, $prim, $text) {
+  $is-dark: color.channel($bg, 'lightness', $space: hsl) < 50%;
+  $is-text-light: color.channel($text, 'lightness', $space: hsl) > 50%;
+
+  // Overriding project-specific background/surface variables
+  --theme-background: #{$prim};
+  --theme-background-lighter: #{color.adjust($prim, $lightness: if(sass($is-dark): 5%; else: -5%))};
+  --theme-background-light: #{color.adjust($prim, $lightness: if(sass($is-dark): 10%; else: -10%))};
+  --theme-background-darker: #{$bg};
+  --theme-background-dark: #{color.adjust($bg, $lightness: if(sass($is-dark): -5%; else: 5%))};
+  --theme-background-darkest: #{color.adjust($bg, $lightness: -10%)};
+
+  // Overriding project-specific text variables
+  --theme-text: #{$text};
+  --theme-text-lighter: #{color.adjust($text, $lightness: if(sass($is-text-light): 5%; else: -5%))};
+  --theme-text-light: #{if(sass($is-text-light): #fff; else: #000)};
+  --theme-text-darker: #{color.adjust($text, $lightness: if(sass($is-text-light): -10%; else: 10%))};
+  --theme-text-dark: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+
+  // Explicit Material M3 System tokens
+  --mat-sys-surface: #{$bg};
+  --mat-sys-on-surface: #{$text};
+  --mat-sys-surface-container: #{$prim};
+  --mat-sys-surface-container-high: #{color.adjust($prim, $lightness: if(sass($is-dark): 2%; else: -2%))};
+  --mat-sys-on-surface-variant: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+  --mat-sys-outline: #{color.adjust($bg, $lightness: if(sass($is-dark): 20%; else: -20%))};
+  --mat-sys-outline-variant: #{color.adjust($bg, $lightness: if(sass($is-dark): 10%; else: -10%))};
+
+  // Component-specific alignment
+
+  // Top app bar / Toolbar (mat-toolbar)
+  .mat-mdc-toolbar,
+  mat-toolbar {
+    --mat-toolbar-container-background-color: #{$nav};
+    --mat-toolbar-container-text-color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
+    color: var(--mat-toolbar-container-text-color);
+  }
+
+  // Cards / Tiles / Panels
+  $border-color: if(sass($is-dark): rgba(255, 255, 255, 0.1); else: rgba(0, 0, 0, 0.1));
+
+  .mat-mdc-card,
+  .mat-expansion-panel {
+    --mdc-elevated-card-container-color: #{$prim};
+    background-color: var(--mdc-elevated-card-container-color);
+    border: 1px solid #{$border-color};
+  }
+
+  // Dialogs
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    --mdc-dialog-container-color: #{color.adjust($prim, $lightness: 1%)};
+    background-color: var(--mdc-dialog-container-color);
+    border: 1px solid #{$border-color};
+  }
+
+  // Form Fields
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: #{color.adjust($prim, $lightness: 5%)};
+    --mdc-outlined-text-field-container-color: #{color.adjust($prim, $lightness: 5%)};
+    --mat-form-field-focus-outline-color: #{$nav};
+  }
+
+  .mat-mdc-form-field-hint,
+  .mat-mdc-form-field-counter {
+    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -25%; else: 25%))};
+  }
+
+  // Chips (mat-chip, MDC chips)
+  .mat-mdc-standard-chip,
+  .mat-mdc-chip,
+  .suggestion-chip {
+    --mdc-chip-elevated-container-color: #{color.adjust($nav, $lightness: if(sass(color.channel($nav, 'lightness', $space: hsl) > 50%): -10%; else: 10%), $saturation: -10%)};
+    --mdc-chip-label-text-color: #{$text};
+    background-color: var(--mdc-chip-elevated-container-color) !important;
+    color: var(--mdc-chip-label-text-color) !important;
+    border: 1px solid #{$border-color};
+  }
+
+  .mat-mdc-chip-selected,
+  .mat-mdc-chip-highlighted {
+    --mdc-chip-elevated-container-color: #{$nav};
+  }
+
+  // Buttons
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-container-color: #{$nav};
+    background-color: var(--mdc-filled-button-container-color);
+    color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
+  }
+
+  .mat-mdc-button:disabled,
+  .mat-mdc-raised-button:disabled,
+  .mat-mdc-unelevated-button:disabled {
+    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if(sass($is-dark): 15%; else: -15%))};
+    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))} !important;
+  }
+
+  // Slide toggles
+  .mat-mdc-slide-toggle {
+    --mat-slide-toggle-selected-handle-color: #{$nav};
+    --mat-slide-toggle-selected-track-color: #{color.adjust($nav, $alpha: -0.46)};
+    --mat-slide-toggle-unselected-handle-color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))};
+    --mat-slide-toggle-unselected-track-color: #{color.adjust($prim, $lightness: 5%)};
+  }
+}
+
 $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 
 .deeppurple-amber-theme {
   @include custom-components-theme($deeppurple-amber-theme);
   @include css-vars($deeppurple-amber-theme);
+  @include theme-overrides(#673ab7, #fafafa, #9575cd, #000);
 }
 
 .indigo-pink-theme {
   @include custom-components-theme($indigo-pink-theme);
   @include css-vars($indigo-pink-theme);
+  @include theme-overrides(#3f51b5, #fafafa, #7986cb, #000);
 }
 
 .pink-bluegrey-theme {
   @include custom-components-theme($pink-bluegrey-theme);
   @include css-vars($pink-bluegrey-theme);
+  @include theme-overrides(#c2185b, #303030, #e91e63, #fff);
 }
 
 .purple-green-theme {
   @include custom-components-theme($purple-green-theme);
   @include css-vars($purple-green-theme);
+  @include theme-overrides(#7b1fa2, #303030, #9c27b0, #fff);
 }
 
 .bluegrey-lightgreen-theme {
   @include custom-components-theme($bluegrey-lightgreen-theme);
   @include css-vars($bluegrey-lightgreen-theme);
+
+  // --- Target Theme Overrides ---
+
+  // Overriding project-specific background/surface variables
+  --theme-background: #3e3e3e;
+  --theme-background-lighter: #4a4a4a;
+  --theme-background-light: #5a5a5a;
+  --theme-background-darker: #333638;
+  --theme-background-dark: #303030;
+  --theme-background-darkest: #2b2b2b;
+
+  // Overriding project-specific text variables
+  --theme-text: #e8ecef;
+  --theme-text-lighter: #f2f5f7;
+  --theme-text-light: #fff;
+  --theme-text-darker: #b8c0c7;
+  --theme-text-dark: #7f8a93;
+
+  // Explicit Material M3 System tokens (ensures charcoal grey canvas)
+  --mat-sys-surface: #333638;
+  --mat-sys-on-surface: #e8ecef;
+  --mat-sys-surface-container: #3e3e3e;
+  --mat-sys-surface-container-high: #404244;
+  --mat-sys-on-surface-variant: #b8c0c7;
+  --mat-sys-outline: #5a5a5a;
+  --mat-sys-outline-variant: #404244;
+
+  // Component-specific alignment
+
+  // Top app bar / Toolbar (mat-toolbar)
+  .mat-mdc-toolbar,
+  mat-toolbar {
+    --mat-toolbar-container-background-color: #4f6f7a;
+    --mat-toolbar-container-text-color: #f2f5f7;
+    color: var(--mat-toolbar-container-text-color);
+  }
+
+  // Cards / Tiles / Panels
+  .mat-mdc-card,
+  .mat-expansion-panel {
+    --mdc-elevated-card-container-color: #3e3e3e;
+    background-color: var(--mdc-elevated-card-container-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  // Dialogs
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    --mdc-dialog-container-color: #3f3f3f;
+    background-color: var(--mdc-dialog-container-color);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  // Form Fields
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: #4a4a4a;
+    --mdc-outlined-text-field-container-color: #4a4a4a;
+    --mat-form-field-focus-outline-color: #4f6f7a;
+  }
+
+  .mat-mdc-form-field-hint,
+  .mat-mdc-form-field-counter {
+    color: #b8c0c7;
+  }
+
+  // Chips (mat-chip, MDC chips)
+  .mat-mdc-standard-chip,
+  .mat-mdc-chip,
+  .suggestion-chip {
+    --mdc-chip-elevated-container-color: #4a626e;
+    --mdc-chip-label-text-color: #e8ecef;
+    background-color: var(--mdc-chip-elevated-container-color) !important;
+    color: var(--mdc-chip-label-text-color) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mat-mdc-chip-selected,
+  .mat-mdc-chip-highlighted {
+    --mdc-chip-elevated-container-color: #81a823;
+  }
+
+  // Buttons
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-unelevated-button.mat-primary {
+    --mdc-filled-button-container-color: #516b77;
+    background-color: var(--mdc-filled-button-container-color);
+    color: #fff;
+  }
+
+  .mat-mdc-button:disabled,
+  .mat-mdc-raised-button:disabled,
+  .mat-mdc-unelevated-button:disabled {
+    --mdc-filled-button-disabled-container-color: #5a5a5a;
+    color: #7f8a93 !important;
+  }
+
+  // Slide toggles
+  .mat-mdc-slide-toggle {
+    --mat-slide-toggle-selected-handle-color: #4f6f7a;
+    --mat-slide-toggle-selected-track-color: rgba(79, 111, 122, 0.54);
+    --mat-slide-toggle-unselected-handle-color: #7f8a93;
+    --mat-slide-toggle-unselected-track-color: #4a4a4a;
+  }
+
+  // Error / Warn color overrides (making them more red)
+  --theme-warn: #f44336;
+  --theme-warn-lighter: #{color.adjust(#f44336, $lightness: 6%)};
+  --theme-warn-light: #{color.adjust(#f44336, $lightness: 10%)};
+  --theme-warn-darker: #{color.adjust(#f44336, $lightness: -6%)};
+  --theme-warn-dark: #{color.adjust(#f44336, $lightness: -10%)};
+  --theme-warn-fade-10: #{color.adjust(#f44336, $alpha: 0.1)};
+  --theme-warn-fade-20: #{color.adjust(#f44336, $alpha: 0.2)};
+  --theme-warn-fade-30: #{color.adjust(#f44336, $alpha: 0.3)};
+  --theme-warn-fade-40: #{color.adjust(#f44336, $alpha: 0.4)};
+  --theme-warn-fade-50: #{color.adjust(#f44336, $alpha: 0.5)};
+
+  --mat-sys-error: #f44336;
+  --mat-sys-on-error: #fff;
+
+  .error {
+    color: #f44336 !important;
+  }
+
+  .warn-notification {
+    background-color: #d32f2f !important;
+  }
 }
 
 .blue-lightblue-theme {
   @include custom-components-theme($blue-lightblue-theme);
   @include css-vars($blue-lightblue-theme);
+  @include theme-overrides(#1976d2, #fafafa, #29b6f6, #000);
 }
 
 .deeporange-indigo-theme {
   @include custom-components-theme($deeporange-indigo-theme);
   @include css-vars($deeporange-indigo-theme);
+  @include theme-overrides(#e64a19, #fafafa, #ff5722, #000);
 }
 
 .lime-green-theme {
   @include custom-components-theme($lime-green-theme);
   @include css-vars($lime-green-theme);
+  @include theme-overrides(#cddc39, #303030, #ddee48, #000);
 }
 
 .close-dialog {

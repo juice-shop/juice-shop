@@ -1,5 +1,4 @@
 import { type Request, type Response } from 'express'
-import { WebSocketProvider, Contract } from 'ethers'
 
 import logger from '../lib/logger'
 import * as challengeUtils from '../lib/challengeUtils'
@@ -15,12 +14,13 @@ export function nftMintListener () {
   return async (req: Request, res: Response) => {
     try {
       if (!isEventListenerCreated) {
+        const { WebSocketProvider, Contract } = await import('ethers')
         const provider = new WebSocketProvider(`wss://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY ?? ''}`)
         provider.websocket.onerror = (error: any) => {
           logger.error(`WebSocket error (NFT Mint Listener): ${error.message || error}`)
           isEventListenerCreated = false
         }
-        const contract = new Contract(nftAddress, nftABI, provider)
+        const contract = new Contract(nftAddress, nftABI, provider as any)
         void contract.on('NFTMinted', (minter: string) => {
           if (!addressesMinted.has(minter)) {
             addressesMinted.add(minter)

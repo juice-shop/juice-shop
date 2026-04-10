@@ -7,9 +7,9 @@ export const themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',
     textColor: '#FFFFFF',
-    navColor: '#546E7A',
-    primLight: '#424242',
-    primDark: '#263238'
+    navColor: '#4f6f7a',
+    primLight: '#3e3e3e',
+    primDark: '#303030'
   },
   'blue-lightblue': {
     bgColor: '#FAFAFA',

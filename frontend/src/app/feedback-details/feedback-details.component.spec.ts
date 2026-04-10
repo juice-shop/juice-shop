@@ -8,39 +8,39 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { UserService } from '../Services/user.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatDividerModule } from '@angular/material/divider'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { FeedbackDetailsComponent } from './feedback-details.component'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('FeedbackDetailsComponent', () => {
-  let component: FeedbackDetailsComponent
-  let fixture: ComponentFixture<FeedbackDetailsComponent>
+    let component: FeedbackDetailsComponent
+    let fixture: ComponentFixture<FeedbackDetailsComponent>
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        MatDividerModule,
-        MatDialogModule,
-        FeedbackDetailsComponent],
-      providers: [
-        UserService,
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                MatDividerModule,
+                MatDialogModule,
+                FeedbackDetailsComponent],
+            providers: [
+                UserService,
+                { provide: MatDialogRef, useValue: {} },
+                { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FeedbackDetailsComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FeedbackDetailsComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 })

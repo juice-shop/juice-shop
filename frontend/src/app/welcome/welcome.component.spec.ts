@@ -16,69 +16,73 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WelcomeComponent', () => {
-  let component: WelcomeComponent
-  let configurationService: any
-  let cookieService: any
-  let fixture: ComponentFixture<WelcomeComponent>
-  let dialog: any
+    let component: WelcomeComponent
+    let configurationService: any
+    let cookieService: any
+    let fixture: ComponentFixture<WelcomeComponent>
+    let dialog: any
 
-  beforeEach(() => {
-    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: {} }))
-    dialog = jasmine.createSpyObj('MatDialog', ['open'])
-    dialog.open.and.returnValue(null)
+    beforeEach(() => {
+        configurationService = {
+            getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
+        }
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
+        dialog = {
+            open: vi.fn().mockName("MatDialog.open")
+        }
+        dialog.open.mockReturnValue(null)
 
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        CookieModule.forRoot(),
-        MatDialogModule,
-        WelcomeComponent],
-      providers: [
-        { provide: ConfigurationService, useValue: configurationService },
-        { provide: MatDialog, useValue: dialog },
-        CookieService,
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                CookieModule.forRoot(),
+                MatDialogModule,
+                WelcomeComponent],
+            providers: [
+                { provide: ConfigurationService, useValue: configurationService },
+                { provide: MatDialog, useValue: dialog },
+                CookieService,
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
+
+        cookieService = TestBed.inject(CookieService)
     })
-      .compileComponents()
 
-    cookieService = TestBed.inject(CookieService)
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(WelcomeComponent)
+        component = fixture.componentInstance
+        cookieService.remove('welcomebanner_status')
+    })
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(WelcomeComponent)
-    component = fixture.componentInstance
-    cookieService.remove('welcomebanner_status')
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should open the welcome banner dialog if configured to show on start', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
+        component.ngOnInit()
+        expect(dialog.open).toHaveBeenCalled()
+    })
 
-  it('should open the welcome banner dialog if configured to show on start', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
-    component.ngOnInit()
-    expect(dialog.open).toHaveBeenCalled()
-  })
+    it('should not open the welcome banner dialog if configured to not show on start', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { welcomeBanner: { showOnFirstStart: false } } }))
+        component.ngOnInit()
+        expect(dialog.open).not.toHaveBeenCalled()
+    })
 
-  it('should not open the welcome banner dialog if configured to not show on start', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: false } } }))
-    component.ngOnInit()
-    expect(dialog.open).not.toHaveBeenCalled()
-  })
+    it('should not open the welcome banner dialog if previously dismissed', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
+        cookieService.put('welcomebanner_status', 'dismiss')
+        component.ngOnInit()
+        expect(dialog.open).not.toHaveBeenCalled()
+    })
 
-  it('should not open the welcome banner dialog if previously dismissed', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: { showOnFirstStart: true } } }))
-    cookieService.put('welcomebanner_status', 'dismiss')
-    component.ngOnInit()
-    expect(dialog.open).not.toHaveBeenCalled()
-  })
-
-  it('should handle error when getting application configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  })
+    it('should handle error when getting application configuration', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 })

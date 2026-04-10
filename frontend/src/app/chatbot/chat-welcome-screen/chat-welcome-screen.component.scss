@@ -58,12 +58,45 @@
   margin-bottom: $space-l;
 }
 
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $space-m;
+  margin-bottom: $space-xs;
+}
+
 .history-heading {
   font-size: 14px;
   font-weight: 500;
   opacity: 0.6;
   margin: 0;
-  margin-top: $space-m;
+}
+
+.history-delete-all {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: $space-3xs $space-xs;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.15s;
+
+  &:hover {
+    opacity: 1;
+    background: var(--theme-background-lighter);
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .history-list {

@@ -63,7 +63,7 @@ function sendSSE (res: http.ServerResponse, chunks: object[]): void {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    Connection: 'keep-alive'
+    Connection: 'close'
   })
   for (const chunk of chunks) {
     res.write(sseData(chunk))
@@ -73,7 +73,6 @@ function sendSSE (res: http.ServerResponse, chunks: object[]): void {
 }
 
 before(async () => {
-  ;(http.globalAgent as any).keepAlive = false
   await new Promise<void>((resolve) => {
     mockServer = http.createServer((req, res) => {
       let body = ''
@@ -82,6 +81,7 @@ before(async () => {
         onLlmRequest(req, body, res)
       })
     })
+    mockServer.keepAliveTimeout = 0
     mockServer.listen(MOCK_LLM_PORT, resolve)
   })
   const result = await createTestApp()
@@ -89,13 +89,17 @@ before(async () => {
 }, { timeout: 60000 })
 
 after(async () => {
-  await new Promise<void>((resolve, reject) => {
-    mockServer.close((err) => { err ? reject(err) : resolve() })
+  await new Promise<void>((resolve) => {
+    if (!mockServer?.listening) {
+      resolve()
+      return
+    }
+    mockServer.close(() => { resolve() })
   })
 })
 
-void describe('/rest/chat', () => {
-  void it('POST returns streamed text content as SSE events', async () => {
+void describe('/rest/chat', { timeout: 120000 }, () => {
+  void it('POST returns streamed text content as SSE events', { timeout: 15000 }, async () => {
     onLlmRequest = (_req, _body, res) => {
       sendSSE(res, [
         contentChunk('Hello'),
@@ -116,7 +120,7 @@ void describe('/rest/chat', () => {
     assert.ok(res.text.includes('data: [DONE]'))
   })
 
-  void it('POST sets correct SSE response headers', async () => {
+  void it('POST sets correct SSE response headers', { timeout: 15000 }, async () => {
     onLlmRequest = (_req, _body, res) => {
       sendSSE(res, [contentChunk('Hi'), finishChunk()])
     }
@@ -131,7 +135,7 @@ void describe('/rest/chat', () => {
     assert.ok(res.headers['cache-control']?.includes('no-cache'))
   })
 
-  void it('POST includes system prompt and user messages in LLM request', async () => {
+  void it('POST includes system prompt and user messages in LLM request', { timeout: 15000 }, async () => {
     let parsedBody: any
     onLlmRequest = (_req, body, res) => {
       parsedBody = JSON.parse(body)
@@ -150,7 +154,7 @@ void describe('/rest/chat', () => {
     assert.equal(parsedBody.messages[1].content, 'What is your name?')
   })
 
-  void it('POST sends searchProducts tool definition to LLM', async () => {
+  void it('POST sends searchProducts tool definition to LLM', { timeout: 15000 }, async () => {
     let parsedBody: any
     onLlmRequest = (_req, body, res) => {
       parsedBody = JSON.parse(body)
@@ -164,13 +168,14 @@ void describe('/rest/chat', () => {
 
     assert.equal(res.status, 200)
     assert.ok(parsedBody.tools)
-    assert.equal(parsedBody.tools.length, 2)
+    assert.equal(parsedBody.tools.length, 4)
     const toolNames = parsedBody.tools.map((t: { function: { name: string } }) => t.function.name)
     assert.ok(toolNames.includes('searchProducts'))
     assert.ok(toolNames.includes('generateCoupon'))
+    assert.ok(toolNames.includes('getOrderById'))
   })
 
-  void it('POST handles searchProducts tool call and returns follow-up response', async () => {
+  void it('POST handles searchProducts tool call and returns follow-up response', { timeout: 15000 }, async () => {
     let callCount = 0
     onLlmRequest = (_req, body, res) => {
       callCount++
@@ -202,7 +207,7 @@ void describe('/rest/chat', () => {
     assert.ok(res.text.includes('data: [DONE]'))
   })
 
-  void it('POST handles LLM API error gracefully', async () => {
+  void it('POST handles LLM API error gracefully', { timeout: 15000 }, async () => {
     onLlmRequest = (_req, _body, res) => {
       res.writeHead(500, { 'Content-Type': 'application/json' })
       res.end(JSON.stringify({ error: { message: 'Internal server error' } }))
@@ -218,7 +223,7 @@ void describe('/rest/chat', () => {
     assert.ok(res.text.includes('data: [DONE]'))
   })
 
-  void it('POST with empty messages returns error SSE stream', async () => {
+  void it('POST with empty messages returns error SSE stream', { timeout: 15000 }, async () => {
     onLlmRequest = (_req, _body, res) => {
       sendSSE(res, [
         contentChunk('How can I help you?'),
@@ -236,7 +241,7 @@ void describe('/rest/chat', () => {
     assert.ok(res.text.includes('data: [DONE]'))
   })
 
-  void it('POST response SSE data lines contain valid JSON', async () => {
+  void it('POST response SSE data lines contain valid JSON', { timeout: 15000 }, async () => {
     onLlmRequest = (_req, _body, res) => {
       sendSSE(res, [
         contentChunk('Test message'),

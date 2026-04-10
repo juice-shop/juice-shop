@@ -19,6 +19,7 @@ i18n/*.invalid
 .sass-cache/
 build/
 cache/
+coverage/
 dist/
 logs/
 vagrant/.vagrant/
@@ -39,6 +40,8 @@ out/
 *.iml
 *.iws
 *.swp
+.junie/memory/
+.ai/mcp/mcp.json
 
 # Branch ghpages
 assets/

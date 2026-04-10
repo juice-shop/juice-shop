@@ -499,7 +499,7 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Arată {{count}} apeluri de instrumente anterioare",
   "CHATBOT_SEND_MESSAGE": "Trimite mesaj",
   "CHATBOT_SUGGESTION_RECOMMEND": "Obține o sugestie",
-  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "Ce suc ai recomanda pentru o petrecere de vară?",
   "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
   "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
   "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",

@@ -6,7 +6,7 @@
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
@@ -29,99 +29,110 @@ import { DeliveryMethodComponent } from '../delivery-method/delivery-method.comp
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AddressComponent', () => {
-  let component: AddressComponent
-  let fixture: ComponentFixture<AddressComponent>
-  let addressService
-  let snackBar: any
-  let translateService
+    let component: AddressComponent
+    let fixture: ComponentFixture<AddressComponent>
+    let addressService
+    let snackBar: any
+    let translateService
 
-  beforeEach(waitForAsync(() => {
-    addressService = jasmine.createSpyObj('AddressService', ['get', 'del'])
-    addressService.get.and.returnValue(of([]))
-    addressService.del.and.returnValue(of({}))
-    translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
-    translateService.onLangChange = new EventEmitter()
-    translateService.onTranslationChange = new EventEmitter()
-    translateService.onFallbackLangChange = new EventEmitter()
-    translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
-    snackBar.open.and.returnValue(null)
+    beforeEach(async () => {
+        addressService = {
+            get: vi.fn().mockName("AddressService.get"),
+            del: vi.fn().mockName("AddressService.del")
+        }
+        addressService.get.mockReturnValue(of([]))
+        addressService.del.mockReturnValue(of({}))
+        translateService = {
+            get: vi.fn().mockName("TranslateService.get")
+        }
+        translateService.get.mockReturnValue(of({}))
+        translateService.onLangChange = new EventEmitter()
+        translateService.onTranslationChange = new EventEmitter()
+        translateService.onFallbackLangChange = new EventEmitter()
+        translateService.onDefaultLangChange = new EventEmitter()
+        snackBar = {
+            open: vi.fn().mockName("MatSnackBar.open")
+        }
+        snackBar.open.mockReturnValue(null)
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: 'delivery-method', component: DeliveryMethodComponent }
-      ]),
-      TranslateModule.forRoot(),
-      ReactiveFormsModule,
-      MatCardModule,
-      MatTableModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatExpansionModule,
-      MatDividerModule,
-      MatRadioModule,
-      MatDialogModule,
-      MatIconModule,
-      MatTooltipModule,
-      AddressComponent, AddressCreateComponent],
-      providers: [
-        { provide: AddressService, useValue: addressService },
-        { provide: TranslateService, useValue: translateService },
-        { provide: MatSnackBar, useValue: snackBar },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: 'delivery-method', component: DeliveryMethodComponent }
+                ]),
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatCardModule,
+                MatTableModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatExpansionModule,
+                MatDividerModule,
+                MatRadioModule,
+                MatDialogModule,
+                MatIconModule,
+                MatTooltipModule,
+                AddressComponent, AddressCreateComponent],
+            providers: [
+                { provide: AddressService, useValue: addressService },
+                { provide: TranslateService, useValue: translateService },
+                { provide: MatSnackBar, useValue: snackBar },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AddressComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AddressComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    afterEach(() => {
+        vi.restoreAllMocks()
+    })
 
-  it('should hold no addresses when get API call fails', () => {
-    addressService.get.and.returnValue(throwError('Error'))
-    component.ngOnInit()
-    fixture.detectChanges()
-    expect(component.storedAddresses).toEqual([])
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should log error from get address API call directly to browser console', fakeAsync(() => {
-    addressService.get.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    fixture.detectChanges()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should hold no addresses when get API call fails', () => {
+        addressService.get.mockReturnValue(throwError('Error'))
+        component.ngOnInit()
+        fixture.detectChanges()
+        expect(component.storedAddresses).toEqual([])
+    })
 
-  it('should log error from delete address API call directly to browser console', fakeAsync(() => {
-    addressService.del.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.deleteAddress(1)
-    fixture.detectChanges()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should log error from get address API call directly to browser console', () => {
+        addressService.get.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        fixture.detectChanges()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should delete an address on calling deleteAddress', fakeAsync(() => {
-    addressService.get.and.returnValue(of([]))
-    addressService.del.and.returnValue(of([]))
-    component.deleteAddress(1)
-    spyOn(component, 'load')
-    expect(addressService.del).toHaveBeenCalled()
-    expect(addressService.get).toHaveBeenCalled()
-  }))
+    it('should log error from delete address API call directly to browser console', () => {
+        addressService.del.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.deleteAddress(1)
+        fixture.detectChanges()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should store address id in session storage', () => {
-    component.addressId = 1
-    spyOn(sessionStorage, 'setItem')
-    component.chooseAddress()
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
-  })
+    it('should delete an address on calling deleteAddress', () => {
+        addressService.get.mockReturnValue(of([]))
+        addressService.del.mockReturnValue(of([]))
+        component.deleteAddress(1)
+        vi.spyOn(component, 'load')
+        expect(addressService.del).toHaveBeenCalled()
+        expect(addressService.get).toHaveBeenCalled()
+    })
+
+    it('should store address id in session storage', () => {
+        component.addressId = 1
+        const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
+        component.chooseAddress()
+        expect(setItemSpy).toHaveBeenCalledWith('addressId', 1 as any)
+    })
 })

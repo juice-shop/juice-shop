@@ -6,7 +6,7 @@
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { EventEmitter } from '@angular/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatCardModule } from '@angular/material/card'
 import { MatDividerModule } from '@angular/material/divider'
@@ -16,50 +16,54 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { PrivacyPolicyComponent } from './privacy-policy.component'
 
 describe('PrivacyPolicyComponent', () => {
-  let component: PrivacyPolicyComponent
-  let fixture: ComponentFixture<PrivacyPolicyComponent>
-  let configurationService: any
-  let translateService
+    let component: PrivacyPolicyComponent
+    let fixture: ComponentFixture<PrivacyPolicyComponent>
+    let configurationService: any
+    let translateService
 
-  beforeEach(waitForAsync(() => {
-    configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({}))
-    translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
-    translateService.onLangChange = new EventEmitter()
-    translateService.onTranslationChange = new EventEmitter()
-    translateService.onFallbackLangChange = new EventEmitter()
-    translateService.onDefaultLangChange = new EventEmitter()
+    beforeEach(async () => {
+        configurationService = {
+            getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
+        }
+        configurationService.getApplicationConfiguration.mockReturnValue(of({}))
+        translateService = {
+            get: vi.fn().mockName("TranslateService.get")
+        }
+        translateService.get.mockReturnValue(of({}))
+        translateService.onLangChange = new EventEmitter()
+        translateService.onTranslationChange = new EventEmitter()
+        translateService.onFallbackLangChange = new EventEmitter()
+        translateService.onDefaultLangChange = new EventEmitter()
 
-    TestBed.configureTestingModule({
-      imports: [MatCardModule,
-        MatDividerModule,
-        PrivacyPolicyComponent,
-        TranslateModule.forRoot()],
-      providers: [
-        { provide: ConfigurationService, useValue: configurationService },
-        { provide: TranslateService, useValue: translateService },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
-    }).compileComponents()
-  }))
+        TestBed.configureTestingModule({
+            imports: [MatCardModule,
+                MatDividerModule,
+                PrivacyPolicyComponent,
+                TranslateModule.forRoot()],
+            providers: [
+                { provide: ConfigurationService, useValue: configurationService },
+                { provide: TranslateService, useValue: translateService },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        }).compileComponents()
+    })
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PrivacyPolicyComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(PrivacyPolicyComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should compile', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should compile', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should handle error when getting application configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  })
+    it('should handle error when getting application configuration', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
 })

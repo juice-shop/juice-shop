@@ -4,100 +4,99 @@
  */
 
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 import { OrderHistoryService } from './order-history.service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OrderHistoryService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-      providers: [OrderHistoryService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [],
+            providers: [OrderHistoryService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        })
     })
-  })
 
-  it('should be created', inject([OrderHistoryService], (service: OrderHistoryService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(OrderHistoryService)
 
-  it('should get payment cards directly from the api', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let res
-      service.get().subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+        expect(service).toBeTruthy()
     })
-  ))
 
-  it('should get payment cards directly from the api', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let res
-      service.getAll().subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history/orders')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should get payment cards directly from the api', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.get().subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('GET')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should update address directly from the api', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let res
-      service.toggleDeliveryStatus(1, {}).subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history/1/delivery-status')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('PUT')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should get payment cards directly from the api', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.getAll().subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history/orders')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('GET')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should handle error when getting order history', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.get().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history')
-      req.flush(null, { status: 500, statusText: 'Server Error' })
+    it('should update address directly from the api', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError).toBeTruthy()
-      expect(capturedError.status).toBe(500)
-      httpMock.verify()
+        let res
+        service.toggleDeliveryStatus(1, {}).subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history/1/delivery-status')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('PUT')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should handle error when getting all orders', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.getAll().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history/orders')
-      req.flush(null, { status: 404, statusText: 'Not Found' })
+    it('should handle error when getting order history', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError).toBeTruthy()
-      expect(capturedError.status).toBe(404)
-      httpMock.verify()
+        let capturedError: any
+        service.get().subscribe({ next: () => { }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history')
+        req.flush(null, { status: 500, statusText: 'Server Error' })
+        expect(capturedError).toBeTruthy()
+        expect(capturedError.status).toBe(500)
+        httpMock.verify()
     })
-  ))
 
-  it('should handle error when toggling delivery status', inject([OrderHistoryService, HttpTestingController],
-    fakeAsync((service: OrderHistoryService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.toggleDeliveryStatus(1, {}).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/rest/order-history/1/delivery-status')
-      req.flush(null, { status: 400, statusText: 'Bad Request' })
+    it('should handle error when getting all orders', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError).toBeTruthy()
-      expect(capturedError.status).toBe(400)
-      httpMock.verify()
+        let capturedError: any
+        service.getAll().subscribe({ next: () => { }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history/orders')
+        req.flush(null, { status: 404, statusText: 'Not Found' })
+        expect(capturedError).toBeTruthy()
+        expect(capturedError.status).toBe(404)
+        httpMock.verify()
     })
-  ))
+
+    it('should handle error when toggling delivery status', () => {
+        const service = TestBed.inject(OrderHistoryService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let capturedError: any
+        service.toggleDeliveryStatus(1, {}).subscribe({ next: () => { }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/rest/order-history/1/delivery-status')
+        req.flush(null, { status: 400, statusText: 'Bad Request' })
+        expect(capturedError).toBeTruthy()
+        expect(capturedError.status).toBe(400)
+        httpMock.verify()
+    })
 })

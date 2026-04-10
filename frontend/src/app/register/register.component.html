@@ -7,13 +7,13 @@
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card">
 
-      <h1 translate>TITLE_REGISTRATION</h1>
+      <h1 class="mat-headline-medium" translate>TITLE_REGISTRATION</h1>
 
       <div class="error" ng-if="error">{{ error }}</div>
 
       <div class="form-container" id="registration-form">
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_EMAIL</mat-label>
           <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput
             aria-label="Email address field">
@@ -25,7 +25,7 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" color="accent" subscriptSizing="dynamic">
+          <mat-form-field appearance="outline" color="tertiary" subscriptSizing="dynamic">
             <mat-label translate>LABEL_PASSWORD</mat-label>
             <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
               matInput aria-label="Field for the password">
@@ -45,7 +45,7 @@
               }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="tertiary">
               <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
               <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
                 (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
@@ -76,7 +76,7 @@
 
               <div class="security-container">
 
-                <mat-form-field color="accent" appearance="outline">
+                <mat-form-field color="tertiary" appearance="outline">
                   <mat-label>
                     {{'LABEL_SECURITY_QUESTION' | translate}}
                   </mat-label>
@@ -84,7 +84,7 @@
                     (focus)="this.error=null" name="securityQuestion"
                     aria-label="Selection list for the security question">
                     @for (question of securityQuestions; track question.id) {
-                      <mat-option [value]="question.id" class="mat-body">
+                      <mat-option [value]="question.id" class="mat-body-medium">
                         {{question.question}}
                       </mat-option>
                     }
@@ -100,7 +100,7 @@
                   }
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" color="accent">
+                <mat-form-field appearance="outline" color="tertiary">
                   <mat-label translate>SECURITY_ANSWER</mat-label>
                   <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text"
                     matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate"

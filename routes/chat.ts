@@ -19,6 +19,7 @@ import { challenges } from '../data/datacache'
 import * as db from '../data/mongodb'
 import { type Review } from '../data/types'
 import logger from '../lib/logger'
+import { Counter } from 'prom-client'
 
 function summarizeLlmError (error: unknown): string {
   if (!(error instanceof Error)) {
@@ -38,15 +39,44 @@ function summarizeLlmError (error: unknown): string {
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
 
-async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+async function getUserId (req: Request): Promise<number | undefined> {
   const token = utils.jwtFrom(req)
   if (!token) return undefined
   const decoded = security.decode(token) as { data?: { id?: number } } | undefined
-  const userId = decoded?.data?.id
+  return decoded?.data?.id
+}
+
+async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+  const userId = await getUserId(req)
   if (!userId) return undefined
   const user = await UserModel.findByPk(userId, { attributes: ['username'] })
   return user?.username ?? undefined
 }
+
+const app = config.get<string>('application.customMetricsPrefix')
+const metricInputTokensTotal = new Counter({
+  name: `${app}_llm_input_tokens_total`,
+  help: 'Number of total input tokens processed',
+})
+const metricInputTokens = new Counter({
+  name: `${app}_llm_input_tokens`,
+  help: 'Number of input tokens processed',
+  labelNames: ['type'],
+})
+const metricOutputTokensTotal = new Counter({
+  name: `${app}_llm_output_tokens_total`,
+  help: 'Number of total output tokens processed',
+})
+const metricOutputTokens = new Counter({
+  name: `${app}_llm_output_tokens`,
+  help: 'Number of output tokens processed',
+  labelNames: ['type'],
+})
+const metricToolCalls = new Counter({
+  name: `${app}_llm_tool_calls_total`,
+  help: 'Number of tool calls made',
+  labelNames: ['tool'],
+})
 
 // vuln-code-snippet start chatbotGreedyInjectionChallenge
 function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
@@ -58,6 +88,7 @@ Keep your responses concise and helpful.${userIdentifier}
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
 - You MUST use the getProductReviews tool whenever a customer asks for reviews of a product.
+- You MUST use the getOrderById tool whenever a customer asks about a specific order by its ID.
 - Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
 - Do NOT invent information. If you do not know the answer to a question, say so honestly.
 - Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
@@ -112,8 +143,30 @@ export function chat () {
           id: z.string().describe('The product ID to get reviews for')
         }),
         execute: async ({ id }) => {
-          const productId = utils.trunc(id, 40)
+          const productId = Number(id)
           return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
+        }
+      }),
+
+      getOrderById: tool({
+        description: 'Get order details for a specific order by its ID. Only returns the order if it belongs to the current customer.',
+        inputSchema: z.object({
+          orderId: z.string().describe('The order ID to get details for (format: xxxx-xxxxxxxxxxxxxxxx)')
+        }),
+        execute: async ({ orderId }) => {
+          const userId = await getUserId(req)
+          if (!userId) return { error: 'Customer not authenticated' }
+
+          const user = await UserModel.findByPk(userId, { attributes: ['email'] })
+          if (!user) return { error: 'Customer not found' }
+
+          const maskedEmail = user.email ? user.email.replace(/[aeiou]/gi, '*') : undefined
+          const order = await db.ordersCollection.findOne({ orderId })
+
+          if (!order) return { error: 'Order not found' }
+          if (order.email !== maskedEmail) return { error: 'Order does not belong to the current customer' }
+
+          return order
         }
       }),
 
@@ -169,6 +222,7 @@ export function chat () {
               const role = decoded?.data?.role
               return req.cookies.show_tool_calls === 'true' && role !== roles.admin
             })
+            metricToolCalls.labels({ tool: event.toolName }).inc()
             res.write(`data: ${JSON.stringify({
               choices: [{
                 delta: {
@@ -183,6 +237,17 @@ export function chat () {
             break
           case 'finish':
             res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
+            if (event.totalUsage.inputTokens) {
+              metricInputTokensTotal.inc(event.totalUsage.inputTokens)
+              metricInputTokens.labels({ type: 'cache_read' }).inc(event.totalUsage.inputTokenDetails?.cacheReadTokens ?? 0)
+              metricInputTokens.labels({ type: 'cache_write' }).inc(event.totalUsage.inputTokenDetails?.cacheWriteTokens ?? 0)
+              metricInputTokens.labels({ type: 'no_cache' }).inc(event.totalUsage.inputTokenDetails?.noCacheTokens ?? 0)
+            }
+            if (event.totalUsage.outputTokens) {
+              metricOutputTokensTotal.inc(event.totalUsage.outputTokens)
+              metricOutputTokens.labels({ type: 'reasoning' }).inc(event.totalUsage.outputTokenDetails?.reasoningTokens ?? 0)
+              metricOutputTokens.labels({ type: 'text' }).inc(event.totalUsage.outputTokenDetails?.textTokens ?? 0)
+            }
             break
           case 'error':
             res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)

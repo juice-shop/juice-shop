@@ -5,7 +5,7 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatInputModule } from '@angular/material/input'
-import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
@@ -29,126 +29,145 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('OrderSummaryComponent', () => {
-  let component: OrderSummaryComponent
-  let fixture: ComponentFixture<OrderSummaryComponent>
-  let basketService: any
-  let addressService: any
-  let paymentService: any
-  let deliveryService: any
-  let deluxeGuard
-  let snackBar: any
+    let component: OrderSummaryComponent
+    let fixture: ComponentFixture<OrderSummaryComponent>
+    let basketService: any
+    let addressService: any
+    let paymentService: any
+    let deliveryService: any
+    let deluxeGuard
+    let snackBar: any
 
-  beforeEach(waitForAsync(() => {
-    addressService = jasmine.createSpyObj('AddressService', ['getById'])
-    addressService.getById.and.returnValue(of([]))
-    basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find', 'updateNumberOfCartItems', 'getGuestBasketItems'])
-    basketService.find.and.returnValue(of({ Products: [] }))
-    basketService.checkout.and.returnValue(of({}))
-    basketService.updateNumberOfCartItems.and.returnValue(of({}))
-    basketService.getGuestBasketItems.and.returnValue([])
-    paymentService = jasmine.createSpyObj('PaymentService', ['getById'])
-    paymentService.getById.and.returnValue(of([]))
-    deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
-    deliveryService.getById.and.returnValue(of({ price: 10 }))
-    deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
-    deluxeGuard.isDeluxe.and.returnValue(false)
-    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    beforeEach(async () => {
+        addressService = {
+            getById: vi.fn().mockName("AddressService.getById")
+        }
+        addressService.getById.mockReturnValue(of([]))
+        basketService = {
+            checkout: vi.fn().mockName("BasketService.checkout"),
+            find: vi.fn().mockName("BasketService.find"),
+            updateNumberOfCartItems: vi.fn().mockName("BasketService.updateNumberOfCartItems"),
+            getGuestBasketItems: vi.fn().mockName("BasketService.getGuestBasketItems")
+        }
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.checkout.mockReturnValue(of({}))
+        basketService.updateNumberOfCartItems.mockReturnValue(of({}))
+        basketService.getGuestBasketItems.mockReturnValue([])
+        paymentService = {
+            getById: vi.fn().mockName("PaymentService.getById")
+        }
+        paymentService.getById.mockReturnValue(of([]))
+        deliveryService = {
+            getById: vi.fn().mockName("DeliveryService.getById")
+        }
+        deliveryService.getById.mockReturnValue(of({ price: 10 }))
+        deluxeGuard = {
+            isDeluxe: vi.fn()
+        }
+        deluxeGuard.isDeluxe.mockReturnValue(false)
+        snackBar = {
+            open: vi.fn().mockName("MatSnackBar.open")
+        }
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: 'order-completion', component: OrderCompletionComponent }
-      ]),
-      TranslateModule.forRoot(),
-      ReactiveFormsModule,
-      MatInputModule,
-      MatCardModule,
-      MatTableModule,
-      MatButtonModule,
-      MatButtonToggleModule,
-      MatIconModule,
-      MatTooltipModule,
-      MatSnackBarModule,
-      OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
-      providers: [
-        { provide: BasketService, useValue: basketService },
-        { provide: AddressService, useValue: addressService },
-        { provide: PaymentService, useValue: paymentService },
-        { provide: DeliveryService, useValue: deliveryService },
-        { provide: DeluxeGuard, useValue: deluxeGuard },
-        { provide: MatSnackBar, useValue: snackBar },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: 'order-completion', component: OrderCompletionComponent }
+                ]),
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatInputModule,
+                MatCardModule,
+                MatTableModule,
+                MatButtonModule,
+                MatButtonToggleModule,
+                MatIconModule,
+                MatTooltipModule,
+                MatSnackBarModule,
+                OrderSummaryComponent, PurchaseBasketComponent, OrderCompletionComponent],
+            providers: [
+                { provide: BasketService, useValue: basketService },
+                { provide: AddressService, useValue: addressService },
+                { provide: PaymentService, useValue: paymentService },
+                { provide: DeliveryService, useValue: deliveryService },
+                { provide: DeluxeGuard, useValue: deluxeGuard },
+                { provide: MatSnackBar, useValue: snackBar },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OrderSummaryComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(OrderSummaryComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    afterEach(() => {
+        vi.restoreAllMocks()
+    })
 
-  it('should log errors from address service directly to browser console', fakeAsync(() => {
-    addressService.getById.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should log errors from payment service directly to browser console', fakeAsync(() => {
-    sessionStorage.setItem('paymentId', '1')
-    paymentService.getById.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should log errors from address service directly to browser console', () => {
+        addressService.getById.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should hold address on ngOnInit', () => {
-    addressService.getById.and.returnValue(of({ address: 'address' }))
-    component.ngOnInit()
-    expect(component.address).toEqual({ address: 'address' })
-  })
+    it('should log errors from payment service directly to browser console', () => {
+        sessionStorage.setItem('paymentId', '1')
+        paymentService.getById.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 
-  it('should hold delivery price on ngOnInit', () => {
-    deliveryService.getById.and.returnValue(of({ price: 10 }))
-    component.ngOnInit()
-    expect(component.deliveryPrice).toEqual(10)
-  })
+    it('should hold address on ngOnInit', () => {
+        addressService.getById.mockReturnValue(of({ address: 'address' }))
+        component.ngOnInit()
+        expect(component.address).toEqual({ address: 'address' })
+    })
 
-  it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
-    sessionStorage.setItem('paymentId', '1')
-    paymentService.getById.and.returnValue(of({ cardNum: '************1234' }))
-    component.ngOnInit()
-    expect(component.paymentMethod).toEqual({ cardNum: '1234' })
-  })
+    it('should hold delivery price on ngOnInit', () => {
+        deliveryService.getById.mockReturnValue(of({ price: 10 }))
+        component.ngOnInit()
+        expect(component.deliveryPrice).toEqual(10)
+    })
 
-  it('should be wallet on ngOnInit when paymentId is initialized to wallet', () => {
-    sessionStorage.setItem('paymentId', 'wallet')
-    component.ngOnInit()
-    expect(component.paymentMethod).toEqual('wallet')
-  })
+    it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
+        sessionStorage.setItem('paymentId', '1')
+        paymentService.getById.mockReturnValue(of({ cardNum: '************1234' }))
+        component.ngOnInit()
+        expect(component.paymentMethod).toEqual({ cardNum: '1234' })
+    })
 
-  it('should store prices on calling getMessage', () => {
-    sessionStorage.setItem('couponDiscount', '70')
-    component.getMessage([100, 1])
-    expect(component.itemTotal).toBe(100)
-    expect(component.promotionalDiscount).toBe(70)
-    expect(component.bonus).toBe(1)
-  })
+    it('should be wallet on ngOnInit when paymentId is initialized to wallet', () => {
+        sessionStorage.setItem('paymentId', 'wallet')
+        component.ngOnInit()
+        expect(component.paymentMethod).toEqual('wallet')
+    })
 
-  it('should remove session details from session storage', () => {
-    basketService.checkout.and.returnValue(of({ orderConfirmationId: '1234123412341234' }))
-    spyOn(sessionStorage, 'removeItem')
-    component.placeOrder()
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('paymentId')
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('addressId')
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('deliveryMethodId')
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDetails')
-    expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDiscount')
-  })
+    it('should store prices on calling getMessage', () => {
+        sessionStorage.setItem('couponDiscount', '70')
+        component.getMessage([100, 1])
+        expect(component.itemTotal).toBe(100)
+        expect(component.promotionalDiscount).toBe(70)
+        expect(component.bonus).toBe(1)
+    })
+
+    it('should remove session details from session storage', () => {
+        basketService.checkout.mockReturnValue(of({ orderConfirmationId: '1234123412341234' }))
+        const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem')
+        component.placeOrder()
+        expect(removeItemSpy).toHaveBeenCalledWith('paymentId')
+        expect(removeItemSpy).toHaveBeenCalledWith('addressId')
+        expect(removeItemSpy).toHaveBeenCalledWith('deliveryMethodId')
+        expect(removeItemSpy).toHaveBeenCalledWith('couponDetails')
+        expect(removeItemSpy).toHaveBeenCalledWith('couponDiscount')
+    })
 })

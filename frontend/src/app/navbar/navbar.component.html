@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-toolbar class="mat-elevation-z6 navbar-toolbar" color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z6 navbar-toolbar">
 
   <mat-toolbar-row class="navbar-row">
 
@@ -19,21 +19,20 @@
       </div>
     </button>
 
-    <span class="fill-remaining-space"></span>
-
-    <div>
+    <div class="search-area">
       <div id="product-search-fixture"></div>
+      <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
+      aria-label="Click to search"></app-mat-search-bar>
     </div>
-    <app-mat-search-bar #searchControl id="searchQuery" (onEnter)="search(searchControl.value)"
-    aria-label="Click to search"></app-mat-search-bar>
 
-    <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
-      aria-label="Show/hide account menu" id="navbarAccount">
-      <mat-icon>
-        account_circle
-      </mat-icon>
-      <span> {{"ACCOUNT" | translate}} </span>
-    </button>
+    <div class="navbar-actions">
+      <button [matMenuTriggerFor]="userMenu" mat-button class="buttons hide-lt-md nav-button nav-account-button"
+        aria-label="Show/hide account menu" id="navbarAccount">
+        <mat-icon>
+          account_circle
+        </mat-icon>
+        <span> {{"ACCOUNT" | translate}} </span>
+      </button>
 
     <mat-menu #userMenu="matMenu">
       @if (isLoggedIn()) {
@@ -135,7 +134,7 @@
           [checked]="selectedLanguage === language"
           [aria-label]="language.lang"
           >
-          <div class="mat-body language-option-content">
+          <div class="mat-body-large language-option-content">
             @for (icon of language.icons; track icon) {
               <span [class]="'fi fi-' + icon"></span>
             }
@@ -238,6 +237,7 @@
       }
 
     </mat-menu>
+    </div>
 
   </mat-toolbar-row>
 </mat-toolbar>

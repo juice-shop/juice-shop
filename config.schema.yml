@@ -42,6 +42,8 @@ application:
       type: string
     llmMaxRetries:
       type: number
+    sampleQuestions:
+      - type: string
   social:
     blueSkyUrl:
       type: string

@@ -1,20 +1,18 @@
 import {
+  AfterViewChecked,
   Component,
   ElementRef,
-  EventEmitter,
   forwardRef,
-  Input,
+  HostBinding,
+  input,
   type OnInit,
-  Output,
-  ViewChild
+  output,
+  viewChild
 } from '@angular/core'
-import { FormControl, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
-import { MatAutocomplete } from '@angular/material/autocomplete'
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
 import { AbstractControlValueAccessor } from './abstract-value-accessor'
-import { MatRipple } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
 
 @Component({
   selector: 'app-mat-search-bar',
@@ -27,36 +25,43 @@ import { MatFormFieldModule } from '@angular/material/form-field'
       multi: true
     }
   ],
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatIconModule, MatRipple]
+  imports: [FormsModule, MatIconModule, MatButtonModule]
 })
 export class MatSearchBarComponent extends AbstractControlValueAccessor
-  implements OnInit {
-  @ViewChild('input') inputElement: ElementRef
+  implements OnInit, AfterViewChecked {
+  readonly inputElement = viewChild<ElementRef>('input')
 
-  @Input() formControl: FormControl
-  @Input() matAutocomplete: MatAutocomplete
-  @Input() placeholder = ''
-  @Input() alwaysOpen = false
-  @Output() onBlur = new EventEmitter<string>()
-  @Output() onClose = new EventEmitter<void>()
-  @Output() onEnter = new EventEmitter<string>()
-  @Output() onFocus = new EventEmitter<string>()
-  @Output() onOpen = new EventEmitter<void>()
+  readonly placeholder = input('')
+  readonly alwaysOpen = input(false)
+  readonly onBlur = output<string>()
+  readonly onClose = output<void>()
+  readonly onEnter = output<string>()
+  readonly onFocus = output<string>()
+  readonly onOpen = output<void>()
 
   searchVisible = false
+  private pendingFocus = false
 
-  get isDisabled (): string {
-    return this.searchVisible ? null : 'disabled'
+  @HostBinding('class.search-expanded') get expanded () {
+    return this.searchVisible
   }
 
   ngOnInit (): void {
-    if (this.alwaysOpen) {
+    if (this.alwaysOpen()) {
       this.searchVisible = true
     }
   }
 
+  ngAfterViewChecked (): void {
+    const el = this.inputElement()
+    if (this.pendingFocus && el) {
+      el.nativeElement.focus()
+      this.pendingFocus = false
+    }
+  }
+
   public close (): void {
-    if (!this.alwaysOpen) {
+    if (!this.alwaysOpen()) {
       this.searchVisible = false
     }
     this.value = ''
@@ -66,12 +71,12 @@ export class MatSearchBarComponent extends AbstractControlValueAccessor
 
   public open (): void {
     this.searchVisible = true
-    this.inputElement.nativeElement.focus()
+    this.pendingFocus = true
     this.onOpen.emit()
   }
 
   onBlurring (searchValue: string) {
-    if (!searchValue && !this.alwaysOpen) {
+    if (!searchValue && !this.alwaysOpen()) {
       this.searchVisible = false
     }
     this.onBlur.emit(searchValue)

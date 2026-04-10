@@ -27,18 +27,7 @@ import { UserModelInit } from './user'
 import { WalletModelInit } from './wallet'
 import { Sequelize, Transaction } from 'sequelize'
 
-/* jslint node: true */
-let sequelize = new Sequelize('database', 'username', 'password', {
-  dialect: 'sqlite',
-  retry: {
-    match: [/SQLITE_BUSY/],
-    name: 'query',
-    max: 5
-  },
-  transactionType: Transaction.TYPES.IMMEDIATE,
-  storage: 'data/juiceshop.sqlite',
-  logging: false
-})
+let sequelize = createSequelize()
 
 function createSequelize (options?: { inMemory?: boolean }) {
   return new Sequelize('database', 'username', 'password', {

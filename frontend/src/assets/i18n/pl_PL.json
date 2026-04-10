@@ -499,7 +499,7 @@
   "SHOW_PREVIOUS_TOOL_CALLS": "Pokaż {{count}} poprzednie wywołania narzędzi",
   "CHATBOT_SEND_MESSAGE": "Wyślij wiadomość",
   "CHATBOT_SUGGESTION_RECOMMEND": "Uzyskaj sugestię",
-  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "What juice would you recommend for a summer party?",
+  "CHATBOT_PROMPT_RECOMMENDATION_SUMMER_PARTY": "Jakiego soku poleciłbyś na letnią imprezę?",
   "CHATBOT_PROMPT_RECOMMENDATION_POPULAR": "Which juice is the most popular?",
   "CHATBOT_PROMPT_RECOMMENDATION_SUGAR_FREE": "Do you have any sugar-free options?",
   "CHATBOT_PROMPT_RECOMMENDATION_START_DAY": "What's the best juice to start the day?",

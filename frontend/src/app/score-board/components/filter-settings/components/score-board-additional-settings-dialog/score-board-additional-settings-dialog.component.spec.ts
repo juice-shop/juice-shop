@@ -6,32 +6,30 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { LocalBackupService } from 'src/app/Services/local-backup.service'
 
 describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
-  let component: ScoreBoardAdditionalSettingsDialogComponent
-  let fixture: ComponentFixture<ScoreBoardAdditionalSettingsDialogComponent>
+    let component: ScoreBoardAdditionalSettingsDialogComponent
+    let fixture: ComponentFixture<ScoreBoardAdditionalSettingsDialogComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), MatDialogModule, ScoreBoardAdditionalSettingsDialogComponent],
-      providers: [
-        {
-          provide: LocalBackupService,
-          useValue: {
-            save: () => null,
-            restore: () => null
-          }
-        }
-      ]
-    }).compileComponents()
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(), MatDialogModule, ScoreBoardAdditionalSettingsDialogComponent],
+            providers: [
+                {
+                    provide: LocalBackupService,
+                    useValue: {
+                        save: () => null,
+                        restore: () => null
+                    }
+                }
+            ]
+        }).compileComponents()
 
-    fixture = TestBed.createComponent(
-      ScoreBoardAdditionalSettingsDialogComponent
-    )
-    component = fixture.componentInstance
+        fixture = TestBed.createComponent(ScoreBoardAdditionalSettingsDialogComponent)
+        component = fixture.componentInstance
 
-    fixture.detectChanges()
-  })
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 })

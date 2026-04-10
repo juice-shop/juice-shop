@@ -4,110 +4,110 @@
  */
 
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
-import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 import { AddressService } from './address.service'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('AddressService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-      providers: [AddressService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [],
+            providers: [AddressService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        })
     })
-  })
 
-  it('should be created', inject([AddressService], (service: AddressService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(AddressService)
 
-  it('should get address directly from the api', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let res
-      service.get().subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+        expect(service).toBeTruthy()
     })
-  ))
 
-  it('should get single address directly from the api', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let res
-      service.getById(1).subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('GET')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should get address directly from the api', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.get().subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('GET')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should create address directly from the api', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let res
-      service.save({}).subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss/')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('POST')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should get single address directly from the api', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.getById(1).subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('GET')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should update address directly from the api', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let res
-      service.put(1, {}).subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('PUT')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should create address directly from the api', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.save({}).subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss/')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('POST')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should delete address directly from the api', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let res
-      service.del(1).subscribe((data) => (res = data))
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
-      req.flush({ data: 'apiResponse' })
-      tick()
-      expect(req.request.method).toBe('DELETE')
-      expect(res).toBe('apiResponse')
-      httpMock.verify()
+    it('should update address directly from the api', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res
+        service.put(1, {}).subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('PUT')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should handle error when getting a single address', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.getById(1).subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
-      req.error(new ErrorEvent('Not Found'), { status: 404, statusText: 'Not Found' })
+    it('should delete address directly from the api', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError.status).toBe(404)
-      httpMock.verify()
+        let res
+        service.del(1).subscribe((data) => (res = data))
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
+        req.flush({ data: 'apiResponse' })
+        expect(req.request.method).toBe('DELETE')
+        expect(res).toBe('apiResponse')
+        httpMock.verify()
     })
-  ))
 
-  it('should handle error when getting addresses', inject([AddressService, HttpTestingController],
-    fakeAsync((service: AddressService, httpMock: HttpTestingController) => {
-      let capturedError: any
-      service.get().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
-      const req = httpMock.expectOne('http://localhost:3000/api/Addresss')
-      req.error(new ErrorEvent('Internal Server Error'), { status: 500, statusText: 'Internal Server Error' })
+    it('should handle error when getting a single address', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
 
-      tick()
-      expect(capturedError.status).toBe(500)
-      httpMock.verify()
+        let capturedError: any
+        service.getById(1).subscribe({ next: () => { throw new Error('expected error') }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss/1')
+        req.error(new ErrorEvent('Not Found'), { status: 404, statusText: 'Not Found' })
+        expect(capturedError.status).toBe(404)
+        httpMock.verify()
     })
-  ))
+
+    it('should handle error when getting addresses', () => {
+        const service = TestBed.inject(AddressService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let capturedError: any
+        service.get().subscribe({ next: () => { throw new Error('expected error') }, error: (e) => { capturedError = e } })
+        const req = httpMock.expectOne('http://localhost:3000/api/Addresss')
+        req.error(new ErrorEvent('Internal Server Error'), { status: 500, statusText: 'Internal Server Error' })
+        expect(capturedError.status).toBe(500)
+        httpMock.verify()
+    })
 })

@@ -7,7 +7,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
-import { type ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -21,82 +21,89 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('WalletComponent', () => {
-  let component: WalletComponent
-  let fixture: ComponentFixture<WalletComponent>
-  let walletService
-  let translateService
-  let snackBar: any
+    let component: WalletComponent
+    let fixture: ComponentFixture<WalletComponent>
+    let walletService
+    let translateService
+    let snackBar: any
 
-  beforeEach(waitForAsync(() => {
-    walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
-    walletService.get.and.returnValue(of({}))
-    walletService.put.and.returnValue(of({}))
-    translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
-    translateService.onLangChange = new EventEmitter()
-    translateService.onTranslationChange = new EventEmitter()
-    translateService.onFallbackLangChange = new EventEmitter()
-    translateService.onDefaultLangChange = new EventEmitter()
-    snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
+    beforeEach(async () => {
+        walletService = {
+            get: vi.fn().mockName("AddressService.get"),
+            put: vi.fn().mockName("AddressService.put")
+        }
+        walletService.get.mockReturnValue(of({}))
+        walletService.put.mockReturnValue(of({}))
+        translateService = {
+            get: vi.fn().mockName("TranslateService.get")
+        }
+        translateService.get.mockReturnValue(of({}))
+        translateService.onLangChange = new EventEmitter()
+        translateService.onTranslationChange = new EventEmitter()
+        translateService.onFallbackLangChange = new EventEmitter()
+        translateService.onDefaultLangChange = new EventEmitter()
+        snackBar = {
+            open: vi.fn().mockName("MatSnackBar.open")
+        }
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule,
-        TranslateModule.forRoot(),
-        ReactiveFormsModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatGridListModule,
-        WalletComponent],
-      providers: [
-        { provide: WalletService, useValue: walletService },
-        { provide: TranslateService, useValue: translateService },
-        { provide: MatSnackBar, useValue: snackBar },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-        provideZoneChangeDetection()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule,
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatCardModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatGridListModule,
+                WalletComponent],
+            providers: [
+                { provide: WalletService, useValue: walletService },
+                { provide: TranslateService, useValue: translateService },
+                { provide: MatSnackBar, useValue: snackBar },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting(),
+                provideZoneChangeDetection()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(WalletComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(WalletComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should be compulsory to provide amount', () => {
-    component.balanceControl.setValue('')
-    expect(component.balanceControl.valid).toBeFalsy()
-  })
+    it('should be compulsory to provide amount', () => {
+        component.balanceControl.setValue('')
+        expect(component.balanceControl.valid).toBeFalsy()
+    })
 
-  it('amount should be in the range [10, 1000]', () => {
-    component.balanceControl.setValue(-1)
-    expect(component.balanceControl.valid).toBeFalsy()
-    component.balanceControl.setValue(10000000000)
-    expect(component.balanceControl.valid).toBeFalsy()
-    component.balanceControl.setValue(10)
-    expect(component.balanceControl.valid).toBe(true)
-    component.balanceControl.setValue(1000)
-    expect(component.balanceControl.valid).toBe(true)
-  })
+    it('amount should be in the range [10, 1000]', () => {
+        component.balanceControl.setValue(-1)
+        expect(component.balanceControl.valid).toBeFalsy()
+        component.balanceControl.setValue(10000000000)
+        expect(component.balanceControl.valid).toBeFalsy()
+        component.balanceControl.setValue(10)
+        expect(component.balanceControl.valid).toBe(true)
+        component.balanceControl.setValue(1000)
+        expect(component.balanceControl.valid).toBe(true)
+    })
 
-  it('should hold balance returned by backend API', () => {
-    walletService.get.and.returnValue(of(100))
-    component.ngOnInit()
-    fixture.detectChanges()
-    expect(component.balance).toBe('100.00')
-  })
+    it('should hold balance returned by backend API', () => {
+        walletService.get.mockReturnValue(of(100))
+        component.ngOnInit()
+        fixture.detectChanges()
+        expect(component.balance).toBe('100.00')
+    })
 
-  it('should log error while getting balance from backend API directly to browser console', fakeAsync(() => {
-    walletService.get.and.returnValue(throwError('Error'))
-    console.log = jasmine.createSpy('log')
-    component.ngOnInit()
-    expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+    it('should log error while getting balance from backend API directly to browser console', () => {
+        walletService.get.mockReturnValue(throwError('Error'))
+        console.log = vi.fn()
+        component.ngOnInit()
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
 })

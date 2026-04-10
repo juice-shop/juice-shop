@@ -4,7 +4,7 @@
 -->
 
 <main class="container">
-  <div class="heading mat-elevation-z6">
+  <div class="heading mat-elevation-z6 mat-headline-small">
     @if (searchValue) {
       <div>
         <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
@@ -51,7 +51,7 @@
     [pageSizeOptions]="pageSizeOptions"
     [length]="resultsLength"
     class="paginator mat-elevation-z6"
-    color="accent"
+    color="tertiary"
   >
   </mat-paginator>
 </main>

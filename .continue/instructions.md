@@ -4,7 +4,7 @@ This file provides guidelines for using Continue.dev when contributing to OWASP 
 
 ## Primary Reference
 
-For comprehensive guidelines on using AI assistants (including Continue.dev) with this project, please refer to [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md). That document covers:
+For comprehensive guidelines on using AI assistants (including Continue.dev) with this project, please refer to [CLAUDE.md](../.claude/CLAUDE.md). That document covers:
 
 - Recommended use cases
 - Code quality and style requirements
@@ -13,7 +13,7 @@ For comprehensive guidelines on using AI assistants (including Continue.dev) wit
 - Development workflow best practices
 - Quality checklists
 
-**All contributors using Continue.dev must follow the guidelines in [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) before submitting pull requests.**
+**All contributors using Continue.dev must follow the guidelines in [CLAUDE.md](../.claude/CLAUDE.md) before submitting pull requests.**
 
 ## Continue-Specific Context
 
@@ -23,8 +23,8 @@ The following context is provided to help Continue.dev better assist with contri
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
-- **Key Technologies**: Node.js, Express, SQLite/MongoDB, Angular
-- **Testing**: Node.js Test Runner & Supertest, Cypress (E2E tests)
+- **Key Technologies**: Node.js (22–25 with 24 being the default), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 
 ### Important Constraints
@@ -34,9 +34,9 @@ The following context is provided to help Continue.dev better assist with contri
    - Approved by maintainers before implementation
    - Well-documented in challenges
 
-2. **Challenge Development**: Do not create challenges without prior maintainer discussion. Consult [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#recommended-use-cases) before proposing new challenges.
+2. **Challenge Development**: Do not create challenges without prior maintainer discussion. Consult [CLAUDE.md](../.claude/CLAUDE.md#recommended-use-cases) before proposing new challenges.
 
-3. **Code Changes and RSN**: When modifying code that is part of a coding challenge, the Refactoring Safety Net (RSN) must pass. See [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#refactoring-safety-net-rsn) for details.
+3. **Code Changes and RSN**: When modifying code that is part of a coding challenge, the Refactoring Safety Net (RSN) must pass. See [CLAUDE.md](../.claude/CLAUDE.md#refactoring-safety-net-rsn) for details.
 
 4. **Dependency Updates**: Always verify compatibility when suggesting package updates. Check:
    - `package.json` (backend)
@@ -60,10 +60,10 @@ The following context is provided to help Continue.dev better assist with contri
 Before suggesting code or accepting Continue suggestions, ensure:
 
 - ESLint compliance: `npm run lint`
-- Tests pass: `npm test`, `npm run test:api`, `npm run cypress:run`
+- Tests pass: `npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`
 - RSN passes (if modifying challenge-related code): `npm run rsn`
 - Code follows JS Standard Style
-- AI-generated noise is removed (see [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md#1-clean-up-ai-generated-noise))
+- AI-generated noise is removed (see [CLAUDE.md](../.claude/CLAUDE.md#1-clean-up-ai-generated-noise))
 - Commits are signed off: `git commit -s`
 
 ### Common Tasks with Continue.dev
@@ -80,9 +80,9 @@ Before suggesting code or accepting Continue suggestions, ensure:
 
 ## Quick Checklist for Continue-Assisted Work
 
-- [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) guidelines
+- [ ] Reviewed [CLAUDE.md](../.claude/CLAUDE.md) guidelines
 - [ ] Code passes ESLint (`npm run lint`)
-- [ ] Tests pass (`npm test`, `npm run test:api`)
+- [ ] Tests pass (`npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`)
 - [ ] RSN passes if applicable (`npm run rsn`)
 - [ ] AI-generated noise cleaned up
 - [ ] Commits signed off (`git commit -s`)
@@ -92,10 +92,18 @@ Before suggesting code or accepting Continue suggestions, ensure:
 
 ## Getting Help
 
-- Review [CLAUDE.md](../.claude/CLAUDE.mdLAUDE.md) for detailed guidance
+- Review [CLAUDE.md](../.claude/CLAUDE.md) for detailed guidance
 - Check the [Contribution Guide](../CONTRIBUTING.md)
 - Refer to the [project documentation](https://pwning.owasp-juice.shop/)
 - Connect with the community via Slack or GitHub issues
+
+## Skills
+
+- [add-reference skill](../.junie/skills/add-reference/SKILL.md): Instructions for adding new blog posts, talks, or other references to `REFERENCES.md`
+- [add-solution skill](../.junie/skills/add-solution/SKILL.md): Instructions for adding new hacking guides, videos, or tools to `SOLUTIONS.md`
+- [create-m3-theme skill](../.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-challenge skill](../.junie/skills/verify-challenge/SKILL.md): Instructions for verifying new challenges fulfill all project requirements and metadata
+- [verify-rsn-fix skill](../.junie/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
 
 ---
 

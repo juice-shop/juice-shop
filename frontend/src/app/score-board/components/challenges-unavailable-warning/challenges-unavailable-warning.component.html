@@ -12,7 +12,7 @@
     } @else {
       <span warning-text [innerHTML]="'INFO_DISABLED_CHALLENGES' | translate: {num: numberOfDisabledChallenges, env: disabledBecauseOfEnv}"></span>
     }
-    <button warning-action mat-button color="accent" (click)="toggleShowDisabledChallenges()">
+    <button warning-action mat-button color="tertiary" (click)="toggleShowDisabledChallenges()">
       @if (filterSetting.showDisabledChallenges === true) {
         {{ 'HIDE_DISABLED_CHALLENGES' | translate }}
       } @else {

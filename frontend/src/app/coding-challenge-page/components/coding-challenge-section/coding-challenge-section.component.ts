@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, input, output } from '@angular/core'
+import { Component, DestroyRef, inject, input, output } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
@@ -17,6 +17,8 @@ import { ResultState } from '../../coding-challenge.types'
   imports: [MatButtonModule, MatIconModule, TranslateModule]
 })
 export class CodingChallengeSectionComponent {
+  private destroyed = false
+
   readonly title = input.required<string>()
   readonly description = input.required<string>()
   readonly solved = input(false)
@@ -27,7 +29,17 @@ export class CodingChallengeSectionComponent {
   readonly submitClicked = output<void>()
   readonly shakingDone = output<void>()
 
-  readonly ResultState = ResultState
+  constructor () {
+    inject(DestroyRef).onDestroy(() => { this.destroyed = true })
+  }
+
+  onShakingDone (): void {
+    if (!this.destroyed) {
+      this.shakingDone.emit()
+    }
+  }
+
+  get ResultState () { return ResultState }
 
   resultIcon (): string {
     switch (this.result()) {

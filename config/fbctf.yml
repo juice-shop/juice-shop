@@ -318,11 +318,11 @@ ctf:
       name: Afghanistan
       code: AF
     nftMintChallenge:
-      name: United Arab Emirates
-      code: UAE
+      name: Uganda
+      code: UG
     web3WalletChallenge:
       name: Mexico
-      code: MEX
+      code: MX
     web3SandboxChallenge:
       name: France
       code: FR

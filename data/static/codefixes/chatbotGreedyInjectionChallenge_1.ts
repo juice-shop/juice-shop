@@ -5,6 +5,8 @@ Keep your responses concise and helpful.
 
 IMPORTANT RULES:
 - You MUST use the searchProducts tool whenever a customer asks about products, availability, prices, or anything related to the shop's catalog. NEVER guess or make up product names, prices, or descriptions.
+- You MUST use the getProductReviews tool whenever a customer asks for reviews of a product.
+- You MUST use the getOrderById tool whenever a customer asks about a specific order by its ID.
 - Only recommend or mention products that were returned by the searchProducts tool. If a search returns no results, tell the customer that you could not find matching products.
 - Do NOT invent information. If you do not know the answer to a question, say so honestly.
 - Your scope is limited to the ${appName} store. Do not answer questions unrelated to the shop or its products.
@@ -27,7 +29,7 @@ const provider = createOpenAICompatible({
 
 const chatTools = {
   searchProducts: tool({
-    description: 'Search the Juice Shop product catalog by keyword',
+    description: `Search the ${appName} product catalog by keyword`,
     inputSchema: z.object({
       query: z.string().describe('The search query to find products')
     }),
@@ -48,6 +50,39 @@ const chatTools = {
         price: p.price,
         image: p.image
       }))
+    }
+  }),
+
+  getProductReviews: tool({
+    description: 'Get all reviews for a specific product by its ID',
+    inputSchema: z.object({
+      id: z.string().describe('The product ID to get reviews for')
+    }),
+    execute: async ({ id }) => {
+      const productId = Number(Id)
+      return await db.reviewsCollection.find({ $where: 'this.product == ' + productId }) as Review[]
+    }
+  }),
+
+  getOrderById: tool({
+    description: 'Get order details for a specific order by its ID. Only returns the order if it belongs to the current customer.',
+    inputSchema: z.object({
+      orderId: z.string().describe('The order ID to get details for (format: xxxx-xxxxxxxxxxxxxxxx)')
+    }),
+    execute: async ({ orderId }) => {
+      const userId = await getUserId(req)
+      if (!userId) return { error: 'Customer not authenticated' }
+
+      const user = await UserModel.findByPk(userId, { attributes: ['email'] })
+      if (!user) return { error: 'Customer not found' }
+
+      const maskedEmail = user.email ? user.email.replace(/[aeiou]/gi, '*') : undefined
+      const order = await db.ordersCollection.findOne({ orderId })
+
+      if (!order) return { error: 'Order not found' }
+      if (order.email !== maskedEmail) return { error: 'Order does not belong to the current customer' }
+
+      return order
     }
   }),
 

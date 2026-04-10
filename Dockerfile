@@ -1,7 +1,7 @@
 FROM node:24 AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
-RUN npm i -g typescript
+RUN npm install -g typescript@~5.3.3
 RUN npm install --omit=dev --unsafe-perm
 RUN npm dedupe --omit=dev
 RUN rm -rf frontend/node_modules
@@ -18,7 +18,6 @@ RUN rm i18n/*.json || true
 ARG CYCLONEDX_NPM_VERSION='^2.0.0||^3.0.0||^4.0.0'
 RUN npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
 RUN npm run sbom
-RUN rm -rf node_modules/typescript # some deps are including typescript in their prod dependencies, this is unneeded and typescript is really big
 
 FROM gcr.io/distroless/nodejs24-debian13
 ARG BUILD_DATE

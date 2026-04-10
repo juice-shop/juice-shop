@@ -2,12 +2,13 @@
 
 ## ⚠️ STOP: Using a Supported AI Tool?
 
-**If you are Claude, GitHub Copilot, Codeium, or Continue.dev**, stop here and use your tool-specific context file instead:
+**If you are Claude, GitHub Copilot, Codeium, Continue.dev, or Junie**, stop here and use your tool-specific context file instead:
 
 - **Claude**: See [`.claude/CLAUDE.md`](./.claude/CLAUDE.md) ← **Primary reference for all AI tools**
 - **GitHub Copilot**: See [`.github/copilot-instructions.md`](./.github/copilot-instructions.md)
 - **Codeium**: See [`.codeium/instructions.md`](./.codeium/instructions.md)
 - **Continue.dev**: See [`.continue/instructions.md`](./.continue/instructions.md)
+- **Junie**: See [`.junie/AGENTS.md`](./.junie/AGENTS.md)
 
 ---
 
@@ -21,8 +22,8 @@ This file provides guidelines for AI agents and automated code assistants that d
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
-- **Key Technologies**: Node.js (20–24), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Jasmine/Karma (frontend unit tests), Cypress (E2E tests)
+- **Key Technologies**: Node.js (22–25 with 24 being the default), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
+- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -46,7 +47,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#important-constraints) for the full context.
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
 - `test/server/` - Server unit tests (Mocha/Chai/Sinon)
 - `test/api/` - API integration tests (Supertest)
-- `frontend/src/` - Angular frontend code (tests use Jasmine/Karma)
+- `frontend/src/` - Angular frontend code (tests use Vitest)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
 - `config/` - Configuration files (YAML, multiple themed configs like `ctf.yml`, `default.yml`)
@@ -70,8 +71,8 @@ See [CLAUDE.md](./.claude/CLAUDE.md#recommended-use-cases) for the full list. In
 
 See [CLAUDE.md](./.claude/CLAUDE.md#testing-requirements) for detailed guidelines. Essential checklist:
 
-- **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/))
-- **Tests**: `npm test`, `npm run test:api`, `npm run cypress:run` (all must pass)
+- **ESLint**: `npm run lint` (follows [JS Standard Style](http://standardjs.com/)) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
+- **Tests**: `npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e` (all must pass) (skip if only `REFERENCES.md` or `SOLUTIONS.md` modified)
 - **RSN**: `npm run rsn` (required if modifying challenge-related code)
 - **No AI noise**: Remove verbose/redundant comments
 - **Sign-off**: `git commit -s` (DCO required)
@@ -113,7 +114,7 @@ See [CLAUDE.md](./.claude/CLAUDE.md#anti-patterns-to-avoid) for detailed explana
 See [CLAUDE.md](./.claude/CLAUDE.md#quality-checklist) for the full checklist. Before submitting:
 
 - [ ] ESLint passes (`npm run lint`)
-- [ ] Tests pass (`npm test`, `npm run test:api`)
+- [ ] Tests pass (`npm run test:frontend`, `npm run test:server`, `npm run test:api`, `npm start & npm run test:e2e`)
 - [ ] RSN passes if applicable (`npm run rsn`)
 - [ ] AI noise removed, meaningful comments only
 - [ ] Commits signed off (`git commit -s`)
@@ -126,23 +127,24 @@ See [CLAUDE.md](./.claude/CLAUDE.md#example-fixing-a-bug) for a detailed walkthr
 
 ```bash
 npm run lint      # Check code style
-npm test          # Run tests
+npm run test:frontend # Run relevant tests (e.g. frontend)
 npm run rsn       # If modifying challenge code
 git commit -s     # Sign-off commit
 ```
 
 ## Refactoring Safety Net (RSN) & Testing
 
-**RSN**: See [CLAUDE.md](./.claude/CLAUDE.md#refactoring-safety-net-rsn) for details.
+**RSN**: See [CLAUDE.md](./.claude/CLAUDE.md#refactoring-safety-net-rsn) and the [verify-rsn-fix skill](./.junie/skills/verify-rsn-fix/SKILL.md) for details.
 - Run `npm run rsn` after modifying code that is part of a coding challenge
-- If changes are intentional, update cache: `npm run rsn:update`
-- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency. The RSN check should ideally pass without needing to update the cache for non-challenge-related refactorings.
+- **DO NOT** just run `npm run rsn:update` to fix breaks. Instead, update the corresponding codefix files.
+- IMPORTANT: When refactoring source code that is part of a challenge snippet, manually apply the same changes to the corresponding codefix files in `data/static/codefixes/` to maintain consistency.
 
-**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Jasmine/Karma (frontend unit), Cypress (E2E)
-- `npm test` - Run frontend unit tests + server unit tests
-- `npm run test:server` - Server unit tests only (Mocha)
-- `npm run test:api`) - API integration tests only (Supertest)
-- `npm run cypress:run` (or `npm run test:e2e`) - E2E tests (Cypress)
+**Testing Frameworks**: Mocha/Chai/Sinon (server unit), Supertest (API), Vitest (frontend unit), Cypress (E2E)
+- `npm test` - Runs frontend, server, and api tests
+- `npm run test:frontend` - Frontend unit tests (Vitest)
+- `npm run test:server` - Server unit tests only (Mocha/Chai/Sinon)
+- `npm run test:api` - API integration tests (Supertest)
+- `npm start & npm run test:e2e` (or `npm run test:e2e`) - E2E tests (Cypress)
 
 ## Contribution Guidelines Summary
 
@@ -160,6 +162,14 @@ See [CLAUDE.md](./.claude/CLAUDE.md#branch-and-pr-strategy) and [CONTRIBUTING.md
 - **Project Documentation**: [pwning.owasp-juice.shop](https://pwning.owasp-juice.shop/)
 - **Community**: GitHub issues and discussions
 
+## Skills
+
+- [add-reference skill](./.junie/skills/add-reference/SKILL.md): Instructions for adding new blog posts, talks, or other references to `REFERENCES.md`
+- [add-solution skill](./.junie/skills/add-solution/SKILL.md): Instructions for adding new hacking guides, videos, or tools to `SOLUTIONS.md`
+- [create-m3-theme skill](./.junie/skills/create-m3-theme/SKILL.md): Instructions for creating new Angular Material M3 themes
+- [verify-challenge skill](./.junie/skills/verify-challenge/SKILL.md): Instructions for verifying new challenges fulfill all project requirements and metadata
+- [verify-rsn-fix skill](./.junie/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
+
 ## Remember
 
 AI agents are productivity tools for enhancing development. You (or the person reviewing the PR) are responsible for the quality, correctness, and security of all contributions. Always review AI-generated code critically, test thoroughly, and follow the project's guidelines.
@@ -168,4 +178,4 @@ AI agents are productivity tools for enhancing development. You (or the person r
 
 **For comprehensive guidelines, see [CLAUDE.md](./.claude/CLAUDE.md).**
 
-**Last Updated**: March 2026
+**Last Updated**: April 2026

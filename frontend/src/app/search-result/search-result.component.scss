@@ -5,7 +5,6 @@
 
 @use '../../styles/variables' as *;
 
-$bg-heading: rgba(0, 0, 0, 0.2);
 
 .container {
   min-width: calc(360px - 2 * $space-m);
@@ -14,8 +13,7 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 }
 
 .heading {
-  background: $bg-heading;
-  font-size: x-large;
+  background: var(--mat-sys-surface-container);
   justify-content: center;
   padding: $space-s $space-ml;
   margin-bottom: $space-m;
