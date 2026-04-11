@@ -1,3 +1,8 @@
+---
+name: add-solution
+description: Instructions for adding new hacking guides, videos, or tools to SOLUTIONS.md
+---
+
 # Skill: Adding a new Solution or Tool to SOLUTIONS.md
 
 This skill provides instructions for Junie to analyze a new hacking guide, video, or tool, determine if it belongs in `SOLUTIONS.md` or `REFERENCES.md`, collect necessary metadata, and add it to the correct section f `SOLUTIONS.md` following the existing format.

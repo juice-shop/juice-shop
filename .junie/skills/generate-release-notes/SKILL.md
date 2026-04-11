@@ -1,3 +1,8 @@
+---
+name: generate-release-notes
+description: Instructions for generating or completing release notes based on the project's iconography and structure.
+---
+
 # Skill: Generating or Completing Release Notes
 
 This skill provides instructions for Junie to create release notes from scratch or complete existing draft release notes for OWASP Juice Shop. It follows the established structure, iconography, and formatting patterns of the project based on an analysis of the last 20 releases.

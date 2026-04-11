@@ -1,3 +1,8 @@
+---
+name: add-reference
+description: Instructions for adding new blog posts, talks, or other references to REFERENCES.md
+---
+
 # Skill: Adding a new Reference to REFERENCES.md
 
 This skill provides instructions for Junie to analyze a new reference (blog post, podcast, conference talk, etc.), determine if it belongs in `REFERENCES.md` or `SOLUTIONS.md`, collect missing information, and add it to the correct section of `REFERENCES.md` following the existing format.

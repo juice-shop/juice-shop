@@ -1,3 +1,8 @@
+---
+name: verify-challenge
+description: Instructions for verifying new challenges fulfill all project requirements and metadata.
+---
+
 # Skill: Verifying a New Challenge
 
 This skill provides a comprehensive workflow and checklist for verifying that a newly added challenge fulfills all necessary preconditions, metadata requirements, and project conventions in OWASP Juice Shop.
