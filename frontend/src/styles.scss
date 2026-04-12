@@ -519,13 +519,40 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   --mat-sys-on-tertiary: #000;
 
   // Custom font and typography
-  font-family: 'VT323', monospace;
-  --mat-sys-body-medium-font: 'VT323', monospace;
-  --mat-sys-body-large-font: 'VT323', monospace;
-  --mat-sys-display-large-font: 'VT323', monospace;
-  --mat-sys-headline-large-font: 'VT323', monospace;
-  --mat-sys-title-large-font: 'VT323', monospace;
-  --mat-sys-label-large-font: 'VT323', monospace;
+  font-family: 'VT323', ui-monospace, monospace;
+  --mat-sys-display-large-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-display-medium-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-display-small-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-headline-large-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-headline-medium-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-headline-small-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-title-large-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-title-medium-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-title-small-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-label-large-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-label-medium-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-label-small-font: 'VT323', ui-monospace, monospace;
+
+  // Readable stack for long-form text, inputs and chat prose
+  --neon-readable-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  --mat-sys-body-large-font: 'VT323', ui-monospace, monospace;
+  --mat-sys-body-medium-font: 'VT323', ui-monospace, monospace;
+
+  .mat-mdc-input-element,
+  .mat-mdc-select-value,
+  .mat-mdc-form-field-subscript-wrapper,
+  .mdc-floating-label,
+  .chat-bubble,
+  input,
+  textarea,
+  select {
+    font-family: var(--neon-readable-font);
+  }
+
+  .chat-textarea {
+    font-family: var(--neon-readable-font) !important;
+  }
 
   // Link customizations
   a {
@@ -607,11 +634,17 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
   .tag {
     background-color: #222 !important;
     color: #fc0 !important;
-    border: 1px solid #333 !important;
+    border: 1px solid #666 !important;
+  }
+
+  .tag.tag-missing-dependency {
+    color: #ff3e3e !important;
+    border-color: #ff3e3e !important;
   }
 
   .tag.tag-available-dependency {
-    color: #fc0 !important;
+    color: #00e676 !important;
+    border-color: #00e676 !important;
   }
 
   // Star gauge (challenges solved)
@@ -643,11 +676,24 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 
   .mat-mdc-button:disabled,
   .mat-mdc-raised-button:disabled,
-  .mat-mdc-unelevated-button:disabled {
+  .mat-mdc-unelevated-button:disabled,
+  .mat-mdc-icon-button:disabled {
     --mdc-filled-button-disabled-container-color: #111;
-    color: #444 !important;
-    border: 1px solid #444;
-    opacity: 0.7;
+    background-color: #111 !important;
+    color: #666 !important;
+    border: 1px solid #333;
+  }
+
+  // Score Board badge buttons: fix pink-on-yellow contrast and active/disabled hierarchy
+  .badge.not-completable,
+  .badge.completed,
+  .badge.partially-completed {
+    color: #000 !important;
+  }
+
+  .badge:disabled {
+    background-color: #222 !important;
+    color: #555 !important;
   }
 
   .mat-mdc-button:hover,
