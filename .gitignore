@@ -7,6 +7,7 @@ app/
 uploads/complaints/*.*
 !uploads/complaints/.gitkeep
 ftp/legal.md
+package-lock.json
 i18n/*.json
 i18n/*.invalid
 !frontend/src/assets/i18n/*.json
