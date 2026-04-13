@@ -33,9 +33,9 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application minimalistically"
         run: |
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
           cd frontend
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
@@ -62,7 +62,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
   frontend-test:
@@ -249,7 +249,7 @@ jobs:
       - name: "Install CLI tools"
         run: npm install -g @angular/cli
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: cypress-io/github-action@57b70560982e6a11d23d4b8bec7f8a487cdbb71b #v6.7.8
@@ -303,7 +303,7 @@ jobs:
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
-          npm install --production
+          npm ci --omit=dev
           npm run package:ci
       - name: "Unpack application archive"
         run: |
