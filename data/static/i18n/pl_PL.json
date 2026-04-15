@@ -310,7 +310,7 @@
   "Even brute forcing the answer should be possible with the right kind of word list.": "Nawet brutalne wymuszanie odpowiedzi powinno być możliwe przy odpowiedniej liście słów.",
   "Finding out who Morty actually is, will help to reduce the solution space.": "Odkrycie, kim naprawdę jest Morty, pomoże zawęzić zakres rozwiązań.",
   "You can assume that Morty answered his security question truthfully but employed some obfuscation to make it more secure.": "Można założyć, że Morty odpowiedział na swoje pytanie bezpieczeństwa zgodnie z prawdą, ale zastosował pewne zaciemnienie, aby uczynić je bezpieczniejszym.",
-  "Morty’s answer is less than 10 characters long and does not include any special characters.": "",
+  "Morty’s answer is less than 10 characters long and does not include any special characters.": "Odpowiedź Morty’ego ma mniej niż 10 znaków i nie zawiera znaków specjalnych.",
   "Unfortunately, Forgot your password? is protected by a rate limiting mechanism that prevents brute forcing. You need to beat this somehow.": "Niestety, zapomniałeś hasła? Jest chroniony przez mechanizm ograniczający szybkość, który zapobiega atakowi typu brute force. Musisz to jakoś pokonać.",
   "Check for products which seem like a natural fit for being based on a blueprint.": "Sprawdź produkty, które idealnie nadają się do opracowania na bazie schematu.",
   "You might want to pay attention to the images of the identified product candidates.": "Możesz zwrócić uwagę na zdjęcia zidentyfikowanych kandydatów na produkty.",
