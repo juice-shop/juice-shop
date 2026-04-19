@@ -8,12 +8,19 @@
 
 <div class="chat-window" #chatWindow>
   @for (message of messages(); track $index) {
-    @if (message.content || (message.tool_calls?.length && showToolCalls()) || !isLoading()) {
+    @if (message.content || (message.tool_calls?.length && showToolCalls()) || !isLoading() || ($last && isLoading() && message.role === 'assistant')) {
     <div class="chat-bubble" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'" [class.error]="message.error">
       @if (message.error) {
         <span class="message-content">{{ message.content.trim() | translate }}</span>
       } @else {
         <span class="message-content">{{ message.content.trim() }}</span>
+      }
+      @if (isLoading() && $last && message.role === 'assistant') {
+        <span class="typing-indicator inline">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </span>
       }
       @if (message.tool_calls?.length && showToolCalls()) {
         <div class="tool-calls-container">
@@ -48,13 +55,6 @@
       }
     </div>
     }
-  }
-  @if (isLoading() && messages().length > 0 && messages()[messages().length - 1].content === '') {
-    <div class="chat-bubble assistant typing-indicator">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
   }
 </div>
 
