@@ -39,11 +39,10 @@
               "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "allowedCommonJsDependencies": [
-              "file-saver",
+
               "socket.io-client",
               "socket.io-parser",
               "debug",
-              "qrious",
               "bn.js",
               "aes-js",
               "scrypt-js",

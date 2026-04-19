@@ -6,7 +6,7 @@
 import { Injectable, inject } from '@angular/core'
 import { type Backup } from '../Models/backup.model'
 import { CookieService } from 'ngy-cookie'
-import { saveAs } from 'file-saver'
+
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { firstValueFrom, forkJoin, from, of } from 'rxjs'
@@ -53,7 +53,12 @@ export class LocalBackupService {
   }
 
   saveFile (blob: Blob, fileName: string) {
-    saveAs(blob, fileName)
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = fileName
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   restore (backupFile: File) {
