@@ -39,7 +39,6 @@
               "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "allowedCommonJsDependencies": [
-              "jwt-decode",
               "file-saver",
               "socket.io-client",
               "socket.io-parser",

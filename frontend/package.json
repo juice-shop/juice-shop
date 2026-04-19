@@ -50,7 +50,7 @@
     "file-saver": "^2.0.2",
     "flag-icons": "^6.9.2",
     "font-mfizz": "^2.4.1",
-    "jwt-decode": "^2.2.0",
+    "jwt-decode": "^4.0.0",
     "lodash-es": "^4.17.21",
     "material-icons": "^1.13.14",
     "ng-gallery": "^12.0.0",
