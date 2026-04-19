@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    loadComponent: async () => await loadAboutComponent()
   },
   {
     path: 'address/select',
@@ -95,7 +95,7 @@ const routes: Routes = [
   },
   {
     path: 'recycle',
-    component: RecycleComponent
+    loadComponent: async () => await loadRecycleComponent()
   },
   {
     path: 'register',
