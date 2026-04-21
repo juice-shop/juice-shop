@@ -44,6 +44,7 @@
   display: flex;
   align-items: center;
   gap: $space-m;
+  min-height: 55px; // reserving some space so that the button doesn't jump around when the hint appears
 
   mat-card {
     flex: 1 1 0;
