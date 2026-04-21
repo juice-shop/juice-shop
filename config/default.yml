@@ -60,7 +60,7 @@ application:
     subtitles: owasp_promo.vtt
   easterEggPlanet:
     name: Orangeuze
-    overlayMap: orangemap2k.jpg
+    overlayMap: orangemap2k.avif
   googleOauth:
     clientId: '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
     authorizedRedirects:
