@@ -43,6 +43,7 @@ out/
 .ai/mcp/mcp.json
 .junie/mcp/mcp.json
 .junie/memory/
+.junie/plans/
 
 # Branch ghpages
 assets/
