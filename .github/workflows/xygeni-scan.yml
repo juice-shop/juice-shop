@@ -1,0 +1,29 @@
+name: Xygeni Scan
+on:
+  workflow_dispatch:  # Allows manual triggering
+  # no push triggers
+  # no pull request triggers
+  # no schedule triggers
+
+jobs:
+  xygeni-scan:
+    name: Xygeni Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for better relevancy of analysis
+
+      - name: Xygeni-Scanner
+        uses: xygeni/xygeni-action@v3.2.0
+        id: Xygeni-Scanner
+        with:
+          xygeni_url: https://api.xygeni.io
+          token: ${{ secrets.XYGENI_TOKEN }}
+          gh_token: ${{ secrets.PAT_FOR_XYGENI_SCAN }}
