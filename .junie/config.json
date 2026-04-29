@@ -1,3 +1,4 @@
 {
-  "skill-locations": ["../.ai/skills"]
+  "skill-locations": ["../.ai/skills"],
+  "mcp-locations": ["../.ai/mcp"]
 }
