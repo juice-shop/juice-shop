@@ -38,4 +38,4 @@ jobs:
       uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
           token: ${{ secrets.XYGENI_TOKEN }}
-          command: import --format sarif --file ${{ runner.workspace }}/results/**/*.sarif --project "juice-shop-ghas"
+          command: report-upload --format sast-sarif --report ${{ runner.workspace }}/results/**/*.sarif --name "juice-shop-ghas"
