@@ -35,9 +35,10 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       # 1. Higieniza o arquivo e salva como '_fixed.sarif'
-    - name: Sanitizar SARIF (Workaround Xygeni Parser)
+   # 1. Higieniza o arquivo via substituição de texto (Força bruta)
+    - name: Sanitizar SARIF (SED Brute Force)
       run: |
-          jq 'walk(if type == "object" and has("severity") and .severity == null then .severity = "info" else . end)' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/javascript_fixed.sarif
+          sed -E 's/"[sS]everity"\s*:\s*null/"severity": "info"/g' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/javascript_fixed.sarif
 
       # 2. Faz o upload do arquivo corrigido
     - name: Importar SARIF para Xygeni
