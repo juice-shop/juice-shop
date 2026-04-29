@@ -34,3 +34,8 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+    - name: Archive SARIF results
+      uses: actions/upload-artifact@v4
+      with:
+          name: codeql-sarif
+          path: ../results/**/*.sarif
