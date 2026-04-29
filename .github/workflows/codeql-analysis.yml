@@ -34,46 +34,72 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-# 1. Reescreve o SARIF injetando severidade em TODAS as ramificações (Driver, Extensions e Results)
-    - name: Adequar SARIF do CodeQL (Python Override)
+# 1. Converte o CodeQL massivo em um SARIF Genérico e Minimalista
+    - name: Construir SARIF Limpo para Xygeni
       run: |
-          cat << 'EOF' > fix_sarif.py
+          cat << 'EOF' > convert_sarif.py
           import json, sys
 
           with open(sys.argv[1], "r") as f:
               data = json.load(f)
 
-          def force_severity(item):
-              item["severity"] = "high"
-              if "properties" not in item:
-                  item["properties"] = {}
-              item["properties"]["severity"] = "high"
+          # Esqueleto de um SARIF básico
+          clean_sarif = {
+              "version": "2.1.0",
+              "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+              "runs": [{
+                  "tool": {
+                      "driver": {
+                          "name": "GitHub CodeQL (Export)",
+                          "rules": []
+                      }
+                  },
+                  "results": []
+              }]
+          }
+
+          rules_dict = {}
 
           for run in data.get("runs", []):
-              # 1. Injeta no motor principal
-              for rule in run.get("tool", {}).get("driver", {}).get("rules", []):
-                  force_severity(rule)
-              
-              # 2. Injeta nas extensões (Aqui estava o gap do CodeQL)
-              for ext in run.get("tool", {}).get("extensions", []):
-                  for rule in ext.get("rules", []):
-                      force_severity(rule)
-                  
-              # 3. Injeta nos resultados e garante o level
               for res in run.get("results", []):
-                  force_severity(res)
-                  if "level" not in res:
-                      res["level"] = "warning"
+                  rule_id = res.get("ruleId", "unknown-rule")
+                  
+                  # 1. Cria a regra limpa, cravando severidade alta
+                  if rule_id not in rules_dict:
+                      rules_dict[rule_id] = {
+                          "id": rule_id,
+                          "name": rule_id,
+                          "shortDescription": {"text": res.get("message", {}).get("text", "Vulnerabilidade identificada")},
+                          "properties": {
+                              "severity": "high",
+                              "security-severity": "7.0"
+                          }
+                      }
+                  
+                  # 2. Cria o alerta limpo, referenciando apenas a regra e o local
+                  clean_res = {
+                      "ruleId": rule_id,
+                      "level": "error", # Padrão do OASIS SARIF para severidade
+                      "message": {"text": res.get("message", {}).get("text", "Vulnerabilidade identificada")},
+                      "locations": res.get("locations", []),
+                      "properties": {
+                          "severity": "high"
+                      }
+                  }
+                  clean_sarif["runs"][0]["results"].append(clean_res)
+
+          # Injeta as regras mapeadas
+          clean_sarif["runs"][0]["tool"]["driver"]["rules"] = list(rules_dict.values())
 
           with open(sys.argv[2], "w") as f:
-              json.dump(data, f)
+              json.dump(clean_sarif, f, indent=2)
           EOF
           
-          python3 fix_sarif.py ${{ runner.workspace }}/results/javascript.sarif ${{ runner.workspace }}/results/codeql_fixed.sarif
+          python3 convert_sarif.py ${{ runner.workspace }}/results/javascript.sarif ${{ runner.workspace }}/results/codeql_clean.sarif
 
-      # 2. Upload explícito via CLI
+      # 2. Upload explícito do arquivo limpo via CLI
     - name: Xygeni - Ingerir alertas do CodeQL
       uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
-          command: report-upload --report=${{ runner.workspace }}/results/codeql_fixed.sarif --format sast-sarif --name "juice-shop-ghas"
+          command: report-upload --report=${{ runner.workspace }}/results/codeql_clean.sarif --format sast-sarif --name "juice-shop-ghas"
           token: ${{ secrets.XYGENI_TOKEN }}
