@@ -34,8 +34,7 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      # 1. Higieniza o esquema do arquivo para o parser da Xygeni
-# 1. Reescreve o SARIF injetando severidade em todas as camadas possíveis
+# 1. Reescreve o SARIF injetando severidade em TODAS as ramificações (Driver, Extensions e Results)
     - name: Adequar SARIF do CodeQL (Python Override)
       run: |
           cat << 'EOF' > fix_sarif.py
@@ -44,16 +43,27 @@ jobs:
           with open(sys.argv[1], "r") as f:
               data = json.load(f)
 
+          def force_severity(item):
+              item["severity"] = "high"
+              if "properties" not in item:
+                  item["properties"] = {}
+              item["properties"]["severity"] = "high"
+
           for run in data.get("runs", []):
-              # Injeta nas definições de regras
+              # 1. Injeta no motor principal
               for rule in run.get("tool", {}).get("driver", {}).get("rules", []):
-                  rule.setdefault("properties", {})["severity"] = "high"
-                  rule["severity"] = "high"
+                  force_severity(rule)
               
-              # Injeta nos alertas encontrados
+              # 2. Injeta nas extensões (Aqui estava o gap do CodeQL)
+              for ext in run.get("tool", {}).get("extensions", []):
+                  for rule in ext.get("rules", []):
+                      force_severity(rule)
+                  
+              # 3. Injeta nos resultados e garante o level
               for res in run.get("results", []):
-                  res.setdefault("properties", {})["severity"] = "high"
-                  res["severity"] = "high"
+                  force_severity(res)
+                  if "level" not in res:
+                      res["level"] = "warning"
 
           with open(sys.argv[2], "w") as f:
               json.dump(data, f)
