@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: codeql-sarif
-          path: ../results/**/*.sarif
+          path: ${{ runner.workspace }}/results/**/*.sarif
