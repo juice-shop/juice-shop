@@ -35,11 +35,12 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
 # 1. Filtra o SARIF mantendo apenas vulnerabilidades reais (ignora métricas do CodeQL que quebram a Xygeni)
-    - name: Higienizar SARIF (Manter apenas Error/Warning)
+# 1. Injeta o nível "warning" em resultados que vieram sem nível explícito do CodeQL
+    - name: Higienizar SARIF (Injetar level ausente)
       run: |
-        jq '.runs[].results |= map(select(.level == "error" or .level == "warning"))' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/javascript_fixed.sarif
+          jq '.runs[].results |= map(if .level == null then .level = "warning" else . end)' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/javascript_fixed.sarif
 
-      # 2. Upload com o formato exigido (sast-sarif) apontando para o arquivo limpo
+      # 2. Upload com o formato exigido (sast-sarif)
     - name: Importar SARIF para Xygeni
       uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
