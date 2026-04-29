@@ -35,11 +35,33 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       # 1. Higieniza o esquema do arquivo para o parser da Xygeni
-    - name: Adequar SARIF do CodeQL (Workaround Xygeni)
+# 1. Reescreve o SARIF injetando severidade em todas as camadas possíveis
+    - name: Adequar SARIF do CodeQL (Python Override)
       run: |
-          jq '.runs[].results |= map(if .level == null then .level = "warning" else . end)' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/codeql_fixed.sarif
+          cat << 'EOF' > fix_sarif.py
+          import json, sys
 
-      # 2. Upload explícito via CLI da Xygeni
+          with open(sys.argv[1], "r") as f:
+              data = json.load(f)
+
+          for run in data.get("runs", []):
+              # Injeta nas definições de regras
+              for rule in run.get("tool", {}).get("driver", {}).get("rules", []):
+                  rule.setdefault("properties", {})["severity"] = "high"
+                  rule["severity"] = "high"
+              
+              # Injeta nos alertas encontrados
+              for res in run.get("results", []):
+                  res.setdefault("properties", {})["severity"] = "high"
+                  res["severity"] = "high"
+
+          with open(sys.argv[2], "w") as f:
+              json.dump(data, f)
+          EOF
+          
+          python3 fix_sarif.py ${{ runner.workspace }}/results/javascript.sarif ${{ runner.workspace }}/results/codeql_fixed.sarif
+
+      # 2. Upload explícito via CLI
     - name: Xygeni - Ingerir alertas do CodeQL
       uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
