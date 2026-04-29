@@ -34,15 +34,8 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      # 1. Higieniza o arquivo e salva como '_fixed.sarif'
-   # 1. Higieniza o arquivo via substituição de texto (Força bruta)
-    - name: Sanitizar SARIF (SED Brute Force)
-      run: |
-          sed -E 's/"[sS]everity"\s*:\s*null/"severity": "info"/g' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/javascript_fixed.sarif
-
-      # 2. Faz o upload do arquivo corrigido
     - name: Importar SARIF para Xygeni
       uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
           token: ${{ secrets.XYGENI_TOKEN }}
-          command: report-upload --format sast-sarif --report ${{ runner.workspace }}/results/javascript_fixed.sarif --name "juice-shop-ghas"
+          command: report-upload --format sarif --report ${{ runner.workspace }}/results/javascript.sarif --name "juice-shop-ghas"
