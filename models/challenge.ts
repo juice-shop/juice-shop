@@ -125,7 +125,8 @@ const CHALLENGE_KEYS = [
   'passwordHashLeakChallenge',
   'chatbotPromptInjectionChallenge',
   'chatbotGreedyInjectionChallenge',
-  'aiDebuggingChallenge'
+  'aiDebuggingChallenge',
+  'systemPromptExtractionChallenge'
 ] as const
 
 export type ChallengeKey = typeof CHALLENGE_KEYS[number]
