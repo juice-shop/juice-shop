@@ -34,3 +34,14 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
+      # 1. Higieniza o esquema do arquivo para o parser da Xygeni
+    - name: Adequar SARIF do CodeQL (Workaround Xygeni)
+      run: |
+          jq '.runs[].results |= map(if .level == null then .level = "warning" else . end)' ${{ runner.workspace }}/results/javascript.sarif > ${{ runner.workspace }}/results/codeql_fixed.sarif
+
+      # 2. Upload explícito via CLI da Xygeni
+    - name: Xygeni - Ingerir alertas do CodeQL
+      uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
+      with:
+          command: report-upload --report=${{ runner.workspace }}/results/codeql_fixed.sarif --format sast-sarif --name "juice-shop-ghas"
+          token: ${{ secrets.XYGENI_TOKEN }}
