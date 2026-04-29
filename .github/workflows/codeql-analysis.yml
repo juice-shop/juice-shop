@@ -34,8 +34,8 @@ jobs:
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-    - name: Archive SARIF results
-      uses: actions/upload-artifact@v4
+    - name: Importar SARIF para Xygeni
+      uses: xygeni/xygeni-action@13c6ed2797df7d85749864e2cbcf09c893f43b23
       with:
-          name: codeql-sarif
-          path: ${{ runner.workspace }}/results/**/*.sarif
+          token: ${{ secrets.XYGENI_TOKEN }}
+          command: import --format sarif --file ${{ runner.workspace }}/results/**/*.sarif --project "juice-shop-ghas"
