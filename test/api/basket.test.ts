@@ -56,7 +56,7 @@ void describe('/rest/basket/:id', () => {
     assert.equal(res.body.data.Products.length, 3)
   })
 
-  void it.skip('GET basket should accept forged JWTs', async () => {
+  void it('GET basket should accept forged JWTs', async () => {
     const header = Buffer.from(JSON.stringify({ alg: 'none', typ: 'JWT' })).toString('base64url')
     const payload = Buffer.from(JSON.stringify({ data: { email: 'jim@juice-sh.op' }, iat: 1508639612, exp: 9999999999 })).toString('base64url')
     const unsignedToken = `${header}.${payload}.`
