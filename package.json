@@ -104,6 +104,7 @@
     "cookie-parser": "^1.4.7",
     "cookieconsent": "^3.1.1",
     "cors": "^2.8.5",
+    "diff": "^9.0.0",
     "download": "^8.0.0",
     "errorhandler": "^1.5.1",
     "ethers": "^6.16.0",
