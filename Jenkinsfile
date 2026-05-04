@@ -64,20 +64,12 @@ pipeline {
                     // Provides test coverage report path
                     // Sets encoding
                     sh """
-                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner\ 
+                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                           -Dsonar.projectKey=juice-shop \
                           -Dsonar.projectName='Juice Shop' \
                           -Dsonar.projectVersion=19.2.1 \
                           -Dsonar.sources=. \
                           -Dsonar.exclusions=\
-**/node_modules/**,\
-**/build/**,\
-**/frontend/**,\
-**/test/**,\
-**/cypress/**,\
-**/data/static/**,\
-**/*.spec.ts,\
-**/*.d.ts \
                           -Dsonar.typescript.tsconfigPath=tsconfig.json \
                           -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/server-tests/lcov.info \
                           -Dsonar.sourceEncoding=UTF-8
