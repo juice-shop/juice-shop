@@ -31,7 +31,7 @@ pipeline {
                 // Prints a message to the console
                 echo '>>> Checking out Juice Shop source...'
                 // Clones the GitHub repository (main branch)
-                git branch: 'main',
+                git branch: 'mary',
                     url: 'https://github.com/dylandk0226/juice-shop.git'
                 // Creates the reports directory (if it doesn’t exist)
                 sh 'mkdir -p ${REPORT_DIR}'
