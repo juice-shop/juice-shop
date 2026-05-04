@@ -66,7 +66,7 @@ pipeline {
                     sh """
                         ${SONAR_SCANNER_HOME}/bin/sonar-scanner \ 
                           -Dsonar.projectKey=juice-shop \
-                          -Dsonar.projectName='OWASP Juice Shop' \
+                          -Dsonar.projectName='Juice Shop' \
                           -Dsonar.projectVersion=19.2.1 \
                           -Dsonar.sources=. \
                           -Dsonar.exclusions=\
