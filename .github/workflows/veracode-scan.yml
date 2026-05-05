@@ -1,0 +1,271 @@
+name: Veracode
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+  
+permissions:
+  contents: read
+  issues: write
+
+env:
+  VERACODE_API_ID: ${{ secrets.VERACODE_API_ID }}
+  VERACODE_API_KEY: ${{ secrets.VERACODE_API_KEY }}
+  PROJECT_NAME: ${{ github.event.repository.name }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build Node.js app
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install --force || echo "Instalación parcial completada"
+
+      - name: Optional build (if applies)
+        run: |
+          # Solo si tu proyecto usa build (React, Next, etc.)
+          npm run build || echo "No build step"
+
+      - name: Create artifact for SAST
+        run: |
+          zip -r app.zip . -x "node_modules/*" ".git/*"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          appname: "${{ github.event.repository.name }}"
+          name: app-build
+          path: app.zip
+
+  sast_scan:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Veracode SAST (Pipeline Scan)
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build
+    
+      - name: Run Veracode Pipeline Scan
+        uses: veracode/Veracode-pipeline-scan-action@v1.0.20
+        with:
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          file: "app.zip"
+          fail_build: false
+          json_output: true
+          
+      - name: Debug JSON
+        run: |
+          echo "Contenido del JSON:"
+          cat sast-results.json | head -n 50
+          
+      - name: Upload SAST results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-results
+          path: results.json
+
+  sca_scan:
+    needs: [sast_scan]  # Ejecutar después de sast_scan
+    runs-on: ubuntu-latest
+    name: Veracode SCA (Dependencies)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+  
+      - name: Download and run Veracode SCA CLI
+        env:
+          SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
+        run: |
+          curl -sSL https://download.sourceclear.com/ci.sh | sh -s -- \
+            scan . \
+            --json=sca-results.json \
+            --update-advisor \
+            --project-name "${{ env.PROJECT_NAME }}" \
+            --scm-uri "${{ github.server_url }}/${{ github.repository }}" \
+            --scm-rev "${{ github.sha }}" \
+            --scm-ref "${{ github.ref_name }}"
+      
+      - name: Check SCA results for high/critical issues
+        if: always()
+        run: |
+          if [ -f sca-results.json ]; then
+            # Verificar si hay vulnerabilidades altas o críticas
+            if grep -E '"severity":"(high|critical)"' sca-results.json; then
+              echo "? High or critical vulnerabilities found!"
+              exit 1
+            else
+              echo "? No high or critical vulnerabilities detected"
+            fi
+          fi
+    
+      - name: Upload SCA results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-results
+          path: sca-results.json
+          
+  # =============================================================================
+  # SANDBOX SCAN: Upload completo a Veracode (solo para ramas release/*)
+  # =============================================================================
+  sandbox-scan:
+    name: Sandbox Upload (Release branches)
+    #needs: build  # Necesita el app_name del job build
+    needs: [sca_scan]  # Ejecutar después de sast_scan
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install --force || echo "Instalación parcial completada"
+
+      - name: Build for Sandbox Upload
+        run: |
+          npm run build || echo "No build step"
+          
+      - name: Create complete package for Sandbox
+        run: |
+          mkdir -p verascan
+          # Crear un zip completo excluyendo node_modules y .git
+          zip -r verascan/app-sandbox.zip . -x "node_modules/*" ".git/*" "verascan/*"
+          echo "Artefacto creado para Sandbox:"
+          ls -lh verascan/
+
+      - name: Download Veracode Java API Wrapper
+        run: |
+          mkdir -p .veracode
+          VERSION=$(curl -sS https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/maven-metadata.xml | grep -oPm1 "(?<=<latest>)[^<]+")
+          if [ -z "$VERSION" ]; then
+            echo "::error::No se pudo obtener la version del API Wrapper"
+            exit 1
+          fi
+          echo "Descargando version: $VERSION"
+          curl -sSL "https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/${VERSION}/vosp-api-wrappers-java-${VERSION}-dist.zip" -o .veracode/dist.zip
+          cd .veracode && unzip -o dist.zip && cd ..
+          JAR_PATH=$(find .veracode -type f -name "VeracodeJavaAPI*.jar" | head -n1)
+          if [ -z "$JAR_PATH" ]; then
+            echo "::error::No se encontro VeracodeJavaAPI.jar"
+            exit 1
+          fi
+          cp "$JAR_PATH" vosp-api-wrapper-java.jar
+          chmod +x vosp-api-wrapper-java.jar
+
+      - name: Upload to Veracode Sandbox
+        run: |
+          echo "=========================================="
+          echo "Subiendo artefactos a Veracode Sandbox..."
+          echo "App Name: ${{ github.event.repository.name }}"
+          echo "Sandbox: github-release"
+          echo "Release: Release ${{ github.run_number }}"
+          echo "=========================================="
+          
+          java -jar vosp-api-wrapper-java.jar \
+            -vid $VERACODE_API_ID \
+            -vkey $VERACODE_API_KEY \
+            -action UploadAndScan \
+            -appname "${{ github.event.repository.name }}" \
+            -createprofile true \
+            -autoscan true \
+            -createsandbox true \
+            -filepath "verascan" \
+            -version "Release ${{ github.run_number }}"
+          
+          echo "=========================================="
+          echo "✅ Upload completado!"
+          echo "📊 Ver resultados en: https://analysiscenter.veracode.com"
+          echo "=========================================="
+
+      - name: Get Sandbox Scan Status (opcional)
+        if: always()
+        run: |
+          echo "⏳ El escaneo en Sandbox puede tomar varios minutos/horas"
+          echo "🔍 Para ver el progreso, visita el portal de Veracode"
+          echo "📝 Build Number: ${{ github.run_number }}"
+          echo "🌿 Branch: ${{ github.ref_name }}"
+
+      - name: Notify completion (opcional)
+        if: always()
+        run: |
+          echo "::notice::Sandbox upload completed for release branch ${{ github.ref_name }}"
+          
+  sast_issues:
+    name: Create GitHub Issues from Veracode
+    needs: [sast_scan]
+    runs-on: ubuntu-latest
+  
+    permissions:
+      contents: read
+      issues: write 
+  
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Download SAST results
+        uses: actions/download-artifact@v4
+        with:
+          name: sast-results
+      - name: Check if vulnerabilities exist
+        run: |
+          if ! grep -q '"severity"' sast-results.json; then
+            echo "No vulnerabilities found"
+            exit 0
+          fi
+        
+      - name: Create Issues from Veracode results
+        uses: veracode/veracode-flaws-to-issues@v2.1.19
+        with:
+          scan-results-json: "results.json"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  sca_issues:
+    needs: [sca_scan]
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Download SCA results
+        uses: actions/download-artifact@v4
+        with:
+          name: sca-results
+      - name: Check paths
+        run: |
+          jq 'paths' sca-results.json | head
+
+      - name: Create issues from SCA
+        run: |
+          cat sca-results.json | jq -c '.libraries[].vulnerabilities[]?' | while read vuln; do
+            TITLE=$(echo $vuln | jq -r '.issue_id // "No-ID"')
+            SEVERITY=$(echo $vuln | jq -r '.severity // "unknown"')
+
+            if [[ "$SEVERITY" == "high" || "$SEVERITY" == "critical" ]]; then
+              curl -X POST https://api.github.com/repos/${{ github.repository }}/issues \
+                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                -H "Accept: application/vnd.github+json" \
+                -d "{\"title\":\"SCA: $TITLE\",\"body\":\"Severity: $SEVERITY\"}"
+            fi
+          done
