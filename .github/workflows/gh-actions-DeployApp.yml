@@ -1,0 +1,80 @@
+name: Juiceshop DevSecOps App Deployment
+
+on:
+  push:
+    branches:
+    - none
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  Build_Stage_Build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - # "Note: the 'AZURE_CLIENT_ID' and 'AZURE_TENANT_ID' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+      name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - run: az acr login --name acrdevsecops${{ secrets.LABINSTANCEID }}
+
+    - run: docker build . -t acrdevsecops${{ secrets.LABINSTANCEID }}.azurecr.io/devsecops:${{ github.run_id }}
+    
+    - run: docker push acrdevsecops${{ secrets.LABINSTANCEID }}.azurecr.io/devsecops:${{ github.run_id }}
+
+  Deploy_Dev_Stage_Deploy_to_Dev:
+    # 'Note: Azure DevOps strategy>runOnce does not have an equivalent in GitHub Actions yet, and only the deploy steps are transferred to steps'
+    name: Deployment to development environment
+    runs-on: ubuntu-latest
+    needs:
+    - Build_Stage_Build
+    steps:
+    - # "Note: the 'AZURE_CLIENT_ID', 'AZURE_TENANT_ID' and 'AZURE_SUBSCRIPTION_ID'  secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+      name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: 'juiceshop-dev-devsecops-${{ secrets.LABINSTANCEID }} '
+        general-settings-json: '{"linuxFxVersion": "DOCKER|acrdevsecops${{ secrets.LABINSTANCEID }}.azurecr.io/devsecops:${{ github.run_id }}"}' 
+
+    - uses: Azure/cli@v1.0.0
+      with:
+        inlineScript: az webapp restart --resource-group ${{ secrets.DEVRESOURCEGROUP }}  --name juiceshop-dev-devsecops-${{ secrets.LABINSTANCEID }} 
+
+  Deploy_Prod_Stage_Deploy_to_Prod:
+    # 'Note: Azure DevOps strategy>runOnce does not have an equivalent in GitHub Actions yet, and only the deploy steps are transferred to steps'
+    name: Deployment to production environment
+    runs-on: ubuntu-latest
+    needs:
+    - Deploy_Dev_Stage_Deploy_to_Dev
+    steps:
+    - # "Note: the 'AZURE_CLIENT_ID', 'AZURE_TENANT_ID' and 'AZURE_SUBSCRIPTION_ID' secret is required to be added into GitHub Secrets. See this blog post for details: https://samlearnsazure.blog/2019/12/13/github-actions/"
+      name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    
+    - uses: azure/appservice-settings@v1
+      with:
+        app-name: 'juiceshop-prod-devsecops-${{ secrets.LABINSTANCEID }} '
+        general-settings-json: '{"linuxFxVersion": "DOCKER|acrdevsecops${{ secrets.CONTAINERREGISTRY }}.azurecr.io/devsecops:${{ github.run_id }}"}' 
+
+    - uses: Azure/cli@v1.0.0
+      with:
+        inlineScript: az webapp restart --resource-group ${{ secrets.PRODRESOURCEGROUP }}  --name juiceshop-prod-devsecops-${{ secrets.LABINSTANCEID }} 
