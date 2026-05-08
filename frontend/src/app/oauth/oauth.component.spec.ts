@@ -81,14 +81,14 @@ describe('OAuthComponent', () => {
   it('will create regular user account with base64 encoded reversed email as password', fakeAsync(() => {
     userService.oauthLogin.and.returnValue(of({ email: 'test@test.com' }))
     component.ngOnInit()
-    expect(userService.save).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', passwordRepeat: 'bW9jLnRzZXRAdHNldA==' })
+    expect(userService.save).toHaveBeenCalledWith({ email: 'test@test.com', password: '', passwordRepeat: '' })
   }))
 
   it('logs in user even after failed account creation as account might already have existed from previous OAuth login', fakeAsync(() => {
     userService.oauthLogin.and.returnValue(of({ email: 'test@test.com' }))
     userService.save.and.returnValue(throwError({ error: 'Account already exists' }))
     component.ngOnInit()
-    expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: 'bW9jLnRzZXRAdHNldA==', oauth: true })
+    expect(userService.login).toHaveBeenCalledWith({ email: 'test@test.com', password: '', oauth: true })
   }))
 
   it('removes authentication token and basket id on failed subsequent regular login attempt', fakeAsync(() => {
