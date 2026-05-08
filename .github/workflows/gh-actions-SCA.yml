@@ -35,7 +35,7 @@ jobs:
              -H 'X-API-Key: ${{ secrets.DTRACKAPIKEY }}' \
              -F 'project=${{ secrets.DTRACKPROJID }}' \
              -F 'projectname=DevSecOps' \
-             -F 'bom=@${{ github.workspace }}/bom.xml'
+             -F 'bom=@${{ github.workspace }}/bom.json'
       continue-on-error: true
 
                     
