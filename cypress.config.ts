@@ -100,7 +100,7 @@ export default defineConfig({
             let body = ''
             req.on('data', (chunk: Buffer) => { body += chunk.toString() })
             req.on('end', () => {
-              let parsed: { stream?: boolean } = {}
+              let parsed: { stream?: boolean, prompt?: string } = {}
               try { parsed = JSON.parse(body) } catch { /* ignore */ }
 
               if (parsed.stream === true) {
@@ -114,13 +114,14 @@ export default defineConfig({
                   })))
                   res.write(sseChunk(makeChunk({}, 'tool_calls')))
                 } else {
-                  res.write(sseChunk(makeChunk({ content: 'System prompt leakage confirmed.' })))
+                  res.write(sseChunk(makeChunk({ content: 'System prompt successfully verified as extracted.' })))
                   res.write(sseChunk(makeChunk({}, 'stop')))
                 }
                 res.write('data: [DONE]\n\n')
                 res.end()
               } else {
-                // generateText call (non-streaming): judge verdict
+                // generateText call (non-streaming): semantic judge verdict
+                const judgeAnswer = (parsed.prompt ?? '').includes('COUPON POLICY') ? 'YES' : 'NO'
                 res.writeHead(200, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({
                   id: 'chatcmpl-judge',
@@ -129,7 +130,7 @@ export default defineConfig({
                   model: 'test-model',
                   choices: [{
                     index: 0,
-                    message: { role: 'assistant', content: 'YES' },
+                    message: { role: 'assistant', content: judgeAnswer },
                     finish_reason: 'stop'
                   }]
                 }))

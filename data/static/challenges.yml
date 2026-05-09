@@ -1560,11 +1560,11 @@
   category: 'Injection'
   tags:
     - AI/LLM
-  description: 'Extract a confidential identifier from the chatbot system prompt and submit it via customer feedback.'
+  description: 'Use prompt injection to extract the chatbot''s system prompt, then tell the chatbot what you found so it can verify your extraction was successful.'
   difficulty: 2
   hints:
-    - 'The chatbot has been instructed to keep certain information confidential. That does not mean it actually will.'
-    - 'Prompt injection can convince an LLM to reveal its own instructions, including hidden identifiers.'
-    - 'Once you have extracted the hidden string, submit it as customer feedback or a complaint.'
+    - 'The chatbot has a system prompt with confidential instructions. Try to make it reveal its full configuration.'
+    - 'Once you think you have extracted the system prompt, tell the chatbot what you found and ask it to verify.'
+    - 'Prompt injection techniques like role override, completion tricks or indirect extraction can help reveal hidden instructions.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
   key: systemPromptExtractionChallenge
