@@ -39,7 +39,7 @@ pipeline {
             steps {
                 echo '>>> Checking out Juice Shop source...'
                 git branch: 'mary',
-                    url: 'https://github.com/mdl-thdev/juice-shop.git'
+                    url: 'https://github.com/dylandk0226/juice-shop.git'
                 sh 'mkdir -p ${REPORT_DIR}' // Creates the reports directory (if it doesn't exist)
             }
         }
