@@ -1,14 +1,17 @@
-version: "3.8"
-
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     container_name: jenkins
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - devsecops-net
 
   sonarqube:
     image: sonarqube:community
@@ -21,12 +24,21 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - devsecops-net
 
   juice-shop:
     image: bkimminich/juice-shop
     container_name: juice-shop
     ports:
       - "3000:3000"
+    networks:
+      - devsecops-net
+
+networks:
+  devsecops-net:
+    name: devsecops-net
+    external: true
 
 volumes:
   jenkins_data:

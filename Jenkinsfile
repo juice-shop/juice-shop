@@ -1,15 +1,12 @@
 pipeline {
-    // Tells Jenkins to run this pipeline on any available agent/node
     agent any
 
-    triggers {
-        pollSCM('H/5 * * * *') // check every 5 minutes
-    }
     tools {
-        nodejs 'NodeJS-20' // Only works if configured in Jenkins
+        nodejs 'NodeJS'
     }
-
-    // Defines environment variables accessible throughout the pipeline
+    // triggers {
+    //     pollSCM('H/5 * * * *') // check every 5 minutes
+    // }
     environment {
         // Fetches the installation path of the SonarQube Scanner configured in Jenkins and assigns it to this variable
         SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
@@ -20,13 +17,12 @@ pipeline {
         // Docker image name and tag for the Juice Shop build
         // Built from the multi-stage Dockerfile: node:24 installer → distroless/nodejs24 runtime
         IMAGE_NAME         = 'juice-shop'
-        IMAGE_TAG          = '19.2.1'
+        IMAGE_TAG          = "${env.BUILD_NUMBER}"
         // Juice Shop target URL for DAST scanning — reachable via shared Docker network devsecops-net
         ZAP_TARGET_URL     = 'http://juice-shop:3000'
         // Output path for the ZAP HTML report
         ZAP_REPORT         = 'reports/zap-report.html'
     }
-
     // Pipeline Options
     // Configures global pipeline behavior
     options {
@@ -37,49 +33,28 @@ pipeline {
         // Keeps only the last 10 builds to save disk space
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
-
     stages {
-        stage('Build'){
-            steps {
-                echo "Building project..."
-                sh 'node -v' 
-                sh 'npm install'
-                sh 'npm test'
-            }
-        }
-    }
-
-    // Defines the sequence of steps (stages) in the pipeline
-    stages {
-
         // Stage name: Checkout source code
-        stage('Checkout') {
-            // Contains the actual commands
+        stage('Checkout SCM') {
             steps {
-                // Prints a message to the console
                 echo '>>> Checking out Juice Shop source...'
-                // Clones the GitHub repository (main branch)
                 git branch: 'mary',
-                    url: 'juice-shop-pipeline
-                // Creates the reports directory (if it doesn't exist)
-                sh 'mkdir -p ${REPORT_DIR}'
+                    url: 'https://github.com/mdl-thdev/juice-shop.git'
+                sh 'mkdir -p ${REPORT_DIR}' // Creates the reports directory (if it doesn't exist)
             }
         }
 
         stage('Verify Node'){
             steps {
-                // Confirms NodeJS plugin is working correctly
-                sh 'node --version'
+                sh 'node --version' // Confirms NodeJS plugin is working correctly
                 sh 'npm --version'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Logs what's happening
                 echo '>>> Installing dependencies (skipping postinstall to avoid Angular build)...'
-                // Installs Node.js dependencies
-                // --ignore-scripts avoids running post-install scripts (e.g., Angular build)
+                // Installs Node.js dependencies; --ignore-scripts avoids running post-install scripts (e.g., Angular build)
                 sh 'npm install --ignore-scripts'
             }
         }
@@ -88,9 +63,8 @@ pipeline {
         stage('SAST - SonarQube Scan') {
             steps {
                 echo '>>> Running SAST with SonarQube...'
-                // Loads SonarQube server configuration from Jenkins (must match configured name)
+                // Loads SonarQube server configuration from Jenkins
                 withSonarQubeEnv('SonarQube') {
-                    // Runs a multi-line shell script
                     // Executes the SonarQube scanner
                     // Unique project identifier in SonarQube
                     // Display name in SonarQube UI
@@ -99,7 +73,6 @@ pipeline {
                     // Excludes node_modules, tests, compiled frontend assets, and Angular cache from scanning
                     // Points to TypeScript configuration file
                     // Provides test coverage report path
-                    // Sets encoding
                     sh """
                         ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
                           -Dsonar.projectKey=juice-shop \
@@ -111,36 +84,10 @@ pipeline {
                           -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/server-tests/lcov.info \
                           -Dsonar.sourceEncoding=UTF-8
                     """
-                } // Ends shell script // Ends SonarQube environment block
+                } 
             }
         }
-
-        // Builds the Juice Shop Docker image from the project's multi-stage Dockerfile
-        // Stage 1 (installer): node:24 — installs prod dependencies, generates SBOM via CycloneDX
-        // Stage 2 (runtime):   distroless/nodejs24-debian13 — minimal attack surface, no shell
-        // BUILD_DATE and VCS_REF are passed as build args to populate OCI image labels
-        // (matches the ARG declarations in the Dockerfile)
-        stage('Build Docker Image') {
-            steps {
-                echo '>>> Building Juice Shop Docker image from source...'
-                sh """
-                    docker build \
-                      --build-arg BUILD_DATE=\$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-                      --build-arg VCS_REF=\$(git rev-parse --short HEAD) \
-                      -t ${IMAGE_NAME}:${IMAGE_TAG} \
-                      -t ${IMAGE_NAME}:latest \
-                      .
-                """
-                // Confirm the image was built and is available in the local Docker daemon
-                sh "docker images ${IMAGE_NAME}"
-                echo '>>> Docker image built successfully: ${IMAGE_NAME}:${IMAGE_TAG}'
-            }
-        }
-
-        // Deploys the freshly built Juice Shop image as a Docker container on the shared
-        // devsecops-net network so OWASP ZAP can reach it at http://juice-shop:3000
-        // Any existing container with the same name is stopped and removed first to avoid
-        // conflicts on re-runs (docker rm -f exits 0 even if the container doesn't exist)
+       
         stage('Deploy to Test Env') {
             steps {
                 echo '>>> Deploying Juice Shop container to test environment...'
@@ -159,9 +106,7 @@ pipeline {
                       -p 3000:3000 \
                       ${IMAGE_NAME}:${IMAGE_TAG}
                 """
-                // Wait for Juice Shop to finish booting before handing off to DAST
-                // Juice Shop is a Node.js app — it typically starts within 15-20 seconds
-                // curl -f fails silently if the app isn't ready yet; retry loop gives it 60s
+                
                 sh """
                     echo '>>> Waiting for Juice Shop to be ready...'
                     for i in \$(seq 1 12); do
@@ -178,41 +123,14 @@ pipeline {
         }
 
         // Checks SonarQube quality gate result
-        stage('SAST - Quality Gate') {
+        stage('SAST - SonarQube Analysis') {
             steps {
                 echo '>>> Checking SonarQube Quality Gate result...'
-                // Waits max 5 minutes
-                // IMPORTANT: Requires a SonarQube webhook configured in SonarQube pointing back to:
-                // http://<jenkins-url>/sonarqube-webhook/
+                // Waits max 5 minutes; Requires a SonarQube webhook configured in SonarQube pointing back to: http://<jenkins-url>/sonarqube-webhook/
                 // Without this webhook, waitForQualityGate will hang until timeout
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: false  // Waits for SonarQube result
                 } // abortPipeline: false → pipeline continues even if it fails
-            }
-        }
-
-        // Brings up the full devsecops-net environment using docker-compose.yml
-        // This ensures Jenkins, SonarQube, and Juice Shop are all running and networked
-        // together before the SCA and DAST stages execute.
-        // docker compose up -d   : starts all services defined in docker-compose.yml in detached mode
-        // --no-recreate          : skips recreating containers that are already running
-        //                          (avoids restarting Jenkins mid-pipeline)
-        // juice-shop is defined in docker-compose.yml as bkimminich/juice-shop (pre-built image)
-        // but at this point in the pipeline we have already deployed our custom-built image above,
-        // so this stage is used to ensure SonarQube and any other compose services are healthy
-        stage('Docker Compose') {
-            steps {
-                echo '>>> Ensuring all compose services are up via docker-compose...'
-                sh """
-                    docker compose up -d --no-recreate
-
-                    # Give services a moment to reach healthy state before proceeding
-                    sleep 10
-
-                    # Print running containers so the build log shows what is up
-                    docker compose ps
-                """
-                echo '>>> All docker-compose services are running.'
             }
         }
 
@@ -251,7 +169,7 @@ pipeline {
         //     }
         // }
 
-        // Runs Software Composition Analysis (dependency vulnerability scan)
+        //Runs Software Composition Analysis (dependency vulnerability scan)
         stage('SCA - Snyk Scan') {
             steps {
                 // Authenticates Snyk using stored token
@@ -309,38 +227,6 @@ pipeline {
 
         // Publishes all scan reports (SonarQube, Snyk, OWASP Dependency-Check, ZAP)
         // as Jenkins build artifacts and HTML report pages accessible from the build page.
-        stage('Publish Reports') {
-            steps {
-                echo '>>> Publishing all security scan reports...'
-                // Archives every file in the reports/ directory as a downloadable build artifact
-                // allowEmptyArchive: true — won't fail if a scan was skipped and produced no output
-                archiveArtifacts artifacts: "${REPORT_DIR}/**",
-                                 allowEmptyArchive: true
-
-                // Publishes the OWASP Dependency-Check HTML report as a navigable Jenkins page
-                // reportName : label shown on the build sidebar
-                // reportDir  : folder containing the report file
-                // reportFiles: entry point HTML file
-                // publishHTML(target: [
-                //     reportName : 'OWASP Dependency-Check Report',
-                //     reportDir  : "${REPORT_DIR}",
-                //     reportFiles: 'dependency-check-report.html',
-                //     alwaysLinkToLastBuild: true,
-                //     keepAll    : true
-                // ])
-
-                // // Publishes the OWASP ZAP HTML report as a navigable Jenkins page
-                // publishHTML(target: [
-                //     reportName : 'OWASP ZAP Report',
-                //     reportDir  : "${REPORT_DIR}",
-                //     reportFiles: 'zap-report.html',
-                //     alwaysLinkToLastBuild: true,
-                //     keepAll    : true
-                // ])
-
-                echo '>>> All reports published. Check the build sidebar for HTML report links.'
-            }
-        }
     }
     // Defines actions after pipeline execution
 
@@ -350,7 +236,7 @@ pipeline {
             echo '>>> Archiving scan reports...'
             // Saves report files as Jenkins build artifacts
             // snyk-report.json is already inside ${REPORT_DIR}/ so only one glob is needed
-            archiveArtifacts artifacts: "${REPORT_DIR}/**",
+            archiveArtifacts artifacts: 'reports/**',
                              allowEmptyArchive: true
 
             // Tear down the Juice Shop test container after every build
@@ -360,11 +246,9 @@ pipeline {
 
             echo 'Pipeline finished.'
         }
-        // Runs only if pipeline succeeds
         success {
             echo 'All stages completed. Review findings in SonarQube, Snyk, Dependency-Check, and ZAP reports.'
         }
-        // Runs only if pipeline fails
         failure {
             echo 'Pipeline failed. Check logs above for details.'
         }
