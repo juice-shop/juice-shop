@@ -100,7 +100,7 @@ export default defineConfig({
             let body = ''
             req.on('data', (chunk: Buffer) => { body += chunk.toString() })
             req.on('end', () => {
-              let parsed: { stream?: boolean, prompt?: string } = {}
+              let parsed: { stream?: boolean, prompt?: string, messages?: Array<{ role?: string, content?: string }> } = {}
               try { parsed = JSON.parse(body) } catch { /* ignore */ }
 
               if (parsed.stream === true) {
@@ -121,7 +121,8 @@ export default defineConfig({
                 res.end()
               } else {
                 // generateText call (non-streaming): semantic judge verdict
-                const judgeAnswer = (parsed.prompt ?? '').includes('COUPON POLICY') ? 'YES' : 'NO'
+                const allContent = (parsed.messages ?? []).map((m: { content?: string }) => m.content ?? '').join(' ')
+                const judgeAnswer = allContent.includes('COUPON POLICY') ? 'YES' : 'NO'
                 res.writeHead(200, { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({
                   id: 'chatcmpl-judge',
