@@ -8,7 +8,6 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
-  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
 ctf:
@@ -342,3 +341,9 @@ ctf:
     yamlBombChallenge:
       name: Eswatini
       code: SZ
+    leakedApiKeyChallenge:
+      name: San Marino
+      code: SM
+    passwordHashLeakChallenge:
+      name: Italy
+      code: IT

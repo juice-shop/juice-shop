@@ -1,15 +1,15 @@
-import { Component, NgZone, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, NgZone, type OnDestroy, type OnInit, inject, AfterViewInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
 import { MatDialog } from '@angular/material/dialog'
-import { type Subscription, combineLatest } from 'rxjs'
+import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
 import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { CodeSnippetComponent } from '../code-snippet/code-snippet.component'
-import { CodeSnippetService } from '../Services/code-snippet.service'
 import { ChallengeService } from '../Services/challenge.service'
+import { HintService } from '../Services/hint.service'
 import { filterChallenges } from './helpers/challenge-filtering'
 import { SocketIoService } from '../Services/socket-io.service'
 import { type EnrichedChallenge } from './types/EnrichedChallenge'
@@ -20,7 +20,7 @@ import { TutorialModeWarningComponent } from './components/tutorial-mode-warning
 import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
-import { NgIf, NgFor, NgClass } from '@angular/common'
+import { NgClass } from '@angular/common'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
@@ -42,47 +42,51 @@ interface CodeChallengeSolvedWebsocket {
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss'],
-  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, NgIf, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, NgFor, ChallengeCardComponent, NgClass, TranslateModule]
+  imports: [HackingChallengeProgressScoreCardComponent, CodingChallengeProgressScoreCardComponent, DifficultyOverviewScoreCardComponent, FilterSettingsComponent, MatProgressSpinner, ChallengesUnavailableWarningComponent, TutorialModeWarningComponent, ChallengeCardComponent, NgClass, TranslateModule]
 })
-export class ScoreBoardComponent implements OnInit, OnDestroy {
+export class ScoreBoardComponent implements OnInit, OnDestroy, AfterViewInit {
+  private readonly challengeService = inject(ChallengeService)
+  private readonly hintService = inject(HintService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly sanitizer = inject(DomSanitizer)
+  private readonly ngZone = inject(NgZone)
+  private readonly io = inject(SocketIoService)
+  private readonly dialog = inject(MatDialog)
+  private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
+
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
+  public lastUnlockedChallengeKey: string | null = null
+  public highlightedChallengeKey: string | null = null
 
-  public isInitialized: boolean = false
+  public isInitialized = false
 
   private readonly subscriptions: Subscription[] = []
-
-  constructor (
-    private readonly challengeService: ChallengeService,
-    private readonly codeSnippetService: CodeSnippetService,
-    private readonly configurationService: ConfigurationService,
-    private readonly sanitizer: DomSanitizer,
-    private readonly ngZone: NgZone,
-    private readonly io: SocketIoService,
-    private readonly dialog: MatDialog,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute
-  ) { }
 
   ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
-      this.codeSnippetService.challenges(),
+      this.hintService.getAll(),
       this.configurationService.getApplicationConfiguration()
-    ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
+    ]).subscribe(([challenges, hints, applicationConfiguration]) => {
       this.applicationConfiguration = applicationConfiguration
 
       const transformedChallenges = challenges.map((challenge) => {
         return {
           ...challenge,
+          hintText: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).map((hint) => hint.order + '. ' + hint.text).join('\n\n'),
+          nextHint: hints.filter((hint) => hint.ChallengeId === challenge.id && !hint.unlocked).sort((a, b) => a.order - b.order).map((hint) => hint.id)[0],
+          hintsUnlocked: hints.filter((hint) => hint.ChallengeId === challenge.id && hint.unlocked).length,
+          hintsAvailable: hints.filter((hint) => hint.ChallengeId === challenge.id).length,
           tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
-          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string),
-          hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
+          description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
         }
       })
+
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
       this.isInitialized = true
@@ -92,11 +96,17 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
+      this.handleHighlightChallenge(queryParams)
     })
     this.subscriptions.push(routerSubscription)
 
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
     this.io.socket().on('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
+  }
+
+  ngAfterViewInit (): void {
+    const queryParams = this.route.snapshot.queryParams
+    this.handleHighlightChallenge(queryParams)
   }
 
   ngOnDestroy (): void {
@@ -188,6 +198,45 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   async repeatChallengeNotification (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
-    await this.challengeService.repeatNotification(encodeURIComponent(challenge.name)).toPromise()
+    await firstValueFrom(this.challengeService.repeatNotification(encodeURIComponent(challenge.name)))
+  }
+
+  unlockHint (hintId: number, challengeKey?: string) {
+    this.lastUnlockedChallengeKey = challengeKey ?? null
+    this.hintService.put(hintId, { unlocked: true }).subscribe({
+      next: () => {
+        this.ngOnInit()
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
+
+    private handleHighlightChallenge (queryParams: any): void {
+    const targetKey = queryParams?.highlightChallenge
+    if (!targetKey || targetKey === this.highlightedChallengeKey) {
+      return
+    }
+    setTimeout(() => {
+      const element = document.getElementById(`challenge-${targetKey}`)
+      if (element) {
+        this.highlightedChallengeKey = targetKey
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      else{
+        return
+      }
+      setTimeout(() => {
+        this.highlightedChallengeKey = null
+
+        const cleanedQueryParams = { ...this.route.snapshot.queryParams }
+        delete cleanedQueryParams.highlightChallenge
+
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: cleanedQueryParams,
+          replaceUrl: true
+        })
+      }, 4000)
+    }, 300)
   }
 }

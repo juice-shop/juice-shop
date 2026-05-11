@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -17,8 +17,7 @@ import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/materi
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription } from '@angular/material/expansion'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatRadioButton } from '@angular/material/radio'
-import { NgIf, NgFor } from '@angular/common'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { MatIconModule } from '@angular/material/icon'
 
 library.add(faPaperPlane, faTrashAlt)
@@ -27,15 +26,19 @@ library.add(faPaperPlane, faTrashAlt)
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss'],
-  imports: [FlexModule, NgIf, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, NgFor, MatButtonModule, MatIconModule]
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatRadioButton, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 
 export class PaymentMethodComponent implements OnInit {
+  paymentService = inject(PaymentService)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+
   @Output() emitSelection = new EventEmitter()
-  @Input('allowDelete') public allowDelete: boolean = false
+  @Input() public allowDelete = false
   public displayedColumns = ['Number', 'Name', 'Expiry']
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+  // eslint-disable-next-line no-loss-of-precision
   public numberControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(1000000000000000), Validators.max(9999999999999999)])
   public monthControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public yearControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -44,16 +47,12 @@ export class PaymentMethodComponent implements OnInit {
   public storedCards: any
   public card: any = {}
   public dataSource
-  public monthRange: any[]
-  public yearRange: any[]
-  public cardsExist: boolean = false
+  public readonly monthRange = Array.from(Array(12).keys()).map(i => i + 1)
+  public readonly yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
+  public cardsExist = false
   public paymentId: any = undefined
 
-  constructor (public paymentService: PaymentService, private readonly translate: TranslateService, private readonly snackBarHelperService: SnackBarHelperService) { }
-
   ngOnInit (): void {
-    this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
-    this.yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
     if (this.allowDelete) {
       this.displayedColumns.push('Remove')
     } else {
@@ -63,11 +62,14 @@ export class PaymentMethodComponent implements OnInit {
   }
 
   load () {
-    this.paymentService.get().subscribe((cards) => {
-      this.cardsExist = cards.length
-      this.storedCards = cards
-      this.dataSource = new MatTableDataSource<Element>(this.storedCards)
-    }, (err) => { console.log(err) })
+    this.paymentService.get().subscribe({
+      next: (cards) => {
+        this.cardsExist = cards.length
+        this.storedCards = cards
+        this.dataSource = new MatTableDataSource<Element>(this.storedCards)
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   save () {
@@ -75,25 +77,34 @@ export class PaymentMethodComponent implements OnInit {
     this.card.cardNum = this.numberControl.value
     this.card.expMonth = this.monthControl.value
     this.card.expYear = this.yearControl.value
-    this.paymentService.save(this.card).subscribe((savedCards) => {
-      this.error = null
-      this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
-        this.snackBarHelperService.open(creditCardSaved, 'confirmBar')
-      }, (translationId) => {
-        this.snackBarHelperService.open(translationId, 'confirmBar')
-      })
-      this.load()
-      this.resetForm()
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      this.resetForm()
+    this.paymentService.save(this.card).subscribe({
+      next: (savedCards) => {
+        this.error = null
+        this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe({
+          next: (creditCardSaved) => {
+            this.snackBarHelperService.open(creditCardSaved, 'confirmBar')
+          },
+          error: (translationId) => {
+            this.snackBarHelperService.open(translationId, 'confirmBar')
+          }
+        })
+        this.load()
+        this.resetForm()
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        this.resetForm()
+      }
     })
   }
 
   delete (id) {
-    this.paymentService.del(id).subscribe(() => {
-      this.load()
-    }, (err) => { console.log(err) })
+    this.paymentService.del(id).subscribe({
+      next: () => {
+        this.load()
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   emitSelectionToParent (id: number) {

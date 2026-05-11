@@ -27,6 +27,9 @@ jobs:
         config: |
           paths-ignore:
             - 'data/static/codefixes'
+          query-filters:
+          - exclude:
+               id: js/missing-rate-limiting
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
     - name: Perform CodeQL Analysis

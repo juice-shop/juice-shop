@@ -3,7 +3,7 @@ export interface FilterSetting {
   categories: string[]
 
   // difficulties to display. if empty, all difficulties are displayed
-  difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>
+  difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]
 
   // tags to display. if empty, all tags are displayed
   tags: string[]

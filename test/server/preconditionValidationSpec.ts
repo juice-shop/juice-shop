@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,21 +15,23 @@ chai.use(sinonChai)
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    it('should define the supported semver range as 18 - 22', () => {
-      expect(supportedEngines.node).to.equal('18 - 22')
+    it('should define the supported semver range as 20 - 24', () => {
+      expect(supportedEngines.node).to.equal('20 - 24')
       expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
     it('should accept a supported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('22.4.1')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('24.2.0')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('23.11.1')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('22.16.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('20.15.1')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(true)
+      expect(checkIfRunningOnSupportedNodeVersion('20.19.2')).to.equal(true)
     })
 
     it('should fail for an unsupported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('23.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('25.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('16.10.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('15.9.0')).to.equal(false)

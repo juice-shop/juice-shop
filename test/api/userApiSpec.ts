@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -193,7 +193,7 @@ describe('/api/Users', () => {
       })
   })
 
-  if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
+  if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
     it('POST new user with XSS attack in email address', () => {
       return frisby.post(`${API_URL}/Users`, {
         headers: jsonHeader,
@@ -304,6 +304,70 @@ describe('/rest/user/whoami', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('json', {
         user: {}
+      })
+  })
+
+  it('GET who-am-i with fields parameter returns only requested fields', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.get(`${REST_URL}/user/whoami?fields=id,email`, { headers: { Cookie: `token=${json.authentication.token}` } })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'user', {
+            id: Joi.number(),
+            email: Joi.string()
+          })
+          .expect('json', 'user', {
+            email: 'bjoern.kimminich@gmail.com'
+          })
+      })
+  })
+
+  it('GET who-am-i with fields parameter does not return password by default', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.get(`${REST_URL}/user/whoami?fields=id,email`, { headers: { Cookie: `token=${json.authentication.token}` } })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'user', {
+            id: Joi.number(),
+            email: Joi.string()
+          })
+      })
+  })
+
+  it('GET who-am-i with fields parameter can be tricked into returning password', () => {
+    return frisby.post(`${REST_URL}/user/login`, {
+      headers: jsonHeader,
+      body: {
+        email: 'bjoern.kimminich@gmail.com',
+        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      }
+    })
+      .expect('status', 200)
+      .then(({ json }) => {
+        return frisby.get(`${REST_URL}/user/whoami?fields=id,email,password`, { headers: { Cookie: `token=${json.authentication.token}` } })
+          .expect('status', 200)
+          .expect('header', 'content-type', /application\/json/)
+          .expect('jsonTypes', 'user', {
+            id: Joi.number(),
+            email: Joi.string(),
+            password: Joi.string()
+          })
       })
   })
 })

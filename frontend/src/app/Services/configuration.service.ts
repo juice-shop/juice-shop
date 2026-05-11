@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { environment } from '../../environments/environment'
-import { Injectable } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { type Observable } from 'rxjs'
@@ -80,7 +80,6 @@ export interface Config {
     restrictToTutorialsFirst: boolean
     safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
-    showFeedbackButtons: boolean
   }
   hackingInstructor: {
     isEnabled: boolean
@@ -92,6 +91,10 @@ export interface Config {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string
     countryMapping: any[]
+    systemWideNotifications?: {
+      url?: string
+      pollFrequencySeconds?: number
+    }
   }
 }
 
@@ -99,10 +102,11 @@ export interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
+  private readonly http = inject(HttpClient)
+
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'
   private configObservable: any
-  constructor (private readonly http: HttpClient) { }
 
   getApplicationConfiguration (): Observable<Config> {
     if (this.configObservable) {

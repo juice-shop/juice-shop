@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -147,10 +147,12 @@ describe('PaymentMethodComponent', () => {
   it('card number should be in the range [1000000000000000, 9999999999999999]', () => {
     component.numberControl.setValue(1111110)
     expect(component.numberControl.valid).toBeFalsy()
-    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+
+    // eslint-disable-next-line no-loss-of-precision
     component.numberControl.setValue(99999999999999999)
     expect(component.numberControl.valid).toBeFalsy()
-    // eslint-disable-next-line @typescript-eslint/no-loss-of-precision
+
+    // eslint-disable-next-line no-loss-of-precision
     component.numberControl.setValue(9999999999999999)
     expect(component.numberControl.valid).toBe(true)
     component.numberControl.setValue(1234567887654321)

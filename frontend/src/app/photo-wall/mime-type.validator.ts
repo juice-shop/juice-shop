@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -20,8 +20,8 @@ export const mimeType = (
         const arr = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4)
         let header = ''
         let isValid = false
-        for (let i = 0; i < arr.length; i++) {
-          header += arr[i].toString(16)
+        for (const item of arr) {
+          header += item.toString(16)
         }
         switch (header) {
           case '89504e47':

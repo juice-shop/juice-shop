@@ -81,7 +81,6 @@ export interface ChallengesConfig {
   overwriteUrlForProductTamperingChallenge: string
   xssBonusPayload: string
   safetyOverride: boolean
-  showFeedbackButtons: boolean
   csafHashValue: string
 }
 
@@ -125,6 +124,10 @@ export interface CtfConfig {
     name: string
     code: string
   }>
+  systemWideNotifications?: {
+    url?: string
+    pollFrequencySeconds?: number
+  }
 }
 
 export interface AppConfig {

@@ -18,6 +18,11 @@
   /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
   app.post('/api/Challenges', security.denyAll())
   app.use('/api/Challenges/:id', security.denyAll())
+  /* Hints: GET and PUT hints allowed. Everything else forbidden */
+  app.post('/api/Hints', security.denyAll())
+  app.route('/api/Hints/:id')
+    .get(security.denyAll())
+    .delete(security.denyAll())
   /* Complaints: POST and GET allowed when logged in only */
   app.get('/api/Complaints', security.isAuthorized())
   app.post('/api/Complaints', security.isAuthorized())

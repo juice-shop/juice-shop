@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -56,11 +56,6 @@ export const serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Re
 export const retrieveChallengesWithCodeSnippet = async () => {
   const codeChallenges = await getCodeChallenges()
   return [...codeChallenges.keys()]
-}
-
-export const serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
-  const codingChallenges = await retrieveChallengesWithCodeSnippet()
-  res.json({ challenges: codingChallenges })
 }
 
 export const getVerdict = (vulnLines: number[], neutralLines: number[], selectedLines: number[]) => {

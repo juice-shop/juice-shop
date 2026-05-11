@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -34,6 +34,20 @@ describe('CountryMappingService', () => {
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
 
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting the country mapping', inject([CountryMappingService, HttpTestingController],
+    fakeAsync((service: CountryMappingService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getCountryMapping().subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+
+      const req = httpMock.expectOne('http://localhost:3000/rest/country-mapping')
+      req.error(new ErrorEvent('Request failed'), { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError.status).toBe(503)
       httpMock.verify()
     })
   ))

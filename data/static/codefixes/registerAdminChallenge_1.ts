@@ -14,7 +14,8 @@
     { name: 'Address', exclude: [], model: AddressModel },
     { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
     { name: 'Card', exclude: [], model: CardModel },
-    { name: 'Quantity', exclude: [], model: QuantityModel }
+    { name: 'Quantity', exclude: [], model: QuantityModel },
+    { name: 'Hint', exclude: [], model: HintModel }
   ]
 
   for (const { name, exclude, model } of autoModels) {

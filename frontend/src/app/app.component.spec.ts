@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { ClipboardModule } from 'ngx-clipboard'
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
@@ -45,7 +44,6 @@ describe('AppComponent', () => {
         MatToolbarModule,
         CookieModule.forRoot(),
         TranslateModule.forRoot(),
-        ClipboardModule,
         MatIconModule,
         MatCardModule,
         MatFormFieldModule,

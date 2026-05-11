@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,6 +12,7 @@ import { ChallengeModelInit } from './challenge'
 import { ComplaintModelInit } from './complaint'
 import { DeliveryModelInit } from './delivery'
 import { FeedbackModelInit } from './feedback'
+import { HintModelInit } from './hint'
 import { ImageCaptchaModelInit } from './imageCaptcha'
 import { MemoryModelInit } from './memory'
 import { PrivacyRequestModelInit } from './privacyRequests'
@@ -46,6 +47,7 @@ ChallengeModelInit(sequelize)
 ComplaintModelInit(sequelize)
 DeliveryModelInit(sequelize)
 FeedbackModelInit(sequelize)
+HintModelInit(sequelize)
 ImageCaptchaModelInit(sequelize)
 MemoryModelInit(sequelize)
 PrivacyRequestModelInit(sequelize)

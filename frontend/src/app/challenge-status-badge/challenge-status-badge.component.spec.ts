@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -86,28 +86,4 @@ describe('ChallengeStatusBadgeComponent', () => {
     component.repeatNotification()
     expect(console.log).toHaveBeenCalledWith('Error')
   }))
-
-  it('should happen when challenge has a hint URL', () => {
-    component.showChallengeHints = true
-    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' } as Challenge
-    spyOn(windowRefService.nativeWindow, 'open')
-    component.openHint()
-    expect(windowRefService.nativeWindow.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
-  })
-
-  it('should not happen when challenge has no hint URL', () => {
-    component.showChallengeHints = true
-    component.challenge = { name: 'Challenge #2' } as Challenge
-    spyOn(windowRefService.nativeWindow, 'open')
-    component.openHint()
-    expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
-  })
-
-  it('should not happen when hints are not turned on in configuration', () => {
-    component.showChallengeHints = false
-    component.challenge = { name: 'Challenge #1', hintUrl: 'hint://c1.test' } as Challenge
-    spyOn(windowRefService.nativeWindow, 'open')
-    component.openHint()
-    expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
-  })
 })

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import { ChatbotService } from '../Services/chatbot.service'
 import { UserService } from '../Services/user.service'
-import { Component, type OnDestroy, type OnInit } from '@angular/core'
+import { Component, type OnDestroy, type OnInit, inject } from '@angular/core'
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -14,9 +14,8 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { CookieService } from 'ngy-cookie'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
-import { NgFor, NgIf } from '@angular/common'
+
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faBomb)
 
@@ -39,13 +38,19 @@ interface MessageActions {
   selector: 'app-chatbot',
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.scss'],
-  imports: [FlexModule, MatCardModule, NgFor, NgIf, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
+  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule]
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
+  private readonly userService = inject(UserService)
+  private readonly chatbotService = inject(ChatbotService)
+  private readonly cookieService = inject(CookieService)
+  private readonly formSubmitService = inject(FormSubmitService)
+  private readonly translate = inject(TranslateService)
+
   public messageControl: UntypedFormControl = new UntypedFormControl()
   public messages: ChatMessage[] = []
-  public juicyImageSrc: string = 'assets/public/images/ChatbotAvatar.png'
-  public profileImageSrc: string = 'assets/public/images/uploads/default.svg'
+  public juicyImageSrc = 'assets/public/images/ChatbotAvatar.png'
+  public profileImageSrc = 'assets/public/images/uploads/default.svg'
   public messageActions: MessageActions = {
     response: 'query',
     namequery: 'setname'
@@ -54,8 +59,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   public currentAction: string = this.messageActions.response
 
   private chatScrollDownTimeoutId: ReturnType<typeof setTimeout> | null = null
-
-  constructor (private readonly userService: UserService, private readonly chatbotService: ChatbotService, private readonly cookieService: CookieService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnDestroy (): void {
     if (this.chatScrollDownTimeoutId) {
@@ -74,10 +77,13 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }
     })
 
-    this.userService.whoAmI().subscribe((user: any) => {
-      this.profileImageSrc = user.profileImage
-    }, (err) => {
-      console.log(err)
+    this.userService.whoAmI(['profileImage']).subscribe({
+      next: (user: any) => {
+        this.profileImageSrc = user.profileImage
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
   }
 

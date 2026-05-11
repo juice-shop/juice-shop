@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,6 +12,17 @@ const playbackDelays = {
   normal: 1.0,
   slow: 1.25,
   slower: 1.5
+}
+
+export async function isChallengeSolved (challengeName: string): Promise<boolean> {
+  try {
+    const res = await fetch('/api/Challenges/')
+    const json = await res.json()
+    const challenges: { name: string, solved: boolean }[] = json.data || []
+    return challenges.some(c => c.name === challengeName && c.solved)
+  } catch {
+    return false
+  }
 }
 
 export async function sleep (timeInMs: number): Promise<void> {
@@ -170,7 +181,7 @@ export function waitForLogIn () {
 export function waitForAdminLogIn () {
   return async () => {
     while (true) {
-      let role: string = ''
+      let role = ''
       try {
         const token: string = localStorage.getItem('token')
         const decodedToken = jwtDecode(token)
@@ -250,7 +261,7 @@ export function waitForRightUriQueryParamPair (key: string, value: string) {
     while (true) {
       const encodedValue: string = encodeURIComponent(value).replace(/%3A/g, ':')
       const encodedKey: string = encodeURIComponent(key).replace(/%3A/g, ':')
-      const expectedHash: string = `#/track-result/new?${encodedKey}=${encodedValue}`
+      const expectedHash = `#/track-result/new?${encodedKey}=${encodedValue}`
 
       if (window.location.hash === expectedHash) {
         break

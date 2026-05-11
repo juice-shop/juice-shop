@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,7 +7,10 @@ import {
   waitForInputToHaveValue,
   waitForElementToGetClicked,
   waitInMs,
-  waitForAngularRouteToBeVisited, waitForLogOut, waitForInputToNotHaveValueAndNotBeEmpty
+  waitForAngularRouteToBeVisited,
+  waitForLogOut,
+  waitForInputToNotHaveValueAndNotBeEmpty,
+  isChallengeSolved
 } from '../helpers/helpers'
 import { type ChallengeInstruction } from '../'
 
@@ -16,10 +19,17 @@ export const LoginBenderInstruction: ChallengeInstruction = {
   hints: [
     {
       text:
+        '💡 **Prerequisite:** This challenge builds on SQL Injection techniques. We recommend solving the **Login Admin** challenge first to learn the basics. Double-click to continue anyway.',
+      fixture: 'app-navbar',
+      resolved: waitInMs(15000),
+      skipIf: () => isChallengeSolved('Login Admin')
+    },
+    {
+      text:
         "To start this challenge, you'll have to log out first.",
       fixture: '#navbarAccount',
       unskippable: true,
-      resolved: waitForLogOut() // TODO Add check if "Login Admin" is solved and if not recommend doing that first
+      resolved: waitForLogOut()
     },
     {
       text:

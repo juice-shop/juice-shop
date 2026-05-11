@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -103,7 +103,7 @@ describe('ContactComponent', () => {
   })
 
   it('feedback should not be more than 160 characters', () => {
-    let str: string = ''
+    let str = ''
     for (let i = 0; i < 161; ++i) {
       str += 'a'
     }

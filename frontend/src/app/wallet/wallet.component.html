@@ -1,7 +1,7 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
+-->
 
 <mat-card appearance="outlined" class="mat-elevation-z6">
   <div class="mdc-card">
@@ -21,19 +21,23 @@
     <mat-form-field appearance="outline" color="accent">
       <mat-label>{{'LABEL_AMOUNT' | translate}}</mat-label>
       <input [formControl]="balanceControl" type="number" matInput aria-label="Enter an amount">
-      <mat-error *ngIf="balanceControl.invalid && balanceControl.errors.required">
-        {{"MANDATORY_AMOUNT"| translate}}
-      </mat-error>
-      <mat-error *ngIf="balanceControl.invalid && (balanceControl.errors.min || balanceControl.errors.max)">
-        {{"AMOUNT_LIMIT" | translate}}
-      </mat-error>
+      @if (balanceControl.invalid && balanceControl.errors.required) {
+        <mat-error>
+          {{"MANDATORY_AMOUNT"| translate}}
+        </mat-error>
+      }
+      @if (balanceControl.invalid && (balanceControl.errors.min || balanceControl.errors.max)) {
+        <mat-error>
+          {{"AMOUNT_LIMIT" | translate}}
+        </mat-error>
+      }
     </mat-form-field>
 
     <button type="submit" id="submitButton" (click)="continue()" [disabled]="balanceControl.invalid"
-            mat-raised-button color="primary" aria-label="Button to continue to payment">
-     <mat-icon>
-      monetization_on
-    </mat-icon>
+      mat-raised-button color="primary" aria-label="Button to continue to payment">
+      <mat-icon>
+        monetization_on
+      </mat-icon>
       {{'BTN_DEPOSIT' | translate}}
     </button>
   </div>

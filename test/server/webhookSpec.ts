@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -27,7 +27,7 @@ describe('webhook', () => {
 
     it('fails when supplied webhook is not a valid URL', async () => {
       try {
-        await webhook.notify(challenge, 0, 'localhorst')
+        await webhook.notify(challenge, 0, 0, 0, 'localhorst')
         chai.assert.fail('Expected error was not thrown')
       } catch (error) {
         expect((error as Error).message).to.equal('Failed to parse URL from localhorst')
@@ -46,7 +46,7 @@ describe('webhook', () => {
       const url = `http://localhost:${port}`
 
       try {
-        await webhook.notify(challenge, 0, url)
+        await webhook.notify(challenge, 0, 0, 0, url)
       } finally {
         server.close()
       }

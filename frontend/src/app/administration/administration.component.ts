@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
-import { Component, type OnInit, ViewChild } from '@angular/core'
+import { Component, type OnInit, ViewChild, inject } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -17,8 +17,7 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf, NgFor } from '@angular/common'
-import { FlexModule } from '@angular/flex-layout/flex'
+
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
@@ -28,9 +27,14 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss'],
-  imports: [MatCardModule, TranslateModule, FlexModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, NgIf, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, NgFor, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, MatIconModule]
 })
 export class AdministrationComponent implements OnInit {
+  private readonly dialog = inject(MatDialog)
+  private readonly userService = inject(UserService)
+  private readonly feedbackService = inject(FeedbackService)
+  private readonly sanitizer = inject(DomSanitizer)
+
   public userDataSource: any
   public userDataSourceHidden: any
   public userColumns = ['user', 'email', 'user_detail']
@@ -41,8 +45,6 @@ export class AdministrationComponent implements OnInit {
   public resultsLengthFeedback = 0
   @ViewChild('paginatorUsers') paginatorUsers: MatPaginator
   @ViewChild('paginatorFeedb') paginatorFeedb: MatPaginator
-  constructor (private readonly dialog: MatDialog, private readonly userService: UserService, private readonly feedbackService: FeedbackService,
-    private readonly sanitizer: DomSanitizer) {}
 
   ngOnInit (): void {
     this.findAllUsers()
@@ -50,42 +52,51 @@ export class AdministrationComponent implements OnInit {
   }
 
   findAllUsers () {
-    this.userService.find().subscribe((users) => {
-      this.userDataSource = users
-      this.userDataSourceHidden = users
-      for (const user of this.userDataSource) {
-        user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${this.doesUserHaveAnActiveSession(user) ? 'confirmation' : 'error'}">${user.email}</span>`)
+    this.userService.find().subscribe({
+      next: (users) => {
+        this.userDataSource = users
+        this.userDataSourceHidden = users
+        for (const user of this.userDataSource) {
+          user.email = this.sanitizer.bypassSecurityTrustHtml(`<span class="${this.doesUserHaveAnActiveSession(user) ? 'confirmation' : 'error'}">${user.email}</span>`)
+        }
+        this.userDataSource = new MatTableDataSource(this.userDataSource)
+        this.userDataSource.paginator = this.paginatorUsers
+        this.resultsLengthUser = users.length
+      },
+      error: (err) => {
+        this.error = err
+        console.log(this.error)
       }
-      this.userDataSource = new MatTableDataSource(this.userDataSource)
-      this.userDataSource.paginator = this.paginatorUsers
-      this.resultsLengthUser = users.length
-    }, (err) => {
-      this.error = err
-      console.log(this.error)
     })
   }
 
   findAllFeedbacks () {
-    this.feedbackService.find().subscribe((feedbacks) => {
-      this.feedbackDataSource = feedbacks
-      for (const feedback of this.feedbackDataSource) {
-        feedback.comment = this.sanitizer.bypassSecurityTrustHtml(feedback.comment)
+    this.feedbackService.find().subscribe({
+      next: (feedbacks) => {
+        this.feedbackDataSource = feedbacks
+        for (const feedback of this.feedbackDataSource) {
+          feedback.comment = this.sanitizer.bypassSecurityTrustHtml(feedback.comment)
+        }
+        this.feedbackDataSource = new MatTableDataSource(this.feedbackDataSource)
+        this.feedbackDataSource.paginator = this.paginatorFeedb
+        this.resultsLengthFeedback = feedbacks.length
+      },
+      error: (err) => {
+        this.error = err
+        console.log(this.error)
       }
-      this.feedbackDataSource = new MatTableDataSource(this.feedbackDataSource)
-      this.feedbackDataSource.paginator = this.paginatorFeedb
-      this.resultsLengthFeedback = feedbacks.length
-    }, (err) => {
-      this.error = err
-      console.log(this.error)
     })
   }
 
   deleteFeedback (id: number) {
-    this.feedbackService.del(id).subscribe(() => {
-      this.findAllFeedbacks()
-    }, (err) => {
-      this.error = err
-      console.log(this.error)
+    this.feedbackService.del(id).subscribe({
+      next: () => {
+        this.findAllFeedbacks()
+      },
+      error: (err) => {
+        this.error = err
+        console.log(this.error)
+      }
     })
   }
 

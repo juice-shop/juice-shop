@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, Output, inject } from '@angular/core'
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
@@ -9,7 +9,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
 import { MatOption } from '@angular/material/core'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatSelect, MatSelectTrigger } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
@@ -20,9 +20,11 @@ import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],
-  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
+  private readonly dialog = inject(MatDialog)
+
   @Input()
   public allChallenges: EnrichedChallenge[]
 
@@ -35,14 +37,12 @@ export class FilterSettingsComponent implements OnChanges {
   @Input()
   public reset: () => void
 
-  constructor (private readonly dialog: MatDialog) { }
-
   public tags = new Set<string>()
   ngOnChanges () {
     this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
   }
 
-  onDifficultyFilterChange (difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>) {
+  onDifficultyFilterChange (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]) {
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.difficulties = difficulties
     this.filterSettingChange.emit(filterSettingCopy)

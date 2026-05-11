@@ -1,13 +1,47 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-ml;
+}
+
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-column-Selection { width: 15%; }
+.mat-column-Number { width: 35%; }
+.mat-column-Name { width: 30%; }
+.mat-column-Expiry { width: 20%; }
+.mat-column-Remove { width: 15%; }
+
+.half-field {
+  margin-right: 10%;
+  width: 45%;
+}
+
+.half-field:last-of-type {
+  margin-right: 0;
+}
+@media (max-width: 599.98px) {
+  .half-field {
+    margin-right: 0;
+    width: 100%;
+  }
+}
 
 .heading {
   background: rgba(0, 0, 0, 0.2);
   font-size: x-large;
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 mat-form-field {
@@ -19,8 +53,8 @@ mat-form-field {
 }
 
 .detail-divider {
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: $space-s;
+  margin-top: $space-s;
 }
 
 mat-header-row {
@@ -29,8 +63,16 @@ mat-header-row {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  margin: 0;
+}
+
+.panel-header-spacing {
+  margin-bottom: $space-m;
+}
+
+.submit-button {
+  float: right;
+  margin-top: $space-2xs;
 }

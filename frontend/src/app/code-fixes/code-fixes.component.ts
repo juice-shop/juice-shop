@@ -1,39 +1,43 @@
-import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer } from '@angular/core'
+import { Component, Input, type OnInit, ViewChild, type DoCheck, KeyValueDiffers, type KeyValueDiffer, inject } from '@angular/core'
 import { NgxTextDiffComponent, NgxTextDiffModule } from '@winarg/ngx-text-diff'
 
 import { CookieService } from 'ngy-cookie'
 import { type RandomFixes } from '../code-snippet/code-snippet.component'
 import { type DiffTableFormat } from '@winarg/ngx-text-diff/lib/ngx-text-diff.model'
-import { NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-code-fixes',
   templateUrl: './code-fixes.component.html',
   styleUrls: ['./code-fixes.component.scss'],
-  imports: [NgIf, NgxTextDiffModule]
+  imports: [NgxTextDiffModule]
 })
 export class CodeFixesComponent implements OnInit, DoCheck {
+  private readonly cookieService = inject(CookieService)
+  private readonly differs = inject(KeyValueDiffers)
+
   differ: KeyValueDiffer<string, DiffTableFormat>
 
-  constructor (private readonly cookieService: CookieService, private readonly differs: KeyValueDiffers) {
+  constructor () {
+    const cookieService = this.cookieService
+
     this.cookieService = cookieService
     this.differ = this.differs.find({}).create()
   }
 
-  @Input('snippet')
-  public snippet: string = ''
+  @Input()
+  public snippet = ''
 
-  @Input('fixes')
+  @Input()
   public fixes: string[] = []
 
-  @Input('selectedFix')
-  public selectedFix: number = 0
+  @Input()
+  public selectedFix = 0
 
-  @Input('randomFixes')
+  @Input()
   public randomFixes: RandomFixes[] = []
 
-  @Input('format')
-  public format: string = 'SideBySide'
+  @Input()
+  public format = 'SideBySide'
 
   @ViewChild('codeComponent', { static: false }) codeComponent: NgxTextDiffComponent
 
@@ -46,7 +50,8 @@ export class CodeFixesComponent implements OnInit, DoCheck {
     }
   }
 
-  ngDoCheck () {
+  ngDoCheck() {
+    if (!this.codeComponent) return
     try {
       const change = this.differ.diff({ 'diff-format': this.codeComponent.format })
       if (change) {
@@ -57,6 +62,7 @@ export class CodeFixesComponent implements OnInit, DoCheck {
         )
       }
     } catch {
+      console.warn('Error during diffing')
     }
   }
 }

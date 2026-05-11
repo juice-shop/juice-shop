@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -38,7 +38,6 @@ describe('FormSubmitService', () => {
     const onSubmit = jasmine.createSpy('onSubmit')
     service.attachEnterKeyHandler('testForm', 'submitButton', onSubmit)
 
-    // eslint-disable-next-line import/no-deprecated
     const event = new KeyboardEvent('keyup', { keyCode: 13 })
     form.dispatchEvent(event)
 
@@ -58,7 +57,6 @@ describe('FormSubmitService', () => {
     const onSubmit = jasmine.createSpy('onSubmit')
     service.attachEnterKeyHandler('testForm', 'submitButton', onSubmit)
 
-    // eslint-disable-next-line import/no-deprecated
     const event = new KeyboardEvent('keyup', { keyCode: 13 })
     form.dispatchEvent(event)
 
@@ -78,7 +76,6 @@ describe('FormSubmitService', () => {
     const onSubmit = jasmine.createSpy('onSubmit')
     service.attachEnterKeyHandler('testForm', 'submitButton', onSubmit)
 
-    // eslint-disable-next-line import/no-deprecated
     const event = new KeyboardEvent('keyup', { keyCode: 13 })
     form.dispatchEvent(event)
 

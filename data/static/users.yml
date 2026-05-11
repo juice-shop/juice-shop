@@ -132,6 +132,7 @@
   password: 'Mr. N00dles'
   key: rapper
   role: 'customer'
+  walletBalance: 13337
   securityQuestion:
     id: 8
     answer: 'I even shared my pizza bagels with you!'
@@ -158,6 +159,7 @@
   password: 'K1f.....................'
   key: amy
   role: 'customer'
+  walletBalance: 48
   securityQuestion:
     id: 8
     answer: 'Dr. Dr. Dr. Dr. Zoidberg'

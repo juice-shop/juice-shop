@@ -1,7 +1,9 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
 
 mat-form-field {
   width: 100%;
@@ -13,18 +15,24 @@ mat-form-field {
   margin-right: 20%;
 }
 
+.nav-section {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin-bottom: $space-ml;
+  margin-top: $space-ml;
+}
 
-.btn-return {
-  display: block;
-  margin-left: 0;
-  margin-right: auto;
+.nav-text {
+  text-align: center;
+}
+
+.btn-return,
+.nextButton {
+  width: min-content;
 }
 
 .nextButton {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: -37px;
+  justify-self: end;
 }
 
 mat-card {
@@ -36,14 +44,14 @@ mat-card {
 }
 
 .mat-mdc-raised-button {
-  margin-right: 3px;
+  margin-right: $space-3xs;
 }
 
 .custom-card {
-  padding-bottom: 18px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 18px;
+  padding-bottom: $space-ml;
+  padding-left: $space-l;
+  padding-right: $space-l;
+  padding-top: $space-ml;
 }
 
 .card-title {
@@ -57,10 +65,80 @@ mat-card {
 }
 
 .detail-divider {
-  margin-bottom: 12px;
-  margin-top: 12px;
+  margin-bottom: $space-s;
+  margin-top: $space-s;
 }
 
 .mat-mdc-card .mat-divider-horizontal {
   position: relative !important;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+}
+
+.col { min-width: 0; }
+
+.col-42 { flex: 0 0 42%;
+  max-width: 42%; }
+
+.col-38 { flex: 0 0 38%;
+  max-width: 38%; }
+
+.col-20 { flex: 0 0 20%;
+  max-width: 20%; }
+
+.col-34 { flex: 0 0 34%;
+  max-width: 34%; }
+
+.col-65 { flex: 0 0 65%;
+  max-width: 65%; }
+
+/* Stack the payment options on < lg */
+.responsive-row { flex-wrap: nowrap; }
+@media (max-width: 1279.98px) {
+  .responsive-row { flex-direction: column; }
+
+  .responsive-row .col { flex: 0 0 100%;
+    max-width: 100%; }
+  .fill-remaining-space { display: none; }
+}
+
+
+@media (max-width: 959.98px) {
+  .mat-own-card {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .nav-text {
+    grid-column: -1 / 1;
+    grid-row: 1;
+  }
+
+  .nextButton {
+    grid-column: 3 / -1;
+  }
+}
+
+.btn-float-right {
+  float: right;
+}
+
+.message-spacing {
+  margin-top: $space-2xs;
+}
+
+.btn-float-right-spacing {
+  float: right;
+  margin-top: $space-2xs;
+}
+
+.icon-spacing {
+  margin-left: $space-3xs;
+}
+
+.button-container-spacing {
+  margin-top: $space-xs;
 }

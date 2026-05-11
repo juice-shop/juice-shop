@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,7 +10,7 @@ import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/test
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'
 import { MatButtonModule } from '@angular/material/button'
-import { QrCodeModule } from 'ng-qrcode'
+import { QrCodeComponent as NgQrCodeComponent } from 'ng-qrcode'
 
 describe('QrCodeComponent', () => {
   let component: QrCodeComponent
@@ -20,7 +20,7 @@ describe('QrCodeComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-        QrCodeModule,
+        NgQrCodeComponent,
         MatDividerModule,
         MatButtonModule,
         MatDialogModule,

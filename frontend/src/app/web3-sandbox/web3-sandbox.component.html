@@ -15,13 +15,12 @@
             color="accent"
             type="button"
             (click)="handleAuth()"
-          >
-            <span *ngIf="!session">{{"BTN_CONNECT_METAMASK" | translate}}</span>
-            <span *ngIf="session"
-              >{{ userData.address.substring(0, 6) }}...{{
-                userData.address.slice(-6)
-              }}</span
             >
+            @if (session) {
+              <span>{{ userData.address.substring(0, 6) }}...{{ userData.address.slice(-6) }}</span>
+            } @else {
+            <span>{{"BTN_CONNECT_METAMASK" | translate}}</span>
+            }
           </button>
         </div>
       </div>
@@ -33,28 +32,35 @@
       <mat-form-field appearance="outline" color="accent">
         <mat-label>{{ "LABEL_SELECT_COMPILER_VERSION" | translate}}</mat-label>
         <select matNativeControl [(ngModel)]="selectedCompilerVersion">
-          <option *ngFor="let version of compilerVersions" [value]="version">
+          @for (version of compilerVersions; track version) {
+          <option [value]="version">
             {{ version }}
           </option>
+          }
         </select>
       </mat-form-field>
-      <button
-        type="button"
-        mat-raised-button
-        (click)="compileAndFetchContracts(code)"
-      >
+        <button
+          type="button"
+          mat-raised-button
+          (click)="compileAndFetchContracts(code)"
+          >
         <mat-icon>build</mat-icon>
         {{ "BTN_COMPILE_CONTRACT" | translate}}
       </button>
-      <div *ngIf="compilerErrors.length > 0" class="error-container mat-elevation-z6">
+      @if (compilerErrors.length > 0) {
+      <div class="error-container mat-elevation-z6">
         <h4>Compiler Errors:</h4>
         <ul>
-          <li class="error" *ngFor="let error of compilerErrors">
+          @for (error of compilerErrors; track error) {
+          <li class="error">
             {{ error.formattedMessage }}
           </li>
+          }
         </ul>
       </div>
-      <div *ngIf="compiledContracts">
+      }
+      @if (compiledContracts) {
+      <div>
         <h3 class="contracts-title">{{ "TITLE_CONTRACT_DEPLOYMENT" | translate}}</h3>
         <div class="form-fields-container">
           <mat-form-field
@@ -64,12 +70,11 @@
           >
             <mat-label>{{ "LABEL_COMPILED_CONTRACTS" | translate}}</mat-label>
             <select matNativeControl [(ngModel)]="selectedContractName">
-              <option
-                *ngFor="let contractName of contractNames"
-                [value]="contractName"
-              >
+              @for (contractName of contractNames; track contractName) {
+              <option [value]="contractName">
                 {{ contractName }}
               </option>
+              }
             </select>
           </mat-form-field>
           <mat-form-field
@@ -94,60 +99,72 @@
           {{ "BTN_DEPLOY_SELECTED_CONTRACT" | translate}}
         </button>
       </div>
-      <div class="deployedaddresstext" *ngIf="deployedContractAddress">
+      }
+      @if (deployedContractAddress) {
+      <div class="deployedaddresstext">
         {{ "LABEL_CONTRACT_ADDRESS" | translate }} {{ deployedContractAddress }}
       </div>
-      <div class="invokecontainer mat-elevation-z6" *ngIf="deployedContractAddress">
+      }
+      @if (deployedContractAddress) {
+      <div class="invokecontainer mat-elevation-z6">
         <h3 translate>TITLE_INTERACT_WITH_CONTRACT</h3>
-        <div *ngFor="let func of contractFunctions">
+        @for (func of contractFunctions; track func) {
+        <div>
           <div class="function-container">
-            <ng-container *ngIf="func.inputs.length > 0; else noInputs">
-              <div class="functionwtext-container">
-                <button
-                  mat-raised-button
-                  type="button"
-                  (click)="invokeFunction(func)"
+            @if (func.inputs.length > 0) {
+            <div class="functionwtext-container">
+              <button
+                mat-raised-button
+                type="button"
+                (click)="invokeFunction(func)"
+              >
+                <mat-icon>call_to_action</mat-icon>
+                {{ "BTN_INVOKE" | translate: {name: func.name} }}
+              </button>
+              <mat-form-field appearance="outline" color="accent">
+                <textarea
+                  matAutosizeMinRows="4"
+                  matAutosizeMaxRows="4"
+                  matTextareaAutosize
+                  matInput
+                  placeholder="({{ func.inputHints }})"
+                  [(ngModel)]="func.inputValues"
+                ></textarea>
+              </mat-form-field>
+            </div>
+            @if (func.outputValue !== '') {
+            <div class="invoke-output">
+              {{ "LABEL_OUTPUT_FOR" | translate: {name: func.name} }}: {{ func.outputValue }}
+            </div>
+            }
+            } @else {
+            <div>
+              <button
+                mat-raised-button
+                type="button"
+                (click)="invokeFunction(func)"
                 >
-                  <mat-icon>call_to_action</mat-icon>
-                  {{ "BTN_INVOKE" | translate}} {{ func.name }}
-                </button>
-                <mat-form-field appearance="outline" color="accent">
-                  <textarea
-                    matAutosizeMinRows="4"
-                    matAutosizeMaxRows="4"
-                    matTextareaAutosize
-                    matInput
-                    placeholder="({{ func.inputHints }})"
-                    [(ngModel)]="func.inputValues"
-                  ></textarea>
-                </mat-form-field>
+                <mat-icon>call_to_action</mat-icon>
+                {{ "BTN_INVOKE" | translate: {name: func.name} }}
+              </button>
+              @if (func.outputValue !== '') {
+              <div class="invoke-output">
+                {{ "LABEL_OUTPUT_FOR" | translate: {name: func.name} }}: {{ func.outputValue }}
               </div>
-              <div class="invoke-output" *ngIf="func.outputValue !== ''">
-                {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
-              </div>
-            </ng-container>
-            <ng-template #noInputs>
-              <div>
-                <button
-                  mat-raised-button
-                  type="button"
-                  (click)="invokeFunction(func)"
-                >
-                  <mat-icon>call_to_action</mat-icon>
-                  {{ "BTN_INVOKE" | translate}} {{ func.name }}
-                </button>
-                <div class="invoke-output" *ngIf="func.outputValue !== ''">
-                  {{ "LABEL_OUTPUT_FOR" | translate }} {{ func.name }}: {{ func.outputValue }}
-                </div>
-              </div>
-            </ng-template>
+              }
+            </div>
+            }
           </div>
         </div>
+        }
         <div class="output-container mat-elevation-z6">
-          <div *ngIf="invokeOutput !== ''">{{ "LABEL_OUTPUT" | translate}}: {{ invokeOutput }}</div>
+          @if (invokeOutput !== '') {
+          <div>{{ "LABEL_OUTPUT" | translate}}: {{ invokeOutput }}</div>
+          }
         </div>
       </div>
+      }
     </div>
   </div>
-  <img src="assets/public/images/padding/11px.png"/>
+  <img src="assets/public/images/padding/11px.png" />
 </div>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,6 +42,34 @@ describe('PhotoWallService', () => {
       tick()
       expect(req.request.method).toBe('POST')
       expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting memories', inject([PhotoWallService, HttpTestingController],
+    fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.get().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories/')
+      req.flush(null, { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when creating memory', inject([PhotoWallService, HttpTestingController],
+    fakeAsync((service: PhotoWallService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.addMemory('str', new File([''], 'image')).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/memories')
+      req.flush(null, { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(400)
       httpMock.verify()
     })
   ))

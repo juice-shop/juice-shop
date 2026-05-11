@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -69,6 +69,7 @@ describe('WelcomeBannerComponent', () => {
   })
 
   it('should dismiss and add cookie when starting hacking instructor', () => {
+    spyOn(component as any, 'launchHackingInstructor')
     component.startHackingInstructor()
     expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
     expect(matDialogRef.close).toHaveBeenCalled()

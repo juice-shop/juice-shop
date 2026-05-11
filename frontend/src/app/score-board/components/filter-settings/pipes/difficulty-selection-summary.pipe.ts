@@ -13,7 +13,7 @@ interface DifficultyGroup {
   standalone: true
 })
 export class DifficultySelectionSummaryPipe implements PipeTransform {
-  transform (selectedDifficulties: Array<1 | 2 | 3 | 4 | 5 | 6>): string {
+  transform (selectedDifficulties: (1 | 2 | 3 | 4 | 5 | 6)[]): string {
     if (selectedDifficulties.length === 0) {
       return ''
     }
@@ -24,7 +24,7 @@ export class DifficultySelectionSummaryPipe implements PipeTransform {
   }
 }
 
-function breakDifficultiesIntoNeighboringGroups (difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>): DifficultyGroup[] {
+function breakDifficultiesIntoNeighboringGroups (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]): DifficultyGroup[] {
   const difficultyGroups: DifficultyGroup[] = []
   let currentGroup: DifficultyGroup = null
   for (const difficulty of difficulties) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -36,17 +36,16 @@ describe('CodeSnippetService', () => {
     })
   ))
 
-  it('should get list of challenges with code snippets directly from the rest api', inject([CodeSnippetService, HttpTestingController],
+  it('should handle error when getting single snippet', inject([CodeSnippetService, HttpTestingController],
     fakeAsync((service: CodeSnippetService, httpMock: HttpTestingController) => {
-      let res: any
-      service.challenges().subscribe((data) => (res = data))
+      let capturedError: any
+      service.get('missing').subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/snippets/missing')
+      req.flush(null, { status: 404, statusText: 'Not Found' })
 
-      const req = httpMock.expectOne('http://localhost:3000/snippets')
-      req.flush({ challenges: ['directoryListingChallenge', 'accessLogDisclosureChallenge', '...', 'xssBonusChallenge'] })
       tick()
-
-      expect(req.request.method).toBe('GET')
-      expect(res).toEqual(['directoryListingChallenge', 'accessLogDisclosureChallenge', '...', 'xssBonusChallenge'])
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(404)
       httpMock.verify()
     })
   ))

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -68,6 +68,34 @@ describe('PaymentService', () => {
       tick()
       expect(req.request.method).toBe('DELETE')
       expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting payment cards', inject([PaymentService, HttpTestingController],
+    fakeAsync((service: PaymentService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.get().subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/api/Cards')
+      req.flush(null, { status: 500, statusText: 'Server Error' })
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when creating payment card', inject([PaymentService, HttpTestingController],
+    fakeAsync((service: PaymentService, httpMock: HttpTestingController) => {
+      let errorResponse: any
+      service.save({}).subscribe({ next: () => {}, error: (err) => (errorResponse = err) })
+      const req = httpMock.expectOne('http://localhost:3000/api/Cards/')
+      req.error(new ErrorEvent('Network'))
+
+      tick()
+      expect(errorResponse).toBeTruthy()
+      expect(errorResponse.error).toBeTruthy()
       httpMock.verify()
     })
   ))

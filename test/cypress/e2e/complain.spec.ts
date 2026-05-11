@@ -12,6 +12,7 @@ describe('/#/complain', () => {
     it('should be possible to upload files greater 100 KB directly through backend', () => {
       cy.window().then(async () => {
         const over100KB = Array.apply(null, new Array(11000)).map(
+          // eslint-disable-next-line @typescript-eslint/unbound-method
           String.prototype.valueOf,
           '1234567890'
         )

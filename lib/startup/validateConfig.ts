@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -179,6 +179,13 @@ export const checkForIllogicalCombos = (configuration = config.util.toObject()) 
   if (['name', 'flag', 'both'].includes(configuration.ctf.showCountryDetailsInNotifications) && !configuration.ctf.showFlagsInNotifications) {
     logger.warn(`CTF country mappings for FBCTF are enabled while CTF flags are disabled (${colors.red('NOT OK')})`)
     success = false
+  }
+  const notifications = configuration.ctf?.systemWideNotifications
+  if (notifications?.url) {
+    if (!notifications.pollFrequencySeconds || typeof notifications.pollFrequencySeconds !== 'number' || notifications.pollFrequencySeconds <= 0) {
+      logger.warn(`ctf.systemWideNotifications.url is set but pollFrequencySeconds is missing or not a positive number (${colors.red('NOT OK')})`)
+      success = false
+    }
   }
   return success
 }

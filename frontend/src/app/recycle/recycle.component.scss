@@ -1,10 +1,12 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
 }
 
 .form-container {
@@ -15,7 +17,7 @@ mat-form-field {
 
 button {
   margin-left: 20%;
-  margin-top: 5px;
+  margin-top: $space-2xs;
   width: 60%;
 }
 
@@ -27,18 +29,18 @@ button {
 
 mat-card img {
   height: 100px;
-  margin-left: 15px !important;
-  margin-right: 2px !important; //Adjusts the default margin to minimize the gap as required
+  margin-left: $space-m !important;
+  margin-right: $space-3xs !important;
 }
 
 .responsibility-header {
-  margin-left: 15px;
-  margin-top: 10px;
+  margin-left: $space-m;
+  margin-top: $space-s;
 }
 
 #recycle-form {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: $space-m;
+  margin-right: $space-m;
 }
 
 ::ng-deep .mat-mdc-row.mdc-data-table__row {
@@ -47,19 +49,61 @@ mat-card img {
 }
 
 h1 {
-  margin-left: 15px;
-  margin-top: 10px;
+  margin-left: $space-m;
+  margin-top: $space-s;
 }
 
 .mat-mdc-card-content {
-  margin-right: 20px;
+  margin-right: $space-ml;
 }
- 
+
 .left-container {
-  display: flex; // Use flex to prevent margin disappearing after reload.
-  margin-bottom: 20px !important;
+  display: flex;
+
+  flex-direction: column;
+  gap: $space-ml;
+  margin-bottom: $space-ml !important;
 }
 
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+.recycle-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%; }
+
+@media (max-width: 959.98px) {
+  .recycle-container { flex-direction: column;
+    gap: $space-ml; }
+
+  .flex-50 { flex: 0 0 100%;
+    max-width: 100%; }
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-ml;
+}
+
+.right-inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $space-ml;
+}
+
+
+.card-row {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  gap: $space-ml;
+}
+
+

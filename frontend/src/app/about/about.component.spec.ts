@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -57,6 +57,20 @@ describe('AboutComponent', () => {
     expect(component).toBeTruthy()
   })
 
+  it('should set Mastodon link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { mastodonUrl: 'MASTODON' } } }))
+    component.ngOnInit()
+
+    expect(component.mastodonUrl).toBe('MASTODON')
+  })
+
+  it('should set BlueSky link as obtained from configuration', () => {
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { blueSkyUrl: 'BLUESKY' } } }))
+    component.ngOnInit()
+
+    expect(component.blueSkyUrl).toBe('BLUESKY')
+  })
+
   it('should set Twitter link as obtained from configuration', () => {
     configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'TWITTER' } } }))
     component.ngOnInit()
@@ -99,3 +113,4 @@ describe('AboutComponent', () => {
     expect(component.nftUrl).toBe('NFT')
   })
 })
+

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,7 +14,7 @@ import config from 'config'
 import download from 'download'
 import * as utils from '../lib/utils'
 import { isString } from 'lodash'
-import { Bot } from 'juicy-chat-bot'
+import Bot from 'juicy-chat-bot'
 import validateChatBot from '../lib/startup/validateChatBot'
 import * as security from '../lib/insecurity'
 import * as botUtils from '../lib/botUtils'
@@ -23,26 +23,35 @@ import { challenges } from '../data/datacache'
 let trainingFile = config.get<string>('application.chatBot.trainingData')
 let testCommand: string
 export let bot: Bot | null = null
+let initializationPromise: Promise<any> | null = null
 
 export async function initializeChatbot () {
-  if (utils.isUrl(trainingFile)) {
-    const file = utils.extractFilename(trainingFile)
-    const data = await download(trainingFile)
-    await fs.writeFile('data/chatbot/' + file, data)
+  if (initializationPromise !== null) {
+    return await initializationPromise
   }
 
-  await fs.copyFile(
-    'data/static/botDefaultTrainingData.json',
-    'data/chatbot/botDefaultTrainingData.json'
-  )
+  initializationPromise = (async () => {
+    if (utils.isUrl(trainingFile)) {
+      const file = utils.extractFilename(trainingFile)
+      const data = await download(trainingFile)
+      await fs.writeFile('data/chatbot/' + file, data)
+    }
 
-  trainingFile = utils.extractFilename(trainingFile)
-  const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
-  validateChatBot(JSON.parse(trainingSet))
+    await fs.copyFile(
+      'data/static/botDefaultTrainingData.json',
+      'data/chatbot/botDefaultTrainingData.json'
+    )
 
-  testCommand = JSON.parse(trainingSet).data[0].utterances[0]
-  bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
-  return bot.train()
+    trainingFile = utils.extractFilename(trainingFile)
+    const trainingSet = await fs.readFile(`data/chatbot/${trainingFile}`, 'utf8')
+    validateChatBot(JSON.parse(trainingSet))
+
+    testCommand = JSON.parse(trainingSet).data[0].utterances[0]
+    bot = new Bot(config.get('application.chatBot.name'), config.get('application.chatBot.greeting'), trainingSet, config.get('application.chatBot.defaultResponse'))
+    return bot.train()
+  })()
+
+  return await initializationPromise
 }
 
 void initializeChatbot()
@@ -75,7 +84,6 @@ async function processQuery (user: User, req: Request, res: Response, next: Next
   }
 
   if (bot.factory.run(`currentUser('${user.id}')`) !== username) {
-    bot.addUser(`${user.id}`, username)
     try {
       bot.addUser(`${user.id}`, username)
     } catch (err) {
@@ -209,6 +217,7 @@ export function process () {
         action: 'response',
         body: `${config.get<string>('application.chatBot.name')} isn't ready at the moment, please wait while I set things up`
       })
+      return
     }
     const token = req.cookies.token || utils.jwtFrom(req)
     if (!token) {

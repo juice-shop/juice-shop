@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -46,6 +46,19 @@ describe('SecurityQuestionService', () => {
 
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting security question by user email', inject([SecurityQuestionService, HttpTestingController],
+    fakeAsync((service: SecurityQuestionService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.findBy('e@x.ample').subscribe({ next: () => fail('expected error'), error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/user/security-question?email=e@x.ample')
+      req.error(new ErrorEvent('Request failed'), { status: 404, statusText: 'Not Found' })
+
+      tick()
+      expect(capturedError.status).toBe(404)
       httpMock.verify()
     })
   ))

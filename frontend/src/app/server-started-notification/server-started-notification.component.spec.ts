@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -34,8 +34,10 @@ describe('ServerStartedNotificationComponent', () => {
   let mockSocket: any
 
   beforeEach(waitForAsync(() => {
-    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress'])
+    challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress', 'restoreProgressFindIt', 'restoreProgressFixIt'])
     challengeService.restoreProgress.and.returnValue(of({}))
+    challengeService.restoreProgressFindIt.and.returnValue(of({}))
+    challengeService.restoreProgressFixIt.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
     translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()

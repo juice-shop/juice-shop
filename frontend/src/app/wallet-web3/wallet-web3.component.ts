@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core'
+import { Component, ChangeDetectorRef, inject, OnInit } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { web3WalletABI } from '../../assets/public/ContractABIs'
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
-import { NgIf } from '@angular/common'
+
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 const { ethereum } = window
@@ -30,14 +30,13 @@ const client = createClient({
   selector: 'app-wallet-web3',
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss'],
-  imports: [MatCardModule, MatButtonModule, NgIf, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
+  imports: [MatCardModule, MatButtonModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, MatIconModule]
 })
-export class WalletWeb3Component {
-  constructor (
-    private readonly keysService: KeysService,
-    private readonly snackBarHelperService: SnackBarHelperService,
-    private readonly changeDetectorRef: ChangeDetectorRef
-  ) {}
+export class WalletWeb3Component implements OnInit {
+  private readonly keysService = inject(KeysService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly changeDetectorRef = inject(ChangeDetectorRef)
+
 
   userData: object
   session = false
@@ -54,7 +53,7 @@ export class WalletWeb3Component {
     window.ethereum.on('chainChanged', this.handleChainChanged.bind(this))
   }
 
-  async handleChainChanged (chainId: string) {
+  async handleChainChanged () {
     await this.handleAuth()
   }
 
@@ -122,14 +121,16 @@ export class WalletWeb3Component {
       const provider = await connect({ connector: new InjectedConnector() })
       this.metamaskAddress = provider.account
       this.keysService.walletAddressSend(this.metamaskAddress).subscribe(
-        (response) => {
-          if (response.success) {
-            this.successResponse = response.status
-            this.mintButtonDisabled = true
+        {
+          next: (response) => {
+            if (response.success) {
+              this.successResponse = response.status
+              this.mintButtonDisabled = true
+            }
+          },
+          error: (error) => {
+            console.error(error)
           }
-        },
-        (error) => {
-          console.error(error)
         }
       )
       this.userData = {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -33,6 +33,20 @@ describe('LanguagesService', () => {
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
 
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting the language list', inject([LanguagesService, HttpTestingController],
+    fakeAsync((service: LanguagesService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getLanguages().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/languages')
+      req.flush(null, { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(503)
       httpMock.verify()
     })
   ))

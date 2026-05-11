@@ -1,28 +1,30 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
+-->
 
 <h1>{{title}}</h1>
 <div class="text-justify" [innerHtml]="message"></div>
 <div class="button-footer">
-  <button
-    *ngIf="showHackingInstructor"
-    mat-raised-button color="warn"
-    (click)="startHackingInstructor()"
-    [matTooltip]="('SCORE_BOARD_HACKING_INSTRUCTOR' | translate)"
-    matTooltipPosition="above">
-    <mat-icon>
-      school
-    </mat-icon>
-    <span fxShow fxHide.lt-lg>{{"BTN_GETTING_STARTED" | translate}}</span>
-  </button>
-  <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary"
-          *ngIf="showDismissBtn"
-          aria-label="Close Welcome Banner">
-    <mat-icon>
-      visibility_off
-    </mat-icon>
-    <span fxShow fxHide.lt-sm>{{"BTN_DISMISS" | translate }}</span>
-  </button>
+  @if (showHackingInstructor) {
+    <button
+      mat-raised-button color="warn"
+      (click)="startHackingInstructor()"
+      [matTooltip]="('SCORE_BOARD_HACKING_INSTRUCTOR' | translate)"
+      matTooltipPosition="above">
+      <mat-icon>
+        school
+      </mat-icon>
+      <span class="hide-lt-lg">{{"BTN_GETTING_STARTED" | translate}}</span>
+    </button>
+  }
+  @if (showDismissBtn) {
+    <button mat-raised-button class="close-dialog" (click)="closeWelcome()" color="primary"
+      aria-label="Close Welcome Banner">
+      <mat-icon>
+        visibility_off
+      </mat-icon>
+      <span class="hide-lt-sm">{{"BTN_DISMISS" | translate }}</span>
+    </button>
+  }
 </div>

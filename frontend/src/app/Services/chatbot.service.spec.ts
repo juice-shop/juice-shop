@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -49,6 +49,34 @@ describe('ChatbotService', () => {
       expect(req.request.body.query).toBe('apiQuery')
       expect(res.action).toBe('response')
       expect(res.body).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when fetching chatbot status', inject([ChatbotService, HttpTestingController],
+    fakeAsync((service: ChatbotService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getChatbotStatus().subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/chatbot/status')
+      req.flush(null, { status: 503, statusText: 'Service Unavailable' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(503)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting chatbot response', inject([ChatbotService, HttpTestingController],
+    fakeAsync((service: ChatbotService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.getResponse('query', 'apiQuery').subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/chatbot/respond')
+      req.flush(null, { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(400)
       httpMock.verify()
     })
   ))

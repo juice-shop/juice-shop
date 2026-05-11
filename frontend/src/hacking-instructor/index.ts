@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -67,6 +67,10 @@ export interface ChallengeHint {
    * Function declaring the condition under which the tutorial will continue.
    */
   resolved: () => Promise<void>
+  /**
+   * Optional condition to skip this hint entirely.
+   */
+  skipIf?: () => boolean | Promise<boolean>
 }
 
 function createElement (tag: string, styles: Record<string, string>, attributes: Record<string, string> = {}): HTMLElement {
@@ -187,6 +191,10 @@ export async function startHackingInstructorFor (challengeName: string): Promise
   const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction.hints) {
+    if (hint.skipIf && await hint.skipIf()) {
+      continue
+    }
+
     const element = loadHint(hint)
     if (!element) {
       console.warn(`Could not find Element with fixture "${hint.fixture}"`)
@@ -197,8 +205,8 @@ export async function startHackingInstructorFor (challengeName: string): Promise
       element.scrollIntoView()
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    const continueConditions: Array<Promise<void | unknown>> = [
+
+    const continueConditions: Promise<void | unknown>[] = [
       hint.resolved()
     ]
 

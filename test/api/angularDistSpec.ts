@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -19,6 +19,6 @@ describe('/api', () => {
   it('GET main.js contains password hint for support team', () => {
     return frisby.get(URL + '/main.js')
       .expect('status', 200)
-      .expect('bodyContains', 'Parola echipei de asisten\\u021b\\u0103 nu respect\\u0103 politica corporativ\\u0103 pentru conturile privilegiate! V\\u0103 rug\\u0103m s\\u0103 schimba\\u021bi parola \\xeen consecin\\u021b\\u0103!')
+      .expect('bodyContains', 'Parola echipei de asisten\\u021B\\u0103 nu respect\\u0103 politica corporativ\\u0103 pentru conturile privilegiate! V\\u0103 rug\\u0103m s\\u0103 schimba\\u021Bi parola \\xEEn consecin\\u021B\\u0103!')
   })
 })

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -79,6 +79,6 @@ describe('BasketComponent', () => {
   it('should store itemTotal in session storage', () => {
     spyOn(sessionStorage, 'setItem')
     component.getBonusPoints([1, 10])
-    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', 1 as any)
+    expect(sessionStorage.setItem).toHaveBeenCalledWith('itemTotal', '1')
   })
 })

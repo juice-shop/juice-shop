@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -61,6 +61,48 @@ describe('ProductReviewService', () => {
       expect(req.request.method).toBe('PATCH')
       expect(req.request.body).toBe(null)
       expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting product reviews', inject([ProductReviewService, HttpTestingController],
+    fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.get(42).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/products/42/reviews')
+      req.flush(null, { status: 500, statusText: 'Server Error' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(500)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when creating product review', inject([ProductReviewService, HttpTestingController],
+    fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.create(42, { message: 'A', author: 'B' }).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/products/42/reviews')
+      req.flush(null, { status: 400, statusText: 'Bad Request' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(400)
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when editing product review', inject([ProductReviewService, HttpTestingController],
+    fakeAsync((service: ProductReviewService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.patch(null as unknown as { id: string, message: string }).subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/products/reviews')
+      req.flush(null, { status: 404, statusText: 'Not Found' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(404)
       httpMock.verify()
     })
   ))

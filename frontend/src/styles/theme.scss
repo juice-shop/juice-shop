@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 @use '@angular/material' as mat;
@@ -94,3 +94,17 @@ $deeporange-indigo-theme: mat.m2-define-light-theme((
 
 .deeporange-indigo-theme {
   @include mat.all-component-colors($deeporange-indigo-theme); }
+
+$lime-green-primary: mat.m2-define-palette(mat.$m2-lime-palette, 500, 300, 700);
+$lime-green-accent: mat.m2-define-palette(mat.$m2-green-palette, 500, 300, 700);
+$lime-green-warn: mat.m2-define-palette(mat.$m2-deep-orange-palette);
+$lime-green-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $lime-green-primary,
+    accent: $lime-green-accent,
+    warn: $lime-green-warn,
+  ),
+));
+
+.lime-green-theme {
+  @include mat.all-component-colors($lime-green-theme); }

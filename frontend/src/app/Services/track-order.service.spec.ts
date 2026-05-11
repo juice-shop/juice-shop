@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -31,6 +31,20 @@ describe('TrackOrderService', () => {
       tick()
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
+      httpMock.verify()
+    })
+  ))
+
+  it('should handle error when getting tracking order results', inject([TrackOrderService, HttpTestingController],
+    fakeAsync((service: TrackOrderService, httpMock: HttpTestingController) => {
+      let capturedError: any
+      service.find('5267-invalid').subscribe({ next: () => {}, error: (e) => { capturedError = e } })
+      const req = httpMock.expectOne('http://localhost:3000/rest/track-order/5267-invalid')
+      req.flush(null, { status: 404, statusText: 'Not Found' })
+
+      tick()
+      expect(capturedError).toBeTruthy()
+      expect(capturedError.status).toBe(404)
       httpMock.verify()
     })
   ))

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
 
@@ -9,20 +9,20 @@
     <h3>{{title | translate}}</h3>
   </header>
 
-  <div fxLayout="column" fxLayoutGap="10px">
+  <div class="content-column">
+    <mat-divider></mat-divider>
 
-  <mat-divider></mat-divider>
+    <div class="container">
+      <a [href]="url"><qr-code [value]="data" [size]="300" [errorCorrectionLevel]="'M'"></qr-code></a>
+    </div>
 
-  <div class="container">
-    <a [href]="url"><qr-code [value]="data" [size]="300" [errorCorrectionLevel]="'M'"></qr-code></a>
-  </div>
-
-  <small>{{address}}</small>
-
+    <small>{{address}}</small>
   </div>
 
   <footer>
-    <button mat-raised-button mat-dialog-close class="close-dialog"><i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}</button>
+    <button mat-raised-button mat-dialog-close class="close-dialog">
+      <i class="fas fa-arrow-circle-left fa-lg"></i> {{'BTN_CLOSE' | translate}}
+    </button>
   </footer>
 
 </div>

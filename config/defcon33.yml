@@ -1,0 +1,166 @@
+application:
+  domain: defcon.33
+  name: 'DEF CON 33 Merch Store'
+  logo: 'https://shop.defcon.org/cdn/shop/files/33-fullcolorgradient_1_720x.jpg?v=1740593533'
+  favicon: 'https://defcon.org/images/favicon.ico'
+  theme: lime-green
+  showVersionNumber: false
+  showGitHubLinks: false
+  localBackupEnabled: true
+  numberOfRandomFakeUsers: 42
+  altcoinName: Defco(i)n
+  privacyContactEmail: 'donotreply@defcon.33'
+  customMetricsPrefix: defcon33
+  chatBot:
+    name: 'Conny'
+    greeting: "Hi there, hacker known as <customer-name>! I'm <bot-name>, the friendly chatbot of DEF CON."
+    defaultResponse: "Sorry, hacker! I couldn't reverse-engineer the meaning of your question."
+    avatar: 'https://defcon.org/images/defcon-main/dc-forums.png'
+  social:
+    blueSkyUrl: 'https://bsky.app/profile/defcon.bsky.social'
+    mastodonUrl: 'https://defcon.social/'
+    twitterUrl: null
+    facebookUrl: 'https://facebook.com/defcon'
+    slackUrl: null
+    redditUrl: 'https://www.reddit.com/r/defcon'
+    pressKitUrl: 'https://media.defcon.org/'
+    nftUrl: null
+    questionnaireUrl: null
+  recyclePage:
+    topProductImage: defcon-hawaiian_720x.png
+    bottomProductImage: y21QZGdI_720x.jpg
+  welcomeBanner:
+    showOnFirstStart: false
+  cookieConsent:
+    message: 'DEF CON wants to be up-front and transparent with what happens to the information that is gathered when you interact [1] with us.'
+    dismissText: 'I trust you!'
+    linkText: 'DEF CON Privacy Policy'
+    linkUrl: 'https://defcon.org/html/links/dc-privacy.html'
+  securityTxt:
+    contact: 'mailto:donotreply@defcon.33'
+    encryption: 'https://defcon.org/dtangent/The%20Dark%20Tangent%20(ECDSA%20p521%202021-2024)%20PGP%20PUBLIC.asc'
+    acknowledgements: 'https://defcon.org/html/links/hall-of-fame.html'
+    hiring: ~
+    csaf: '/.well-known/csaf/provider-metadata.json'
+  easterEggPlanet:
+    name: Defconia XXXIII
+    overlayMap: 'https://shop.defcon.org/cdn/shop/files/defcon-hawaiian_720x.png?v=1732927277'
+challenges:
+  overwriteUrlForProductTamperingChallenge: 'https://discord.com/invite/defcon'
+  safetyMode: disabled
+hackingInstructor:
+  avatarImage: 'https://training.defcon.org/cdn/shop/files/DCTraining_sticker1.jpg?v=1692301964&width=600'
+products:
+  -
+    name: 'DEFCON 32 Sticker Pack'
+    price: 17
+    description: "5 premium stickers: Glow in the Dark, Brushed Aluminium & Transparent"
+    image: 'https://shop.defcon.org/cdn/shop/files/stickers_720x.jpg?v=1732936912'
+    quantity: 0
+    reviews:
+      - { text: "Rad, dude!", author: rapper }
+      - { text: "Looks spacy on Bones' new tricorder!", author: jim }
+      - { text: "Will put one on the Planet Express ship's bumper!", author: bender }
+  -
+    name: 'Hawaiian Shirt'
+    price: 60
+    description: "DEFCON Hawaiian shirt! Soft and breezy. Perfect for a day at the pool."
+    image: 'https://shop.defcon.org/cdn/shop/files/defcon-hawaiian_720x.png?v=1732927277'
+    reviews:
+      - { text: "Humans must really be color blind...", author: bender }
+      - { text: '0 st4rs f0r 7h3 h0rr1bl3 s7y13', author: uvogin }
+  -
+    name: 'DEFCON Holiday Sweater'
+    price: 60
+    description: "Get in to the DEFCON holiday spirit with our brand new knit sweaters! These sweaters are fully knitted with the design woven in. They are very soft and cozy – ideal for the stylish hacker in your life."
+    image: 'https://shop.defcon.org/cdn/shop/files/y21QZGdI_720x.jpg?v=1732924318'
+    reviews:
+      - { text: "I hope Santa has you on his naughty list!", author: bender }
+      - { text: '-1 st4rs f0r 3v3n m0r3 7h3 h0rr1bl3 s7y13', author: uvogin }
+  -
+    name: 'DEF CON 33 Las Vegas Convention Center'
+    price: 540
+    description: "DEF CON will always be a cash-at-the-door conference. We will always honor the LineCon. This is the way. Preregistration guarantees you'll receive a DEF CON 33 Human badge (as opposed to a paper badge, if we run out) when redeeming your ticket in Las Vegas. Badges must be picked up onsite."
+    image: 'https://shop.defcon.org/cdn/shop/files/ticket_720x.jpg?v=1740606815'
+    quantity: 3
+    reviews:
+      - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
+  -
+    name: 'Unofficial DEF CON 31 Glow-in-the-dark "Script Kitty" t-shirt'
+    price: 31.95
+    description: "Soft Premium Glow-in-the-dark t-shirt. High quality screenprint will last for years. This design is created and sold direct by the artist (me) and isn't official DEFCON merch. But it is the last of a limited run, and it's cute as hell, so you should officially buy one anyway."
+    image: 'https://marwilliams.art/cdn/shop/files/PXL_20230804_151813053.MP.jpg?v=1701376090&width=1346'
+  -
+    name: "Phreaker Men's Loose T-shirt"
+    price: 31.95
+    description: "Material: 100% polyester .: Extra large sizes available .: Loose fit"
+    image: 'https://marwilliams.art/cdn/shop/files/13631953935217315276_2048.jpg?v=1701310313&width=1346'
+  -
+    name: 'DC32 Human Badge'
+    price: 200
+    deluxePrice: 160
+    description: "The DEF CON 32 Badge is just a little cat, but does some pretty cool tricks. Built with the newly released Raspberry Pi RP2350, this badge can be customized in a any number of ways - from SAOs, to loading up your favorite classic ROMs, to creating your own with the open source drag-and-drop game creator GB Studio, to creating your own firmware using the RP2350 SDK, to really any way you’d use a microcontroller!"
+    image: 'https://shop.defcon.org/cdn/shop/files/front_table_1080x.jpg?v=1724260452'
+    quantity: 0
+    reviews:
+      - { text: "Pss-pss-pss!", author: bjoern }
+  -
+    name: 'DEFCON1'
+    price: 71.64
+    description: "A totally asymmetrical game about the cold war (1950 to 1990)"
+    image: 'https://cf.geekdo-images.com/5kPnvJoZhN6NTqpomgPulg__imagepage/img/kMlx-OvN1EVbmtChZ4s-QYhQt4k=/fit-in/900x600/filters:no_upscale():strip_icc()/pic5735750.png'
+  -
+    name: 'Engage Hoodie - Lightweight Premium Zip Hoodie'
+    description: 'An incredibly soft and relaxed unisex full zip up hoodie, spun from a plush poly-cotton blend, will quickly become a go-to essential. Features a relaxed fit, hood with white drawstrings, full zip closure and ribbed cuffs and waistband.'
+    price: 55
+    deluxePrice: 47
+    image: 'https://shop.defcon.org/cdn/shop/files/ziphoodie_1080x.jpg?v=1732925354'
+    urlForProductTamperingChallenge: 'https://shop.defcon.org/products/engage-hoodie-lightweight-premium-zip-hoodie'
+  -
+    name: 'DEF CON 32 Theme Pack'
+    description: 'Contains all colors, fonts, styles and images for a fully immersed DEF CON 32 experience!'
+    price: 99.99
+    image: "https://media.defcon.org/DEF%20CON%2032/DEF%20CON%2032%20art/DEF%20CON%2032%20theme.webp"
+    useForChristmasSpecialChallenge: true
+  -
+    name: 'Rippertuer Special Juice'
+    description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined.jpg
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
+  -
+    name: 'OWASP Juice Shop Logo (3D-printed)'
+    description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
+    price: 99.99
+    image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    deletedDate: '2025-05-12'
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
+    exifForBlueprintChallenge:
+      - OpenSCAD
+memories:
+  -
+    image: 'https://media.defcon.org/DEF%20CON%201/DEF%20CON%201%20pictures/DEF%20CON%201%20Pictures%20-%20Unsorted/DEF%20CON%201%20badges.jpg'
+    caption: 'OG badges from DEF CON 1!'
+    user: admin
+  -
+    image: 'https://media.defcon.org/DEF%20CON%202/DEF%20CON%202%20pictures/DEF%20CON%202%20Pictures%20-%20Unsorted/DEF%20CON%202%20-%20SIG-1.JPG'
+    caption: 'Retro Cybermode activated!'
+    user: admin
+  -
+    image: 'favorite-hiking-place.png'
+    caption: 'I love going hiking here...'
+    geoStalkingMetaSecurityQuestion: 14
+    geoStalkingMetaSecurityAnswer: 'Daniel Boone National Forest'
+  -
+    image: 'https://media.defcon.org/DEF%20CON%202/DEF%20CON%202%20pictures/DEF%20CON%202%20Pictures%20-%20Unsorted/DEF%20CON%202%20-%20nsa-guy.jpg'
+    caption: 'My work colleague and I wore matching shirts to DEF CON 2!'
+    geoStalkingVisualSecurityQuestion: 10
+    geoStalkingVisualSecurityAnswer: 'NSA'
+  -
+    image: 'https://pbs.twimg.com/media/DjJVEu_UwAAoj1L?format=jpg&name=large'
+    caption: 'Spelling Bee was sooo 2018! Visit /#/bee-haven🐝 for NFT today!'
+    user: evm
+ctf:
+  showFlagsInNotifications: true

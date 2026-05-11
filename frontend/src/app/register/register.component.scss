@@ -1,7 +1,9 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
 
 mat-card {
   height: auto;
@@ -10,7 +12,7 @@ mat-card {
 }
 
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
 }
 
 .form-container {
@@ -22,14 +24,14 @@ mat-form-field {
 
 #registerButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 }
 
 #alreadyACustomerLink {
   align-self: center;
   font-size: 12px;
-  margin-top: 40px;
+  margin-top: $space-2xl;
 }
 
 .security-container {
@@ -40,4 +42,14 @@ mat-form-field {
 
 ::ng-deep mat-option .mat-mdc-option-text {
   font-size: 14px;
+}
+
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
+}
+
+.hint-spacing {
+  margin-left: $space-2xs;
 }

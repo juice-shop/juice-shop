@@ -1,15 +1,17 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .heading {
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 .heading-text {
   justify-content: center;
-  padding: 12px 20px;
+  padding: $space-s $space-ml;
 }
 
 mat-card {
@@ -30,8 +32,8 @@ mat-card {
 
 mat-cell,
 mat-footer-cell {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: $space-s;
+  padding-right: $space-s;
 }
 
 .price-align {
@@ -40,7 +42,7 @@ mat-footer-cell {
 
 mat-card-title {
   font-size: 24px;
-  margin-bottom: 25px;
+  margin-bottom: $space-l;
 }
 
 .border {
@@ -50,10 +52,10 @@ mat-card-title {
 .emptyState {
   display: block;
   height: auto !important;
-  margin-bottom: 20px;
+  margin-bottom: $space-ml;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: $space-ml;
   width: 50%;
 }
 
@@ -70,18 +72,18 @@ mat-card-title {
 
 .noResultText {
   display: block;
-  margin-top: 10px;
+  margin-top: $space-s;
   text-align: center;
 }
 
 .mat-mdc-header-cell:first-child {
-  //  Apply 24px padding only to the first column 
-  padding-left: 24px !important; 
+  //  Apply 24px padding only to the first column
+  padding-left: $space-l !important;
 }
 
 .mat-mdc-header-cell:not(:first-child) {
-  //  Keep 2px for the rest 
-  padding-left: 2px !important; 
+  //  Keep 2px for the rest
+  padding-left: $space-3xs !important;
 }
 
 .mat-mdc-header-cell {
@@ -96,7 +98,57 @@ mat-card-title {
   border: 0;
 }
 
-.mat-mdc-cell {
+.orders-container {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: $space-ml;
+}
+
+.heading-row {
+  align-items: center;
+  display: flex;
+}
+
+.col { min-width: 0; }
+
+.col-40 { flex: 0 0 40%;
+  max-width: 40%; }
+
+.col-20 { flex: 0 0 20%;
+  max-width: 20%; }
+
+.col-15 { flex: 0 0 15%;
+  max-width: 15%; }
+
+.col-5 { flex: 0 0 5%;
+  max-width: 5%; }
+
+.col-vertical { display: flex;
+  flex-direction: column; }
+
+.align-end { display: flex;
+  justify-content: flex-end; }
+
+mat-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.mat-column-product { width: 40%; }
+.mat-column-price { width: 15%; }
+.mat-column-quantity { width: 15%; }
+
+.mat-column-total-price,
+.mat-column-total\ price,
+.mat-column-totalprice,
+.mat-column-total { width: 15%; }
+.mat-column-review { width: 15%; }
+
+
+@media (max-width: 959.98px) {
+  .emptyState {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
 }

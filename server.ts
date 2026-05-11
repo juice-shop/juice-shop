@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 import i18n from 'i18n'
@@ -35,6 +35,7 @@ import type { Request, Response, NextFunction } from 'express'
 import { sequelize } from './models'
 import { UserModel } from './models/user'
 import { CardModel } from './models/card'
+import { HintModel } from './models/hint'
 import { WalletModel } from './models/wallet'
 import { ProductModel } from './models/product'
 import { RecycleModel } from './models/recycle'
@@ -120,9 +121,9 @@ import { profileImageFileUpload } from './routes/profileImageFileUpload'
 import { serveCodeFixes, checkCorrectFix } from './routes/vulnCodeFixes'
 import { imageCaptchas, verifyImageCaptcha } from './routes/imageCaptcha'
 import { upgradeToDeluxe, deluxeMembershipStatus } from './routes/deluxe'
+import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
-import { serveChallengesWithCodeSnippet, serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
 const app = express()
@@ -237,12 +238,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const origEnd = res.end
     // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
-        const currentFolder = reqPath.split('/').pop() as string
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const currentFolder = reqPath.split('/').pop()!
         arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
           if (relativePath === '') {
@@ -285,6 +288,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(express.static(path.resolve('frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
+
+  /* Serve vendor dependencies locally instead of from CDN */
+  app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
+  app.use('/vendor/material-icons', express.static(path.resolve('node_modules/material-icons/iconfont')))
+  app.use('/vendor/fontsource-roboto', express.static(path.resolve('node_modules/@fontsource/roboto')))
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
@@ -363,6 +371,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Challenges: GET list of challenges allowed. Everything else forbidden entirely */
   app.post('/api/Challenges', security.denyAll())
   app.use('/api/Challenges/:id', security.denyAll())
+  /* Hints: GET and PUT hints allowed. Everything else forbidden */
+  app.post('/api/Hints', security.denyAll())
+  app.route('/api/Hints/:id')
+    .get(security.denyAll())
+    .delete(security.denyAll())
   /* Complaints: POST and GET allowed when logged in only */
   app.get('/api/Complaints', security.isAuthorized())
   app.post('/api/Complaints', security.isAuthorized())
@@ -479,7 +492,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Address', exclude: [], model: AddressModel },
     { name: 'PrivacyRequest', exclude: [], model: PrivacyRequestModel },
     { name: 'Card', exclude: [], model: CardModel },
-    { name: 'Quantity', exclude: [], model: QuantityModel }
+    { name: 'Quantity', exclude: [], model: QuantityModel },
+    { name: 'Hint', exclude: [], model: HintModel }
   ]
 
   for (const { name, exclude, model } of autoModels) {
@@ -501,7 +515,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
-    // translate challenge descriptions and hints on-the-fly
+    // translate challenge descriptions on-the-fly
     if (name === 'Challenge') {
       resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
@@ -513,17 +527,11 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           } else {
             context.instance[i].description = req.__(description)
           }
-          if (context.instance[i].hint) {
-            context.instance[i].hint = req.__(context.instance[i].hint)
-          }
         }
         return context.continue
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { description: string, hint: string }, continue: any }) => {
         context.instance.description = req.__(context.instance.description)
-        if (context.instance.hint) {
-          context.instance.hint = req.__(context.instance.hint)
-        }
         return context.continue
       })
     }
@@ -538,6 +546,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       })
       resource.read.send.before((req: Request, res: Response, context: { instance: { question: string }, continue: any }) => {
         context.instance.question = req.__(context.instance.question)
+        return context.continue
+      })
+    }
+
+    // translate hints on-the-fly
+    if (name === 'Hint') {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
+        for (let i = 0; i < context.instance.length; i++) {
+          context.instance[i].text = req.__(context.instance[i].text)
+        }
+        return context.continue
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { text: string }, continue: any }) => {
+        context.instance.text = req.__(context.instance.text)
         return context.continue
       })
     }
@@ -642,7 +664,6 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.post('/profile', updateUserProfile())
 
   /* Route for vulnerable code snippets */
-  app.get('/snippets', serveChallengesWithCodeSnippet())
   app.get('/snippets/:challenge', serveCodeSnippet())
   app.post('/snippets/verdict', checkVulnLines())
   app.get('/snippets/fixes/:key', serveCodeFixes())
@@ -684,7 +705,7 @@ const uploadToDisk = multer({
   })
 })
 
-const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet']
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }

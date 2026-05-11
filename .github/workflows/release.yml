@@ -4,14 +4,14 @@ on:
     tags:
       - v*
 env:
-  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
 jobs:
   package:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 21, 22]
+        node-version: [20, 22, 24]
       fail-fast: false
     steps:
       - name: "Check out Git repository"
@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
-          npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
+          npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
           npm install -g grunt-cli
       - name: "Set packaging options for Grunt"
         run: |
