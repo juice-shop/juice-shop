@@ -1,21 +1,104 @@
+
 name: Checkmarx One Scan
+
 on:
   push:
     branches:
       - main
       - master
       - dev
+
 jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Run the Checkmarx One scan
+  # ─────────────────────────────────────────────
   build:
+    name: Checkmarx Scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
       - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@main #Github Action version
+        uses: checkmarx/ast-github-action@2.0.36 # pin to a release tag
         with:
           project_name: CxElks/juice-shop
-          cx_tenant: cx_cec_na_test_elco_garcia
-          base_uri: https://eu.ast.checkmarx.net 
+          cx_tenant: elco-ps-lab
+          base_uri: https://ast.checkmarx.net
           cx_client_id: ${{ secrets.CX_CLIENT_ID }}
           cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          additional_params: --output-path . --output-name cx_result --report-format json
+
+      - name: Upload scan results
+        if: always() # upload even if the scan step reports vulnerabilities
+        uses: actions/upload-artifact@v4
+        with:
+          name: cx-results
+          path: cx_result.json
+          retention-days: 14
+
+  # ─────────────────────────────────────────────
+  # Job 2: Evaluate results against security gate
+  # ─────────────────────────────────────────────
+  security-gate:
+    name: Evaluate Checkmarx Results
+    needs: build # wait for the scan to finish
+    if: always() # run even if 'build' failed (we still want to evaluate any partial results)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download scan results
+        uses: actions/download-artifact@v4
+        with:
+          name: cx-results
+
+      - name: Evaluate Checkmarx Results
+        id: cx_gate
+        run: |
+          RESULT_FILE="cx_result.json"
+
+          if [ ! -f "$RESULT_FILE" ]; then
+            echo "::error::$RESULT_FILE not found — the scan may not have produced output."
+            exit 1
+          fi
+
+          # Validate that the file contains parseable JSON with a results array
+          if ! jq -e '.results' "$RESULT_FILE" > /dev/null 2>&1; then
+            echo "::error::$RESULT_FILE does not contain a top-level 'results' array."
+            exit 1
+          fi
+
+          echo "Scanning $RESULT_FILE for sscs-secret-detection findings with CRITICAL or HIGH severity..."
+
+          MATCHES=$(jq '[
+            .results[]
+            | select(
+                .type == "sscs-secret-detection" and
+                (.severity == "CRITICAL" or .severity == "HIGH")
+              )
+          ] | length' "$RESULT_FILE")
+
+          echo "Matching findings: $MATCHES"
+
+          if [ "$MATCHES" -gt 0 ]; then
+            echo ""
+            echo "::error::Pipeline blocked — $MATCHES sscs-secret-detection finding(s) with CRITICAL or HIGH severity detected."
+            echo ""
+
+            jq -r '
+              ["ID", "Severity", "Status", "File", "Description"],
+              ["--", "--------", "------", "----", "-----------"],
+              (
+                .results[]
+                | select(
+                    .type == "sscs-secret-detection" and
+                    (.severity == "CRITICAL" or .severity == "HIGH")
+                  )
+                | [.id, .severity, .status, .data.filename, .description]
+              )
+              | @tsv
+            ' "$RESULT_FILE" | column -t -s $'\t'
+
+            exit 1
+          else
+            echo "::notice::No CRITICAL or HIGH sscs-secret-detection findings. Pipeline continues."
+          fi
