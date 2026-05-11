@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@2.0.36 # pin to a release tag
+        uses: checkmarx/ast-github-action@2 # pin to a release tag
         with:
           project_name: CxElks/juice-shop
           cx_tenant: elco-ps-lab
