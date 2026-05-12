@@ -150,9 +150,21 @@ describe('PhotoWallComponent', () => {
     })
 
     it('should use custom twitter handle if configured', () => {
-        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: { twitterUrl: 'https://twitter.com/twitter' } } }))
         component.ngOnInit()
-        expect(component.twitterHandle).toBe('twitter')
+        expect(component.twitterHandle).toBe('@twitter')
+    })
+
+    it('should use custom blueSky handle if configured', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: { blueSkyUrl: 'https://bsky.app/profile/owasp' } } }))
+        component.ngOnInit()
+        expect(component.blueSkyHandle).toBe('@owasp')
+    })
+
+    it('should use custom mastodon handle if configured', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: { mastodonUrl: 'https://mastodon.social/@owasp' } } }))
+        component.ngOnInit()
+        expect(component.mastodonHandle).toBe('@owasp@mastodon.social')
     })
 
     it('should log error while getting application configuration from backend API directly to browser console', () => {
