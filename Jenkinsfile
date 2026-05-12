@@ -175,6 +175,11 @@ pipeline {
                 echo '>>> Juice Shop deployed at http://juice-shop:3000 (internal) and http://localhost:3000 (host)'
             }
         }
+        /*
+        ======================================================
+        DAST
+        ======================================================
+        */
 
         stage('DAST - OWASP ZAP') {
             options { timeout(time: 120, unit: 'MINUTES') }
@@ -220,6 +225,11 @@ pipeline {
                 echo ">>> ZAP scan complete. Report saved to ${REPORT_DIR}/dast/zap-report.html"
             }
         }
+        /*
+        ======================================================
+        REPORT
+        ======================================================
+        */
 
         stage('Publish reports') {
             steps {
@@ -235,6 +245,11 @@ pipeline {
             }
         }
     }
+    /*
+    ======================================================
+    POST
+    ======================================================
+    */
 
     post {
         always {
