@@ -34,9 +34,12 @@ pipeline {
 
         // Add timestamps to Jenkins logs
         timestamps()
-
-        // Abort build after 60 minutes
-        timeout(time: 60, unit: 'MINUTES')
+        // Stops the pipeline if it runs longer than 120 minutes
+        // (Bumped from 60 -> 120 to fit the full ZAP DAST scan, which can take
+        //  40-55 minutes on its own. The DAST stage also has its own 90-minute
+        //  timeout for safety.)
+        timeout(time: 150, unit: 'MINUTES')
+        // Keeps only the last 10 builds to save disk space
 
         // Keep only the latest 10 builds
         buildDiscarder(logRotator(numToKeepStr: '10'))
@@ -129,6 +132,54 @@ pipeline {
                           -Dsonar.sourceEncoding=UTF-8
                     """
                 }
+            }
+        }
+
+        stage('Deploy to Test Env') {
+            steps {
+                echo '>>> Building and deploying Juice Shop container to test environment...'
+                sh """
+                    # Build the Docker image from the checked-out source first.
+                    # Without this, the docker run below would fail because the
+                    # juice-shop:${IMAGE_TAG} image would not yet exist.
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+
+                    # Ensure the shared network exists (idempotent — || true if already there)
+                    docker network create devsecops-net || true
+
+                    # Stop and remove any existing juice-shop container from a previous build
+                    docker rm -f juice-shop || true
+
+                    # Run Juice Shop on devsecops-net so ZAP can reach it by hostname
+                    # -d           : detached (background)
+                    # --name       : container name — used as DNS hostname on the Docker network
+                    # --network    : shared network with Jenkins and ZAP containers
+                    # -p 3000:3000 : also expose on host for manual verification in browser
+                    docker run -d \
+                      --name juice-shop \
+                      --network devsecops-net \
+                      -p 3000:3000 \
+                      ${IMAGE_NAME}:${IMAGE_TAG}
+                """
+
+                sh """
+                    echo '>>> Waiting for Juice Shop to be ready...'
+                    for i in \$(seq 1 60); do
+                        if docker run --rm --network devsecops-net curlimages/curl:8.10.1 \
+                             -sf http://juice-shop:3000 >/dev/null 2>&1; then
+                            echo "Juice Shop is up after \$((i * 3))s"
+                            exit 0
+                        fi
+                        echo "Attempt \$i/60 — not ready yet, retrying in 3s..."
+                        sleep 3
+                    done
+                    echo "Juice Shop never came up — last 50 lines of container logs:"
+                    docker logs --tail 50 juice-shop || true
+                    exit 1
+                """
+                echo '>>> Juice Shop deployed at http://juice-shop:3000 (internal) and http://localhost:3000 (host)'
+            }
+        }
 
                 /*
                 Waits for SonarQube Quality Gate result
@@ -187,6 +238,70 @@ pipeline {
                 """
             }
         }
+
+        stage('DAST - OWASP ZAP') {
+            options { timeout(time: 120, unit: 'MINUTES') }
+            steps {
+                echo '>>> Running DAST with OWASP ZAP full scan...'
+                sh """
+                    docker rm -f zap-scan 2>/dev/null || true
+                    docker volume rm zap-wrk 2>/dev/null || true
+
+                    docker volume create zap-wrk
+                    docker run --rm --user 0:0 -v zap-wrk:/zap/wrk alpine:latest \
+                        chmod 777 /zap/wrk
+
+                    docker run --name zap-scan \
+                        -e ZAP_JVM_OPTIONS=-Xmx4g \
+                        --memory=6g \
+                        --network devsecops-net \
+                        -v zap-wrk:/zap/wrk \
+                        ghcr.io/zaproxy/zaproxy:stable \
+                        zap-full-scan.py \
+                            -t ${ZAP_TARGET_URL} \
+                            -r zap-report.html \
+                            -J zap-report.json \
+                            -w zap-report.md \
+                            -j \
+                        || true
+
+                    docker cp zap-scan:/zap/wrk/zap-report.html \${WORKSPACE}/${REPORT_DIR}/ || true
+                    docker cp zap-scan:/zap/wrk/zap-report.json \${WORKSPACE}/${REPORT_DIR}/ || true
+                    docker cp zap-scan:/zap/wrk/zap-report.md  \${WORKSPACE}/${REPORT_DIR}/ || true
+
+                    docker rm zap-scan || true
+                    docker volume rm zap-wrk 2>/dev/null || true
+
+                    echo "=== Final contents of ${REPORT_DIR}/ ==="
+                    ls -la \${WORKSPACE}/${REPORT_DIR}/
+
+                    if [ ! -s "\${WORKSPACE}/${REPORT_DIR}/zap-report.html" ]; then
+                        echo "ERROR: zap-report.html is missing or empty."
+                        echo "Likely cause: ZAP crashed before report generation."
+                        echo "Check ZAP_JVM_OPTIONS and stage console for OOM."
+                        exit 1
+                    fi
+                """
+                echo '>>> ZAP scan complete. Report saved to ${REPORT_DIR}/zap-report.html'
+            }
+        }
+
+        // Publishes the ZAP HTML report so it appears as a clickable link in
+        // the Jenkins build sidebar. The reports are also archived as build
+        // artifacts by the post-always block below for download.
+        stage('Publish reports') {
+            steps {
+                archiveArtifacts artifacts: 'reports/*', allowEmptyArchive: true
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: 'zap-report.html',
+                    reportName: 'OWASP ZAP DAST Report'
+                ])
+            }
+        }
     }
 
     /*
@@ -207,12 +322,26 @@ pipeline {
             archiveArtifacts artifacts: 'reports/**',
                              allowEmptyArchive: true
 
-            echo 'Pipeline finished.'
+            // Tear down the test containers and ZAP volume after every build
+            // so the next build starts with a clean slate.
+            // Cleans up both juice-shop (Mary's naming) and juice-shop-staging
+            // (the alternate naming used by the standalone DAST pipeline) so
+            // this post block is safe for either pipeline variant.
+            // 2>/dev/null silences "no such container/volume" noise.
+            // || true ensures this never fails the pipeline even if the resource was already gone.
+            sh '''
+                docker rm -f juice-shop 2>/dev/null || true
+                docker rm -f juice-shop-staging 2>/dev/null || true
+                docker rm -f zap-scan 2>/dev/null || true
+                docker volume rm zap-wrk 2>/dev/null || true
+            '''
+
+            echo "Build #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}"
         }
 
         // Runs if pipeline succeeds
         success {
-            echo 'All stages completed successfully.'
+            echo 'All stages completed. Review findings in SonarQube, Snyk, and ZAP reports.'
         }
 
         // Runs if pipeline fails
