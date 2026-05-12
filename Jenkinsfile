@@ -50,6 +50,11 @@ pipeline {
             }
         }
 
+        /*
+        ======================================================
+        SAST scan only (runs scanner, pushes results to SonarQube)
+        ======================================================
+        */
         stage('SAST - SonarQube') {
             steps {
                 echo '>>> Running SAST with SonarQube...'
@@ -66,25 +71,50 @@ pipeline {
                           -Dsonar.sourceEncoding=UTF-8
                     """
                 }
+            }
+        }
+
+        /*
+        ======================================================
+        Quality Gate — pass/fail decision based on SonarQube
+        scan results. Soft gate (abortPipeline: false) so SCA
+        and DAST still run for full vulnerability data.
+        ======================================================
+        */
+        stage('Quality Gate') {
+            steps {
                 echo '>>> Checking SonarQube Quality Gate result...'
                 script {
                     def qg
                     timeout(time: 5, unit: 'MINUTES') {
                         qg = waitForQualityGate abortPipeline: false
                     }
+
                     writeFile file: "${REPORT_DIR}/sast/sonar-summary.txt", text: """\
-SonarQube SAST Stage Report
-===========================
-Build:           #${env.BUILD_NUMBER}
-Project Key:     juice-shop
-Project Version: 19.2.1
-Quality Gate:    ${qg?.status ?: 'UNKNOWN'}
-Dashboard:       http://sonarqube:9000/dashboard?id=juice-shop
-Timestamp:       ${new Date()}
-""".stripIndent()
+                    SonarQube SAST + Quality Gate Report
+                    ====================================
+                    Build:           #${env.BUILD_NUMBER}
+                    Project Key:     juice-shop
+                    Project Version: 19.2.1
+                    Quality Gate:    ${qg?.status ?: 'UNKNOWN'}
+                    Dashboard:       http://sonarqube:9000/dashboard?id=juice-shop
+                    Timestamp:       ${new Date()}
+                    """.stripIndent()
+
+                    if (qg?.status != 'OK') {
+                        echo "Quality Gate status: ${qg?.status} — marking build UNSTABLE"
+                        currentBuild.result = 'UNSTABLE'
+                    } else {
+                        echo "Quality Gate PASSED"
+                    }
                 }
             }
         }
+        /*
+        ======================================================
+        SCA
+        ======================================================
+        */
 
         stage('SCA - Snyk Scan') {
             steps {
@@ -221,6 +251,9 @@ Timestamp:       ${new Date()}
         }
         success {
             echo 'All stages completed. Review findings in SonarQube, Snyk, and ZAP reports.'
+        }
+        unstable {
+            echo 'Pipeline UNSTABLE — Quality Gate failed but scans completed. Check SonarQube dashboard.'
         }
         failure {
             echo 'Pipeline failed. Review Jenkins logs.'
