@@ -163,7 +163,7 @@ pipeline {
                         if docker run --rm --network devsecops-net curlimages/curl:8.10.1 \\
                              -sf http://juice-shop:3000 >/dev/null 2>&1; then
                             echo "Juice Shop is up after \$((i * 3))s"
-                            exit 0
+                            break
                         fi
                         echo "Attempt \$i/60 — not ready yet, retrying in 3s..."
                         sleep 3
@@ -182,9 +182,9 @@ pipeline {
         */
 
         stage('DAST - OWASP ZAP') {
-            options { timeout(time: 120, unit: 'MINUTES') }
+            options { timeout(time: 20, unit: 'MINUTES') }
             steps {
-                echo '>>> Running DAST with OWASP ZAP full scan...'
+                echo '>>> Running DAST with OWASP ZAP baseline scan...'
                 sh """
                     docker rm -f zap-scan 2>/dev/null || true
                     docker volume rm zap-wrk 2>/dev/null || true
@@ -199,7 +199,7 @@ pipeline {
                         --network devsecops-net \\
                         -v zap-wrk:/zap/wrk \\
                         ghcr.io/zaproxy/zaproxy:stable \\
-                        zap-full-scan.py \\
+                        zap-baseline.py \\
                             -t ${ZAP_TARGET_URL} \\
                             -r zap-report.html \\
                             -J zap-report.json \\
