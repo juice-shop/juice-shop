@@ -25,6 +25,24 @@
                     </button>
                   </a>
                 }
+                @if (blueSkyHandle) {
+                  <a
+                    href="https://bsky.app/intent/compose?text={{ image.caption }} {{ blueSkyHandle }} %23appsec"
+                    target="_blank">
+                    <button mat-icon-button aria-label="BlueSky">
+                      <i class="fas fa-bold fa-lg"></i>
+                    </button>
+                  </a>
+                }
+                @if (mastodonHandle) {
+                  <a
+                    href="https://mastodonshare.com/?text={{ image.caption }} {{ mastodonHandle }} %23appsec"
+                    target="_blank">
+                    <button mat-icon-button aria-label="Mastodon">
+                      <i class="fab fa-mastodon fa-lg"></i>
+                    </button>
+                  </a>
+                }
               </div>
             </span>
           }

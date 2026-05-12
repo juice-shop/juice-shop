@@ -9,7 +9,8 @@ import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter, faMastodon } from '@fortawesome/free-brands-svg-icons'
+import { faBold } from '@fortawesome/free-solid-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
@@ -21,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon'
 
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
-library.add(faTwitter)
+library.add(faTwitter, faMastodon, faBold)
 
 @Component({
   selector: 'app-photo-wall',
@@ -43,6 +44,8 @@ export class PhotoWallComponent implements OnInit {
 
   public slideshowDataSource: { url: string, caption: string }[] = []
   public twitterHandle = null
+  public blueSkyHandle = null
+  public mastodonHandle = null
 
   ngOnInit (): void {
     this.slideshowDataSource = []
@@ -73,6 +76,22 @@ export class PhotoWallComponent implements OnInit {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
+        }
+        if (config.application.social.blueSkyUrl) {
+          let blueSkyUrl = config.application.social.blueSkyUrl
+          if (blueSkyUrl.endsWith('/')) {
+            blueSkyUrl = blueSkyUrl.substring(0, blueSkyUrl.length - 1)
+          }
+          this.blueSkyHandle = blueSkyUrl.replace('https://bsky.app/profile/', '@')
+        }
+        if (config.application.social.mastodonUrl) {
+          let mastodonUrl = config.application.social.mastodonUrl
+          if (mastodonUrl.endsWith('/')) {
+            mastodonUrl = mastodonUrl.substring(0, mastodonUrl.length - 1)
+          }
+          const mastodonUser = mastodonUrl.substring(mastodonUrl.lastIndexOf('/') + 1)
+          const mastodonInstance = mastodonUrl.replace('https://', '').replace(/\/.*/, '')
+          this.mastodonHandle = `${mastodonUser}@${mastodonInstance}`
         }
       }
     })
