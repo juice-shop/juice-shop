@@ -1,13 +1,11 @@
 
 name: Checkmarx One Scan
-
 on:
   push:
     branches:
       - main
       - master
       - dev
-
 jobs:
   # ─────────────────────────────────────────────
   # Job 1: Run the Checkmarx One scan
@@ -20,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Checkmarx One CLI Action
-        uses: checkmarx/ast-github-action@2 # pin to a release tag
+        uses: Checkmarx/ast-github-action@2.3.36 # pin to a release tag
         with:
           project_name: CxElks/juice-shop
           cx_tenant: elco-ps-lab
@@ -55,20 +53,16 @@ jobs:
         id: cx_gate
         run: |
           RESULT_FILE="cx_result.json"
-
           if [ ! -f "$RESULT_FILE" ]; then
             echo "::error::$RESULT_FILE not found — the scan may not have produced output."
             exit 1
           fi
-
           # Validate that the file contains parseable JSON with a results array
           if ! jq -e '.results' "$RESULT_FILE" > /dev/null 2>&1; then
             echo "::error::$RESULT_FILE does not contain a top-level 'results' array."
             exit 1
           fi
-
           echo "Scanning $RESULT_FILE for sscs-secret-detection findings with CRITICAL or HIGH severity..."
-
           MATCHES=$(jq '[
             .results[]
             | select(
@@ -76,14 +70,11 @@ jobs:
                 (.severity == "CRITICAL" or .severity == "HIGH")
               )
           ] | length' "$RESULT_FILE")
-
           echo "Matching findings: $MATCHES"
-
           if [ "$MATCHES" -gt 0 ]; then
             echo ""
             echo "::error::Pipeline blocked — $MATCHES sscs-secret-detection finding(s) with CRITICAL or HIGH severity detected."
             echo ""
-
             jq -r '
               ["ID", "Severity", "Status", "File", "Description"],
               ["--", "--------", "------", "----", "-----------"],
@@ -97,7 +88,6 @@ jobs:
               )
               | @tsv
             ' "$RESULT_FILE" | column -t -s $'\t'
-
             exit 1
           else
             echo "::notice::No CRITICAL or HIGH sscs-secret-detection findings. Pipeline continues."
