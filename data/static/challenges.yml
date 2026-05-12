@@ -386,7 +386,7 @@
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'First you should find out how the languages are technically changed in the user interface.'
+  description: 'Retrieve the language file that never made it into production.'
   difficulty: 5
   hints:
     - 'First you should find out how the languages are technically changed in the user interface.'
