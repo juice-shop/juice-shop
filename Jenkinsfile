@@ -1,32 +1,38 @@
 pipeline {
+
+    // Run on any available Jenkins agent/node
     agent any
 
+    // Jenkins-managed tools that must already be configured
     tools {
         nodejs 'NodeJS'
     }
+
+    /*
+    Optional trigger:
+    Polls Git repository every 5 minutes for changes
+    */
     // triggers {
-    //     pollSCM('H/5 * * * *') // check every 5 minutes
+    //     pollSCM('H/5 * * * *')
     // }
+
+    // Environment variables available throughout the pipeline
     environment {
-        // Fetches the installation path of the SonarQube Scanner configured in Jenkins and assigns it to this variable
+
+        // Path to SonarQube Scanner configured in Jenkins
         SONAR_SCANNER_HOME = tool 'SonarQube Scanner'
-        // Pulls a secure token from Jenkins Credentials Manager (ID: snyk-token)
-        SNYK_TOKEN         = credentials('snyk-token')
-        // Sets a directory name where reports will be stored
-        REPORT_DIR         = 'reports'
-        // Docker image name and tag for the Juice Shop build
-        // Built from the multi-stage Dockerfile: node:24 installer → distroless/nodejs24 runtime
-        IMAGE_NAME         = 'juice-shop'
-        IMAGE_TAG          = "${env.BUILD_NUMBER}"
-        // Juice Shop target URL for DAST scanning — reachable via shared Docker network devsecops-net
-        ZAP_TARGET_URL     = 'http://juice-shop:3000'
-        // Output path for the ZAP HTML report
-        ZAP_REPORT         = 'reports/zap-report.html'
+
+        // Securely loads Snyk API token from Jenkins credentials
+        SNYK_TOKEN = credentials('snyk-token')
+
+        // Folder used to store reports
+        REPORT_DIR = 'reports'
     }
-    // Pipeline Options
-    // Configures global pipeline behavior
+
+    // Global pipeline settings
     options {
-        // Adds timestamps to console logs
+
+        // Add timestamps to Jenkins logs
         timestamps()
         // Stops the pipeline if it runs longer than 120 minutes
         // (Bumped from 60 -> 120 to fit the full ZAP DAST scan, which can take
@@ -34,57 +40,95 @@ pipeline {
         //  timeout for safety.)
         timeout(time: 150, unit: 'MINUTES')
         // Keeps only the last 10 builds to save disk space
+
+        // Keep only the latest 10 builds
         buildDiscarder(logRotator(numToKeepStr: '10'))
     }
+
     stages {
-        // Stage name: Checkout source code
+
+        /*
+        ======================================================
+        Stage 1: Pull source code from GitHub
+        ======================================================
+        */
         stage('Checkout SCM') {
             steps {
+
                 echo '>>> Checking out Juice Shop source...'
+
+                // Clone specific branch from GitHub repository
                 git branch: 'mary',
                     url: 'https://github.com/dylandk0226/juice-shop.git'
-                sh 'mkdir -p ${REPORT_DIR}' // Creates the reports directory (if it doesn't exist)
+
+                // Create reports directory if missing
+                sh "mkdir -p ${REPORT_DIR}"
             }
         }
 
-        stage('Verify Node'){
+        /*
+        ======================================================
+        Stage 2: Verify Node.js installation
+        ======================================================
+        */
+        stage('Verify Node') {
             steps {
-                sh 'node --version' // Confirms NodeJS plugin is working correctly
+
+                // Check Node.js version
+                sh 'node --version'
+
+                // Check npm version
                 sh 'npm --version'
             }
         }
 
+        /*
+        ======================================================
+        Stage 3: Install project dependencies
+        ======================================================
+        */
         stage('Install Dependencies') {
             steps {
-                echo '>>> Installing dependencies (skipping postinstall to avoid Angular build)...'
-                // Installs Node.js dependencies; --ignore-scripts avoids running post-install scripts (e.g., Angular build)
+
+                echo '>>> Installing dependencies...'
+
+                /*
+                Installs dependencies from package.json
+
+                --ignore-scripts prevents execution of
+                postinstall scripts (helpful to avoid
+                Angular frontend builds during scanning)
+                */
                 sh 'npm install --ignore-scripts'
             }
         }
 
-        // Runs Static Application Security Testing (SAST)
-        stage('SAST - SonarQube Scan') {
+        /*
+        ======================================================
+        Stage 4: Static Application Security Testing (SAST)
+        Using SonarQube
+        ======================================================
+        */
+        stage('SAST - SonarQube') {
             steps {
+
                 echo '>>> Running SAST with SonarQube...'
-                // Loads SonarQube server configuration from Jenkins
+
+                /*
+                Injects SonarQube server configuration
+                and authentication into environment
+                */
                 withSonarQubeEnv('SonarQube') {
-                    // Executes the SonarQube scanner
-                    // Unique project identifier in SonarQube
-                    // Display name in SonarQube UI
-                    // Sets project version
-                    // Tells SonarQube to scan the current directory
-                    // Excludes node_modules, tests, compiled frontend assets, and Angular cache from scanning
-                    // Points to TypeScript configuration file
-                    // Provides test coverage report path
+
                     sh """
-                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-                          -Dsonar.projectKey=juice-shop \
-                          -Dsonar.projectName='Juice Shop' \
-                          -Dsonar.projectVersion=19.2.1 \
-                          -Dsonar.sources=. \
-                          -Dsonar.exclusions=**/node_modules/**,**/test/**,**/frontend/dist/**,**/frontend/src/assets/**,**/.angular/** \
-                          -Dsonar.typescript.tsconfigPath=tsconfig.json \
-                          -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/server-tests/lcov.info \
+                        ${SONAR_SCANNER_HOME}/bin/sonar-scanner \\
+                          -Dsonar.projectKey=juice-shop \\
+                          -Dsonar.projectName='Juice Shop' \\
+                          -Dsonar.projectVersion=19.2.1 \\
+                          -Dsonar.sources=. \\
+                          -Dsonar.exclusions=**/node_modules/**,**/test/**,**/frontend/dist/**,**/frontend/src/assets/**,**/.angular/** \\
+                          -Dsonar.typescript.tsconfigPath=tsconfig.json \\
+                          -Dsonar.javascript.lcov.reportPaths=build/reports/coverage/server-tests/lcov.info \\
                           -Dsonar.sourceEncoding=UTF-8
                     """
                 }
@@ -137,75 +181,62 @@ pipeline {
             }
         }
 
-        // Checks SonarQube quality gate result
-        stage('SAST - SonarQube Analysis') {
-            steps {
+                /*
+                Waits for SonarQube Quality Gate result
+
+                abortPipeline: false means the build
+                continues even if quality gate fails
+                */
                 echo '>>> Checking SonarQube Quality Gate result...'
-                // Waits max 5 minutes; Requires a SonarQube webhook configured in SonarQube pointing back to: http://<jenkins-url>/sonarqube-webhook/
-                // Without this webhook, waitForQualityGate will hang until timeout
+
                 timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: false  // Waits for SonarQube result
-                } // abortPipeline: false → pipeline continues even if it fails
+                    waitForQualityGate abortPipeline: false
+                }
             }
         }
 
-        // Runs OWASP Dependency-Check: scans package.json and node_modules against the
-        // NVD (National Vulnerability Database) to detect known CVEs in third-party libraries.
-        // Complements Snyk — Dependency-Check uses NVD CVE data while Snyk uses its own
-        // advisory database, so running both gives cross-validated SCA coverage.
-        // stage('SCA - OWASP Dependency-Check') {
-        //     steps {
-        //         echo '>>> Running SCA with OWASP Dependency-Check...'
-        //         // dependency-check.sh is provided by the OWASP Dependency-Check Jenkins plugin
-        //         // --project        : display name in the generated report
-        //         // --scan           : path to scan (current workspace)
-        //         // --exclude        : skip node_modules to avoid scanning dev tool internals
-        //         // --out            : output directory for reports
-        //         // --format         : generate both HTML (human-readable) and JSON (machine-readable)
-        //         // --enableExperimental : enables Node.js / npm audit analyser
-        //         // --nvdApiKey      : NVD API key stored in Jenkins credentials for faster CVE database updates
-        //         //                   (without it, NVD throttles downloads — first run can take 20+ minutes)
-        //         // || true          : prevents pipeline failure if vulnerabilities are found;
-        //         //                   findings are reviewed manually in the report
-        //         sh """
-        //             /var/jenkins_home/tools/dependency-check/bin/dependency-check.sh \
-        //               --project 'Juice Shop' \
-        //               --scan . \
-        //               --exclude '**/node_modules/**' \
-        //               --out ${REPORT_DIR} \
-        //               --format HTML \
-        //               --format JSON \
-        //               --enableExperimental \
-        //               || true
-        //         """
-        //         // Archives the generated HTML report as a Jenkins build artifact
-        //         // dependency-check-report.html is written to ${REPORT_DIR} by the tool
-        //         echo '>>> OWASP Dependency-Check scan complete. Report saved to ${REPORT_DIR}.'
-        //     }
-        // }
-
-        //Runs Software Composition Analysis (dependency vulnerability scan)
+        /*
+        ======================================================
+        Stage 5: Software Composition Analysis (SCA)
+        Using Snyk (installed via npm)
+        ======================================================
+        */
         stage('SCA - Snyk Scan') {
             steps {
-                // Authenticates Snyk using stored token
-                // Runs scan: Scans all projects; Only reports medium+ vulnerabilities;
-                // Outputs JSON report; || true prevents pipeline failure
-                echo '>>> Running SCA with Snyk...'
-                sh """
-                    snyk auth \$SNYK_TOKEN
 
-                    snyk test \
-                        --all-projects \
-                        --severity-threshold=medium \
+                echo '>>> Running SCA with Snyk...'
+
+                sh """
+                    # Install Snyk CLI via npm (npm comes from the NodeJS tool)
+                    # Try global install first; fall back to local install if permissions block it
+                    npm install -g snyk || npm install snyk
+
+                    # Authenticate with Snyk using token from Jenkins credentials
+                    npx snyk auth \$SNYK_TOKEN
+
+                    # Run dependency vulnerability scan and output JSON report
+                    # --all-projects: detects all supported manifests
+                    # --severity-threshold=low: includes findings from low severity upward
+                    # || true: stage continues even if vulnerabilities are found
+                    npx snyk test \\
+                        --all-projects \\
+                        --severity-threshold=low \\
                         --json > ${REPORT_DIR}/snyk-report.json || true
 
-                    snyk test \
-                        --all-projects \
-                        --severity-threshold=medium || true
+                    # Run again for human-readable console output
+                    npx snyk test \\
+                        --all-projects \\
+                        --severity-threshold=low || true
+
+                    # Push snapshot to Snyk web console so it shows on app.snyk.io
+                    # Each build creates a new monitored snapshot with build metadata
+                    npx snyk monitor \\
+                    --all-projects \\
+                    --project-name=juice-shop-jenkins-build-\${BUILD_NUMBER} || true
 
                     echo "Snyk scan complete."
                 """
-            } // Runs again for human-readable console output
+            }
         }
 
         stage('DAST - OWASP ZAP') {
@@ -272,14 +303,22 @@ pipeline {
             }
         }
     }
-    // Defines actions after pipeline execution
 
+    /*
+    ======================================================
+    Post-build actions
+    ======================================================
+    */
     post {
-        // Runs regardless of success/failure
+
+        // Always runs regardless of build result
         always {
+
             echo '>>> Archiving scan reports...'
-            // Saves report files as Jenkins build artifacts
-            // snyk-report.json is already inside ${REPORT_DIR}/ so only one glob is needed
+
+            /*
+            Stores reports as Jenkins build artifacts
+            */
             archiveArtifacts artifacts: 'reports/**',
                              allowEmptyArchive: true
 
@@ -299,11 +338,15 @@ pipeline {
 
             echo "Build #${env.BUILD_NUMBER} finished with status: ${currentBuild.currentResult}"
         }
+
+        // Runs if pipeline succeeds
         success {
             echo 'All stages completed. Review findings in SonarQube, Snyk, and ZAP reports.'
         }
+
+        // Runs if pipeline fails
         failure {
-            echo 'Pipeline failed. Check logs above for details.'
+            echo 'Pipeline failed. Review Jenkins logs.'
         }
     }
 }
