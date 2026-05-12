@@ -56,7 +56,7 @@ pipeline {
 
                 // Clone specific branch from GitHub repository
                 git branch: 'mary',
-                    url: 'https://github.com/mdl-thdev/juice-shop.git'
+                    url: 'https://github.com/dylandk0226/juice-shop.git'
 
                 // Create reports directory if missing
                 sh "mkdir -p ${REPORT_DIR}"
