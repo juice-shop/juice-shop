@@ -105,6 +105,23 @@ pipeline {
                           -Dsonar.sourceEncoding=UTF-8
                     """
 
+                    // Wait for server-side analysis, then export findings
+                    sh """
+                        sleep 15
+
+                        curl -s -u \${SONAR_AUTH_TOKEN}: \\
+                            "\${SONAR_HOST_URL}/api/issues/search?componentKeys=juice-shop&ps=500" \\
+                            > ${REPORT_DIR}/sonar-issues.json
+
+                        curl -s -u \${SONAR_AUTH_TOKEN}: \\
+                            "\${SONAR_HOST_URL}/api/hotspots/search?projectKey=juice-shop&ps=500" \\
+                            > ${REPORT_DIR}/sonar-hotspots.json
+
+                        curl -s -u \${SONAR_AUTH_TOKEN}: \\
+                            "\${SONAR_HOST_URL}/api/measures/component?component=juice-shop&metricKeys=bugs,vulnerabilities,code_smells,security_rating,reliability_rating,coverage,duplicated_lines_density" \\
+                            > ${REPORT_DIR}/sonar-metrics.json
+                    """
+
                     echo "SonarQube Dashboard:"
                     echo "${SONAR_HOST_URL}/dashboard?id=juice-shop"
                 }
@@ -129,7 +146,44 @@ pipeline {
 
         /*
         ======================================================
-        Stage 6: Deploy to Test Environment
+        Stage 6: SCA - Snyk
+        ======================================================
+        */
+        stage('SCA - Snyk Scan') {
+            steps {
+
+                echo '>>> Running SCA with Snyk...'
+
+                sh """
+                    npm install -g snyk snyk-to-html || npm install snyk snyk-to-html
+
+                    npx snyk auth \$SNYK_TOKEN
+
+                    npx snyk test \\
+                        --all-projects \\
+                        --severity-threshold=low \\
+                        --json > ${REPORT_DIR}/snyk-report.json || true
+
+                    npx snyk-to-html \\
+                        -i ${REPORT_DIR}/snyk-report.json \\
+                        -o ${REPORT_DIR}/snyk-report.html || true
+
+                    npx snyk test \\
+                        --all-projects \\
+                        --severity-threshold=low || true
+
+                    npx snyk monitor \\
+                        --all-projects \\
+                        --project-name=juice-shop-jenkins-build-\${BUILD_NUMBER} || true
+
+                    echo "Snyk scan completed."
+                """
+            }
+        }
+
+        /*
+        ======================================================
+        Stage 7: Deploy to Test Environment
         ======================================================
         */
         stage('Deploy to Test Env') {
@@ -170,43 +224,6 @@ pipeline {
                     echo "Juice Shop failed to start."
                     docker logs --tail 50 juice-shop || true
                     exit 1
-                """
-            }
-        }
-
-        /*
-        ======================================================
-        Stage 7: SCA - Snyk
-        ======================================================
-        */
-        stage('SCA - Snyk Scan') {
-            steps {
-
-                echo '>>> Running SCA with Snyk...'
-
-                sh """
-                    npm install -g snyk snyk-to-html || npm install snyk snyk-to-html
-
-                    npx snyk auth \$SNYK_TOKEN
-
-                    npx snyk test \\
-                        --all-projects \\
-                        --severity-threshold=low \\
-                        --json > ${REPORT_DIR}/snyk-report.json || true
-
-                    npx snyk-to-html \\
-                        -i ${REPORT_DIR}/snyk-report.json \\
-                        -o ${REPORT_DIR}/snyk-report.html || true
-
-                    npx snyk test \\
-                        --all-projects \\
-                        --severity-threshold=low || true
-
-                    npx snyk monitor \\
-                        --all-projects \\
-                        --project-name=juice-shop-jenkins-build-\${BUILD_NUMBER} || true
-
-                    echo "Snyk scan completed."
                 """
             }
         }
