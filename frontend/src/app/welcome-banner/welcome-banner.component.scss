@@ -10,6 +10,13 @@
   margin: $space-l;
 }
 
+@media (max-height: 800px) {
+  :host {
+    max-height: calc(100vh - 2 * #{$space-l} - 70px);
+    overflow-y: auto;
+  }
+}
+
 .text-justify {
   text-align: justify;
   text-justify: inter-word;
