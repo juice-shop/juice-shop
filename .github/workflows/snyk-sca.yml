@@ -14,12 +14,19 @@ permissions:
 jobs:
   snyk:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22, 23, 24, 25]
+      fail-fast: false
+
+    name: Snyk scan (Node ${{ matrix.node-version }})
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
 
       - name: Install Snyk
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
@@ -27,12 +34,12 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk Open Source (SCA)
-        run: snyk test --severity-threshold=high --json > snyk-report.json || true
+        run: snyk test --severity-threshold=high --json > snyk-report-node${{ matrix.node-version }}.json || true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Upload Snyk report
         uses: actions/upload-artifact@v4
         with:
-          name: snyk-report
-          path: snyk-report.json
+          name: snyk-report-node${{ matrix.node-version }}
+          path: snyk-report-node${{ matrix.node-version }}.json
