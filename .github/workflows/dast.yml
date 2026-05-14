@@ -1,0 +1,42 @@
+name: DAST - OWASP ZAP
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+jobs:
+  zap:
+    name: OWASP ZAP Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and start Juice Shop
+        run: |
+          docker build -t juice-shop:zap .
+          docker run -d -p 3000:3000 --name juice-shop juice-shop:zap
+
+      - name: Wait for Juice Shop to start
+        run: |
+          echo "Waiting for Juice Shop..."
+          sleep 30
+          curl -f http://localhost:3000 || sleep 30
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: http://localhost:3000
+          rules_file_name: .zap/rules.tsv
+          cmd_options: '-a'
+          fail_action: false
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report_html.html
