@@ -137,6 +137,7 @@ mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop v20.0.0 — a fresh squeeze of features, now with AI](https://owasp.org/blog/2026/05/13/juice-shop-v20.html)
 * Blog post on [ZAP](https://www.zaproxy.org) by Denis Podgurskii: [OWASP PTK Findings as ZAP Alerts (Juice Shop Walkthrough)](https://www.zaproxy.org/blog/2026-04-01-owasp-ptk-findings-to-zap-alerts/) ([YouTube](https://www.youtube.com/watch?v=m3YOB6JqS2c)) :godmode:
 * Blog post on [Stackademic](https://blog.stackademic.com/) by Srividya Sundaravadivelu: [My experiments with OWASP Juice Shop: What I Hacked, What I Couldn’t, and What I Learned](https://blog.stackademic.com/my-experiments-with-owasp-juice-shop-what-i-hacked-what-i-couldnt-and-what-i-learned-c56b18804389) :bulb:
 * Blog post on [Medium](https://medium.com/) by Hacked By Himel: [Turning OWASP Juice Shop into a Full Pentesting Portfolio](https://medium.com/@hackedbyhimel/turning-owasp-juice-shop-into-a-full-pentesting-portfolio-9d5aa3849a44) :bulb:
@@ -636,4 +637,5 @@ mentioned or used!
 
 ## Usage in Tools & Products
 
-* [How to try GitHub Advanced Security with your team](https://resources.github.com/security/tools/ghas-trial/) uses Juice Shop as an example for CI/CD integration in [Code scanning in action with Juice Shop](https://resources.github.com/security/tools/ghas-trial/#code-scanning-in-action-with-juice-shop) 
+* [How to try GitHub Advanced Security with your team](https://resources.github.com/security/tools/ghas-trial/) uses Juice Shop as an example for CI/CD integration in [Code scanning in action with Juice Shop](https://resources.github.com/security/tools/ghas-trial/#code-scanning-in-action-with-juice-shop)
+* [CVE Lite CLI](https://owasp.org/cve-lite-cli/) uses Juice Shop as a benchmark in its [OWASP Juice Shop Case Study](https://owasp.org/cve-lite-cli/docs/case-studies/owasp-juice-shop)
