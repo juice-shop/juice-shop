@@ -1,0 +1,54 @@
+name: TruffleHog Secret Scan
+ 
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+ 
+jobs:
+  trufflehog:
+    name: TruffleHog Scan
+    runs-on: ubuntu-latest
+ 
+    permissions:
+      contents: read
+ 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+ 
+      - name: Pull TruffleHog Image
+        run: docker pull trufflesecurity/trufflehog:latest
+ 
+      - name: Run TruffleHog Scan
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" \
+            trufflesecurity/trufflehog:latest \
+            git file:///repo \
+            --results=verified,unknown \
+            --json > trufflehog-report.json || true
+ 
+      - name: Display Report
+        run: |
+          echo "- TruffleHog Findings -"
+          cat trufflehog-report.json
+ 
+      - name: Upload Scan Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trufflehog-report
+          path: trufflehog-report.json
+ 
+      - name: Fail Pipeline If Secrets Found
+        run: |
+          if [ -s trufflehog-report.json ]; then
+            echo "Secrets detected!"
+            exit 1
+          else
+            echo "No secrets found."
+          fi
