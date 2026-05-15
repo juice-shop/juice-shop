@@ -1,0 +1,273 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  security-events: write
+
+jobs:
+  # ─────────────────────────────────────────
+  # JOB 1: SAST - SonarCloud
+  # ─────────────────────────────────────────
+  sast:
+    name: SAST - SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=tkdn00_juice-shop-bachelor-work
+            -Dsonar.organization=tkdn00
+          projectBaseDir: .
+
+  # ─────────────────────────────────────────
+  # JOB 2: SCA - Snyk
+  # ─────────────────────────────────────────
+  sca:
+    name: SCA - Snyk
+    runs-on: ubuntu-latest
+    needs: sast
+    strategy:
+      matrix:
+        node-version: [22, 23, 24, 25]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Snyk
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk Open Source (SCA)
+        run: snyk test --severity-threshold=high --json > snyk-report-node${{ matrix.node-version }}.json || true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-node${{ matrix.node-version }}
+          path: snyk-report-node${{ matrix.node-version }}.json
+
+  # ─────────────────────────────────────────
+  # JOB 3: Container Scan - Trivy
+  # ─────────────────────────────────────────
+  container-scan:
+    name: Container Scan - Trivy
+    runs-on: ubuntu-latest
+    needs: sast
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:${{ github.sha }} .
+
+      - name: Run Trivy scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        with:
+          image-ref: juice-shop:${{ github.sha }}
+          format: json
+          output: trivy-report.json
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '0'
+
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.json
+
+  # ─────────────────────────────────────────
+  # JOB 4: DAST - OWASP ZAP
+  # ─────────────────────────────────────────
+  dast:
+    name: DAST - OWASP ZAP
+    runs-on: ubuntu-latest
+    needs: container-scan
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and start Juice Shop
+        run: |
+          docker build -t juice-shop:zap .
+          docker run -d -p 3000:3000 --name juice-shop juice-shop:zap
+
+      - name: Wait for Juice Shop to start
+        run: |
+          echo "Waiting for Juice Shop..."
+          sleep 30
+          curl -f http://localhost:3000 || sleep 30
+
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: http://localhost:3000
+          cmd_options: '-a'
+          fail_action: false
+
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: report_html.html
+        if: always()
+
+  # ─────────────────────────────────────────
+  # JOB 5: Quality Gate
+  # ─────────────────────────────────────────
+  quality-gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [sca, container-scan, dast]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Trivy report
+        uses: actions/download-artifact@v4
+        with:
+          name: trivy-report
+
+      - name: Download Snyk report (Node 22)
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-node22
+
+      - name: Check for Critical vulnerabilities
+        run: |
+          echo "=== QUALITY GATE CHECK ==="
+
+          # Перевірка Trivy на CRITICAL
+          TRIVY_CRITICAL=$(cat trivy-report.json | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          count = 0
+          for result in data.get('Results', []):
+            for vuln in result.get('Vulnerabilities', []):
+              if vuln.get('Severity') == 'CRITICAL':
+                count += 1
+          print(count)
+          " 2>/dev/null || echo "0")
+
+          # Перевірка Snyk на CRITICAL
+          SNYK_CRITICAL=$(cat snyk-report-node22.json | python3 -c "
+          import json, sys
+          data = json.load(sys.stdin)
+          count = sum(1 for v in data.get('vulnerabilities', []) if v.get('severity') == 'critical')
+          print(count)
+          " 2>/dev/null || echo "0")
+
+          echo "Trivy Critical: $TRIVY_CRITICAL"
+          echo "Snyk Critical: $SNYK_CRITICAL"
+
+          TOTAL_CRITICAL=$((TRIVY_CRITICAL + SNYK_CRITICAL))
+          echo "Total Critical vulnerabilities: $TOTAL_CRITICAL"
+
+          if [ "$TOTAL_CRITICAL" -gt "0" ]; then
+            echo "❌ QUALITY GATE FAILED: $TOTAL_CRITICAL critical vulnerabilities found!"
+            exit 1
+          else
+            echo "✅ QUALITY GATE PASSED"
+          fi
+
+  # ─────────────────────────────────────────
+  # JOB 6: Агрегація звітів → GitHub Issue
+  # ─────────────────────────────────────────
+  report:
+    name: Aggregate Reports
+    runs-on: ubuntu-latest
+    needs: [sca, container-scan, dast]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Trivy report
+        uses: actions/download-artifact@v4
+        with:
+          name: trivy-report
+        continue-on-error: true
+
+      - name: Download Snyk report
+        uses: actions/download-artifact@v4
+        with:
+          name: snyk-report-node22
+        continue-on-error: true
+
+      - name: Create GitHub Issue with summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const date = new Date().toISOString().split('T')[0];
+
+            let trivyCritical = 0, trivyHigh = 0;
+            let snykCritical = 0, snykHigh = 0;
+
+            try {
+              const trivy = JSON.parse(fs.readFileSync('trivy-report.json', 'utf8'));
+              for (const result of trivy.Results || []) {
+                for (const v of result.Vulnerabilities || []) {
+                  if (v.Severity === 'CRITICAL') trivyCritical++;
+                  if (v.Severity === 'HIGH') trivyHigh++;
+                }
+              }
+            } catch(e) { console.log('Trivy report not found'); }
+
+            try {
+              const snyk = JSON.parse(fs.readFileSync('snyk-report-node22.json', 'utf8'));
+              for (const v of snyk.vulnerabilities || []) {
+                if (v.severity === 'critical') snykCritical++;
+                if (v.severity === 'high') snykHigh++;
+              }
+            } catch(e) { console.log('Snyk report not found'); }
+
+            const body = `## 🔐 DevSecOps Security Report — ${date}
+
+            **Commit:** \`${{ github.sha }}\`
+            **Branch:** \`${{ github.ref_name }}\`
+
+            ---
+
+            ### 📊 Результати сканування
+
+            | Інструмент | Critical | High |
+            |------------|----------|------|
+            | 🐳 Trivy (Container) | ${trivyCritical} | ${trivyHigh} |
+            | 🔍 Snyk (Dependencies) | ${snykCritical} | ${snykHigh} |
+            | **Разом** | **${trivyCritical + snykCritical}** | **${trivyHigh + snykHigh}** |
+
+            ---
+
+            ### ✅ Етапи pipeline
+            - SAST (SonarCloud) — завершено
+            - SCA (Snyk, Node 22-25) — завершено
+            - Container Scan (Trivy) — завершено
+            - DAST (OWASP ZAP) — завершено
+
+            > Автоматично згенеровано DevSecOps pipeline`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔐 Security Report — ${date} — commit ${context.sha.substring(0,7)}`,
+              body: body,
+              labels: ['security', 'automated']
+            });
