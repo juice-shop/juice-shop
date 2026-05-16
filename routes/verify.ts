@@ -209,8 +209,8 @@ function changeProductChallenge (osaft: Product) {
       }
     }
     if (urlForProductTamperingChallenge) {
-      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
-        if (utils.contains(osaft.description, `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">`)) {
+      if (!osaft.description.includes(`${urlForProductTamperingChallenge}`)) {
+        if (osaft.description.includes(`<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">`)) {
           challengeUtils.solve(challenges.changeProductChallenge)
         }
       }
