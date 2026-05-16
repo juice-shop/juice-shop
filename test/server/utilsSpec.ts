@@ -185,16 +185,6 @@ describe('utils', () => {
     })
   })
 
-  describe('contains', () => {
-    it('accepts string containing another string', () => {
-      expect(utils.contains('Bla Blubb', 'la Bl')).to.equal(true)
-    })
-
-    it('rejects string containing another string', () => {
-      expect(utils.contains('Bla Blubb', 'Lala')).to.equal(false)
-    })
-  })
-
   describe('toISO8601', () => {
     it('converts date to ISO 8601 representation', () => {
       expect(utils.toISO8601(new Date('2025-12-15T00:00:00Z'))).to.equal('2025-12-15')
