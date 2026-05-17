@@ -120,6 +120,7 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
     * [★★★★★ Change Benders Password (Broken Authentication)](https://youtu.be/J3BSi-z9_7I)
     * [★★★★★ Extra Language (Broken Anti Automation)](https://youtu.be/KU2LzxABetk)
 * [Try Hack Me - OWASP Juice Shop](https://www.youtube.com/watch?v=xDQt-I7pncY) by [Silesio Carvalho](https://www.youtube.com/@silesiocarvalho) (🧃`v12.x`)
+* [TryHackMe OWASP Juice Shop - Full Walkthrough 2025](https://www.youtube.com/watch?v=Ju3Wc6S0GhM) (🧃`v17.x`)
 * [OWASP Juice Shop | TryHackMe](https://www.youtube.com/playlist?list=PLqM63j87R5p6Nc7XYSdQ7mnrdEsFGfUj0) series
   by [Motasem Hamdan - CyberSecurity Trainer](https://www.youtube.com/channel/UCNSdU_1ehXtGclimTVckHmQ)
   as part of [TryHackMe OWASP Juice Shop | The Complete Guide](https://motasemhamdan.medium.com/tryhackme-owasp-juice-shop-the-complete-guide-80c996df25c7) (🧃`v12.x`)
@@ -154,6 +155,8 @@ file and open a PR! The same goes for any scripts or automated tools you made fo
 
 ## Walkthroughs
 
+* Blog post on [Medium](https://medium.com) by [0x0foysal](https://0x0foysal.medium.com/): [OWASP Juice Shop — TryHackMe Writeup (2025, Detailed)](https://0x0foysal.medium.com/owasp-juice-shop-tryhackme-writeup-2025-detailed-73065e5b3dfd)
+* Pentesting report on [Medium](https://medium.com) by [PenSunset](https://medium.com/@PenSunset): [Web Application Penetration Testing Report Target: OWASP Juice Shop](https://medium.com/@PenSunset/web-application-penetration-testing-report-target-owasp-juice-shop-ee27b0009f4a) (🧃`v17.x`)
 * Blog post (:myanmar:) on [LOL Security](http://location-href.com/):
   [Juice Shop Walkthrough](http://location-href.com/owasp-juice-shop-walkthroughs/)
   (🧃`v2.x`)
