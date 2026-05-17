@@ -142,70 +142,76 @@ export function observeMetrics () {
     labelNames: ['type']
   })
 
-  const updateLoop = () => setInterval(() => {
-    void (async () => {
-      try {
-        const version = utils.version()
-        const { major, minor, patch } = version.match(/(?<major>\d+).(?<minor>\d+).(?<patch>\d+)/).groups
-        versionMetrics.set({ version, major, minor, patch }, 1)
+  const updateMetrics = async () => {
+    try {
+      const version = utils.version()
+      const { major, minor, patch } = version.match(/(?<major>\d+).(?<minor>\d+).(?<patch>\d+)/).groups
+      versionMetrics.set({ version, major, minor, patch }, 1)
 
-        const challengeStatuses = new Map()
-        const challengeCount = new Map()
+      const challengeStatuses = new Map()
+      const challengeCount = new Map()
 
-        for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
-          const key = `${difficulty}:${category}`
+      for (const { difficulty, category, solved } of Object.values<ChallengeModel>(challenges)) {
+        const key = `${difficulty}:${category}`
 
-          // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
-          challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
-          challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
-        }
-
-        for (const key of challengeStatuses.keys()) {
-          const [difficulty, category] = key.split(':', 2)
-
-          challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
-          challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
-        }
-
-        const [codingChallenges, findItCount, fixItCount, solvedCount, orderCount, reviewCount, customerCount, deluxeCount, totalUserCount, totalBalance, feedbackCount, complaintCount] = await Promise.all([
-          retrieveChallengesWithCodeSnippet(),
-          ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }),
-          ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }),
-          ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }),
-          ordersCollection.count({}),
-          reviewsCollection.count({}),
-          UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }),
-          UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }),
-          UserModel.count(),
-          WalletModel.sum('balance'),
-          FeedbackModel.count(),
-          ComplaintModel.count()
-        ])
-
-        codingChallengesProgressMetrics.set({ phase: 'find it' }, findItCount)
-        codingChallengesProgressMetrics.set({ phase: 'fix it' }, fixItCount)
-        codingChallengesProgressMetrics.set({ phase: 'unsolved' }, codingChallenges.length - solvedCount)
-
-        cheatScoreMetrics.set(totalCheatScore())
-        accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
-        accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
-
-        if (orderCount) orderMetrics.set(orderCount)
-        if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
-        if (customerCount) userMetrics.set({ type: 'standard' }, customerCount)
-        if (deluxeCount) userMetrics.set({ type: 'deluxe' }, deluxeCount)
-        if (totalUserCount) userTotalMetrics.set(totalUserCount)
-        if (totalBalance) walletMetrics.set(totalBalance)
-        if (feedbackCount) interactionsMetrics.set({ type: 'feedback' }, feedbackCount)
-        if (complaintCount) interactionsMetrics.set({ type: 'complaint' }, complaintCount)
-      } catch (e: unknown) {
-        logger.warn('Error during metrics update loop: + ' + utils.getErrorMessage(e))
+        // Increment by one if solved, when not solved increment by 0. This ensures that even unsolved challenges are set to , instead of not being set at all
+        challengeStatuses.set(key, (challengeStatuses.get(key) || 0) + (solved ? 1 : 0))
+        challengeCount.set(key, (challengeCount.get(key) || 0) + 1)
       }
-    })()
-  }, 5000)
+
+      for (const key of challengeStatuses.keys()) {
+        const [difficulty, category] = key.split(':', 2)
+
+        challengeSolvedMetrics.set({ difficulty, category }, challengeStatuses.get(key))
+        challengeTotalMetrics.set({ difficulty, category }, challengeCount.get(key))
+      }
+
+      const [codingChallenges, findItCount, fixItCount, solvedCount, orderCount, reviewCount, customerCount, deluxeCount, totalUserCount, totalBalance, feedbackCount, complaintCount] = await Promise.all([
+        retrieveChallengesWithCodeSnippet(),
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 1 } } }),
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.eq]: 2 } } }),
+        ChallengeModel.count({ where: { codingChallengeStatus: { [Op.ne]: 0 } } }),
+        ordersCollection.count({}),
+        reviewsCollection.count({}),
+        UserModel.count({ where: { role: { [Op.eq]: 'customer' } } }),
+        UserModel.count({ where: { role: { [Op.eq]: 'deluxe' } } }),
+        UserModel.count(),
+        WalletModel.sum('balance'),
+        FeedbackModel.count(),
+        ComplaintModel.count()
+      ])
+
+      codingChallengesProgressMetrics.set({ phase: 'find it' }, findItCount)
+      codingChallengesProgressMetrics.set({ phase: 'fix it' }, fixItCount)
+      codingChallengesProgressMetrics.set({ phase: 'unsolved' }, codingChallenges.length - solvedCount)
+
+      cheatScoreMetrics.set(totalCheatScore())
+      accuracyMetrics.set({ phase: 'find it' }, accuracy.totalFindItAccuracy())
+      accuracyMetrics.set({ phase: 'fix it' }, accuracy.totalFixItAccuracy())
+
+      if (orderCount) orderMetrics.set(orderCount)
+      if (reviewCount) interactionsMetrics.set({ type: 'review' }, reviewCount)
+      if (customerCount) userMetrics.set({ type: 'standard' }, customerCount)
+      if (deluxeCount) userMetrics.set({ type: 'deluxe' }, deluxeCount)
+      if (totalUserCount) userTotalMetrics.set(totalUserCount)
+      if (totalBalance) walletMetrics.set(totalBalance)
+      if (feedbackCount) interactionsMetrics.set({ type: 'feedback' }, feedbackCount)
+      if (complaintCount) interactionsMetrics.set({ type: 'complaint' }, complaintCount)
+    } catch (e: unknown) {
+      logger.warn('Error during metrics update loop: + ' + utils.getErrorMessage(e))
+    }
+  }
+
+  const updateLoop = () => {
+    void updateMetrics()
+    return setInterval(() => {
+      void updateMetrics()
+    }, 5000)
+  }
 
   return {
     register,
+    updateMetrics,
     updateLoop
   }
 }

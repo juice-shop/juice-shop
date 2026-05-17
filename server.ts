@@ -208,6 +208,9 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Increase request counter metric for every request */
   app.use(metrics.observeRequestMetricsMiddleware())
 
+  /* Serve metrics */
+  app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
+
   /* Security Policy */
   const securityTxtExpiration = new Date()
   securityTxtExpiration.setFullYear(securityTxtExpiration.getFullYear() + 1)
@@ -719,10 +722,8 @@ while (!expectedModels.every(model => Object.keys(sequelize.models).includes(mod
 logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('SUCCESS')})`)
 
 // vuln-code-snippet start exposedMetricsChallenge
-/* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
@@ -734,6 +735,7 @@ export async function start (readyCallback?: () => void) {
   const port = process.env.PORT ?? config.get('server.port')
   process.env.BASE_PATH = process.env.BASE_PATH ?? config.get('server.basePath')
 
+  await Metrics.updateMetrics()
   metricsUpdateLoop = Metrics.updateLoop() // vuln-code-snippet neutral-line exposedMetricsChallenge
 
   server.listen(port, () => {
@@ -774,11 +776,13 @@ export async function createApp (options?: { inMemoryDb?: boolean }) {
     setSequelize(seq)
   }
   Prometheus.register.clear()
+  const TestMetrics = metrics.observeMetrics()
   const testApp = express()
   testApp.set('view engine', 'hbs')
   configureApp(testApp, seq)
   await seq.sync({ force: true })
   await datacreator()
+  await TestMetrics.updateMetrics()
   return { app: testApp, sequelize: seq }
 }
 
