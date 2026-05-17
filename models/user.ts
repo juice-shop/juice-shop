@@ -60,8 +60,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         set (email: string) {
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
-              return utils.contains(
-                email,
+              return email?.includes(
                 '<iframe src="javascript:alert(`xss`)">'
               )
             })
