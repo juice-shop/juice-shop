@@ -16,7 +16,7 @@ import * as utils from '../lib/utils'
 
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
 export function login () {
-  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
+  function afterLogin (user: { data: User, bid?: number }, res: Response, next: NextFunction) {
     verifyPostLoginChallenges(user) // vuln-code-snippet hide-line
     BasketModel.findOrCreate({ where: { UserId: user.data.id } })
       .then(([basket]: [BasketModel, boolean]) => {
@@ -45,8 +45,7 @@ export function login () {
             }
           })
         } else if (user.data?.id) {
-          // @ts-expect-error FIXME some properties missing in user - vuln-code-snippet hide-line
-          afterLogin(user, res, next)
+          afterLogin(user as { data: User, bid?: number }, res, next)
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
         }
