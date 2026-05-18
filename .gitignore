@@ -41,6 +41,7 @@ out/
 *.iws
 *.swp
 .ai/mcp/mcp.json
+.devcontainer/devcontainer-lock.json
 .junie/memory/
 .junie/plans/
 
