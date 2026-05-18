@@ -4,7 +4,7 @@
  */
 
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { Status, TrackResultComponent } from './track-result.component'
 import { MatTableModule } from '@angular/material/table'
@@ -16,70 +16,75 @@ import { of } from 'rxjs'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('TrackResultComponent', () => {
-  let component: TrackResultComponent
-  let fixture: ComponentFixture<TrackResultComponent>
-  let trackOrderService: any
-  let sanitizer: any
+    let component: TrackResultComponent
+    let fixture: ComponentFixture<TrackResultComponent>
+    let trackOrderService: any
+    let sanitizer: any
 
-  beforeEach(waitForAsync(() => {
-    trackOrderService = jasmine.createSpyObj('TrackOrderService', ['find'])
-    trackOrderService.find.and.returnValue(of({ data: [{ }] }))
-    sanitizer = jasmine.createSpyObj('DomSanitizer', ['bypassSecurityTrustHtml', 'sanitize'])
-    sanitizer.bypassSecurityTrustHtml.and.callFake((args: any) => args)
-    sanitizer.sanitize.and.returnValue({})
+    beforeEach(async () => {
+        trackOrderService = {
+            find: vi.fn().mockName("TrackOrderService.find")
+        }
+        trackOrderService.find.mockReturnValue(of({ data: [{}] }))
+        sanitizer = {
+            bypassSecurityTrustHtml: vi.fn().mockName("DomSanitizer.bypassSecurityTrustHtml"),
+            sanitize: vi.fn().mockName("DomSanitizer.sanitize")
+        }
+        sanitizer.bypassSecurityTrustHtml.mockImplementation((args: any) => args)
+        sanitizer.sanitize.mockReturnValue({})
 
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(),
-        RouterTestingModule,
-        MatCardModule,
-        MatTableModule,
-        TrackResultComponent],
-      providers: [
-        { provide: TrackOrderService, useValue: trackOrderService },
-        { provide: DomSanitizer, useValue: sanitizer },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(),
+                RouterTestingModule,
+                MatCardModule,
+                MatTableModule,
+                TrackResultComponent],
+            providers: [
+                { provide: TrackOrderService, useValue: trackOrderService },
+                { provide: DomSanitizer, useValue: sanitizer },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
+            .compileComponents()
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TrackResultComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TrackResultComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should consider order number as trusted HTML', () => {
-    component.orderId = '<a src="link">Link</a>'
-    trackOrderService.find.and.returnValue(of({ data: [{ orderId: component.orderId }] }))
-    component.ngOnInit()
+    it('should consider order number as trusted HTML', () => {
+        component.orderId = '<a src="link">Link</a>'
+        trackOrderService.find.mockReturnValue(of({ data: [{ orderId: component.orderId }] }))
+        component.ngOnInit()
 
-    expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<code><a src="link">Link</a></code>')
-  })
+        expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<code><a src="link">Link</a></code>')
+    })
 
-  it('should set "delivered" status for delivered orders', () => {
-    trackOrderService.find.and.returnValue(of({ data: [{ delivered: true }] }))
-    component.ngOnInit()
+    it('should set "delivered" status for delivered orders', () => {
+        trackOrderService.find.mockReturnValue(of({ data: [{ delivered: true }] }))
+        component.ngOnInit()
 
-    expect(component.status).toBe(Status.Delivered)
-  })
+        expect(component.status).toBe(Status.Delivered)
+    })
 
-  it('should set "packing" status for undelivered orders with ETA over 2 days', () => {
-    trackOrderService.find.and.returnValue(of({ data: [{ eta: 3 }] }))
-    component.ngOnInit()
+    it('should set "packing" status for undelivered orders with ETA over 2 days', () => {
+        trackOrderService.find.mockReturnValue(of({ data: [{ eta: 3 }] }))
+        component.ngOnInit()
 
-    expect(component.status).toBe(Status.Packing)
-  })
+        expect(component.status).toBe(Status.Packing)
+    })
 
-  it('should set "transit" status for undelivered orders with ETA under 3 days', () => {
-    trackOrderService.find.and.returnValue(of({ data: [{ eta: 2 }] }))
-    component.ngOnInit()
+    it('should set "transit" status for undelivered orders with ETA under 3 days', () => {
+        trackOrderService.find.mockReturnValue(of({ data: [{ eta: 2 }] }))
+        component.ngOnInit()
 
-    expect(component.status).toBe(Status.Transit)
-  })
+        expect(component.status).toBe(Status.Transit)
+    })
 })

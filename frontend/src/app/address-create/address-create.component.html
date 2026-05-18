@@ -9,7 +9,7 @@
       <h1>{{ 'ADD_NEW_ADDRESS' | translate }}</h1>
 
       <div class="form-container" id="address-form">
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_COUNTRY' | translate }}</mat-label>
           <input [formControl]="countryControl" type="text" [placeholder]="'MANDATORY_COUNTRY' | translate" matInput>
           @if (countryControl.invalid && countryControl.errors.required) {
@@ -19,7 +19,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_NAME' | translate }}</mat-label>
           <input [formControl]="nameControl" type="text" [placeholder]="'MANDATORY_NAME' | translate" matInput>
           @if (nameControl.invalid && nameControl.errors.required) {
@@ -29,7 +29,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_MOBILE_NUMBER' | translate }}</mat-label>
           <input [formControl]="numberControl" type="number" [placeholder]="'MANDATORY_NUMBER' | translate" matInput>
           @if (numberControl.invalid && numberControl.errors.required) {
@@ -46,7 +46,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_ZIP_CODE' | translate }}</mat-label>
           <input #pin [formControl]="pinControl" type="text" [placeholder]="'MANDATORY_ZIP' | translate" matInput>
           <mat-hint align="end">{{ pin.value?.length || 0 }}/8</mat-hint>
@@ -57,7 +57,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" class="textarea-field">
+        <mat-form-field appearance="outline" color="tertiary" class="textarea-field">
           <mat-label>{{ 'LABEL_ADDRESS' | translate }}</mat-label>
           <textarea
             #adress
@@ -83,7 +83,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_CITY' | translate }}</mat-label>
           <input [formControl]="cityControl" type="text" [placeholder]="'MANDATORY_CITY' | translate" matInput>
           @if (cityControl.invalid && cityControl.errors.required) {
@@ -93,7 +93,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_STATE' | translate }}</mat-label>
           <input [formControl]="stateControl" type="text" [placeholder]="'STATE_PLACEHOLDER' | translate" matInput>
         </mat-form-field>

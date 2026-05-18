@@ -1,12 +1,13 @@
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics()
-app.get('/metrics', security.denyAll(), metrics.serveMetrics())
+app.get('/metrics', security.denyAll(), utils.asyncHandler(metrics.serveMetrics()))
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
+  await preconditionsReady
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')
@@ -23,6 +24,10 @@ export async function start (readyCallback?: () => void) {
     registerWebsocketEvents(server)
     if (readyCallback) {
       readyCallback()
+    }
+    if (process.env.EXIT_ON_READY === 'true') {
+      // used to benchmark startup time
+      process.exit(0)
     }
   })
 

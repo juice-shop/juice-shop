@@ -47,8 +47,8 @@
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
-  app.put('/api/BasketItems/:id', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
-  app.post('/api/BasketItems', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+  app.put('/api/BasketItems/:id', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemUpdate()))
+  app.post('/api/BasketItems', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemAddition()), utils.asyncHandler(basketItems.addBasketItem()))
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
@@ -60,19 +60,19 @@
   app.use('/api/PrivacyRequests/:id', security.isAuthorized())
   /* PaymentMethodRequests: Only allowed for authenticated users */
   app.post('/api/Cards', security.appendUserId())
-  app.get('/api/Cards', security.appendUserId(), payment.getPaymentMethods())
+  app.get('/api/Cards', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethods()))
   app.put('/api/Cards/:id', security.denyAll())
-  app.delete('/api/Cards/:id', security.appendUserId(), payment.delPaymentMethodById())
-  app.get('/api/Cards/:id', security.appendUserId(), payment.getPaymentMethodById())
+  app.delete('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.delPaymentMethodById()))
+  app.get('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethodById()))
   /* PrivacyRequests: Only POST allowed for authenticated users */
   app.post('/api/PrivacyRequests', security.isAuthorized())
   app.get('/api/PrivacyRequests', security.denyAll())
   app.use('/api/PrivacyRequests/:id', security.denyAll())
 
   app.post('/api/Addresss', security.appendUserId())
-  app.get('/api/Addresss', security.appendUserId(), address.getAddress())
+  app.get('/api/Addresss', security.appendUserId(), utils.asyncHandler(address.getAddress()))
   app.put('/api/Addresss/:id', security.appendUserId())
-  app.delete('/api/Addresss/:id', security.appendUserId(), address.delAddressById())
-  app.get('/api/Addresss/:id', security.appendUserId(), address.getAddressById())
-  app.get('/api/Deliverys', delivery.getDeliveryMethods())
-  app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
+  app.delete('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.delAddressById()))
+  app.get('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.getAddressById()))
+  app.get('/api/Deliverys', utils.asyncHandler(delivery.getDeliveryMethods()))
+  app.get('/api/Deliverys/:id', utils.asyncHandler(delivery.getDeliveryMethod()))

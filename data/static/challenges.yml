@@ -1,5 +1,5 @@
 ---
-- 
+-
   name: 'Password Hash Leak'
   category: 'Sensitive Data Exposure'
   description: 'Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.'
@@ -133,7 +133,6 @@
   category: 'Improper Input Validation'
   tags:
       - Web3
-      - Internet Traffic
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hints:
@@ -145,7 +144,6 @@
   category: 'Miscellaneous'
   tags:
       - Web3
-      - Internet Traffic
   description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
   hints:
@@ -388,7 +386,7 @@
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'First you should find out how the languages are technically changed in the user interface.'
+  description: 'Retrieve the language file that never made it into production.'
   difficulty: 5
   hints:
     - 'First you should find out how the languages are technically changed in the user interface.'
@@ -855,7 +853,7 @@
   category: 'Cryptographic Issues'
   tags:
     - Shenanigans
-  description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
+  description: '💎💎💎💎💎<!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank">₿ Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
   hints:
     - 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
@@ -1441,20 +1439,6 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
-  name: 'Kill Chatbot'
-  category: 'Vulnerable Components'
-  tags:
-    - Code Analysis
-  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
-  difficulty: 5
-  hints:
-    - 'Think of a way to get a hold of the internal workings on the chatbot API.'
-    - 'In order to disable the chatbot for all users, you must first get an understanding of how it works under the hood.'
-    - 'The chatbot sure offers a lot of functionality. Could it be that juice-shop relies on a third party, possibly open source library for this?'
-    - 'Maybe you can try to gather clues from around juice shop and then go dumpster dive the internet to get a hold of the bot’s source.'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
-  key: killChatbotChallenge
--
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:
@@ -1468,20 +1452,6 @@
     - 'Depending on the files you try to retrieve you will probably solve "Access a developer’s forgotten backup file", "Access a salesman’s forgotten backup file", "Access a misplaced SIEM signature file, or "Find the hidden easter egg" along the way.'
   mitigationUrl: ~
   key: nullByteChallenge
--
-  name: 'Bully Chatbot'
-  category: 'Miscellaneous'
-  tags:
-    - Shenanigans
-    - Brute Force
-  description: 'Receive a coupon code from the support chatbot.'
-  difficulty: 1
-  hints:
-    - 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
-    - 'Asking over and over again like a little kid might actually help you succeed in this case.'
-    - 'No seriously, just keep asking.'
-  mitigationUrl: ~
-  key: bullyChatbotChallenge
 -
   name: 'Local File Read'
   category: 'Vulnerable Components'
@@ -1544,3 +1514,44 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'Chatbot Prompt Injection'
+  category: 'Injection'
+  tags:
+    - Good for Demos
+    - AI/LLM
+  description: 'Trick the chatbot into generating a coupon code for you despite its coupon policy saying otherwise.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a tool for generating coupons, but is instructed to only use it under very specific conditions.'
+    - 'Try to convince the chatbot that the conditions for coupon generation are met, even if they are not.'
+    - 'Prompt injection techniques can help you bypass the chatbot''s restrictions on tool usage.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotPromptInjectionChallenge
+-
+  name: 'Greedy Chatbot Manipulation'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.'
+  difficulty: 3
+  hints:
+    - 'The chatbot''s system prompt says the maximum discount is 10%. But system prompts are more like guidelines than actual rules, right?'
+    - 'You already know how to make the chatbot generate a coupon. Now make it go way beyond the allowed maximum.'
+    - 'The chatbot trusts whatever discount value it decides to pass to its tool. Make it decide on a very generous number.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotGreedyInjectionChallenge
+-
+  name: 'AI Debugging'
+  category: 'Broken Access Control'
+  tags:
+    - AI/LLM
+  description: 'Reveal some behind-the-scenes information on the chatbot as a non-admin user.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a debugging feature that shows how it interacts with its tools. It is only supposed to be visible for admins.'
+    - 'Access control for the debugging feature is only implemented on the client-side.'
+    - 'Find the cookie that controls the visibility of tool calls and set it to <code>true</code>.'
+    - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
+  key: aiDebuggingChallenge

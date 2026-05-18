@@ -16,6 +16,7 @@ application:
     type: string
   theme:
     type: string
+    enum: ['deeppurple-amber', 'indigo-pink', 'pink-bluegrey', 'purple-green', 'blue-lightblue', 'bluegrey-lightgreen', 'deeporange-indigo', 'lime-green', 'neon-fire']
   showVersionNumber:
     type: boolean
   showGitHubLinks:
@@ -33,14 +34,16 @@ application:
   chatBot:
     name:
       type: string
-    greeting:
-      type: string
-    trainingData:
-      type: string
-    defaultResponse:
-      type: string
     avatar:
       type: string
+    model:
+      type: string
+    llmApiUrl:
+      type: string
+    llmMaxRetries:
+      type: number
+    sampleQuestions:
+      - type: string
   social:
     blueSkyUrl:
       type: string
@@ -119,6 +122,7 @@ challenges:
     type: boolean
   codingChallengesEnabled:
     type: string
+    enum: ['never', 'solved', 'always']
   restrictToTutorialsFirst:
     type: boolean
   overwriteUrlForProductTamperingChallenge:
@@ -139,6 +143,7 @@ hackingInstructor:
     type: string
   hintPlaybackSpeed:
     type: string
+    enum: ['faster', 'fast', 'normal', 'slow', 'slower']
 products:
   - name:
       type: string
@@ -191,6 +196,7 @@ ctf:
     type: boolean
   showCountryDetailsInNotifications:
     type: string
+    enum: ['none', 'name', 'flag', 'both']
   systemWideNotifications:
     url:
       type: string
@@ -697,17 +703,7 @@ ctf:
         type: string
       code:
         type: string
-    killChatbotChallenge:
-      name:
-        type: string
-      code:
-        type: string
     nullByteChallenge:
-      name:
-        type: string
-      code:
-        type: string
-    bullyChatbotChallenge:
       name:
         type: string
       code:
@@ -748,6 +744,21 @@ ctf:
       code:
         type: string
     passwordHashLeakChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    chatbotPromptInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    chatbotGreedyInjectionChallenge:
+      name:
+        type: string
+      code:
+        type: string
+    aiDebuggingChallenge:
       name:
         type: string
       code:

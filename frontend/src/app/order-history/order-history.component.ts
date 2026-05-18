@@ -95,6 +95,7 @@ export class OrderHistoryComponent implements OnInit {
           description: product.description,
           image: product.image,
           price: product.price,
+          deluxePrice: product.deluxePrice,
           points: Math.round(product.price / 10)
         }
         this.dialog.open(ProductDetailsComponent, {

@@ -1,12 +1,12 @@
 import { type Request, type Response } from 'express'
-import { HDNodeWallet } from 'ethers'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
 
 export function checkKeys () {
-  return (req: Request, res: Response) => {
+  return async (req: Request, res: Response) => {
     try {
+      const { HDNodeWallet } = await import('ethers')
       const mnemonic = 'purpose betray marriage blame crunch monitor spin slide donate sport lift clutch'
       const mnemonicWallet = HDNodeWallet.fromPhrase(mnemonic)
       const privateKey = mnemonicWallet.privateKey

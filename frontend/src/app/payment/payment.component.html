@@ -48,7 +48,7 @@
       <div class="error message-spacing">{{couponError?.error}}
       </div>
       }
-      <mat-form-field appearance="outline" color="accent">
+      <mat-form-field appearance="outline" color="tertiary">
         <mat-label translate>LABEL_COUPON</mat-label>
         <mat-hint
           [innerHtml]="'FOLLOW_FOR_MONTHLY_COUPONS' | translate:{blueSky: blueSkyUrl, reddit: redditUrl}">
@@ -61,7 +61,7 @@
         </mat-error>
         }
       </mat-form-field>
-      <button type="submit" id="applyCouponButton" color="accent" class="btn-float-right-spacing"
+      <button type="submit" id="applyCouponButton" color="tertiary" class="btn-float-right-spacing"
         (click)="applyCoupon()" [disabled]="couponControl.invalid" mat-raised-button>
         <mat-icon>
           redeem

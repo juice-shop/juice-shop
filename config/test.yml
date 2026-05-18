@@ -1,1 +1,5 @@
 # Use 'default' configuration during automated test execution
+application:
+  chatBot:
+    llmApiUrl: 'http://localhost:43210/v1'
+    llmMaxRetries: 0

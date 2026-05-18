@@ -22,7 +22,10 @@ a {
   padding-left: $space-s;
 }
 
-.mat-mdc-list-base,
+.mat-mdc-list-base {
+  padding: 0 $space-xs !important;
+}
+
 .mat-mdc-list-item,
 .mat-mdc-list-item-icon {
   padding: 0 !important;
@@ -57,6 +60,18 @@ a {
 
 mat-nav-list {
   margin-bottom: $space-3xl;
+}
+
+.improved-tag {
+  background-color: var(--theme-warn-light);
+  border-radius: $space-2xs;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-left: auto;
+  padding: $space-2xs $space-xs;
+  text-transform: uppercase;
 }
 
 .menu-button {

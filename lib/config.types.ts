@@ -22,10 +22,9 @@ export interface ApplicationConfig {
   customMetricsPrefix: string
   chatBot: {
     name: string
-    greeting: string
-    trainingData: string
-    defaultResponse: string
     avatar: string
+    model: string
+    llmApiUrl: string
   }
   social: {
     twitterUrl: string

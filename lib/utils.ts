@@ -8,7 +8,6 @@ import packageJson from '../package.json'
 import fs from 'node:fs'
 import logger from './logger'
 import config from 'config'
-import jsSHA from 'jssha'
 import download from 'download'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
@@ -87,10 +86,7 @@ const getCtfKey = () => {
   return cachedCtfKey
 }
 export const ctfFlag = (text: string) => {
-  const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
-  shaObj.setHMACKey(getCtfKey(), 'TEXT')
-  shaObj.update(text)
-  return shaObj.getHMAC('HEX')
+  return crypto.createHmac('sha1', getCtfKey()).update(text).digest('hex')
 }
 
 export const toMMMYY = (date: Date) => {
@@ -231,4 +227,12 @@ export const matchesSystemIniFile = (text: string) => {
 export const matchesEtcPasswdFile = (text: string) => {
   const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
   return match !== null && match.length >= 1
+}
+
+/**
+ * Wrapper for asynchronous Express route handlers to ensure any rejected promises are caught and passed to the next() function.
+ * TODO: Revisit the need for this wrapper once the project is migrated to Express 5 which supports async handlers natively.
+ */
+export const asyncHandler = (fn: (req: any, res: any, next: any) => Promise<any> | any) => (req: any, res: any, next: any) => {
+  void Promise.resolve(fn(req, res, next)).catch(next)
 }

@@ -2,6 +2,8 @@ import { type Sequelize } from 'sequelize/types'
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
+import { ChallengeModel } from './challenge'
+import { ChallengeDependencyModel } from './challengeDependency'
 import { CardModel } from './card'
 import { ComplaintModel } from './complaint'
 import { FeedbackModel } from './feedback'
@@ -140,6 +142,8 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'UserId'
     }
   })
+  ChallengeModel.hasMany(ChallengeDependencyModel)
+  ChallengeDependencyModel.belongsTo(ChallengeModel)
 }
 
 export { relationsInit }

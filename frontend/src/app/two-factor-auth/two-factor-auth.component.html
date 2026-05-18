@@ -20,7 +20,7 @@
             >
             <h2 id="two-factor-auth-disable-title" translate>REMOVE_TWO_FACTOR_AUTH</h2>
             <div class="error" [hidden]="!(errored && !twoFactorDisableForm.dirty)" translate>2FA_SETUP_ERROR</div>
-            <mat-form-field appearance="outline" color="accent">
+            <mat-form-field appearance="outline" color="tertiary">
               <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
               <input id="currentPasswordDisable" formControlName="passwordControl" type="password" matInput
                 aria-label="Field to enter the current password"
@@ -32,7 +32,7 @@
                 id="disableTwoFactorAuth"
                 [disabled]="twoFactorDisableForm.invalid"
                 mat-raised-button
-                color="warn"
+                color="error"
                 aria-label="Button to remove the two-factor authentication"
                 >
               <mat-icon>remove_selection</mat-icon>
@@ -56,14 +56,14 @@
             ></qr-code>
           </div>
           <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
-          <mat-form-field appearance="outline" color="accent">
+          <mat-form-field appearance="outline" color="tertiary">
             <mat-label translate>LABEL_CURRENT_PASSWORD</mat-label>
             <input id="currentPasswordSetup" formControlName="passwordControl" type="password" matInput
               aria-label="Field to enter the current password"
               placeholder="{{'MANDATORY_CURRENT_PASSWORD' | translate }}"
               autocomplete="off">
           </mat-form-field>
-          <mat-form-field appearance="outline" color="accent">
+          <mat-form-field appearance="outline" color="tertiary">
             <mat-label translate>INITIAL_CODE</mat-label>
             <input
               #initToken

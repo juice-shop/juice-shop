@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 let config
 const playbackDelays = {

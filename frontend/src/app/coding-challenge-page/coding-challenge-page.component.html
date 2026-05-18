@@ -1,0 +1,50 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<header class="page-header">
+  <a mat-stroked-button routerLink="/score-board" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+    <span>{{'TITLE_SCORE_BOARD' | translate}}</span>
+  </a>
+  @if (challengeName) {
+    <h2>{{'TITLE_CODING_CHALLENGE' | translate}}: <strong>{{challengeName}}</strong></h2>
+  }
+</header>
+
+<div class="page-content">
+  @if (isLoaded && snippet !== null) {
+    <section class="challenge-section">
+      <coding-challenge-find-it
+        [challengeKey]="challengeKey"
+        [snippet]="snippet"
+        [alreadySolved]="findItSolved"
+        (solved)="onFindItSolved()">
+      </coding-challenge-find-it>
+    </section>
+  } @else if (!isLoaded) {
+    <mat-spinner aria-label="Loading challenge"></mat-spinner>
+  }
+
+  @if (findItSolved && fixes !== null) {
+    <section class="challenge-section" #fixItSection>
+      <coding-challenge-fix-it
+        [challengeKey]="challengeKey"
+        [snippet]="snippet"
+        [fixes]="fixes"
+        [alreadySolved]="fixItSolved"
+        (solved)="onFixItSolved()">
+      </coding-challenge-fix-it>
+    </section>
+  } @else if (!findItSolved && isLoaded && snippet !== null) {
+    <section class="challenge-section locked-section" aria-disabled="true">
+      <header class="section-header">
+        <h3 class="section-title">
+          {{'TAB_FIX_IT' | translate}}
+          <mat-icon class="locked-icon" aria-hidden="true">lock</mat-icon>
+        </h3>
+        <p class="section-description">{{'DESCRIPTION_FIX_IT_LOCKED' | translate}}</p>
+      </header>
+    </section>
+  }
+</div>

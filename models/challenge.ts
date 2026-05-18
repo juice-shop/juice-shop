@@ -116,15 +116,16 @@ const CHALLENGE_KEYS = [
   'resetPasswordUvoginChallenge',
   'geoStalkingMetaChallenge',
   'geoStalkingVisualChallenge',
-  'killChatbotChallenge',
   'nullByteChallenge',
-  'bullyChatbotChallenge',
   'lfrChallenge',
   'closeNotificationsChallenge',
   'csafChallenge',
   'exposedCredentialsChallenge',
   'leakedApiKeyChallenge',
-  'passwordHashLeakChallenge'
+  'passwordHashLeakChallenge',
+  'chatbotPromptInjectionChallenge',
+  'chatbotGreedyInjectionChallenge',
+  'aiDebuggingChallenge'
 ] as const
 
 export type ChallengeKey = typeof CHALLENGE_KEYS[number]

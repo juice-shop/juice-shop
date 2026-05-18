@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+<coding-challenge-section [title]="'TAB_FIX_IT'" [description]="'DESCRIPTION_FIX_IT'"
+  [solved]="alreadySolved() || result === ResultState.Right" [result]="result" [shaking]="shaking"
+  [submitDisabled]="alreadySolved() || result === ResultState.Right" (submitClicked)="checkFix()"
+  (shakingDone)="shaking = false">
+  <div class="controls-row">
+    <mat-button-toggle-group [value]="selectedFix" (change)="setFix($event.value)" class="fix-toggles"
+      aria-label="Select a code fix to review">
+      @for (fix of randomFixes; track fix; let i = $index) {
+      <mat-button-toggle [value]="i">Fix {{ i+1 }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+    <mat-checkbox [(ngModel)]="onlyChangedLines" (change)="toggleOnlyChangedLines()" class="changed-lines-toggle">
+      {{ 'LABEL_ONLY_CHANGED_LINES' | translate }}
+    </mat-checkbox>
+  </div>
+  <div class="diff-container">
+    <div #diffHost class="diff-host" role="region" aria-label="Code diff view"></div>
+  </div>
+  @if (explanation) {
+  <mat-card notification appearance="outlined"
+    [class]="resultColor() === 'warn' ? 'warn-notification' : 'accent-notification'" aria-live="polite">
+    <div class="mdc-card">{{explanation}}</div>
+  </mat-card>
+  }
+  @if (result === ResultState.Right) {
+  <span button-label>{{'BTN_SUBMIT' | translate}}</span>
+  } @else {
+  <span button-label>{{'BTN_SUBMIT_FIX' | translate: { fix: selectedFix + 1 } }}</span>
+  }
+</coding-challenge-section>

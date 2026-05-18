@@ -3,7 +3,7 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-toolbar class="mat-elevation-z6" color="primary">
+<mat-toolbar class="mat-elevation-z6">
   <mat-toolbar-row>
     <h2> {{applicationName}}</h2>
   </mat-toolbar-row>
@@ -229,15 +229,14 @@
       </span>
     </a>
   }
-  @if (isLoggedIn()) {
-    <a mat-list-item routerLink="/chatbot" (click)="onToggleSidenav();"
-      aria-label="Go to chatbot page">
-      <mat-icon>chat</mat-icon>
-      <span class="menu-text truncate">
-        {{"SECTION_SUPPORT_CHAT" | translate}}
-      </span>
-    </a>
-  }
+  <a mat-list-item routerLink="/chatbot" (click)="onToggleSidenav();"
+    aria-label="Go to AI chat page">
+    <mat-icon>auto_awesome</mat-icon>
+    <span class="menu-text truncate">
+      {{"SECTION_AI_CHAT" | translate}}
+    </span>
+    <span class="improved-tag">{{'TAG_IMPROVED' | translate}}</span>
+  </a>
 
   <mat-divider></mat-divider>
 
@@ -301,17 +300,17 @@
   <span>
     <span class="app-name">{{applicationName}}</span>
     <br>
-      <span class="app-version">{{version}}</span>
-      <br>
-        <div class="tech-icons">
-          <i class="icon-angular"></i>&nbsp;
-          <i class="icon-html5"></i>&nbsp;
-          <i class="icon-sass"></i>&nbsp;
-          <i class="icon-css3"></i>&nbsp;
-          <i class="icon-javascript-alt"></i>&nbsp;
-          <i class="icon-nodejs"></i>&nbsp;
-          <i class="icon-database-alt2"></i>&nbsp;
-          <i class="icon-mongodb"></i>
-        </div>
-      </span>
+    <span class="app-version">{{version}}</span>
+    <br>
+    <div class="tech-icons">
+      <i class="icon-angular"></i>&nbsp;
+      <i class="icon-html5"></i>&nbsp;
+      <i class="icon-sass"></i>&nbsp;
+      <i class="icon-css3"></i>&nbsp;
+      <i class="icon-javascript-alt"></i>&nbsp;
+      <i class="icon-nodejs"></i>&nbsp;
+      <i class="icon-database-alt2"></i>&nbsp;
+      <i class="icon-mongodb"></i>
     </div>
+  </span>
+</div>

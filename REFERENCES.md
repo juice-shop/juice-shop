@@ -137,8 +137,16 @@ mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop v20.0.0 — a fresh squeeze of features, now with AI](https://owasp.org/blog/2026/05/13/juice-shop-v20.html)
+* Article on [LinkedIn](https://www.linkedin.com) by [Avinash Mathew Varghese](https://www.linkedin.com/in/avinash-mathew-varghese/): [Deploying OWASP Juice Shop and DVWA as Persistent Attack Targets](https://www.linkedin.com/posts/avinash-mathew-varghese_chapter-13-deploying-vulnerable-web-applications-activity-7436923782453321729-U3QC)
 * Blog post on [ZAP](https://www.zaproxy.org) by Denis Podgurskii: [OWASP PTK Findings as ZAP Alerts (Juice Shop Walkthrough)](https://www.zaproxy.org/blog/2026-04-01-owasp-ptk-findings-to-zap-alerts/) ([YouTube](https://www.youtube.com/watch?v=m3YOB6JqS2c)) :godmode:
+* Blog post on [Stackademic](https://blog.stackademic.com/) by Srividya Sundaravadivelu: [My experiments with OWASP Juice Shop: What I Hacked, What I Couldn’t, and What I Learned](https://blog.stackademic.com/my-experiments-with-owasp-juice-shop-what-i-hacked-what-i-couldnt-and-what-i-learned-c56b18804389) :bulb:
+* Blog post on [Medium](https://medium.com/) by Hacked By Himel: [Turning OWASP Juice Shop into a Full Pentesting Portfolio](https://medium.com/@hackedbyhimel/turning-owasp-juice-shop-into-a-full-pentesting-portfolio-9d5aa3849a44) :bulb:
+* Article (:de:) on [Linux-Magazin](https://www.linux-magazin.de/) by Tim Schürmann: [Praktisches Einbrechen am Beispiel OWASP Juice Shop](https://www.linux-magazin.de/ausgaben/2025/06/pentesting-praxis/) :bulb:
+* Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop leadership changes & contributor recognition](https://owasp.org/blog/2025/01/29/juice-shop-leadership)
+* Blog post on [openunisau-engineering](https://medium.com/openunisau-engineering) by Peter Lobley: [OWASP Juice Shop CTF at OUA](https://medium.com/openunisau-engineering/owasp-juice-shop-ctf-at-oua-525e0564192b)
 * Blog post on [A Tester's Journey](https://www.lisihocke.com/) by Lisi Hocke: [Open Security Conference 2024 - A Memorable Beginning](https://www.lisihocke.com/2024/10/open-security-conference-2024-a-memorable-beginning.html)
+* Blog post on [bfcamara.com](https://www.bfcamara.com/) by Bruno Câmara: [Exploring AWS WAF rules with OWASP Juice Shop](https://www.bfcamara.com/posts/aws-waf-owasp-juice-shop) :bulb:
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop 2023 achievements and beyond](https://owasp.org/blog/2023/10/10/juice-shop-2023.html)
 * Article on [Cobalt.io Developer Best Practices](https://developer.cobalt.io/bestpractices/): [Validate User Input](https://developer.cobalt.io/bestpractices/input-validation/)
 * Blog post (:de:) on [Dev-Insider](https://www.dev-insider.de/): [OWASP Juice Shop lädt zum Hacken ein](https://www.dev-insider.de/owasp-juice-shop-laedt-zum-hacken-ein-a-968485/) :godmode:
@@ -327,7 +335,7 @@ mentioned or used!
 
 #### 2026
 
-* [OWASP Juice Shop: Take your security vitamins!](https://ndcsecurity.com/agenda/owasp-juice-shop-take-your-security-vitamins/7a1238226e90) by Björn Kimminich & Jannik Hollenbach, [NDC Security 2026](https://ndcsecurity.com/), Oslo, 05.03.2026
+* [OWASP Juice Shop: Take your security vitamins!](https://ndcsecurity.com/agenda/owasp-juice-shop-take-your-security-vitamins/7a1238226e90) by Björn Kimminich & Jannik Hollenbach, [NDC Security 2026](https://ndcsecurity.com/), Oslo, 05.03.2026 [YouTube](https://www.youtube.com/watch?v=O43oqSEJFQI)
 
 #### 2025
 
@@ -630,4 +638,5 @@ mentioned or used!
 
 ## Usage in Tools & Products
 
-* [How to try GitHub Advanced Security with your team](https://resources.github.com/security/tools/ghas-trial/) uses Juice Shop as an example for CI/CD integration in [Code scanning in action with Juice Shop](https://resources.github.com/security/tools/ghas-trial/#code-scanning-in-action-with-juice-shop) 
+* [How to try GitHub Advanced Security with your team](https://resources.github.com/security/tools/ghas-trial/) uses Juice Shop as an example for CI/CD integration in [Code scanning in action with Juice Shop](https://resources.github.com/security/tools/ghas-trial/#code-scanning-in-action-with-juice-shop)
+* [CVE Lite CLI](https://owasp.org/cve-lite-cli/) uses Juice Shop as a benchmark in its [OWASP Juice Shop Case Study](https://owasp.org/cve-lite-cli/docs/case-studies/owasp-juice-shop)

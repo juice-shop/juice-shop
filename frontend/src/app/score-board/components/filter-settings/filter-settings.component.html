@@ -42,17 +42,17 @@
     <mat-form-field>
       <mat-label translate>LABEL_STATUS</mat-label>
       <mat-select placeholder="All" [value]="filterSetting.status" (selectionChange)="onStatusFilterChange($event.value)">
-        <mat-option [value]="null" class="mat-body">{{ 'STATUS_ALL' | translate }}</mat-option>
-        <mat-option value="unsolved" class="mat-body">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
-        <mat-option value="partially-solved" class="mat-body">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
-        <mat-option value="solved" class="mat-body">{{ 'STATUS_SOLVED' | translate }}</mat-option>
+        <mat-option [value]="null" class="mat-body-medium">{{ 'STATUS_ALL' | translate }}</mat-option>
+        <mat-option value="unsolved" class="mat-body-medium">{{ 'STATUS_UNSOLVED' | translate }}</mat-option>
+        <mat-option value="partially-solved" class="mat-body-medium">{{ 'STATUS_PARTIALLY_SOLVED' | translate }}</mat-option>
+        <mat-option value="solved" class="mat-body-medium">{{ 'STATUS_SOLVED' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
       <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
         @for (tag of tags; track tag) {
-          <mat-option [value]="tag" class="mat-body">{{ tag }}</mat-option>
+          <mat-option [value]="tag" class="mat-body-medium">{{ tag }}</mat-option>
         }
       </mat-select>
     </mat-form-field>

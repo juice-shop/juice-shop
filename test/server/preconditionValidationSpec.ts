@@ -5,31 +5,33 @@
 
 import chai from 'chai'
 import net from 'node:net'
+import sinon from 'sinon'
 import semver from 'semver'
 import sinonChai from 'sinon-chai'
 import { engines as supportedEngines } from './../../package.json'
-import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable } from '../../lib/startup/validatePreconditions'
+import { checkIfRunningOnSupportedNodeVersion, checkIfPortIsAvailable, checkIfEnvironmentVariableExists, isOllamaUrl, checkIfLlmModelAvailable, checkIfDomainReachable } from '../../lib/startup/validatePreconditions'
 
 const expect = chai.expect
 chai.use(sinonChai)
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    it('should define the supported semver range as 20 - 24', () => {
-      expect(supportedEngines.node).to.equal('20 - 24')
+    it('should define the supported semver range as 22 - 25', () => {
+      expect(supportedEngines.node).to.equal('22 - 25')
       expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
     it('should accept a supported version', () => {
+      expect(checkIfRunningOnSupportedNodeVersion('25.8.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('24.2.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('23.11.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('22.16.0')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(true)
-      expect(checkIfRunningOnSupportedNodeVersion('20.19.2')).to.equal(true)
     })
 
     it('should fail for an unsupported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('25.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('26.0.0')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(false)
+      expect(checkIfRunningOnSupportedNodeVersion('20.19.2')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('18.20.4')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('17.3.0')).to.equal(false)
@@ -69,6 +71,140 @@ describe('preconditionValidation', () => {
       after((done) => {
         testServer.close(done)
       })
+    })
+  })
+
+  describe('checkIfEnvironmentVariableExists', () => {
+    const originalEnv = process.env.ALCHEMY_API_KEY
+    after(() => {
+      process.env.ALCHEMY_API_KEY = originalEnv
+    })
+
+    it('should return true if environment variable is present', () => {
+      process.env.ALCHEMY_API_KEY = 'test-key'
+      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(true)
+    })
+
+    it('should return false if environment variable is not present', () => {
+      delete process.env.ALCHEMY_API_KEY
+      expect(checkIfEnvironmentVariableExists('ALCHEMY_API_KEY')).to.equal(false)
+    })
+
+    it('should return false if a non-existing environment variable is checked', () => {
+      expect(checkIfEnvironmentVariableExists('NON_EXISTING_VAR')).to.equal(false)
+    })
+  })
+
+  describe('isOllamaUrl', () => {
+    it('should detect URL with Ollama default port 11434', () => {
+      expect(isOllamaUrl('http://localhost:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('http://127.0.0.1:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('https://myserver.example.com:11434/v1')).to.equal(true)
+    })
+
+    it('should detect URL with ollama hostname', () => {
+      expect(isOllamaUrl('http://ollama:11434/v1')).to.equal(true)
+      expect(isOllamaUrl('http://ollama/v1')).to.equal(true)
+    })
+
+    it('should detect URL with /ollama path prefix', () => {
+      expect(isOllamaUrl('http://myserver.example.com/ollama/v1')).to.equal(true)
+    })
+
+    it('should not flag non-Ollama URLs', () => {
+      expect(isOllamaUrl('http://localhost:8080/v1')).to.equal(false)
+      expect(isOllamaUrl('https://api.openai.com/v1')).to.equal(false)
+    })
+
+    it('should handle invalid URLs gracefully', () => {
+      expect(isOllamaUrl('not-a-url')).to.equal(false)
+      expect(isOllamaUrl('')).to.equal(false)
+    })
+  })
+
+  describe('checkIfOllamaModelAvailable', () => {
+    let fetchStub: sinon.SinonStub
+
+    beforeEach(() => {
+      fetchStub = sinon.stub(global, 'fetch')
+    })
+
+    afterEach(() => {
+      fetchStub.restore()
+    })
+
+    it('should succeed when model is listed in Ollama response', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'qwen3.5:9b' }, { id: 'llama3:8b' }] })
+      })
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should warn when configured model tag does not match pulled model tag', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'qwen3.5:9b-q4' }] })
+      })
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should warn when model is not in the available list', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [{ id: 'llama3:8b' }, { id: 'mistral:7b' }] })
+      })
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle empty model list', async () => {
+      fetchStub.resolves({
+        ok: true,
+        json: async () => ({ data: [] })
+      })
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle non-ok response gracefully', async () => {
+      fetchStub.resolves({ ok: false, status: 500 })
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should handle fetch error gracefully', async () => {
+      fetchStub.rejects(new Error('Connection refused'))
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+  })
+
+  describe('checkIfDomainReachable', () => {
+    let fetchStub: sinon.SinonStub
+
+    beforeEach(() => {
+      fetchStub = sinon.stub(global, 'fetch')
+    })
+
+    afterEach(() => {
+      fetchStub.restore()
+    })
+
+    it('should return true if domain is reachable', async () => {
+      fetchStub.resolves({ ok: true })
+      const success = await checkIfDomainReachable('https://www.alchemy.com/')
+      expect(success).to.equal(true)
+      expect(fetchStub.calledOnce).to.equal(true)
+    })
+
+    it('should return false and log warnings if domain is not reachable', async () => {
+      fetchStub.rejects(new Error('Network error'))
+      const success = await checkIfDomainReachable('https://www.alchemy.com/')
+      expect(success).to.equal(false)
+      expect(fetchStub.calledOnce).to.equal(true)
     })
   })
 })

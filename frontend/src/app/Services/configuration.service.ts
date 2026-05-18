@@ -39,6 +39,11 @@ export interface Config {
       nftUrl: string
       questionnaireUrl: string
     }
+    chatBot: {
+      name: string
+      avatar: string
+      sampleQuestions: string[]
+    }
     recyclePage: {
       topProductImage: string
       bottomProductImage: string

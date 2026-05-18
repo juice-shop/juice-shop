@@ -37,9 +37,24 @@ export class FilterSettingsComponent implements OnChanges {
   @Input()
   public reset: () => void
 
-  public tags = new Set<string>()
+  public static readonly EXTERNAL_DEPENDENCY_TAG = 'External Dependency'
+  public tags: string[] = []
   ngOnChanges () {
-    this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
+    const rawTags = new Set(
+      this.allChallenges.flatMap((challenge) => challenge.tagList)
+    )
+    const hasRequiresTag = [...rawTags].some((tag) => tag.startsWith('Requires '))
+    const displayTags = new Set<string>()
+    for (const tag of rawTags) {
+      if (tag.startsWith('Requires ')) {
+        if (hasRequiresTag) {
+          displayTags.add(FilterSettingsComponent.EXTERNAL_DEPENDENCY_TAG)
+        }
+      } else {
+        displayTags.add(tag)
+      }
+    }
+    this.tags = [...displayTags].sort((a, b) => a.localeCompare(b))
   }
 
   onDifficultyFilterChange (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]) {

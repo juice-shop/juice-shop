@@ -1,0 +1,81 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: $space-l;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+
+  h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+.back-button {
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--theme-text);
+
+  &:visited {
+    color: var(--theme-text);
+  }
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.challenge-section {
+  padding: $space-l;
+  background-color: var(--theme-background);
+  border-radius: 12px;
+  border: 1px solid var(--theme-text-fade-10);
+  min-width: 0;
+}
+
+.locked-section {
+  background-color: var(--theme-background-darker);
+  border: 1px dashed var(--theme-text-fade-20);
+  text-align: center;
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: $space-xs;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $space-xs;
+    color: var(--theme-text-fade-40);
+  }
+
+  .locked-icon {
+    vertical-align: middle;
+  }
+
+  .section-description {
+    color: var(--theme-text-fade-30);
+    max-width: 480px;
+    margin-inline: auto;
+  }
+}
+

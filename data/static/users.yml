@@ -272,3 +272,12 @@
   password: 'IamUsedForTesting'
   key: LetUsTest
   role: 'admin'
+-
+  email: basil
+  password: 'my little nest of vipers'
+  key: basil
+  role: 'customer'
+  walletBalance: 2
+  securityQuestion:
+    id: 14
+    answer: 'English Riviera'

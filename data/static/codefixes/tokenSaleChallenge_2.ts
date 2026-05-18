@@ -9,6 +9,10 @@
     canActivate: [AdminGuard]
   },
   {
+    path: 'coding-challenge/:challengeKey',
+    loadComponent: async () => await loadCodingChallenge()
+  },
+  {
     path: '403',
     component: ErrorPageComponent
   },

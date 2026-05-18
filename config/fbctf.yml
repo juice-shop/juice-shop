@@ -302,15 +302,9 @@ ctf:
     geoStalkingVisualChallenge:
       name: The Netherlands
       code: NL
-    killChatbotChallenge:
-      name: Czechoslovakia
-      code: CSK
     nullByteChallenge:
       name: Burundi
       code: BI
-    bullyChatbotChallenge:
-      name: Guam
-      code: GU
     lfrChallenge:
       name: Ireland
       code: IE
@@ -324,11 +318,11 @@ ctf:
       name: Afghanistan
       code: AF
     nftMintChallenge:
-      name: United Arab Emirates
-      code: UAE
+      name: Uganda
+      code: UG
     web3WalletChallenge:
       name: Mexico
-      code: MEX
+      code: MX
     web3SandboxChallenge:
       name: France
       code: FR
@@ -347,3 +341,12 @@ ctf:
     passwordHashLeakChallenge:
       name: Italy
       code: IT
+    chatbotPromptInjectionChallenge:
+      name: Finland
+      code: FI
+    chatbotGreedyInjectionChallenge:
+      name: Norway
+      code: NO
+    aiDebuggingChallenge:
+      name: Iceland
+      code: IS

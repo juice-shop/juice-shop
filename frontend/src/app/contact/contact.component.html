@@ -6,18 +6,18 @@
 <div class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card">
-      <h1 translate>SECTION_CUSTOMER_FEEDBACK</h1>
+      <h1 class="mat-headline-medium" translate>SECTION_CUSTOMER_FEEDBACK</h1>
 
       <div class="form-container" id="feedback-form">
 
         <input hidden type="text" id="userId" ngDefaultControl [formControl]="userIdControl"/>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_AUTHOR</mat-label>
           <input ngDefaultControl [formControl]="authorControl" matInput type="text" aria-label="Field with the name of the author">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_COMMENT</mat-label>
           <mat-hint translate>
             <i class="fas fa-exclamation-circle"></i>
@@ -47,7 +47,7 @@
           <code id="captcha" aria-label="CAPTCHA code which must be solved">{{captcha}}</code>&nbsp;
           <label class="captcha-note">?</label>
     </div>
-    <mat-form-field appearance="outline" color="accent">
+    <mat-form-field appearance="outline" color="tertiary">
       <mat-label translate>LABEL_RESULT</mat-label>
       <input id="captchaControl" ngDefaultControl [formControl]="captchaControl" matInput type="text"
         placeholder="{{ 'MANDATORY_CAPTCHA' | translate}}"

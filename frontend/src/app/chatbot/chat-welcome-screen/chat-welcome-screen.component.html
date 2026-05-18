@@ -1,0 +1,49 @@
+<div class="welcome-screen">
+  <div class="welcome-branding">
+    <img [src]="chatBotAvatar()" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="welcome-avatar" />
+    <h1 class="welcome-title">{{ chatBotName() }}</h1>
+    <p class="welcome-subtitle" translate>CHATBOT_SUBTITLE</p>
+  </div>
+
+  <div class="welcome-input-area">
+    <app-chat-input-box [(message)]="message" (messageSent)="messageSent.emit($event)" />
+
+    <div class="suggestions">
+      @if (sampleQuestions().length > 0) {
+        <button class="suggestion-chip" (click)="applyRandomSuggestion()">
+          <mat-icon>local_drink</mat-icon>
+          <span translate>CHATBOT_SUGGESTION_RECOMMEND</span>
+        </button>
+      }
+      <button class="suggestion-chip" (click)="applySuggestion('CHATBOT_PROMPT_HELP')">
+        <mat-icon>help_outline</mat-icon>
+        <span translate>CHATBOT_SUGGESTION_HELP</span>
+      </button>
+    </div>
+  </div>
+
+  @if (conversations().length > 0) {
+    <div class="history-section">
+      <div class="history-header">
+        <h2 class="history-heading" translate>CHATBOT_RECENT_CONVERSATIONS</h2>
+        <button class="history-delete-all" (click)="deleteAllConversations()" [attr.aria-label]="'CHATBOT_DELETE_ALL_CONVERSATIONS' | translate">
+          <mat-icon>delete_sweep</mat-icon>
+          <span translate>CHATBOT_DELETE_ALL</span>
+        </button>
+      </div>
+      <div class="history-list">
+        @for (conv of conversations(); track conv.id) {
+          <button class="history-item" (click)="conversationSelected.emit(conv.id)">
+            <div class="history-item-content">
+              <span class="history-title">{{ conv.title }}</span>
+              <span class="history-date">{{ conv.updatedAt | date:'short' }}</span>
+            </div>
+            <button class="history-delete" (click)="deleteConversation($event, conv.id)" [attr.aria-label]="'CHATBOT_DELETE_CONVERSATION' | translate">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -17,7 +17,7 @@ describe('Challenge Tags', () => {
       if (challenge.tags) {
         challenge.tags.forEach((tag: string) => {
           const tagKey = `TAG_${tag.toUpperCase().replace(/\s/g, '_')}`
-          expect(en[tagKey], `Challenge "${challenge.name}" uses unsupported tag "${tag}". Only tags listed at https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_challenge_tags may be used.`).to.not.equal(undefined)
+          expect(en[tagKey], `Challenge "${challenge.name}" uses unsupported tag "${tag}". Only tags listed at https://pwning.owasp-juice.shop/companion-guide/latest/part1/challenges.html#_challenge_tags may be used. Tag Key: ${tagKey}`).to.not.equal(undefined)
         })
       }
     })

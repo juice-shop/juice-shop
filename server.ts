@@ -32,7 +32,7 @@ import { rateLimit } from 'express-rate-limit'
 import { getStream } from 'file-stream-rotator'
 import type { Request, Response, NextFunction } from 'express'
 
-import { sequelize } from './models'
+import { sequelize, createSequelize, initModels, setSequelize } from './models'
 import { UserModel } from './models/user'
 import { CardModel } from './models/card'
 import { HintModel } from './models/hint'
@@ -44,6 +44,7 @@ import { QuantityModel } from './models/quantity'
 import { FeedbackModel } from './models/feedback'
 import { ComplaintModel } from './models/complaint'
 import { ChallengeModel } from './models/challenge'
+import { ChallengeDependencyModel } from './models/challengeDependency'
 import { BasketItemModel } from './models/basketitem'
 import { SecurityAnswerModel } from './models/securityAnswer'
 import { PrivacyRequestModel } from './models/privacyRequests'
@@ -57,7 +58,7 @@ import validateConfig from './lib/startup/validateConfig'
 import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
 import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
 import customizeApplication from './lib/startup/customizeApplication'
-import validatePreconditions from './lib/startup/validatePreconditions'
+import validatePreconditions, { preconditionsReady } from './lib/startup/validatePreconditions'
 import registerWebsocketEvents from './lib/startup/registerWebsocketEvents'
 import restoreOverwrittenFilesWithOriginals from './lib/startup/restoreOverwrittenFilesWithOriginals'
 
@@ -67,7 +68,6 @@ import locales from './data/static/locales.json'
 import { login } from './routes/login'
 import * as verify from './routes/verify'
 import * as address from './routes/address'
-import * as chatbot from './routes/chatbot'
 import * as metrics from './routes/metrics'
 import * as payment from './routes/payment'
 import { placeOrder } from './routes/order'
@@ -78,6 +78,7 @@ import * as twoFactorAuth from './routes/2fa'
 import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
+import { chat } from './routes/chat'
 import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
 import { trackOrder } from './routes/trackOrder'
@@ -130,6 +131,7 @@ const app = express()
 const server = new http.Server(app)
 
 // errorhandler requires us from overwriting a string property on it's module which is a big no-no with esmodules :/
+
 const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
@@ -165,8 +167,7 @@ void collectDurationPromise('validatePreconditions', validatePreconditions)()
 void collectDurationPromise('cleanupFtpFolder', cleanupFtpFolder)()
 void collectDurationPromise('validateConfig', validateConfig)({})
 
-// Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
-restoreOverwrittenFilesWithOriginals().then(() => {
+function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Locals */
   app.locals.captchaId = 0
   app.locals.captchaReqId = 1
@@ -238,13 +239,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     const origEnd = res.end
     // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length) {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
         const currentFolder = reqPath.split('/').pop()!
         arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
@@ -290,7 +290,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Serve vendor dependencies locally instead of from CDN */
-  app.use('/vendor/material-design-lite', express.static(path.resolve('node_modules/material-design-lite/dist')))
+  app.use('/vendor/beercss', express.static(path.resolve('node_modules/beercss/dist/cdn')))
   app.use('/vendor/material-icons', express.static(path.resolve('node_modules/material-icons/iconfont')))
   app.use('/vendor/fontsource-roboto', express.static(path.resolve('node_modules/@fontsource/roboto')))
 
@@ -307,9 +307,9 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use(bodyParser.urlencoded({ extended: true }))
   /* File Upload */
   app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
-  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
-  app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
-  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), addMemory())
+  app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(profileImageFileUpload()))
+  app.post('/profile/image/url', uploadToMemory.single('file'), utils.asyncHandler(profileImageUrlUpload()))
+  app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(addMemory()))
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
@@ -400,7 +400,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Challenge evaluation before finale takes over */ // vuln-code-snippet hide-start
   app.post('/api/Feedbacks', verify.forgedFeedbackChallenge())
   /* Captcha verification before finale takes over */
-  app.post('/api/Feedbacks', verifyCaptcha())
+  app.post('/api/Feedbacks', utils.asyncHandler(verifyCaptcha()))
   /* Captcha Bypass challenge verification */
   app.post('/api/Feedbacks', verify.captchaBypassChallenge())
   /* User registration challenge verifications before finale takes over */
@@ -422,8 +422,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Unauthorized users are not allowed to access B2B API */
   app.use('/b2b/v2', security.isAuthorized())
   /* Check if the quantity is available in stock and limit per user not exceeded, then add item to basket */
-  app.put('/api/BasketItems/:id', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemUpdate())
-  app.post('/api/BasketItems', security.appendUserId(), basketItems.quantityCheckBeforeBasketItemAddition(), basketItems.addBasketItem())
+  app.put('/api/BasketItems/:id', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemUpdate()))
+  app.post('/api/BasketItems', security.appendUserId(), utils.asyncHandler(basketItems.quantityCheckBeforeBasketItemAddition()), utils.asyncHandler(basketItems.addBasketItem()))
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
@@ -435,56 +435,56 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/api/PrivacyRequests/:id', security.isAuthorized())
   /* PaymentMethodRequests: Only allowed for authenticated users */
   app.post('/api/Cards', security.appendUserId())
-  app.get('/api/Cards', security.appendUserId(), payment.getPaymentMethods())
+  app.get('/api/Cards', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethods()))
   app.put('/api/Cards/:id', security.denyAll())
-  app.delete('/api/Cards/:id', security.appendUserId(), payment.delPaymentMethodById())
-  app.get('/api/Cards/:id', security.appendUserId(), payment.getPaymentMethodById())
+  app.delete('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.delPaymentMethodById()))
+  app.get('/api/Cards/:id', security.appendUserId(), utils.asyncHandler(payment.getPaymentMethodById()))
   /* PrivacyRequests: Only POST allowed for authenticated users */
   app.post('/api/PrivacyRequests', security.isAuthorized())
   app.get('/api/PrivacyRequests', security.denyAll())
   app.use('/api/PrivacyRequests/:id', security.denyAll())
 
   app.post('/api/Addresss', security.appendUserId())
-  app.get('/api/Addresss', security.appendUserId(), address.getAddress())
+  app.get('/api/Addresss', security.appendUserId(), utils.asyncHandler(address.getAddress()))
   app.put('/api/Addresss/:id', security.appendUserId())
-  app.delete('/api/Addresss/:id', security.appendUserId(), address.delAddressById())
-  app.get('/api/Addresss/:id', security.appendUserId(), address.getAddressById())
-  app.get('/api/Deliverys', delivery.getDeliveryMethods())
-  app.get('/api/Deliverys/:id', delivery.getDeliveryMethod())
+  app.delete('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.delAddressById()))
+  app.get('/api/Addresss/:id', security.appendUserId(), utils.asyncHandler(address.getAddressById()))
+  app.get('/api/Deliverys', utils.asyncHandler(delivery.getDeliveryMethods()))
+  app.get('/api/Deliverys/:id', utils.asyncHandler(delivery.getDeliveryMethod()))
   // vuln-code-snippet end changeProductChallenge
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
-    twoFactorAuth.verify
+    utils.asyncHandler(twoFactorAuth.verify)
   )
   /* Check 2FA Status for the current User */
-  app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status)
+  app.get('/rest/2fa/status', security.isAuthorized(), utils.asyncHandler(twoFactorAuth.status))
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
-    twoFactorAuth.setup
+    utils.asyncHandler(twoFactorAuth.setup)
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
     security.isAuthorized(),
-    twoFactorAuth.disable
+    utils.asyncHandler(twoFactorAuth.disable)
   )
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
-  finale.initialize({ app, sequelize })
+  finale.initialize({ app, sequelize: seq })
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
     { name: 'Product', exclude: [], model: ProductModel },
     { name: 'Feedback', exclude: [], model: FeedbackModel },
     { name: 'BasketItem', exclude: [], model: BasketItemModel },
-    { name: 'Challenge', exclude: [], model: ChallengeModel },
+    { name: 'Challenge', exclude: [], model: ChallengeModel, include: [ChallengeDependencyModel] },
     { name: 'Complaint', exclude: [], model: ComplaintModel },
     { name: 'Recycle', exclude: [], model: RecycleModel },
     { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },
@@ -496,12 +496,13 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     { name: 'Hint', exclude: [], model: HintModel }
   ]
 
-  for (const { name, exclude, model } of autoModels) {
+  for (const { name, exclude, model, include } of autoModels) {
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude,
-      pagination: false
+      pagination: false,
+      include
     })
 
     // create a wallet when a new user is registered using API
@@ -592,54 +593,55 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Custom Restful API */
   app.post('/rest/user/login', login())
-  app.get('/rest/user/change-password', changePassword())
-  app.post('/rest/user/reset-password', resetPassword())
-  app.get('/rest/user/security-question', securityQuestion())
-  app.get('/rest/user/whoami', security.updateAuthenticatedUsers(), retrieveLoggedInUser())
-  app.get('/rest/user/authentication-details', authenticatedUsers())
-  app.get('/rest/products/search', searchProducts())
-  app.get('/rest/basket/:id', retrieveBasket())
+  app.get('/rest/user/change-password', utils.asyncHandler(changePassword()))
+  app.post('/rest/user/reset-password', utils.asyncHandler(resetPassword()))
+  app.get('/rest/user/security-question', utils.asyncHandler(securityQuestion()))
+  app.get('/rest/user/whoami', security.updateAuthenticatedUsers(), utils.asyncHandler(retrieveLoggedInUser()))
+  app.get('/rest/user/authentication-details', utils.asyncHandler(authenticatedUsers()))
+  app.get('/rest/products/search', utils.asyncHandler(searchProducts()))
+  app.get('/rest/basket/:id', utils.asyncHandler(retrieveBasket()))
   app.post('/rest/basket/:id/checkout', placeOrder())
-  app.put('/rest/basket/:id/coupon/:coupon', applyCoupon())
-  app.get('/rest/admin/application-version', retrieveAppVersion())
-  app.get('/rest/admin/application-configuration', retrieveAppConfiguration())
-  app.get('/rest/repeat-notification', repeatNotification())
-  app.get('/rest/continue-code', continueCode())
-  app.get('/rest/continue-code-findIt', continueCodeFindIt())
-  app.get('/rest/continue-code-fixIt', continueCodeFixIt())
-  app.put('/rest/continue-code-findIt/apply/:continueCode', restoreProgress.restoreProgressFindIt())
-  app.put('/rest/continue-code-fixIt/apply/:continueCode', restoreProgress.restoreProgressFixIt())
-  app.put('/rest/continue-code/apply/:continueCode', restoreProgress.restoreProgress())
-  app.get('/rest/captcha', captchas())
-  app.get('/rest/image-captcha', imageCaptchas())
+  app.put('/rest/basket/:id/coupon/:coupon', utils.asyncHandler(applyCoupon()))
+  app.get('/rest/admin/application-version', utils.asyncHandler(retrieveAppVersion()))
+  app.get('/rest/admin/application-configuration', utils.asyncHandler(retrieveAppConfiguration()))
+  app.get('/rest/repeat-notification', utils.asyncHandler(repeatNotification()))
+  app.get('/rest/continue-code', utils.asyncHandler(continueCode()))
+  app.get('/rest/continue-code-findIt', utils.asyncHandler(continueCodeFindIt()))
+  app.get('/rest/continue-code-fixIt', utils.asyncHandler(continueCodeFixIt()))
+  app.put('/rest/continue-code-findIt/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgressFindIt()))
+  app.put('/rest/continue-code-fixIt/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgressFixIt()))
+  app.put('/rest/continue-code/apply/:continueCode', utils.asyncHandler(restoreProgress.restoreProgress()))
+  app.get('/rest/captcha', utils.asyncHandler(captchas()))
+  app.get('/rest/image-captcha', utils.asyncHandler(imageCaptchas()))
   app.get('/rest/track-order/:id', trackOrder())
-  app.get('/rest/country-mapping', countryMapping())
-  app.get('/rest/saveLoginIp', saveLoginIp())
-  app.post('/rest/user/data-export', security.appendUserId(), verifyImageCaptcha())
-  app.post('/rest/user/data-export', security.appendUserId(), dataExport())
-  app.get('/rest/languages', getLanguageList())
-  app.get('/rest/order-history', orderHistory())
-  app.get('/rest/order-history/orders', security.isAccounting(), allOrders())
-  app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), toggleDeliveryStatus())
-  app.get('/rest/wallet/balance', security.appendUserId(), getWalletBalance())
-  app.put('/rest/wallet/balance', security.appendUserId(), addWalletBalance())
+  app.get('/rest/country-mapping', utils.asyncHandler(countryMapping()))
+  app.get('/rest/saveLoginIp', utils.asyncHandler(saveLoginIp()))
+  app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(verifyImageCaptcha()))
+  app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(dataExport()))
+  app.get('/rest/languages', utils.asyncHandler(getLanguageList()))
+  app.get('/rest/order-history', utils.asyncHandler(orderHistory()))
+  app.get('/rest/order-history/orders', security.isAccounting(), utils.asyncHandler(allOrders()))
+  app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), utils.asyncHandler(toggleDeliveryStatus()))
+  app.get('/rest/wallet/balance', security.appendUserId(), utils.asyncHandler(getWalletBalance()))
+  app.put('/rest/wallet/balance', security.appendUserId(), utils.asyncHandler(addWalletBalance()))
   app.get('/rest/deluxe-membership', deluxeMembershipStatus())
-  app.post('/rest/deluxe-membership', security.appendUserId(), upgradeToDeluxe())
-  app.get('/rest/memories', getMemories())
-  app.get('/rest/chatbot/status', chatbot.status())
-  app.post('/rest/chatbot/respond', chatbot.process())
+  app.post('/rest/deluxe-membership', security.appendUserId(), utils.asyncHandler(upgradeToDeluxe()))
+  app.get('/rest/memories', utils.asyncHandler(getMemories()))
   /* NoSQL API endpoints */
   app.get('/rest/products/:id/reviews', showProductReviews())
-  app.put('/rest/products/:id/reviews', createProductReviews())
+  app.put('/rest/products/:id/reviews', utils.asyncHandler(createProductReviews()))
   app.patch('/rest/products/reviews', security.isAuthorized(), updateProductReviews())
-  app.post('/rest/products/reviews', security.isAuthorized(), likeProductReviews())
+  app.post('/rest/products/reviews', security.isAuthorized(), utils.asyncHandler(likeProductReviews()))
+
+  /* Chat API endpoint */
+  app.post('/rest/chat', utils.asyncHandler(chat()))
 
   /* Web3 API endpoints */
-  app.post('/rest/web3/submitKey', checkKeys())
+  app.post('/rest/web3/submitKey', utils.asyncHandler(checkKeys()))
   app.get('/rest/web3/nftUnlocked', nftUnlocked())
-  app.get('/rest/web3/nftMintListen', nftMintListener())
+  app.get('/rest/web3/nftMintListen', utils.asyncHandler(nftMintListener()))
   app.post('/rest/web3/walletNFTVerify', walletNFTVerify())
-  app.post('/rest/web3/walletExploitAddress', contractExploitListener())
+  app.post('/rest/web3/walletExploitAddress', utils.asyncHandler(contractExploitListener()))
 
   /* B2B Order API */
   app.post('/b2b/v2/orders', b2bOrder())
@@ -660,20 +662,25 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.get('/video', getVideo())
 
   /* Routes for profile page */
-  app.get('/profile', security.updateAuthenticatedUsers(), getUserProfile())
-  app.post('/profile', updateUserProfile())
+  app.get('/profile', security.updateAuthenticatedUsers(), utils.asyncHandler(getUserProfile()))
+  app.post('/profile', utils.asyncHandler(updateUserProfile()))
 
   /* Route for vulnerable code snippets */
-  app.get('/snippets/:challenge', serveCodeSnippet())
-  app.post('/snippets/verdict', checkVulnLines())
-  app.get('/snippets/fixes/:key', serveCodeFixes())
-  app.post('/snippets/fixes', checkCorrectFix())
+  app.get('/snippets/:challenge', utils.asyncHandler(serveCodeSnippet()))
+  app.post('/snippets/verdict', utils.asyncHandler(checkVulnLines()))
+  app.get('/snippets/fixes/:key', utils.asyncHandler(serveCodeFixes()))
+  app.post('/snippets/fixes', utils.asyncHandler(checkCorrectFix()))
 
-  app.use(serveAngularClient())
+  app.use(utils.asyncHandler(serveAngularClient()))
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
   app.use(errorhandler())
+}
+
+// Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
+restoreOverwrittenFilesWithOriginals().then(() => {
+  configureApp(app, sequelize)
 }).catch((err) => {
   console.error(err)
 })
@@ -705,22 +712,23 @@ const uploadToDisk = multer({
   })
 })
 
-const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'ChallengeDependency', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }
-logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('OK')})`)
+logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('SUCCESS')})`)
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
-app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
+app.get('/metrics', utils.asyncHandler(metrics.serveMetrics())) // vuln-code-snippet vuln-line exposedMetricsChallenge
 errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
   const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
   await sequelize.sync({ force: true })
+  await preconditionsReady
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')
@@ -738,6 +746,10 @@ export async function start (readyCallback?: () => void) {
     if (readyCallback) {
       readyCallback()
     }
+    if (process.env.EXIT_ON_READY === 'true') {
+      // used to benchmark startup time
+      process.exit(0)
+    }
   })
 
   void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
@@ -754,6 +766,21 @@ export function close (exitCode: number | undefined) {
   }
 }
 // vuln-code-snippet end exposedMetricsChallenge
+
+export async function createApp (options?: { inMemoryDb?: boolean }) {
+  const seq = options?.inMemoryDb ? createSequelize({ inMemory: true }) : sequelize
+  if (options?.inMemoryDb) {
+    initModels(seq)
+    setSequelize(seq)
+  }
+  Prometheus.register.clear()
+  const testApp = express()
+  testApp.set('view engine', 'hbs')
+  configureApp(testApp, seq)
+  await seq.sync({ force: true })
+  await datacreator()
+  return { app: testApp, sequelize: seq }
+}
 
 // stop server on sigint or sigterm signals
 process.on('SIGINT', () => { close(0) })

@@ -7,7 +7,7 @@
   <mat-card appearance="outlined" class="mat-elevation-z6">
     <div class="mdc-card">
 
-      <h1>Login</h1>
+      <h1 class="mat-headline-medium">Login</h1>
 
       @if (error) {
       <div class="error">{{error}}</div>
@@ -15,7 +15,7 @@
 
       <div class="form-container" id="login-form">
 
-        <mat-form-field color="accent" appearance="outline">
+        <mat-form-field color="tertiary" appearance="outline">
           <mat-label translate>LABEL_EMAIL</mat-label>
           <input id="email" #email name="email"
             [formControl]="emailControl"
@@ -28,7 +28,7 @@
           }
         </mat-form-field>
 
-        <mat-form-field color="accent" appearance="outline">
+        <mat-form-field color="tertiary" appearance="outline">
           <mat-label translate>LABEL_PASSWORD</mat-label>
           <input id="password" #password name="password"
             [formControl]="passwordControl"
@@ -87,7 +87,7 @@
 
         @if (!oauthUnavailable) {
         <button id="loginButtonGoogle"
-          mat-raised-button color="accent"
+          mat-raised-button color="tertiary"
           (click)="googleLogin()"
           aria-label="Login with Google"
           class="google-button"

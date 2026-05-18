@@ -1,21 +1,26 @@
-import { readFiles, checkDiffs, getDataFromFile, checkData } from './rsnUtil'
-import colors from 'colors/safe'
+import { readFiles, computeDiffs, getDataFromFile, findChangedFiles, computeChallengeDiff } from './rsnUtil'
+import { printSuccess, printChangeSummary, printChallengeDiff, printUpdateInstructions } from './rsnOutput'
 
-const keys = readFiles()
-checkDiffs(keys)
-  .then(data => {
-    console.log('---------------------------------------')
-    const fileData = getDataFromFile()
-    const filesWithDiff = checkData(data, fileData)
-    if (filesWithDiff.length === 0) {
-      console.log(`${colors.green(colors.bold('No new file diffs recognized since last lock!'))} No action required.`)
-    } else {
-      console.log(`${colors.red(colors.bold('New file diffs recognized since last lock!'))} Double-check and amend listed files and lock new state with ${colors.bold('npm run rsn:update')}`)
-      console.log('---------------------------------------')
-      process.exitCode = 1
+async function main () {
+  const keys = readFiles()
+  const currentData = await computeDiffs(keys)
+  const cachedData = getDataFromFile()
+  const changedFiles = findChangedFiles(currentData, cachedData)
+
+  if (changedFiles.length === 0) {
+    printSuccess()
+  } else {
+    printChangeSummary(changedFiles.length)
+    for (const file of changedFiles) {
+      const diff = await computeChallengeDiff(file)
+      if (diff) printChallengeDiff(diff)
     }
-  })
-  .catch(err => {
-    console.log(err)
+    printUpdateInstructions()
     process.exitCode = 1
-  })
+  }
+}
+
+main().catch(err => {
+  console.error(err)
+  process.exitCode = 1
+})

@@ -41,7 +41,7 @@
           [pageSize]="10"
           [length]="resultsLengthUser"
           class="mat-elevation-z0"
-          color="accent">
+          color="tertiary">
         </mat-paginator>
       </div>
       <div class="customer-table">
@@ -86,8 +86,16 @@
           [pageSize]="10"
           [length]="resultsLengthFeedback"
           class="mat-elevation-z0"
-          color="accent">
+          color="tertiary">
         </mat-paginator>
+      </div>
+      <div class="settings-section">
+        <div class="heading">
+          <span translate>SECTION_SETTINGS</span>
+        </div>
+        <mat-checkbox [checked]="showToolCalls()" (change)="toggleShowToolCalls($event)">
+          <span translate>LABEL_SHOW_TOOL_CALLS</span>
+        </mat-checkbox>
       </div>
     </div>
   </div>

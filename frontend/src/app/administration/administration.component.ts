@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { FeedbackService } from '../Services/feedback.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { UserService } from '../Services/user.service'
-import { Component, type OnInit, ViewChild, inject } from '@angular/core'
+import { Component, type OnInit, ViewChild, inject, signal } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArchive, faEye, faHome, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +17,8 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
+import { CookieService } from 'ngy-cookie'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
@@ -27,13 +29,16 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatButtonModule, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, MatTooltip, MatIconModule, MatCheckboxModule]
 })
 export class AdministrationComponent implements OnInit {
   private readonly dialog = inject(MatDialog)
   private readonly userService = inject(UserService)
   private readonly feedbackService = inject(FeedbackService)
   private readonly sanitizer = inject(DomSanitizer)
+  private readonly cookieService = inject(CookieService)
+
+  public showToolCalls = signal(false)
 
   public userDataSource: any
   public userDataSourceHidden: any
@@ -49,6 +54,14 @@ export class AdministrationComponent implements OnInit {
   ngOnInit (): void {
     this.findAllUsers()
     this.findAllFeedbacks()
+    this.showToolCalls.set(this.cookieService.get('show_tool_calls') === 'true')
+  }
+
+  toggleShowToolCalls (event: any) {
+    this.showToolCalls.set(event.checked)
+    const expires = new Date()
+    expires.setFullYear(expires.getFullYear() + 1)
+    this.cookieService.put('show_tool_calls', event.checked.toString(), { expires })
   }
 
   findAllUsers () {

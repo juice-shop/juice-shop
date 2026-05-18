@@ -6,7 +6,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import config from 'config'
-import PDFDocument from 'pdfkit'
 import { type Request, type Response, type NextFunction } from 'express'
 
 import { challenges, products } from '../data/datacache'
@@ -40,14 +39,17 @@ export function placeOrder () {
           const email = customer ? customer.data ? customer.data.email : '' : ''
           const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
+          const { default: PDFDocument } = await import('pdfkit')
           const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
-          fileWriter.on('finish', async () => {
-            void basket.update({ coupon: null })
-            await BasketItemModel.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
+          fileWriter.on('finish', () => {
+            void (async () => {
+              void basket.update({ coupon: null })
+              await BasketItemModel.destroy({ where: { BasketId: id } })
+              res.json({ orderConfirmation: orderId })
+            })()
           })
 
           doc.font('Times-Roman').fontSize(40).text(config.get<string>('application.name'), { align: 'center' })
