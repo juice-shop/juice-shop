@@ -85,7 +85,7 @@
 -
   email: bjoern.kimminich@gmail.com
   username: bkimminich
-  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' # checkov:skip=CKV_SECRET_6 Intentional vulnerable-by-design seed credential for OWASP Juice Shop 'Reset Bjoern's Password' challenge; not a real secret.
   customDomain: true
   key: bjoernGoogle
   role: 'admin'
