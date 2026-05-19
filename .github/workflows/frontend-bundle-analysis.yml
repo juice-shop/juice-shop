@@ -23,12 +23,12 @@ jobs:
 
       - name: "Install backend dependencies"
         run: |
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
 
       - name: "Install frontend dependencies and build"
         run: |
           cd frontend
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
           npm run build
 
       - name: "Generate bundle report"

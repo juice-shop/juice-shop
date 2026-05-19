@@ -1,5 +1,5 @@
 tasks:
-  - init: npm install
+  - init: npm ci
     command: npm start
 
 ports:

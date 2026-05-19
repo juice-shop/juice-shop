@@ -33,9 +33,9 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application minimalistically"
         run: |
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
           cd frontend
-          npm install --ignore-scripts
+          npm ci --ignore-scripts
       - name: "Lint source code"
         run: npm run lint
       - name: "Lint customization configs"
@@ -62,7 +62,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
   frontend-test:
@@ -82,7 +82,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: npm ci
       - name: "Execute frontend unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -121,7 +121,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: npm ci
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -158,7 +158,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: npm ci
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -214,7 +214,7 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: npm ci
       - name: "Execute server tests for each custom configuration"
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         with:
@@ -247,9 +247,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: npm ci -g @angular/cli
       - name: "Install application"
-        run: npm install
+        run: npm ci
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: cypress-io/github-action@57b70560982e6a11d23d4b8bec7f8a487cdbb71b #v6.7.8
@@ -303,7 +303,7 @@ jobs:
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
-          npm install --production
+          npm ci --omit=dev
           npm run package:ci
       - name: "Unpack application archive"
         run: |
