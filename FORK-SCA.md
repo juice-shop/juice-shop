@@ -16,3 +16,7 @@ Use `npm ci` at the repo root (and `npm ci` in `frontend/` when working there on
 ## Merging upstream
 
 When pulling from `juice-shop/juice-shop`, expect conflicts on `.npmrc`, `.gitignore`, workflows, and lockfiles. Keep this fork’s lockfile policy unless you deliberately realign with upstream.
+
+## PR scan validation
+
+Open a pull request against `master` to exercise automated SCA on the PR diff (Plerion, Aikido). This section exists only as a harmless trigger for that workflow smoke test.
