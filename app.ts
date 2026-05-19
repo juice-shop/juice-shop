@@ -11,6 +11,8 @@ async function app () {
   await server.start()
 }
 
+const unused1 = 'tasdasd'
+
 app()
   .catch(err => {
     throw err
