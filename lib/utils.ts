@@ -41,7 +41,7 @@ export const startsWith = (str: string, prefix: string) => str ? str.indexOf(pre
 
 export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
-export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
+export const contains = (str: string, element: string) => str ? str.includes(element) : false
 
 export const containsEscaped = function (str: string, element: string) {
   return contains(str, element.replace(/"/g, '\\"'))
