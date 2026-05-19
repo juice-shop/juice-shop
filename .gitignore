@@ -67,3 +67,7 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Misc
+.playwright-mcp/
+cypress/screenshots/
