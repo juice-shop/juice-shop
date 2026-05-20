@@ -42,7 +42,7 @@ export const startsWith = (str: string, prefix: string) => str ? str.indexOf(pre
 export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
 
 export const containsEscaped = function (str: string, element: string) {
-  return str ? str.includes(element.replace(/"/g, '\\"')) : false
+  return str ? str.includes(JSON.stringify(element).slice(1, -1)) : false
 }
 
 export const containsOrEscaped = function (str: string, element: string) {

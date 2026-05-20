@@ -185,6 +185,30 @@ describe('utils', () => {
     })
   })
 
+  describe('containsEscaped', () => {
+    it('returns true if string contains escaped element', () => {
+      expect(utils.containsEscaped('{"email":"\\"admin\\"@juice-sh.op"}', '"admin"@juice-sh.op')).to.equal(true)
+    })
+
+    it('returns false if string does not contain escaped element', () => {
+      expect(utils.containsEscaped('{"email":"admin@juice-sh.op"}', '"admin"@juice-sh.op')).to.equal(false)
+    })
+  })
+
+  describe('containsOrEscaped', () => {
+    it('returns true if string contains element directly', () => {
+      expect(utils.containsOrEscaped('admin@juice-sh.op', 'admin@juice-sh.op')).to.equal(true)
+    })
+
+    it('returns true if string contains escaped element', () => {
+      expect(utils.containsOrEscaped('{"email":"\\"admin\\"@juice-sh.op"}', '"admin"@juice-sh.op')).to.equal(true)
+    })
+
+    it('returns false if string contains neither', () => {
+      expect(utils.containsOrEscaped('other@juice-sh.op', '"admin"@juice-sh.op')).to.equal(false)
+    })
+  })
+
   describe('toISO8601', () => {
     it('converts date to ISO 8601 representation', () => {
       expect(utils.toISO8601(new Date('2025-12-15T00:00:00Z'))).to.equal('2025-12-15')
