@@ -1,15 +1,12 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-22: Path Traversal / LFR — no forbidden path restriction
+ * CWE-284: Missing Authorization — layout param used without restriction
  */
 import express, { type NextFunction, type Request, type Response } from 'express'
 import path from 'node:path'
-
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'
 import { SecurityAnswerModel } from '../models/securityAnswer'
-import * as challengeUtils from '../lib/challengeUtils'
-import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 
@@ -25,10 +22,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const answer = await SecurityAnswerModel.findOne({
-      include: [{
-        model: UserModel,
-        where: { email }
-      }]
+      include: [{ model: UserModel, where: { email } }]
     })
     if (answer == null) {
       throw new Error('No answer found!')
@@ -37,7 +31,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     if (question == null) {
       throw new Error('No question found!')
     }
-
     res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
   } catch (error) {
     next(error)
@@ -65,28 +58,18 @@ router.post('/', async (req: Request<Record<string, unknown>, Record<string, unk
     })
 
     res.clearCookie('token')
+    // CWE-22: Path Traversal / LFR — no forbidden file check, any path can be rendered
     if (req.body.layout) {
-      const filePath: string = path.resolve(req.body.layout).toLowerCase()
-      const isForbiddenFile: boolean = (filePath.includes('ftp') || filePath.includes('ctf.key') || filePath.includes('encryptionkeys'))
-      if (!isForbiddenFile) {
-        res.render('dataErasureResult', {
-          ...req.body
-        }, (error, html) => {
-          if (!html || error) {
-            next(new Error(error.message))
-          } else {
-            const sendlfrResponse: string = html.slice(0, 100) + '......'
-            res.send(sendlfrResponse)
-            challengeUtils.solveIf(challenges.lfrChallenge, () => { return true })
-          }
-        })
-      } else {
-        next(new Error('File access not allowed'))
-      }
-    } else {
-      res.render('dataErasureResult', {
-        ...req.body
+      const filePath = path.resolve(req.body.layout)
+      res.render(filePath, { ...req.body }, (error, html) => {
+        if (!html || error) {
+          next(new Error(error?.message || 'Render error'))
+        } else {
+          res.send(html)
+        }
       })
+    } else {
+      res.render('dataErasureResult', { ...req.body })
     }
   } catch (error) {
     next(error)

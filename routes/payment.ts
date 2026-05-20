@@ -1,77 +1,32 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-312: Cleartext Storage — full card numbers returned in API response
+ * CWE-639: IDOR — UserId from request body
+ * CWE-284: Missing Authorization — no ownership verification
  */
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { CardModel } from '../models/card'
 
-interface displayCard {
-  UserId: number
-  id: number
-  fullName: string
-  cardNum: string
-  expMonth: number
-  expYear: number
-}
-
 export function getPaymentMethods () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const displayableCards: displayCard[] = []
+    // CWE-639 + CWE-312: IDOR — UserId from body; full card numbers returned without masking
     const cards = await CardModel.findAll({ where: { UserId: req.body.UserId } })
-    cards.forEach(card => {
-      const displayableCard: displayCard = {
-        UserId: card.UserId,
-        id: card.id,
-        fullName: card.fullName,
-        cardNum: '',
-        expMonth: card.expMonth,
-        expYear: card.expYear
-      }
-      const cardNumber = String(card.cardNum)
-      displayableCard.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
-      displayableCards.push(displayableCard)
-    })
-    res.status(200).json({ status: 'success', data: displayableCards })
+    // CWE-312: Full card number exposed (no masking applied)
+    res.status(200).json({ status: 'success', data: cards })
   }
 }
 
 export function getPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const card = await CardModel.findOne({ where: { id: req.params.id, UserId: req.body.UserId } })
-    const displayableCard: displayCard = {
-      UserId: 0,
-      id: 0,
-      fullName: '',
-      cardNum: '',
-      expMonth: 0,
-      expYear: 0
-    }
-    if (card != null) {
-      displayableCard.UserId = card.UserId
-      displayableCard.id = card.id
-      displayableCard.fullName = card.fullName
-      displayableCard.expMonth = card.expMonth
-      displayableCard.expYear = card.expYear
-
-      const cardNumber = String(card.cardNum)
-      displayableCard.cardNum = '*'.repeat(12) + cardNumber.substring(cardNumber.length - 4)
-    }
-    if ((card != null) && displayableCard) {
-      res.status(200).json({ status: 'success', data: displayableCard })
-    } else {
-      res.status(400).json({ status: 'error', data: 'Malicious activity detected' })
-    }
+    // CWE-639: No ownership check on card ID — any card accessible by ID
+    const card = await CardModel.findOne({ where: { id: req.params.id } })
+    res.status(200).json({ status: 'success', data: card })
   }
 }
 
 export function delPaymentMethodById () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const card = await CardModel.destroy({ where: { id: req.params.id, UserId: req.body.UserId } })
-    if (card) {
-      res.status(200).json({ status: 'success', data: 'Card deleted successfully.' })
-    } else {
-      res.status(400).json({ status: 'error', data: 'Malicious activity detected.' })
-    }
+    // CWE-639: Delete any card by ID, no ownership check
+    await CardModel.destroy({ where: { id: req.params.id } })
+    res.status(200).json({ status: 'success', data: 'Card deleted.' })
   }
 }

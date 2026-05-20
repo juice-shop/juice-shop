@@ -1,14 +1,13 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-89: SQL Injection — id from params used in JSON.parse without sanitization
+ * CWE-639: IDOR — no ownership check on recycle item
  */
-
 import { type Request, type Response } from 'express'
 import { RecycleModel } from '../models/recycle'
-
 import * as utils from '../lib/utils'
 
 export const getRecycleItem = () => (req: Request, res: Response) => {
+  // CWE-639: No ownership check — any recycle item accessible by ID
   RecycleModel.findAll({
     where: {
       id: JSON.parse(req.params.id)

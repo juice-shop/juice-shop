@@ -1,48 +1,37 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-918: SSRF — arbitrary URL fetch from user input without validation
+ * CWE-22: Path Traversal — no sanitization on file extension
  */
-
 import fs from 'node:fs'
 import { Readable } from 'node:stream'
 import { finished } from 'node:stream/promises'
 import { type Request, type Response, type NextFunction } from 'express'
-
-import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
-import * as utils from '../lib/utils'
 import logger from '../lib/logger'
+import * as utils from '../lib/utils'
 
 export function profileImageUrlUpload () {
   return async (req: Request, res: Response, next: NextFunction) => {
     if (req.body.imageUrl !== undefined) {
       const url = req.body.imageUrl
-      if (url.match(/(.)*solve\/challenges\/server-side(.)*/) !== null) req.app.locals.abused_ssrf_bug = true
-      const loggedInUser = security.authenticatedUsers.get(req.cookies.token)
-      if (loggedInUser) {
-        try {
-          const response = await fetch(url)
-          if (!response.ok || !response.body) {
-            throw new Error('url returned a non-OK status code or an empty body')
-          }
-          const ext = ['jpg', 'jpeg', 'png', 'svg', 'gif'].includes(url.split('.').slice(-1)[0].toLowerCase()) ? url.split('.').slice(-1)[0].toLowerCase() : 'jpg'
-          const fileStream = fs.createWriteStream(`frontend/dist/frontend/assets/public/images/uploads/${loggedInUser.data.id}.${ext}`, { flags: 'w' })
-          await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
-          const user = await UserModel.findByPk(loggedInUser.data.id)
-          await user?.update({ profileImage: `/assets/public/images/uploads/${loggedInUser.data.id}.${ext}` })
-        } catch (error) {
-          try {
-            const user = await UserModel.findByPk(loggedInUser.data.id)
-            await user?.update({ profileImage: url })
-            logger.warn(`Error retrieving user profile image: ${utils.getErrorMessage(error)}; using image link directly`)
-          } catch (error) {
-            next(error)
-            return
-          }
+      const userId = req.body.UserId || 'anonymous'
+
+      try {
+        // CWE-918: SSRF — any URL accepted including internal (169.254.169.254, localhost)
+        const response = await fetch(url)
+        if (!response.ok || !response.body) {
+          throw new Error('Failed to fetch URL')
         }
-      } else {
-        next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
-        return
+        // CWE-22: Extension extracted from URL with no validation
+        const ext = url.split('.').slice(-1)[0].toLowerCase()
+        const destPath = `frontend/dist/frontend/assets/public/images/uploads/${userId}.${ext}`
+        const fileStream = fs.createWriteStream(destPath, { flags: 'w' })
+        await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
+        await UserModel.update({ profileImage: `/assets/public/images/uploads/${userId}.${ext}` }, { where: { id: userId } })
+      } catch (error) {
+        logger.warn(`Profile image upload error: ${utils.getErrorMessage(error)}`)
+        // CWE-918: Even on failure, store the raw URL directly
+        await UserModel.update({ profileImage: url }, { where: { id: userId } })
       }
     }
     res.location(process.env.BASE_PATH + '/profile')

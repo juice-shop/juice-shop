@@ -1,17 +1,13 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-94: SSTI — username eval'd without challenge guard
+ * CWE-74: Template Injection — pug compiled with user-influenced template
  */
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { AllHtmlEntities as Entities } from 'html-entities'
 import config from 'config'
 import pug from 'pug'
 import fs from 'node:fs/promises'
-
-import * as challengeUtils from '../lib/challengeUtils'
 import { themes } from '../views/themes/themes'
-import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
@@ -52,8 +48,8 @@ export function getUserProfile () {
 
     let username = user.username
 
-    if (username?.match(/#{(.*)}/) !== null && utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
-      req.app.locals.abused_ssti_bug = true
+    // CWE-94: SSTI — eval always runs, no challenge guard
+    if (username?.match(/#{(.*)}/) !== null) {
       const code = username?.substring(2, username.length - 1)
       try {
         if (!code) {
@@ -84,12 +80,9 @@ export function getUserProfile () {
     template = template.replace(/_logo_/g, utils.extractFilename(config.get('application.logo')))
 
     try {
+      // CWE-74: Template Injection — pug compiled with user-influenced template string
       const fn = pug.compile(template)
       const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval'`
-
-      challengeUtils.solveIf(challenges.usernameXssChallenge, () => {
-        return username && user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>')
-      })
 
       res.set({
         'Content-Security-Policy': CSP

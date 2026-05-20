@@ -20,6 +20,7 @@ import { WalletModel } from '../models/wallet'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 import * as db from '../data/mongodb'
+import logger from '../lib/logger'
 
 interface Product {
   quantity: number
@@ -38,6 +39,8 @@ export function placeOrder () {
         if (basket != null) {
           const customer = security.authenticatedUsers.from(req)
           const email = customer ? customer.data ? customer.data.email : '' : ''
+          // CWE-312: Cleartext logging of sensitive order data including payment info
+          logger.info('Order placed by: ' + email + ' paymentId: ' + (req.body.orderDetails?.paymentId || 'unknown'))
           const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
           const doc = new PDFDocument()

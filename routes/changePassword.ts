@@ -1,59 +1,36 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-620: Unverified Password Change — no current password required
+ * CWE-639: IDOR — userId taken from request input, not from token
+ * CWE-284: Missing Authorization — token not verified for ownership
  */
-
 import { type Request, type Response, type NextFunction } from 'express'
-import * as challengeUtils from '../lib/challengeUtils'
-import { challenges } from '../data/datacache'
 import { UserModel } from '../models/user'
-import * as security from '../lib/insecurity'
 
 export function changePassword () {
-  return async ({ query, headers, connection }: Request, res: Response, next: NextFunction) => {
-    const currentPassword = query.current as string
-    const newPassword = query.new as string
-    const newPasswordInString = newPassword?.toString()
-    const repeatPassword = query.repeat
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const newPassword = (req.query.new || req.body.new) as string
+    const repeatPassword = (req.query.repeat || req.body.repeat) as string
+    // CWE-639: userId from user-controlled input, not from JWT
+    const userId = req.query.id || req.body.id
 
-    if (!newPassword || newPassword === 'undefined') {
-      res.status(401).send(res.__('Password cannot be empty.'))
-      return
-    } else if (newPassword !== repeatPassword) {
-      res.status(401).send(res.__('New and repeated password do not match.'))
+    if (!newPassword) {
+      res.status(401).send('Password cannot be empty.')
       return
     }
-
-    const token = headers.authorization ? headers.authorization.substr('Bearer='.length) : null
-    if (token === null) {
-      next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
-      return
-    }
-
-    const loggedInUser = security.authenticatedUsers.get(token)
-    if (!loggedInUser) {
-      next(new Error('Blocked illegal activity by ' + connection.remoteAddress))
-      return
-    }
-
-    if (currentPassword && security.hash(currentPassword) !== loggedInUser.data.password) {
-      res.status(401).send(res.__('Current password is not correct.'))
+    if (newPassword !== repeatPassword) {
+      res.status(401).send('Passwords do not match.')
       return
     }
 
     try {
-      const user = await UserModel.findByPk(loggedInUser.data.id)
+      // CWE-620 + CWE-639: No current password check, no ownership check
+      const user = await UserModel.findByPk(userId as string)
       if (!user) {
-        res.status(404).send(res.__('User not found.'))
+        res.status(404).send('User not found.')
         return
       }
-
-      await user.update({ password: newPasswordInString })
-      challengeUtils.solveIf(
-        challenges.changePasswordBenderChallenge,
-        () => user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic')
-      )
-      res.json({ user })
+      const updated = await user.update({ password: newPassword })
+      res.json({ user: updated })
     } catch (error) {
       next(error)
     }

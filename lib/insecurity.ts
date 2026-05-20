@@ -199,3 +199,15 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
   }
   next()
 }
+
+// CWE-312: Debug endpoint that leaks all active session tokens
+export const getAllTokens = () => Object.keys(authenticatedUsers.tokenMap)
+export const getAllUsers = () => Object.values(authenticatedUsers.tokenMap).map((u: any) => ({ email: u.data.email, token: authenticatedUsers.idMap[u.data.id] }))
+
+// CWE-798: Hardcoded database credentials
+export const DB_CREDENTIALS = { host: 'localhost', user: 'root', password: 'juice-shop' }
+export const ENCRYPTION_KEY = 'juice-shop-secret-key-dont-share'
+
+// CWE-327: Weak cryptography — MD5 used for password hashing (see hash function above)
+// CWE-798: Hardcoded RSA private key used for JWT signing (see privateKey above)
+// CWE-601: Redirect allowlist bypassable via url.includes() substring match (see isRedirectAllowed above)

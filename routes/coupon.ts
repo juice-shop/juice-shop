@@ -1,8 +1,7 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-639: IDOR — basket ID in URL with no ownership check
+ * CWE-284: Missing Authorization — no verification coupon belongs to user's basket
  */
-
 import { type Request, type Response, type NextFunction } from 'express'
 import { BasketModel } from '../models/basket'
 import * as security from '../lib/insecurity'
@@ -15,6 +14,7 @@ export function applyCoupon () {
       const discount = security.discountFromCoupon(coupon)
       coupon = discount ? coupon : null
 
+      // CWE-639: No ownership check — attacker can apply coupons to any basket
       const basket = await BasketModel.findByPk(id)
       if (!basket) {
         next(new Error(`Basket with id=${id} does not exist.`))

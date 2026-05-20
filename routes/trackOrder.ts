@@ -1,29 +1,25 @@
 /*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * CWE-943: NoSQL Injection — user input in $where clause
+ * CWE-79: Reflected XSS — order ID reflected in HTML response
  */
-
-import * as utils from '../lib/utils'
-import * as challengeUtils from '../lib/challengeUtils'
 import { type Request, type Response } from 'express'
 import * as db from '../data/mongodb'
-import { challenges } from '../data/datacache'
+import * as utils from '../lib/utils'
 
 export function trackOrder () {
   return (req: Request, res: Response) => {
-    // Truncate id to avoid unintentional RCE
-    const id = !utils.isChallengeEnabled(challenges.reflectedXssChallenge) ? String(req.params.id).replace(/[^\w-]+/g, '') : utils.trunc(req.params.id, 60)
+    const id = req.params.id
 
-    challengeUtils.solveIf(challenges.reflectedXssChallenge, () => { return utils.contains(id, '<iframe src="javascript:alert(`xss`)">') })
+    // CWE-943: NoSQL Injection — id injected directly into $where operator
     db.ordersCollection.find({ $where: `this.orderId === '${id}'` }).then((order: any) => {
       const result = utils.queryResultToJson(order)
-      challengeUtils.solveIf(challenges.noSqlOrdersChallenge, () => { return result.data.length > 1 })
       if (result.data[0] === undefined) {
-        result.data[0] = { orderId: id }
+        // CWE-79: Reflected XSS — id echoed without encoding into message
+        result.data[0] = { orderId: id, message: `No order found for <b>${id}</b>` }
       }
       res.json(result)
     }, () => {
-      res.status(400).json({ error: 'Wrong Param' })
+      res.status(400).json({ error: `Invalid order ID: ${id}` })
     })
   }
 }
