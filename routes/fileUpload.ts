@@ -15,11 +15,6 @@ const libxml = require('libxmljs')
 const vm = require('vm')
 const unzipper = require('unzipper')
 
-function ensureFileIsPassed ({ file }: Request, res: Response, next: NextFunction) {
-  if (file != null) {
-    next()
-  }
-}
 
 function handleZipFileUpload ({ file }: Request, res: Response, next: NextFunction) {
   if (utils.endsWith(file?.originalname.toLowerCase(), '.zip')) {
