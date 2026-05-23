@@ -334,6 +334,8 @@
     - 'This challenge uses an old way which is no longer recommended.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/XS_Leaks_Cheat_Sheet.html'
   key: emailLeakChallenge
+  tags:
+    - Setup Dependent
 -
   name: 'Empty User Registration'
   category: 'Improper Input Validation'
@@ -1385,6 +1387,8 @@
     - 'Write the code for the CSRF attack within http://htmledit.squarefree.com and verify that it changes your username.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
+  tags:
+    - Setup Dependent
 -
   name: 'Bonus Payload'
   category: 'XSS'
