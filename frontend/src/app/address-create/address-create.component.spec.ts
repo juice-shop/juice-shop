@@ -235,3 +235,63 @@ describe('AddressCreateComponent', () => {
         expect(component.stateControl.value).toBe('NY')
     })
 })
+
+describe('AddressCreateComponent rendered error messages (issue #3433)', () => {
+    let component: AddressCreateComponent
+    let fixture: ComponentFixture<AddressCreateComponent>
+
+    beforeEach(async () => {
+        const addressServiceStub = {
+            getById: vi.fn().mockReturnValue(of({})),
+            put: vi.fn().mockReturnValue(of({})),
+            save: vi.fn().mockReturnValue(of({}))
+        }
+        const snackBarStub = { open: vi.fn().mockReturnValue(null) }
+
+        await TestBed.configureTestingModule({
+            imports: [
+                RouterTestingModule,
+                TranslateModule.forRoot(),
+                ReactiveFormsModule,
+                MatCardModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatGridListModule,
+                MatIconModule,
+                MatSnackBarModule,
+                AddressCreateComponent
+            ],
+            providers: [
+                { provide: AddressService, useValue: addressServiceStub },
+                { provide: MatSnackBar, useValue: snackBarStub },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        }).compileComponents()
+
+        const translate = TestBed.inject(TranslateService)
+        translate.setTranslation('en', {
+            INVALID_MOBILE_NUMBER: 'Mobile number must match {{range}} format.'
+        })
+        translate.use('en')
+
+        fixture = TestBed.createComponent(AddressCreateComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
+
+    it('should substitute {{range}} in INVALID_MOBILE_NUMBER error', () => {
+        component.numberControl.setValue(1)
+        component.numberControl.markAsTouched()
+        fixture.detectChanges()
+
+        const matErrors = fixture.nativeElement.querySelectorAll('mat-error')
+        const mobileError = Array.from(matErrors).find((e: Element) =>
+            (e.textContent ?? '').toLowerCase().includes('mobile')
+        ) as HTMLElement | undefined
+
+        expect(mobileError).toBeDefined()
+        expect(mobileError!.textContent).not.toContain('{{range}}')
+        expect(mobileError!.textContent).toContain('1000000-9999999999')
+    })
+})
