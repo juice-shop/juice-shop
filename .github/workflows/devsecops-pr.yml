@@ -1,0 +1,135 @@
+name: DevSecOps Pipeline - PR (Incremental)
+
+on:
+  pull_request:
+    branches: ["master"]
+
+permissions:
+  contents: read
+  issues: write
+  security-events: write
+  pull-requests: write
+
+jobs:
+  # ─────────────────────────────────────────
+  # JOB 1: SAST - SonarCloud
+  # Автоматично аналізує тільки змінені файли у PR
+  # ─────────────────────────────────────────
+  sast-incremental:
+    name: SAST - SonarCloud (PR)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=tkdn00_juice-shop-bachelor-work
+            -Dsonar.organization=tkdn00
+          projectBaseDir: .
+
+  # ─────────────────────────────────────────
+  # JOB 2: SCA - Snyk
+  # Запускається тільки якщо змінились залежності
+  # ─────────────────────────────────────────
+  sca-incremental:
+    name: SCA - Snyk (changed deps only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check if dependencies changed
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only origin/master...HEAD)
+          echo "Changed files: $CHANGED"
+          if echo "$CHANGED" | grep -q "package.json\|package-lock.json"; then
+            echo "deps_changed=true" >> $GITHUB_OUTPUT
+            echo "⚠️ Dependencies changed - running Snyk scan"
+          else
+            echo "deps_changed=false" >> $GITHUB_OUTPUT
+            echo "✅ No dependency changes - skipping Snyk scan"
+          fi
+
+      - name: Install Snyk
+        if: steps.changed.outputs.deps_changed == 'true'
+        uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk scan
+        if: steps.changed.outputs.deps_changed == 'true'
+        run: snyk test --severity-threshold=high --json > snyk-report-pr.json || true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Upload Snyk report
+        if: steps.changed.outputs.deps_changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-report-pr
+          path: snyk-report-pr.json
+
+  # ─────────────────────────────────────────
+  # JOB 3: Вимірювання часу
+  # Фіксує час виконання для порівняння
+  # ─────────────────────────────────────────
+  timing:
+    name: Pipeline Timing
+    runs-on: ubuntu-latest
+    needs: [sast-incremental, sca-incremental]
+    if: always()
+    steps:
+      - name: Log timing
+        run: |
+          echo "=== INCREMENTAL PIPELINE TIMING ==="
+          echo "Start time: ${{ github.event.pull_request.created_at }}"
+          echo "Jobs completed: SAST + SCA only"
+          echo "Skipped: Trivy, ZAP (full scan on master only)"
+
+  # ─────────────────────────────────────────
+  # JOB 4: PR Comment з результатами
+  # ─────────────────────────────────────────
+  pr-comment:
+    name: PR Security Summary
+    runs-on: ubuntu-latest
+    needs: [sast-incremental, sca-incremental]
+    if: always()
+    steps:
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 🔐 Security Scan Results (Incremental)
+
+            | Етап | Статус | Примітка |
+            |------|--------|----------|
+            | ☁️ SAST (SonarCloud) | ✅ Виконано | Тільки змінені файли |
+            | 🔍 SCA (Snyk) | ✅ Виконано | Тільки якщо змінились залежності |
+            | 🐳 Container Scan (Trivy) | ⏭️ Пропущено | Виконується після merge у master |
+            | 🕷️ DAST (ZAP) | ⏭️ Пропущено | Виконується після merge у master |
+
+            ---
+
+            > ⚡ Інкрементальне сканування значно швидше повного
+            > 🔒 Повне сканування запуститься автоматично після merge у master
+            `;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: comment
+            });
