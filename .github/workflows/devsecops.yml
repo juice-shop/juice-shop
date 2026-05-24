@@ -239,10 +239,15 @@ jobs:
               }
             } catch(e) { console.log('Snyk report not found'); }
 
+            const totalCritical = trivyCritical + snykCritical;
+            const totalHigh = trivyHigh + snykHigh;
+            const status = totalCritical > 0 ? '❌ FAILED' : '✅ PASSED';
+
             const body = `## 🔐 DevSecOps Security Report — ${date}
 
             **Commit:** \`${{ github.sha }}\`
             **Branch:** \`${{ github.ref_name }}\`
+            **Quality Gate:** ${status}
 
             ---
 
@@ -252,7 +257,9 @@ jobs:
             |------------|----------|------|
             | 🐳 Trivy (Container) | ${trivyCritical} | ${trivyHigh} |
             | 🔍 Snyk (Dependencies) | ${snykCritical} | ${snykHigh} |
-            | **Разом** | **${trivyCritical + snykCritical}** | **${trivyHigh + snykHigh}** |
+            | 🕷️ ZAP (DAST) | ✅ Виконано | — |
+            | ☁️ SonarCloud (SAST) | ✅ Виконано | — |
+            | **Разом** | **${totalCritical}** | **${totalHigh}** |
 
             ---
 
@@ -262,13 +269,18 @@ jobs:
             - Container Scan (Trivy) — завершено
             - DAST (OWASP ZAP) — завершено
 
+            ---
+
+            ### 🔗 Корисні посилання
+            - [SonarCloud Dashboard](https://sonarcloud.io/project/overview?id=tkdn00_juice-shop-bachelor-work)
+            - [GitHub Actions Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
             > Автоматично згенеровано DevSecOps pipeline`;
 
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `🔐 Security Report — ${date} — commit ${context.sha.substring(0,7)}`,
+              title: `🔐 Security Report — ${date} — ${status} — commit ${context.sha.substring(0,7)}`,
               body: body,
               labels: ['security', 'automated']
             });
-# comment to trigger pipeline
