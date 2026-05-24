@@ -224,7 +224,7 @@
     "typescript-eslint": "^8.57.1"
   },
   "engines": {
-    "node": "22 - 25"
+    "node": "22 - 26"
   },
   "os": [
     "win32",
@@ -239,5 +239,10 @@
     "arm64",
     "arm"
   ],
-  "heroku-run-build-script": true
+  "heroku-run-build-script": true,
+  "overrides": {
+    "libxmljs2": {
+      "nan": "^2.27.0"
+    }
+  }
 }
