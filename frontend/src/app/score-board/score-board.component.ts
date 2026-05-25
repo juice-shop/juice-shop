@@ -173,10 +173,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     })
   }
 
-  openCodingChallengeDialog (challengeKey: string) {
-    this.router.navigate(['/coding-challenge', challengeKey])
-  }
-
   async repeatChallengeNotification (challengeKey: string) {
     const challenge = this.allChallenges.find((challenge) => challenge.key === challengeKey)
     await firstValueFrom(this.challengeService.repeatNotification(encodeURIComponent(challenge.name)))

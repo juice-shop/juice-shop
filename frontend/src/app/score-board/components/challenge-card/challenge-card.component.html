@@ -35,7 +35,9 @@
     }
     <!-- coding challenge badge -->
     @if (applicationConfiguration.challenges.codingChallengesEnabled !== 'never' && challenge.hasCodingChallenge) {
-    <button class="badge not-completable" (click)="openCodingChallengeDialog(challenge.key)"
+    <button
+      class="badge not-completable"
+      [routerLink]="['/coding-challenge', challenge.key]"
       [disabled]="challenge.solved === false && applicationConfiguration.challenges.codingChallengesEnabled !== 'always'"
       [ngClass]="{
         'partially-completed': challenge.codingChallengeStatus === 1,
