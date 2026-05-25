@@ -104,6 +104,7 @@
           "options": {
             "tsConfig": "src/tsconfig.spec.json",
             "setupFiles": ["src/test-setup.ts"],
+            "runnerConfig": true,
             "watch": false,
             "coverage": false,
             "coverageExclude": ["src/hacking-instructor/**/*"]
