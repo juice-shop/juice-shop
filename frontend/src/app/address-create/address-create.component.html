@@ -38,10 +38,8 @@
             </mat-error>
           }
           @if (numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)) {
-            <mat-error
-              [translateParams]="{range: '1000000-9999999999'}"
-              >
-              {{ 'INVALID_MOBILE_NUMBER' | translate }}
+            <mat-error>
+              {{ 'INVALID_MOBILE_NUMBER' | translate: { range: '1000000-9999999999' } }}
             </mat-error>
           }
         </mat-form-field>

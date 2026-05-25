@@ -184,6 +184,13 @@ describe('AddressCreateComponent', () => {
         expect(component.numberControl.valid).toBe(true)
     })
 
+    it('should pass the range parameter when translating INVALID_MOBILE_NUMBER', () => {
+        component.numberControl.setValue(100)
+        component.numberControl.markAsTouched()
+        fixture.detectChanges()
+        expect(translateService.get).toHaveBeenCalledWith('INVALID_MOBILE_NUMBER', { range: '1000000-9999999999' })
+    })
+
     it('should reset the form on updating address and show confirmation', () => {
         addressService.put.mockReturnValue(of({ city: 'NY' }))
         translateService.get.mockReturnValue(of('ADDRESS_UPDATED'))
