@@ -189,7 +189,7 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
   const token = req.cookies.token || utils.jwtFrom(req)
   if (token && authenticatedUsers.get(token) === undefined) {
     jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
-      if (err === null) {
+      if (err === null && decoded?.data !== undefined) {
         authenticatedUsers.put(token, decoded)
         res.cookie('token', token)
       }
