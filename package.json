@@ -153,7 +153,7 @@
     "sqlite3": "^5.1.7",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
-    "unzipper": "0.9.15",
+    "unzipper": "^0.12.3",
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2",
