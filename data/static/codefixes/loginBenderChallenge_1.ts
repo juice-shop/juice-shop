@@ -1,11 +1,11 @@
 export function login () {
-  function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
-    BasketModel.findOrCreate({ where: { UserId: user.data.id } })
+  function afterLogin (user: User, res: Response, next: NextFunction) {
+    BasketModel.findOrCreate({ where: { UserId: user.id } })
       .then(([basket]: [BasketModel, boolean]) => {
-        const token = security.authorize(user)
-        user.bid = basket.id // keep track of original basket
-        security.authenticatedUsers.put(token, user)
-        res.json({ authentication: { token, bid: basket.id, umail: user.data.email } })
+        const authenticatedUser = { data: user, bid: basket.id } // keep track of original basket
+        const token = security.authorize(authenticatedUser)
+        security.authenticatedUsers.put(token, authenticatedUser)
+        res.json({ authentication: { token, bid: basket.id, umail: user.email } })
       }).catch((error: Error) => {
         next(error)
       })
@@ -29,7 +29,7 @@ export function login () {
             }
           })
         } else if (user.data?.id) {
-          afterLogin(user, res, next)
+          afterLogin(user.data, res, next)
         } else {
           res.status(401).send(res.__('Invalid email or password.'))
         }
