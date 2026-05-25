@@ -1,47 +1,90 @@
-# .github/workflows/appsec.yml
 name: ShieldFlow AppSec Pipeline
-on: [push, pull_request]
 
+on:
+  push:
+  pull_request:
 
 jobs:
+
   sast-semgrep:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+
       - uses: returntocorp/semgrep-action@v1
-        with: { config: "p/owasp-top-ten p/javascript" }
+        with:
+          config: "p/owasp-top-ten p/javascript"
 
   sca-trivy:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Run Trivy
-          run: trivy image --exit-code 1 --severity HIGH,CRITICAL
-              --format json -o trivy.json bkimminich/juice-shop
-        - uses: actions/upload-artifact@v3
-          with: { name: trivy-results, path: trivy.json }
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install trivy -y
+
+      - name: Run Trivy
+        run: |
+          trivy image --exit-code 1 \
+          --severity HIGH,CRITICAL \
+          --format json \
+          -o trivy.json \
+          bkimminich/juice-shop
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: trivy-results
+          path: trivy.json
 
   secrets-gitleaks:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with: { fetch-depth: 0 }
-        - uses: gitleaks/gitleaks-action@v2
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: gitleaks/gitleaks-action@v2
 
   dast-zap:
-      runs-on: ubuntu-latest
-      services:
-        juice-shop:
-          image: bkimminich/juice-shop
-          ports: ["3000:3000"]
-      steps:
-        - uses: zaproxy/action-full-scan@v0.9.0
-          with: { target: "http://localhost:3000" }
-          
+    runs-on: ubuntu-latest
+
+    services:
+      juice-shop:
+        image: bkimminich/juice-shop
+        ports:
+          - 3000:3000
+
+    steps:
+      - name: Wait for Juice Shop
+        run: sleep 30
+
+      - uses: zaproxy/action-full-scan@v0.9.0
+        with:
+          target: "http://localhost:3000"
 
   notify-soar:
-      needs: [sast-semgrep, sca-trivy, secrets-gitleaks, dast-zap]
-      if: always()
-      steps:
-        - name: POST findings to Shuffle
-          run: python3 scripts/post_to_soar.py
+    runs-on: ubuntu-latest
+
+    needs:
+      - sast-semgrep
+      - sca-trivy
+      - secrets-gitleaks
+      - dast-zap
+
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: POST findings to Shuffle
+        run: python3 scripts/post_to_soar.py
