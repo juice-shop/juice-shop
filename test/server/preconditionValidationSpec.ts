@@ -16,12 +16,13 @@ chai.use(sinonChai)
 
 describe('preconditionValidation', () => {
   describe('checkIfRunningOnSupportedNodeVersion', () => {
-    it('should define the supported semver range as 22 - 25', () => {
-      expect(supportedEngines.node).to.equal('22 - 25')
+    it('should define the supported semver range as 22 - 26', () => {
+      expect(supportedEngines.node).to.equal('22 - 26')
       expect(semver.validRange(supportedEngines.node)).to.not.equal(null)
     })
 
     it('should accept a supported version', () => {
+      expect(checkIfRunningOnSupportedNodeVersion('26.42.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('25.8.1')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('24.2.0')).to.equal(true)
       expect(checkIfRunningOnSupportedNodeVersion('23.11.1')).to.equal(true)
@@ -29,7 +30,6 @@ describe('preconditionValidation', () => {
     })
 
     it('should fail for an unsupported version', () => {
-      expect(checkIfRunningOnSupportedNodeVersion('26.0.0')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('21.7.3')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('20.19.2')).to.equal(false)
       expect(checkIfRunningOnSupportedNodeVersion('19.9.0')).to.equal(false)
