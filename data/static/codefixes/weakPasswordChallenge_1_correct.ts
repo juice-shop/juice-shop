@@ -4,6 +4,6 @@ User.init(
         set (clearTextPassword: string) {
           validatePasswordHasAtLeastTenChar(clearTextPassword)
           validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)
-          this.setDataValue('password', security.hash(clearTextPassword))
+          this.setDataValue('password', security.hashPassword(clearTextPassword))
         }
       },

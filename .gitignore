@@ -68,3 +68,6 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Local secrets
+.env

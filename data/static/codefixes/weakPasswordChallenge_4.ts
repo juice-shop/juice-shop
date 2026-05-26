@@ -3,6 +3,6 @@ User.init(
         type: DataTypes.STRING,
         set (clearTextPassword: string) {
           validatePasswordIsNotInTopOneMillionCommonPasswordsList(clearTextPassword)
-          this.setDataValue('password', security.hash(clearTextPassword))
+          this.setDataValue('password', security.hashPassword(clearTextPassword))
         }
       },

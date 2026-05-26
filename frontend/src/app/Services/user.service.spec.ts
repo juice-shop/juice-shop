@@ -86,6 +86,21 @@ describe('UserService', () => {
         httpMock.verify()
     })
 
+    it('should logout user directly via the rest api', () => {
+        const service = TestBed.inject(UserService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        let res: any
+        service.logout().subscribe((data) => (res = data))
+
+        const req = httpMock.expectOne('http://localhost:3000/rest/user/logout')
+        req.flush({ status: 'success' })
+
+        expect(req.request.method).toBe('POST')
+        expect(res).toEqual({ status: 'success' })
+        httpMock.verify()
+    })
+
     it('should change user password directly via the rest api', () => {
         const service = TestBed.inject(UserService)
         const httpMock = TestBed.inject(HttpTestingController)

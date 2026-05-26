@@ -20,28 +20,102 @@ import * as utils from './utils'
 import * as z85 from 'z85'
 
 export const publicKey = fs ? fs.readFileSync('encryptionkeys/jwt.pub', 'utf8') : 'placeholder-public-key'
-const privateKey = '-----BEGIN RSA PRIVATE KEY-----\r\nMIICXAIBAAKBgQDNwqLEe9wgTXCbC7+RPdDbBbeqjdbs4kOPOIGzqLpXvJXlxxW8iMz0EaM4BKUqYsIa+ndv3NAn2RxCd5ubVdJJcX43zO6Ko0TFEZx/65gY3BE0O6syCEmUP4qbSd6exou/F+WTISzbQ5FBVPVmhnYhG/kpwt/cIxK5iUn5hm+4tQIDAQABAoGBAI+8xiPoOrA+KMnG/T4jJsG6TsHQcDHvJi7o1IKC/hnIXha0atTX5AUkRRce95qSfvKFweXdJXSQ0JMGJyfuXgU6dI0TcseFRfewXAa/ssxAC+iUVR6KUMh1PE2wXLitfeI6JLvVtrBYswm2I7CtY0q8n5AGimHWVXJPLfGV7m0BAkEA+fqFt2LXbLtyg6wZyxMA/cnmt5Nt3U2dAu77MzFJvibANUNHE4HPLZxjGNXN+a6m0K6TD4kDdh5HfUYLWWRBYQJBANK3carmulBwqzcDBjsJ0YrIONBpCAsXxk8idXb8jL9aNIg15Wumm2enqqObahDHB5jnGOLmbasizvSVqypfM9UCQCQl8xIqy+YgURXzXCN+kwUgHinrutZms87Jyi+D8Br8NY0+Nlf+zHvXAomD2W5CsEK7C+8SLBr3k/TsnRWHJuECQHFE9RA2OP8WoaLPuGCyFXaxzICThSRZYluVnWkZtxsBhW2W8z1b8PvWUE7kMy7TnkzeJS2LSnaNHoyxi7IaPQUCQCwWU4U+v4lD7uYBw00Ga/xt+7+UqFPlPVdz1yyr4q24Zxaw0LgmuEvgU5dycq8N7JxjTubX0MIRR+G9fmDBBl8=\r\n-----END RSA PRIVATE KEY-----'
+try {
+  process.loadEnvFile()
+} catch (error) {
+  if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+    throw error
+  }
+}
+
+const privateKeyBase64 = process.env.JWT_PRIVATE_KEY_BASE64
+if (!privateKeyBase64) {
+  throw new Error('JWT_PRIVATE_KEY_BASE64 is not configured')
+}
+
+const privateKey = Buffer.from(privateKeyBase64, 'base64').toString('utf8')
 
 interface ResponseWithUser {
-  status?: string
-  data: UserModel
-  iat?: number
-  exp?: number
-  bid?: number
+  status?: string;
+  data: UserModel;
+  iat?: number;
+  exp?: number;
+  bid?: number;
 }
 
 interface IAuthenticatedUsers {
-  tokenMap: Record<string, ResponseWithUser>
-  idMap: Record<string, string>
-  put: (token: string, user: ResponseWithUser) => void
-  get: (token?: string) => ResponseWithUser | undefined
-  tokenOf: (user: UserModel) => string | undefined
-  from: (req: Request) => ResponseWithUser | undefined
-  updateFrom: (req: Request, user: ResponseWithUser) => any
+  tokenMap: Record<string, ResponseWithUser>;
+  idMap: Record<string, string>;
+  put: (token: string, user: ResponseWithUser) => void;
+  get: (token?: string) => ResponseWithUser | undefined;
+  delete: (teken?: string) => void;
+  tokenOf: (user: UserModel) => string | undefined;
+  from: (req: Request) => ResponseWithUser | undefined;
+  updateFrom: (req: Request, user: ResponseWithUser) => any;
+}
+
+const revokedTokens = new Set<string>()
+const normalizeToken = (token?: string) => (token ? utils.unquote(token) : undefined)
+const tokenFromRequest = (req: Request) => utils.jwtFrom(req) || req.cookies?.token
+
+const scryptOptions = {
+  N: 2 ** 17,
+  r: 8,
+  p: 1,
+  maxmem: 256 * 1024 * 1024
+}
+
+const passwordKeyLength = 64
+
+export const hashPassword = (password: string) => {
+  const salt = crypto.randomBytes(16).toString('hex')
+  const derivedKey = crypto.scryptSync(
+    password,
+    salt,
+    passwordKeyLength,
+    scryptOptions
+  ).toString('hex')
+
+  return `scrypt$${salt}$${derivedKey}`
+}
+
+export const verifyPassword = (password: string, storedPassword?: string) => {
+  if (!storedPassword) {
+    return false
+  }
+
+  const [algorithm, salt, expectedHash] = storedPassword.split('$')
+
+  if (algorithm !== 'scrypt' || !salt || !expectedHash) {
+    return false
+  }
+
+  const actual = crypto.scryptSync(
+    password,
+    salt,
+    passwordKeyLength,
+    scryptOptions
+  )
+  const expected = Buffer.from(expectedHash, 'hex')
+
+  return expected.length === actual.length &&
+    crypto.timingSafeEqual(expected, actual)
 }
 
 export const hash = (data: string) => crypto.createHash('md5').update(data).digest('hex')
 export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t9nGv7yZtwmj').update(data).digest('hex')
+
+export const isTokenRevoked = (token?: string) => {
+  const normalizedToken = normalizeToken(token)
+  return normalizedToken ? revokedTokens.has(normalizedToken) : false
+}
+
+export const revokeToken = (token?: string) => {
+  const normalizedToken = normalizeToken(token)
+  if (normalizedToken) {
+    revokedTokens.add(normalizedToken)
+  }
+}
 
 export const cutOffPoisonNullByte = (str: string) => {
   const nullByte = '%00'
@@ -51,11 +125,36 @@ export const cutOffPoisonNullByte = (str: string) => {
   return str
 }
 
-export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
+export const isAuthorized = () => {
+  return (req:Request, res:Response, next:NextFunction) => {
+    const token = tokenFromRequest(req)
+    if (!verify(token)) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+    next()
+  }
+}
+
 export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
-export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
-export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
-export const decode = (token: string) => { return jws.decode(token)?.payload }
+export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresInMinutes: 15, algorithm: 'RS256' } as any)
+
+export const verify = (token?: string) => {
+  const normalizedToken = normalizeToken(token)
+  if (!normalizedToken || isTokenRevoked(normalizedToken)) {
+    return false
+  }
+
+  const decodedToken = jws.decode(normalizedToken)
+  const expiration = decodedToken?.payload?.exp
+  return decodedToken?.header?.alg === 'RS256' &&
+    typeof expiration === 'number' && expiration > Math.floor(Date.now() / 1000) &&
+    (jws.verify as ((token: string, secret: string) => boolean))(normalizedToken, publicKey)
+}
+
+export const decode = (token?: string): any => {
+  const normalizedToken = normalizeToken(token)
+  return normalizedToken && verify(normalizedToken) ? jws.decode(normalizedToken)?.payload : undefined
+}
 
 export const sanitizeHtml = (html: string) => sanitizeHtmlLib(html)
 export const sanitizeLegacy = (input = '') => input.replace(/<(?:\w+)\W+?[\w]/gi, '')
@@ -73,22 +172,44 @@ export const authenticatedUsers: IAuthenticatedUsers = {
   tokenMap: {},
   idMap: {},
   put: function (token: string, user: ResponseWithUser) {
-    this.tokenMap[token] = user
-    this.idMap[user.data.id] = token
+    const normalizedToken = normalizeToken(token)
+    if (!normalizedToken) return
+    this.tokenMap[normalizedToken] = user
+    this.idMap[user.data.id] = normalizedToken
   },
   get: function (token?: string) {
-    return token ? this.tokenMap[utils.unquote(token)] : undefined
+    const normalizedToken = normalizeToken(token)
+    if (!normalizedToken || !verify(normalizedToken)) {
+      if (normalizedToken) {
+        this.delete(normalizedToken)
+      }
+      return undefined
+    }
+    return this.tokenMap[normalizedToken]
+  },
+  delete: function (token?: string) {
+    const normalizedToken = normalizeToken(token)
+    if (!normalizedToken) return
+
+    const existingUser = this.tokenMap[normalizedToken]
+    delete this.tokenMap[normalizedToken]
+
+    if (existingUser?.data?.id && this.idMap[existingUser.data.id] === normalizedToken) {
+      delete this.idMap[existingUser.data.id]
+    }
   },
   tokenOf: function (user: UserModel) {
     return user ? this.idMap[user.id] : undefined
   },
   from: function (req: Request) {
-    const token = utils.jwtFrom(req)
-    return token ? this.get(token) : undefined
+    const token = tokenFromRequest(req)
+    return this.get(token)
   },
   updateFrom: function (req: Request, user: ResponseWithUser) {
-    const token = utils.jwtFrom(req)
-    this.put(token, user)
+    const token = tokenFromRequest(req)
+    if (verify(token) && token) {
+      this.put(token, user)
+    }
   }
 }
 
@@ -106,7 +227,7 @@ export const discountFromCoupon = (coupon?: string) => {
     return undefined
   }
   const decoded = z85.decode(coupon)
-  if (decoded && (hasValidFormat(decoded.toString()) != null)) {
+  if (decoded && hasValidFormat(decoded.toString()) != null) {
     const parts = decoded.toString().split('-')
     const validity = parts[0]
     if (utils.toMMMYY(new Date()) === validity) {
@@ -129,7 +250,7 @@ export const redirectAllowlist = new Set([
   'http://shop.spreadshirt.com/juiceshop',
   'http://shop.spreadshirt.de/juiceshop',
   'https://www.stickeryou.com/products/owasp-juice-shop/794',
-  'http://leanpub.com/juice-shop'
+  'http://leanpub.com/juice-shop',
 ])
 
 export const isRedirectAllowed = (url: string) => {
@@ -145,7 +266,7 @@ export const roles = {
   customer: 'customer',
   deluxe: 'deluxe',
   accounting: 'accounting',
-  admin: 'admin'
+  admin: 'admin',
 }
 
 export const deluxeToken = (email: string) => {
@@ -177,7 +298,16 @@ export const isCustomer = (req: Request) => {
 export const appendUserId = () => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
+      const token = tokenFromRequest(req)
+      if (!verify(token)) {
+        return res.status(401).json({ status: 'error', message: 'Invalid token' })
+      }
+      const authenticatedUser = authenticatedUsers.get(token)
+      if (!authenticatedUser) {
+        return res.status(401).json({ status: 'error', message: 'user not authenticated' })
+      }
+
+      req.body.UserId = authenticatedUser.data.id
       next()
     } catch (error: unknown) {
       res.status(401).json({ status: 'error', message: utils.getErrorMessage(error) })
@@ -186,16 +316,22 @@ export const appendUserId = () => {
 }
 
 export const updateAuthenticatedUsers = () => (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token || utils.jwtFrom(req)
-  if (token) {
-    jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
-      if (err === null) {
-        if (authenticatedUsers.get(token) === undefined) {
-          authenticatedUsers.put(token, decoded)
-          res.cookie('token', token)
-        }
-      }
-    })
+  const token = tokenFromRequest(req)
+
+  if (!token) {
+    return next()
   }
+
+  if (!verify(token)) {
+    authenticatedUsers.delete(token)
+    return next()
+  }
+
+  const decoded = decode(token)
+  if (decoded && authenticatedUsers.tokenMap[normalizeToken(token) as string] === undefined) {
+    authenticatedUsers.put(token, decoded)
+    res.cookie('token', token)
+  }
+
   next()
 }

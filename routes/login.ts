@@ -10,7 +10,6 @@ import { challenges, users } from '../data/datacache'
 import { BasketModel } from '../models/basket'
 import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
-import * as models from '../models/index'
 import { type User } from '../data/types'
 import * as utils from '../lib/utils'
 
@@ -31,8 +30,13 @@ export function login () {
 
   return (req: Request, res: Response, next: NextFunction) => {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
-    models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
+    UserModel.findOne({ where: { email: req.body.email || '' } }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
       .then((authenticatedUser) => { // vuln-code-snippet neutral-line loginAdminChallenge loginBenderChallenge loginJimChallenge
+        if (!authenticatedUser || !security.verifyPassword(req.body.password || '', authenticatedUser.password)) {
+          res.status(401).send(res.__('Invalid email or password.'))
+          return
+        }
+
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({

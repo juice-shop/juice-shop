@@ -237,6 +237,16 @@ export class NavbarComponent implements OnInit {
 
   logout () {
     this.userService.saveLastLoginIp().subscribe({ next: () => { this.noop() }, error: (err) => { console.log(err) } })
+    this.userService.logout().subscribe({
+      next: () => { this.finishLogout() },
+      error: (err) => {
+        console.log(err)
+        this.finishLogout()
+      }
+    })
+  }
+
+  private finishLogout () {
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')

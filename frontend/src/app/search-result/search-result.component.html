@@ -8,7 +8,7 @@
     @if (searchValue) {
       <div>
         <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
-        <span id="searchValue" [innerHTML]="searchValue"></span>
+        <span id="searchValue">{{searchValue}}</span>
       </div>
     } @else {
       <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>

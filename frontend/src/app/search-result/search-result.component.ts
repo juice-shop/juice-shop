@@ -48,7 +48,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public pageSizeOptions: number[] = []
   public dataSource!: MatTableDataSource<ProductTableEntry>
   public gridDataSource!: BehaviorSubject<ProductTableEntry[]>
-  public searchValue?: SafeHtml
+  public searchValue?: string
   public resultsLength = 0
   public currentPageSize = 15
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator
@@ -140,7 +140,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
       }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
-      this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
+      this.searchValue = queryParam // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
       if (this.gridDataSourceSubscription) {
         this.gridDataSourceSubscription.unsubscribe()
       }
