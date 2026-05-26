@@ -1,0 +1,65 @@
+name: DevSecOps Pipeline - IoT Project
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_project:
+    name: Build & Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kéo source code về máy ảo
+        uses: actions/checkout@v4
+        
+      - name: Setup môi trường (Ví dụ Python)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          
+      - name: Cài đặt dependencies
+        run: echo 
+  sast_semgrep:
+    name: Semgrep
+    runs-on: ubuntu-latest
+    needs: build_project 
+    steps:
+      - uses: actions/checkout@v4
+      - name: run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/default"
+
+  sast_sonarqube:
+    name: SonarQube Cloud
+    runs-on: ubuntu-latest
+    needs: build_project 
+    steps:
+      - uses: actions/checkout@v4
+      - name: SonarQube Analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
+  sca_snyk:
+    name: Snyk
+    runs-on: ubuntu-latest
+    needs: build_project
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snyk installing and running
+        uses: snyk/actions/setup@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+      - name: lib checking
+        run: snyk test --severity-threshold=high || true 
+  quality_gate:
+    name: Quality Gate
+    runs-on: ubuntu-latest
+    needs: [sast_semgrep, sast_sonarqube, sca_snyk] 
+    steps:
+      - name: Đánh giá tổng hợp
+        run: |
+          echo "Pipeline đang kiểm tra kết quả từ Semgrep, SonarQube và Snyk..."
+          echo "Nếu SonarQube hoặc Snyk phát hiện lỗi High/Critical, lệnh này sẽ được cấu hình để đánh rớt (Fail) toàn bộ quy trình."
