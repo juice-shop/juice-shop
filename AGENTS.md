@@ -7,7 +7,7 @@ This document is the **primary authoritative source** of context for all AI assi
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training
 - **Primary Languages**: TypeScript, JavaScript, Angular (frontend)
 - **Key Technologies**: Node.js (22–25 with 24 being the default), Express, SQLite/Sequelize, MongoDB/MarsDB, Angular 21.x
-- **Testing**: Mocha/Chai/Sinon (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
+- **Testing**: Node.js built-in test runner (server unit tests), Supertest (API integration), Vitest (frontend unit tests), Cypress (E2E tests)
 - **Code Style**: JS Standard Style (enforced via ESLint)
 - **Repository**: [juice-shop/juice-shop](https://github.com/juice-shop/juice-shop)
 
@@ -19,8 +19,8 @@ This document is the **primary authoritative source** of context for all AI assi
 - `models/` - Sequelize data models (SQLite)
 - `data/` - Data creation and management (`data/static/` for challenges, users, codefixes)
 - `views/` - Server-rendered templates (Handlebars `.hbs` and Pug `.pug`)
-- `test/server/` - Server unit tests (Mocha/Chai/Sinon)
-- `test/api/` - API integration tests (Supertest)
+- `test/server/` - Server unit tests (Node.js built-in test runner)
+- `test/api/` - API integration tests (Node.js built-in test runner + Supertest)
 - `frontend/src/` - Angular frontend code (tests use Vitest)
 - `cypress/` - E2E tests (Cypress)
 - `rsn/` - Refactoring Safety Net scripts and cache
@@ -91,8 +91,8 @@ For any code changes (unless only `REFERENCES.md` or `SOLUTIONS.md` were modifie
   ```bash
   npm test                    # Runs frontend, server, and api tests
   npm run test:frontend       # Frontend unit tests (Vitest)
-  npm run test:server         # Server unit tests only (Mocha/Chai/Sinon)
-  npm run test:api            # API integration tests (Supertest)
+  npm run test:server         # Server unit tests only (Node.js built-in test runner)
+  npm run test:api            # API integration tests (Node.js built-in test runner + Supertest)
   npm start & npm run test:e2e  # E2E tests (Cypress)
   npm run rsn                 # Refactoring Safety Net
   ```
