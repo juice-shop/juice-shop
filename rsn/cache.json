@@ -1336,10 +1336,10 @@
 		"removed": []
 	},
 	"web3WalletChallenge_2.sol": {
-		"added": [],
-		"removed": [
-			33
-		]
+		"added": [
+			32
+		],
+		"removed": []
 	},
 	"web3WalletChallenge_3_correct.sol": {
 		"added": [],
