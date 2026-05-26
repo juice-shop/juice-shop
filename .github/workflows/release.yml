@@ -8,11 +8,27 @@ env:
   TYPESCRIPT_VERSION: '~5.3.3'                      # keep in sync with package.json
 jobs:
   package:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os.runner }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [22, 24]
+        os:
+          - runner: ubuntu-latest
+            pckg-os: linux
+            cpu-arch: x64
+            pckg-format: tgz
+          - runner: ubuntu-24.04-arm
+            pckg-os: linux
+            cpu-arch: arm64
+            pckg-format: tgz
+          - runner: windows-latest
+            pckg-os: win32
+            cpu-arch: x64
+            pckg-format: zip
+          - runner: macos-latest
+            pckg-os: darwin
+            cpu-arch: arm64
+            pckg-format: zip
+        node-version: [24, 26]
       fail-fast: false
     steps:
       - name: "Check out Git repository"
@@ -25,17 +41,12 @@ jobs:
         run: |
           npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
-          npm install -g grunt-cli
-      - name: "Set packaging options for Grunt"
+          npm install -g archiver
+      - name: "Set packaging options"
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-          echo "PCKG_OS_NAME=win32" >> $GITHUB_ENV
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "PCKG_OS_NAME=darwin" >> $GITHUB_ENV
-          else
-          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
-          fi
-          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=${{ matrix.os.pckg-os }}" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=${{ matrix.os.cpu-arch }}" >> $GITHUB_ENV
+          echo "PCKG_FORMAT=${{ matrix.os.pckg-format }}" >> $GITHUB_ENV
           echo "PCKG_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
         shell: bash
       - name: "Package application"

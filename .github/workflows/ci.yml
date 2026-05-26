@@ -295,10 +295,11 @@ jobs:
         run: |
           npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-          npm install -g grunt-cli
-      - name: "Set packaging options for Grunt"
+          npm install -g archiver
+      - name: "Set packaging options"
         run: |
           echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
+          echo "PCKG_FORMAT=tgz" >> $GITHUB_ENV
           echo "PCKG_NODE_VERSION=24" >> $GITHUB_ENV
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
