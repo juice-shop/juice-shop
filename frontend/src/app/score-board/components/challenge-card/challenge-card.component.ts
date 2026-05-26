@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit, inject, type OnChanges, type SimpleChanges, ViewChild, HostBinding } from '@angular/core'
+import { Component, input, viewChild, inject, effect } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -13,56 +13,46 @@ import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service
   selector: 'challenge-card',
   templateUrl: './challenge-card.component.html',
   styleUrls: ['./challenge-card.component.scss'],
-  imports: [DifficultyStarsComponent, MatTooltip, MatIconModule, NgClass, TranslateModule, RouterLink]
+  imports: [DifficultyStarsComponent, MatTooltip, MatIconModule, NgClass, TranslateModule, RouterLink],
+  host: { '[attr.id]': 'challengeId()' }
 })
-export class ChallengeCardComponent implements OnInit, OnChanges {
+export class ChallengeCardComponent {
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  @Input()
-  public challenge: EnrichedChallenge
+  readonly challenge = input.required<EnrichedChallenge>()
+  readonly repeatChallengeNotification = input<(challengeKey: string) => void>()
+  readonly unlockHint = input<(hintId: number, challengeKey?: string) => void>()
+  readonly applicationConfiguration = input.required<Config>()
+  readonly lastUnlockedChallengeKey = input<string | null>(null)
+  readonly challengeId = input<string>()
 
-  @Input()
-  public repeatChallengeNotification: (challengeKey: string) => void
-
-  @Input()
-  public unlockHint: (hintId: number, challengeKey?: string) => void
-
-  @Input()
-  public applicationConfiguration: Config
-
-  @Input()
-  public lastUnlockedChallengeKey: string | null = null
-
-  @ViewChild('hintTooltip')
-  public hintTooltip?: MatTooltip
-
-  @Input()
-  @HostBinding('attr.id')
-  public challengeId?: string
+  readonly hintTooltip = viewChild<MatTooltip>('hintTooltip')
 
   private previousHintsUnlocked?: number
 
-  public hasInstructions: (challengeName: string) => boolean = () => false
-  public startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
+  hasInstructions: (challengeName: string) => boolean = () => false
+  startHackingInstructorFor: (challengeName: string) => Promise<void> = async () => {}
 
-  async ngOnInit () {
-    const { hasInstructions, startHackingInstructorFor } = await import('../../../../hacking-instructor')
-    this.hasInstructions = hasInstructions
-    this.startHackingInstructorFor = startHackingInstructorFor
-  }
+  constructor () {
+    void import('../../../../hacking-instructor').then(({ hasInstructions, startHackingInstructorFor }) => {
+      this.hasInstructions = hasInstructions
+      this.startHackingInstructorFor = startHackingInstructorFor
+    })
 
-  ngOnChanges (changes: SimpleChanges): void {
-    if (changes['challenge']?.currentValue) {
-      const currentHintsUnlocked = this.challenge?.hintsUnlocked
+    effect(() => {
+      const challenge = this.challenge()
+      const lastUnlockedKey = this.lastUnlockedChallengeKey()
+      const currentHintsUnlocked = challenge?.hintsUnlocked
+
       if (
-        this.lastUnlockedChallengeKey === this.challenge?.key &&
+        lastUnlockedKey === challenge?.key &&
         this.previousHintsUnlocked !== undefined &&
         currentHintsUnlocked !== this.previousHintsUnlocked
       ) {
-        queueMicrotask(() => setTimeout(()=>{this.hintTooltip?.show()}, 50))
+        queueMicrotask(() => setTimeout(() => { this.hintTooltip()?.show() }, 50))
       }
       this.previousHintsUnlocked = currentHintsUnlocked
-    }
+    })
   }
 
   copyPayload (event: MouseEvent) {
@@ -79,27 +69,27 @@ export class ChallengeCardComponent implements OnInit, OnChanges {
   }
 
   isDependencyMissing (tag: string): boolean {
-    if (!this.challenge.ChallengeDependencies) {
+    if (!this.challenge().ChallengeDependencies) {
       return false
     }
     const dependencyName = tag.substring('Requires '.length)
-    return this.challenge.ChallengeDependencies.some((dep) => dep.name === dependencyName && dep.missing)
+    return this.challenge().ChallengeDependencies.some((dep) => dep.name === dependencyName && dep.missing)
   }
 
   getDependencyDocumentation (tag: string): string | null {
-    if (!this.challenge.ChallengeDependencies) {
+    if (!this.challenge().ChallengeDependencies) {
       return null
     }
     const dependencyName = tag.substring('Requires '.length)
-    const dependency = this.challenge.ChallengeDependencies.find((dep) => dep.name === dependencyName)
+    const dependency = this.challenge().ChallengeDependencies.find((dep) => dep.name === dependencyName)
     return dependency ? dependency.documentation : null
   }
 
   getDependency (tag: string) {
-    if (!this.challenge.ChallengeDependencies) {
+    if (!this.challenge().ChallengeDependencies) {
       return null
     }
     const dependencyName = tag.substring('Requires '.length)
-    return this.challenge.ChallengeDependencies.find((dep) => dep.name === dependencyName)
+    return this.challenge().ChallengeDependencies.find((dep) => dep.name === dependencyName)
   }
 }

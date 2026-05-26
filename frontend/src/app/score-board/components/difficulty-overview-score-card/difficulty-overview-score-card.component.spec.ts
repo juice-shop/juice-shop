@@ -17,7 +17,7 @@ describe('DifficultyOverviewScoreCardComponent', () => {
 
         fixture = TestBed.createComponent(DifficultyOverviewScoreCardComponent)
         component = fixture.componentInstance
-        component.allChallenges = []
+        fixture.componentRef.setInput('allChallenges', [])
         fixture.detectChanges()
     })
 

@@ -1,5 +1,6 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { provideZoneChangeDetection } from '@angular/core'
+import { provideRouter } from '@angular/router'
 
 import { ChallengeCardComponent } from './challenge-card.component'
 import { type Config } from 'src/app/Services/configuration.service'
@@ -29,15 +30,15 @@ describe('ChallengeCard', () => {
     async function setup() {
         await TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule, ChallengeCardComponent],
-            providers: [provideZoneChangeDetection()]
+            providers: [provideZoneChangeDetection(), provideRouter([])]
         })
             .compileComponents()
 
         fixture = TestBed.createComponent(ChallengeCardComponent)
         component = fixture.componentInstance
 
-        component.challenge = { ...defaultChallenge } as any
-        component.applicationConfiguration = defaultAppConfig
+        fixture.componentRef.setInput('challenge', { ...defaultChallenge })
+        fixture.componentRef.setInput('applicationConfiguration', defaultAppConfig)
 
         fixture.detectChanges()
     }
@@ -58,16 +59,14 @@ describe('ChallengeCard', () => {
     })
 
     it('should not show a mitigation link when challenge has it but is not solved', () => {
-        component.challenge.solved = false
-        component.challenge.mitigationUrl = 'https://owasp.example.com'
+        fixture.componentRef.setInput('challenge', { ...defaultChallenge, solved: false })
         fixture.detectChanges()
         expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
             .toBeFalsy()
     })
 
     it('should show a mitigation link when challenge has it and is solved', () => {
-        component.challenge.solved = true
-        component.challenge.mitigationUrl = 'https://owasp.example.com'
+        fixture.componentRef.setInput('challenge', { ...defaultChallenge, solved: true })
         fixture.detectChanges()
         expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
             .toBeTruthy()
