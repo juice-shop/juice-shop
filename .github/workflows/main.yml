@@ -16,7 +16,7 @@ jobs:
       - name: Cài đặt Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' 
+          node-version: '22' 
           
       - name: Cài đặt thư viện của Juice Shop
         run: npm install --legacy-peer-deps
@@ -63,7 +63,7 @@ jobs:
       - name: Cài đặt Node.js cho phân xưởng DAST
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ''
       - name: Cài đặt thư viện cho DAST
         run: npm install --legacy-peer-deps
       - name: Khởi động ngầm Juice Shop trên máy ảo
