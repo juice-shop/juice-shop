@@ -3,16 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import sinon from 'sinon'
-import chai from 'chai'
-import sinonChai from 'sinon-chai'
+import { describe, it, beforeEach, mock } from 'node:test'
+import assert from 'node:assert/strict'
 import { challenges } from '../../data/datacache'
 import { type Challenge } from 'data/types'
 import { b2bOrder } from '../../routes/b2bOrder'
-const expect = chai.expect
-chai.use(sinonChai)
 
-describe('b2bOrder', () => {
+void describe('b2bOrder', () => {
   let req: any
   let res: any
   let next: any
@@ -20,51 +17,50 @@ describe('b2bOrder', () => {
 
   beforeEach(() => {
     req = { body: { } }
-    res = { json: sinon.spy(), status: sinon.spy() }
-    next = sinon.spy()
+    res = { json: mock.fn(), status: mock.fn() }
+    next = mock.fn()
     save = () => ({
       then () { }
     })
     challenges.rceChallenge = { solved: false, save } as unknown as Challenge
   })
 
-  xit('infinite loop payload does not succeed but solves "rceChallenge"', () => { // FIXME Started failing on Linux regularly
+  void it('infinite loop payload does not succeed but solves "rceChallenge"', { skip: true }, () => {
     req.body.orderLinesData = '(function dos() { while(true); })()'
 
     b2bOrder()(req, res, next)
 
-    expect(challenges.rceChallenge.solved).to.equal(true)
+    assert.equal(challenges.rceChallenge.solved, true)
   })
 
-  // FIXME Disabled as test started failing on Linux regularly
-  xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
+  void it('timeout after 2 seconds solves "rceOccupyChallenge"', { skip: true }, () => {
     req.body.orderLinesData = '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
 
     b2bOrder()(req, res, next)
 
-    expect(challenges.rceOccupyChallenge.solved).to.equal(true)
-  }/*, 3000 */)
+    assert.equal(challenges.rceOccupyChallenge.solved, true)
+  })
 
-  it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
+  void it('deserializing JSON as documented in Swagger should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"}'
 
     b2bOrder()(req, res, next)
 
-    expect(challenges.rceChallenge.solved).to.equal(false)
+    assert.equal(challenges.rceChallenge.solved, false)
   })
 
-  it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
+  void it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{"hello": "world", "foo": 42, "bar": [false, true]}'
 
     b2bOrder()(req, res, next)
-    expect(challenges.rceChallenge.solved).to.equal(false)
+    assert.equal(challenges.rceChallenge.solved, false)
   })
 
-  it('deserializing broken JSON should not solve "rceChallenge"', () => {
+  void it('deserializing broken JSON should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{ "productId: 28'
 
     b2bOrder()(req, res, next)
 
-    expect(challenges.rceChallenge.solved).to.equal(false)
+    assert.equal(challenges.rceChallenge.solved, false)
   })
 })

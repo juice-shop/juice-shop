@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
+import { describe, it, before } from 'node:test'
+import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import chai from 'chai'
 import path from 'node:path'
 import { promisify } from 'util'
 import { safeLoad } from 'js-yaml'
-import sinonChai from 'sinon-chai'
-const expect = chai.expect
-chai.use(sinonChai)
 
 const readFile = promisify(fs.readFile)
 
@@ -19,20 +17,21 @@ const loadYamlFile = async (filename: string) => {
   return safeLoad(contents)
 }
 
-describe('challengeCountryMapping', () => {
+void describe('challengeCountryMapping', () => {
   let challenges: any
   let countryMapping: Record<string, { code: any }>
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
     countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml')) as any)?.ctf?.countryMapping
   })
-  it('should have a country mapping for every challenge', async () => {
+
+  void it('should have a country mapping for every challenge', async () => {
     for (const { key } of challenges) {
-      expect(countryMapping, `Challenge "${key}" does not have a country mapping.`).to.have.property(key)
+      assert.ok(key in countryMapping, `Challenge "${key}" does not have a country mapping.`)
     }
   })
 
-  it('should have unique country codes in every mapping', async () => {
+  void it('should have unique country codes in every mapping', async () => {
     const countryCodeCounts: any = {}
 
     for (const key of Object.keys(countryMapping)) {
@@ -47,7 +46,7 @@ describe('challengeCountryMapping', () => {
     for (const key of Object.keys(countryCodeCounts)) {
       const count = countryCodeCounts[key]
 
-      expect(count, `Country "${key}" is used for multiple country mappings.`).to.equal(1)
+      assert.equal(count, 1, `Country "${key}" is used for multiple country mappings.`)
     }
   })
 })
