@@ -1,9 +1,9 @@
 name: DevSecOps Pipeline - OWASP Juice Shop
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
 
 jobs:
   build_project:
