@@ -54,12 +54,35 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
       - name: lib checking
         run: snyk test --severity-threshold=high || true 
+  dast_zap:
+    name: OWASP ZAP (DAST)
+    runs-on: ubuntu-latest
+    needs: build_project
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cài đặt Node.js cho phân xưởng DAST
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Cài đặt thư viện cho DAST
+        run: npm install --legacy-peer-deps
+      - name: Khởi động ngầm Juice Shop trên máy ảo
+        run: |
+          npm start &
+          npx wait-on http://localhost:3000 --timeout 60000
+          
+      - name: Chạy OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target: 'http://localhost:3000'
+          fail_action: false 
   quality_gate:
     name: Quality Gate
     runs-on: ubuntu-latest
-    needs: [sast_semgrep, sast_sonarqube, sca_snyk] 
+    needs: [sast_semgrep, sast_sonarqube, sca_snyk, dast_zap]
     steps:
-      - name: Đánh giá tổng hợp
+      - name: Evaluate and conclusion
         run: |
           echo "Pipeline đang kiểm tra kết quả từ Semgrep, SonarQube và Snyk..."
           echo "Nếu SonarQube hoặc Snyk phát hiện lỗi High/Critical, lệnh này sẽ được cấu hình để đánh rớt (Fail) toàn bộ quy trình."
