@@ -71,6 +71,14 @@ jobs:
       - uses: zaproxy/action-full-scan@v0.9.0
         with:
           target: "http://localhost:3000"
+          fail_action: true
+          cmd_options: '-a'
+
+      - name: Upload ZAP Report
+              uses: actions/upload-artifact@v3
+              with:
+                name: zap-dast-results
+                path: report_html.html
 
   notify-soar:
     runs-on: ubuntu-latest
