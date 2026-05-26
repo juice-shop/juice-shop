@@ -1,8 +1,8 @@
-import chai from 'chai'
+import { describe, it, beforeEach } from 'node:test'
+import assert from 'node:assert/strict'
 import { type Challenge } from '../../data/types'
-const expect = chai.expect
 
-describe('antiCheat', () => {
+void describe('antiCheat', () => {
   let antiCheat: any
   beforeEach(() => {
     delete require.cache[require.resolve('../../lib/antiCheat')]
@@ -10,28 +10,28 @@ describe('antiCheat', () => {
     antiCheat.reset()
   })
 
-  describe('calculateCheatScore', () => {
-    it('should return cheat score of 0 if challenge is tightly coupled to the previously solved one', () => {
+  void describe('calculateCheatScore', () => {
+    void it('should return cheat score of 0 if challenge is tightly coupled to the previously solved one', () => {
       const challenge1: Challenge = { key: 'loginAdminChallenge', difficulty: 1 } as any
       const challenge2: Challenge = { key: 'weakPasswordChallenge', difficulty: 1 } as any
 
       antiCheat.calculateCheatScore(challenge1)
       const score = antiCheat.calculateCheatScore(challenge2)
 
-      expect(score).to.equal(0)
+      assert.equal(score, 0)
     })
 
-    it('should return cheat score of 0 if challenge is loosely coupled to the previously solved one', () => {
+    void it('should return cheat score of 0 if challenge is loosely coupled to the previously solved one', () => {
       const challenge1: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
       const challenge2: Challenge = { key: 'xssBonusChallenge', difficulty: 1 } as any
 
       antiCheat.calculateCheatScore(challenge1)
       const score = antiCheat.calculateCheatScore(challenge2)
 
-      expect(score).to.equal(0)
+      assert.equal(score, 0)
     })
 
-    it('should return cheat score of 0 if challenge is loosely coupled to one in the past', () => {
+    void it('should return cheat score of 0 if challenge is loosely coupled to one in the past', () => {
       const challenge1: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
       const challenge2: Challenge = { key: 'missingEncodingChallenge', difficulty: 1 } as any
       const challenge3: Challenge = { key: 'forgottenBackupChallenge', difficulty: 1 } as any
@@ -42,17 +42,17 @@ describe('antiCheat', () => {
       antiCheat.calculateCheatScore(challenge3)
       const score = antiCheat.calculateCheatScore(challenge4)
 
-      expect(score).to.equal(0)
+      assert.equal(score, 0)
     })
 
-    it('should assume cheating if two unrelated challenges are solved after each other', () => {
+    void it('should assume cheating if two unrelated challenges are solved after each other', () => {
       const challenge1: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
       const challenge2: Challenge = { key: 'missingEncodingChallenge', difficulty: 1 } as any
 
       antiCheat.calculateCheatScore(challenge1)
       const score = antiCheat.calculateCheatScore(challenge2)
 
-      expect(score).to.be.greaterThan(0)
+      assert.ok(score > 0)
     })
   })
 })

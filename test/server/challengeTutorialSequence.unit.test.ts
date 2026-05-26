@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import chai from 'chai'
+import { describe, it, before } from 'node:test'
+import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { promisify } from 'util'
 import { safeLoad } from 'js-yaml'
-import sinonChai from 'sinon-chai'
-const expect = chai.expect
-chai.use(sinonChai)
 
 const readFile = promisify(fs.readFile)
 
@@ -19,13 +17,13 @@ const loadYamlFile = async (filename: string) => {
   return safeLoad(contents)
 }
 
-describe('challengeTutorialSequence', () => {
+void describe('challengeTutorialSequence', () => {
   let challenges: any
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
   })
 
-  it('should have unique tutorial orders', async () => {
+  void it('should have unique tutorial orders', async () => {
     const tutorialOrderCounts: any = {}
 
     for (const { tutorial } of challenges) {
@@ -41,7 +39,7 @@ describe('challengeTutorialSequence', () => {
     for (const order of Object.keys(tutorialOrderCounts)) {
       const count = tutorialOrderCounts[order]
 
-      expect(count, `Tutorial order "${order}" is used for multiple challenges.`).to.equal(1)
+      assert.equal(count, 1, `Tutorial order "${order}" is used for multiple challenges.`)
     }
   })
 })
