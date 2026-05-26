@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, input } from '@angular/core'
 
 @Component({
   selector: 'difficulty-stars',
@@ -7,6 +7,5 @@ import { Component, Input } from '@angular/core'
   imports: []
 })
 export class DifficultyStarsComponent {
-  @Input()
-    difficulty: 1 | 2 | 3 | 4 | 5 | 6
+  readonly difficulty = input.required<1 | 2 | 3 | 4 | 5 | 6>()
 }

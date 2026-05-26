@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, input } from '@angular/core'
 import { DecimalPipe } from '@angular/common'
 
 @Component({
@@ -8,18 +8,10 @@ import { DecimalPipe } from '@angular/common'
   imports: [DecimalPipe]
 })
 export class ScoreCardComponent {
-  @Input()
-  public description: string
+  readonly description = input.required<string>()
+  readonly total = input.required<number>()
+  readonly score = input.required<number>()
 
-  @Input()
-  public total: number
-
-  @Input()
-  public score: number
-
-  @Input()
-  public showAsPercentage = true
-
-  @Input()
-  public showProgressBar = true
+  readonly showAsPercentage = input<boolean>(true)
+  readonly showProgressBar = input<boolean>(true)
 }

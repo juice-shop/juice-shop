@@ -14,6 +14,10 @@ describe('ScoreCardComponent', () => {
 
         fixture = TestBed.createComponent(ScoreCardComponent)
         component = fixture.componentInstance
+
+        fixture.componentRef.setInput('description', 'Test')
+        fixture.componentRef.setInput('total', 10)
+        fixture.componentRef.setInput('score', 5)
         fixture.detectChanges()
     })
 
