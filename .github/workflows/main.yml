@@ -1,4 +1,4 @@
-name: DevSecOps Pipeline - IoT Project
+name: DevSecOps Pipeline - OWASP Juice Shop
 on:
   push:
     branches: [ "main" ]
@@ -7,19 +7,19 @@ on:
 
 jobs:
   build_project:
-    name: Build & Setup
+    name: Setup Node.js Môi trường
     runs-on: ubuntu-latest
     steps:
-      - name: Kéo source code về máy ảo
+      - name: Kéo source code về
         uses: actions/checkout@v4
         
-      - name: Setup môi trường (Ví dụ Python)
-        uses: actions/setup-python@v5
+      - name: Cài đặt Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.x'
+          node-version: '18' 
           
-      - name: Cài đặt dependencies
-        run: echo 
+      - name: Cài đặt thư viện của Juice Shop
+        run: npm install --legacy-peer-deps
   sast_semgrep:
     name: Semgrep
     runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
       - name: run Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
-          config: "p/default"
+          config: "p/javascript"
 
   sast_sonarqube:
     name: SonarQube Cloud
