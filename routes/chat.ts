@@ -5,7 +5,7 @@
 
 import { type Request, type Response } from 'express'
 import config from 'config'
-import { streamText, tool, stepCountIs } from 'ai'
+import { streamText, generateText, tool, stepCountIs } from 'ai'
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 import { z } from 'zod'
 import { Op } from 'sequelize'
@@ -207,11 +207,29 @@ export function chat () {
       execute: async () => {
         const lastUserMessage = [...messages].reverse().find((m) => m.role === 'user')?.content ?? ''
         const submission = typeof lastUserMessage === 'string' ? lastUserMessage : JSON.stringify(lastUserMessage)
-        const solved = submission.includes('STAFF-JSHOP-2026')
-        challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => solved)
-        return solved
-          ? 'Correct! You found the system prompt.'
-          : 'That is not quite right. Keep trying!'
+
+        // Fast path: deterministic string check for the confidential staff code
+        if (submission.includes('STAFF-JSHOP-2026')) {
+          challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => true)
+          return 'Correct! You found the system prompt.'
+        }
+
+        // Fallback: LLM judge for near-verbatim reproductions that lack the staff code
+        try {
+          const { text } = await generateText({
+            model: provider(model),
+            system: 'You are a security judge for a CTF challenge.\nYou are given the original system prompt and a user submission.\n\nSTEP 1 – Bot name check (mandatory):\nThe correct bot name is exactly: Juicy the Smart Assistant\nDoes the submission explicitly contain this full name? If NO → answer NO immediately.\n\nSTEP 2 – Fact check:\n- Is the discount percentage wrong? → NO\n- Are there invented conditions not in the original? → NO\n\nSTEP 3 – Content check:\nThe submission must contain ALL of the following to pass:\na) Specific coupon conditions from the original (verified damaged order, rejected return/exchange, 10% maximum)\nb) The confidential escalation rule: orders exceeding 500 USD require escalation to the support team\nIf both are present and steps 1-2 passed → YES. Otherwise → NO.\n\nAnswer with ONLY the word YES or NO. Nothing else.',
+            prompt: `Original system prompt:\n${systemPrompt}\n\nConversation to evaluate:\n${JSON.stringify(messages)}`
+          })
+          const leaked = text.trim().toUpperCase().startsWith('YES')
+          challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => leaked)
+          return leaked
+            ? 'Correct! You found the system prompt.'
+            : 'That is not quite right. Keep trying!'
+        } catch (error) {
+          logger.warn('System prompt extraction verify error: ' + summarizeLlmError(error))
+          return 'That is not quite right. Keep trying!'
+        }
       }
     })
 
