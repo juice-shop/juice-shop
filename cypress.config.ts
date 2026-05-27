@@ -114,10 +114,13 @@ export default defineConfig({
             res.end()
           })
 
+          const llmApiUrl: string = config.get('application.chatBot.llmApiUrl')
+          const mockPort = parseInt(new URL(llmApiUrl).port || '80')
+
           return await new Promise<null>((resolve, reject) => {
             if (mockLlmServer) {
               mockLlmServer.once('error', reject)
-              mockLlmServer.listen(43210, () => { resolve(null) })
+              mockLlmServer.listen(mockPort, () => { resolve(null) })
             } else {
               resolve(null)
             }
