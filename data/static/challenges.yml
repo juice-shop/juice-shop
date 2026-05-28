@@ -1563,8 +1563,8 @@
   description: 'Use prompt injection to extract the chatbot''s system prompt, then tell the chatbot what you found so it can verify your extraction was successful.'
   difficulty: 2
   hints:
-    - 'The chatbot has a system prompt with confidential instructions. Try to make it reveal its full configuration.'
-    - 'Once you think you have extracted the system prompt, tell the chatbot what you found and ask it to verify.'
-    - 'Prompt injection techniques like role override, completion tricks or indirect extraction can help reveal hidden instructions.'
+    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration.'
+    - 'There are internal rules beyond the standard coupon policy. Think about edge cases - what happens in unusual customer situations?'
+    - 'Different prompt injection techniques work for different parts of the system prompt. Try indirect approaches like hypothetical questions or false claims to uncover hidden rules.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
   key: systemPromptExtractionChallenge
