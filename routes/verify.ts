@@ -319,9 +319,11 @@ function csafChallenge () {
 }
 
 function leakedApiKeyChallenge () {
+  const apiKey = process.env.LEAKED_API_KEY
+  if (!apiKey) return
   void checkPatternInFeedbackAndComplaints(
     challenges.leakedApiKeyChallenge,
-    { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' }
+    { [Op.like]: `%${apiKey}%` }
   )
 }
 
