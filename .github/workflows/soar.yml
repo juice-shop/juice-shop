@@ -1,0 +1,28 @@
+name: Send Findings to SOAR
+
+on:
+  workflow_run:
+    workflows: ["*"]
+    types:
+      - completed
+
+jobs:
+  soar:
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Send findings to SOAR
+        run: python soar/soar_connector.py
+        env:
+          SHUFFLE_WEBHOOK_URL: ${{ secrets.SHUFFLE_WEBHOOK_URL }}
