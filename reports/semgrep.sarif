@@ -1,0 +1,15 @@
+{
+  "runs": [{
+    "results": [{
+      "ruleId": "python.flask.security.injection.tainted-sql-string",
+      "level": "error",
+      "message": { "text": "Possible SQL injection..." },
+      "locations": [{
+        "physicalLocation": {
+          "artifactLocation": { "uri": "app/routes.py" },
+          "region": { "startLine": 42 }
+        }
+      }]
+    }]
+  }]
+}

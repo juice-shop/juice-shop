@@ -1,0 +1,13 @@
+{
+  "site": [{
+    "alerts": [{
+      "pluginid": "40012",
+      "alert": "Cross Site Scripting (Reflected)",
+      "riskcode": "3",
+      "riskdesc": "High (Medium)",
+      "desc": "Cross-site Scripting...",
+      "uri": "http://localhost:3000/search?q=test",
+      "cweid": "79"
+    }]
+  }]
+}

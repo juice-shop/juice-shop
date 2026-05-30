@@ -1,0 +1,12 @@
+{
+  "Results": [{
+    "Vulnerabilities": [{
+      "VulnerabilityID": "CVE-2021-44228",
+      "PkgName": "log4j-core",
+      "InstalledVersion": "2.14.1",
+      "FixedVersion": "2.15.0",
+      "Severity": "CRITICAL",
+      "Title": "Apache Log4j2 Remote Code Execution"
+    }]
+  }]
+}
