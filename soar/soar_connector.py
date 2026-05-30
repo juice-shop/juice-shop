@@ -1,8 +1,27 @@
 import json, requests, os
 from datetime import datetime
 
-SHUFFLE_WEBHOOK = os.getenv("SHUFFLE_WEBHOOK_URL", "http://10.180.251.70:3001/api/v1/hooks/webhook_3711f485-b7b9-4de7-88f1-bcd6bae0eb72")
+SHUFFLE_WEBHOOK = os.getenv("SHUFFLE_WEBHOOK_URL", "http://10.180.251.70:3001/api/v1/hooks/webhook_46f2b99f-0fba-42a6-852c-83bcbdea9a53")
 
+def enrich_with_nvd(cve_id):
+    if not cve_id:
+        return {}
+    try:
+        url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?cveId={cve_id}"
+        resp = requests.get(url, timeout=10)
+        data = resp.json()
+        vuln = data["vulnerabilities"][0]["cve"]
+        metrics = vuln.get("metrics", {})
+        cvss = metrics.get("cvssMetricV31", metrics.get("cvssMetricV30", [{}]))[0].get("cvssData", {})
+        return {
+            "cvss_score": cvss.get("baseScore"),
+            "cvss_vector": cvss.get("vectorString"),
+            "severity_label": cvss.get("baseSeverity"),
+            "cve_description": vuln["descriptions"][0]["value"]
+        }
+    except Exception as e:
+        print(f"[WARN] NVD lookup failed for {cve_id}: {e}")
+        return {}
 def parse_sarif(filepath, tool_name):
     findings = []
     try:
@@ -72,6 +91,9 @@ def parse_zap(filepath):
     return findings
 
 def post_to_soar(finding):
+    if finding.get("cve_id"):
+        enrichment = enrich_with_nvd(finding["cve_id"])
+        finding.update(enrichment)
     try:
         resp = requests.post(SHUFFLE_WEBHOOK, json=finding, timeout=10)
         if resp.status_code == 200:
