@@ -1,4 +1,4 @@
-import { type Sequelize } from 'sequelize/types'
+import { type Sequelize } from 'sequelize'
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
@@ -43,7 +43,6 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'BasketId'
     }
   })
-  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'BasketId')
 
   CardModel.belongsTo(UserModel, {
@@ -96,7 +95,6 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'ProductId'
     }
   })
-  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {
