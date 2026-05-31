@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "還原備份",
   "RESTORE_BACKUP_TOOLTIP": "從檔案中恢復挑戰進度與應用程式設定。",
   "TAG_DANGER_ZONE": "危險區域",
-  "TAG_DANGER_ZONE_DESCRIPTION": "標示因RCE或其他風險因素而在Docker/Heroku/Gitpod上預設違停用之具潛在危險性挑戰\n",
+  "TAG_DANGER_ZONE_DESCRIPTION": "標示因RCE或其他風險因素而在Docker/Heroku上預設違停用之具潛在危險性挑戰\n",
   "TAG_GOOD_FOR_DEMOS": "適合示範",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "標示適合即時展示或認知訓練的挑戰",
   "TAG_PREREQUISITE": "先決條件",

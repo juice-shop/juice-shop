@@ -18,8 +18,6 @@ import isDocker from './is-docker'
 import isWindows from './is-windows'
 export { default as isDocker } from './is-docker'
 export { default as isWindows } from './is-windows'
-// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
-const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
 
@@ -157,8 +155,7 @@ export function getChallengeEnablementStatus (challenge: Challenge,
     isDocker: isEnvironmentFunction
     isHeroku: isEnvironmentFunction
     isWindows: isEnvironmentFunction
-    isGitpod: isEnvironmentFunction
-  } = { isDocker, isHeroku, isWindows, isGitpod }): ChallengeEnablementStatus {
+  } = { isDocker, isHeroku, isWindows }): ChallengeEnablementStatus {
   if (!challenge?.disabledEnv) {
     return { enabled: true, disabledBecause: null }
   }
@@ -175,9 +172,6 @@ export function getChallengeEnablementStatus (challenge: Challenge,
   }
   if (challenge.disabledEnv?.includes('Windows') && isEnvironmentFunctions.isWindows()) {
     return { enabled: false, disabledBecause: 'Windows' }
-  }
-  if (challenge.disabledEnv?.includes('Gitpod') && isEnvironmentFunctions.isGitpod()) {
-    return { enabled: false, disabledBecause: 'Gitpod' }
   }
   if (challenge.disabledEnv && safetyModeSetting === 'enabled') {
     return { enabled: false, disabledBecause: 'Safety Mode' }

@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "バックアップから復元",
   "RESTORE_BACKUP_TOOLTIP": "チャレンジの進行状況とアプリケーションの設定をファイルから復元します。",
   "TAG_DANGER_ZONE": "危険区域",
-  "TAG_DANGER_ZONE_DESCRIPTION": "RCE などのリスクがあるため Docker/Heroku/Gitpod 上ではデフォルト無効とされている、危険なチャレンジであることを示します。",
+  "TAG_DANGER_ZONE_DESCRIPTION": "RCE などのリスクがあるため Docker/Heroku 上ではデフォルト無効とされている、危険なチャレンジであることを示します。",
   "TAG_GOOD_FOR_DEMOS": "デモに適しています",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "ライブデモやセキュリティ意識向上のためのトレーニングに適したチャレンジであることを示します。",
   "TAG_PREREQUISITE": "前提条件",

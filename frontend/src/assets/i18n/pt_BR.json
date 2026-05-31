@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "Restore Backup",
   "RESTORE_BACKUP_TOOLTIP": "Restaure seu progresso e configurações de um arquivo.",
   "TAG_DANGER_ZONE": "Zona de perigo",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Marque desafios potencialmente perigosos desativados por padrão no Docker/Heroku/Gitpod devido a RCE (Execução Remota de Código) ou outros riscos.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marque desafios potencialmente perigosos desativados por padrão no Docker/Heroku devido a RCE (Execução Remota de Código) ou outros riscos.",
   "TAG_GOOD_FOR_DEMOS": "Bom para demonstrações",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Destaca desafios que são apropriados para demonstrações ao vivo ou para treinamentos de conscientização.",
   "TAG_PREREQUISITE": "Pré-requisito",

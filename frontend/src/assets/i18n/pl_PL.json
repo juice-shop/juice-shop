@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "Odtwórz kopię zapasową",
   "RESTORE_BACKUP_TOOLTIP": "Przywróć postęp wyzwania i ustawienia aplikacji z pliku.",
   "TAG_DANGER_ZONE": "Strefa zagrożenia",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Oznacza potencjalnie niebezpieczne wyzwania, które są domyślnie wyłączone w Docker/Heroku/Gitpod z powodu RCE lub innych zagrożeń.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Oznacza potencjalnie niebezpieczne wyzwania, które są domyślnie wyłączone w Docker/Heroku z powodu RCE lub innych zagrożeń.",
   "TAG_GOOD_FOR_DEMOS": "Dobre dla wersji demonstracyjnych",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Podkreśla wyzwania, które nadają się do demonstracji na żywo lub szkoleń uświadamiających.",
   "TAG_PREREQUISITE": "Warunki wstępne",

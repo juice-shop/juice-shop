@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "백업 복원",
   "RESTORE_BACKUP_TOOLTIP": "파일에서 챌린지 진행 상황 및 애플리케이션 설정을 복원.",
   "TAG_DANGER_ZONE": "위험 구역",
-  "TAG_DANGER_ZONE_DESCRIPTION": "RCE 또는 기타 위험으로 인해 Docker/Heroku/Gitpod에서 기본적으로 비활성화된 잠재적 위험 챌린지를 표시합니다.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "RCE 또는 기타 위험으로 인해 Docker/Heroku에서 기본적으로 비활성화된 잠재적 위험 챌린지를 표시합니다.",
   "TAG_GOOD_FOR_DEMOS": "데모에 적합",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "라이브 데모 또는 인식 교육에 적합한 과제를 강조 표시합니다.",
   "TAG_PREREQUISITE": "전제 조건",

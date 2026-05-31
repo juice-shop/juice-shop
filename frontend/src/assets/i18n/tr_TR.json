@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "Restore Backup",
   "RESTORE_BACKUP_TOOLTIP": "Görev ilerleme durumunu ve uygulama ayarlarını dosyadan geri yükleyin.",
   "TAG_DANGER_ZONE": "Tehlikeli Bölge",
-  "TAG_DANGER_ZONE_DESCRIPTION": "RCE veya diğer riskler nedeniyle Docker/Heroku/Gitpod'da varsayılan olarak devre dışı bırakılan potansiyel zorlukları işaretler.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "RCE veya diğer riskler nedeniyle Docker/Heroku'da varsayılan olarak devre dışı bırakılan potansiyel zorlukları işaretler.",
   "TAG_GOOD_FOR_DEMOS": "Demolar İçin Uygun",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Canlı demolar veya farkındalık eğitimleri için uygun olan zorlukları vurgular.",
   "TAG_PREREQUISITE": "Önkoşul",
