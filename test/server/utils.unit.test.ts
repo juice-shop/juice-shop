@@ -5,7 +5,7 @@
 
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import type { ChallengeModel } from 'models/challenge'
+import type { ChallengeModel } from '@juice-shop/models/challenge'
 import * as utils from '../../lib/utils'
 
 void describe('utils', () => {

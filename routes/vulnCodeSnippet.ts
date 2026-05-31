@@ -11,7 +11,7 @@ import { getCodeChallenges } from '../lib/codingChallenges'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as accuracy from '../lib/accuracy'
 import * as utils from '../lib/utils'
-import { type ChallengeKey } from 'models/challenge'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 interface SnippetRequestBody {
   challenge: string

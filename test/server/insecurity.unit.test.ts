@@ -8,7 +8,7 @@ import z85 from 'z85'
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import * as security from '../../lib/insecurity'
-import type { UserModel } from 'models/user'
+import type { UserModel } from '@juice-shop/models/user'
 import type { Request } from 'express'
 
 void describe('insecurity', () => {
