@@ -672,6 +672,9 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.get('/snippets/fixes/:key', utils.asyncHandler(serveCodeFixes()))
   app.post('/snippets/fixes', utils.asyncHandler(checkCorrectFix()))
 
+  /* Serve metrics before the Angular catch-all so the route is reachable in all environments */
+  app.get('/metrics', utils.asyncHandler(metrics.serveMetrics()))
+
   app.use(utils.asyncHandler(serveAngularClient()))
 
   /* Error Handling */
