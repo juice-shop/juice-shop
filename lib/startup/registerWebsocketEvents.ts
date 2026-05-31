@@ -13,12 +13,11 @@ import * as security from '../insecurity'
 let firstConnectedSocket: any = null
 
 const globalWithSocketIO = global as typeof globalThis & {
-  io: SocketIOClientStatic & Server
+  io: Server
 }
 
 const registerWebsocketEvents = (server: any) => {
   const io = new Server(server, { cors: { origin: 'http://localhost:4200' } })
-  // @ts-expect-error FIXME Type safety issue when setting global socket-io object
   globalWithSocketIO.io = io
 
   io.on('connection', (socket: any) => {

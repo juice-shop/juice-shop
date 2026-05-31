@@ -11,7 +11,7 @@ import config from 'config'
 import download from 'download'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
-import type { Challenge } from 'data/types'
+import type { Challenge } from '@juice-shop/data/types'
 
 import isHeroku from './is-heroku'
 import isDocker from './is-docker'

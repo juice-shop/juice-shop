@@ -8,7 +8,7 @@ import { type Request, type Response, type NextFunction } from 'express'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
-import { type Review } from 'data/types'
+import { type Review } from '@juice-shop/data/types'
 import * as db from '../data/mongodb'
 import * as utils from '../lib/utils'
 

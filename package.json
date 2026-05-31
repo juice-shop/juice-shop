@@ -157,7 +157,7 @@
     "winston": "^3.16.0",
     "yaml-schema-validator": "^1.2.3",
     "z85": "^0.0.2",
-    "zod": "^3.25.76"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0||^4.00",
@@ -195,8 +195,6 @@
     "@types/semver": "^7.5.8",
     "@types/sequelize": "^4.28.20",
     "@types/serve-index": "^1.9.4",
-    "@types/socket.io": "^2.1.13",
-    "@types/socket.io-client": "^1.4.36",
     "@types/supertest": "^7.2.0",
     "@types/swagger-ui-express": "^4.1.6",
     "@types/unzipper": "^0.10.10",
@@ -212,7 +210,7 @@
     "socket.io-client": "^3.1.3",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
-    "typescript": "~5.3.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.57.1"
   },
   "engines": {

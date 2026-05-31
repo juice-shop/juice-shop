@@ -5,7 +5,7 @@
 
 import { describe, it, beforeEach, mock } from 'node:test'
 import assert from 'node:assert/strict'
-import { type Challenge } from 'data/types'
+import { type Challenge } from '@juice-shop/data/types'
 import { challenges } from '../../data/datacache'
 import { servePremiumContent } from '../../routes/premiumReward'
 

@@ -7,7 +7,7 @@ import { describe, it, before, after, beforeEach, afterEach } from 'node:test'
 import assert from 'node:assert/strict'
 import type { Express } from 'express'
 import * as http from 'http'
-import ioClient from 'socket.io-client'
+import { io as ioClient } from 'socket.io-client'
 import { createTestApp } from './helpers/setup'
 import registerWebsocketEvents from '../../lib/startup/registerWebsocketEvents'
 

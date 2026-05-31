@@ -6,6 +6,10 @@
     "module": "commonjs",
     "target": "es2020",
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@juice-shop/*": ["./*"]
+    },
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
@@ -36,6 +40,7 @@
     "build",
     "vagrant",
     "data/static/codefixes/**",
+    "test/cypress/**",
     "**/*.d.ts"
   ]
 }

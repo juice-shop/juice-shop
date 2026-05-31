@@ -16,7 +16,7 @@ import { challenges, notifications } from '../data/datacache'
 const entities = new Entities()
 
 const globalWithSocketIO = global as typeof globalThis & {
-  io: SocketIOClientStatic & Server
+  io: Server
 }
 
 export const solveIf = function (challenge: any, criteria: () => any, isRestore: boolean = false, isCheating = false) {

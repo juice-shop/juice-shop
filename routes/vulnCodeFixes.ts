@@ -4,7 +4,7 @@ import { type NextFunction, type Request, type Response } from 'express'
 
 import * as accuracy from '../lib/accuracy'
 import * as challengeUtils from '../lib/challengeUtils'
-import { type ChallengeKey } from 'models/challenge'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 const FixesDir = 'data/static/codefixes'
 

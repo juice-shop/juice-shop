@@ -7,7 +7,7 @@ import { describe, it, beforeEach } from 'node:test'
 import assert from 'node:assert/strict'
 import * as challengeUtils from '../../lib/challengeUtils'
 import { challenges } from '../../data/datacache'
-import { type Challenge } from 'data/types'
+import { type Challenge } from '@juice-shop/data/types'
 
 void describe('challengeUtils', () => {
   beforeEach(() => {
