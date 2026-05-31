@@ -75,9 +75,20 @@ function sendSSE (res: http.ServerResponse, chunks: object[]): void {
 before(async () => {
   await new Promise<void>((resolve) => {
     mockServer = http.createServer((req, res) => {
+      // Prevent keep-alive: each response closes the connection so the AI SDK's
+      // connection pool does not retain sockets that could outlive the test suite.
+      res.setHeader('Connection', 'close')
       let body = ''
       req.on('data', (chunk: Buffer) => { body += chunk.toString() })
       req.on('end', () => {
+        // Startup precondition checks (validatePreconditions) probe `/v1` and
+        // `/v1/models` with GET requests. Don't route those through onLlmRequest,
+        // which would call JSON.parse('') on the empty body and throw.
+        if (req.method !== 'POST' || !(req.url?.includes('chat/completions') ?? false)) {
+          res.writeHead(200, { 'Content-Type': 'application/json' })
+          res.end('{"data":[]}')
+          return
+        }
         onLlmRequest(req, body, res)
       })
     })
@@ -94,6 +105,10 @@ after(async () => {
       resolve()
       return
     }
+    // Destroy all open sockets immediately so req.on('end') callbacks from
+    // lingering keep-alive connections cannot fire after the suite ends and
+    // produce uncaught SyntaxError exceptions from JSON.parse('').
+    mockServer.closeAllConnections()
     mockServer.close(() => { resolve() })
   })
 })
