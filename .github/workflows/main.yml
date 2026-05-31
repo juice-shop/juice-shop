@@ -7,33 +7,33 @@ on:
 
 jobs:
   build_project:
-    name: Setup Node.js Môi trường
+    name: Setup Node.js
     runs-on: ubuntu-latest
     steps:
-      - name: Kéo source code về
+      - name: install source code
         uses: actions/checkout@v4
         
-      - name: Cài đặt Node.js
+      - name: install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' 
+          node-version: '22' # require version 22 to run
           
-      - name: Cài đặt thư viện của Juice Shop
-        run: npm install --legacy-peer-deps
+      - name: install Juice Shop lib
+        run: npm install --legacy-peer-deps # require to run juice-shop old lib
   sast_semgrep:
-    name: Semgrep
+    name: Semgrep check
     runs-on: ubuntu-latest
     needs: build_project 
     steps:
       - uses: actions/checkout@v4
       - name: run Semgrep
         uses: returntocorp/semgrep-action@v1
-        continue-on-error: true
+        continue-on-error: true # continue running if semgrep found error
         with:
           config: "p/javascript"
 
   sast_sonarqube:
-    name: SonarQube Cloud
+    name: SonarQube Cloud check
     runs-on: ubuntu-latest
     needs: build_project 
     steps:
@@ -41,10 +41,11 @@ jobs:
       - name: SonarQube Analysis
         uses: SonarSource/sonarcloud-github-action@master
         env:
+        # need gihub token and sonar token to link sonarqueue
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} 
   sca_snyk:
-    name: Snyk
+    name: Snyk check
     runs-on: ubuntu-latest
     needs: build_project
     steps:
@@ -54,33 +55,37 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
       - name: lib checking
+      # use "|| true" to continue-on-error since juice-shop has a lot of intentional error
         run: snyk test --severity-threshold=high || true 
   dast_zap:
     name: OWASP ZAP (DAST)
     runs-on: ubuntu-latest
     needs: build_project
+    # zap need permission to read and write report in github issues
     permissions:
       issues: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
-      - name: Cài đặt Node.js cho phân xưởng DAST
+      # zap run in real time so the pipeline has to build project and run it
+      - uses: actions/checkout@v4 # build project
+      - name: install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ''
-      - name: Cài đặt thư viện cho DAST
+          node-version: '22'
+      - name: install lib for Dast
         run: npm install --legacy-peer-deps
-      - name: Khởi động ngầm Juice Shop trên máy ảo
+      - name: start juice-shop on virture env # run on VM
         run: |
           npm start &
           npx wait-on http://localhost:3000 --timeout 60000
           
-      - name: Chạy OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.12.0
+      - name: Run OWASP ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.15.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # need github token to link
           target: 'http://localhost:3000'
           fail_action: false 
+
   quality_gate:
     name: Quality Gate
     runs-on: ubuntu-latest
