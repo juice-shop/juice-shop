@@ -116,8 +116,7 @@ void describe('utils', () => {
     const defaultIsEnvironmentFunctions = {
       isDocker: () => false,
       isHeroku: () => false,
-      isWindows: () => false,
-      isGitpod: () => false
+      isWindows: () => false
     }
 
     for (const safetyMode of ['enabled', 'disabled', 'auto'] as const) {
@@ -131,8 +130,7 @@ void describe('utils', () => {
     const testCases = [
       { name: 'Docker', environmentFunction: 'isDocker' },
       { name: 'Heroku', environmentFunction: 'isHeroku' },
-      { name: 'Windows', environmentFunction: 'isWindows' },
-      { name: 'Gitpod', environmentFunction: 'isGitpod' }
+      { name: 'Windows', environmentFunction: 'isWindows' }
     ]
 
     for (const testCase of testCases) {

@@ -43,7 +43,7 @@ Each entry in `challenges.yml` must adhere to the following rules:
 -   **Tags**:
     -   Optional. Existing tags: `Danger Zone`, `Good for Demos`, `Prerequisite`, `OSINT`, `Contraption`, `Shenanigans`, `Tutorial`, `Brute Force`, `Good Practice`, `Code Analysis`, `Web3`, `With Coding Challenge`, `AI / LLM`.
 -   **Disabled Environments (`disabledEnv`)**:
-    -   Values: `Docker`, `Heroku`, `Gitpod`, `Windows`.
+    -   Values: `Docker`, `Heroku`, `Windows`.
     -   Used for challenges that are technically incompatible or too dangerous for certain environments (e.g., RCE).
 
 ---

@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "Restore Backup",
   "RESTORE_BACKUP_TOOLTIP": "Herstel voortgang van uitdaging en applicatie-instellingen uit een bestand.",
   "TAG_DANGER_ZONE": "Gevaren zone",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Geeft aan dat een uitdaging mogelijk gevaarlijk is en standaard uitgeschakeld is op Docker/Heroku/Gitpod vanwege RCE en andere risico's.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Geeft aan dat een uitdaging mogelijk gevaarlijk is en standaard uitgeschakeld is op Docker/Heroku vanwege RCE en andere risico's.",
   "TAG_GOOD_FOR_DEMOS": "Goed voor demo's",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Markeert uitdagingen die geschikt zijn voor live demos of bewustmakingsopleidingen.",
   "TAG_PREREQUISITE": "Randvoorwaarden",
