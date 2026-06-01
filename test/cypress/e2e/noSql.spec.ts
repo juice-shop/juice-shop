@@ -12,7 +12,7 @@ describe('/rest/products/reviews', () => {
         if (!isDocker) {
           cy.window().then(() => {
             void fetch(
-              `${Cypress.config('baseUrl')}/rest/products/sleep(1000)/reviews`,
+              `${Cypress.config('baseUrl')}/rest/products/sleep(100)/reviews`,
               {
                 method: 'GET',
                 headers: {
