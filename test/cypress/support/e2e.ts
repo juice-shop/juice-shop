@@ -12,7 +12,6 @@ declare global {
         totpSecret?: string
       }) => void
       eachSeries: any
-
     }
   }
 }
