@@ -8,6 +8,7 @@ import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 import jws from 'jws'
+import { compareTwoStrings } from 'string-similarity'
 
 import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
 import type { Product as ProductConfig } from '../lib/config.types'
@@ -17,6 +18,7 @@ import { ComplaintModel } from '../models/complaint'
 import { FeedbackModel } from '../models/feedback'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
+import { buildSystemPrompt } from './chat'
 
 export const emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
@@ -196,6 +198,9 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
     leakedApiKeyChallenge()
   }
+  if (challengeUtils.notSolved(challenges.systemPromptExtractionChallenge)) {
+    void systemPromptExtractionChallenge()
+  }
   next()
 }
 
@@ -332,4 +337,22 @@ function dangerousIngredients () {
     .map((keyword) => {
       return { [Op.like]: `%${keyword}%` }
     })
+}
+
+export const SYSTEM_PROMPT_SIMILARITY_THRESHOLD = 0.15
+
+export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = SYSTEM_PROMPT_SIMILARITY_THRESHOLD): boolean {
+  const score = compareTwoStrings(submission.toLowerCase().trim(), reference.toLowerCase().trim())
+  return score >= threshold
+}
+
+async function systemPromptExtractionChallenge (): Promise<void> {
+  const reference = buildSystemPrompt().toLowerCase().trim()
+  const complaints = await ComplaintModel.findAll().catch(() => [])
+  for (const complaint of complaints) {
+    if (checkSystemPromptSimilarity(complaint.message ?? '', reference)) {
+      challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => true)
+      return
+    }
+  }
 }

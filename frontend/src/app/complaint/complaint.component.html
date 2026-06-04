@@ -39,7 +39,7 @@
         <mat-label>{{ "LABEL_MESSAGE" | translate }}</mat-label>
         <mat-hint>
           <i class="fas fa-exclamation-circle"></i>
-          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: "160" } }}</em>
+          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: "1000" } }}</em>
         </mat-hint>
         <textarea
           #complaintMessage
@@ -49,7 +49,7 @@
           matAutosizeMaxRows="4"
           matTextareaAutosize
           cols="50"
-          maxlength="160"
+          maxlength="1000"
           matInput
           placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate }}"
           aria-label="Field for entering the complaint"
@@ -61,7 +61,7 @@
         }
         <mat-hint align="end" id="messageCounter">
           <output>{{ complaintMessage.value?.length || 0 }}</output
-          >/160
+          >/1000
         </mat-hint>
       </mat-form-field>
 

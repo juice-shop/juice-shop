@@ -87,9 +87,9 @@ describe('ComplaintComponent', () => {
         expect(component.messageControl.valid).toBe(true)
     })
 
-    it('should have a message of maximum 160 characters', () => {
+    it('should have a message of maximum 1000 characters', () => {
         let str = ''
-        for (let i = 0; i < 161; i++) {
+        for (let i = 0; i < 1001; i++) {
             str += 'a'
         }
         component.messageControl.setValue(str)
