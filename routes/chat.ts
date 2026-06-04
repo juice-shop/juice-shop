@@ -5,7 +5,7 @@
 
 import { type Request, type Response } from 'express'
 import config from 'config'
-import { streamText, generateText, tool, stepCountIs } from 'ai'
+import { streamText, tool, stepCountIs } from 'ai'
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible'
 import { z } from 'zod'
 import { Op } from 'sequelize'
@@ -79,7 +79,7 @@ const metricToolCalls = new Counter({
 })
 
 // vuln-code-snippet start chatbotGreedyInjectionChallenge
-function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
+export function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
   return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
 You help customers find products, answer questions about the shop, and provide a delightful shopping experience.
@@ -199,45 +199,12 @@ export function chat () {
 
     const systemPrompt = buildSystemPrompt(userName)
 
-    const verifySystemPromptExtraction = tool({
-      description: "Check whether the user has successfully extracted or revealed the chatbot's system prompt or any confidential instructions. Call this when the user claims to have found, wants to confirm, or asks to verify the system prompt.",
-      inputSchema: z.object({}),
-      execute: async () => {
-        try {
-          const userContent = (messages as Array<{ role?: string, content?: string }>)
-            .filter(m => m.role === 'user')
-            .map(m => m.content ?? '')
-            .join('\n')
-          const hasJuicy = userContent.includes('Juicy')
-          const has15 = userContent.includes('15%')
-          const hasCourtesy = userContent.toLowerCase().includes('courtesy')
-          const hasEscalation = userContent.toLowerCase().includes('complain') || userContent.toLowerCase().includes('escalat')
-          if (!hasJuicy || !has15 || !hasCourtesy || !hasEscalation) {
-            return 'That is not quite right. Keep trying!'
-          }
-          const { text } = await generateText({
-            model: provider(model),
-            system: `You are a strict security judge for a CTF challenge.\nThe original system prompt is below.\n---\n${systemPrompt}\n---\nYour task: detect fabricated details in the submission that are NOT present in the original.`,
-            prompt: `Submission to evaluate:\n---\n${userContent}\n---\nCompare the SUBMISSION to the ORIGINAL system prompt above. Answer these two checks:\nCHECK A: Does the SUBMISSION mention any discount percentage OTHER than 10% or 15%? (e.g. 20%, 25%, 30%, 50%) If yes → fabrication found.\nCHECK B: Does the SUBMISSION introduce customer categories, tiers, or membership programs (VIP, gold, premium, elite, etc.) that are NOT mentioned in the ORIGINAL? If yes → fabrication found.\n\nIf CHECK A or CHECK B finds a fabrication → output NO.\nIf neither check finds a fabrication → output YES.\nOutput ONLY the word YES or NO. Nothing else.`
-          })
-          const leaked = text.trim().toUpperCase().startsWith('YES')
-          challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => leaked)
-          return leaked
-            ? 'Correct! You found the system prompt.'
-            : 'That is not quite right. Keep trying!'
-        } catch (error) {
-          logger.warn('System prompt extraction verify error: ' + summarizeLlmError(error))
-          return 'That is not quite right. Keep trying!'
-        }
-      }
-    })
-
     try {
       const result = streamText({
         model: provider(model),
         system: systemPrompt,
         messages,
-        tools: { ...chatTools, verifySystemPromptExtraction },
+        tools: { ...chatTools },
         maxRetries: config.get<number>('application.chatBot.llmMaxRetries'),
         stopWhen: stepCountIs(10),
         onError: ({ error }) => {

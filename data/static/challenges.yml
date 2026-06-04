@@ -1560,11 +1560,11 @@
   category: 'Injection'
   tags:
     - AI/LLM
-  description: 'Use prompt injection to extract the chatbot''s system prompt, then tell the chatbot what you found so it can verify your extraction was successful.'
+  description: 'Extract the chatbot''s system prompt using prompt injection, then submit your findings via the <a href="/#/complain">Customer Complaint form</a>.'
   difficulty: 2
   hints:
-    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration.'
+    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration using prompt injection.'
     - 'There are internal rules beyond the standard coupon policy. Think about edge cases - what happens in unusual customer situations?'
-    - 'Different prompt injection techniques work for different parts of the system prompt. Try indirect approaches like hypothetical questions or false claims to uncover hidden rules.'
+    - 'Once you have extracted the system prompt, submit it via the Customer Complaint form at <a href="/#/complain">/#/complain</a>.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
   key: systemPromptExtractionChallenge

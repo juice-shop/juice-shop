@@ -36,7 +36,7 @@ export class ComplaintComponent implements OnInit {
   private readonly translate = inject(TranslateService)
 
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
-  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
+  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(1000)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
   public uploader: FileUploader = new FileUploader({
