@@ -185,7 +185,7 @@
     "@types/lodash": "^4.17.14",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
-    "@types/node": "^20.17.25",
+    "@types/node": "^25.9.1",
     "@types/on-finished": "^2.3.4",
     "@types/pdfkit": "^0.10.6",
     "@types/portscanner": "^2.1.4",
