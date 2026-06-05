@@ -130,7 +130,7 @@
     "i18n": "^0.11.1",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "0.4.0",
-    "libxmljs2": "~0.37.0",
+    "libxml2-wasm": "^0.7.1",
     "marsdb": "^0.6.11",
     "material-icons": "^1.13.14",
     "median": "^0.0.2",
@@ -228,10 +228,5 @@
     "arm64",
     "arm"
   ],
-  "heroku-run-build-script": true,
-  "overrides": {
-    "libxmljs2": {
-      "nan": "^2.27.0"
-    }
-  }
+  "heroku-run-build-script": true
 }
