@@ -510,5 +510,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Usuń rozmowę",
   "CHATBOT_DELETE_ALL": "Usuń wszystko",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Usuń wszystkie rozmowy",
-  "CHATBOT_ERROR_LLM_UNREACHABLE": "Ups! Wygląda na to, że nasz mózg AI robi sobie przerwę. Punkt końcowy AI nie jest skonfigurowany ani osiągalny. Proszę porozmawiać z administratorem sklepu, aby wrócić na właściwe tory!"
+  "CHATBOT_ERROR_LLM_UNREACHABLE": "Ups! Wygląda na to, że nasz mózg AI robi sobie przerwę. Punkt końcowy AI nie jest skonfigurowany ani osiągalny. Proszę porozmawiać z administratorem sklepu, aby wrócić na właściwe tory!",
+  "TAG_SETUP-DEPENDENT": "Setup-dependent",
+  "TAG_SETUP-DEPENDENT_DESCRIPTION": "Marks challenges that are only solvable if certain deployment or setup conditions are fulfilled."
 }

@@ -510,5 +510,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Unterhaltung löschen",
   "CHATBOT_DELETE_ALL": "Alle löschen",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Alle Unterhaltungen löschen",
-  "CHATBOT_ERROR_LLM_UNREACHABLE": "Hoppla! Es sieht so aus, als ob unser KI-Gehirn eine Saftpause macht. Der KI-Endpunkt ist nicht konfiguriert oder erreichbar. Bitte sprich mit dem Laden-Administrator, um es wieder in Gang zu bringen!"
+  "CHATBOT_ERROR_LLM_UNREACHABLE": "Hoppla! Es sieht so aus, als ob unser KI-Gehirn eine Saftpause macht. Der KI-Endpunkt ist nicht konfiguriert oder erreichbar. Bitte sprich mit dem Laden-Administrator, um es wieder in Gang zu bringen!",
+  "TAG_SETUP-DEPENDENT": "Setup-dependent",
+  "TAG_SETUP-DEPENDENT_DESCRIPTION": "Marks challenges that are only solvable if certain deployment or setup conditions are fulfilled."
 }

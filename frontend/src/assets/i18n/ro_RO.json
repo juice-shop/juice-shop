@@ -510,5 +510,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Șterge conversația",
   "CHATBOT_DELETE_ALL": "Delete all",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
-  "CHATBOT_ERROR_LLM_UNREACHABLE": "Hopa! Se pare că „creierul” nostru AI a luat o pauză de suc. Endpoint-ul AI nu este configurat sau nu poate fi accesat. Te rugăm să contactezi administratorul magazinului pentru a-l repune în funcțiune!"
+  "CHATBOT_ERROR_LLM_UNREACHABLE": "Hopa! Se pare că „creierul” nostru AI a luat o pauză de suc. Endpoint-ul AI nu este configurat sau nu poate fi accesat. Te rugăm să contactezi administratorul magazinului pentru a-l repune în funcțiune!",
+  "TAG_SETUP-DEPENDENT": "Setup-dependent",
+  "TAG_SETUP-DEPENDENT_DESCRIPTION": "Marks challenges that are only solvable if certain deployment or setup conditions are fulfilled."
 }

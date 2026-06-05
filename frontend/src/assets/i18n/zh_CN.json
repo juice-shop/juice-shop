@@ -510,5 +510,7 @@
   "CHATBOT_DELETE_CONVERSATION": "删除会话",
   "CHATBOT_DELETE_ALL": "全部删除",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "删除所有对话",
-  "CHATBOT_ERROR_LLM_UNREACHABLE": "哎呀！看起来我们的AI大脑正在喝果汁。AI端点未配置或无法访问。请联系商店管理员以恢复正常运行！"
+  "CHATBOT_ERROR_LLM_UNREACHABLE": "哎呀！看起来我们的AI大脑正在喝果汁。AI端点未配置或无法访问。请联系商店管理员以恢复正常运行！",
+  "TAG_SETUP-DEPENDENT": "Setup-dependent",
+  "TAG_SETUP-DEPENDENT_DESCRIPTION": "Marks challenges that are only solvable if certain deployment or setup conditions are fulfilled."
 }
