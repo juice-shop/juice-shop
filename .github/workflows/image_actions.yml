@@ -1,0 +1,49 @@
+name: Compress images
+on:
+  pull_request:
+    paths:
+      - '**.avif'
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+  push:
+    branches:
+      - develop
+    paths:
+      - '**.avif'
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+      - '**.webp'
+  workflow_dispatch:
+  schedule:
+    - cron: '00 23 * * 0'
+jobs:
+  build:
+    name: calibreapp/image-actions
+    runs-on: ubuntu-latest
+    if: |
+      github.repository == 'juice-shop/juice-shop' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v6
+      - name: Compress Images
+        id: calibre
+        uses: calibreapp/image-actions@main
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          ignorePaths: '**/3d_keychain.jpg,**/favorite-hiking-place.png,**/5.png'
+          compressOnly: ${{ github.event_name != 'pull_request' }}
+      - name: Create Pull Request
+        if: |
+          github.event_name != 'pull_request' &&
+          steps.calibre.outputs.markdown != ''
+        uses: peter-evans/create-pull-request@v8
+        with:
+          title: Auto Compress Images
+          delete-branch: true
+          commit-message: Compress Images
+          body: ${{ steps.calibre.outputs.markdown }}
