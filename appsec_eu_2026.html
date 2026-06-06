@@ -1,0 +1,245 @@
+<!doctype html>
+<!--suppress CheckImageSize, HtmlUnknownAnchorTarget -->
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+
+	<title>OWASP Juice Shop - Juice Shop - AI Challenges</title>
+
+	<meta name="description" content="OWASP Juice Shop: Juice Shop - AI Challenges">
+	<meta name="author" content="Jannik Hollenbach">
+
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/night.css" id="theme">
+	<link rel="stylesheet" href="css/custom.css">
+
+	<!-- Code syntax highlighting -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+	<!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+	<!-- Any section element inside of this container is displayed as a slide -->
+	<div class="slides">
+
+		<section data-transition="zoom">
+			<h2>OWASP Juice Shop</h2>
+			<h3>AI Challenges</h3>
+			<img src="assets/JuiceShop_Logo.png" width="200" class="no-box"/>
+			<h2>@OWASP Global AppSec EU 2026, Wien</h2>
+			<small>
+				Jannik Hollenbach | <a href="https://infosec.exchange/@jannik">infosec.exchange/@jannik</a> | <a href="https://bsky.app/profile/jannik-hollenbach.bsky.social">@jannik-hollenbach.bsky.social</a>
+			</small>
+		</section>
+
+		<section>
+			<h2>What is the Juice Shop?</h2>
+			<p>
+				Probably the most modern and sophisticated <span class="neon">insecure</span> web application
+			</p>
+			<img src="assets/JuiceShop_Logo.png" width="160" class="no-box"/>
+			<p>
+				<small>OWASP Flagship project &bull; free &amp; open source (MIT) &bull; used for security trainings, awareness demos, CTFs and as a guinea pig for security tools</small>
+			</p>
+		</section>
+
+		<section>
+			<h2><span id="numChallenges"></span> Hacking Challenges</h2>
+			<p>
+				Covering various vulnerabilities and serious design flaws
+			</p>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part1/categories.png" height="380"/>
+			<p>
+				<small>Covers all of the <a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a> &mdash; and now the <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a> too.</small>
+			</p>
+		</section>
+
+		<section>
+			<h2>Score Board</h2>
+			<p>
+				Track your hacking progress and pick your next challenges
+			</p>
+			<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part1/score-board_partly.png" height="450"/>
+		</section>
+
+		<section data-transition="zoom-out">
+			<h1 class="neon" style="font-size:120px">New in v20</h1>
+			<h2>AI Hacking Challenges</h2>
+			<img src="assets/JuicyCouponBot_8bit_Avatar.png" height="180" class="no-box"/>
+		</section>
+
+		<section>
+			<h2>Why AI challenges?</h2>
+			<p>
+				LLMs are everywhere &mdash; and they bring a brand-new attack surface
+			</p>
+			<p>
+				Juice Shop now lets you <span class="neon">hands-on exploit</span> the kind of flaws described in the
+				<a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>
+			</p>
+			<p>
+				<small>The legacy NLP-based chatbot &amp; its challenges were retired to make room for real LLM-backed challenges.</small>
+			</p>
+		</section>
+
+		<section>
+			<h2>The new AI Challenges</h2>
+			<table style="font-size: 90%">
+				<tr>
+					<td>⭐⭐</td>
+					<td><strong>Chatbot Prompt Injection</strong></td>
+					<td><small>Get started: make the support bot do something it shouldn't</small></td>
+				</tr>
+				<tr>
+					<td>⭐⭐⭐</td>
+					<td><strong>Greedy Chatbot Manipulation</strong></td>
+					<td><small>Coerce the bot into unintended, "too generous" behavior</small></td>
+				</tr>
+				<tr>
+					<td>⭐⭐</td>
+					<td><strong>AI Debugging</strong></td>
+					<td><small>A lesson in why AI output still needs human oversight</small></td>
+				</tr>
+			</table>
+			<br>
+			<p>
+				<small>All three are powered by a <span class="neon">real, configurable LLM endpoint</span>.</small>
+			</p>
+		</section>
+
+		<section>
+			<h2>Bring your own LLM</h2>
+			<p>
+				The AI challenges need a configured LLM/AI endpoint &mdash; you choose how
+			</p>
+			<p>
+				🖥️ <strong>Local</strong> models via <a href="https://ollama.com">Ollama</a> &mdash; fully offline<br>
+				☁️ <strong>Remote</strong> OpenAI-compatible servers for hosted models<br>
+			</p>
+		</section>
+
+		<section data-background="assets/demo-cyber.jpg">
+			<div style="background-color: rgba(13, 13, 13, 0.8); padding: 10px;">
+				<h2><span class="neon">Live Demo</span> Talking the chatbot into trouble!</h2>
+				<p>
+					Let's prompt-inject our way to a coupon on <a href="http://demo.owasp-juice.shop" target="_blank">the Juice Shop</a>.
+				</p>
+			</div>
+		</section>
+
+		<section>
+			<h2>Also fresh in v20</h2>
+			<p>
+				<small>(there's more than just AI...)</small>
+			</p>
+			<ul>
+				<li>🎨 Redesigned storefront &amp; dedicated Coding Challenge page</li>
+				<li>✨ First logo refresh in 10 years + new "neon-fire" theme</li>
+				<li>⚡ ~30% faster startup &mdash; Docker image down to ~125&nbsp;MB</li>
+				<li>🅰️ Angular 21 + Material 3, Node.js 22–25</li>
+			</ul>
+			<p>
+				<small>Full write-up: <a href="https://owasp.org/blog/2026/05/13/juice-shop-v20.html">owasp.org/blog/2026/05/13/juice-shop-v20.html</a></small>
+			</p>
+		</section>
+
+		<section data-transition="zoom">
+			<h2 class="neon center">Come and pwn me!</h2>
+			<p>
+				Tomorrow 12:15 - 14:15
+			</p>
+			<p>
+				Try the AI challenges yourself, and chat with the maintainers
+			</p>
+			<a href="https://owaspglobalappseceuvienna20.sched.com/event/2L5NL/owasp-juiceshop-come-and-pwn-me" target="_blank">
+				<img src="assets/multi-juicer-ctf-view.jpg" height="380" class="no-box"/>
+			</a>
+			<p>
+				<small>
+					<strong>"OWASP Juice Shop: Come and pwn me"</strong> with Jannik &amp; Timo<br>
+					<a href="https://owaspglobalappseceuvienna20.sched.com/event/2L5NL/owasp-juiceshop-come-and-pwn-me" target="_blank">owaspglobalappseceuvienna20.sched.com → "Come and pwn me"</a>
+				</small>
+			</p>
+		</section>
+
+		<section data-transition="fade">
+			<img src="assets/JuiceShop_Logo.png" width="280" class="no-box"/>
+			<p>
+				<a href="https://owasp-juice.shop">https://owasp-juice.shop</a> &bull;
+				<a href="https://github.com/juice-shop/juice-shop">GitHub</a> (<a href="https://opensource.org/licenses/MIT">MIT</a>)
+			</p>
+			<p>
+				Copyright (c) 2014-2026 <a href="http://kimminich.de">Björn Kimminich</a> &amp; the Juice Shop contributors
+			</p>
+			<hr>
+			<p>
+				<small>Created with <a href="http://lab.hakim.se/reveal-js">reveal.js</a> - The HTML Presentation Framework</small>
+			</p>
+		</section>
+
+	</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+</script>
+
+<!-- Challenge count of current Juice Shop release -->
+<script>
+	fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
+		const challenges = await res.json();
+		document.getElementById('numChallenges').innerHTML = challenges.data.length
+	})
+</script>
+
+<div class="hidden-mobile">
+	<a style="display: block;" href="https://github.com/juice-shop/juice-shop"><img style="position: absolute; top: 0; right: 0; border: 0;" src="assets/github_ribbon.png" alt="Fork reveal.js on GitHub"></a>
+</div>
+</body>
+</html>
