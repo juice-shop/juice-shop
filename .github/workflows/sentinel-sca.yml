@@ -1,3 +1,25 @@
+name: Sentinel SCA
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  scan:
+    name: Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Sentinel SCA
         env:
           DEPENDENCY_ACCESS_TOKEN: ${{ secrets.DEPENDENCY_ACCESS_TOKEN }}
@@ -8,4 +30,13 @@
       - name: Run scan
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: sentinel-sca scan --path . --output html --report-path sentinel-report.html
+        run: |
+          sentinel-sca scan --path . --output html --report-path sentinel-report.html
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sentinel-report
+          path: sentinel-report.html
+          retention-days: 30
