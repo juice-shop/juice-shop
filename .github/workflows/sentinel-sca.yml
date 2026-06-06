@@ -31,7 +31,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          sentinel-sca scan --path . --output html --report-path sentinel-report.html
+          sentinel-sca scan --path . --output html --file sentinel-report.html
 
       - name: Upload report
         uses: actions/upload-artifact@v4
