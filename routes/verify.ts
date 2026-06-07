@@ -338,7 +338,7 @@ function dangerousIngredients () {
     })
 }
 
-export const SYSTEM_PROMPT_SIMILARITY_THRESHOLD = 0.20
+export const SYSTEM_PROMPT_SIMILARITY_THRESHOLD = 0.25
 
 export function diceCoefficient (s1: string, s2: string): number {
   if (s1 === s2) return 1
