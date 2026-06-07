@@ -3,19 +3,34 @@ name: Sentinel SCA
 on:
   push:
     branches: [master, main]
+    paths:
+      - 'package*.json'
   pull_request:
+    branches: [master, main]
   workflow_dispatch:
+    inputs:
+      fail_on:
+        description: 'Minimum severity to fail the build'
+        required: false
+        default: 'high'
+        type: choice
+        options: [critical, high, medium, low, none]
+  schedule:
+    - cron: '0 6 * * 1'
 
 jobs:
-  scan:
-    name: Dependency Vulnerability Scan
+  sentinel-sca:
+    name: Dependency Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -24,19 +39,49 @@ jobs:
         env:
           DEPENDENCY_ACCESS_TOKEN: ${{ secrets.DEPENDENCY_ACCESS_TOKEN }}
         run: |
-          git clone https://x-access-token:${DEPENDENCY_ACCESS_TOKEN}@github.com/PrinceORavens/sentinel-sca.git /tmp/sentinel-sca
-          npm install -g /tmp/sentinel-sca
+          git clone --depth 1 --branch main \
+            https://x-access-token:${DEPENDENCY_ACCESS_TOKEN}@github.com/PrinceORavens/sentinel-sca.git \
+            /tmp/sentinel-sca
+          cd /tmp/sentinel-sca && npm install --omit=dev && npm link
 
-      - name: Run scan
+      - name: Restore Sentinel SCA caches
+        uses: actions/cache@v4
+        with:
+          # ~/.sentinel-sca   — OSV vulnerability result cache (24-hour TTL, global)
+          # .sentinel-cache   — AI reachability + scan-level cache (7-day TTL, project-local)
+          path: |
+            ~/.sentinel-sca
+            .sentinel-cache
+          key: sentinel-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json') }}
+          restore-keys: |
+            sentinel-${{ runner.os }}-
+
+      - name: Run Sentinel SCA
+        id: scan
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          sentinel-sca scan --path . --output html --file sentinel-report.html
+          sentinel-sca scan \
+            --path . \
+            --output html,sarif,github \
+            --fail-on ${{ github.event.inputs.fail_on || 'high' }}
+        continue-on-error: true
 
-      - name: Upload report
-        uses: actions/upload-artifact@v4
-        if: always()
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          name: sentinel-report
+          sarif_file: sentinel-report.sarif
+          category: sentinel-sca
+        if: always()
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: sentinel-sca-report
           path: sentinel-report.html
           retention-days: 30
+        if: always()
+
+      - name: Fail if blocking vulnerabilities found
+        if: steps.scan.outcome == 'failure'
+        run: exit 1
