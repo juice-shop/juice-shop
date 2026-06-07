@@ -55,7 +55,7 @@ jobs:
           key: sentinel-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json', 'requirements*.txt', 'Pipfile.lock', 'poetry.lock', 'go.sum', 'Cargo.lock', 'pom.xml', 'build.gradle*', '*.csproj', 'Gemfile.lock', 'pubspec.lock', 'mix.lock') }}
           restore-keys: |
             sentinel-${{ runner.os }}-
-
+          save-always: true
       - name: Run Sentinel SCA
         id: scan
         env:
