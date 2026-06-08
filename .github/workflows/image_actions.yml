@@ -9,6 +9,7 @@ on:
       - '**.webp'
   push:
     branches:
+      - master
       - develop
     paths:
       - '**.avif'
@@ -16,9 +17,6 @@ on:
       - '**.jpeg'
       - '**.png'
       - '**.webp'
-  workflow_dispatch:
-  schedule:
-    - cron: '00 23 * * 0'
 jobs:
   build:
     name: calibreapp/image-actions
