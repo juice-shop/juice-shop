@@ -204,4 +204,70 @@ describe('AboutComponent', () => {
         expect(galleryRef.addImage).not.toHaveBeenCalled()
         errorSpy.mockRestore()
     })
+
+    describe('template rendering', () => {
+        const renderWithSocial = (social: Record<string, string> = {}) => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social } }))
+            const f = TestBed.createComponent(AboutComponent)
+            f.detectChanges()
+            return f
+        }
+
+        it('should render the corporate history section with terms of use link', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('section[aria-labelledby="corporate-history"]')).toBeTruthy()
+            const termsLink = compiled.querySelector('a[href="ftp/legal.md"]') as HTMLAnchorElement
+            expect(termsLink).toBeTruthy()
+            expect(termsLink.getAttribute('aria-label')).toBe('Link to the Terms of Use')
+        })
+
+        it('should render the feedback gallery container with expected configuration', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const gallery = compiled.querySelector('gallery#feedback-gallery')
+            expect(gallery).toBeTruthy()
+            expect(gallery?.classList.contains('gallery')).toBe(true)
+            expect(compiled.querySelector('section[aria-labelledby="customer-feedback"]')).toBeTruthy()
+        })
+
+        it('should not render the social navigation when no social URLs are configured', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('nav.social-nav')).toBeNull()
+            expect(compiled.querySelector('ul.social')).toBeNull()
+        })
+
+        it('should render social navigation only with links for the configured social URLs', () => {
+            const f = renderWithSocial({ twitterUrl: 'https://twitter.example', slackUrl: 'https://slack.example' })
+            const compiled: HTMLElement = f.nativeElement
+
+            const nav = compiled.querySelector('nav.social-nav')
+            expect(nav).toBeTruthy()
+            const items = compiled.querySelectorAll('ul.social > li')
+            expect(items.length).toBe(2)
+
+            const hrefs = Array.from(compiled.querySelectorAll('ul.social a')).map(a => a.getAttribute('href'))
+            expect(hrefs).toContain('https://twitter.example')
+            expect(hrefs).toContain('https://slack.example')
+            expect(hrefs).not.toContain(null)
+        })
+
+        it('should render a link for every social URL when all are configured', () => {
+            const f = renderWithSocial({
+                blueSkyUrl: 'B', mastodonUrl: 'M', twitterUrl: 'T', facebookUrl: 'F',
+                slackUrl: 'S', redditUrl: 'R', pressKitUrl: 'P', nftUrl: 'N'
+            })
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelectorAll('ul.social > li').length).toBe(8)
+            for (const url of ['B', 'M', 'T', 'F', 'S', 'R', 'P', 'N']) {
+                expect(compiled.querySelector(`ul.social a[href="${url}"]`)).toBeTruthy()
+            }
+        })
+
+        it('should mark every social link to open in a new tab with safe rel attribute', () => {
+            const f = renderWithSocial({ twitterUrl: 'https://twitter.example' })
+            const link = f.nativeElement.querySelector('ul.social a') as HTMLAnchorElement
+            expect(link.getAttribute('target')).toBe('_blank')
+            expect(link.getAttribute('rel')).toBe('noopener noreferrer')
+            expect(link.getAttribute('aria-label')).toBe('Visit our Twitter page')
+        })
+    })
 })

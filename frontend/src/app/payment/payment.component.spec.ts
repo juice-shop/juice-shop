@@ -353,4 +353,41 @@ describe('PaymentComponent', () => {
         expect(setItemSpy).toHaveBeenCalledWith('token', 'tokenValue')
         expect(cookieService.put).toHaveBeenCalledWith('token', 'tokenValue')
     })
+
+    describe('template rendering', () => {
+        it('should render the payment method child component, navigation buttons and coupon input in non-wallet mode', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('app-payment-method')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Proceed to review"]')).toBeTruthy()
+            expect(compiled.querySelector('input#coupon')).toBeTruthy()
+            expect(compiled.querySelector('button#applyCouponButton')).toBeTruthy()
+        })
+
+        it('should keep the continue button disabled while no payment id is selected', () => {
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Proceed to review"]') as HTMLButtonElement
+            expect(button.disabled).toBe(true)
+        })
+
+        it('should enable the continue button as soon as a card paymentId is selected', () => {
+            component.getMessage(7)
+            fixture.detectChanges()
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Proceed to review"]') as HTMLButtonElement
+            expect(button.disabled).toBe(false)
+        })
+
+        it('should hide the wallet, coupon and other-payments sections when mode is wallet', () => {
+            component.mode = 'wallet'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('input#coupon')).toBeNull()
+            expect(compiled.querySelector('#collapseCouponElement')).toBeNull()
+        })
+
+        it('should invoke routeToPreviousUrl when the back button is clicked', () => {
+            const spy = vi.spyOn(component, 'routeToPreviousUrl').mockImplementation(() => { })
+            const back = (fixture.nativeElement as HTMLElement).querySelector('.btn-return') as HTMLButtonElement
+            back.click()
+            expect(spy).toHaveBeenCalled()
+        })
+    })
 })

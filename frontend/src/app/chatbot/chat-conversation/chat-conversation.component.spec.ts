@@ -225,4 +225,62 @@ describe('ChatConversationComponent', () => {
         component.ngOnInit()
         expect(component.showToolCalls()).toBe(false)
     })
+
+    describe('template rendering', () => {
+        it('should render the chat header with back link, avatar and bot title', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.chat-header')).toBeTruthy()
+            const back = compiled.querySelector('a.back-link') as HTMLAnchorElement
+            expect(back).toBeTruthy()
+            expect(back.getAttribute('aria-label')).toBe('Back to chatbot')
+            expect(compiled.querySelector('img.header-avatar')).toBeTruthy()
+            expect(compiled.querySelector('.header-title')?.textContent).toContain('Juicy')
+        })
+
+        it('should render an empty chat window and the input area when there are no messages', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const chatWindow = compiled.querySelector('.chat-window') as HTMLElement
+            expect(chatWindow).toBeTruthy()
+            expect(chatWindow.querySelectorAll('.chat-bubble').length).toBe(0)
+            expect(compiled.querySelector('.input-area app-chat-input-box')).toBeTruthy()
+        })
+
+        it('should render a user bubble and an assistant bubble with their respective classes and content', () => {
+            component.messages.set([
+                { role: 'user', content: 'Hello bot' },
+                { role: 'assistant', content: 'Hi user' }
+            ] as any)
+            fixture.detectChanges()
+
+            const bubbles = fixture.nativeElement.querySelectorAll('.chat-bubble') as NodeListOf<HTMLElement>
+            expect(bubbles.length).toBe(2)
+            expect(bubbles[0].classList.contains('user')).toBe(true)
+            expect(bubbles[1].classList.contains('assistant')).toBe(true)
+            expect(bubbles[0].textContent).toContain('Hello bot')
+            expect(bubbles[1].textContent).toContain('Hi user')
+        })
+
+        it('should mark an error message with the error class', () => {
+            component.messages.set([
+                { role: 'assistant', content: 'ERROR_KEY', error: true }
+            ] as any)
+            fixture.detectChanges()
+
+            const bubble = fixture.nativeElement.querySelector('.chat-bubble') as HTMLElement
+            expect(bubble.classList.contains('error')).toBe(true)
+        })
+
+        it('should render a typing indicator on the last assistant message while loading', () => {
+            component.isLoading.set(true)
+            component.messages.set([
+                { role: 'user', content: 'Hi' },
+                { role: 'assistant', content: '' }
+            ] as any)
+            fixture.detectChanges()
+
+            const indicator = fixture.nativeElement.querySelector('.typing-indicator')
+            expect(indicator).toBeTruthy()
+            expect(indicator.querySelectorAll('.dot').length).toBe(3)
+        })
+    })
 })

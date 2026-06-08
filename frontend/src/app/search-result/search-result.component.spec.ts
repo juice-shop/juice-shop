@@ -220,4 +220,44 @@ describe('SearchResultComponent', () => {
         component.filterTable()
         expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalledWith('<script>scripttag</script>')
     })
+
+    describe('template rendering', () => {
+        it('should render the all-products heading when no search value is set', () => {
+            component.searchValue = undefined as any
+            component.emptyState = false
+            fixture.detectChanges()
+            const heading = (fixture.nativeElement as HTMLElement).querySelector('.heading')
+            expect(heading).toBeTruthy()
+            expect((fixture.nativeElement as HTMLElement).querySelector('#searchValue')).toBeNull()
+        })
+
+        it('should render the search results heading with the current search value', () => {
+            component.searchValue = 'apple' as any
+            fixture.detectChanges()
+            const searchValueEl = (fixture.nativeElement as HTMLElement).querySelector('#searchValue')
+            expect(searchValueEl).toBeTruthy()
+        })
+
+        it('should render the empty state card with no-result image and texts when emptyState is true', () => {
+            component.emptyState = true
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.emptyState')).toBeTruthy()
+            expect(compiled.querySelector('img.noResult')).toBeTruthy()
+            expect(compiled.querySelectorAll('.noResultText').length).toBeGreaterThanOrEqual(1)
+            expect(compiled.querySelector('.products-grid')).toBeNull()
+        })
+
+        it('should render the products grid and no empty state when emptyState is false', () => {
+            component.emptyState = false
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.products-grid')).toBeTruthy()
+            expect(compiled.querySelector('.emptyState')).toBeNull()
+        })
+
+        it('should always render the paginator at the bottom of the result page', () => {
+            expect((fixture.nativeElement as HTMLElement).querySelector('mat-paginator')).toBeTruthy()
+        })
+    })
 })

@@ -179,4 +179,43 @@ describe('ProductDetailsComponent', () => {
         buttonDe.triggerEventHandler('click', null)
         expect(productReviewService.get).toHaveBeenCalledWith(42)
     })
+
+    describe('template rendering', () => {
+        it('should render the product name and price from the dialog data', () => {
+            component.data = { productData: { id: 1, name: 'Apple Juice', description: 'Tasty', price: 1.99, image: 'apple.jpg' } as Product }
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')?.textContent).toContain('Apple Juice')
+            expect(compiled.querySelector('.item-price')?.textContent).toContain('1.99')
+        })
+
+        it('should render the bonus-points badge only when productData.points is greater than zero', () => {
+            component.data = { productData: { id: 1, name: 'A', description: '', price: 1, image: '', points: 0 } as any }
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.warn-notification')).toBeNull()
+
+            component.data = { productData: { id: 1, name: 'A', description: '', price: 1, image: '', points: 7 } as any }
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.warn-notification')?.textContent).toContain('7')
+        })
+
+        it('should render the close dialog button and the review textarea', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('button.close-dialog')).toBeTruthy()
+            expect(compiled.querySelector('textarea')).toBeTruthy()
+        })
+
+        it('should keep the submit review button disabled while the textarea is empty', () => {
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button#submitButton') as HTMLButtonElement
+            expect(button.disabled).toBe(true)
+        })
+
+        it('should render the empty review placeholder when there are no reviews', () => {
+            component.data = { productData: { id: 42 } as Product }
+            productReviewService.get.mockReturnValue(of([]))
+            component.ngOnInit()
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.noResultText')).toBeTruthy()
+        })
+    })
 })

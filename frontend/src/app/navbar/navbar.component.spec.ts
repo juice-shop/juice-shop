@@ -308,4 +308,35 @@ describe('NavbarComponent', () => {
         component.changeLanguage('xx')
         expect(translateService.use).toHaveBeenCalledWith('xx')
     })
+
+    describe('template rendering', () => {
+        it('should render the toolbar with sidenav toggle, home button and search bar', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('mat-toolbar')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Open Sidenav"]')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Back to homepage"]')).toBeTruthy()
+            expect(compiled.querySelector('#searchQuery')).toBeTruthy()
+        })
+
+        it('should call onToggleSidenav when the sidenav toggle button is clicked', () => {
+            const spy = vi.spyOn(component, 'onToggleSidenav')
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Open Sidenav"]') as HTMLButtonElement
+            button.click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render the basket button with the current itemTotal', () => {
+            component.itemTotal = 7
+            fixture.detectChanges()
+            const counter = (fixture.nativeElement as HTMLElement).querySelector('.warn-notification')
+            expect(counter?.textContent).toContain('7')
+        })
+
+        it('should render the application name in the home button', () => {
+            component.applicationName = 'MyShop'
+            fixture.detectChanges()
+            const name = (fixture.nativeElement as HTMLElement).querySelector('.app-name')
+            expect(name?.textContent).toContain('MyShop')
+        })
+    })
 })

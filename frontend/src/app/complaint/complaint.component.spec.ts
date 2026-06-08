@@ -141,4 +141,34 @@ describe('ComplaintComponent', () => {
         component.save()
         expect(component.uploader.queue[0].upload).toHaveBeenCalled()
     })
+
+    describe('template rendering', () => {
+        it('should render the complaint heading, message textarea, file input and submit button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')).toBeTruthy()
+            expect(compiled.querySelector('textarea#complaintMessage')).toBeTruthy()
+            expect(compiled.querySelector('input#file[type="file"]')).toBeTruthy()
+            expect(compiled.querySelector('button#submitButton')).toBeTruthy()
+        })
+
+        it('should keep the submit button disabled while the message control is invalid', () => {
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button#submitButton') as HTMLButtonElement
+            expect(button.disabled).toBe(true)
+        })
+
+        it('should render the confirmation message when confirmation is set and the message is pristine', () => {
+            component.confirmation = 'Complaint received'
+            fixture.detectChanges()
+            const confirmation = (fixture.nativeElement as HTMLElement).querySelector('p.confirmation') as HTMLElement
+            expect(confirmation).toBeTruthy()
+            expect(confirmation.hidden).toBe(false)
+            expect(confirmation.textContent).toContain('Complaint received')
+        })
+
+        it('should render the invalid file-type error when the mimeType upload error is set', () => {
+            component.fileUploadError = { name: 'mimeType' } as any
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('p.fileUploadError')).toBeTruthy()
+        })
+    })
 })

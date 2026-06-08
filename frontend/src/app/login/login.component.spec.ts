@@ -173,4 +173,42 @@ describe('LoginComponent', () => {
         component.login()
         expect(localStorage.getItem('email')).toBe('horst@juice-sh.op')
     })
+
+    describe('template rendering', () => {
+        it('should render the login heading, email and password inputs and the login button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')?.textContent).toContain('Login')
+            expect(compiled.querySelector('input#email')).toBeTruthy()
+            expect(compiled.querySelector('input#password')).toBeTruthy()
+            expect(compiled.querySelector('button#loginButton')).toBeTruthy()
+        })
+
+        it('should keep the login button disabled while email and password are empty', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const loginButton = compiled.querySelector('button#loginButton') as HTMLButtonElement
+            expect(loginButton.disabled).toBe(true)
+        })
+
+        it('should render the remember-me checkbox, forgot-password and register links', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('#rememberMe')).toBeTruthy()
+            expect(compiled.querySelector('a.forgot-pw')).toBeTruthy()
+            expect(compiled.querySelector('#newCustomerLink a')).toBeTruthy()
+        })
+
+        it('should show the error message banner when component.error is set', () => {
+            component.error = 'Invalid credentials'
+            fixture.detectChanges()
+            const errorEl = (fixture.nativeElement as HTMLElement).querySelector('.error')
+            expect(errorEl?.textContent).toContain('Invalid credentials')
+        })
+
+        it('should hide the OAuth login section when oauthUnavailable is true', () => {
+            component.oauthUnavailable = true
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
+            expect(compiled.querySelector('.breakLine')).toBeNull()
+        })
+    })
 })

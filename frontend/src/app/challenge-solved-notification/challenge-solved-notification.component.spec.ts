@@ -254,4 +254,65 @@ describe('ChallengeSolvedNotificationComponent', () => {
 
         expect(snackBarHelperService.open).not.toHaveBeenCalled()
     })
+
+    describe('template rendering', () => {
+        it('should not render the toast container when there are no notifications', () => {
+            component.notifications = []
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.challenge-solved-toast')).toBeNull()
+        })
+
+        it('should render one notification card per entry with its message and a close button', () => {
+            component.notifications = [
+                { key: 'a', message: 'First', flag: 'F1', copied: false },
+                { key: 'b', message: 'Second', flag: 'F2', copied: false }
+            ]
+            fixture.detectChanges()
+
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.challenge-solved-toast')).toBeTruthy()
+            expect(compiled.querySelectorAll('mat-card.accent-notification').length).toBe(2)
+            expect(compiled.querySelectorAll('#closeButton').length).toBe(2)
+            expect(compiled.textContent).toContain('First')
+            expect(compiled.textContent).toContain('Second')
+        })
+
+        it('should invoke closeNotification with the entry index when the close button is clicked', () => {
+            component.notifications = [{ key: 'a', message: 'X', flag: 'F', copied: false }]
+            fixture.detectChanges()
+            const spy = vi.spyOn(component, 'closeNotification').mockImplementation(() => { })
+            const btn = fixture.nativeElement.querySelector('#closeButton') as HTMLButtonElement
+            btn.click()
+            expect(spy).toHaveBeenCalledWith(0, false)
+        })
+
+        it('should not render the view-challenge button when the notification is not a coding challenge', () => {
+            component.notifications = [{ key: 'a', message: 'X', flag: 'F', copied: false, codingChallenge: false }]
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('button.view-challenge-button')).toBeNull()
+        })
+
+        it('should render the view-challenge button and wire navigateToChallenge when codingChallenge is true', () => {
+            component.notifications = [{ key: 'key42', message: 'X', flag: 'F', copied: false, codingChallenge: true }]
+            fixture.detectChanges()
+            const spy = vi.spyOn(component, 'navigateToChallenge').mockImplementation(() => { })
+            const btn = fixture.nativeElement.querySelector('button.view-challenge-button') as HTMLButtonElement
+            expect(btn).toBeTruthy()
+            btn.click()
+            expect(spy).toHaveBeenCalledWith('key42')
+        })
+
+        it('should hide the CTF flag section by default and show it when showCtfFlagsInNotifications is true', () => {
+            component.notifications = [{ key: 'a', message: 'X', flag: 'FLAG-42', copied: false, country: { code: 'CA', name: 'Canada' } }]
+            component.showCtfFlagsInNotifications = false
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.flag-box')).toBeNull()
+
+            component.showCtfFlagsInNotifications = true
+            fixture.detectChanges()
+            const flagBox = fixture.nativeElement.querySelector('.flag-box') as HTMLElement
+            expect(flagBox).toBeTruthy()
+            expect(flagBox.textContent).toContain('FLAG-42')
+        })
+    })
 })

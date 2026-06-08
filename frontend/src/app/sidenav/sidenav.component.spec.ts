@@ -222,4 +222,30 @@ describe('SidenavComponent', () => {
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
+    describe('template rendering', () => {
+        it('should render the toolbar with the application name and a navigation list', () => {
+            component.applicationName = 'JuiceShop'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('mat-toolbar h2')?.textContent).toContain('JuiceShop')
+            expect(compiled.querySelector('mat-nav-list')).toBeTruthy()
+        })
+
+        it('should render the login entry when the user is not logged in', () => {
+            localStorage.removeItem('token')
+            fixture.detectChanges()
+            const loginLink = (fixture.nativeElement as HTMLElement).querySelector('a[aria-label="Go to login page"]')
+            expect(loginLink).toBeTruthy()
+        })
+
+        it('should render the user profile entry instead of the login entry when the user is logged in', () => {
+            localStorage.setItem('token', 'token')
+            component.userEmail = 'user@juice-sh.op'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('a[aria-label="Go to user profile"]')).toBeTruthy()
+            expect(compiled.querySelector('a[aria-label="Go to login page"]')).toBeNull()
+            localStorage.removeItem('token')
+        })
+    })
 })
