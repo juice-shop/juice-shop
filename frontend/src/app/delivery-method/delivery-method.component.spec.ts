@@ -125,4 +125,71 @@ describe('DeliveryMethodComponent', () => {
         component.chooseDeliveryMethod()
         expect(setItemSpy).toHaveBeenCalledWith('deliveryMethodId', '1')
     })
+
+    describe('template rendering', () => {
+        const renderWith = (methods: any[], address: any = null) => {
+            deliveryService.get.mockReturnValue(of(methods))
+            addressService.getById.mockReturnValue(address ? of(address) : of([]))
+            const f = TestBed.createComponent(DeliveryMethodComponent)
+            f.detectChanges()
+            return f
+        }
+
+        it('should not render the delivery address section when there is no address', () => {
+            addressService.getById.mockReturnValue(of(null))
+            const f = TestBed.createComponent(DeliveryMethodComponent)
+            f.detectChanges()
+            expect(f.nativeElement.querySelector('.addressCont')).toBeNull()
+        })
+
+        it('should render the delivery address section with all address fields when an address is loaded', () => {
+            const f = renderWith([], {
+                fullName: 'Alice', streetAddress: 'Main 1', city: 'C', state: 'ST', zipCode: 'Z', country: 'CO', mobileNum: '12345'
+            })
+            const text = (f.nativeElement as HTMLElement).textContent ?? ''
+            expect(f.nativeElement.querySelector('.addressCont')).toBeTruthy()
+            expect(text).toContain('Alice')
+            expect(text).toContain('Main 1')
+            expect(text).toContain('CO')
+            expect(text).toContain('12345')
+        })
+
+        it('should render one delivery row per delivery method with price formatted with two decimals', () => {
+            const f = renderWith([
+                { id: 1, name: 'Standard', price: 1, eta: 3, icon: 'i1' },
+                { id: 2, name: 'Express', price: 5.5, eta: 1, icon: 'i2' }
+            ])
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelectorAll('mat-row').length).toBe(2)
+            const text = compiled.textContent ?? ''
+            expect(text).toContain('Standard')
+            expect(text).toContain('Express')
+            expect(text).toContain('1.00')
+            expect(text).toContain('5.50')
+        })
+
+        it('should disable the continue button when no delivery method is selected and enable it after a selection', () => {
+            const f = renderWith([{ id: 1, name: 'Standard', price: 1, eta: 3, icon: 'i1' }])
+            const next = f.nativeElement.querySelector('button.nextButton') as HTMLButtonElement
+            expect(next.disabled).toBe(true)
+
+            f.componentInstance.deliveryMethodId = 1
+            f.detectChanges()
+            expect((f.nativeElement.querySelector('button.nextButton') as HTMLButtonElement).disabled).toBe(false)
+        })
+
+        it('should wire the back and continue buttons to their respective component methods', () => {
+            const f = renderWith([{ id: 1, name: 'Standard', price: 1, eta: 3, icon: 'i1' }])
+            f.componentInstance.deliveryMethodId = 1
+            f.detectChanges()
+            const backSpy = vi.spyOn(f.componentInstance, 'routeToPreviousUrl').mockImplementation(() => { })
+            const chooseSpy = vi.spyOn(f.componentInstance, 'chooseDeliveryMethod').mockImplementation(() => { })
+
+            ;(f.nativeElement.querySelector('button.btn-return') as HTMLButtonElement).click()
+            ;(f.nativeElement.querySelector('button.nextButton') as HTMLButtonElement).click()
+
+            expect(backSpy).toHaveBeenCalled()
+            expect(chooseSpy).toHaveBeenCalled()
+        })
+    })
 })

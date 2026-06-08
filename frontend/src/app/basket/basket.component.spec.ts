@@ -83,4 +83,40 @@ describe('BasketComponent', () => {
         component.getBonusPoints([1, 10])
         expect(setItemSpy).toHaveBeenCalledWith('itemTotal', '1')
     })
+
+    describe('template rendering', () => {
+        it('should render the purchase basket child component and the checkout button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('app-purchase-basket')).toBeTruthy()
+            expect(compiled.querySelector('button#checkoutButton')).toBeTruthy()
+        })
+
+        it('should disable the checkout button when the productCount is less than 1', () => {
+            component.productCount = 0
+            fixture.detectChanges()
+            const btn = (fixture.nativeElement as HTMLElement).querySelector('button#checkoutButton') as HTMLButtonElement
+            expect(btn.disabled).toBe(true)
+        })
+
+        it('should enable the checkout button as soon as the productCount is at least 1', () => {
+            component.productCount = 1
+            fixture.detectChanges()
+            const btn = (fixture.nativeElement as HTMLElement).querySelector('button#checkoutButton') as HTMLButtonElement
+            expect(btn.disabled).toBe(false)
+        })
+
+        it('should invoke checkout when the checkout button is clicked', () => {
+            component.productCount = 1
+            fixture.detectChanges()
+            const spy = vi.spyOn(component, 'checkout').mockImplementation(() => { })
+            const btn = (fixture.nativeElement as HTMLElement).querySelector('button#checkoutButton') as HTMLButtonElement
+            btn.click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render the bonus-points hint below the checkout button', () => {
+            const hint = (fixture.nativeElement as HTMLElement).querySelector('.hint')
+            expect(hint).toBeTruthy()
+        })
+    })
 })

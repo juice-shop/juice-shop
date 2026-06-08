@@ -118,9 +118,14 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   modifyQuantity (id, value) {
     this.quantityService.put(id, { quantity: value < 0 ? 0 : value }).subscribe({
       next: (quantity) => {
-        const product = this.tableData.find((product) => {
+        const product = this.tableData?.find((product) => {
           return product.id === quantity.ProductId
         })
+
+        if (!product) {
+          this.loadQuantity()
+          return
+        }
 
         this.snackBarHelperService.open(`Quantity for ${product.name} has been updated.`, 'confirmBar')
         this.loadQuantity()

@@ -219,4 +219,27 @@ describe('ContactComponent', () => {
         component.save()
         expect(component.feedback).toEqual({})
     })
+
+    describe('template rendering', () => {
+        it('should render the customer feedback heading, comment textarea and submit button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')).toBeTruthy()
+            expect(compiled.querySelector('textarea#comment')).toBeTruthy()
+            expect(compiled.querySelector('button#submitButton')).toBeTruthy()
+        })
+
+        it('should render the captcha challenge and captcha answer input', () => {
+            component.captcha = '1+1'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('code#captcha')?.textContent).toContain('1+1')
+            expect(compiled.querySelector('input#captchaControl')).toBeTruthy()
+        })
+
+        it('should keep the submit button disabled while the form is invalid or rating is missing', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const submit = compiled.querySelector('button#submitButton') as HTMLButtonElement
+            expect(submit.disabled).toBe(true)
+        })
+    })
 })

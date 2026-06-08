@@ -92,4 +92,49 @@ describe('ChallengeStatusBadgeComponent', () => {
         component.repeatNotification()
         expect(console.log).toHaveBeenCalledWith('Error')
     })
+
+    describe('template rendering', () => {
+        const renderWith = (challenge: Partial<Challenge>) => {
+            const f = TestBed.createComponent(ChallengeStatusBadgeComponent)
+            f.componentInstance.challenge = challenge as Challenge
+            f.detectChanges()
+            return f
+        }
+
+        it('should render only the solved badge for a solved challenge', () => {
+            const f = renderWith({ name: 'C1', solved: true })
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('button[id="C1.solved"]')).toBeTruthy()
+            expect(compiled.querySelector('button[id="C1.notSolved"]')).toBeNull()
+            expect(compiled.querySelector('button[id="C1.unavailable"]')).toBeNull()
+        })
+
+        it('should render only the not-solved badge for an unsolved challenge', () => {
+            const f = renderWith({ name: 'C2', solved: false })
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('button[id="C2.notSolved"]')).toBeTruthy()
+            expect(compiled.querySelector('button[id="C2.solved"]')).toBeNull()
+            expect(compiled.querySelector('button[id="C2.unavailable"]')).toBeNull()
+        })
+
+        it('should render only the unavailable badge when the challenge is disabled for an environment', () => {
+            const f = renderWith({ name: 'C3', solved: false, disabledEnv: 'Docker' })
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('button[id="C3.unavailable"]')).toBeTruthy()
+            expect(compiled.querySelector('button[id="C3.solved"]')).toBeNull()
+            expect(compiled.querySelector('button[id="C3.notSolved"]')).toBeNull()
+        })
+
+        it('should invoke repeatNotification when the solved badge is clicked', () => {
+            const f = renderWith({ name: 'C1', solved: true })
+            const spy = vi.spyOn(f.componentInstance, 'repeatNotification').mockImplementation(() => { })
+            ;(f.nativeElement.querySelector('button[id="C1.solved"]') as HTMLButtonElement).click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render the unsolved-badge label translation key for an unsolved challenge', () => {
+            const f = renderWith({ name: 'C2', solved: false })
+            expect(f.nativeElement.querySelector('button[id="C2.notSolved"] .status-label')).toBeTruthy()
+        })
+    })
 })
