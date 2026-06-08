@@ -1,0 +1,25 @@
+{
+  "name": "welley",
+  "version": "1.0.0",
+  "description": "Welley QA Automation Practice",
+  "main": "index.js",
+  "scripts": {
+    "test:run": "playwright test",
+    "test:Orlova": "playwright test tests/Orlova",
+    "test:Koreshkova": "playwright test tests/Koreshkova",
+    "test:Goncharuk": "playwright test tests/Goncharuk",
+    "test:Dichenko": "playwright test tests/Dichenko",
+    "test:Moore": "playwright test tests/Moore",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.3.3"
+  }
+}
