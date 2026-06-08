@@ -1,11 +1,15 @@
 ***Run Project***
-TBD
-
+Open a terminal and navigate to the main folder (i.e. cd Desktop/projects/juice-shop-welley.)
+Run `npm install` (only has to be done before first start)
+Run `npm start`
+Browse to <http://localhost:3000>
 
 ***Prepare to run Tests***
-Make sure you are in `welley` folder
-run ```npm i``` and then ```npm ci``` 
-
+Open a new terminal window and navigate to the `welley` folder (i.e. cd Desktop/projects/juice-shop-welley/welley.)
+run ```npm i``` and then ```npm ci``` (first time only)
+Check if playwright is installed ```npx playwright --version```
+If not installed, run 
+```npm install -D @playwright/test@latest && npx playwright install --with-deps```
 
 ***Run Tests***
 In order to run your tests, open your terminal and run the script associated with your name.
