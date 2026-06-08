@@ -21,7 +21,7 @@ export function profileImageFileUpload () {
       next(new Error('Illegal file type'))
       return
     }
-    // Cap detection to first 4096 bytes — prevents DoS via crafted ASF zero-size sub-header (CVE-2026-31808)
+    // Cap detection to first 4096 bytes prevents DoS via crafted ASF zero-size sub-header (CVE-2026-31808)
    const uploadedFileType = await fileType.fromBuffer(buffer.slice(0, 4096))
     if (uploadedFileType === undefined) {
       res.status(500)
