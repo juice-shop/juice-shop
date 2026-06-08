@@ -55,7 +55,7 @@ jobs:
           key: sentinel-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json', 'requirements*.txt', 'Pipfile.lock', 'poetry.lock', 'go.sum', 'Cargo.lock', 'pom.xml', 'build.gradle*', '*.csproj', 'Gemfile.lock', 'pubspec.lock', 'mix.lock') }}
           restore-keys: |
             sentinel-${{ runner.os }}-
-          save-always: true
+          
       - name: Run Sentinel SCA
         id: scan
         env:
@@ -81,7 +81,16 @@ jobs:
           path: sentinel-report.html
           retention-days: 30
         if: always()
-
+        
+      - name: Save Sentinel SCA caches
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: |
+            ~/.sentinel-sca
+            .sentinel-cache
+          key: sentinel-${{ runner.os }}-${{ hashFiles('package-lock.json', 'package.json', 'requirements*.txt', 'Pipfile.lock', 'poetry.lock', 'go.sum', 'Cargo.lock', 'pom.xml', 'build.gradle*', '*.csproj', 'Gemfile.lock', 'pubspec.lock', 'mix.lock') }}
+   
       - name: Fail if blocking vulnerabilities found
         if: steps.scan.outcome == 'failure'
         run: exit 1
