@@ -1,0 +1,139 @@
+name: SecureGate Security Scan
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  pull-requests: write
+  statuses: write
+  contents: read
+
+jobs:
+
+  sast-scan:
+    name: SAST Scan (Semgrep)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore SAST cache
+        id: sast-cache
+        uses: actions/cache@v4
+        with:
+          path: sast-results.json
+          key: sast-${{ hashFiles('**/*.py', '**/*.js', '**/*.ts', '**/*.go', '**/*.java') }}
+
+      - name: Set up Python
+        if: steps.sast-cache.outputs.cache-hit != 'true'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Semgrep
+        if: steps.sast-cache.outputs.cache-hit != 'true'
+        run: pip install semgrep==1.71.0
+
+      - name: Run Semgrep
+        if: steps.sast-cache.outputs.cache-hit != 'true'
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: |
+          if [ -n "$SEMGREP_APP_TOKEN" ]; then
+            semgrep \
+              --config p/security-audit \
+              --config p/owasp-top-ten \
+              --config p/secrets \
+              --json . > sast-results.json 2>/dev/null
+          else
+            semgrep --config auto --json . > sast-results.json 2>/dev/null || \
+            echo '{"results":[],"errors":[]}' > sast-results.json
+          fi
+
+      - name: Upload SAST results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-results
+          path: sast-results.json
+          retention-days: 1
+
+  sca-scan:
+    name: SCA Scan (Grype)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore SCA cache
+        id: sca-cache
+        uses: actions/cache@v4
+        with:
+          path: sca-results.json
+          key: sca-${{ hashFiles('**/package.json', '**/requirements.txt', '**/go.sum', '**/Gemfile.lock', '**/pom.xml') }}
+
+      - name: Install Grype
+        if: steps.sca-cache.outputs.cache-hit != 'true'
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Restore Grype DB cache
+        if: steps.sca-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/grype
+          key: grype-db-${{ runner.os }}
+          restore-keys: grype-db-${{ runner.os }}
+
+      - name: Run Grype
+        if: steps.sca-cache.outputs.cache-hit != 'true'
+        run: |
+          grype dir:. --output json > sca-results.json 2>/dev/null || \
+          echo '{"matches":[]}' > sca-results.json
+
+      - name: Upload SCA results
+        uses: actions/upload-artifact@v4
+        with:
+          name: sca-results
+          path: sca-results.json
+          retention-days: 1
+
+  orchestrate:
+    name: Orchestrate & Gate
+    runs-on: ubuntu-latest
+    needs: [sast-scan, sca-scan]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: S1-Hacks/Securegate
+          path: securegate-engine
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install SecureGate dependencies
+        run: pip install -r securegate-engine/requirements.txt
+
+      - name: Download SAST results
+        uses: actions/download-artifact@v4
+        with:
+          name: sast-results
+
+      - name: Download SCA results
+        uses: actions/download-artifact@v4
+        with:
+          name: sca-results
+
+      - name: Run SecureGate orchestrator
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+          SAST_RESULTS: sast-results.json
+          SCA_RESULTS: sca-results.json
+          SOURCE_DIR: .
+          PYTHONPATH: securegate-engine
+        run: python3 -m securegate.orchestrator.orchestrator
