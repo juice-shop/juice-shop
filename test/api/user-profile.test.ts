@@ -51,4 +51,25 @@ void describe('/profile', () => {
 
     assert.equal(res.status, 302)
   })
+
+  void it('GET user profile treats username template expressions as text', async () => {
+    const globalWithProfileFlag = globalThis as typeof globalThis & { __juiceProfileEvalExecuted?: boolean }
+    globalWithProfileFlag.__juiceProfileEvalExecuted = false
+
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .field('username', '#{globalThis.__juiceProfileEvalExecuted = true}')
+      .redirects(0)
+      .expect(302)
+
+    const res = await request(app)
+      .get('/profile')
+      .set(authHeader)
+
+    assert.equal(res.status, 200)
+    assert.equal(globalWithProfileFlag.__juiceProfileEvalExecuted, false)
+
+    delete globalWithProfileFlag.__juiceProfileEvalExecuted
+  })
 })
