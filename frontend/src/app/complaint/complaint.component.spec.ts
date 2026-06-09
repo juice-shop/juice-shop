@@ -142,6 +142,39 @@ describe('ComplaintComponent', () => {
         expect(component.uploader.queue[0].upload).toHaveBeenCalled()
     })
 
+    describe('file uploader callbacks', () => {
+        it('should expose the upload error to the template when a file fails the upload filter', () => {
+            expect(() => component.uploader.onWhenAddingFileFailed({} as any, { name: 'mimeType' } as any, undefined as any))
+                .toThrow(/mimeType/)
+            expect(component.fileUploadError).toEqual({ name: 'mimeType' })
+        })
+
+        it('should clear the upload error after a file is successfully added', () => {
+            component.fileUploadError = { name: 'mimeType' } as any
+            component.uploader.onAfterAddingFile({} as any)
+            expect(component.fileUploadError).toBeUndefined()
+        })
+
+        it('should save the complaint and clear the upload queue once a file upload succeeds', () => {
+            const saveSpy = vi.spyOn(component, 'saveComplaint').mockImplementation(() => { })
+            const clearSpy = vi.spyOn(component.uploader, 'clearQueue')
+            component.uploader.onSuccessItem({} as any, '', 200, {} as any)
+            expect(saveSpy).toHaveBeenCalled()
+            expect(clearSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe('saveComplaint translation fallback', () => {
+        it('should use the translation id as confirmation when translation fails', () => {
+            complaintService.save.mockReturnValue(of({ id: 99 }))
+            translateService.get.mockReturnValue(throwError(() => 'CUSTOMER_SUPPORT_COMPLAINT_REPLY'))
+            component.complaint = {}
+            component.messageControl.setValue('a complaint message')
+            component.saveComplaint()
+            expect(component.confirmation).toBe('CUSTOMER_SUPPORT_COMPLAINT_REPLY')
+        })
+    })
+
     describe('template rendering', () => {
         it('should render the complaint heading, message textarea, file input and submit button', () => {
             const compiled: HTMLElement = fixture.nativeElement

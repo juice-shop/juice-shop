@@ -109,4 +109,59 @@ describe('WelcomeBannerComponent', () => {
         component.ngOnInit()
         expect(console.log).toHaveBeenCalledWith('Error')
     })
+
+    describe('startHackingInstructor', () => {
+        it('should close the welcome banner, log the start hint and launch the Score Board tutorial', () => {
+            const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+            const launchSpy = vi.spyOn(component as any, 'launchHackingInstructor').mockImplementation(() => {})
+            component.startHackingInstructor()
+            expect(matDialogRef.close).toHaveBeenCalled()
+            expect(logSpy).toHaveBeenCalledWith('Starting instructions for challenge "Score Board"')
+            expect(launchSpy).toHaveBeenCalledWith('Score Board')
+        })
+    })
+
+    describe('template rendering', () => {
+        it('should render the hacking instructor button only when showHackingInstructor is true', () => {
+            component.showHackingInstructor = true
+            component.showDismissBtn = true
+            fixture.detectChanges()
+            const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll('button')
+            expect(buttons.length).toBe(2)
+        })
+
+        it('should hide the hacking instructor button when showHackingInstructor is false', () => {
+            component.showHackingInstructor = false
+            component.showDismissBtn = true
+            fixture.detectChanges()
+            const buttons = (fixture.nativeElement as HTMLElement).querySelectorAll('button')
+            expect(buttons.length).toBe(1)
+            expect((fixture.nativeElement as HTMLElement).querySelector('button.close-dialog')).toBeTruthy()
+        })
+
+        it('should hide the dismiss button when showDismissBtn is false', () => {
+            component.showHackingInstructor = true
+            component.showDismissBtn = false
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('button.close-dialog')).toBeNull()
+        })
+
+        it('should call startHackingInstructor when the hacking instructor button is clicked', () => {
+            component.showHackingInstructor = true
+            fixture.detectChanges()
+            const spy = vi.spyOn(component, 'startHackingInstructor').mockImplementation(() => {})
+            const hackBtn = (fixture.nativeElement as HTMLElement).querySelector('button') as HTMLButtonElement
+            hackBtn.click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render the configured title and message (interpreted as HTML)', () => {
+            component.title = 'Hello Juice'
+            component.message = '<em>welcome!</em>'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')?.textContent).toContain('Hello Juice')
+            expect(compiled.querySelector('em')?.textContent).toBe('welcome!')
+        })
+    })
 })

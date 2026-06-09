@@ -246,6 +246,43 @@ describe('ProductComponent', () => {
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
+    describe('guest basket (logged out)', () => {
+        beforeEach(() => {
+            fixture.componentRef.setInput('isLoggedIn', false)
+            fixture.detectChanges()
+            basketService.addToGuestBasket = vi.fn().mockName('BasketService.addToGuestBasket')
+        })
+
+        it('should add the product to the guest basket and show a translated confirmation message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(of('Translation of BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(basketService.addToGuestBasket).toHaveBeenCalledWith(1)
+            expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
+            expect(snackBarHelper.open).toHaveBeenCalledWith('Translation of BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should fall back to the translation id when translation fails for the guest basket message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(throwError(() => 'BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(snackBarHelper.open).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should log errors from the product lookup when adding to the guest basket', () => {
+            productService.get.mockReturnValue(throwError(() => 'Error'))
+            console.log = vi.fn()
+            component.addToBasket(1)
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+
+        it('should not do anything when called without a product id', () => {
+            component.addToBasket(undefined)
+            expect(basketService.addToGuestBasket).not.toHaveBeenCalled()
+            expect(basketService.find).not.toHaveBeenCalled()
+        })
+    })
+
     describe('template rendering', () => {
         it('should render the product name, image and add-to-basket button', () => {
             const compiled: HTMLElement = fixture.nativeElement
