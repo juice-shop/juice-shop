@@ -282,5 +282,85 @@ describe('ChatConversationComponent', () => {
             expect(indicator).toBeTruthy()
             expect(indicator.querySelectorAll('.dot').length).toBe(3)
         })
+
+        it('should not render any tool-calls container when showToolCalls is false', () => {
+            component.showToolCalls.set(false)
+            component.messages.set([
+                { role: 'assistant', content: 'with tools', tool_calls: [{ id: 't1', type: 'function', function: { name: 'doIt', arguments: '{}' } }] }
+            ] as any)
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.tool-calls-container')).toBeNull()
+        })
+
+        it('should render a single tool-call card without the previous-tool-calls header when only one tool call is present', () => {
+            component.showToolCalls.set(true)
+            component.messages.set([
+                { role: 'assistant', content: 'x', tool_calls: [{ id: 't1', type: 'function', function: { name: 'doIt', arguments: '{"a":1}' } }] }
+            ] as any)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.tool-calls-container')).toBeTruthy()
+            expect(compiled.querySelector('.tool-calls-header')).toBeNull()
+            const cards = compiled.querySelectorAll('.tool-call-card')
+            expect(cards.length).toBe(1)
+            expect(cards[0].textContent).toContain('doIt')
+            expect(cards[0].textContent).toContain('{"a":1}')
+        })
+
+        it('should toggle previous tool calls visibility when the header is clicked', () => {
+            component.showToolCalls.set(true)
+            component.messages.set([
+                {
+                    role: 'assistant',
+                    content: 'x',
+                    tool_calls: [
+                        { id: 't1', type: 'function', function: { name: 'first', arguments: '{}' } },
+                        { id: 't2', type: 'function', function: { name: 'second', arguments: '{}' } }
+                    ]
+                }
+            ] as any)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.tool-calls-header')).toBeTruthy()
+            expect(compiled.querySelector('.previous-tool-calls')).toBeNull()
+
+            ;(compiled.querySelector('.tool-calls-header') as HTMLElement).click()
+            fixture.detectChanges()
+            expect(compiled.querySelector('.previous-tool-calls')).toBeTruthy()
+            expect(compiled.querySelectorAll('.tool-call-card.mini').length).toBe(1)
+        })
+    })
+
+    describe('init configuration handling', () => {
+        it('should log when configuration loading fails', () => {
+            const err = new Error('boom')
+            configurationService.getApplicationConfiguration.mockReturnValue({
+                subscribe: ({ error }: any) => { error(err) }
+            } as any)
+            console.log = vi.fn()
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith(err)
+        })
+
+        it('should keep default bot name and avatar when config has no chatBot section', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} } as any))
+            component.chatBotName.set('Juicy')
+            component.chatBotAvatar.set('assets/public/images/JuicyBot.png')
+            component.ngOnInit()
+            expect(component.chatBotName()).toBe('Juicy')
+            expect(component.chatBotAvatar()).toBe('assets/public/images/JuicyBot.png')
+        })
+
+        it('should mark an assistant error message via the stream and break out of the loop', async () => {
+            async function* errStream() {
+                yield { error: true }
+                yield { deltaContent: 'should not be appended' }
+            }
+            chatService.streamMessages.mockReturnValue(errStream())
+            await component.sendMessage('Hi')
+            const assistant = component.messages()[1] as any
+            expect(assistant.error).toBe(true)
+            expect(assistant.content).toBe('CHATBOT_ERROR_LLM_UNREACHABLE')
+        })
     })
 })

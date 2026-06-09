@@ -20,6 +20,7 @@ import { of, throwError } from 'rxjs'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { Router } from '@angular/router'
 
 class MockSocket {
     on(str: string, callback: any) {
@@ -92,6 +93,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
                 { provide: ConfigurationService, useValue: configurationService },
                 { provide: CountryMappingService, useValue: countryMappingService },
                 { provide: SnackBarHelperService, useValue: snackBarHelperService },
+                { provide: Router, useValue: { navigate: vi.fn().mockResolvedValue(true) } },
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
             ]
@@ -313,6 +315,101 @@ describe('ChallengeSolvedNotificationComponent', () => {
             const flagBox = fixture.nativeElement.querySelector('.flag-box') as HTMLElement
             expect(flagBox).toBeTruthy()
             expect(flagBox.textContent).toContain('FLAG-42')
+        })
+
+        it('should render the country flag icon when showCtfCountryDetailsInNotifications is "flag"', () => {
+            component.notifications = [{ key: 'a', message: 'X', flag: 'F', copied: false, country: { code: 'CA', name: 'Canada' } }]
+            component.showCtfFlagsInNotifications = true
+            component.showCtfCountryDetailsInNotifications = 'flag'
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.fi-ca')).toBeTruthy()
+            expect(fixture.nativeElement.textContent).not.toContain('Canada')
+        })
+
+        it('should render the country name when showCtfCountryDetailsInNotifications is "name"', () => {
+            component.notifications = [{ key: 'a', message: 'X', flag: 'F', copied: false, country: { code: 'CA', name: 'Canada' } }]
+            component.showCtfFlagsInNotifications = true
+            component.showCtfCountryDetailsInNotifications = 'name'
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.fi-ca')).toBeNull()
+            expect(fixture.nativeElement.textContent).toContain('Canada')
+        })
+    })
+
+    describe('socket "challenge solved" handler', () => {
+        let socket: any
+        let onCallback: any
+
+        beforeEach(() => {
+            onCallback = null
+            socket = {
+                on: vi.fn((_: string, cb: any) => { onCallback = cb }),
+                emit: vi.fn()
+            }
+            socketIoService.socket.mockReturnValue(socket)
+            challengeService.continueCode.mockReturnValue(of('CODE'))
+        })
+
+        it('should ignore socket messages without a challenge field', () => {
+            component.ngOnInit()
+            const showSpy = vi.spyOn(component, 'showNotification')
+            const saveSpy = vi.spyOn(component, 'saveProgress')
+            onCallback({})
+            expect(showSpy).not.toHaveBeenCalled()
+            expect(saveSpy).not.toHaveBeenCalled()
+            expect(socket.emit).not.toHaveBeenCalled()
+        })
+
+        it('should not show a notification for hidden challenges but still emit and save progress', () => {
+            component.ngOnInit()
+            const showSpy = vi.spyOn(component, 'showNotification')
+            const saveSpy = vi.spyOn(component, 'saveProgress').mockImplementation(() => { })
+            onCallback({ challenge: 'X', hidden: true, isRestore: false, flag: 'F', key: 'k' })
+            expect(showSpy).not.toHaveBeenCalled()
+            expect(saveSpy).toHaveBeenCalled()
+            expect(socket.emit).toHaveBeenCalledWith('notification received', 'F')
+        })
+
+        it('should not save progress when the challenge is being restored', () => {
+            component.ngOnInit()
+            const saveSpy = vi.spyOn(component, 'saveProgress').mockImplementation(() => { })
+            onCallback({ challenge: 'X', hidden: true, isRestore: true, flag: 'F', key: 'k' })
+            expect(saveSpy).not.toHaveBeenCalled()
+            expect(socket.emit).toHaveBeenCalledWith('notification received', 'F')
+        })
+
+        it('should show notification and save progress for a visible, non-restored challenge', () => {
+            component.ngOnInit()
+            const showSpy = vi.spyOn(component, 'showNotification').mockImplementation(() => { })
+            const saveSpy = vi.spyOn(component, 'saveProgress').mockImplementation(() => { })
+            onCallback({ challenge: 'Some Challenge', hidden: false, isRestore: false, flag: 'F', key: 'k' })
+            expect(showSpy).toHaveBeenCalled()
+            expect(saveSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe('configuration error paths', () => {
+        it('should log when country mapping service fails', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ ctf: { showCountryDetailsInNotifications: 'both' } }))
+            countryMappingService.getCountryMapping.mockReturnValue(throwError(() => 'CountryError'))
+            console.log = vi.fn()
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith('CountryError')
+            expect(component.countryMap).toBeUndefined()
+        })
+    })
+
+    describe('navigateToChallenge', () => {
+        it('should do nothing when called with a falsy key', () => {
+            const router = TestBed.inject(Router) as any
+            component.navigateToChallenge('')
+            expect(router.navigate).not.toHaveBeenCalled()
+        })
+
+        it('should route to the coding-challenge page when given a key', () => {
+            const router = TestBed.inject(Router) as any
+            component.navigateToChallenge('key1')
+            expect(router.navigate).toHaveBeenCalledWith(['/coding-challenge', 'key1'])
         })
     })
 })
