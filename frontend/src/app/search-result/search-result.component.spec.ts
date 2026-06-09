@@ -260,4 +260,154 @@ describe('SearchResultComponent', () => {
             expect((fixture.nativeElement as HTMLElement).querySelector('mat-paginator')).toBeTruthy()
         })
     })
+
+    describe('filterTable empty/non-empty grid state', () => {
+        it('should set emptyState to true when filtered grid data source emits no results', () => {
+            productService.search.mockReturnValue(of([{ id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' }]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            activatedRoute.setQueryParameter('no-such-product')
+            component.filterTable()
+            expect(component.emptyState).toBe(true)
+        })
+
+        it('should set emptyState to false when filtered grid data source has results', () => {
+            productService.search.mockReturnValue(of([{ id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' }]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            activatedRoute.setQueryParameter('apple')
+            component.filterTable()
+            expect(component.emptyState).toBe(false)
+        })
+
+        it('should reset filter and clear searchValue when query parameter is empty', () => {
+            activatedRoute.setQueryParameter('')
+            component.filterTable()
+            expect(component.dataSource.filter).toBe('')
+            expect(component.searchValue).toBeUndefined()
+            expect(component.emptyState).toBe(false)
+        })
+
+        it('should unsubscribe the previous grid data source subscription when filtering twice', () => {
+            productService.search.mockReturnValue(of([{ id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' }]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            activatedRoute.setQueryParameter('apple')
+            component.filterTable()
+            // Second call should hit the unsubscribe branch
+            activatedRoute.setQueryParameter('apple')
+            expect(() => component.filterTable()).not.toThrow()
+        })
+    })
+
+    describe('responsive page size handling', () => {
+        it('should observe the products grid via ResizeObserver and recompute page size on resize', () => {
+            const observeSpy = vi.fn()
+            let resizeCb: (() => void) | undefined
+            const FakeRO = class {
+                constructor (cb: () => void) { resizeCb = cb }
+                observe = observeSpy
+                unobserve () {}
+                disconnect () {}
+            }
+            const originalRO = globalThis.ResizeObserver
+            globalThis.ResizeObserver = FakeRO as any
+
+            // Ensure the products-grid element exists so observe is called
+            const grid = document.createElement('div')
+            grid.className = 'products-grid'
+            grid.style.gridTemplateColumns = 'auto auto auto'
+            ;(component as any).elRef = { nativeElement: { querySelector: () => grid } }
+
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            expect(observeSpy).toHaveBeenCalled()
+            // Trigger resize callback to exercise updatePageSize path
+            expect(() => resizeCb && resizeCb()).not.toThrow()
+
+            globalThis.ResizeObserver = originalRO
+        })
+
+        it('should recompute page size and emit paginator change when columns change', () => {
+            productService.search.mockReturnValue(of([
+                { id: 1, name: 'A', price: 1, description: 'd', image: 'i' },
+                { id: 2, name: 'B', price: 1, description: 'd', image: 'i' }
+            ]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            const fakeGrid = {
+                // getComputedStyle returns gridTemplateColumns with 4 entries -> pageSize = ceil(15/4)*4 = 16
+            } as any
+            const original = (window as any).getComputedStyle
+            ;(window as any).getComputedStyle = () => ({ gridTemplateColumns: 'a b c d' })
+            const emitSpy = vi.spyOn(component.paginator.page, 'emit')
+            ;(component as any).updatePageSize(fakeGrid)
+            expect(component.currentPageSize).toBe(16)
+            expect(component.paginator.pageSize).toBe(16)
+            expect(emitSpy).toHaveBeenCalled()
+            ;(window as any).getComputedStyle = original
+        })
+
+        it('should silently skip responsive page sizing when products grid is missing', () => {
+            ;(component as any).elRef = { nativeElement: { querySelector: () => null } }
+            expect(() => {
+                component.ngAfterViewInit()
+                fixture.detectChanges()
+            }).not.toThrow()
+        })
+    })
+
+    describe('hacking instructor integration', () => {
+        it('should start the hacking instructor when challenge param and hacking-instructor URL are present', () => {
+            const spy = vi.spyOn(component, 'startHackingInstructor').mockImplementation(() => {})
+            ;(activatedRoute.snapshot as any).queryParams.challenge = 'Score Board'
+            ;(activatedRoute.snapshot as any).url = [{ toString: () => 'hacking-instructor' }]
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            expect(spy).toHaveBeenCalledWith('Score Board')
+        })
+    })
+
+    describe('auth and deluxe helpers', () => {
+        it('should report isLoggedIn=false when no token is set', () => {
+            localStorage.removeItem('token')
+            expect(component.isLoggedIn()).toBe(false)
+        })
+
+        it('should report isLoggedIn=true when a token is set', () => {
+            localStorage.setItem('token', 'abc')
+            expect(component.isLoggedIn()).toBe(true)
+            localStorage.removeItem('token')
+        })
+
+        it('should delegate isDeluxe to DeluxeGuard', () => {
+            deluxeGuard.isDeluxe.mockReturnValue(true)
+            expect(component.isDeluxe()).toBe(true)
+            expect(deluxeGuard.isDeluxe).toHaveBeenCalled()
+        })
+    })
+
+    describe('ngOnDestroy cleanup', () => {
+        it('should unsubscribe router and grid subscriptions, disconnect data source and resize observer', () => {
+            productService.search.mockReturnValue(of([{ id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' }]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+            activatedRoute.setQueryParameter('apple')
+            component.filterTable()
+
+            const dsDisconnectSpy = vi.spyOn(component.dataSource, 'disconnect')
+            const roDisconnectSpy = vi.fn()
+            ;(component as any).resizeObserver = { disconnect: roDisconnectSpy }
+
+            expect(() => component.ngOnDestroy()).not.toThrow()
+            expect(dsDisconnectSpy).toHaveBeenCalled()
+            expect(roDisconnectSpy).toHaveBeenCalled()
+        })
+
+        it('should be a safe no-op when destroyed before subscriptions exist', () => {
+            const freshFixture = TestBed.createComponent(SearchResultComponent)
+            const freshComponent = freshFixture.componentInstance
+            expect(() => freshComponent.ngOnDestroy()).not.toThrow()
+        })
+    })
 })

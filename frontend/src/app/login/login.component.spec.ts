@@ -28,11 +28,18 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { ConfigurationService } from '../Services/configuration.service'
+import { FormSubmitService } from '../Services/form-submit.service'
+import { BasketService } from '../Services/basket.service'
 
 describe('LoginComponent', () => {
     let component: LoginComponent
     let fixture: ComponentFixture<LoginComponent>
     let userService: any
+    let configurationService: any
+    let formSubmitService: any
+    let basketService: any
+    let windowRefService: any
     let location: Location
 
     beforeEach(async () => {
@@ -44,6 +51,25 @@ describe('LoginComponent', () => {
             next: vi.fn().mockName("userService.isLoggedIn.next")
         }
         userService.isLoggedIn.next.mockReturnValue({})
+        configurationService = {
+            getApplicationConfiguration: vi.fn().mockReturnValue(of({}))
+        }
+        formSubmitService = {
+            attachEnterKeyHandler: vi.fn()
+        }
+        basketService = {
+            mergeGuestBasketIntoUserBasket: vi.fn().mockReturnValue(of(undefined)),
+            updateNumberOfCartItems: vi.fn()
+        }
+        windowRefService = {
+            nativeWindow: {
+                location: {
+                    protocol: 'http:',
+                    host: 'localhost:4200',
+                    replace: vi.fn()
+                }
+            }
+        }
 
         TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([
@@ -66,7 +92,10 @@ describe('LoginComponent', () => {
                 LoginComponent, SearchResultComponent],
             providers: [
                 { provide: UserService, useValue: userService },
-                WindowRefService,
+                { provide: ConfigurationService, useValue: configurationService },
+                { provide: FormSubmitService, useValue: formSubmitService },
+                { provide: BasketService, useValue: basketService },
+                { provide: WindowRefService, useValue: windowRefService },
                 CookieService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
@@ -209,6 +238,109 @@ describe('LoginComponent', () => {
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
             expect(compiled.querySelector('.breakLine')).toBeNull()
+        })
+    })
+
+    describe('google OAuth configuration', () => {
+        it('should enable OAuth when the current redirect URI is authorized', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({
+                application: {
+                    googleOauth: {
+                        clientId: 'custom-client-id',
+                        authorizedRedirects: [
+                            { uri: 'http://localhost:4200' }
+                        ]
+                    }
+                }
+            }))
+            component.ngOnInit()
+            expect(component.oauthUnavailable).toBe(false)
+            expect(component.clientId).toBe('custom-client-id')
+            expect(component.redirectUri).toBe('http://localhost:4200')
+        })
+
+        it('should use the proxy URI when an authorized redirect defines one', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({
+                application: {
+                    googleOauth: {
+                        clientId: 'custom-client-id',
+                        authorizedRedirects: [
+                            { uri: 'http://localhost:4200', proxy: 'http://proxy.local' }
+                        ]
+                    }
+                }
+            }))
+            component.ngOnInit()
+            expect(component.redirectUri).toBe('http://proxy.local')
+        })
+
+        it('should flag OAuth as unavailable when redirect URI is not authorized', () => {
+            console.log = vi.fn()
+            configurationService.getApplicationConfiguration.mockReturnValue(of({
+                application: {
+                    googleOauth: {
+                        clientId: 'custom-client-id',
+                        authorizedRedirects: [
+                            { uri: 'http://other.host' }
+                        ]
+                    }
+                }
+            }))
+            component.ngOnInit()
+            expect(component.oauthUnavailable).toBe(true)
+            expect(console.log).toHaveBeenCalled()
+        })
+
+        it('should log error when application configuration cannot be loaded', () => {
+            console.log = vi.fn()
+            configurationService.getApplicationConfiguration.mockReturnValue(throwError('Error'))
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+    })
+
+    describe('login flow edge cases', () => {
+        it('should redirect to the URL provided via the redirectUrl query parameter', async () => {
+            const router = (component as any).router
+            const navSpy = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true as any)
+            ;(component as any).route = { snapshot: { queryParamMap: { get: () => '/profile' } } }
+            userService.login.mockReturnValue(of({ token: 't', bid: 1 }))
+            component.login()
+            await fixture.whenStable()
+            expect(navSpy).toHaveBeenCalledWith('/profile')
+        })
+
+        it('should log and continue when merging guest basket fails', async () => {
+            console.log = vi.fn()
+            basketService.mergeGuestBasketIntoUserBasket.mockReturnValue(throwError('mergeErr'))
+            userService.login.mockReturnValue(of({ token: 't', bid: 1 }))
+            component.login()
+            await fixture.whenStable()
+            expect(console.log).toHaveBeenCalledWith('mergeErr')
+            expect(basketService.updateNumberOfCartItems).toHaveBeenCalled()
+        })
+
+        it('should redirect to 2FA page when login requires a TOTP token', async () => {
+            const router = (component as any).router
+            const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true as any)
+            userService.login.mockReturnValue(throwError({
+                error: { status: 'totp_token_required', data: { tmpToken: 'tmp' } }
+            }))
+            component.login()
+            await fixture.whenStable()
+            expect(localStorage.getItem('totp_tmp_token')).toBe('tmp')
+            expect(navSpy).toHaveBeenCalledWith(['/2fa/enter'])
+            localStorage.removeItem('totp_tmp_token')
+        })
+
+        it('should redirect via window.location.replace on googleLogin', () => {
+            component.clientId = 'cid'
+            component.redirectUri = 'http://localhost:4200'
+            component.googleLogin()
+            expect(windowRefService.nativeWindow.location.replace).toHaveBeenCalled()
+            const call = windowRefService.nativeWindow.location.replace.mock.calls[0][0] as string
+            expect(call).toContain('client_id=cid')
+            expect(call).toContain('redirect_uri=http://localhost:4200')
         })
     })
 })
