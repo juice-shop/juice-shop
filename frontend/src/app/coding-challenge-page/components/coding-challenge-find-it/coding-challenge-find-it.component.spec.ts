@@ -305,4 +305,42 @@ describe('CodingChallengeFindItComponent', () => {
             expect(spy).toHaveBeenCalled()
         })
     })
+
+    describe('mouse interaction', () => {
+        it('should toggle the selected line when its gutter line number is clicked', () => {
+            const gutterLine = editorDom().querySelectorAll('.cm-lineNumbers .cm-gutterElement')[2] as HTMLElement
+            expect(gutterLine).toBeTruthy()
+            gutterLine.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }))
+            expect(component.selectedLines.length).toBeGreaterThan(0)
+        })
+
+        it('should toggle the selected line when a line in the editor content is clicked', () => {
+            const contentLine = editorDom().querySelector('.cm-content .cm-line') as HTMLElement
+            expect(contentLine).toBeTruthy()
+            const rect = contentLine.getBoundingClientRect()
+            contentLine.dispatchEvent(new MouseEvent('mousedown', {
+                bubbles: true,
+                cancelable: true,
+                clientX: rect.left + 1,
+                clientY: rect.top + 1
+            }))
+            expect(component.selectedLines).toEqual([1])
+        })
+
+        it('should ignore mousedown events outside of the editor content area', () => {
+            const dom = editorDom()
+            dom.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }))
+            expect(component.selectedLines).toEqual([])
+        })
+    })
+
+    describe('formatSelectedLines', () => {
+        it('should expose a formatted summary of the currently selected lines', () => {
+            component.selectLines(1)
+            component.selectLines(2)
+            const formatted = component.formatSelectedLines()
+            expect(typeof formatted).toBe('string')
+            expect(formatted.length).toBeGreaterThan(0)
+        })
+    })
 })

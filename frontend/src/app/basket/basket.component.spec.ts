@@ -22,6 +22,7 @@ import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.comp
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { Router } from '@angular/router'
 
 describe('BasketComponent', () => {
     let component: BasketComponent
@@ -117,6 +118,26 @@ describe('BasketComponent', () => {
         it('should render the bonus-points hint below the checkout button', () => {
             const hint = (fixture.nativeElement as HTMLElement).querySelector('.hint')
             expect(hint).toBeTruthy()
+        })
+    })
+
+    describe('checkout', () => {
+        it('should redirect to the login page with the basket as redirect target when no auth token is stored', async () => {
+            const router = TestBed.inject(Router)
+            const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true)
+            vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(null)
+            component.checkout()
+            await Promise.resolve()
+            expect(navSpy).toHaveBeenCalledWith(['/login'], { queryParams: { redirectUrl: '/basket' } })
+        })
+
+        it('should navigate to the address selection page when an auth token is stored', async () => {
+            const router = TestBed.inject(Router)
+            const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true)
+            vi.spyOn(Storage.prototype, 'getItem').mockReturnValue('valid-token')
+            component.checkout()
+            await Promise.resolve()
+            expect(navSpy).toHaveBeenCalledWith(['/address/select'])
         })
     })
 })
