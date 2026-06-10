@@ -70,6 +70,22 @@ void describe('/profile/image/file', () => {
     assert.ok(res.headers['content-type']?.includes('text/html'))
     assert.ok(res.text.includes('Error: Blocked illegal activity'))
   })
+
+  void it('POST profile image file rejected for unrecognizable file content', async () => {
+    const { token } = await login(app, {
+      email: `jim@${config.get<string>('application.domain')}`,
+      password: 'ncc-1701'
+    })
+
+    const res = await request(app)
+      .post('/profile/image/file')
+      .set('Cookie', `token=${token}`)
+      .attach('file', Buffer.from('not an image, just plain text content'), 'random.bin')
+
+    assert.equal(res.status, 500)
+    assert.ok(res.headers['content-type']?.includes('text/html'))
+    assert.ok(res.text.includes('Error: Illegal file type'))
+  })
 })
 
 void describe('/profile/image/url', () => {

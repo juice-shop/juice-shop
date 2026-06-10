@@ -9,6 +9,7 @@ import request from 'supertest'
 import type { Express } from 'express'
 import * as http from 'http'
 import { createTestApp } from './helpers/setup'
+import { login } from './helpers/auth'
 
 const MOCK_LLM_PORT = 43210
 
@@ -254,6 +255,131 @@ void describe('/rest/chat', { timeout: 120000 }, () => {
     assert.equal(res.status, 200)
     assert.ok(res.text.includes('error'))
     assert.ok(res.text.includes('data: [DONE]'))
+  })
+
+  void it('POST includes authenticated user name in system prompt', { timeout: 15000 }, async () => {
+    const { token } = await login(app, { email: 'bjoern.kimminich@gmail.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
+    let parsedBody: any
+    onLlmRequest = (_req, body, res) => {
+      parsedBody = JSON.parse(body)
+      sendSSE(res, [contentChunk('Hi!'), finishChunk()])
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json', Authorization: 'Bearer ' + token })
+      .send({ messages: [{ role: 'user', content: 'Hi' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(parsedBody.messages[0].content.includes('bkimminich'))
+  })
+
+  void it('POST handles getProductReviews tool call by returning matching reviews', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_rev', 'getProductReviews', '{"id":"1"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Here are the reviews.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Show me reviews for product 1' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult !== undefined)
+  })
+
+  void it('POST handles getOrderById tool call by reporting unauthenticated customer', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_ord', 'getOrderById', '{"orderId":"abcd-0123456789abcdef"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Done.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Look up my order' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult?.includes('Customer not authenticated'))
+  })
+
+  void it('POST handles getOrderById tool call by reporting order not found for authenticated customer', { timeout: 15000 }, async () => {
+    const { token } = await login(app, { email: 'jim@juice-sh.op', password: 'ncc-1701' })
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_ord2', 'getOrderById', '{"orderId":"abcd-9999999999999999"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Done.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json', Authorization: 'Bearer ' + token })
+      .send({ messages: [{ role: 'user', content: 'Look up my order' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult?.includes('Order not found'))
+  })
+
+  void it('POST handles generateCoupon tool call and includes coupon code in tool response', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_cpn', 'generateCoupon', '{"discount":5}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Here is your coupon.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Give me a coupon' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult)
+    const parsed = JSON.parse(toolResult)
+    assert.equal(parsed.discount, 5)
+    assert.ok(parsed.couponCode !== undefined)
   })
 
   void it('POST response SSE data lines contain valid JSON', { timeout: 15000 }, async () => {

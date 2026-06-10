@@ -20,6 +20,53 @@ before(async () => {
 }, { timeout: 60000 })
 
 void describe('/rest/user/data-export', () => {
+  void it('Export data without authentication is rejected', async () => {
+    const res = await request(app)
+      .post('/rest/user/data-export')
+      .set({ 'content-type': 'application/json' })
+      .send({ format: '1' })
+
+    assert.equal(res.status, 401)
+  })
+
+  void it('Export data with invalid bearer token is rejected', async () => {
+    const res = await request(app)
+      .post('/rest/user/data-export')
+      .set({ Authorization: 'Bearer not-a-valid-token', 'content-type': 'application/json' })
+      .send({ format: '1' })
+
+    assert.equal(res.status, 401)
+  })
+
+  void it('Export data with empty bearer token is rejected', async () => {
+    const res = await request(app)
+      .post('/rest/user/data-export')
+      .set({ Authorization: 'Bearer ', 'content-type': 'application/json' })
+      .send({ format: '1' })
+
+    assert.equal(res.status, 401)
+  })
+
+  void it('Export data with empty JSON body but valid token still succeeds without CAPTCHA', async () => {
+    const { token } = await login(app, { email: 'bjoern.kimminich@gmail.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
+    const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
+
+    const res = await request(app)
+      .post('/rest/user/data-export')
+      .set(authHeader)
+      .send({})
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.confirmation, 'Your data export will open in a new Browser window.')
+  })
+
+  void it('CAPTCHA cannot be requested without authentication', async () => {
+    const res = await request(app)
+      .get('/rest/image-captcha')
+
+    assert.equal(res.status, 401)
+  })
+
   void it('Export data without use of CAPTCHA', async () => {
     const { token } = await login(app, { email: 'bjoern.kimminich@gmail.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
