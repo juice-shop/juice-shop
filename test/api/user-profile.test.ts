@@ -51,4 +51,47 @@ void describe('/profile', () => {
 
     assert.equal(res.status, 302)
   })
+
+  void it('POST update profile is forbidden for unauthenticated user', async () => {
+    const res = await request(app)
+      .post('/profile')
+      .field('username', 'Anonhorst')
+
+    assert.equal(res.status, 500)
+    assert.ok(res.text.includes('Error: Blocked illegal activity'))
+  })
+
+  void it('GET user profile renders evaluated SSTI payload for username containing valid expression', async () => {
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .type('form')
+      .send({ username: '#{7*7}' })
+      .redirects(0)
+
+    const res = await request(app)
+      .get('/profile')
+      .set(authHeader)
+
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('text/html'))
+    assert.ok(res.text.includes('>49<'))
+  })
+
+  void it('GET user profile falls back gracefully when SSTI payload throws', async () => {
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .type('form')
+      .send({ username: '#{not_a_defined_symbol}' })
+      .redirects(0)
+
+    const res = await request(app)
+      .get('/profile')
+      .set(authHeader)
+
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('text/html'))
+    assert.ok(res.text.includes('not_a_defined_symbol'))
+  })
 })
