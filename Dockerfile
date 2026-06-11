@@ -1,3 +1,4 @@
+// test
 FROM node:22 AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
