@@ -1,0 +1,58 @@
+name: CI-Polaris-Basic
+
+on:
+  push:
+    branches: [main, master, develop, stage, release]
+  pull_request:
+    branches: [main, master, develop, stage, release]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  security-events: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+
+      - name: Install Juice Shop dependencies
+        run: npm install
+
+      - name: Polaris Scan
+        uses: blackduck-inc/black-duck-security-scan@v2
+        with:
+          ### SCANNING: Required fields
+          polaris_server_url: ${{ vars.POLARIS_SERVER_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_assessment_types: "SCA,SAST"
+
+          ### SCANNING OPTIONAL
+          polaris_application_name: "Justin Application"
+
+          ### SCANNING OPTIONAL: Pull Request comments
+          polaris_prComment_enabled: true
+
+          ### SCANNING OPTIONAL: GitHub Issues
+          polaris_externalIssues_create: false
+
+          ### SCANNING OPTIONAL: Fix Pull Requests
+          polaris_fixpr_enabled: false
+
+          ### GITHUB Token
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+          ### ENABLE OPTIONAL SCAN REPORTS
+          polaris_reports_sarif_create: true
+          polaris_upload_sarif_report: true
+
+          ### OPTIONAL DIAGNOSTICS
+          include_diagnostics: false
