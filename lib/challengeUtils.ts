@@ -1,17 +1,18 @@
-import { Op } from 'sequelize'
-import { type ChallengeKey, ChallengeModel } from '../models/challenge'
-import { HintModel } from '../models/hint'
-import logger from './logger'
 import config from 'config'
-import sanitizeHtml from 'sanitize-html'
+import { Op } from 'sequelize'
 import colors from 'colors/safe'
-import * as utils from './utils'
-import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
-import * as webhook from './webhook'
-import * as accuracy from './accuracy'
 import { type Server } from 'socket.io'
+import sanitizeHtml from 'sanitize-html'
 import { AllHtmlEntities as Entities } from 'html-entities'
+
+import { calculateCheatScore, calculateFindItCheatScore, calculateFixItCheatScore } from './antiCheat'
+import { type ChallengeKey, ChallengeModel } from '../models/challenge'
 import { challenges, notifications } from '../data/datacache'
+import { HintModel } from '../models/hint'
+import * as accuracy from './accuracy'
+import * as webhook from './webhook'
+import * as utils from './utils'
+import logger from './logger'
 
 const entities = new Entities()
 
@@ -25,51 +26,53 @@ export const solveIf = function (challenge: any, criteria: () => any, isRestore:
   }
 }
 
-export const solve = function (challenge: any, isRestore = false, isCheating = false) {
+export const solve = async function (challenge: ChallengeModel, isRestore = false, isCheating = false) {
   challenge.solved = true
-  challenge.save().then(async (solvedChallenge: { difficulty: number, key: string, name: string, id: number }) => {
-    logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
-    sendNotification(solvedChallenge, isRestore)
-    if (!isRestore) {
-      const cheatScore = calculateCheatScore(challenge, isCheating)
-      const hintsAvailable = await HintModel.count({ where: { ChallengeId: solvedChallenge.id } })
-      const hintsUnlocked = await HintModel.count({ where: { ChallengeId: solvedChallenge.id, unlocked: true } })
-      if (process.env.SOLUTIONS_WEBHOOK) {
-        webhook.notify(solvedChallenge, cheatScore, hintsAvailable, hintsUnlocked).catch((error: unknown) => {
-          logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
-        })
-      }
+  const solvedChallenge = await challenge.save()
+
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
+  sendNotification(solvedChallenge, isRestore)
+  if (!isRestore) {
+    const cheatScore = calculateCheatScore(challenge, isCheating)
+    const hintsAvailable = await HintModel.count({ where: { ChallengeId: solvedChallenge.id } })
+    const hintsUnlocked = await HintModel.count({ where: { ChallengeId: solvedChallenge.id, unlocked: true } })
+    if (process.env.SOLUTIONS_WEBHOOK) {
+      webhook.notify(solvedChallenge, cheatScore, hintsAvailable, hintsUnlocked).catch((error: unknown) => {
+        logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
+      })
     }
-  })
+  }
 }
 
-export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
-  if (!notSolved(challenge)) {
-    const flag = utils.ctfFlag(challenge.name)
+export const sendNotification = function (challenge: ChallengeModel, isRestore: boolean) {
+  if (notSolved(challenge)) {
+    return
+  }
 
-    const challengeKey = challenge.key as ChallengeKey
-    const fullChallenge = challenges[challengeKey]
+  const flag = utils.ctfFlag(challenge.name)
 
-    let hasCodingChallenge = false
-    if (fullChallenge) {
-      hasCodingChallenge = Boolean(fullChallenge.hasCodingChallenge) ?? false
-    }
+  const challengeKey = challenge.key as ChallengeKey
+  const fullChallenge = challenges[challengeKey]
 
-    const notification = {
-      key: challenge.key,
-      name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
-      flag,
-      hidden: !config.get('challenges.showSolvedNotifications'),
-      isRestore,
-      codingChallenge: config.get('challenges.codingChallengesEnabled') !== 'never' && hasCodingChallenge
-    }
-    const wasPreviouslyShown = notifications.some(({ key }) => key === challenge.key)
-    notifications.push(notification)
+  let hasCodingChallenge = false
+  if (fullChallenge) {
+    hasCodingChallenge = Boolean(fullChallenge.hasCodingChallenge) ?? false
+  }
 
-    if (globalWithSocketIO.io && (isRestore || !wasPreviouslyShown)) {
-      globalWithSocketIO.io.emit('challenge solved', notification)
-    }
+  const notification = {
+    key: challenge.key,
+    name: challenge.name,
+    challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
+    flag,
+    hidden: !config.get('challenges.showSolvedNotifications'),
+    isRestore,
+    codingChallenge: config.get('challenges.codingChallengesEnabled') !== 'never' && hasCodingChallenge
+  }
+  const wasPreviouslyShown = notifications.some(({ key }) => key === challenge.key)
+  notifications.push(notification)
+
+  if (globalWithSocketIO.io && (isRestore || !wasPreviouslyShown)) {
+    globalWithSocketIO.io.emit('challenge solved', notification)
   }
 }
 
@@ -85,7 +88,7 @@ export const sendCodingChallengeNotification = function (challenge: { key: strin
   }
 }
 
-export const notSolved = (challenge: any) => challenge && !challenge.solved
+export const notSolved = (challenge: ChallengeModel) => challenge && !challenge.solved
 
 export const findChallengeByName = (challengeName: string) => {
   for (const challenge of Object.values(challenges)) {
