@@ -14,11 +14,11 @@ import type { AppConfig, Memory as MemoryConfig, Product as ProductConfig } from
 import logger from '../logger'
 
 const specialProducts = [
-  { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge' },
-  { name: '"Product Tampering" challenge product', key: 'urlForProductTamperingChallenge' },
+  { name: '"Christmas Special" challenge product', key: 'useForChristmasSpecialChallenge', extra: null },
+  { name: '"Product Tampering" challenge product', key: 'urlForProductTamperingChallenge', extra: null },
   { name: '"Retrieve Blueprint" challenge product', key: 'fileForRetrieveBlueprintChallenge', extra: { key: 'exifForBlueprintChallenge', name: 'list of EXIF metadata properties' } },
-  { name: '"Leaked Unsafe Product" challenge product', key: 'keywordsForPastebinDataLeakChallenge' }
-]
+  { name: '"Leaked Unsafe Product" challenge product', key: 'keywordsForPastebinDataLeakChallenge', extra: null }
+] as const
 
 const specialMemories = [
   { name: '"Meta Geo Stalking" challenge memory', user: 'john', keys: ['geoStalkingMetaSecurityQuestion', 'geoStalkingMetaSecurityAnswer'] },
@@ -59,7 +59,7 @@ export const checkYamlSchema = (configuration = config.util.toObject()): configu
   if (schemaErrors.length !== 0) {
     logger.warn(`Config schema validation failed with ${schemaErrors.length} errors (${colors.red('ERROR')})`)
     schemaErrors.forEach(({ path, message }: { path: string, message: string }) => {
-      logger.warn(`${path}:${colors.red(message.substr(message.indexOf(path) + path.length))}`)
+      logger.warn(`${path}:${colors.red(message.substring(message.indexOf(path) + path.length))}`)
     })
     success = false
   }
@@ -78,7 +78,6 @@ export const checkMinimumRequiredNumberOfProducts = (products: ProductConfig[]) 
 export const checkUnambiguousMandatorySpecialProducts = (products: ProductConfig[]) => {
   let success = true
   specialProducts.forEach(({ name, key }) => {
-    // @ts-expect-error FIXME Ignoring any type issue on purpose
     const matchingProducts = products.filter((product) => product[key])
     if (matchingProducts.length === 0) {
       logger.warn(`No product is configured as ${colors.italic(name)} but one is required (${colors.red('ERROR')})`)
@@ -94,10 +93,8 @@ export const checkUnambiguousMandatorySpecialProducts = (products: ProductConfig
 export const checkNecessaryExtraKeysOnSpecialProducts = (products: ProductConfig[]) => {
   let success = true
   specialProducts.forEach(({ name, key, extra = {} }) => {
-    // @ts-expect-error FIXME implicit any type issue
     const matchingProducts = products.filter((product) => product[key])
-    // @ts-expect-error FIXME implicit any type issue
-    if (extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
+    if (extra && extra.key && matchingProducts.length === 1 && !matchingProducts[0][extra.key]) {
       logger.warn(`Product ${colors.italic(matchingProducts[0].name)} configured as ${colors.italic(name)} does't contain necessary ${colors.italic(`${extra.name}`)} (${colors.red('ERROR')})`)
       success = false
     }
@@ -108,7 +105,6 @@ export const checkNecessaryExtraKeysOnSpecialProducts = (products: ProductConfig
 export const checkUniqueSpecialOnProducts = (products: ProductConfig[]) => {
   let success = true
   products.forEach((product) => {
-    // @ts-expect-error FIXME any type issue
     const appliedSpecials = specialProducts.filter(({ key }) => product[key])
     if (appliedSpecials.length > 1) {
       logger.warn(`Product ${colors.italic(product.name)} is used as ${appliedSpecials.map(({ name }) => `${colors.italic(name)}`).join(' and ')} but can only be used for one challenge (${colors.red('ERROR')})`)
