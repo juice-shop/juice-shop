@@ -8,7 +8,7 @@
     <div class="mdc-card">
       <h1 class="mat-headline-medium" translate>SECTION_CUSTOMER_FEEDBACK</h1>
 
-      <div class="form-container" id="feedback-form">
+      <form class="form-container" id="feedback-form" (ngSubmit)="save()">
 
         <input hidden type="text" id="userId" ngDefaultControl [formControl]="userIdControl"/>
 
@@ -37,7 +37,7 @@
         <div class="rating-container">
           <label class="rating-label" translate>LABEL_RATING</label>
           <mat-slider id="rating" min="1" max="5" step="1" showTickMarks discrete [displayWith]="formatRating" aria-label="Slider for selecting the star rating">
-            <input matSliderThumb [(ngModel)]="rating" />
+            <input matSliderThumb [(ngModel)]="rating" [ngModelOptions]="{ standalone: true }" />
           </mat-slider>
         </div>
 
@@ -62,14 +62,13 @@
         }
       </mat-form-field>
 
-    </div>
-
     <button type="submit" id="submitButton" mat-raised-button color="primary"
       [disabled]="authorControl.invalid || feedbackControl.invalid || captchaControl.invalid || !rating"
-      (click)="save()" aria-label="Button to send the review">
+      aria-label="Button to send the review">
       <mat-icon>send</mat-icon>
       {{'BTN_SUBMIT' | translate}}
     </button>
+  </form>
   </div>
 </mat-card>
 </div>

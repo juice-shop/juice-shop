@@ -5,7 +5,6 @@
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Component, type OnInit, inject } from '@angular/core'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
@@ -25,7 +24,6 @@ import { MatCardModule } from '@angular/material/card'
 })
 export class AddressCreateComponent implements OnInit {
   private readonly location = inject(Location)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly addressService = inject(AddressService)
   private readonly router = inject(Router)
   activatedRoute = inject(ActivatedRoute)
@@ -57,7 +55,6 @@ export class AddressCreateComponent implements OnInit {
         this.addressId = null
       }
     })
-    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => { this.save() })
   }
 
   save () {
