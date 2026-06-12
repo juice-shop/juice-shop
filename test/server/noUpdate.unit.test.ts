@@ -135,7 +135,7 @@ void describe('noUpdate', () => {
     assert.doesNotThrow(() => {
       hook(instance, options)
     })
-    
+
     instance._previousDataValues.testColumn = undefined
     assert.doesNotThrow(() => {
       hook(instance, options)
