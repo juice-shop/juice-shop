@@ -38,6 +38,10 @@ export const getFindItAttempts = (challengeKey: ChallengeKey) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
 }
 
+export const reset = () => {
+  Object.keys(solves).forEach(key => delete solves[key])
+}
+
 function totalAccuracy (phase: Phase) {
   let sumAccuracy = 0
   let totalSolved = 0

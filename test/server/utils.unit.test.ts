@@ -200,4 +200,46 @@ void describe('utils', () => {
       assert.equal(utils.toISO8601(new Date('2025-12-01T00:00:00Z')), '2025-12-01')
     })
   })
+
+  void describe('parseJsonCustom', () => {
+    void it('parses a simple JSON object', () => {
+      const json = '{"key": "value"}'
+      const result = utils.parseJsonCustom(json)
+      assert.deepEqual(result, [{ key: 'key', value: 'value' }])
+    })
+
+    void it('parses a nested JSON object', () => {
+      const json = '{"key": {"nested": "value"}}'
+      const result = utils.parseJsonCustom(json)
+      // clarinet's onkey/onopenobject will produce entries for both keys
+      assert.equal(result.length, 2)
+      assert.equal(result[0].key, 'key')
+      assert.equal(result[1].key, 'nested')
+      assert.equal(result[1].value, 'value')
+    })
+  })
+
+  void describe('unquote', () => {
+    void it('removes quotes from quoted string', () => {
+      assert.equal(utils.unquote('"test"'), 'test')
+    })
+
+    void it('returns unquoted string unchanged', () => {
+      assert.equal(utils.unquote('test'), 'test')
+    })
+  })
+
+  void describe('trunc', () => {
+    void it('truncates long string and adds ellipses', () => {
+      assert.equal(utils.trunc('1234567890', 5), '1234...')
+    })
+
+    void it('returns short string unchanged', () => {
+      assert.equal(utils.trunc('123', 5), '123')
+    })
+
+    void it('removes newlines', () => {
+      assert.equal(utils.trunc('12\n3', 5), '123')
+    })
+  })
 })
