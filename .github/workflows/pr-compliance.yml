@@ -202,7 +202,7 @@ jobs:
             
             const maintainerFiles = [
               'HALL_OF_FAME.md', 'LICENSE', 'SECURITY.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'crowdin.yaml',
-              'AGENTS.md', 'CODEOWNERS', 'config.schema.yml', 'ctf.key', 'app.json'
+              'AGENTS.md', 'CODEOWNERS', 'lib/config.schema.ts', 'ctf.key', 'app.json'
             ];
             const maintainerFileCount = files.filter(f => 
               maintainerFiles.includes(f.filename) || 
