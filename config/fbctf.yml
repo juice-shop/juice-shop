@@ -350,3 +350,6 @@ ctf:
     aiDebuggingChallenge:
       name: Iceland
       code: IS
+    systemPromptExtractionChallenge:
+      name: Greece
+      code: GR

@@ -24,7 +24,7 @@
       }
     </section>
 
-    <form class="form-container" id="complaint-form">
+    <form class="form-container" id="complaint-form" (ngSubmit)="save()">
       <mat-form-field appearance="outline" color="tertiary">
         <mat-label>{{ "LABEL_CUSTOMER" | translate }}</mat-label>
         <input
@@ -39,7 +39,7 @@
         <mat-label>{{ "LABEL_MESSAGE" | translate }}</mat-label>
         <mat-hint>
           <i class="fas fa-exclamation-circle"></i>
-          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: "160" } }}</em>
+          <em>{{ "MAX_TEXTAREA_LENGTH" | translate: { length: maxMessageLength } }}</em>
         </mat-hint>
         <textarea
           #complaintMessage
@@ -49,7 +49,7 @@
           matAutosizeMaxRows="4"
           matTextareaAutosize
           cols="50"
-          maxlength="160"
+          [maxlength]="maxMessageLength"
           matInput
           placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate }}"
           aria-label="Field for entering the complaint"
@@ -61,7 +61,7 @@
         }
         <mat-hint align="end" id="messageCounter">
           <output>{{ complaintMessage.value?.length || 0 }}</output
-          >/160
+          >/{{ maxMessageLength }}
         </mat-hint>
       </mat-form-field>
 
@@ -77,19 +77,18 @@
           aria-label="Input area for uploading a single invoice PDF or XML B2B order file or a ZIP archive containing multiple invoices or orders<!---->"
         />
       </p>
-    </form>
 
-    <button
-      type="submit"
-      id="submitButton"
-      [disabled]="messageControl.invalid || fileUploadError"
-      (click)="save()"
-      mat-raised-button
-      color="primary"
-      aria-label="Button to send the complaint"
-    >
-      <mat-icon> send </mat-icon>
-      {{ "BTN_SUBMIT" | translate }}
-    </button>
+      <button
+        type="submit"
+        id="submitButton"
+        [disabled]="messageControl.invalid || fileUploadError"
+        mat-raised-button
+        color="primary"
+        aria-label="Button to send the complaint"
+      >
+        <mat-icon> send </mat-icon>
+        {{ "BTN_SUBMIT" | translate }}
+      </button>
+    </form>
   </mat-card>
 </main>

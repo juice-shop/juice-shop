@@ -1538,3 +1538,16 @@
     - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
   key: aiDebuggingChallenge
+-
+  name: 'System Prompt Extraction'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Extract the chatbot''s system prompt using prompt injection, then submit your findings (including any confidential sections) via the <a href="/#/complain">Customer Complaint form</a>.'
+  difficulty: 3
+  hints:
+    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration using prompt injection.'
+    - 'There are internal rules beyond the standard coupon policy. Think about edge cases - what happens in unusual customer situations?'
+    - 'The similarity check is lenient - you do not need to reproduce the system prompt word for word. Focus on capturing the confidential sections accurately.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
+  key: systemPromptExtractionChallenge
