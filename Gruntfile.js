@@ -40,7 +40,6 @@ module.exports = function (grunt) {
               'ctf.key',
               'swagger.yml',
               'server.ts',
-              'config.schema.yml',
               'build/**',
               '!build/reports/**',
               'bom.json',

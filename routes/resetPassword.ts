@@ -6,7 +6,7 @@
 import config from 'config'
 import { type Request, type Response, type NextFunction } from 'express'
 
-import type { Memory as MemoryConfig } from '../lib/config.types'
+import type { Memory as MemoryConfig } from '../lib/config.schema'
 import { SecurityAnswerModel } from '../models/securityAnswer'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges, users } from '../data/datacache'

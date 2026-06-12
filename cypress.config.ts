@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress'
 import * as security from './lib/insecurity'
 import config from 'config'
-import type { Memory as MemoryConfig, Product as ProductConfig } from './lib/config.types'
+import type { Memory as MemoryConfig, Product as ProductConfig } from './lib/config.schema'
 import * as utils from './lib/utils'
 import { generateSync } from 'otplib'
 

@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import config from 'config'
-import type { Product as ProductConfig } from '@juice-shop/lib/config.types'
+import type { Product as ProductConfig } from '@juice-shop/lib/config.schema'
 
 import fs from 'node:fs'
 import path from 'node:path'

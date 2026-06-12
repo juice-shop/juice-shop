@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import validateConfig, {
   checkUnambiguousMandatorySpecialProducts,
   checkUniqueSpecialOnProducts,
-  checkYamlSchema,
+  checkConfigSchema,
   checkMinimumRequiredNumberOfProducts,
   checkUnambiguousMandatorySpecialMemories,
   checkMinimumRequiredNumberOfMemories,
@@ -17,7 +17,7 @@ import validateConfig, {
   checkNecessaryExtraKeysOnSpecialProducts,
   checkForIllogicalCombos
 } from '../../lib/startup/validateConfig'
-import type { Memory, Product } from '@juice-shop/lib/config.types'
+import type { Memory, Product } from '@juice-shop/lib/config.schema'
 
 void describe('configValidation', () => {
   const COMMON_PRODUCT = { price: 1, description: 'foo', image: 'bar.jpg' }
@@ -245,7 +245,7 @@ void describe('configValidation', () => {
       hackingInstructor: { avatarImage: 'juicyEvilWasp.png' }
     }
 
-    assert.equal(checkYamlSchema(config), true)
+    assert.equal(checkConfigSchema(config), true)
   })
 
   void it('should fail for a config with schema errors', () => {
@@ -258,7 +258,7 @@ void describe('configValidation', () => {
       hackingInstructor: { avatarImage: true }
     }
 
-    assert.equal(checkYamlSchema(config), false)
+    assert.equal(checkConfigSchema(config), false)
   })
 
   void describe('checkForIllogicalCombos', () => {

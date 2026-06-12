@@ -10,7 +10,7 @@ import config from 'config'
 import jws from 'jws'
 
 import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
-import type { Product as ProductConfig } from '../lib/config.types'
+import type { Product as ProductConfig } from '../lib/config.schema'
 import { type Challenge, type Product } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
 import { ComplaintModel } from '../models/complaint'
