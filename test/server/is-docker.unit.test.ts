@@ -21,10 +21,10 @@ void describe('isDocker', () => {
     // Mock fs to return false for all checks
     const statSync = fs.statSync
     const readFileSync = fs.readFileSync
-    
+
     fs.statSync = (path: string) => { throw new Error() }
     fs.readFileSync = (path: string) => { throw new Error() }
-    
+
     try {
       assert.equal(isDocker(), false)
     } finally {

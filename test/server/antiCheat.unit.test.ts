@@ -76,30 +76,39 @@ void describe('antiCheat', () => {
   })
 
   void describe('checkForPreSolveInteractions', () => {
-    void it('should mark interaction as true if URL matches a fragment', () => {
-      const req: any = { url: '/ftp/eastere.gg' }
+    void it('should mark interaction as true if URL matches a fragment', async () => {
+      const challenge: Challenge = { key: 'directoryListingChallenge', difficulty: 1 } as any
+
+      const scoreWithoutInteraction = antiCheat.calculateCheatScore(challenge)
+      assert.strictEqual(scoreWithoutInteraction, 1, 'Score without interaction should be 1.0 (maximum)')
+
+      antiCheat.reset()
+
+      const req: any = { url: '/ftp' }
       const res: any = {}
       const next = () => {}
-
       antiCheat.checkForPreSolveInteractions()(req, res, next)
 
-      // We can't easily check the private preSolveInteractions array, 
-      // but we can check if it affects the cheat score.
-      const challenge: Challenge = { key: 'easterEggLevelOneChallenge', difficulty: 1 } as any
-      const score = antiCheat.calculateCheatScore(challenge)
-      // If interaction was recorded, score should be lower than if not.
-      // This is a bit indirect but shows it's working.
+      await new Promise(resolve => setTimeout(resolve, 100))
+      const scoreWithInteraction = antiCheat.calculateCheatScore(challenge)
+
+      assert.ok(scoreWithInteraction < scoreWithoutInteraction, `Score with interaction (${scoreWithInteraction}) should be lower than without (${scoreWithoutInteraction})`)
     })
   })
 
   void describe('reset', () => {
     void it('should reset solves and interactions', () => {
-      const challenge1: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
-      antiCheat.calculateCheatScore(challenge1)
-      assert.equal(antiCheat.totalCheatScore() > 0 || true, true) // Just to have an assertion
+      const challenge: Challenge = { key: 'directoryListingChallenge', difficulty: 1 } as any
+      antiCheat.checkForPreSolveInteractions()({ url: '/ftp' } as any, {}, () => {})
+
+      antiCheat.calculateCheatScore(challenge)
+      assert.ok(antiCheat.totalCheatScore() > 0, 'Total cheat score should be > 0 after a solve')
 
       antiCheat.reset()
-      assert.equal(antiCheat.totalCheatScore(), 0)
+      assert.strictEqual(antiCheat.totalCheatScore(), 0, 'Total cheat score should be 0 after reset')
+
+      const scoreAfterReset = antiCheat.calculateCheatScore(challenge)
+      assert.strictEqual(scoreAfterReset, 1, 'Score after reset should be 1.0 again because interactions were reset')
     })
   })
 })

@@ -69,14 +69,14 @@ void describe('accuracy', () => {
     // 4: 1/1 = 1
     // 5 (fix it): 1/2 = 0.5
     // totalFindItAccuracy = (1 + 0.5 + 0.333 + 1) / 4 = 2.8333 / 4 = 0.708333
-    
+
     // To be sure, let's use some specific ones
     const c1 = 'totalAcc1'
     const c2 = 'totalAcc2'
     accuracy.storeFindItVerdict(c1, true) // 1/1
     accuracy.storeFindItVerdict(c2, false)
     accuracy.storeFindItVerdict(c2, true) // 1/2
-    
+
     // totalFindItAccuracy will include ALL solved challenges so far in this process.
     // This makes it hard to test exact value if other tests ran.
     // But calculateFindItAccuracy is for a single one.

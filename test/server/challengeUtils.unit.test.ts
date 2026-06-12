@@ -6,17 +6,14 @@
 import { describe, it, beforeEach, mock } from 'node:test'
 import assert from 'node:assert/strict'
 
-// Import modules
 const antiCheat = require('../../lib/antiCheat')
 const accuracy = require('../../lib/accuracy')
-const webhook = require('../../lib/webhook')
 const { ChallengeModel } = require('../../models/challenge')
 const { HintModel } = require('../../models/hint')
 const datacache = require('../../data/datacache')
 const config = require('config')
 const logger = require('../../lib/logger').default
 
-// Import the module under test
 const challengeUtils = require('../../lib/challengeUtils')
 
 void describe('challengeUtils', () => {
@@ -173,7 +170,7 @@ void describe('challengeUtils', () => {
 
         assert.equal(ChallengeModel.update.mock.calls.length, 1)
         assert.equal(accuracy.getFindItAttempts(challengeKey), 1)
-        
+
         const io = (global as any).io
         assert.equal(io.emit.mock.calls.length, 1)
       } finally {
@@ -203,7 +200,7 @@ void describe('challengeUtils', () => {
         await challengeUtils.solveFixIt(challengeKey)
 
         assert.equal(ChallengeModel.update.mock.calls.length, 1)
-        
+
         const io = (global as any).io
         assert.equal(io.emit.mock.calls.length, 1)
       } finally {
@@ -242,7 +239,7 @@ void describe('challengeUtils', () => {
 
       assert.equal(datacache.notifications.length, 1)
       assert.equal(datacache.notifications[0].key, 'scoreBoardChallenge')
-      
+
       const io = (global as any).io
       assert.equal(io.emit.mock.calls.length, 1)
       assert.equal(io.emit.mock.calls[0].arguments[0], 'challenge solved')
