@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import packageJson from '../package.json'
 import fs from 'node:fs'
 import logger from './logger'

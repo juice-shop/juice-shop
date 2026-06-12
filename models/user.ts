@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import config from 'config'
 import {
   type InferAttributes,
