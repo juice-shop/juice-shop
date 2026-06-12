@@ -35,7 +35,7 @@ const ComplaintModelInit = (sequelize: Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      message: DataTypes.STRING(1000),
+      message: DataTypes.STRING(4096),
       file: DataTypes.STRING
     },
     {
