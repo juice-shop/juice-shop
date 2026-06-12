@@ -12,7 +12,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { MatCheckbox } from '@angular/material/checkbox'
@@ -45,7 +44,6 @@ export class LoginComponent implements OnInit {
   private readonly cookieService = inject(CookieService)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly basketService = inject(BasketService)
   private readonly ngZone = inject(NgZone)
 
@@ -91,8 +89,6 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => { console.log(err) }
     })
-
-    this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => { this.login() })
   }
 
   login () {

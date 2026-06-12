@@ -13,7 +13,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { faExclamationCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { type SecurityQuestion } from '../Models/securityQuestion.model'
@@ -43,7 +42,6 @@ export class RegisterComponent implements OnInit {
   private readonly userService = inject(UserService)
   private readonly securityAnswerService = inject(SecurityAnswerService)
   private readonly router = inject(Router)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly translateService = inject(TranslateService)
   private readonly snackBar = inject(MatSnackBar)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
@@ -65,8 +63,6 @@ export class RegisterComponent implements OnInit {
       },
       error: (err) => { console.log(err) }
     })
-
-    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
 
   save () {

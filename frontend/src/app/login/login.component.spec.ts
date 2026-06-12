@@ -29,7 +29,6 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ConfigurationService } from '../Services/configuration.service'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { BasketService } from '../Services/basket.service'
 
 describe('LoginComponent', () => {
@@ -37,7 +36,6 @@ describe('LoginComponent', () => {
     let fixture: ComponentFixture<LoginComponent>
     let userService: any
     let configurationService: any
-    let formSubmitService: any
     let basketService: any
     let windowRefService: any
     let location: Location
@@ -53,9 +51,6 @@ describe('LoginComponent', () => {
         userService.isLoggedIn.next.mockReturnValue({})
         configurationService = {
             getApplicationConfiguration: vi.fn().mockReturnValue(of({}))
-        }
-        formSubmitService = {
-            attachEnterKeyHandler: vi.fn()
         }
         basketService = {
             mergeGuestBasketIntoUserBasket: vi.fn().mockReturnValue(of(undefined)),
@@ -93,7 +88,6 @@ describe('LoginComponent', () => {
             providers: [
                 { provide: UserService, useValue: userService },
                 { provide: ConfigurationService, useValue: configurationService },
-                { provide: FormSubmitService, useValue: formSubmitService },
                 { provide: BasketService, useValue: basketService },
                 { provide: WindowRefService, useValue: windowRefService },
                 CookieService,
