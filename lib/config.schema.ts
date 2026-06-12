@@ -173,8 +173,24 @@ export const AppConfigSchema = z.object({
   ctf: CtfSchema
 })
 
+// Recursively drops null-valued object keys and null array elements.
+// custom configs use null to signal that a value from the default.yml should be overwritten
+const dropNulls = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.filter((entry) => entry != null).map(dropNulls)
+  }
+  if (value !== null && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, entry]) => entry != null)
+        .map(([key, entry]) => [key, dropNulls(entry)])
+    )
+  }
+  return value
+}
+
 // Deep-partial schema for validating possibly-incomplete individual YAML config files.
-export const ValidationSchema = z.object({
+export const ValidationSchema = z.preprocess(dropNulls, z.object({
   server: ServerSchema.partial().optional(),
   application: ApplicationSchema.partial().extend({
     chatBot: ChatBotSchema.partial().optional(),
@@ -192,7 +208,7 @@ export const ValidationSchema = z.object({
   products: z.array(ProductSchema.partial()).optional(),
   memories: z.array(MemorySchema.partial()).optional(),
   ctf: CtfSchema.partial().optional()
-})
+}))
 
 export type ServerConfig = z.infer<typeof ServerSchema>
 export type ApplicationConfig = z.infer<typeof ApplicationSchema>

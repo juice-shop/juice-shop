@@ -248,6 +248,20 @@ void describe('configValidation', () => {
     assert.equal(checkConfigSchema(config), true)
   })
 
+  void it('should accept a config that blanks out arbitrary fields with null', () => {
+    const config = {
+      application: {
+        name: null,
+        logo: null,
+        social: { twitterUrl: null, facebookUrl: null },
+        securityTxt: { encryption: null }
+      },
+      server: { port: null }
+    }
+
+    assert.equal(checkConfigSchema(config), true)
+  })
+
   void it('should fail for a config with schema errors', () => {
     const config = {
       application: {
