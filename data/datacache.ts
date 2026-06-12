@@ -11,7 +11,6 @@ import type { ProductModel } from '@juice-shop/models/product'
 import type { BasketModel } from '@juice-shop/models/basket'
 import type { UserModel } from '@juice-shop/models/user'
 
-/* jslint node: true */
 export const challenges: Record<ChallengeKey, ChallengeModel> = {} as unknown as Record<ChallengeKey, ChallengeModel> // this is a hack to have the challenge key non-nullable, but on init it is null.
 export const users: Record<string, UserModel> = {}
 export const products: Record<string, ProductModel> = {}
