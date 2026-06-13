@@ -352,10 +352,12 @@ describe('SidenavComponent', () => {
     describe('startHackingInstructor', () => {
         it('should emit toggle and log when starting the instructor for the Score Board', async () => {
             const emitSpy = vi.spyOn(component.sidenavToggle, 'emit')
+            const launchSpy = vi.spyOn(component as any, 'launchHackingInstructor').mockImplementation(() => {})
             console.log = vi.fn()
             component.startHackingInstructor()
             expect(emitSpy).toHaveBeenCalled()
             expect(console.log).toHaveBeenCalledWith('Starting instructions for challenge "Score Board"')
+            expect(launchSpy).toHaveBeenCalledWith('Score Board')
         })
     })
 
