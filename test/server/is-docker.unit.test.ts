@@ -17,58 +17,37 @@ void describe('isDocker', () => {
     isDocker = require('../../lib/is-docker').default
   })
 
-  void it('should return false if no docker markers are present', () => {
-    // Mock fs to return false for all checks
-    const statSync = fs.statSync
-    const readFileSync = fs.readFileSync
+  void it('should return false if no docker markers are present', (t) => {
+    t.mock.method(fs, 'statSync', () => { throw new Error() })
+    t.mock.method(fs, 'readFileSync', () => { throw new Error() })
 
-    fs.statSync = ((path: string) => { throw new Error() }) as typeof fs.statSync
-    fs.readFileSync = ((path: string) => { throw new Error() }) as typeof fs.readFileSync
-
-    try {
-      assert.equal(isDocker(), false)
-    } finally {
-      fs.statSync = statSync
-      fs.readFileSync = readFileSync
-    }
+    assert.equal(isDocker(), false)
   })
 
-  void it('should return true if /.dockerenv exists', () => {
-    const statSync = fs.statSync
-    fs.statSync = (path: any) => {
-      if (path === '/.dockerenv') return {} as any
+  void it('should return true if /.dockerenv exists', (t) => {
+    t.mock.method(fs, 'statSync', (path: string) => {
+      if (path === '/.dockerenv') return {} as fs.Stats
       throw new Error()
-    }
-    try {
-      assert.equal(isDocker(), true)
-    } finally {
-      fs.statSync = statSync
-    }
+    })
+
+    assert.equal(isDocker(), true)
   })
 
-  void it('should return true if /proc/self/cgroup contains "docker"', () => {
-    const readFileSync = fs.readFileSync
-    fs.readFileSync = ((path: any, encoding: any) => {
+  void it('should return true if /proc/self/cgroup contains "docker"', (t) => {
+    t.mock.method(fs, 'readFileSync', (path: string) => {
       if (path === '/proc/self/cgroup') return '...docker...'
       throw new Error()
-    }) as typeof fs.readFileSync
-    try {
-      assert.equal(isDocker(), true)
-    } finally {
-      fs.readFileSync = readFileSync
-    }
+    })
+
+    assert.equal(isDocker(), true)
   })
 
-  void it('should return true if /proc/self/mountinfo contains "/docker/containers/"', () => {
-    const readFileSync = fs.readFileSync
-    fs.readFileSync = ((path: any, encoding: any) => {
+  void it('should return true if /proc/self/mountinfo contains "/docker/containers/"', (t) => {
+    t.mock.method(fs, 'readFileSync', (path: string) => {
       if (path === '/proc/self/mountinfo') return '.../docker/containers/...'
       throw new Error()
-    }) as typeof fs.readFileSync
-    try {
-      assert.equal(isDocker(), true)
-    } finally {
-      fs.readFileSync = readFileSync
-    }
+    })
+
+    assert.equal(isDocker(), true)
   })
 })
