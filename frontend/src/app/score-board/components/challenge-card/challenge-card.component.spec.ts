@@ -18,7 +18,7 @@ describe('ChallengeCard', () => {
         mitigationUrl: 'https://owasp.example.com',
         hasCodingChallenge: true,
         description: 'lorem ipsum',
-        tagList: ['Easy']
+        tagList: [] as string[]
     } as any
 
     const defaultAppConfig = {
