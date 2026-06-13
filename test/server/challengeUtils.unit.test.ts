@@ -69,7 +69,7 @@ void describe('challengeUtils', () => {
         name: 'Score Board',
         difficulty: 1,
         id: 1,
-        save: mock.fn(async function () { return this })
+        save: mock.fn(async function (this: any) { return this })
       } as any
 
       const originalHintCount = HintModel.count
@@ -93,7 +93,7 @@ void describe('challengeUtils', () => {
         key: 'scoreBoardChallenge',
         name: 'Score Board',
         difficulty: 1,
-        save: mock.fn(async function () { return this })
+        save: mock.fn(async function (this: any) { return this })
       } as any
 
       await challengeUtils.solve(challenge, true)
@@ -108,7 +108,7 @@ void describe('challengeUtils', () => {
         name: 'Score Board',
         difficulty: 1,
         id: 1,
-        save: mock.fn(async function () { return this })
+        save: mock.fn(async function (this: any) { return this })
       } as any
 
       process.env.SOLUTIONS_WEBHOOK = 'http://webhook.test'
@@ -138,7 +138,7 @@ void describe('challengeUtils', () => {
         key: 'scoreBoardChallenge',
         name: 'Score Board',
         difficulty: 1,
-        save: mock.fn(async function () { return this })
+        save: mock.fn(async function (this: any) { return this })
       } as any
       const criteria = () => true
 

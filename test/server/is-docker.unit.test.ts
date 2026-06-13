@@ -22,8 +22,8 @@ void describe('isDocker', () => {
     const statSync = fs.statSync
     const readFileSync = fs.readFileSync
 
-    fs.statSync = (path: string) => { throw new Error() }
-    fs.readFileSync = (path: string) => { throw new Error() }
+    fs.statSync = ((path: string) => { throw new Error() }) as typeof fs.statSync
+    fs.readFileSync = ((path: string) => { throw new Error() }) as typeof fs.readFileSync
 
     try {
       assert.equal(isDocker(), false)
@@ -48,10 +48,10 @@ void describe('isDocker', () => {
 
   void it('should return true if /proc/self/cgroup contains "docker"', () => {
     const readFileSync = fs.readFileSync
-    fs.readFileSync = (path: any, encoding: any) => {
+    fs.readFileSync = ((path: any, encoding: any) => {
       if (path === '/proc/self/cgroup') return '...docker...'
       throw new Error()
-    }
+    }) as typeof fs.readFileSync
     try {
       assert.equal(isDocker(), true)
     } finally {
@@ -61,10 +61,10 @@ void describe('isDocker', () => {
 
   void it('should return true if /proc/self/mountinfo contains "/docker/containers/"', () => {
     const readFileSync = fs.readFileSync
-    fs.readFileSync = (path: any, encoding: any) => {
+    fs.readFileSync = ((path: any, encoding: any) => {
       if (path === '/proc/self/mountinfo') return '.../docker/containers/...'
       throw new Error()
-    }
+    }) as typeof fs.readFileSync
     try {
       assert.equal(isDocker(), true)
     } finally {
