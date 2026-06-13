@@ -6,17 +6,18 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import * as accuracy from '../../lib/accuracy'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 void describe('accuracy', () => {
   void it('should calculate accuracy as 1.0 when solved on first attempt', () => {
-    const challengeKey = 'testChallenge1'
+    const challengeKey = 'testChallenge1' as ChallengeKey
     accuracy.storeFindItVerdict(challengeKey, true)
     assert.equal(accuracy.calculateFindItAccuracy(challengeKey), 1.0)
     assert.equal(accuracy.getFindItAttempts(challengeKey), 1)
   })
 
   void it('should calculate accuracy as 0.5 when solved on second attempt', () => {
-    const challengeKey = 'testChallenge2'
+    const challengeKey = 'testChallenge2' as ChallengeKey
     accuracy.storeFindItVerdict(challengeKey, false)
     accuracy.storeFindItVerdict(challengeKey, true)
     assert.equal(accuracy.calculateFindItAccuracy(challengeKey), 0.5)
@@ -24,7 +25,7 @@ void describe('accuracy', () => {
   })
 
   void it('should calculate accuracy as 0.3333333333333333 when solved on third attempt', () => {
-    const challengeKey = 'testChallenge3'
+    const challengeKey = 'testChallenge3' as ChallengeKey
     accuracy.storeFindItVerdict(challengeKey, false)
     accuracy.storeFindItVerdict(challengeKey, false)
     accuracy.storeFindItVerdict(challengeKey, true)
@@ -33,7 +34,7 @@ void describe('accuracy', () => {
   })
 
   void it('should not increase attempts after challenge is solved', () => {
-    const challengeKey = 'testChallenge4'
+    const challengeKey = 'testChallenge4' as ChallengeKey
     accuracy.storeFindItVerdict(challengeKey, true)
     accuracy.storeFindItVerdict(challengeKey, false)
     accuracy.storeFindItVerdict(challengeKey, true)
@@ -42,18 +43,18 @@ void describe('accuracy', () => {
   })
 
   void it('should calculate fix it accuracy independently', () => {
-    const challengeKey = 'testChallenge5'
+    const challengeKey = 'testChallenge5' as ChallengeKey
     accuracy.storeFixItVerdict(challengeKey, false)
     accuracy.storeFixItVerdict(challengeKey, true)
     assert.equal(accuracy.calculateFixItAccuracy(challengeKey), 0.5)
   })
 
   void it('should return 0 attempts for unknown challenge', () => {
-    assert.equal(accuracy.getFindItAttempts('unknown'), 0)
+    assert.equal(accuracy.getFindItAttempts('unknown' as ChallengeKey), 0)
   })
 
   void it('should return 0 accuracy for unsolved challenge', () => {
-    const challengeKey = 'testChallengeUnsolved'
+    const challengeKey = 'testChallengeUnsolved' as ChallengeKey
     accuracy.storeFindItVerdict(challengeKey, false)
     assert.equal(accuracy.calculateFindItAccuracy(challengeKey), 0)
   })
@@ -71,8 +72,8 @@ void describe('accuracy', () => {
     // totalFindItAccuracy = (1 + 0.5 + 0.333 + 1) / 4 = 2.8333 / 4 = 0.708333
 
     // To be sure, let's use some specific ones
-    const c1 = 'totalAcc1'
-    const c2 = 'totalAcc2'
+    const c1 = 'totalAcc1' as ChallengeKey
+    const c2 = 'totalAcc2' as ChallengeKey
     accuracy.storeFindItVerdict(c1, true) // 1/1
     accuracy.storeFindItVerdict(c2, false)
     accuracy.storeFindItVerdict(c2, true) // 1/2
