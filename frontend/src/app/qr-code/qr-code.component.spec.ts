@@ -10,9 +10,9 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { QrCodeComponent } from './qr-code.component'
 import { MatButtonModule } from '@angular/material/button'
-import { QrCodeComponent as NgQrCodeComponent } from 'ng-qrcode'
+import { QRCodeComponent as NgQrCodeComponent } from 'angularx-qrcode'
 
-// jsdom doesn't support canvas; stub getContext to prevent unhandled errors from ng-qrcode
+// jsdom doesn't support canvas; stub getContext to prevent unhandled errors from angularx-qrcode
 const originalGetContext = HTMLCanvasElement.prototype.getContext
 HTMLCanvasElement.prototype.getContext = function (type: string, ...args: any[]) {
     if (type === '2d') {

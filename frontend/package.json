@@ -43,6 +43,7 @@
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "@wagmi/core": "^0.5.8",
+    "angularx-qrcode": "^21.0.5",
     "canvas-confetti": "^1.9.3",
     "codemirror": "^6.0.2",
     "cookieconsent": "^3.1.1",
@@ -53,7 +54,6 @@
     "lodash-es": "^4.17.21",
     "material-icons": "^1.13.14",
     "ng-gallery": "^12.0.0",
-    "ng-qrcode": "^21.0.0",
     "ng2-file-upload": "^10.0.0",
     "ngx-window-token": "^7.0.0",
     "ngy-cookie": "^6.0.0",
@@ -85,6 +85,10 @@
     "vitest": "^4.1.1"
   },
   "overrides": {
-    "lru-cache@^11": "~11.2.7"
+    "lru-cache@^11": "~11.2.7",
+    "angularx-qrcode": {
+      "@angular/core": "$@angular/core",
+      "@angular/common": "$@angular/common"
+    }
   }
 }
