@@ -13,7 +13,7 @@
     <mat-divider></mat-divider>
 
     <div class="container">
-      <a [href]="url"><qr-code [value]="data" [size]="300" [errorCorrectionLevel]="'M'"></qr-code></a>
+      <a [href]="url"><qrcode [qrdata]="data" [width]="300" [errorCorrectionLevel]="'M'"></qrcode></a>
     </div>
 
     <small>{{address}}</small>
