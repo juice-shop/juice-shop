@@ -7,7 +7,7 @@ import { FeedbackService } from '../Services/feedback.service'
 import { CaptchaService } from '../Services/captcha.service'
 import { UserService } from '../Services/user.service'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon'
 library.add(faStar, faPaperPlane)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],

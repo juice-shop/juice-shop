@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { ProductService } from '../Services/product.service'
@@ -22,6 +22,7 @@ import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, Ma
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss'],

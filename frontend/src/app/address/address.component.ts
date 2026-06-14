@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output, NgZone, inject } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, NgZone, inject, ChangeDetectionStrategy } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -21,6 +21,7 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faEdit, faTrashAlt)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss'],

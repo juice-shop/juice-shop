@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { PasswordStrengthComponent } from '../password-strength/password-strength.component'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-password-strength-info',
   imports: [MatCardModule, MatIconModule],
   templateUrl: './password-strength-info.component.html',

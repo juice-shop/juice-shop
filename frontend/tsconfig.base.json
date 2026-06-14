@@ -1,6 +1,11 @@
 {
   "compileOnSave": false,
+  "angularCompilerOptions": {
+    "strictTemplates": false
+  },
   "compilerOptions": {
+    "strict": false,
+    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
