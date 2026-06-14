@@ -38,6 +38,12 @@ HTMLCanvasElement.prototype.getContext = function (contextId: string, ...args: a
   return originalGetContext.call(this, contextId, ...args)
 }
 
+// jsdom does not implement toDataURL (it logs "Not implemented" and returns null).
+// angularx-qrcode reads this value to emit the QR code URL and crashes with
+// "Cannot read properties of null (reading 'split')". Return a minimal valid data
+// URL so the conversion succeeds and the test output stays clean.
+HTMLCanvasElement.prototype.toDataURL = () => 'data:image/png;base64,iVBORw0KGgo='
+
 // Provide stubs for Range geometry methods in jsdom.
 // jsdom does not implement Range.prototype.getClientRects/getBoundingClientRect,
 // so CodeMirror's layout measurement (e.g. when drawing selection layers) crashes
