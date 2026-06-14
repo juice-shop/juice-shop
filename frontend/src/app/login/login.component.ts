@@ -6,7 +6,7 @@
 import { CookieService } from 'ngy-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Component, NgZone, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
@@ -31,6 +31,7 @@ library.add(faKey, faEye, faEyeSlash, faGoogle)
 const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],

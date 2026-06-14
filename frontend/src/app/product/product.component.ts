@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Component, inject, input } from '@angular/core'
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -18,6 +18,7 @@ import { ProductDetailsComponent } from '../product-details/product-details.comp
 import { MatDialog } from '@angular/material/dialog'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product',
   imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon],
   templateUrl: './product.component.html',

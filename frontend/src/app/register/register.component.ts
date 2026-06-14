@@ -6,7 +6,7 @@
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router, RouterLink } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -32,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon'
 library.add(faUserPlus, faExclamationCircle)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],

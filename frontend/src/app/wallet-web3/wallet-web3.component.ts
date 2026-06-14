@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, inject, OnInit } from '@angular/core'
+import { Component, ChangeDetectorRef, inject, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { web3WalletABI } from '../../assets/public/ContractABIs'
@@ -27,6 +27,7 @@ const client = createClient({
 })
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-wallet-web3',
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss'],

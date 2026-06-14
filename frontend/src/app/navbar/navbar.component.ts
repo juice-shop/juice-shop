@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
@@ -60,6 +60,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],

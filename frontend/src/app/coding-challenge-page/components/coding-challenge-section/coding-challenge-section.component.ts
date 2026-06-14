@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, DestroyRef, inject, input, output } from '@angular/core'
+import { Component, DestroyRef, inject, input, output, ChangeDetectionStrategy } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core'
 import { ResultState } from '../../coding-challenge.types'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'coding-challenge-section',
   templateUrl: './coding-challenge-section.component.html',
   styleUrls: ['./coding-challenge-section.component.scss'],

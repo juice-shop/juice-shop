@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { MatDivider } from '@angular/material/divider'
 import { MatInputModule } from '@angular/material/input'
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule, MatCardTitle } from '@angular/material/card'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-nft-unlock',
   templateUrl: './nft-unlock.component.html',
   styleUrls: ['./nft-unlock.component.scss'],

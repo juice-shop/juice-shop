@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, inject } from '@angular/core'
+import { Component, NgZone, inject, ChangeDetectionStrategy } from '@angular/core'
 import { Router } from '@angular/router'
 import { AddressComponent } from '../address/address.component'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-address-select',
   templateUrl: './address-select.component.html',
   styleUrls: ['./address-select.component.scss'],

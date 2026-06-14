@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core'
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core'
 
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { TranslateModule } from '@ngx-translate/core'
@@ -23,6 +23,7 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
 })
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
   styleUrls: ['./difficulty-overview-score-card.component.scss'],

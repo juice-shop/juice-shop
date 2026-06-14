@@ -1,4 +1,4 @@
-import { Component, input, viewChild, inject, effect } from '@angular/core'
+import { Component, input, viewChild, inject, effect, ChangeDetectionStrategy } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { Config } from 'src/app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -10,6 +10,7 @@ import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.c
 import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'challenge-card',
   templateUrl: './challenge-card.component.html',
   styleUrls: ['./challenge-card.component.scss'],

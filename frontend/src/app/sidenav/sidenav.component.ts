@@ -5,7 +5,7 @@
 
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
-import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { SocketIoService } from '../Services/socket-io.service'
 import { AdministrationService } from '../Services/administration.service'
 import { Router, RouterLink } from '@angular/router'
@@ -24,6 +24,7 @@ import { MatNavList, MatListSubheaderCssMatStyler, MatListItem } from '@angular/
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],

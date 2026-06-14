@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, DestroyRef, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild } from '@angular/core'
+import { Component, DestroyRef, type OnInit, type AfterViewInit, type OnDestroy, ElementRef, inject, input, output, viewChild, ChangeDetectionStrategy } from '@angular/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
@@ -25,6 +25,7 @@ import { handleVerdict } from '../../helpers/handle-verdict'
 import { CodingChallengeSectionComponent } from '../coding-challenge-section/coding-challenge-section.component'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'coding-challenge-fix-it',
   templateUrl: './coding-challenge-fix-it.component.html',
   styleUrls: ['./coding-challenge-fix-it.component.scss'],
