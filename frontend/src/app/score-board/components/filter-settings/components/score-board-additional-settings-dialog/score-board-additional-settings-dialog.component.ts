@@ -1,5 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
-import { LocalBackupService } from 'src/app/Services/local-backup.service'
+import { LocalBackupService } from '../../../../../Services/local-backup.service'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { TranslateModule } from '@ngx-translate/core'

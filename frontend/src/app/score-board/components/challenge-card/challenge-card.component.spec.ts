@@ -3,7 +3,7 @@ import { provideZoneChangeDetection } from '@angular/core'
 import { provideRouter } from '@angular/router'
 
 import { ChallengeCardComponent } from './challenge-card.component'
-import { type Config } from 'src/app/Services/configuration.service'
+import { type Config } from '../../../../app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'

@@ -1,13 +1,13 @@
 import { Component, input, viewChild, inject, effect, ChangeDetectionStrategy } from '@angular/core'
 import { EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { Config } from 'src/app/Services/configuration.service'
+import { Config } from '../../../../app/Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { RouterLink } from '@angular/router'
 import { NgClass } from '@angular/common'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
-import { SnackBarHelperService } from 'src/app/Services/snack-bar-helper.service'
+import { SnackBarHelperService } from '../../../../app/Services/snack-bar-helper.service'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,

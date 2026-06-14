@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatButtonModule } from '@angular/material/button'
 import { of, throwError } from 'rxjs'
-import { ProductReviewService } from 'src/app/Services/product-review.service'
+import { ProductReviewService } from '../../app/Services/product-review.service'
 import { MatInputModule } from '@angular/material/input'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
