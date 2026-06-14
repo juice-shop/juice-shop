@@ -1,7 +1,7 @@
 import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core'
 
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { type Config } from 'src/app/Services/configuration.service'
+import { type Config } from '../../../Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
