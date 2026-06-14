@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],

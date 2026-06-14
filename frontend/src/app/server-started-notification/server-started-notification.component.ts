@@ -5,7 +5,7 @@
 
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { ChallengeService } from '../Services/challenge.service'
-import { ChangeDetectorRef, Component, NgZone, type OnInit, inject } from '@angular/core'
+import { ChangeDetectorRef, Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { CookieService } from 'ngy-cookie'
 import { SocketIoService } from '../Services/socket-io.service'
 import { MatIconModule } from '@angular/material/icon'
@@ -18,6 +18,7 @@ interface HackingProgress {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss'],

@@ -4,7 +4,7 @@
  */
 
 import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog'
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { TranslateModule } from '@ngx-translate/core'
@@ -15,6 +15,7 @@ import { MatDivider } from '@angular/material/divider'
 library.add(faArrowCircleLeft)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-qr-code',
   templateUrl: './qr-code.component.html',
   styleUrls: ['./qr-code.component.scss'],
