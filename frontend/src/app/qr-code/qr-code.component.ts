@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
-import { QrCodeComponent as NgQrCodeComponent } from 'ng-qrcode'
+import { QRCodeComponent as NgQrCodeComponent } from 'angularx-qrcode'
 import { MatDivider } from '@angular/material/divider'
 
 library.add(faArrowCircleLeft)
