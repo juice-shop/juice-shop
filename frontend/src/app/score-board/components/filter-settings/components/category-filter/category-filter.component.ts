@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, type OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, type OnInit, Output, ChangeDetectionStrategy } from '@angular/core'
 import { type EnrichedChallenge } from '../../../../types/EnrichedChallenge'
 import { DEFAULT_FILTER_SETTING } from '../../../../filter-settings/FilterSetting'
 import { TranslateModule } from '@ngx-translate/core'
@@ -6,6 +6,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { NgClass } from '@angular/common'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'category-filter',
   templateUrl: './category-filter.component.html',
   styleUrls: ['./category-filter.component.scss'],

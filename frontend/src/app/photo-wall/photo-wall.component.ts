@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
@@ -25,6 +25,7 @@ import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/c
 library.add(faTwitter, faMastodon, faBold)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss'],

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialogRef } from '@angular/material/dialog'
 import { CookieService } from 'ngy-cookie'
@@ -14,6 +14,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatButtonModule } from '@angular/material/button'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-welcome-banner',
   templateUrl: 'welcome-banner.component.html',
   styleUrls: ['./welcome-banner.component.scss'],

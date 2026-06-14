@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { ActivatedRoute, Router } from '@angular/router'
 import { ProductService } from '../Services/product.service'
-import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, ElementRef, inject } from '@angular/core'
+import { type AfterViewInit, Component, NgZone, type OnDestroy, ViewChild, ChangeDetectorRef, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { BehaviorSubject, forkJoin, type Subscription } from 'rxjs'
 import { MatTableDataSource } from '@angular/material/table'
@@ -27,6 +27,7 @@ import { ProductComponent } from '../product/product.component'
 library.add(faEye, faCartPlus)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],

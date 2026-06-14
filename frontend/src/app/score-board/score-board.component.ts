@@ -1,4 +1,4 @@
-import { Component, NgZone, type OnDestroy, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnDestroy, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
 import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -37,6 +37,7 @@ interface CodeChallengeSolvedWebsocket {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss'],

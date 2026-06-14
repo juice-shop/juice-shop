@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, inject, OnInit, ChangeDetectionStrategy } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser'
 import { jwtDecode } from 'jwt-decode'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-last-login-ip',
   templateUrl: './last-login-ip.component.html',
   styleUrls: ['./last-login-ip.component.scss'],

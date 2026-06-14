@@ -4,10 +4,11 @@
  */
 
 import { NgClass } from '@angular/common'
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core'
 import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-password-strength',
   imports: [MatProgressBarModule, NgClass],
   templateUrl: './password-strength.component.html',
