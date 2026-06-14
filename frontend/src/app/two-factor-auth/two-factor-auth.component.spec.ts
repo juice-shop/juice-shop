@@ -29,7 +29,7 @@ import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { throwError } from 'rxjs/internal/observable/throwError'
-import { QrCodeComponent } from 'ng-qrcode'
+import { QRCodeComponent } from 'angularx-qrcode'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { provideZoneChangeDetection } from '@angular/core'
 
@@ -65,7 +65,7 @@ describe('TwoFactorAuthComponent', () => {
                 MatDialogModule,
                 MatDividerModule,
                 MatButtonModule,
-                QrCodeComponent,
+                QRCodeComponent,
                 MatSnackBarModule,
                 MatTooltipModule,
                 TwoFactorAuthComponent],
@@ -204,7 +204,7 @@ describe('TwoFactorAuthComponent', () => {
             fixture.detectChanges()
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('#two-factor-auth-setup')).toBeTruthy()
-            expect(compiled.querySelector('qr-code')).toBeTruthy()
+            expect(compiled.querySelector('qrcode')).toBeTruthy()
             expect(compiled.querySelector('#initialToken')).toBeTruthy()
             expect(compiled.querySelector('#two-factor-auth-disable')).toBeNull()
         })
