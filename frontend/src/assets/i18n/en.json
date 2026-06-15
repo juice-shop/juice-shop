@@ -382,6 +382,8 @@
   "TAG_BRUTE_FORCE_DESCRIPTION": "Marks challenges where automation of some security tool or custom script is an option or even prerequisite.",
   "TAG_GOOD_PRACTICE": "Good Practice",
   "TAG_GOOD_PRACTICE_DESCRIPTION": "Highlights challenges which are less about vulnerabilities but promoting good (security) practices.",
+  "TAG_SETUP_DEPENDENT": "Setup Dependent",
+  "TAG_SETUP_DEPENDENT_DESCRIPTION": "Marks challenges whose exploitability depends on deployment-specific conditions outside the vulnerable application itself.",
   "TAG_CODE_ANALYSIS": "Code Analysis",
   "TAG_CODE_ANALYSIS_DESCRIPTION": "Marks challenges where it can be helpful to rummage through some source code of the application or a third party.",
   "TAG_WEB3": "Web3",

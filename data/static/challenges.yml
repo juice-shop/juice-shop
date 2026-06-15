@@ -321,6 +321,8 @@
 -
   name: 'Email Leak'
   category: 'Sensitive Data Exposure'
+  tags:
+    - Setup Dependent
   description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
   difficulty: 5
   hints:
@@ -1360,6 +1362,8 @@
 -
   name: 'CSRF' # FIXME No e2e test automation! No longer works in Chrome >=80 and Firefox >=100 or other latest browsers!
   category: 'Broken Access Control'
+  tags:
+    - Setup Dependent
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
   hints:
