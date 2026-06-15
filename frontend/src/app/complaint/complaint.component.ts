@@ -11,7 +11,6 @@ import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from
 import { FileUploader, FileUploadModule } from 'ng2-file-upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
@@ -32,11 +31,12 @@ library.add(faBomb)
 export class ComplaintComponent implements OnInit {
   private readonly userService = inject(UserService)
   private readonly complaintService = inject(ComplaintService)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly translate = inject(TranslateService)
 
+  public readonly maxMessageLength = 4096
+
   public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
-  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
+  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(this.maxMessageLength)])
   @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
   public fileUploadError: any = undefined // For controlling error handling related to file input.
   public uploader: FileUploader = new FileUploader({
@@ -64,7 +64,6 @@ export class ComplaintComponent implements OnInit {
       this.saveComplaint()
       this.uploader.clearQueue()
     }
-    this.formSubmitService.attachEnterKeyHandler('complaint-form', 'submitButton', () => { this.save() })
   }
 
   initComplaint () {

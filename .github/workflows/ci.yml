@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Use Node.js 24"
+      - name: "Use Node.js"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
@@ -38,26 +38,12 @@ jobs:
           npm install --ignore-scripts
       - name: "Lint source code"
         run: npm run lint
-      - name: "Lint customization configs"
-        run: >
-          npm run lint:config -- -f ./config/7ms.yml &&
-          npm run lint:config -- -f ./config/addo.yml &&
-          npm run lint:config -- -f ./config/bodgeit.yml &&
-          npm run lint:config -- -f ./config/ctf.yml &&
-          npm run lint:config -- -f ./config/default.yml &&
-          npm run lint:config -- -f ./config/fbctf.yml &&
-          npm run lint:config -- -f ./config/juicebox.yml &&
-          npm run lint:config -- -f ./config/mozilla.yml &&
-          npm run lint:config -- -f ./config/oss.yml &&
-          npm run lint:config -- -f ./config/quiet.yml &&
-          npm run lint:config -- -f ./config/tutorial.yml &&
-          npm run lint:config -- -f ./config/unsafe.yml
   coding-challenge-rsn:
     runs-on: windows-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Use Node.js 24"
+      - name: "Use Node.js"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
@@ -70,7 +56,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [22, 24]
+        node-version: [22, 24, 26]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
@@ -109,7 +95,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [22, 24, 25]
+        node-version: [22, 24, 26]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
@@ -146,7 +132,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [22, 24, 25]
+        node-version: [22, 24, 26]
     steps:
       - name: "Check out Git repository"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
@@ -208,7 +194,7 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Use Node.js 24"
+      - name: "Use Node.js"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
@@ -242,7 +228,7 @@ jobs:
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Use Node.js 24"
+      - name: "Use Node.js"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
@@ -283,11 +269,11 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     env:
-      TYPESCRIPT_VERSION: '~5.3.3' # keep in sync with package.json
+      TYPESCRIPT_VERSION: '^6.0.3' # keep in sync with package.json
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
-      - name: "Use Node.js 24"
+      - name: "Use Node.js"
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}

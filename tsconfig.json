@@ -1,11 +1,20 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "ignoreDeprecations": "6.0"
+    }
+  },
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": "./",
     "outDir": "./build",
     "allowJs": true,
     "module": "commonjs",
     "target": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@juice-shop/*": ["./*"]
+    },
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
@@ -36,6 +45,7 @@
     "build",
     "vagrant",
     "data/static/codefixes/**",
+    "test/cypress/**",
     "**/*.d.ts"
   ]
 }

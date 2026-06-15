@@ -65,7 +65,7 @@ Add the new theme definition to `frontend/src/styles/theme.scss` and include it 
   ```
 
 ### 2. Update Configuration Schema
-Add the new theme name to the `enum` of the `application.theme` property in `config.schema.yml`.
+Add the new theme name to the `theme` enum in `ApplicationSchema` in `lib/config.schema.ts`.
 
 ### 3. Update Default Configuration
 Mention the new theme in the `# Options:` comment for `application.theme` in `config/default.yml`.

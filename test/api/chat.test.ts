@@ -9,6 +9,7 @@ import request from 'supertest'
 import type { Express } from 'express'
 import * as http from 'http'
 import { createTestApp } from './helpers/setup'
+import { login } from './helpers/auth'
 
 const MOCK_LLM_PORT = 43210
 
@@ -75,9 +76,20 @@ function sendSSE (res: http.ServerResponse, chunks: object[]): void {
 before(async () => {
   await new Promise<void>((resolve) => {
     mockServer = http.createServer((req, res) => {
+      // Prevent keep-alive: each response closes the connection so the AI SDK's
+      // connection pool does not retain sockets that could outlive the test suite.
+      res.setHeader('Connection', 'close')
       let body = ''
       req.on('data', (chunk: Buffer) => { body += chunk.toString() })
       req.on('end', () => {
+        // Startup precondition checks (validatePreconditions) probe `/v1` and
+        // `/v1/models` with GET requests. Don't route those through onLlmRequest,
+        // which would call JSON.parse('') on the empty body and throw.
+        if (req.method !== 'POST' || !(req.url?.includes('chat/completions') ?? false)) {
+          res.writeHead(200, { 'Content-Type': 'application/json' })
+          res.end('{"data":[]}')
+          return
+        }
         onLlmRequest(req, body, res)
       })
     })
@@ -94,6 +106,10 @@ after(async () => {
       resolve()
       return
     }
+    // Destroy all open sockets immediately so req.on('end') callbacks from
+    // lingering keep-alive connections cannot fire after the suite ends and
+    // produce uncaught SyntaxError exceptions from JSON.parse('').
+    mockServer.closeAllConnections()
     mockServer.close(() => { resolve() })
   })
 })
@@ -239,6 +255,131 @@ void describe('/rest/chat', { timeout: 120000 }, () => {
     assert.equal(res.status, 200)
     assert.ok(res.text.includes('error'))
     assert.ok(res.text.includes('data: [DONE]'))
+  })
+
+  void it('POST includes authenticated user name in system prompt', { timeout: 15000 }, async () => {
+    const { token } = await login(app, { email: 'bjoern.kimminich@gmail.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
+    let parsedBody: any
+    onLlmRequest = (_req, body, res) => {
+      parsedBody = JSON.parse(body)
+      sendSSE(res, [contentChunk('Hi!'), finishChunk()])
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json', Authorization: 'Bearer ' + token })
+      .send({ messages: [{ role: 'user', content: 'Hi' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(parsedBody.messages[0].content.includes('bkimminich'))
+  })
+
+  void it('POST handles getProductReviews tool call by returning matching reviews', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_rev', 'getProductReviews', '{"id":"1"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Here are the reviews.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Show me reviews for product 1' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult !== undefined)
+  })
+
+  void it('POST handles getOrderById tool call by reporting unauthenticated customer', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_ord', 'getOrderById', '{"orderId":"abcd-0123456789abcdef"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Done.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Look up my order' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult?.includes('Customer not authenticated'))
+  })
+
+  void it('POST handles getOrderById tool call by reporting order not found for authenticated customer', { timeout: 15000 }, async () => {
+    const { token } = await login(app, { email: 'jim@juice-sh.op', password: 'ncc-1701' })
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_ord2', 'getOrderById', '{"orderId":"abcd-9999999999999999"}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Done.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json', Authorization: 'Bearer ' + token })
+      .send({ messages: [{ role: 'user', content: 'Look up my order' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult?.includes('Order not found'))
+  })
+
+  void it('POST handles generateCoupon tool call and includes coupon code in tool response', { timeout: 15000 }, async () => {
+    let toolResult: string | undefined
+    let callCount = 0
+    onLlmRequest = (_req, body, res) => {
+      callCount++
+      if (callCount === 1) {
+        sendSSE(res, [
+          toolCallChunk('call_cpn', 'generateCoupon', '{"discount":5}'),
+          finishChunk('tool_calls')
+        ])
+      } else {
+        const parsed = JSON.parse(body)
+        toolResult = parsed.messages.find((m: { role: string }) => m.role === 'tool')?.content
+        sendSSE(res, [contentChunk('Here is your coupon.'), finishChunk()])
+      }
+    }
+
+    const res = await request(app)
+      .post('/rest/chat')
+      .set({ 'content-type': 'application/json' })
+      .send({ messages: [{ role: 'user', content: 'Give me a coupon' }] })
+
+    assert.equal(res.status, 200)
+    assert.ok(toolResult)
+    const parsed = JSON.parse(toolResult)
+    assert.equal(parsed.discount, 5)
+    assert.ok(parsed.couponCode !== undefined)
   })
 
   void it('POST response SSE data lines contain valid JSON', { timeout: 15000 }, async () => {

@@ -1,4 +1,4 @@
-import { Component, Input, type OnChanges, type OnInit } from '@angular/core'
+import { Component, computed, input } from '@angular/core'
 
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { TranslateModule } from '@ngx-translate/core'
@@ -11,8 +11,6 @@ interface DifficultySummary {
   solvedChallenges: number
 }
 
-// interface doesn't work here
- 
 type DifficultySummaries = Record<number, DifficultySummary>
 
 const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
@@ -30,46 +28,29 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   styleUrls: ['./difficulty-overview-score-card.component.scss'],
   imports: [ScoreCardComponent, TranslateModule]
 })
-export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
-  @Input()
-  public allChallenges: EnrichedChallenge[] = []
+export class DifficultyOverviewScoreCardComponent {
+  readonly allChallenges = input<EnrichedChallenge[]>([])
+
+  private readonly codingChallenges = computed(() =>
+    this.allChallenges().filter(challenge => challenge.hasCodingChallenge)
+  )
 
   // includes hacking and coding challenges (both find it and fix it)
-  public totalChallenges: number
-  public solvedChallenges: number
+  readonly totalChallenges = computed(() =>
+    this.allChallenges().length + this.codingChallenges().length * 2
+  )
 
-  public difficultySummaries: DifficultySummary[] = [
-    { difficulty: 1, availableChallenges: 0, solvedChallenges: 0 },
-    { difficulty: 2, availableChallenges: 0, solvedChallenges: 0 },
-    { difficulty: 3, availableChallenges: 0, solvedChallenges: 0 },
-    { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
-    { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
-    { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
-  ]
+  readonly solvedChallenges = computed(() => {
+    const solvedHacking = this.allChallenges().filter(challenge => challenge.solved).length
+    const codingScore = this.codingChallenges()
+      .map(challenge => challenge.codingChallengeStatus)
+      .reduce((a, b) => a + b, 0)
+    return solvedHacking + codingScore
+  })
 
-  ngOnInit (): void {
-    this.updatedNumberOfSolvedChallenges()
-  }
-
-  ngOnChanges (): void {
-    this.updatedNumberOfSolvedChallenges()
-  }
-
-  private updatedNumberOfSolvedChallenges (): void {
-    const solvedHackingChallenges = this.allChallenges
-      .filter((challenge) => challenge.solved).length
-    const availableCodingChallenges = this.allChallenges
-      .filter((challenge) => challenge.hasCodingChallenge)
-
-    const codingScore = availableCodingChallenges
-      .map((challenge) => challenge.codingChallengeStatus)
-      .reduce((a, b) => a + b, 0) // sum up the scores
-
-    this.difficultySummaries = DifficultyOverviewScoreCardComponent.calculateDifficultySummaries(this.allChallenges)
-
-    this.totalChallenges = this.allChallenges.length + availableCodingChallenges.length * 2
-    this.solvedChallenges = solvedHackingChallenges + codingScore
-  }
+  readonly difficultySummaries = computed(() =>
+    DifficultyOverviewScoreCardComponent.calculateDifficultySummaries(this.allChallenges())
+  )
 
   static calculateDifficultySummaries (challenges: EnrichedChallenge[]): DifficultySummary[] {
     const summariesLookup: DifficultySummaries = structuredClone(INITIAL_SUMMARIES)

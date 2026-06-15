@@ -245,4 +245,76 @@ describe('ProductComponent', () => {
         component.addToBasket(2)
         expect(console.log).toHaveBeenCalledWith('Error')
     })
+
+    describe('guest basket (logged out)', () => {
+        beforeEach(() => {
+            fixture.componentRef.setInput('isLoggedIn', false)
+            fixture.detectChanges()
+            basketService.addToGuestBasket = vi.fn().mockName('BasketService.addToGuestBasket')
+        })
+
+        it('should add the product to the guest basket and show a translated confirmation message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(of('Translation of BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(basketService.addToGuestBasket).toHaveBeenCalledWith(1)
+            expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
+            expect(snackBarHelper.open).toHaveBeenCalledWith('Translation of BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should fall back to the translation id when translation fails for the guest basket message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(throwError(() => 'BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(snackBarHelper.open).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should log errors from the product lookup when adding to the guest basket', () => {
+            productService.get.mockReturnValue(throwError(() => 'Error'))
+            console.log = vi.fn()
+            component.addToBasket(1)
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+
+        it('should not do anything when called without a product id', () => {
+            component.addToBasket(undefined)
+            expect(basketService.addToGuestBasket).not.toHaveBeenCalled()
+            expect(basketService.find).not.toHaveBeenCalled()
+        })
+    })
+
+    describe('template rendering', () => {
+        it('should render the product name, image and add-to-basket button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.name')?.textContent).toContain('Apple Juice')
+            const img = compiled.querySelector('img.img-thumbnail') as HTMLImageElement
+            expect(img).toBeTruthy()
+            expect(img.getAttribute('src')).toContain('apple_juice.jpg')
+            expect(compiled.querySelector('button.btn-basket')).toBeTruthy()
+        })
+
+        it('should render the price and call addToBasket when the basket button is clicked', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.price')?.textContent).toContain('1.99')
+            const spy = vi.spyOn(component, 'addToBasket').mockImplementation(() => { })
+            const button = compiled.querySelector('button.btn-basket') as HTMLButtonElement
+            button.click()
+            expect(spy).toHaveBeenCalledWith(1)
+        })
+
+        it('should render the low-stock ribbon when quantity is between 1 and 5', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 3 })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('aside.ribbon')).toBeTruthy()
+            expect(compiled.querySelector('aside.ribbon-sold')).toBeNull()
+        })
+
+        it('should render the sold-out ribbon when quantity is zero or less', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 0 })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('aside.ribbon-sold')).toBeTruthy()
+        })
+    })
 })

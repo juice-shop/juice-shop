@@ -37,6 +37,10 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.component'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { LanguagesService } from '../Services/languages.service'
+import { BasketService } from '../Services/basket.service'
+import { Subject } from 'rxjs'
+import { environment } from '../../environments/environment'
 
 class MockSocket {
     on(str: string, callback: any) {
@@ -57,6 +61,9 @@ describe('NavbarComponent', () => {
     let socketIoService: any
     let location: Location
     let loginGuard
+    let languagesService: any
+    let basketService: any
+    let itemTotalSubject: Subject<number>
 
     beforeEach(async () => {
         administrationService = {
@@ -88,6 +95,7 @@ describe('NavbarComponent', () => {
             get: vi.fn().mockName("CookieService.get"),
             put: vi.fn().mockName("CookieService.put")
         }
+        cookieService.get.mockReturnValue('en')
         mockSocket = new MockSocket()
         socketIoService = {
             socket: vi.fn().mockName("SocketIoService.socket")
@@ -97,6 +105,16 @@ describe('NavbarComponent', () => {
             tokenDecode: vi.fn().mockName("LoginGuard.tokenDecode")
         }
         loginGuard.tokenDecode.mockReturnValue(of(true))
+        languagesService = {
+            getLanguages: vi.fn().mockName('LanguagesService.getLanguages')
+        }
+        languagesService.getLanguages.mockReturnValue(of([{ key: 'en', lang: 'English', shortKey: 'EN' }]))
+        itemTotalSubject = new Subject<number>()
+        basketService = {
+            getItemTotal: vi.fn().mockName('BasketService.getItemTotal'),
+            updateNumberOfCartItems: vi.fn().mockName('BasketService.updateNumberOfCartItems')
+        }
+        basketService.getItemTotal.mockReturnValue(itemTotalSubject.asObservable())
 
         TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([
@@ -129,6 +147,8 @@ describe('NavbarComponent', () => {
                 { provide: CookieService, useValue: cookieService },
                 { provide: SocketIoService, useValue: socketIoService },
                 { provide: LoginGuard, useValue: loginGuard },
+                { provide: LanguagesService, useValue: languagesService },
+                { provide: BasketService, useValue: basketService },
                 TranslateService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
@@ -307,5 +327,232 @@ describe('NavbarComponent', () => {
         vi.spyOn(translateService, 'use').mockImplementation((lang: any) => lang)
         component.changeLanguage('xx')
         expect(translateService.use).toHaveBeenCalledWith('xx')
+    })
+
+    describe('template rendering', () => {
+        it('should render the toolbar with sidenav toggle, home button and search bar', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('mat-toolbar')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Open Sidenav"]')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Back to homepage"]')).toBeTruthy()
+            expect(compiled.querySelector('#searchQuery')).toBeTruthy()
+        })
+
+        it('should call onToggleSidenav when the sidenav toggle button is clicked', () => {
+            const spy = vi.spyOn(component, 'onToggleSidenav')
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Open Sidenav"]') as HTMLButtonElement
+            button.click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render the basket button with the current itemTotal', () => {
+            component.itemTotal = 7
+            fixture.detectChanges()
+            const counter = (fixture.nativeElement as HTMLElement).querySelector('.warn-notification')
+            expect(counter?.textContent).toContain('7')
+        })
+
+        it('should render the application name in the home button', () => {
+            component.applicationName = 'MyShop'
+            fixture.detectChanges()
+            const name = (fixture.nativeElement as HTMLElement).querySelector('.app-name')
+            expect(name?.textContent).toContain('MyShop')
+        })
+    })
+
+    describe('language handling', () => {
+        const sampleLanguages = [
+            { key: 'en', lang: 'English', shortKey: 'EN' },
+            { key: 'de', lang: 'German', shortKey: 'DE' },
+            { key: 'fr', lang: 'French', shortKey: 'FR' }
+        ]
+
+        it('should populate languages and filteredLanguages from LanguagesService', () => {
+            languagesService.getLanguages.mockReturnValue(of(sampleLanguages))
+            cookieService.get.mockReturnValue(undefined)
+            component.ngOnInit()
+            expect(component.languages).toEqual(sampleLanguages)
+            expect(component.filteredLanguages).toEqual(sampleLanguages)
+        })
+
+        it('should reset filtered languages when search query is empty', () => {
+            component.languages = [...sampleLanguages]
+            component.languageSearchQuery = ''
+            component.filterLanguages()
+            expect(component.filteredLanguages).toEqual(sampleLanguages)
+        })
+
+        it('should filter languages by language name (case-insensitive)', () => {
+            component.languages = [...sampleLanguages]
+            component.languageSearchQuery = 'GERM'
+            component.filterLanguages()
+            expect(component.filteredLanguages).toEqual([sampleLanguages[1]])
+        })
+
+        it('should filter languages by language key', () => {
+            component.languages = [...sampleLanguages]
+            component.languageSearchQuery = 'fr'
+            component.filterLanguages()
+            expect(component.filteredLanguages).toEqual([sampleLanguages[2]])
+        })
+
+        it('should filter languages by short key', () => {
+            component.languages = [...sampleLanguages]
+            component.languageSearchQuery = 'de'
+            component.filterLanguages()
+            // 'de' matches German's key 'de' and shortKey 'DE'
+            expect(component.filteredLanguages).toEqual([sampleLanguages[1]])
+        })
+
+        it('should return no match when filter query matches nothing', () => {
+            component.languages = [...sampleLanguages]
+            component.languageSearchQuery = 'xyz'
+            component.filterLanguages()
+            expect(component.filteredLanguages).toEqual([])
+        })
+
+        it('should apply stored language cookie on init', () => {
+            languagesService.getLanguages.mockReturnValue(of(sampleLanguages))
+            cookieService.get.mockReturnValue('de')
+            vi.spyOn(translateService, 'use').mockImplementation((lang: any) => lang)
+            component.ngOnInit()
+            expect(translateService.use).toHaveBeenCalledWith('de')
+            expect(component.shortKeyLang).toBe('DE')
+        })
+
+        it('should default to English when no language cookie is set', () => {
+            languagesService.getLanguages.mockReturnValue(of(sampleLanguages))
+            cookieService.get.mockReturnValue(undefined)
+            vi.spyOn(translateService, 'use').mockImplementation((lang: any) => lang)
+            component.ngOnInit()
+            expect(component.shortKeyLang).toBe('EN')
+        })
+
+        it('should set selected language details when changeLanguage finds the language', () => {
+            component.languages = [...sampleLanguages]
+            vi.spyOn(translateService, 'use').mockImplementation((lang: any) => lang)
+            component.changeLanguage('fr')
+            expect(cookieService.put).toHaveBeenCalled()
+            expect(component.shortKeyLang).toBe('FR')
+        })
+
+        it('should not update shortKeyLang when changeLanguage is called with unknown key', () => {
+            component.languages = [...sampleLanguages]
+            component.shortKeyLang = 'EN'
+            vi.spyOn(translateService, 'use').mockImplementation((lang: any) => lang)
+            component.changeLanguage('zz')
+            expect(component.shortKeyLang).toBe('EN')
+        })
+    })
+
+    describe('application configuration logo handling', () => {
+        it('should use a relative logo path when configured', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { logo: 'my-logo.png' } }))
+            component.ngOnInit()
+            expect(component.logoSrc).toBe('assets/public/images/my-logo.png')
+        })
+
+        it('should extract and decode the file name when logo is an http URL', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { logo: 'https://example.com/path/my%20logo.png' } }))
+            component.ngOnInit()
+            expect(component.logoSrc).toBe('assets/public/images/my logo.png')
+        })
+    })
+
+    describe('score board status', () => {
+        it('should log error when fetching score board status fails', () => {
+            challengeService.find.mockReturnValue(throwError('Error'))
+            console.log = vi.fn()
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+
+        it('should make the score board visible when scoreBoardChallenge is solved via socket', () => {
+            mockSocket.on = (event: string, cb: any) => {
+                if (event === 'challenge solved') {
+                    cb({ key: 'scoreBoardChallenge' })
+                }
+            }
+            component.scoreBoardVisible = false
+            component.ngOnInit()
+            expect(component.scoreBoardVisible).toBe(true)
+        })
+
+        it('should ignore unrelated challenge solved events for score board visibility', () => {
+            mockSocket.on = (event: string, cb: any) => {
+                if (event === 'challenge solved') {
+                    cb({ key: 'someOtherChallenge' })
+                }
+            }
+            challengeService.find.mockReturnValue(of([{ solved: false }]))
+            component.ngOnInit()
+            expect(component.scoreBoardVisible).toBeFalsy()
+        })
+    })
+
+    describe('miscellaneous behavior', () => {
+        it('should update itemTotal when basket emits a new value', () => {
+            component.ngOnInit()
+            itemTotalSubject.next(42)
+            expect(component.itemTotal).toBe(42)
+        })
+
+        it('should report isLoggedIn based on the auth token in localStorage', () => {
+            localStorage.removeItem('token')
+            expect(component.isLoggedIn()).toBeFalsy()
+            localStorage.setItem('token', 'abc')
+            expect(component.isLoggedIn()).toBe('abc')
+            localStorage.removeItem('token')
+        })
+
+        it('should detect accounting role from the decoded token', () => {
+            loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+            expect(component.isAccounting()).toBe(true)
+        })
+
+        it('should not flag non-accounting users as accounting', () => {
+            loginGuard.tokenDecode.mockReturnValue({ data: { role: 'customer' } })
+            expect(component.isAccounting()).toBe(false)
+        })
+
+        it('should handle a missing token payload safely in isAccounting', () => {
+            loginGuard.tokenDecode.mockReturnValue(undefined)
+            expect(component.isAccounting()).toBeFalsy()
+        })
+
+        it('should navigate to the profile page via window.location.replace', () => {
+            const originalLocation = window.location
+            const replaceSpy = vi.fn()
+            // jsdom: assigning location is forbidden, but we can delete + redefine
+            delete (window as any).location
+            ;(window as any).location = { ...originalLocation, replace: replaceSpy }
+            component.goToProfilePage()
+            expect(replaceSpy).toHaveBeenCalledWith(environment.hostServer + '/profile')
+            ;(window as any).location = originalLocation
+        })
+
+        it('should navigate to the data erasure page via window.location.replace', () => {
+            const originalLocation = window.location
+            const replaceSpy = vi.fn()
+            delete (window as any).location
+            ;(window as any).location = { ...originalLocation, replace: replaceSpy }
+            component.goToDataErasurePage()
+            expect(replaceSpy).toHaveBeenCalledWith(environment.hostServer + '/dataerasure')
+            ;(window as any).location = originalLocation
+        })
+
+        it('should emit a sidenavToggle event from onToggleSidenav', () => {
+            const emitSpy = vi.spyOn(component.sidenavToggle, 'emit')
+            component.onToggleSidenav()
+            expect(emitSpy).toHaveBeenCalled()
+        })
+
+        it('should clear user email when user gets logged out', () => {
+            component.userEmail = 'foo@bar.com'
+            userService.getLoggedInState.mockReturnValue(of(false))
+            component.ngOnInit()
+            expect(component.userEmail).toBe('')
+            expect(basketService.updateNumberOfCartItems).toHaveBeenCalled()
+        })
     })
 })

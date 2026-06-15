@@ -1,4 +1,4 @@
-import { type Sequelize } from 'sequelize/types'
+import { type Sequelize } from 'sequelize'
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
@@ -7,6 +7,7 @@ import { ChallengeDependencyModel } from './challengeDependency'
 import { CardModel } from './card'
 import { ComplaintModel } from './complaint'
 import { FeedbackModel } from './feedback'
+import { HintModel } from './hint'
 import { ImageCaptchaModel } from './imageCaptcha'
 import { MemoryModel } from './memory'
 import { PrivacyRequestModel } from './privacyRequests'
@@ -16,8 +17,8 @@ import { RecycleModel } from './recycle'
 import { SecurityAnswerModel } from './securityAnswer'
 import { SecurityQuestionModel } from './securityQuestion'
 import { UserModel } from './user'
-import { WalletModel } from './wallet'
 
+import { WalletModel } from './wallet'
 import { makeKeyNonUpdatable } from '../lib/noUpdate'
 
 const relationsInit = (_sequelize: Sequelize) => {
@@ -43,7 +44,6 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'BasketId'
     }
   })
-  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'BasketId')
 
   CardModel.belongsTo(UserModel, {
@@ -96,7 +96,6 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'ProductId'
     }
   })
-  // @ts-expect-error FIXME type mismatch
   makeKeyNonUpdatable(BasketItemModel, 'ProductId')
 
   QuantityModel.belongsTo(ProductModel, {
@@ -142,8 +141,12 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'UserId'
     }
   })
+
   ChallengeModel.hasMany(ChallengeDependencyModel)
   ChallengeDependencyModel.belongsTo(ChallengeModel)
+
+  ChallengeModel.hasMany(HintModel)
+  HintModel.belongsTo(ChallengeModel)
 }
 
 export { relationsInit }

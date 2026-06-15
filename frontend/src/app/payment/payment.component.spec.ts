@@ -38,6 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 
 describe('PaymentComponent', () => {
     let component: PaymentComponent
@@ -352,5 +353,168 @@ describe('PaymentComponent', () => {
         component.choosePayment()
         expect(setItemSpy).toHaveBeenCalledWith('token', 'tokenValue')
         expect(cookieService.put).toHaveBeenCalledWith('token', 'tokenValue')
+    })
+
+    describe('template rendering', () => {
+        it('should render the payment method child component, navigation buttons and coupon input in non-wallet mode', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('app-payment-method')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Proceed to review"]')).toBeTruthy()
+            expect(compiled.querySelector('input#coupon')).toBeTruthy()
+            expect(compiled.querySelector('button#applyCouponButton')).toBeTruthy()
+        })
+
+        it('should keep the continue button disabled while no payment id is selected', () => {
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Proceed to review"]') as HTMLButtonElement
+            expect(button.disabled).toBe(true)
+        })
+
+        it('should enable the continue button as soon as a card paymentId is selected', () => {
+            component.getMessage(7)
+            fixture.detectChanges()
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button[aria-label="Proceed to review"]') as HTMLButtonElement
+            expect(button.disabled).toBe(false)
+        })
+
+        it('should hide the wallet, coupon and other-payments sections when mode is wallet', () => {
+            component.mode = 'wallet'
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('input#coupon')).toBeNull()
+            expect(compiled.querySelector('#collapseCouponElement')).toBeNull()
+        })
+
+        it('should invoke routeToPreviousUrl when the back button is clicked', () => {
+            const spy = vi.spyOn(component, 'routeToPreviousUrl').mockImplementation(() => { })
+            const back = (fixture.nativeElement as HTMLElement).querySelector('.btn-return') as HTMLButtonElement
+            back.click()
+            expect(spy).toHaveBeenCalled()
+        })
+    })
+
+    describe('application configuration handling', () => {
+        it('should pick up custom application name from configuration', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { social: {}, name: 'My Shop' } }))
+            component.ngOnInit()
+            expect(component.applicationName).toBe('My Shop')
+        })
+
+        it('should log error from wallet balance call to browser console', () => {
+            walletService.get.mockReturnValue(throwError('Error'))
+            console.log = vi.fn()
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+    })
+
+    describe('initTotal mode handling', () => {
+        it('should read totalPrice from walletTotal in session storage in wallet mode', () => {
+            sessionStorage.setItem('walletTotal', '12.34')
+            const paramMap = { get: () => 'wallet' }
+            ;(component as any).activatedRoute = { paramMap: of(paramMap) }
+            component.initTotal()
+            expect(component.totalPrice).toBeCloseTo(12.34)
+            sessionStorage.removeItem('walletTotal')
+        })
+
+        it('should read totalPrice from membershipCost in deluxe mode', () => {
+            userService.deluxeStatus.mockReturnValue(of({ membershipCost: 49 }))
+            const paramMap = { get: () => 'deluxe' }
+            ;(component as any).activatedRoute = { paramMap: of(paramMap) }
+            component.initTotal()
+            expect(component.totalPrice).toBe(49)
+        })
+
+        it('should log error when deluxeStatus fails', () => {
+            userService.deluxeStatus.mockReturnValue(throwError('Error'))
+            console.log = vi.fn()
+            const paramMap = { get: () => 'deluxe' }
+            ;(component as any).activatedRoute = { paramMap: of(paramMap) }
+            component.initTotal()
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+
+        it('should log error when paramMap subscription fails', () => {
+            console.log = vi.fn()
+            ;(component as any).activatedRoute = { paramMap: throwError('Error') }
+            component.initTotal()
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+    })
+
+    describe('campaign coupon handling', () => {
+        afterEach(() => {
+            vi.useRealTimers()
+        })
+
+        it('should apply discount when campaign code matches validOn date', () => {
+            // Compute the clientDate value as the component does, then inject it into a custom campaign entry,
+            // so the test is timezone-independent.
+            const today = new Date()
+            const offsetTimeZone = (today.getTimezoneOffset() + 60) * 60 * 1000
+            today.setHours(0, 0, 0, 0)
+            const expectedClientDate = today.getTime() - offsetTimeZone
+            ;(component as any).campaigns = { TESTCAMPAIGN: { validOn: expectedClientDate, discount: 50 } }
+            translateService.get.mockReturnValue(of('DISCOUNT_APPLIED'))
+            component.couponControl.setValue('TESTCAMPAIGN')
+            component.applyCoupon()
+            expect(component.couponConfirmation).toBe('DISCOUNT_APPLIED')
+        })
+
+        it('should set INVALID_COUPON error when campaign date does not match', () => {
+            translateService.get.mockReturnValue(of('INVALID_COUPON_MSG'))
+            component.couponControl.setValue('WMNSDY2019')
+            component.applyCoupon()
+            expect(component.couponError).toEqual({ error: 'INVALID_COUPON_MSG' })
+            expect(component.couponConfirmation).toBeUndefined()
+        })
+
+        it('should fall back to translation id when INVALID_COUPON translation errors out', () => {
+            translateService.get.mockReturnValue(throwError('FALLBACK_ID'))
+            component.couponControl.setValue('WMNSDY2019')
+            component.applyCoupon()
+            expect(component.couponError).toEqual({ error: 'FALLBACK_ID' })
+        })
+
+        it('should fall back to translation id when DISCOUNT_APPLIED translation errors out', () => {
+            translateService.get.mockReturnValue(throwError('FALLBACK_ID'))
+            component.showConfirmation(50)
+            expect(component.couponConfirmation).toBe('FALLBACK_ID')
+        })
+    })
+
+    describe('navigation helper', () => {
+        it('should navigate back via Location on routeToPreviousUrl', () => {
+            const location = TestBed.inject(Location)
+            const backSpy = vi.spyOn(location, 'back').mockImplementation(() => {})
+            component.routeToPreviousUrl()
+            expect(backSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe('choosePayment edge cases', () => {
+        it('should block wallet payment when balance is insufficient and notify via snack bar', () => {
+            const helper = TestBed.inject(SnackBarHelperService)
+            const openSpy = vi.spyOn(helper, 'open').mockImplementation(() => {})
+            component.mode = 'shop'
+            component.paymentMode = 'wallet'
+            component.walletBalance = 5
+            component.totalPrice = 100
+            const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
+            component.choosePayment()
+            expect(openSpy).toHaveBeenCalledWith('INSUFFICIENT_WALLET_BALANCE', 'errorBar')
+            expect(setItemSpy).not.toHaveBeenCalledWith('paymentId', 'wallet')
+        })
+
+        it('should log and surface error when wallet charge fails in wallet mode', () => {
+            const helper = TestBed.inject(SnackBarHelperService)
+            const openSpy = vi.spyOn(helper, 'open').mockImplementation(() => {})
+            walletService.put.mockReturnValue(throwError({ error: { message: 'Wallet down' } }))
+            console.log = vi.fn()
+            component.mode = 'wallet'
+            component.choosePayment()
+            expect(console.log).toHaveBeenCalled()
+            expect(openSpy).toHaveBeenCalledWith('Wallet down', 'errorBar')
+        })
     })
 })

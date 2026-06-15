@@ -16,7 +16,7 @@ This skill provides instructions for Junie to create release notes from scratch 
     *   Check for version/dependency changes: `git diff <last_tag>..HEAD -- package.json`
     *   Check for product/user changes: `git diff <last_tag>..HEAD -- config/default.yml`
     *   Check for challenge changes: `git diff <last_tag>..HEAD -- data/static/challenges.yml` (or relevant challenge files)
-    *   Check for configuration changes: `git diff <last_tag>..HEAD -- config.schema.yml`
+    *   Check for configuration changes: `git diff <last_tag>..HEAD -- lib/config.schema.ts`
     *   Check for UI/Frontend changes: `git diff <last_tag>..HEAD -- frontend/src/app`
     *   Check for I18N updates: `git diff <last_tag>..HEAD -- i18n`
 2.  **Categorize & Iconize Changes**:

@@ -87,15 +87,10 @@ describe('ComplaintComponent', () => {
         expect(component.messageControl.valid).toBe(true)
     })
 
-    it('should have a message of maximum 160 characters', () => {
-        let str = ''
-        for (let i = 0; i < 161; i++) {
-            str += 'a'
-        }
-        component.messageControl.setValue(str)
+    it('should have a message of maximum 4096 characters', () => {
+        component.messageControl.setValue('a'.repeat(4096 + 1))
         expect(component.messageControl.valid).toBeFalsy()
-        str = str.slice(1)
-        component.messageControl.setValue(str)
+        component.messageControl.setValue("a")
         expect(component.messageControl.valid).toBe(true)
     })
 
@@ -140,5 +135,68 @@ describe('ComplaintComponent', () => {
         vi.spyOn(component.uploader.queue[0], 'upload')
         component.save()
         expect(component.uploader.queue[0].upload).toHaveBeenCalled()
+    })
+
+    describe('file uploader callbacks', () => {
+        it('should expose the upload error to the template when a file fails the upload filter', () => {
+            expect(() => component.uploader.onWhenAddingFileFailed({} as any, { name: 'mimeType' } as any, undefined as any))
+                .toThrow(/mimeType/)
+            expect(component.fileUploadError).toEqual({ name: 'mimeType' })
+        })
+
+        it('should clear the upload error after a file is successfully added', () => {
+            component.fileUploadError = { name: 'mimeType' } as any
+            component.uploader.onAfterAddingFile({} as any)
+            expect(component.fileUploadError).toBeUndefined()
+        })
+
+        it('should save the complaint and clear the upload queue once a file upload succeeds', () => {
+            const saveSpy = vi.spyOn(component, 'saveComplaint').mockImplementation(() => { })
+            const clearSpy = vi.spyOn(component.uploader, 'clearQueue')
+            component.uploader.onSuccessItem({} as any, '', 200, {} as any)
+            expect(saveSpy).toHaveBeenCalled()
+            expect(clearSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe('saveComplaint translation fallback', () => {
+        it('should use the translation id as confirmation when translation fails', () => {
+            complaintService.save.mockReturnValue(of({ id: 99 }))
+            translateService.get.mockReturnValue(throwError(() => 'CUSTOMER_SUPPORT_COMPLAINT_REPLY'))
+            component.complaint = {}
+            component.messageControl.setValue('a complaint message')
+            component.saveComplaint()
+            expect(component.confirmation).toBe('CUSTOMER_SUPPORT_COMPLAINT_REPLY')
+        })
+    })
+
+    describe('template rendering', () => {
+        it('should render the complaint heading, message textarea, file input and submit button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')).toBeTruthy()
+            expect(compiled.querySelector('textarea#complaintMessage')).toBeTruthy()
+            expect(compiled.querySelector('input#file[type="file"]')).toBeTruthy()
+            expect(compiled.querySelector('button#submitButton')).toBeTruthy()
+        })
+
+        it('should keep the submit button disabled while the message control is invalid', () => {
+            const button = (fixture.nativeElement as HTMLElement).querySelector('button#submitButton') as HTMLButtonElement
+            expect(button.disabled).toBe(true)
+        })
+
+        it('should render the confirmation message when confirmation is set and the message is pristine', () => {
+            component.confirmation = 'Complaint received'
+            fixture.detectChanges()
+            const confirmation = (fixture.nativeElement as HTMLElement).querySelector('p.confirmation') as HTMLElement
+            expect(confirmation).toBeTruthy()
+            expect(confirmation.hidden).toBe(false)
+            expect(confirmation.textContent).toContain('Complaint received')
+        })
+
+        it('should render the invalid file-type error when the mimeType upload error is set', () => {
+            component.fileUploadError = { name: 'mimeType' } as any
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('p.fileUploadError')).toBeTruthy()
+        })
     })
 })

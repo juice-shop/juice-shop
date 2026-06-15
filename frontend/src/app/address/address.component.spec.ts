@@ -135,4 +135,78 @@ describe('AddressComponent', () => {
         component.chooseAddress()
         expect(setItemSpy).toHaveBeenCalledWith('addressId', 1 as any)
     })
+
+    describe('template rendering', () => {
+        const renderWith = (addresses: any[], inputs: Partial<AddressComponent> = {}) => {
+            addressService.get.mockReturnValue(of(addresses))
+            const f = TestBed.createComponent(AddressComponent)
+            Object.assign(f.componentInstance, inputs)
+            f.detectChanges()
+            return f
+        }
+
+        it('should render the saved-addresses title by default and the select title when showNextButton is true', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')).toBeTruthy()
+
+            const f = renderWith([], { showNextButton: true })
+            expect(f.nativeElement.querySelector('h1')).toBeTruthy()
+            expect(f.nativeElement.querySelector('button.btn-next')).toBeTruthy()
+        })
+
+        it('should not render the address table when there are no stored addresses', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('mat-table.address-table')).toBeNull()
+        })
+
+        it('should render the address table with a row per stored address when addresses exist', () => {
+            const f = renderWith([
+                { id: 1, fullName: 'Alice', streetAddress: 'S1', city: 'C1', state: 'ST', zipCode: 'Z1', country: 'CO' },
+                { id: 2, fullName: 'Bob', streetAddress: 'S2', city: 'C2', state: 'ST', zipCode: 'Z2', country: 'CO' }
+            ])
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('mat-table.address-table')).toBeTruthy()
+            expect(compiled.querySelectorAll('mat-row').length).toBe(2)
+            expect(compiled.textContent).toContain('Alice')
+            expect(compiled.textContent).toContain('Bob')
+        })
+
+        it('should render the add-new-address button by default and hide it when addNewAddressDiv is false', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('button.btn-new-address')).toBeTruthy()
+
+            const f = renderWith([], { addNewAddressDiv: false })
+            expect(f.nativeElement.querySelector('button.btn-new-address')).toBeNull()
+        })
+
+        it('should disable the next button when no address is selected and enable it when an address id is set', () => {
+            const f = renderWith([], { showNextButton: true })
+            const next = f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement
+            expect(next.disabled).toBe(true)
+
+            f.componentInstance.addressId = 5
+            f.detectChanges()
+            expect((f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement).disabled).toBe(false)
+        })
+
+        it('should invoke chooseAddress when the next button is clicked', () => {
+            const f = renderWith([], { showNextButton: true })
+            f.componentInstance.addressId = 1
+            f.detectChanges()
+            const spy = vi.spyOn(f.componentInstance, 'chooseAddress').mockImplementation(() => { })
+            const next = f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement
+            next.click()
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should render edit and remove buttons per row only when allowEdit is true', () => {
+            const f = renderWith(
+                [{ id: 1, fullName: 'Alice', streetAddress: 'S1', city: 'C1', state: 'ST', zipCode: 'Z1', country: 'CO' }],
+                { allowEdit: true }
+            )
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('button [class*="fa-edit"]')).toBeTruthy()
+            expect(compiled.querySelector('button [class*="fa-trash-alt"]')).toBeTruthy()
+        })
+    })
 })

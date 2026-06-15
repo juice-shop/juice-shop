@@ -9,7 +9,7 @@ import request from 'supertest'
 import type { Express } from 'express'
 import config from 'config'
 import { createTestApp } from './helpers/setup'
-import type { Product as ProductConfig } from '../../lib/config.types'
+import type { Product as ProductConfig } from '../../lib/config.schema'
 import * as utils from '../../lib/utils'
 
 let app: Express

@@ -24,7 +24,6 @@
 <div class="challenges">
   @for (challenge of filteredChallenges; track getChallengeKey($index, challenge)) {
   <challenge-card [challenge]="challenge" [applicationConfiguration]="applicationConfiguration"
-    [openCodingChallengeDialog]="openCodingChallengeDialog.bind(this)"
     [repeatChallengeNotification]="repeatChallengeNotification.bind(this)" [unlockHint]="unlockHint.bind(this)"
     [lastUnlockedChallengeKey]="lastUnlockedChallengeKey" [challengeId]="'challenge-' + challenge.key"
     [ngClass]="{ solved: challenge.solved, unsolved: !challenge.solved, disabled: challenge.disabledEnv !== null }" />

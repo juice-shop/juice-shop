@@ -213,4 +213,163 @@ describe('AccountingComponent', () => {
         expect(productService.put).toHaveBeenCalled()
         expect(productService.search).toHaveBeenCalled()
     })
+
+    it('should map order history results to order rows with id taken from _id and expose them via orderSource', () => {
+        orderHistoryService.getAll.mockReturnValue(of([
+            { _id: 'mongoA', orderId: 'A', totalPrice: 12.5, delivered: true },
+            { _id: 'mongoB', orderId: 'B', totalPrice: 7, delivered: false }
+        ]))
+        component.loadOrders()
+
+        expect(component.orderData).toEqual([
+            { id: 'mongoA', orderId: 'A', totalPrice: 12.5, delivered: true },
+            { id: 'mongoB', orderId: 'B', totalPrice: 7, delivered: false }
+        ])
+        expect(component.orderSource.data).toEqual(component.orderData)
+        expect(component.orderSource.paginator).toBe(component.paginatorOrderHistory)
+    })
+
+    it('should build the quantityMap keyed by ProductId with id and quantity from the stock response', () => {
+        quantityService.getAll.mockReturnValue(of([
+            { id: 11, ProductId: 1, quantity: 5 },
+            { id: 22, ProductId: 2, quantity: 0 }
+        ]))
+        component.loadQuantity()
+
+        expect(component.quantityMap).toEqual({
+            1: { id: 11, quantity: 5 },
+            2: { id: 22, quantity: 0 }
+        })
+    })
+
+    it('should expose products through a MatTableDataSource wired up to the paginator', () => {
+        productService.search.mockReturnValue(of([{ id: 1, name: 'A', price: 1 }, { id: 2, name: 'B', price: 2 }]))
+        component.loadProducts()
+
+        expect(component.dataSource.data).toEqual(component.tableData)
+        expect(component.dataSource.paginator).toBe(component.paginator)
+    })
+
+    it('should clamp negative price values to zero when modifying price', () => {
+        component.modifyPrice(1, -5)
+        expect(productService.put).toHaveBeenCalledWith(1, { price: 0 })
+    })
+
+    it('should clamp negative quantity values to zero when modifying quantity', () => {
+        component.modifyQuantity(1, -10)
+        expect(quantityService.put).toHaveBeenCalledWith(1, { quantity: 0 })
+    })
+
+    it('should unsubscribe product and quantity subscriptions on destroy', () => {
+        productService.search.mockReturnValue(of([]))
+        quantityService.getAll.mockReturnValue(of([]))
+        component.loadProducts()
+        component.loadQuantity()
+        const productUnsub = vi.spyOn((component as any).productSubscription, 'unsubscribe')
+        const quantityUnsub = vi.spyOn((component as any).quantitySubscription, 'unsubscribe')
+
+        component.ngOnDestroy()
+
+        expect(productUnsub).toHaveBeenCalled()
+        expect(quantityUnsub).toHaveBeenCalled()
+    })
+
+    it('should not throw on destroy when subscriptions were never created', () => {
+        const freshFixture = TestBed.createComponent(AccountingComponent)
+        const freshComponent = freshFixture.componentInstance
+        expect(() => freshComponent.ngOnDestroy()).not.toThrow()
+    })
+
+    describe('template rendering', () => {
+        const renderWithData = (orders: any[], products: any[] = [], quantities: any[] = []) => {
+            orderHistoryService.getAll.mockReturnValue(of(orders))
+            productService.search.mockReturnValue(of(products))
+            quantityService.getAll.mockReturnValue(of(quantities))
+            const f = TestBed.createComponent(AccountingComponent)
+            f.componentInstance.ngAfterViewInit()
+            f.detectChanges()
+            return f
+        }
+
+        it('should render the accounting heading and both section titles', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')?.textContent).toBeTruthy()
+            const headings = Array.from(compiled.querySelectorAll('.heading'))
+            expect(headings.length).toBe(2)
+        })
+
+        it('should render a row per order with the order id and total price formatted with two decimals', () => {
+            const f = renderWithData([
+                { _id: 'm1', orderId: 'ORD-1', totalPrice: 9.5, delivered: true }
+            ])
+            const text = (f.nativeElement as HTMLElement).textContent ?? ''
+            expect(text).toContain('ORD-1')
+            expect(text).toContain('9.50')
+        })
+
+        it('should show the delivered marker and the mark-as-transit button for delivered orders', () => {
+            const f = renderWithData([
+                { _id: 'm1', orderId: 'd', totalPrice: 1, delivered: true }
+            ])
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('.confirmation')).toBeTruthy()
+            expect(compiled.querySelector('.error')).toBeNull()
+            const icons = Array.from(compiled.querySelectorAll('mat-icon')).map(e => e.textContent?.trim())
+            expect(icons).toContain('cached')
+            expect(icons).not.toContain('check_circle')
+        })
+
+        it('should show the in-transit marker and the mark-as-delivered button for non-delivered orders', () => {
+            const f = renderWithData([
+                { _id: 'm1', orderId: 'n', totalPrice: 1, delivered: false }
+            ])
+            const compiled: HTMLElement = f.nativeElement
+            expect(compiled.querySelector('.error')).toBeTruthy()
+            expect(compiled.querySelector('.confirmation')).toBeNull()
+            const icons = Array.from(compiled.querySelectorAll('mat-icon')).map(e => e.textContent?.trim())
+            expect(icons).toContain('check_circle')
+            expect(icons).not.toContain('cached')
+        })
+
+        it('should invoke changeDeliveryStatus with current delivered flag and order id when the status button is clicked', () => {
+            const f = renderWithData([
+                { _id: 42, orderId: 'click', totalPrice: 1, delivered: true }
+            ])
+            const comp = f.componentInstance
+            const spy = vi.spyOn(comp, 'changeDeliveryStatus').mockImplementation(() => { })
+            const button = f.nativeElement.querySelector('.orders-table button[mat-icon-button]') as HTMLButtonElement
+            expect(button).toBeTruthy()
+            button.click()
+            expect(spy).toHaveBeenCalledWith(true, 42)
+        })
+
+        it('should render a row per product with price and quantity inputs that invoke modify handlers on click', () => {
+            const f = renderWithData(
+                [],
+                [{ id: 7, name: 'Apple Juice', price: 1.99 }],
+                [{ id: 99, ProductId: 7, quantity: 42 }]
+            )
+            const comp = f.componentInstance
+            const priceSpy = vi.spyOn(comp, 'modifyPrice').mockImplementation(() => { })
+            const quantitySpy = vi.spyOn(comp, 'modifyQuantity').mockImplementation(() => { })
+
+            const inputs = f.nativeElement.querySelectorAll('.inventory-table input[matInput]') as NodeListOf<HTMLInputElement>
+            expect(inputs.length).toBe(2)
+            expect(inputs[0].value).toBe('1.99')
+            expect(inputs[1].value).toBe('42')
+
+            const buttons = f.nativeElement.querySelectorAll('.inventory-table button[mat-icon-button]') as NodeListOf<HTMLButtonElement>
+            expect(buttons.length).toBe(2)
+            buttons[0].click()
+            buttons[1].click()
+
+            expect(priceSpy).toHaveBeenCalledWith(7, '1.99')
+            expect(quantitySpy).toHaveBeenCalledWith(99, '42')
+        })
+
+        it('should render two paginators, one for each table', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelectorAll('mat-paginator').length).toBe(2)
+        })
+    })
 })

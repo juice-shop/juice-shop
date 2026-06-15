@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import { AddressModel } from '../models/address'
 import { BasketModel } from '../models/basket'
 import { BasketItemModel } from '../models/basketitem'
@@ -25,7 +24,7 @@ import { WalletModel } from '../models/wallet'
 import { type Product } from './types'
 import logger from '../lib/logger'
 import { getCodeChallenges } from '../lib/codingChallenges'
-import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.types'
+import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.schema'
 import config from 'config'
 import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'

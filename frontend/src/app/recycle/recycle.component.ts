@@ -10,7 +10,6 @@ import { Component, type OnInit, ViewChild, inject } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { AddressComponent } from '../address/address.component'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -35,7 +34,6 @@ export class RecycleComponent implements OnInit {
   private readonly recycleService = inject(RecycleService)
   private readonly userService = inject(UserService)
   private readonly configurationService = inject(ConfigurationService)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly translate = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
@@ -67,8 +65,6 @@ export class RecycleComponent implements OnInit {
 
     this.initRecycle()
     this.findAll()
-
-    this.formSubmitService.attachEnterKeyHandler('recycle-form', 'recycleButton', () => { this.save() })
   }
 
   initRecycle () {
