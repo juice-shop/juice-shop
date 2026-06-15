@@ -189,4 +189,28 @@ describe('RegisterComponent', () => {
         component.save()
         expect(console.log).toHaveBeenCalledWith('Error')
     })
+
+    describe('template rendering', () => {
+        it('should render the registration heading and all form input controls', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('h1')).toBeTruthy()
+            expect(compiled.querySelector('input#emailControl')).toBeTruthy()
+            expect(compiled.querySelector('input#passwordControl')).toBeTruthy()
+            expect(compiled.querySelector('input#repeatPasswordControl')).toBeTruthy()
+            expect(compiled.querySelector('input#securityAnswerControl')).toBeTruthy()
+        })
+
+        it('should render the register button as disabled while the form is invalid', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const registerButton = compiled.querySelector('button#registerButton') as HTMLButtonElement
+            expect(registerButton).toBeTruthy()
+            expect(registerButton.disabled).toBe(true)
+        })
+
+        it('should render the already-a-customer link to the login page', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const link = compiled.querySelector('#alreadyACustomerLink a')
+            expect(link).toBeTruthy()
+        })
+    })
 })

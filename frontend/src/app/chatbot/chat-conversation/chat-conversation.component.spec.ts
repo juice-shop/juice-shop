@@ -225,4 +225,142 @@ describe('ChatConversationComponent', () => {
         component.ngOnInit()
         expect(component.showToolCalls()).toBe(false)
     })
+
+    describe('template rendering', () => {
+        it('should render the chat header with back link, avatar and bot title', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.chat-header')).toBeTruthy()
+            const back = compiled.querySelector('a.back-link') as HTMLAnchorElement
+            expect(back).toBeTruthy()
+            expect(back.getAttribute('aria-label')).toBe('Back to chatbot')
+            expect(compiled.querySelector('img.header-avatar')).toBeTruthy()
+            expect(compiled.querySelector('.header-title')?.textContent).toContain('Juicy')
+        })
+
+        it('should render an empty chat window and the input area when there are no messages', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            const chatWindow = compiled.querySelector('.chat-window') as HTMLElement
+            expect(chatWindow).toBeTruthy()
+            expect(chatWindow.querySelectorAll('.chat-bubble').length).toBe(0)
+            expect(compiled.querySelector('.input-area app-chat-input-box')).toBeTruthy()
+        })
+
+        it('should render a user bubble and an assistant bubble with their respective classes and content', () => {
+            component.messages.set([
+                { role: 'user', content: 'Hello bot' },
+                { role: 'assistant', content: 'Hi user' }
+            ] as any)
+            fixture.detectChanges()
+
+            const bubbles = fixture.nativeElement.querySelectorAll('.chat-bubble') as NodeListOf<HTMLElement>
+            expect(bubbles.length).toBe(2)
+            expect(bubbles[0].classList.contains('user')).toBe(true)
+            expect(bubbles[1].classList.contains('assistant')).toBe(true)
+            expect(bubbles[0].textContent).toContain('Hello bot')
+            expect(bubbles[1].textContent).toContain('Hi user')
+        })
+
+        it('should mark an error message with the error class', () => {
+            component.messages.set([
+                { role: 'assistant', content: 'ERROR_KEY', error: true }
+            ] as any)
+            fixture.detectChanges()
+
+            const bubble = fixture.nativeElement.querySelector('.chat-bubble') as HTMLElement
+            expect(bubble.classList.contains('error')).toBe(true)
+        })
+
+        it('should render a typing indicator on the last assistant message while loading', () => {
+            component.isLoading.set(true)
+            component.messages.set([
+                { role: 'user', content: 'Hi' },
+                { role: 'assistant', content: '' }
+            ] as any)
+            fixture.detectChanges()
+
+            const indicator = fixture.nativeElement.querySelector('.typing-indicator')
+            expect(indicator).toBeTruthy()
+            expect(indicator.querySelectorAll('.dot').length).toBe(3)
+        })
+
+        it('should not render any tool-calls container when showToolCalls is false', () => {
+            component.showToolCalls.set(false)
+            component.messages.set([
+                { role: 'assistant', content: 'with tools', tool_calls: [{ id: 't1', type: 'function', function: { name: 'doIt', arguments: '{}' } }] }
+            ] as any)
+            fixture.detectChanges()
+            expect(fixture.nativeElement.querySelector('.tool-calls-container')).toBeNull()
+        })
+
+        it('should render a single tool-call card without the previous-tool-calls header when only one tool call is present', () => {
+            component.showToolCalls.set(true)
+            component.messages.set([
+                { role: 'assistant', content: 'x', tool_calls: [{ id: 't1', type: 'function', function: { name: 'doIt', arguments: '{"a":1}' } }] }
+            ] as any)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.tool-calls-container')).toBeTruthy()
+            expect(compiled.querySelector('.tool-calls-header')).toBeNull()
+            const cards = compiled.querySelectorAll('.tool-call-card')
+            expect(cards.length).toBe(1)
+            expect(cards[0].textContent).toContain('doIt')
+            expect(cards[0].textContent).toContain('{"a":1}')
+        })
+
+        it('should toggle previous tool calls visibility when the header is clicked', () => {
+            component.showToolCalls.set(true)
+            component.messages.set([
+                {
+                    role: 'assistant',
+                    content: 'x',
+                    tool_calls: [
+                        { id: 't1', type: 'function', function: { name: 'first', arguments: '{}' } },
+                        { id: 't2', type: 'function', function: { name: 'second', arguments: '{}' } }
+                    ]
+                }
+            ] as any)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.tool-calls-header')).toBeTruthy()
+            expect(compiled.querySelector('.previous-tool-calls')).toBeNull()
+
+            ;(compiled.querySelector('.tool-calls-header') as HTMLElement).click()
+            fixture.detectChanges()
+            expect(compiled.querySelector('.previous-tool-calls')).toBeTruthy()
+            expect(compiled.querySelectorAll('.tool-call-card.mini').length).toBe(1)
+        })
+    })
+
+    describe('init configuration handling', () => {
+        it('should log when configuration loading fails', () => {
+            const err = new Error('boom')
+            configurationService.getApplicationConfiguration.mockReturnValue({
+                subscribe: ({ error }: any) => { error(err) }
+            } as any)
+            console.log = vi.fn()
+            component.ngOnInit()
+            expect(console.log).toHaveBeenCalledWith(err)
+        })
+
+        it('should keep default bot name and avatar when config has no chatBot section', () => {
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} } as any))
+            component.chatBotName.set('Juicy')
+            component.chatBotAvatar.set('assets/public/images/JuicyBot.png')
+            component.ngOnInit()
+            expect(component.chatBotName()).toBe('Juicy')
+            expect(component.chatBotAvatar()).toBe('assets/public/images/JuicyBot.png')
+        })
+
+        it('should mark an assistant error message via the stream and break out of the loop', async () => {
+            async function* errStream() {
+                yield { error: true }
+                yield { deltaContent: 'should not be appended' }
+            }
+            chatService.streamMessages.mockReturnValue(errStream())
+            await component.sendMessage('Hi')
+            const assistant = component.messages()[1] as any
+            expect(assistant.error).toBe(true)
+            expect(assistant.content).toBe('CHATBOT_ERROR_LLM_UNREACHABLE')
+        })
+    })
 })

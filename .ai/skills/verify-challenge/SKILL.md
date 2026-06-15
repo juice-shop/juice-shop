@@ -10,7 +10,7 @@ This skill provides a comprehensive workflow and checklist for verifying that a 
 ## General Workflow
 
 1.  **Analyze the Challenge Definition**: Review the new entry in `data/static/challenges.yml`.
-2.  **Verify Configuration**: Check if the challenge is correctly represented in `config.schema.yml` and `config/fbctf.yml`.
+2.  **Verify Configuration**: Check if the challenge is correctly represented in `lib/config.schema.ts` and `config/fbctf.yml`.
 3.  **Check Translations**: Ensure labels and descriptions for any new categories or tags are present in `frontend/src/assets/i18n/en.json`.
 4.  **Review Supporting Assets**:
     -   Verify Hacking Instructor scripts (if applicable).
@@ -43,17 +43,17 @@ Each entry in `challenges.yml` must adhere to the following rules:
 -   **Tags**:
     -   Optional. Existing tags: `Danger Zone`, `Good for Demos`, `Prerequisite`, `OSINT`, `Contraption`, `Shenanigans`, `Tutorial`, `Brute Force`, `Good Practice`, `Code Analysis`, `Web3`, `With Coding Challenge`, `AI / LLM`.
 -   **Disabled Environments (`disabledEnv`)**:
-    -   Values: `Docker`, `Heroku`, `Gitpod`, `Windows`.
+    -   Values: `Docker`, `Heroku`, `Windows`.
     -   Used for challenges that are technically incompatible or too dangerous for certain environments (e.g., RCE).
 
 ---
 
-## 2. Configuration (`config.schema.yml` & `config/fbctf.yml`)
+## 2. Configuration (`lib/config.schema.ts` & `config/fbctf.yml`)
 
 The challenge must be integrated into the CTF mode configuration:
 
-### `config.schema.yml`
--   The challenge `key` must be added as a property under `ctf.countryMapping`.
+### `lib/config.schema.ts`
+-   The challenge `key` must be added to the `CHALLENGE_KEYS` array in `models/challenge.ts` (which is the source of truth for the `ctf.countryMapping` record keys).
 
 ### `config/fbctf.yml`
 -   An entry for the challenge `key` must be added under `ctf.countryMapping`.

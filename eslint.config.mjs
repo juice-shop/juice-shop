@@ -30,7 +30,6 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...globals.vitest,
-        ...globals.mocha,
         ...globals.jest,
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly'

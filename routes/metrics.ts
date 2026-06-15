@@ -24,23 +24,41 @@ import onFinished from 'on-finished'
 
 const register = Prometheus.register
 
-const fileUploadsCountMetric = new Prometheus.Counter({
+let fileUploadsCountMetric = new Prometheus.Counter({
   name: 'file_uploads_count',
   help: 'Total number of successful file uploads grouped by file type.',
   labelNames: ['file_type']
 })
 
-const fileUploadErrorsMetric = new Prometheus.Counter({
+let fileUploadErrorsMetric = new Prometheus.Counter({
   name: 'file_upload_errors',
   help: 'Total number of failed file uploads grouped by file type.',
   labelNames: ['file_type']
 })
 
-const httpRequestsMetric = new Prometheus.Counter({
+let httpRequestsMetric = new Prometheus.Counter({
   name: 'http_requests_count',
   help: 'Total HTTP request count grouped by status code.',
   labelNames: ['status_code']
 })
+
+export function reRegisterMetrics () {
+  fileUploadsCountMetric = new Prometheus.Counter({
+    name: 'file_uploads_count',
+    help: 'Total number of successful file uploads grouped by file type.',
+    labelNames: ['file_type']
+  })
+  fileUploadErrorsMetric = new Prometheus.Counter({
+    name: 'file_upload_errors',
+    help: 'Total number of failed file uploads grouped by file type.',
+    labelNames: ['file_type']
+  })
+  httpRequestsMetric = new Prometheus.Counter({
+    name: 'http_requests_count',
+    help: 'Total HTTP request count grouped by status code.',
+    labelNames: ['status_code']
+  })
+}
 
 export function observeRequestMetricsMiddleware () {
   return (req: Request, res: Response, next: NextFunction) => {

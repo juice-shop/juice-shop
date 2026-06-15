@@ -11,7 +11,7 @@
 
       <div class="error" ng-if="error">{{ error }}</div>
 
-      <div class="form-container" id="registration-form">
+      <form class="form-container" id="registration-form" (ngSubmit)="save()">
 
         <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_EMAIL</mat-label>
@@ -117,7 +117,6 @@
                   id="registerButton"
                   mat-raised-button color="primary"
                   [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
-                  (click)="save()"
                   aria-label="Button to complete the registration">
                   <mat-icon>person_add</mat-icon>
                   {{'BTN_REGISTER' | translate}}
@@ -126,7 +125,7 @@
                 <div id="alreadyACustomerLink">
                   <a class="primary-link" routerLink="/login" translate>ALREADY_A_CUSTOMER</a>
                 </div>
-              </div>
+              </form>
             </div>
           </mat-card>
         </div>

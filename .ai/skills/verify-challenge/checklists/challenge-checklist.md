@@ -11,10 +11,10 @@ Use this checklist to verify a new challenge contribution.
 - [ ] `mitigationUrl` (if any) points to a relevant OWASP Cheat Sheet.
 - [ ] `hints` (if any) are between 2 and 7.
 - [ ] `tags` (if any) are from the allowed list.
-- [ ] `disabledEnv` (if any) lists valid environments (`Docker`, `Heroku`, `Gitpod`, `Windows`).
+- [ ] `disabledEnv` (if any) lists valid environments (`Docker`, `Heroku`, `Windows`).
 
 ## 2. Configuration & CTF
-- [ ] `config.schema.yml` contains the challenge `key` under `ctf.countryMapping`.
+- [ ] `CHALLENGE_KEYS` in `models/challenge.ts` contains the challenge `key` (which automatically validates it in `ctf.countryMapping`).
 - [ ] `config/fbctf.yml` contains the challenge `key` with unique `name` and alpha-2 ISO `code`.
 
 ## 3. Translations (`en.json`)

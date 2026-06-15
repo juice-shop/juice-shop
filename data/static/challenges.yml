@@ -26,7 +26,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Access Log'
   category: 'Observability Failures'
@@ -85,7 +84,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -179,7 +177,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
@@ -236,7 +233,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -253,7 +249,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -545,7 +540,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -778,7 +772,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
@@ -796,7 +789,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
@@ -924,7 +916,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Repetitive Registration'
   category: 'Improper Input Validation'
@@ -1040,7 +1031,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Score Board'
   category: 'Miscellaneous'
@@ -1085,7 +1075,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -1115,7 +1104,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
@@ -1205,7 +1193,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'View Basket'
   category: 'Broken Access Control'
@@ -1275,7 +1262,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'XXE DoS'
   category: 'XXE'
@@ -1293,7 +1279,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'Memory Bomb'
   category: 'Insecure Deserialization'
@@ -1310,7 +1295,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'Zero Stars'
   category: 'Improper Input Validation'
@@ -1470,7 +1454,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Mass Dispel'
   category: 'Miscellaneous'
@@ -1555,3 +1538,16 @@
     - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
   key: aiDebuggingChallenge
+-
+  name: 'System Prompt Extraction'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Extract the chatbot''s system prompt using prompt injection, then submit your findings (including any confidential sections) via the <a href="/#/complain">Customer Complaint form</a>.'
+  difficulty: 3
+  hints:
+    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration using prompt injection.'
+    - 'There are internal rules beyond the standard coupon policy. Think about edge cases - what happens in unusual customer situations?'
+    - 'The similarity check is lenient - you do not need to reproduce the system prompt word for word. Focus on capturing the confidential sections accurately.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
+  key: systemPromptExtractionChallenge

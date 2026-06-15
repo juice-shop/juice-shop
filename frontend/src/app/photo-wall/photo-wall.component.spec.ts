@@ -173,4 +173,140 @@ describe('PhotoWallComponent', () => {
         component.ngOnInit()
         expect(console.log).toHaveBeenCalledWith('Error')
     })
+
+    it('should append uploader username to the caption when memory has a user', () => {
+        photoWallService.get.mockReturnValue(of([{ imagePath: 'a.png', caption: 'Hi', User: { username: 'alice' } }]))
+        component.ngOnInit()
+        expect(component.slideshowDataSource[0].caption).toBe('Hi (© alice)')
+    })
+
+    it('should strip trailing slash from blueSky and mastodon URLs', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({
+            application: { social: { blueSkyUrl: 'https://bsky.app/profile/owasp/', mastodonUrl: 'https://mastodon.social/@owasp/' } }
+        }))
+        component.ngOnInit()
+        expect(component.blueSkyHandle).toBe('@owasp')
+        expect(component.mastodonHandle).toBe('@owasp@mastodon.social')
+    })
+
+    it('should not set any social handle when config has no social settings', () => {
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
+        component.ngOnInit()
+        expect(component.twitterHandle).toBeNull()
+        expect(component.blueSkyHandle).toBeNull()
+        expect(component.mastodonHandle).toBeNull()
+    })
+
+    it('should patch the form and update the image preview when an image is picked', () => {
+        const file = new File(['x'], 'pic.png', { type: 'image/png' })
+        const event = { target: { files: [file] } } as unknown as Event
+        const lastReader: any = {}
+        const originalFileReader = window.FileReader
+        class FakeFileReader {
+            public onload: any = null
+            public result: any = null
+            public addEventListener = vi.fn()
+            public removeEventListener = vi.fn()
+            public readAsDataURL = vi.fn(() => {
+                this.result = 'data:image/png;base64,abc'
+                if (typeof this.onload === 'function') this.onload()
+            })
+            public readAsArrayBuffer = vi.fn()
+            constructor () { Object.assign(lastReader, this) }
+        }
+        ;(window as any).FileReader = FakeFileReader as any
+
+        component.onImagePicked(event)
+
+        expect(component.form.get('image').value).toBe(file)
+        expect(component.imagePreview).toBe('data:image/png;base64,abc')
+        ;(window as any).FileReader = originalFileReader
+    })
+
+    it('should report logged in based on the presence of a token', () => {
+        localStorage.removeItem('token')
+        expect(component.isLoggedIn()).toBeNull()
+        localStorage.setItem('token', 'abc')
+        expect(component.isLoggedIn()).toBe('abc')
+        localStorage.removeItem('token')
+    })
+
+    describe('template rendering', () => {
+        it('should render the empty-state card when no memories are loaded', () => {
+            photoWallService.get.mockReturnValue(of([]))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.emptyState')).toBeTruthy()
+            expect(compiled.querySelector('.grid')).toBeNull()
+        })
+
+        it('should render the grid with one tile per memory when memories exist', () => {
+            photoWallService.get.mockReturnValue(of([
+                { imagePath: 'a.png', caption: 'A' },
+                { imagePath: 'b.png', caption: 'B' }
+            ]))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const tiles = (fixture.nativeElement as HTMLElement).querySelectorAll('.grid .container')
+            expect(tiles.length).toBe(2)
+            expect((fixture.nativeElement as HTMLElement).querySelector('.emptyState')).toBeNull()
+        })
+
+        it('should render social share buttons only when matching handles are configured', () => {
+            photoWallService.get.mockReturnValue(of([{ imagePath: 'a.png', caption: 'A' }]))
+            configurationService.getApplicationConfiguration.mockReturnValue(of({
+                application: { social: { twitterUrl: 'https://twitter.com/juice', blueSkyUrl: 'https://bsky.app/profile/juice', mastodonUrl: 'https://mastodon.social/@juice' } }
+            }))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('button[aria-label="Tweet"]')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="BlueSky"]')).toBeTruthy()
+            expect(compiled.querySelector('button[aria-label="Mastodon"]')).toBeTruthy()
+        })
+
+        it('should not render social share buttons when no social handles are configured', () => {
+            photoWallService.get.mockReturnValue(of([{ imagePath: 'a.png', caption: 'A' }]))
+            configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('button[aria-label="Tweet"]')).toBeNull()
+            expect(compiled.querySelector('button[aria-label="BlueSky"]')).toBeNull()
+            expect(compiled.querySelector('button[aria-label="Mastodon"]')).toBeNull()
+        })
+
+        it('should render the share-a-memory form only when a token is stored', () => {
+            localStorage.removeItem('token')
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.share-memory-section')).toBeNull()
+
+            localStorage.setItem('token', 'token')
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.share-memory-section')).toBeTruthy()
+            expect((fixture.nativeElement as HTMLElement).querySelector('#submitButton')).toBeTruthy()
+            localStorage.removeItem('token')
+        })
+
+        it('should keep the submit button disabled while the form is invalid', () => {
+            localStorage.setItem('token', 'token')
+            fixture.detectChanges()
+            const submit = (fixture.nativeElement as HTMLElement).querySelector('#submitButton') as HTMLButtonElement
+            expect(submit.disabled).toBe(true)
+            localStorage.removeItem('token')
+        })
+
+        it('should render the image preview once one is set and the image control is valid', () => {
+            localStorage.setItem('token', 'token')
+            component.imagePreview = 'data:image/png;base64,abc'
+            component.form.get('image').setValue('file')
+            component.form.get('image').setErrors(null)
+            fixture.detectChanges()
+            const preview = (fixture.nativeElement as HTMLElement).querySelector('.image-preview img') as HTMLImageElement
+            expect(preview).toBeTruthy()
+            expect(preview.getAttribute('src')).toBe('data:image/png;base64,abc')
+            localStorage.removeItem('token')
+        })
+    })
 })

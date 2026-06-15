@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, input, output } from '@angular/core'
+import { Component, CUSTOM_ELEMENTS_SCHEMA, input, output } from '@angular/core'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
@@ -11,6 +11,7 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ActivatedRoute, provideRouter } from '@angular/router'
 import { of, Subject, throwError } from 'rxjs'
 
+import { CookieService } from 'ngy-cookie'
 import { CodingChallengePageComponent } from './coding-challenge-page.component'
 import { CodeSnippetService } from '../Services/code-snippet.service'
 import { CodeFixesService } from '../Services/code-fixes.service'
@@ -237,6 +238,108 @@ describe('CodingChallengePageComponent', () => {
             vi.advanceTimersByTime(300)
             expect(component.findItSolved).toBe(true)
             vi.useRealTimers()
+        })
+    })
+
+    describe('fixes nullish handling and missing fixItSection', () => {
+        it('should default fixes to null when service returns an object without fixes', () => {
+            codeFixesService.get.mockReturnValue(of({}))
+            const { component } = createComponent()
+            expect(component.fixes).toBeNull()
+        })
+
+        it('should not throw on onFindItSolved when fixItSection is unavailable', () => {
+            vi.useFakeTimers()
+            challengeService.find.mockReturnValue(of([
+                { key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 1 }
+            ]))
+            const { component } = createComponent()
+            ;(component as any).fixItSection = () => undefined
+            expect(() => {
+                component.onFindItSolved()
+                vi.advanceTimersByTime(300)
+            }).not.toThrow()
+            vi.useRealTimers()
+        })
+    })
+
+    describe('template rendering', () => {
+        let realCodeSnippetService: any
+        let realCodeFixesService: any
+        let realChallengeService: any
+
+        beforeEach(async () => {
+            TestBed.resetTestingModule()
+            realCodeSnippetService = { get: vi.fn().mockReturnValue(of({ snippet: 'code', vulnLines: [1] })) }
+            realCodeFixesService = { get: vi.fn().mockReturnValue(of({ fixes: ['fix1', 'fix2'] })) }
+            realChallengeService = {
+                find: vi.fn().mockReturnValue(of([{ key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 0 }])),
+                continueCodeFindIt: vi.fn().mockReturnValue(of('code')),
+                continueCodeFixIt: vi.fn().mockReturnValue(of('code'))
+            }
+            await TestBed.configureTestingModule({
+                imports: [TranslateModule.forRoot(), CodingChallengePageComponent],
+                providers: [
+                    provideRouter([]),
+                    { provide: CodeSnippetService, useValue: realCodeSnippetService },
+                    { provide: CodeFixesService, useValue: realCodeFixesService },
+                    { provide: ChallengeService, useValue: realChallengeService },
+                    { provide: ActivatedRoute, useValue: { params: of({ challengeKey: 'testChallenge' }) } },
+                    { provide: CookieService, useValue: { put: vi.fn(), get: vi.fn(), hasKey: vi.fn().mockReturnValue(false) } },
+                    provideHttpClient(withInterceptorsFromDi()),
+                    provideHttpClientTesting()
+                ],
+                schemas: [CUSTOM_ELEMENTS_SCHEMA]
+            }).compileComponents()
+        })
+
+        it('should render back-to-score-board link, challenge title and find-it section', () => {
+            const fixture = TestBed.createComponent(CodingChallengePageComponent)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            const back = compiled.querySelector('a.back-button')
+            expect(back).not.toBeNull()
+            expect(back!.getAttribute('href')).toBe('/score-board')
+            expect(compiled.querySelector('h2')!.textContent).toContain('Test Challenge')
+            expect(compiled.querySelector('coding-challenge-find-it')).not.toBeNull()
+            expect(compiled.querySelector('.locked-section')).not.toBeNull()
+            expect(compiled.querySelector('coding-challenge-fix-it')).toBeNull()
+        })
+
+        it('should hide challenge title when no challenge is found', () => {
+            realChallengeService.find.mockReturnValue(of([{ key: 'other', name: 'Other', codingChallengeStatus: 0 }]))
+            const fixture = TestBed.createComponent(CodingChallengePageComponent)
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('h2')).toBeNull()
+        })
+
+        it('should render the loading spinner before data is loaded', () => {
+            realCodeSnippetService.get.mockReturnValue(new Subject())
+            realCodeFixesService.get.mockReturnValue(new Subject())
+            realChallengeService.find.mockReturnValue(new Subject())
+            const fixture = TestBed.createComponent(CodingChallengePageComponent)
+            fixture.detectChanges()
+            const spinner = (fixture.nativeElement as HTMLElement).querySelector('mat-spinner')
+            expect(spinner).not.toBeNull()
+            expect(spinner!.getAttribute('aria-label')).toBe('Loading challenge')
+            expect((fixture.nativeElement as HTMLElement).querySelector('coding-challenge-find-it')).toBeNull()
+        })
+
+        it('should render the fix-it section once findIt is solved and fixes are available', () => {
+            realChallengeService.find.mockReturnValue(of([{ key: 'testChallenge', name: 'Test Challenge', codingChallengeStatus: 1 }]))
+            const fixture = TestBed.createComponent(CodingChallengePageComponent)
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('coding-challenge-fix-it')).not.toBeNull()
+            expect(compiled.querySelector('.locked-section')).toBeNull()
+        })
+
+        it('should not render the find-it section when snippet load fails to produce a snippet', () => {
+            realCodeSnippetService.get.mockReturnValue(of(null))
+            const fixture = TestBed.createComponent(CodingChallengePageComponent)
+            fixture.detectChanges()
+            expect((fixture.nativeElement as HTMLElement).querySelector('coding-challenge-find-it')).toBeNull()
+            expect((fixture.nativeElement as HTMLElement).querySelector('.locked-section')).toBeNull()
         })
     })
 

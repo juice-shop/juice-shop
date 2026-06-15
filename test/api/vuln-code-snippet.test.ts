@@ -8,7 +8,7 @@ import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
 import * as http from 'http'
-import ioClient from 'socket.io-client'
+import { io as ioClient } from 'socket.io-client'
 import { createTestApp } from './helpers/setup'
 import registerWebsocketEvents from '../../lib/startup/registerWebsocketEvents'
 
@@ -121,5 +121,74 @@ void describe('snippets/verdict', () => {
     assert.equal(res.body.verdict, true)
 
     await websocketReceivedPromise
+  })
+
+  void it('POST with unknown challenge key returns 404', async () => {
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ selectedLines: [1], key: 'doesNotExistChallenge' })
+
+    assert.equal(res.status, 404)
+    assert.equal(res.body.error, 'No code challenge for challenge key: doesNotExistChallenge')
+  })
+
+  void it('POST without selectedLines returns false verdict', async () => {
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ key: 'loginBenderChallenge' })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.verdict, false)
+  })
+
+  void it('POST with empty selectedLines array returns false verdict', async () => {
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ selectedLines: [], key: 'loginJimChallenge' })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.verdict, false)
+  })
+})
+
+// these tests rely on sequential execution to build up the attempt count.
+void describe('snippets/verdict (hint progression for loginAdminChallenge)', () => {
+  void it('returns no hint on the first wrong attempt', async () => {
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ selectedLines: [999], key: 'loginAdminChallenge' })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.verdict, false)
+    assert.equal(res.body.hint, undefined)
+  })
+
+  void it('returns the first hint text on the second wrong attempt', async () => {
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ selectedLines: [999], key: 'loginAdminChallenge' })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.verdict, false)
+    assert.equal(typeof res.body.hint, 'string')
+    assert.match(res.body.hint, /Try to identify any variables/)
+  })
+
+  void it('returns a line-number hint after all text hints are exhausted', async () => {
+    // Exhaust the remaining 2 text hints (3 total, 1 already used above).
+    // getFindItAttempts must exceed hints.length (3), requiring a 5th wrong attempt.
+    for (let i = 0; i < 2; i++) {
+      await request(app)
+        .post('/snippets/verdict')
+        .send({ selectedLines: [999], key: 'loginAdminChallenge' })
+    }
+
+    const res = await request(app)
+      .post('/snippets/verdict')
+      .send({ selectedLines: [999], key: 'loginAdminChallenge' })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.verdict, false)
+    assert.match(res.body.hint, /Line 15 is responsible for this vulnerability/)
   })
 })

@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { of } from 'rxjs'
 import { ConfigurationService } from '../Services/configuration.service'
 import { TwoFactorAuthService } from '../Services/two-factor-auth-service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { QrCodeComponent } from 'ng-qrcode'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
@@ -37,6 +38,7 @@ describe('TwoFactorAuthComponent', () => {
     let fixture: ComponentFixture<TwoFactorAuthComponent>
     let twoFactorAuthService: any
     let configurationService: any
+    let snackBarHelperService: any
 
     beforeEach(async () => {
         twoFactorAuthService = {
@@ -48,7 +50,8 @@ describe('TwoFactorAuthComponent', () => {
         configurationService = {
             getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
         }
-        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} }))
+        configurationService.getApplicationConfiguration.mockReturnValue(of({ application: { name: 'OWASP Juice Shop' } }))
+        snackBarHelperService = { open: vi.fn().mockName('SnackBarHelperService.open') }
         TestBed.configureTestingModule({
             imports: [ReactiveFormsModule,
                 TranslateModule.forRoot(),
@@ -69,6 +72,7 @@ describe('TwoFactorAuthComponent', () => {
             providers: [
                 { provide: ConfigurationService, useValue: configurationService },
                 { provide: TwoFactorAuthService, useValue: twoFactorAuthService },
+                { provide: SnackBarHelperService, useValue: snackBarHelperService },
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting(),
                 provideZoneChangeDetection()
@@ -161,5 +165,86 @@ describe('TwoFactorAuthComponent', () => {
         expect(component.setupStatus).toBe(true)
         expect(component.errored).toBe(true)
         expect(component.twoFactorDisableForm.get('passwordControl').pristine).toBe(true)
+    })
+
+    it('should log when fetching 2FA status fails', () => {
+        twoFactorAuthService.status.mockReturnValue(throwError(new Error('boom')))
+        console.log = vi.fn()
+        component.updateStatus()
+        expect(console.log).toHaveBeenCalledWith('Failed to fetch 2fa status')
+    })
+
+    it('should open a confirmation snackbar after successful setup', () => {
+        twoFactorAuthService.setup.mockReturnValue(of({}))
+        component.setup()
+        expect(snackBarHelperService.open).toHaveBeenCalledWith('CONFIRM_2FA_SETUP')
+    })
+
+    it('should open a confirmation snackbar after successful disable', () => {
+        twoFactorAuthService.disable.mockReturnValue(of({}))
+        twoFactorAuthService.status.mockReturnValue(of({ setup: false, email: '', secret: '', setupToken: '' }))
+        component.disable()
+        expect(snackBarHelperService.open).toHaveBeenCalledWith('CONFIRM_2FA_DISABLE')
+    })
+
+    describe('template rendering', () => {
+        it('should render the disable form when 2FA is already set up', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: true, email: '', secret: '', setupToken: '' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('[id="2fa-setup-successfully"]')).toBeTruthy()
+            expect(compiled.querySelector('#two-factor-auth-disable')).toBeTruthy()
+            expect(compiled.querySelector('#two-factor-auth-setup')).toBeNull()
+        })
+
+        it('should render the setup form with QR code when 2FA is not set up', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: false, email: 'e', secret: 's', setupToken: 't' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('#two-factor-auth-setup')).toBeTruthy()
+            expect(compiled.querySelector('qr-code')).toBeTruthy()
+            expect(compiled.querySelector('#initialToken')).toBeTruthy()
+            expect(compiled.querySelector('#two-factor-auth-disable')).toBeNull()
+        })
+
+        it('should keep the setup submit button disabled while the setup form is invalid', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: false, email: 'e', secret: 's', setupToken: 't' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const btn = (fixture.nativeElement as HTMLElement).querySelector('#setupTwoFactorAuth') as HTMLButtonElement
+            expect(btn).toBeTruthy()
+            expect(btn.disabled).toBe(true)
+        })
+
+        it('should keep the disable button disabled while the disable form is invalid', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: true, email: '', secret: '', setupToken: '' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const btn = (fixture.nativeElement as HTMLElement).querySelector('#disableTwoFactorAuth') as HTMLButtonElement
+            expect(btn).toBeTruthy()
+            expect(btn.disabled).toBe(true)
+        })
+
+        it('should hide the setup-error message until errored is set and form is pristine', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: false, email: 'e', secret: 's', setupToken: 't' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const setupForm = (fixture.nativeElement as HTMLElement).querySelector('#two-factor-auth-setup')
+            const err = setupForm?.querySelector('.error') as HTMLElement
+            expect(err.hidden).toBe(true)
+            component.errored = true
+            fixture.detectChanges()
+            expect(err.hidden).toBe(false)
+        })
+
+        it('should expose the totpSecret to the initial token input via data attribute', () => {
+            twoFactorAuthService.status.mockReturnValue(of({ setup: false, email: 'e', secret: 'super-secret', setupToken: 't' }))
+            component.updateStatus()
+            fixture.detectChanges()
+            const input = (fixture.nativeElement as HTMLElement).querySelector('#initialToken') as HTMLInputElement
+            expect(input.getAttribute('data-test-totp-secret')).toBe('super-secret')
+        })
     })
 })

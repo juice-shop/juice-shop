@@ -1,6 +1,6 @@
 # App
 node_modules/
-juiceshop.sqlite
+*.sqlite
 order_*.pdf
 app/
 !frontend/src/app
@@ -67,3 +67,7 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Misc
+.playwright-mcp/
+cypress/screenshots/

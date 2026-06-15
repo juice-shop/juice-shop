@@ -11,11 +11,10 @@ import {
   ReactiveFormsModule
 } from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 
@@ -47,9 +46,8 @@ library.add(faSave, faEdit)
     MatButtonModule
   ]
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordComponent {
   private readonly userService = inject(UserService)
-  private readonly formSubmitService = inject(FormSubmitService)
   private readonly translate = inject(TranslateService)
 
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [
@@ -74,16 +72,6 @@ export class ChangePasswordComponent implements OnInit {
 
   public error: any
   public confirmation: any
-
-  ngOnInit (): void {
-    this.formSubmitService.attachEnterKeyHandler(
-      'password-form',
-      'changeButton',
-      () => {
-        this.changePassword()
-      }
-    )
-  }
 
   changePassword () {
     if (

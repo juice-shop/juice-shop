@@ -1,4 +1,4 @@
-import type { Product as ProductConfig } from '../../../lib/config.types'
+import type { Product as ProductConfig } from '../../../lib/config.schema'
 
 describe('/#/contact', () => {
   beforeEach(() => {

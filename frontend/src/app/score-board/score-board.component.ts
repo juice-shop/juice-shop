@@ -1,25 +1,25 @@
 import { Component, NgZone, type OnDestroy, type OnInit, inject } from '@angular/core'
+import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
+import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DomSanitizer } from '@angular/platform-browser'
-import { type Subscription, combineLatest, firstValueFrom } from 'rxjs'
+import { TranslateModule } from '@ngx-translate/core'
+import { NgClass } from '@angular/common'
 
+import { HintService } from '../Services/hint.service'
+import { sortChallenges } from './helpers/challenge-sorting'
+import { SocketIoService } from '../Services/socket-io.service'
+import { ChallengeService } from '../Services/challenge.service'
+import { filterChallenges } from './helpers/challenge-filtering'
+import { type EnrichedChallenge } from './types/EnrichedChallenge'
+import { type Config, ConfigurationService } from '../Services/configuration.service'
 import { fromQueryParams, toQueryParams } from './filter-settings/query-params-converters'
 import { DEFAULT_FILTER_SETTING, type FilterSetting } from './filter-settings/FilterSetting'
-import { type Config, ConfigurationService } from '../Services/configuration.service'
-import { ChallengeService } from '../Services/challenge.service'
-import { HintService } from '../Services/hint.service'
-import { filterChallenges } from './helpers/challenge-filtering'
-import { SocketIoService } from '../Services/socket-io.service'
-import { type EnrichedChallenge } from './types/EnrichedChallenge'
-import { sortChallenges } from './helpers/challenge-sorting'
-import { TranslateModule } from '@ngx-translate/core'
 import { ChallengeCardComponent } from './components/challenge-card/challenge-card.component'
-import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
-import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
-import { MatProgressSpinner } from '@angular/material/progress-spinner'
 import { FilterSettingsComponent } from './components/filter-settings/filter-settings.component'
-import { NgClass } from '@angular/common'
+import { TutorialModeWarningComponent } from './components/tutorial-mode-warning/tutorial-mode-warning.component'
 import { DifficultyOverviewScoreCardComponent } from './components/difficulty-overview-score-card/difficulty-overview-score-card.component'
+import { ChallengesUnavailableWarningComponent } from './components/challenges-unavailable-warning/challenges-unavailable-warning.component'
 import { CodingChallengeProgressScoreCardComponent } from './components/coding-challenge-progress-score-card/coding-challenge-progress-score-card.component'
 import { HackingChallengeProgressScoreCardComponent } from './components/hacking-challenge-progress-score-card/hacking-challenge-progress-score-card.component'
 
@@ -171,10 +171,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     this.router.navigate([], {
       queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
     })
-  }
-
-  openCodingChallengeDialog (challengeKey: string) {
-    this.router.navigate(['/coding-challenge', challengeKey])
   }
 
   async repeatChallengeNotification (challengeKey: string) {

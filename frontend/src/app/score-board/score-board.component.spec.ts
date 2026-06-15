@@ -19,6 +19,8 @@ import { ChallengeService } from '../Services/challenge.service'
 import { type Challenge } from '../Models/challenge.model'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HintService } from '../Services/hint.service'
+import { SocketIoService } from '../Services/socket-io.service'
+import { Router } from '@angular/router'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge(challengeOverwrites: Partial<Challenge>): Challenge {
@@ -176,5 +178,76 @@ describe('ScoreBoardComponent', () => {
         })
 
         expect(component.filteredChallenges.find((challenge) => challenge.key === 'challenge-2').codingChallengeStatus).toBe(2)
+    })
+
+    describe('socket payload handling', () => {
+        it('should ignore "challenge solved" websocket messages without a payload', (): void => {
+            const before = component.filteredChallenges.map(c => c.solved)
+            component.onChallengeSolvedWebsocket(undefined)
+            expect(component.filteredChallenges.map(c => c.solved)).toEqual(before)
+        })
+
+        it('should ignore "code challenge solved" websocket messages without a payload', (): void => {
+            const before = component.filteredChallenges.map(c => c.codingChallengeStatus)
+            component.onCodeChallengeSolvedWebsocket(undefined)
+            expect(component.filteredChallenges.map(c => c.codingChallengeStatus)).toEqual(before)
+        })
+    })
+
+    describe('filter settings and reset', () => {
+        it('should navigate with the converted query params when filter settings are updated', () => {
+            const router = TestBed.inject(Router)
+            const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true)
+            component.onFilterSettingUpdate({ ...component.filterSetting, searchQuery: 'apple' })
+            expect(navSpy).toHaveBeenCalled()
+            const passed = navSpy.mock.calls[0][1]
+            expect(passed.queryParams).toBeDefined()
+        })
+
+        it('should navigate to the default filter settings on reset', () => {
+            const router = TestBed.inject(Router)
+            const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true)
+            component.reset()
+            expect(navSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe('repeatChallengeNotification', () => {
+        it('should request the backend to repeat the notification for the matching challenge', async () => {
+            challengeService.repeatNotification = vi.fn().mockReturnValue(of('ok'))
+            await component.repeatChallengeNotification('challenge-2')
+            expect(challengeService.repeatNotification).toHaveBeenCalledWith(encodeURIComponent('Challenge 2'))
+        })
+    })
+
+    describe('unlockHint', () => {
+        it('should re-run ngOnInit and remember the unlocked challenge key on success', () => {
+            hintService.put.mockReturnValue(of({}))
+            const spy = vi.spyOn(component, 'ngOnInit')
+            component.unlockHint(7, 'challenge-3')
+            expect(component.lastUnlockedChallengeKey).toBe('challenge-3')
+            expect(spy).toHaveBeenCalled()
+        })
+
+        it('should clear the last unlocked challenge key when no key is provided', () => {
+            hintService.put.mockReturnValue(of({}))
+            component.lastUnlockedChallengeKey = 'previous'
+            component.unlockHint(7)
+            expect(component.lastUnlockedChallengeKey).toBeNull()
+        })
+    })
+
+    describe('ngOnDestroy', () => {
+        it('should unsubscribe data and route subscriptions and detach socket handlers', () => {
+            const socket = { off: vi.fn() }
+            const ioService = TestBed.inject(SocketIoService) as any
+            // SocketIoService may not be provided as mock; guard:
+            if (ioService && ioService.socket) {
+                vi.spyOn(ioService, 'socket').mockReturnValue(socket as any)
+            }
+            const spies = (component as any).subscriptions.map((s: any) => vi.spyOn(s, 'unsubscribe'))
+            component.ngOnDestroy()
+            spies.forEach((spy: any) => expect(spy).toHaveBeenCalled())
+        })
     })
 })

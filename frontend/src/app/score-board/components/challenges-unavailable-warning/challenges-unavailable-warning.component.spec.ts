@@ -8,6 +8,27 @@ describe('ChallengesUnavailableWarningComponent', () => {
     let component: ChallengesUnavailableWarningComponent
     let fixture: ComponentFixture<ChallengesUnavailableWarningComponent>
 
+    const defaultChallenges = [
+        {
+            category: 'foobar',
+            name: 'my name',
+            mitigationUrl: 'https://owasp.example.com',
+            hasCodingChallenge: true,
+            description: 'lorem ipsum',
+            tagList: ['Easy'],
+            disabledEnv: 'Docker'
+        },
+        {
+            category: 'foobar',
+            name: 'my name two',
+            mitigationUrl: 'https://owasp.example.com',
+            hasCodingChallenge: true,
+            description: 'lorem ipsum',
+            tagList: ['Easy'],
+            disabledEnv: null
+        }
+    ] as any
+
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(), ChallengesUnavailableWarningComponent]
@@ -17,41 +38,19 @@ describe('ChallengesUnavailableWarningComponent', () => {
         fixture = TestBed.createComponent(ChallengesUnavailableWarningComponent)
         component = fixture.componentInstance
 
-        component.challenges = [
-            {
-                category: 'foobar',
-                name: 'my name',
-                mitigationUrl: 'https://owasp.example.com',
-                hasCodingChallenge: true,
-                description: 'lorem ipsum',
-                tagList: ['Easy'],
-                disabledEnv: 'Docker'
-            },
-            {
-                category: 'foobar',
-                name: 'my name two',
-                mitigationUrl: 'https://owasp.example.com',
-                hasCodingChallenge: true,
-                description: 'lorem ipsum',
-                tagList: ['Easy'],
-                disabledEnv: null
-            }
-        ] as any
-
-        component.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
+        fixture.componentRef.setInput('challenges', defaultChallenges)
+        fixture.componentRef.setInput('filterSetting', structuredClone(DEFAULT_FILTER_SETTING))
 
         fixture.detectChanges()
     })
 
     it('should properly calculate number of disabled challenges when there is one out of two', () => {
-        component.ngOnChanges()
-
-        expect(component.numberOfDisabledChallenges).toBe(1)
-        expect(component.disabledBecauseOfEnv).toBe('Docker')
+        expect(component.numberOfDisabledChallenges()).toBe(1)
+        expect(component.disabledBecauseOfEnv()).toBe('Docker')
     })
 
     it('should properly calculate number of disabled challenges when there are none', () => {
-        component.challenges = [
+        fixture.componentRef.setInput('challenges', [
             {
                 category: 'foobar',
                 name: 'my name',
@@ -61,16 +60,14 @@ describe('ChallengesUnavailableWarningComponent', () => {
                 tagList: ['Easy'],
                 disabledEnv: null
             }
-        ] as any
+        ])
 
-        component.ngOnChanges()
-
-        expect(component.numberOfDisabledChallenges).toBe(0)
-        expect(component.disabledBecauseOfEnv).toBeNull()
+        expect(component.numberOfDisabledChallenges()).toBe(0)
+        expect(component.disabledBecauseOfEnv()).toBeNull()
     })
 
     it('should properly calculate number of disabled challenges when there are multiple of different type', () => {
-        component.challenges = [
+        fixture.componentRef.setInput('challenges', [
             {
                 category: 'foobar',
                 name: 'my name',
@@ -89,21 +86,19 @@ describe('ChallengesUnavailableWarningComponent', () => {
                 tagList: ['Easy'],
                 disabledEnv: 'Windows'
             }
-        ] as any
+        ])
 
-        component.ngOnChanges()
-
-        expect(component.numberOfDisabledChallenges).toBe(2)
-        expect(component.disabledBecauseOfEnv).toBe('Docker')
-        expect(component.disabledOnWindows).toBe(true)
-        expect(component.numberOfDisabledChallengesOnWindows).toBe(1)
+        expect(component.numberOfDisabledChallenges()).toBe(2)
+        expect(component.disabledBecauseOfEnv()).toBe('Docker')
+        expect(component.disabledOnWindows()).toBe(true)
+        expect(component.numberOfDisabledChallengesOnWindows()).toBe(1)
     })
 
     it('should toggle via filter if disabled challenges are shown', () => {
-        expect(component.filterSetting.showDisabledChallenges).toBe(true)
+        expect(component.filterSetting().showDisabledChallenges).toBe(true)
 
         component.toggleShowDisabledChallenges()
 
-        expect(component.filterSetting.showDisabledChallenges).toBe(false)
+        expect(component.filterSetting().showDisabledChallenges).toBe(false)
     })
 })

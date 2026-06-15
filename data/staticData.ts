@@ -2,7 +2,7 @@ import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { safeLoad } from 'js-yaml'
 import logger from '../lib/logger'
-import { type ChallengeKey } from 'models/challenge'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 export async function loadStaticData (file: string) {
   const filePath = path.resolve('./data/static/' + file + '.yml')

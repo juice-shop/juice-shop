@@ -8,7 +8,7 @@
     <div class="mdc-card">
       <h1>{{ 'ADD_NEW_ADDRESS' | translate }}</h1>
 
-      <div class="form-container" id="address-form">
+      <form class="form-container" id="address-form" (ngSubmit)="save()">
         <mat-form-field appearance="outline" color="tertiary">
           <mat-label>{{ 'LABEL_COUNTRY' | translate }}</mat-label>
           <input [formControl]="countryControl" type="text" [placeholder]="'MANDATORY_COUNTRY' | translate" matInput>
@@ -38,10 +38,8 @@
             </mat-error>
           }
           @if (numberControl.invalid && (numberControl.errors.min || numberControl.errors.max)) {
-            <mat-error
-              [translateParams]="{range: '1000000-9999999999'}"
-              >
-              {{ 'INVALID_MOBILE_NUMBER' | translate }}
+            <mat-error>
+              {{ 'INVALID_MOBILE_NUMBER' | translate: { range: '1000000-9999999999' } }}
             </mat-error>
           }
         </mat-form-field>
@@ -97,10 +95,9 @@
           <mat-label>{{ 'LABEL_STATE' | translate }}</mat-label>
           <input [formControl]="stateControl" type="text" [placeholder]="'STATE_PLACEHOLDER' | translate" matInput>
         </mat-form-field>
-      </div>
 
       <div class="actions">
-        <button mat-stroked-button class="btn-return" (click)="routeToPreviousUrl()">
+        <button type="button" mat-stroked-button class="btn-return" (click)="routeToPreviousUrl()">
           <mat-icon>navigate_before</mat-icon>
           {{ 'LABEL_BACK' | translate }}
         </button>
@@ -111,12 +108,12 @@
           mat-raised-button
           color="primary"
           [disabled]="countryControl.invalid || nameControl.invalid || numberControl.invalid || pinControl.invalid || addressControl.invalid || cityControl.invalid"
-          (click)="save()"
           >
           <mat-icon>send</mat-icon>
           {{ 'BTN_SUBMIT' | translate }}
         </button>
       </div>
+      </form>
     </div>
   </mat-card>
 </div>
