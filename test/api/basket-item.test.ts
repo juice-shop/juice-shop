@@ -72,6 +72,23 @@ void describe('/api/BasketItems', () => {
     assert.equal(res.status, 400)
     assert.equal(res.body.error, 'You can order only up to 5 items of this product.')
   })
+
+  void it('POST new basket item with invalid basket ID is forbidden', async () => {
+    const res = await request(app)
+      .post('/api/BasketItems')
+      .set(authHeader)
+      .send({ BasketId: 42, ProductId: 1, quantity: 1 })
+    assert.equal(res.status, 401)
+    assert.equal(res.text, "{'error' : 'Invalid BasketId'}")
+  })
+
+  void it('POST new basket item with non-existent product ID is forbidden', async () => {
+    const res = await request(app)
+      .post('/api/BasketItems')
+      .set(authHeader)
+      .send({ BasketId: 2, ProductId: 999, quantity: 1 })
+    assert.equal(res.status, 500) // quantityCheck throws Error which is caught and passed to next(error)
+  })
 })
 
 void describe('/api/BasketItems/:id', () => {
@@ -209,5 +226,13 @@ void describe('/api/BasketItems/:id', () => {
       .delete('/api/BasketItems/' + createRes.body.data.id)
       .set(authHeader)
     assert.equal(res.status, 200)
+  })
+
+  void it('PUT update non-existent basket item', async () => {
+    const res = await request(app)
+      .put('/api/BasketItems/999')
+      .set(authHeader)
+      .send({ quantity: 1 })
+    assert.equal(res.status, 500)
   })
 })
