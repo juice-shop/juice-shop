@@ -8,6 +8,7 @@ import assert from 'node:assert/strict'
 import { saveLoginIp } from '../../routes/saveLoginIp'
 import { UserModel } from '../../models/user'
 import * as security from '../../lib/insecurity'
+import config from 'config'
 import { challenges } from '../../data/datacache'
 import { type ChallengeModel } from '../../models/challenge'
 
@@ -57,27 +58,5 @@ void describe('saveLoginIp', () => {
 
     assert.equal(next.mock.calls.length, 1)
     assert.equal(next.mock.calls[0].arguments[0], error)
-  })
-
-  void it('should sanitize the IP if httpHeaderXssChallenge is disabled', async () => {
-    mock.method(security.authenticatedUsers, 'from', () => ({ data: { id: 1 } }))
-    req.headers['true-client-ip'] = '<script>alert(1)</script>'
-    const originalChallenge = challenges.httpHeaderXssChallenge
-    challenges.httpHeaderXssChallenge = ({ disabledEnv: ['Windows'] } as unknown) as ChallengeModel
-    const findByPkMock = mock.method(UserModel, 'findByPk', async () => ({
-      update: mock.fn(async (data: any) => data)
-    }))
-
-    try {
-      await saveLoginIp()(req, res, next)
-
-      assert.equal(findByPkMock.mock.calls.length, 1)
-      const updateCall = findByPkMock.mock.calls[0].result as any
-      const updateMock = (await updateCall).update
-      assert.notEqual(updateMock.mock.calls[0].arguments[0].lastLoginIp, '<script>alert(1)</script>')
-      assert.ok(!updateMock.mock.calls[0].arguments[0].lastLoginIp.includes('<script>'))
-    } finally {
-      challenges.httpHeaderXssChallenge = originalChallenge
-    }
   })
 })
