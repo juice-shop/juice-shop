@@ -302,4 +302,45 @@ void describe('verify', () => {
       assert.equal(challenges.jwtForgedChallenge.solved, false)
     })
   })
+
+  void describe('diceCoefficient', () => {
+    void it('should return 1 for identical strings', () => {
+      assert.equal(verify.diceCoefficient('abc', 'abc'), 1)
+    })
+
+    void it('should return 1 for identical strings even if they are short', () => {
+      assert.equal(verify.diceCoefficient('a', 'a'), 1)
+    })
+
+    void it('should return 0 for different strings if at least one is less than 2 characters', () => {
+      assert.equal(verify.diceCoefficient('a', 'b'), 0)
+      assert.equal(verify.diceCoefficient('a', 'abc'), 0)
+    })
+
+    void it('should return 0 for completely different strings', () => {
+      assert.equal(verify.diceCoefficient('abc', 'def'), 0)
+    })
+
+    void it('should return correct coefficient for partially overlapping strings', () => {
+      // 'night' bigrams: ni, ig, gh, ht
+      // 'nacht' bigrams: na, ac, ch, ht
+      // intersection: ht (1)
+      // score: 2 * 1 / (5 + 5 - 2) = 0.25
+      assert.equal(verify.diceCoefficient('night', 'nacht'), 0.25)
+    })
+  })
+
+  void describe('checkSystemPromptSimilarity', () => {
+    void it('should return true if similarity is above threshold', () => {
+      const s1 = 'This is a test'
+      const s2 = 'This is a test'
+      assert.ok(verify.checkSystemPromptSimilarity(s1, s2))
+    })
+
+    void it('should return false if similarity is below threshold', () => {
+      const s1 = 'This is a test'
+      const s2 = 'Something completely different'
+      assert.ok(!verify.checkSystemPromptSimilarity(s1, s2, 0.9))
+    })
+  })
 })
