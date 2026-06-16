@@ -94,6 +94,44 @@ void describe('/rest/2fa/verify', () => {
 
     assert.equal(res.status, 401)
   })
+
+  void it('POST should fail if the token type is invalid', async () => {
+    const tmpTokenWurstbrot = security.authorize({
+      userId: 10,
+      type: 'invalid_token_type'
+    })
+
+    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+
+    const res = await request(app)
+      .post('/rest/2fa/verify')
+      .set(jsonHeader)
+      .send({
+        tmpToken: tmpTokenWurstbrot,
+        totpToken
+      })
+
+    assert.equal(res.status, 401)
+  })
+
+  void it('POST should fail if the user doesn\'t exist', async () => {
+    const tmpTokenWurstbrot = security.authorize({
+      userId: 999,
+      type: 'password_valid_needs_second_factor_token'
+    })
+
+    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+
+    const res = await request(app)
+      .post('/rest/2fa/verify')
+      .set(jsonHeader)
+      .send({
+        tmpToken: tmpTokenWurstbrot,
+        totpToken
+      })
+
+    assert.equal(res.status, 401)
+  })
 })
 
 void describe('/rest/2fa/status', () => {
@@ -272,6 +310,39 @@ void describe('/rest/2fa/setup', () => {
 
     assert.equal(res.status, 401)
   })
+
+  void it('POST should fail if the user doesn\'t exist', async () => {
+    const email = 'nonexistent@bar.com'
+    const password = '123456'
+    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+
+    const token = security.authorize({
+      data: {
+        id: 999,
+        email,
+        password: security.hash(password),
+        totpSecret: ''
+      }
+    })
+    security.authenticatedUsers.put(token, (security.decode(token) as any))
+
+    const res = await request(app)
+      .post('/rest/2fa/setup')
+      .set({
+        Authorization: 'Bearer ' + token,
+        'content-type': 'application/json'
+      })
+      .send({
+        password,
+        setupToken: security.authorize({
+          secret,
+          type: 'totp_setup_secret'
+        }),
+        initialToken: generateSync({ secret })
+      })
+
+    assert.equal(res.status, 401)
+  })
 })
 
 void describe('/rest/2fa/disable', () => {
@@ -327,5 +398,30 @@ void describe('/rest/2fa/disable', () => {
     const statusRes2 = await getStatus(token)
     assert.equal(statusRes2.status, 200)
     assert.equal(statusRes2.body.setup, true)
+  })
+
+  void it('POST should fail if the user doesn\'t exist', async () => {
+    const email = 'nonexistent-disable@bar.com'
+    const password = '123456'
+
+    const token = security.authorize({
+      data: {
+        id: 998,
+        email,
+        password: security.hash(password),
+        totpSecret: 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+      }
+    })
+    security.authenticatedUsers.put(token, (security.decode(token) as any))
+
+    const res = await request(app)
+      .post('/rest/2fa/disable')
+      .set({
+        Authorization: 'Bearer ' + token,
+        'content-type': 'application/json'
+      })
+      .send({ password })
+
+    assert.equal(res.status, 401)
   })
 })
