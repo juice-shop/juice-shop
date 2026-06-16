@@ -328,6 +328,8 @@
   category: 'Sensitive Data Exposure'
   description: 'Perform an unwanted information disclosure by accessing data cross-domain.'
   difficulty: 5
+  tags:
+    - Setup Dependent
   hints:
     - 'Try to find and attack an endpoint that responds with user information. SQL Injection is not the solution here.'
     - 'What ways are there to access data from a web application cross-domain?'
@@ -1378,6 +1380,8 @@
   category: 'Broken Access Control'
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
+  tags:
+    - Setup Dependent
   hints:
     - 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
     - 'Take a look at what happens when you change the username within the profile page.'
