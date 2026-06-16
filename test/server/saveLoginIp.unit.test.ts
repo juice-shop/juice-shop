@@ -8,9 +8,6 @@ import assert from 'node:assert/strict'
 import { saveLoginIp } from '../../routes/saveLoginIp'
 import { UserModel } from '../../models/user'
 import * as security from '../../lib/insecurity'
-import config from 'config'
-import { challenges } from '../../data/datacache'
-import { type ChallengeModel } from '../../models/challenge'
 
 void describe('saveLoginIp', () => {
   let req: any
