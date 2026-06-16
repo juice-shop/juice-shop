@@ -21,7 +21,7 @@ import { type Review } from '../data/types'
 import logger from '../lib/logger'
 import { Counter } from 'prom-client'
 
-function summarizeLlmError (error: unknown): string {
+export function summarizeLlmError (error: unknown): string {
   if (!(error instanceof Error)) {
     return String(error).split('\n')[0]
   }
@@ -39,14 +39,14 @@ function summarizeLlmError (error: unknown): string {
 const botName = config.get<string>('application.chatBot.name')
 const appName = config.get<string>('application.name')
 
-async function getUserId (req: Request): Promise<number | undefined> {
+export async function getUserId (req: Request): Promise<number | undefined> {
   const token = utils.jwtFrom(req)
   if (!token) return undefined
   const decoded = security.decode(token) as { data?: { id?: number } } | undefined
   return decoded?.data?.id
 }
 
-async function getUserNameFromToken (req: Request): Promise<string | undefined> {
+export async function getUserNameFromToken (req: Request): Promise<string | undefined> {
   const userId = await getUserId(req)
   if (!userId) return undefined
   const user = await UserModel.findByPk(userId, { attributes: ['username'] })

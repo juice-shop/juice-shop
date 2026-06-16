@@ -8,6 +8,8 @@ import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
 import { createTestApp } from './helpers/setup'
+import * as challengeUtils from '../../lib/challengeUtils'
+import { challenges } from '../../data/datacache'
 
 let app: Express
 
@@ -32,6 +34,7 @@ void describe('/rest/repeat-notification', () => {
   })
 
   void it('GET triggers repeating notification passing a solved challenge', async () => {
+    challengeUtils.solveIf(challenges.errorHandlingChallenge, () => true)
     const res = await request(app)
       .get('/rest/repeat-notification?challenge=Error%20Handling')
 

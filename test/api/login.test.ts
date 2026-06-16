@@ -258,7 +258,7 @@ void describe('/rest/saveLoginIp', () => {
     assert.equal(res.body.lastLoginIp, '1.2.3.4')
   })
 
-  void it('GET last login IP will be saved as remote IP when True-Client-IP is not present', { skip: 'FIXME Started to fail regularly on CI under Linux' }, async () => {
+  void it('GET last login IP will be saved as remote IP when True-Client-IP is not present', async () => {
     const loginRes = await request(app)
       .post('/rest/user/login')
       .set({ 'content-type': 'application/json' })
@@ -277,5 +277,11 @@ void describe('/rest/saveLoginIp', () => {
 
     assert.equal(res.status, 200)
     assert.equal(res.body.lastLoginIp, '127.0.0.1')
+  })
+
+  void it('GET last login IP returns 401 Unauthorized when no token is provided', async () => {
+    const res = await request(app).get('/rest/saveLoginIp')
+
+    assert.equal(res.status, 401)
   })
 })

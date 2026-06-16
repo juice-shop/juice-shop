@@ -8,6 +8,7 @@ import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
 import { createTestApp } from './helpers/setup'
+import { WalletModel } from '../../models/wallet'
 import { login } from './helpers/auth'
 
 let app: Express
@@ -72,5 +73,25 @@ void describe('/api/Wallets', () => {
       .set(authHeader)
       .send({ balance: 10 })
     assert.equal(res.status, 402)
+  })
+  void it('GET wallet balance for user without a wallet returns 404', async () => {
+    const email = `newuser${Date.now()}@juice-sh.op`
+    const userRes = await request(app)
+      .post('/api/Users')
+      .send({ email, password: 'password', passwordRepeat: 'password', securityQuestion: { id: 1 }, securityAnswer: 'answer' })
+    const userId = userRes.body.data.id
+
+    const loginRes = await request(app)
+      .post('/rest/user/login')
+      .send({ email, password: 'password' })
+
+    await WalletModel.destroy({ where: { UserId: userId } })
+
+    const res = await request(app)
+      .get('/rest/wallet/balance')
+      .set({ Authorization: 'Bearer ' + loginRes.body.authentication.token })
+
+    assert.equal(res.status, 404)
+    assert.equal(res.body.status, 'error')
   })
 })
