@@ -365,7 +365,7 @@
   "BTN_RESTORE_BACKUP": "Restabilește copia de siguranță",
   "RESTORE_BACKUP_TOOLTIP": "Restabiliți din fișier progresul provocării și setările aplicației.",
   "TAG_DANGER_ZONE": "Zonă de pericol",
-  "TAG_DANGER_ZONE_DESCRIPTION": "Marchează provocările potențial periculoase, care sunt dezactivate pe Docker/Heroku/Gitpod din cauza RCE sau a altor riscuri.",
+  "TAG_DANGER_ZONE_DESCRIPTION": "Marchează provocările potențial periculoase, care sunt dezactivate pe Docker/Heroku din cauza RCE sau a altor riscuri.",
   "TAG_GOOD_FOR_DEMOS": "Bun pentru demos",
   "TAG_GOOD_FOR_DEMOS_DESCRIPTION": "Evidențiază provocări care sunt adecvate pentru demonstrații live sau cursuri introducătoare.",
   "TAG_PREREQUISITE": "Cerințe",
