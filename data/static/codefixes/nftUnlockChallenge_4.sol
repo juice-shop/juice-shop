@@ -12,20 +12,22 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("JuiceShopSBT", "JS") {}
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    // VULNERABILITY: Flawed verification logic. Ensuring a caller mints to themselves doesn't stop unauthorized users from minting tokens!
+    function safeMint(address to, string memory uri) public {
+        require(to == msg.sender, "Err: Chosen address mismatch");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-    }
+    }  
 
     function _beforeTokenTransfer(
-    address from,
-    address to,
-    uint256 tokenId
+        address from,
+        address to,
+        uint256 tokenId
     ) internal override virtual {
-    require(from == address(0), "Err: token transfer is BLOCKED");
-    super._beforeTokenTransfer(from, to, tokenId);
+        require(from == address(0), "Err: token transfer is BLOCKED");
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 
     function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
