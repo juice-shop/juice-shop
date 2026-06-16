@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'Incorrect. Removing the onlyOwner modifier entirely allows any arbitrary user to mint official Soulbound Tokens.'
   - id: 2
-    explanation: 'Correct!'
+    explanation: 'Correct! Keeping strict administrative onlyOwner restriction on safeMint and enforcing require(from == address(0)) inside _beforeTokenTransfer ensures only the contract owner can issue non-transferable Soulbound Tokens.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'Incorrect. Removing the require(from == address(0)) restriction inside _beforeTokenTransfer allows users to transfer or trade their tokens, which violates the core concept of a Soulbound Token.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'Incorrect. While requiring to == msg.sender ensures a caller can only mint to their own address, it still allows any unauthorized user to mint arbitrary official Soulbound Tokens.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'A Soulbound Token (SBT) should be non-transferable and only issued by authorized administrative entities.'
+  - 'Look at the access modifiers on the minting function. Who should have the authority to mint official tokens?'
+  - 'Examine how transfers are restricted in the hook _beforeTokenTransfer.'
