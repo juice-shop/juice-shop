@@ -12,12 +12,14 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("JuiceShopSBT", "JS") {}
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri) public {
+        // Broken: Weak destination validation that doesn't verify caller identity
+        require(to == msg.sender, "Err: Chosen address mismatch");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
-    }
+    }  
 
     function _beforeTokenTransfer(
     address from,
