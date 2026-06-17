@@ -46,9 +46,13 @@ export function placeOrder () {
 
           fileWriter.on('finish', () => {
             void (async () => {
-              void basket.update({ coupon: null })
-              await BasketItemModel.destroy({ where: { BasketId: id } })
-              res.json({ orderConfirmation: orderId })
+              try {
+                void basket.update({ coupon: null })
+                await BasketItemModel.destroy({ where: { BasketId: id } })
+                res.json({ orderConfirmation: orderId })
+              } catch (error: unknown) {
+                next(error)
+              }
             })()
           })
 
@@ -171,6 +175,8 @@ export function placeOrder () {
             eta: deliveryMethod.eta.toString()
           }).then(() => {
             doc.end()
+          }).catch((error: unknown) => {
+            next(error)
           })
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
