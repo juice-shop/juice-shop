@@ -1,0 +1,105 @@
+name: Claude Security Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  security-gate:
+    name: Claude GHAS Security Gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: read  # required to query GHAS alerts
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait for CodeQL to complete
+        uses: lewagon/wait-on-check-action@v1.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-name: 'CodeQL'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 30
+          allowed-conclusions: success,failure
+
+      - name: Fetch GHAS alerts for this PR branch
+        id: ghas
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          REPO="${{ github.repository }}"
+
+          # Fetch open Critical and High alerts on this branch
+          gh api \
+            "repos/${REPO}/code-scanning/alerts?ref=${BRANCH}&state=open&per_page=100" \
+            > /tmp/all-alerts.json
+
+          # Summarise counts by severity for the prompt
+          echo "CRITICAL=$(jq '[.[] | select(.rule.security_severity_level=="critical")] | length' /tmp/all-alerts.json)" >> $GITHUB_OUTPUT
+          echo "HIGH=$(jq '[.[] | select(.rule.security_severity_level=="high")] | length' /tmp/all-alerts.json)" >> $GITHUB_OUTPUT
+          echo "MEDIUM=$(jq '[.[] | select(.rule.security_severity_level=="medium")] | length' /tmp/all-alerts.json)" >> $GITHUB_OUTPUT
+          echo "LOW=$(jq '[.[] | select(.rule.security_severity_level=="low")] | length' /tmp/all-alerts.json)" >> $GITHUB_OUTPUT
+
+          # Write a compact findings file for Claude to read
+          jq '[.[] | {
+            id: .number,
+            rule: .rule.id,
+            name: .rule.name,
+            severity: .rule.security_severity_level,
+            description: .rule.full_description,
+            file: .most_recent_instance.location.path,
+            start_line: .most_recent_instance.location.start_line,
+            cwe: .rule.tags,
+            dismissed: (.dismissed_reason // "not dismissed"),
+            alert_url: .html_url
+          }]' /tmp/all-alerts.json > /tmp/ghas-findings.json
+
+          echo "Findings summary: Critical=${{ steps.ghas.outputs.CRITICAL }} High=${{ steps.ghas.outputs.HIGH }}"
+
+      - name: Run Claude security gate
+        uses: anthropics/claude-code-action@v1
+        env:
+          GHAS_CRITICAL: ${{ steps.ghas.outputs.CRITICAL }}
+          GHAS_HIGH: ${{ steps.ghas.outputs.HIGH }}
+          GHAS_MEDIUM: ${{ steps.ghas.outputs.MEDIUM }}
+          GHAS_LOW: ${{ steps.ghas.outputs.LOW }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are a security gate for this pull request on ${{ github.repository }}.
+
+            ## Your task
+            Review the GHAS code scanning findings on branch
+            `${{ github.event.pull_request.head.ref }}` and apply the security
+            policy defined in CLAUDE.md to determine whether this PR should be
+            APPROVED or BLOCKED.
+
+            ## Findings summary
+            - Critical: ${{ steps.ghas.outputs.CRITICAL }}
+            - High:     ${{ steps.ghas.outputs.HIGH }}
+            - Medium:   ${{ steps.ghas.outputs.MEDIUM }}
+            - Low:      ${{ steps.ghas.outputs.LOW }}
+
+            ## Full findings
+            Read the file /tmp/ghas-findings.json for the complete alert list.
+
+            ## Instructions
+            1. Group findings by severity and CWE category.
+            2. For each Critical and High finding, note the file, line, rule
+               name, and a brief plain-English description of the risk.
+            3. Apply the gate policy from CLAUDE.md.
+            4. Post a structured PR comment (use markdown) with:
+               - A clear BLOCKED or APPROVED verdict at the top
+               - A findings table (severity | rule | file:line | risk summary)
+               - A "What to fix" section for any blocking findings
+               - A "Warnings" section for Medium/Low findings
+            5. If the verdict is BLOCKED, exit with a non-zero status code so
+               the check fails and merge is prevented.
+            6. If the verdict is APPROVED, exit 0.
