@@ -3,7 +3,7 @@ name: Claude Security Gate
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    branches: [main]
+    branches: [master, main]
 
 jobs:
   security-gate:
