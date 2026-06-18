@@ -1,0 +1,103 @@
+name: Semgrep-SonarQube-POC
+
+on:
+push:
+branches: [main]
+workflow_dispatch:
+
+env:
+SONAR_PROJECT_KEY: juice-shop
+SONAR_PROJECT_NAME: juiceShop
+SONAR_URL: ${{ secrets.SONAR_URL }}
+DEFECTDOJO_URL: ${{ secrets.DEFECTDOJO_URL }}
+DEFECTDOJO_ENGAGEMENT_ID: 3
+
+jobs:
+sast-pipeline:
+runs-on: self-hosted
+
+```
+steps:
+  - name: Checkout Repository
+    uses: actions/checkout@v4
+
+  - name: Setup Java
+    uses: actions/setup-java@v4
+    with:
+      java-version: '21'
+      distribution: 'temurin'
+
+  - name: Add SonarScanner to PATH
+    run: echo "/opt/sonar-scanner/bin" >> $GITHUB_PATH
+
+  # --------------------------
+  # SonarQube Analysis
+  # --------------------------
+  - name: Run SonarQube Scan
+    run: |
+      sonar-scanner \
+        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+        -Dsonar.projectName=${SONAR_PROJECT_NAME} \
+        -Dsonar.sources=. \
+        -Dsonar.host.url=${SONAR_URL} \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+  # --------------------------
+  # Export Sonar Vulnerabilities
+  # --------------------------
+  - name: Export Sonar Vulnerabilities
+    run: |
+      curl -s -u "${{ secrets.SONAR_TOKEN }}:" \
+        "${SONAR_URL}/api/issues/search?componentKeys=${SONAR_PROJECT_KEY}&types=VULNERABILITY&ps=500" \
+        -o sonar-vulnerabilities.json
+
+  # --------------------------
+  # Semgrep Scan
+  # --------------------------
+  - name: Run Semgrep
+    run: |
+      ~/.local/bin/semgrep scan \
+        --config p/owasp-top-ten \
+        --config p/security-audit \
+        --json \
+        --output semgrep-report.json || true
+
+  # --------------------------
+  # Import SonarQube Results
+  # --------------------------
+  - name: Import SonarQube to DefectDojo
+    run: |
+      curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
+        -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_TOKEN }}" \
+        -F "scan_type=SonarQube Scan" \
+        -F "engagement=${DEFECTDOJO_ENGAGEMENT_ID}" \
+        -F "test_title=SonarQube - ${{ github.ref_name }}" \
+        -F "file=@sonar-vulnerabilities.json" \
+        -F "active=true" \
+        -F "verified=true"
+
+  # --------------------------
+  # Import Semgrep Results
+  # --------------------------
+  - name: Import Semgrep to DefectDojo
+    run: |
+      curl -X POST "${DEFECTDOJO_URL}/api/v2/import-scan/" \
+        -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_TOKEN }}" \
+        -F "scan_type=Semgrep JSON Report" \
+        -F "engagement=${DEFECTDOJO_ENGAGEMENT_ID}" \
+        -F "test_title=Semgrep - ${{ github.ref_name }}" \
+        -F "file=@semgrep-report.json" \
+        -F "active=true" \
+        -F "verified=true"
+
+  # --------------------------
+  # Upload Artifacts
+  # --------------------------
+  - name: Upload Reports
+    uses: actions/upload-artifact@v4
+    with:
+      name: sast-reports
+      path: |
+        sonar-vulnerabilities.json
+        semgrep-report.json
+```
