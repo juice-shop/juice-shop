@@ -191,7 +191,7 @@
   "Retrieve a list of all user credentials via SQL Injection.": "Retrieve a list of all user credentials via SQL Injection.",
   "Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.": "Embed an XSS payload <code>&lt;/script&gt;&lt;script&gt;alert(`xss`)&lt;/script&gt;</code> into our promo video.",
   "View another user's shopping basket.": "View another user's shopping basket.",
-  "<a href=\"/#/contact\">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)": "<a href=\"/#/contact\">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)",
+  "<a href=\"/#/contact\">Inform the shop</a> about a high-severity vulnerability caused by one of its directly used dependencies. (Mention the exact library name and version in your comment)": "<a href=\"/#/contact\">Inform the shop</a> about a high-severity vulnerability caused by one of its directly used dependencies. (Mention the exact library name and version in your comment)",
   "<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.": "<a href=\"/#/contact\">Inform the shop</a> about an algorithm or library it should definitely not use the way it does.",
   "Enforce a redirect to a page you are not supposed to redirect to.": "Enforce a redirect to a page you are not supposed to redirect to.",
   "Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.": "Retrieve the content of <code>C:\\Windows\\system.ini</code> or <code>/etc/passwd</code> from the server.",
