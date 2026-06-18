@@ -1214,7 +1214,7 @@
   category: 'Vulnerable Components'
   tags:
     - OSINT
-  description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)'
+  description: '<a href="/#/contact">Inform the shop</a> about a high-severity vulnerability caused by one of its directly used dependencies. (Mention the exact library name and version in your comment)'
   difficulty: 4
   hints:
     - 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
