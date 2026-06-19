@@ -19,7 +19,7 @@ interface AuthenticationPayload {
   umail: string
 }
 
-interface TwoFactorAuthStatusPayload {
+export interface TwoFactorAuthStatusPayload {
   setup: boolean
   secret?: string
   setupToken?: string

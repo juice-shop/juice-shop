@@ -79,11 +79,11 @@ void describe('Web3 NFT Minting', () => {
       const testAddress = '0x1234567890123456789012345678901234567890'
       const originalHas = Set.prototype.has
       const originalDelete = Set.prototype.delete
-      mock.method(Set.prototype, 'has', function (val) {
+      mock.method(Set.prototype, 'has', function (this: any, val: any) {
         if (val === testAddress) return true
         return originalHas.call(this, val)
       })
-      mock.method(Set.prototype, 'delete', function (val) {
+      mock.method(Set.prototype, 'delete', function (this: any, val: any) {
         if (val === testAddress) return true
         return originalDelete.call(this, val)
       })
@@ -103,7 +103,7 @@ void describe('Web3 NFT Minting', () => {
     void it('POST leads to 500 error if check fails', async () => {
       const testAddress = '0x500'
       const originalHas = Set.prototype.has
-      mock.method(Set.prototype, 'has', function (val) {
+      mock.method(Set.prototype, 'has', function (this: any, val: any) {
         if (val === testAddress) throw new Error('Mocked error')
         return originalHas.call(this, val)
       })
