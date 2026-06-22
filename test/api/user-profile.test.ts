@@ -10,6 +10,7 @@ import type { Express } from 'express'
 import config from 'config'
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
+import * as datacache from '../../data/datacache'
 
 let app: Express
 let authHeader: { Cookie: string }
@@ -93,5 +94,33 @@ void describe('/profile', () => {
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('text/html'))
     assert.ok(res.text.includes('not_a_defined_symbol'))
+  })
+
+  void it('should be solved when origin header matches configured CSRF URL', async () => {
+    const csrfUrl = config.get<string>('challenges.overwriteUrlForCsrfChallenge')
+    datacache.challenges.csrfChallenge.solved = false
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .set('Origin', csrfUrl)
+      .send({ username: 'CSRF_Victim' })
+      .expect(302)
+    assert.equal(datacache.challenges.csrfChallenge.solved, true)
+  })
+
+  void it('should have the configured CSRF URL in the challenge description', async () => {
+    const csrfUrl = config.get<string>('challenges.overwriteUrlForCsrfChallenge')
+    assert.ok(datacache.challenges.csrfChallenge.description.includes(csrfUrl))
+  })
+
+  void it('should NOT be solved when origin header does NOT match configured CSRF URL', async () => {
+    datacache.challenges.csrfChallenge.solved = false
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .set('Origin', 'http://attacker.com')
+      .send({ username: 'No_CSRF' })
+      .expect(302)
+    assert.equal(datacache.challenges.csrfChallenge.solved, false)
   })
 })

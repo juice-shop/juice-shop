@@ -109,6 +109,7 @@ export const ChallengesSchema = z.object({
   codingChallengesEnabled: z.enum(['never', 'solved', 'always']),
   restrictToTutorialsFirst: z.boolean(),
   overwriteUrlForProductTamperingChallenge: z.string(),
+  overwriteUrlForCsrfChallenge: z.string(),
   xssBonusPayload: z.string(),
   safetyMode: z.enum(['enabled', 'disabled', 'auto']).optional(),
   csafHashValue: z.string(),

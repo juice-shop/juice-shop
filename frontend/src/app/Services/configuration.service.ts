@@ -85,6 +85,7 @@ export interface Config {
     restrictToTutorialsFirst: boolean
     safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
+    overwriteUrlForCsrfChallenge: string
   }
   hackingInstructor: {
     isEnabled: boolean
