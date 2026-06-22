@@ -837,19 +837,29 @@
 		"removed": []
 	},
 	"nftUnlockChallenge_1.sol": {
-		"added": [],
-		"removed": []
+		"added": [
+			27
+		],
+		"removed": [
+			27
+		]
 	},
 	"nftUnlockChallenge_2_correct.sol": {
 		"added": [],
 		"removed": []
 	},
 	"nftUnlockChallenge_3.sol": {
-		"added": [],
-		"removed": []
+		"added": [
+			15
+		],
+		"removed": [
+			15
+		]
 	},
 	"nftUnlockChallenge_4.sol": {
-		"added": [],
+		"added": [
+			17
+		],
 		"removed": []
 	},
 	"noSqlReviewsChallenge_1.ts": {
