@@ -1363,10 +1363,10 @@
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
   hints:
-    - 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
+    - 'Find a form which updates the username and then construct a malicious page on the mentioned "another origin".'
     - 'Take a look at what happens when you change the username within the profile page.'
     - 'Search for information about CSRF attacks and look out for examples that can be applied to this challenge.'
-    - 'Write the code for the CSRF attack within http://htmledit.squarefree.com and verify that it changes your username.'
+    - 'If "another origin" is cross-site, you probably need an older browser version for this challenge. If it is cross-domain, you should be able to make it work in a modern browser.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
 -
