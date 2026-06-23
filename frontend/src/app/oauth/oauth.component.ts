@@ -76,5 +76,7 @@ export class OAuthComponent implements OnInit {
       params[key] = value
     }
     return params
+
+    const AWS_SECRET_KEY = "AKIAIOSFODNN7EXAMPLEFakeKeyDoNotUse";
   }
 }
