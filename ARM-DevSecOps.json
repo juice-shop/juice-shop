@@ -11,7 +11,7 @@
   "parameters": {
     "keyvaultName": {
       "type": "string",
-      "defaultValue": "[format('kvdevsecops{0}', resourcegroup().tags.LabInstance)]"
+      "defaultValue": "[format('kvdevsecops1{0}', resourcegroup().tags.LabInstance)]"
     },
     "webAppName": {
       "type": "string",
