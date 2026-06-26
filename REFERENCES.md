@@ -336,6 +336,7 @@ mentioned or used!
 
 #### 2026
 
+* [Hands-on Workshop: OWASP Juice Shop for Beginners](https://appsecdays.pt/trainings/juice-shop.html) with Björn Kimminich, [AppSecDays Portugal 2026](https://appsecdays.pt/), Porto, 23.09.2026
 * [OWASP Juice Shop: Take your security vitamins!](https://ndcsecurity.com/agenda/owasp-juice-shop-take-your-security-vitamins/7a1238226e90) by Björn Kimminich & Jannik Hollenbach, [NDC Security 2026](https://ndcsecurity.com/), Oslo, 05.03.2026 [YouTube](https://www.youtube.com/watch?v=O43oqSEJFQI)
 
 #### 2025
