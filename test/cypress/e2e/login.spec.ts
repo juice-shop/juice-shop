@@ -183,7 +183,7 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Exposed credentials' })
+      cy.expectChallengeSolved({ challenge: 'Exposed Credentials' })
     })
   })
 })
