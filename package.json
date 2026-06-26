@@ -227,5 +227,11 @@
     "arm64",
     "arm"
   ],
-  "heroku-run-build-script": true
+  "heroku-run-build-script": true,
+  "allowScripts": {
+    "sqlite3@5.1.7": true,
+    "esbuild@0.28.1": true,
+    "@scarf/scarf": false,
+    "cypress@15.17.0": true
+  }
 }
