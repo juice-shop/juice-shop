@@ -43,6 +43,29 @@ void describe('/profile', () => {
     assert.ok(res.text.includes('id="email" type="email" name="email" value="jim@juice-sh.op"'))
   })
 
+  void it('GET user profile contains role and deluxe membership link if user is customer', async () => {
+    const res = await request(app)
+      .get('/profile')
+      .set(authHeader)
+
+    assert.equal(res.status, 200)
+    assert.ok(res.text.includes('id="role" type="text" name="role" value="customer"'))
+    assert.ok(res.text.includes('href="./#/deluxe-membership"'))
+    assert.ok(res.text.includes('Become a Deluxe Member'))
+  })
+
+  void it('GET user profile contains role but NO deluxe membership link if user is already deluxe', async () => {
+    const { token } = await login(app, { email: 'ciso@juice-sh.op', password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb' })
+    const res = await request(app)
+      .get('/profile')
+      .set('Cookie', `token=${token}`)
+
+    assert.equal(res.status, 200)
+    assert.ok(res.text.includes('id="role" type="text" name="role" value="deluxe"'))
+    assert.ok(!res.text.includes('href="./#/deluxe-membership"'))
+    assert.ok(!res.text.includes('Become a Deluxe Member'))
+  })
+
   void it('POST update username of authenticated user', async () => {
     const res = await request(app)
       .post('/profile')
