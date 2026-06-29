@@ -1,0 +1,37 @@
+trigger: none
+
+resources:
+- repo: self
+
+stages:
+- stage: DeployDevInfrastructure  
+  displayName: Deploy Development Infrastructure
+  jobs:
+  - job: DeployInfrastructure
+    displayName: Deploy Development Infrastructure
+    pool:
+      name: 'Default'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-Service-Connection-Development'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az deployment group create --resource-group ${{ secrets.DEVRESOURCEGROUP }} --name deployinfradev --template-file ARM-DevSecOps.json'
+        addSpnToEnvironment: true
+
+- stage: DeployProdInfrastructure  
+  displayName: Deploy Production Infrastructure
+  jobs:
+  - job: DeployInfrastructure
+    displayName: Deploy Production Infrastructure
+    pool:
+      name: 'Default'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-Service-Connection-Production'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az deployment group create --resource-group ${{ secrets.PRODRESOURCEGROUP }} --name deployinfraprod --template-file ARM-DevSecOps-Prod.json'
+        addSpnToEnvironment: trues
