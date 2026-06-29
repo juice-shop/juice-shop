@@ -40,7 +40,7 @@ This skill provides instructions for Junie to create release notes from scratch 
         *   `👮 Startup Validations`: Boot/environment checks.
     *   Use **Status Icons** to mark specific types of changes:
         *   `⚡`: Significant changes to challenges that might break CTF setups or solutions.
-        *   `⚠️`: Technical breaking changes (Node.js version, renamings, config removal).
+        *   `⚠️`: Breaking changes that affect **end users** of Juice Shop (e.g., dropped Node.js version support, removed/renamed config options). Internal tooling changes (build scripts, TypeScript version, dev dependencies) are **never** ⚠️ because users do not interact with them.
         *   `📜`: Policy or licensing changes.
         *   `⭐`: Challenge difficulty levels (e.g., `⭐⭐-challenge`).
 3.  **Format the Notes**:
