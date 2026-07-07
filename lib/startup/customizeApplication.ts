@@ -12,6 +12,7 @@ import replace from 'replace'
 const customizeApplication = async () => {
   if (config.get<string>('application.name')) {
     customizeTitle()
+    customizeTerraformFiles()
   }
   if (config.get('application.logo')) {
     void customizeLogo()
@@ -111,6 +112,32 @@ const customizeCookieConsentBanner = () => {
     recursive: false,
     silent: true
   })
+}
+
+const slugify = (name: string) => {
+  return name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+const customizeTerraformFiles = () => {
+  const appName = config.get<string>('application.name')
+  if (appName !== 'OWASP Juice Shop') {
+    const slugName = slugify(appName)
+    const snakeName = slugName.replace(/-/g, '_')
+    replace({
+      regex: /juice-shop/g,
+      replacement: slugName,
+      paths: ['terraform'],
+      recursive: true,
+      silent: true
+    })
+    replace({
+      regex: /juice_shop/g,
+      replacement: snakeName,
+      paths: ['terraform'],
+      recursive: true,
+      silent: true
+    })
+  }
 }
 
 export default customizeApplication

@@ -142,6 +142,15 @@ void describe('verify', () => {
 
       assert.equal(challenges.accessLogDisclosureChallenge.solved, true)
     })
+
+    void it('"misplacedIacFiles" is solved when a Terraform .tf file is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/terraform/main.tf'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
   })
 
   void describe('"errorHandlingChallenge"', () => {

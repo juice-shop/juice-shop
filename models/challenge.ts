@@ -109,6 +109,7 @@ export const CHALLENGE_KEYS = [
   'missingEncodingChallenge',
   'svgInjectionChallenge',
   'exposedMetricsChallenge',
+  'misplacedIacFiles',
   'freeDeluxeChallenge',
   'csrfChallenge',
   'xssBonusChallenge',

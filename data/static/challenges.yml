@@ -1346,6 +1346,19 @@
   mitigationUrl: ~
   key: exposedMetricsChallenge
 -
+  name: 'Misplaced IaC Files'
+  category: 'Security Misconfiguration'
+  tags:
+    - Good Practice
+  description: 'Access the misplaced Infrastructure as Code files that were accidentally included in the web application deliverable.'
+  difficulty: 2
+  hints:
+    - 'The developers probably used some kind of tool to automate their cloud deployment.'
+    - 'Such tools typically store their configuration in a directory with a very predictable name.'
+    - 'Try common directory names that popular deployment automation tools use by convention.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html'
+  key: misplacedIacFiles
+-
   name: 'Deluxe Fraud'
   category: 'Improper Input Validation'
   description: 'Obtain a Deluxe Membership without paying for it.'

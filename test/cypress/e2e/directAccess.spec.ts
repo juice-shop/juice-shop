@@ -88,4 +88,11 @@ describe('/', () => {
       cy.expectChallengeSolved({ challenge: 'Access Log' })
     })
   })
+
+  describe('challenge "misplacedIacFiles"', () => {
+    it('should be able to access Terraform files via directory listing', () => {
+      cy.request('/terraform/main.tf')
+      cy.expectChallengeSolved({ challenge: 'Misplaced IaC Files' })
+    })
+  })
 })

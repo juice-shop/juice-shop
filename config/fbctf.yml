@@ -284,6 +284,9 @@ ctf:
     exposedMetricsChallenge:
       name: Japan
       code: JP
+    misplacedIacFiles:
+      name: Latvia
+      code: LV
     freeDeluxeChallenge:
       name: Vietnam
       code: VN
