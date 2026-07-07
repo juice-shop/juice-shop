@@ -264,6 +264,11 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     next()
   }
 
+  /* /terraform directory browsing */
+  app.use('/terraform', serveIndexMiddleware, serveIndex('terraform', { icons: true, view: 'details' }))
+  app.use('/terraform', verify.accessControlChallenges())
+  app.use('/terraform', express.static('terraform'))
+
   // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
   /* /ftp directory browsing and file download */ // vuln-code-snippet neutral-line directoryListingChallenge
   app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
@@ -276,11 +281,6 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* /encryptionkeys directory browsing */
   app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
   app.use('/encryptionkeys/:file', serveKeyFiles())
-
-  /* /terraform directory browsing */
-  app.use('/terraform', serveIndexMiddleware, serveIndex('terraform', { icons: true, view: 'details' }))
-  app.use('/terraform', verify.accessControlChallenges())
-  app.use('/terraform', express.static('terraform'))
 
   /* /logs directory browsing */ // vuln-code-snippet neutral-line accessLogDisclosureChallenge
   app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
