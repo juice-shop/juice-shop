@@ -51,7 +51,7 @@ void describe('/profile', () => {
     assert.equal(res.status, 200)
     assert.ok(res.text.includes('id="role" type="text" name="role" value="customer"'))
     assert.ok(res.text.includes('href="./#/deluxe-membership"'))
-    assert.ok(res.text.includes('Become a Deluxe Member'))
+    assert.ok(res.text.includes('Become a deluxe member'))
   })
 
   void it('GET user profile contains role but NO deluxe membership link if user is already deluxe', async () => {
@@ -63,7 +63,7 @@ void describe('/profile', () => {
     assert.equal(res.status, 200)
     assert.ok(res.text.includes('id="role" type="text" name="role" value="deluxe"'))
     assert.ok(!res.text.includes('href="./#/deluxe-membership"'))
-    assert.ok(!res.text.includes('Become a Deluxe Member'))
+    assert.ok(!res.text.includes('Become a deluxe member'))
   })
 
   void it('POST update username of authenticated user', async () => {
