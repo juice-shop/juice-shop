@@ -747,6 +747,18 @@
 			6
 		]
 	},
+	"iacLeakedKeyChallenge_1.tf": {
+		"added": [],
+		"removed": []
+	},
+	"iacLeakedKeyChallenge_2.tf": {
+		"added": [],
+		"removed": []
+	},
+	"iacLeakedKeyChallenge_3_correct.tf": {
+		"added": [],
+		"removed": []
+	},
 	"localXssChallenge_1.ts": {
 		"added": [],
 		"removed": []

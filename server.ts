@@ -242,7 +242,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     const origEnd = res.end
     // @ts-expect-error FIXME assignment broken due to seemingly void return value
     res.end = function () {
-      if (arguments.length) {
+      if (arguments.length && typeof arguments[0] === 'string') {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
 
         const currentFolder = reqPath.split('/').pop()!
@@ -267,7 +267,21 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* /terraform directory browsing */
   app.use('/terraform', serveIndexMiddleware, serveIndex('terraform', { icons: true, view: 'details' }))
   app.use('/terraform', verify.accessControlChallenges())
-  app.use('/terraform', express.static('terraform'))
+  app.use('/terraform', (req: Request, res: Response, next: NextFunction) => {
+    const filePath = path.resolve('terraform', path.normalize(req.path).replace(/^[\\/]+/, ''))
+    if (!filePath.startsWith(path.resolve('terraform'))) {
+      return res.status(403).end()
+    }
+    if (filePath.endsWith('.tf')) {
+      fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) return next()
+        const cleaned = data.split('\n').filter(line => !line.trim().match(/^#\s*vuln-code-snippet\s/)).map(line => line.replace(/\s*#\s*vuln-code-snippet\s.*$/, '')).join('\n')
+        res.type('text/plain').send(cleaned)
+      })
+    } else {
+      express.static('terraform')(req, res, next)
+    }
+  })
 
   // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
   /* /ftp directory browsing and file download */ // vuln-code-snippet neutral-line directoryListingChallenge
