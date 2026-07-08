@@ -89,6 +89,9 @@ export const jwtChallenges = () => (req: Request, res: Response, next: NextFunct
   if (utils.isChallengeEnabled(challenges.jwtForgedChallenge) && challengeUtils.notSolved(challenges.jwtForgedChallenge)) {
     jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
   }
+  if (challengeUtils.notSolved(challenges.iacLeakedKeyChallenge)) {
+    jwtChallenge(challenges.iacLeakedKeyChallenge, req, 'RS256', /cloud-admin@/)
+  }
   next()
 }
 

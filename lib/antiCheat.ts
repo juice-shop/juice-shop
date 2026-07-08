@@ -28,7 +28,8 @@ const looselyCoupledChallenges = [
   ['easterEggLevelOneChallenge', 'forgottenDevBackupChallenge', 'forgottenBackupChallenge', 'misplacedSignatureFileChallenge'],
   ['uploadSizeChallenge', 'uploadTypeChallenge'],
   ['localXssChallenge', 'xssBonusChallenge'],
-  ['fileWriteChallenge', 'videoXssChallenge']
+  ['fileWriteChallenge', 'videoXssChallenge'],
+  ['misplacedIacFiles', 'iacLeakedKeyChallenge']
 ]
 
 const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge', 'closeNotificationsChallenge']

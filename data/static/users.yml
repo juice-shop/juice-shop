@@ -273,6 +273,15 @@
   key: LetUsTest
   role: 'admin'
 -
+  email: cloud-admin
+  password: 'DVKH3gn7G$2Rk!f5Tz@9Lm&Qp4Wx#Yj8Bc0Ns6Ue1Io7Ah2Sd4Fg6Hj8Kl0Zx3Cv5Bn7Mq9Wr1Et3Yu5Ip'
+  key: cloudAdmin
+  role: 'admin'
+  profileImage: 'default.svg'
+  securityQuestion:
+    id: 10
+    answer: 'xK9#mP2$vL5nQ8wR3jF6hT0yB7cA4dG1eU'
+-
   email: basil
   password: 'my little nest of vipers'
   key: basil

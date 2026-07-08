@@ -1349,7 +1349,7 @@
   name: 'Misplaced IaC Files'
   category: 'Security Misconfiguration'
   tags:
-    - Good Practice
+    - Prerequisite
   description: 'Access the misplaced Infrastructure as Code files that were accidentally included in the web application deliverable.'
   difficulty: 2
   hints:
@@ -1564,3 +1564,15 @@
     - 'The similarity check is lenient - you do not need to reproduce the system prompt word for word. Focus on capturing the confidential sections accurately.'
   mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
   key: systemPromptExtractionChallenge
+-
+  name: 'Login Cloud Admin'
+  category: 'Sensitive Data Exposure'
+  description: 'Log in with the cloud admin''s user account <i>without</i> using SQL Injection or any other bypass.'
+  difficulty: 4
+  hints:
+    - 'Brute forcing the password will not work. The password is too strong.'
+    - 'There might be another way to authenticate besides using the correct password.'
+    - 'Look for sensitive information that was accidentally deployed alongside the application.'
+    - 'The Terraform IaC files accessible from the web application contain sensitive information that can be used to forge authentication tokens.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
+  key: iacLeakedKeyChallenge

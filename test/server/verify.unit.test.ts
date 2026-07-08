@@ -310,6 +310,36 @@ void describe('verify', () => {
 
       assert.equal(challenges.jwtForgedChallenge.solved, false)
     })
+
+    void it('"iacLeakedKeyChallenge" is solved when RS256-signed token has email cloud-admin@juice-sh.op in the payload', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'cloud-admin@juice-sh.op' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, true)
+    })
+
+    void it('"iacLeakedKeyChallenge" is solved when RS256-signed token has string "cloud-admin@" in the payload', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'cloud-admin@' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, true)
+    })
+
+    void it('"iacLeakedKeyChallenge" is not solved when token has wrong email', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'admin@juice-sh.op' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, false)
+    })
   })
 
   void describe('diceCoefficient', () => {

@@ -356,3 +356,6 @@ ctf:
     systemPromptExtractionChallenge:
       name: Greece
       code: GR
+    iacLeakedKeyChallenge:
+      name: Liechtenstein
+      code: LI
