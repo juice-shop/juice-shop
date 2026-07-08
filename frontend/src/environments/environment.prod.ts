@@ -5,5 +5,6 @@
 
 export const environment = {
   production: true,
-  hostServer: '.'
+  hostServer: '.',
+  assistantApiUrl: 'http://127.0.0.1:8000/assistant'
 }

@@ -13,6 +13,7 @@ import { ServerStartedNotificationComponent } from './server-started-notificatio
 import { NavbarComponent } from './navbar/navbar.component'
 import { SidenavComponent } from './sidenav/sidenav.component'
 import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav'
+import { AssistantWidgetComponent } from './assistant-widget/assistant-widget.component'
 
 dom.watch()
 
@@ -20,7 +21,7 @@ dom.watch()
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, CtfSystemWideNotificationComponent, WelcomeComponent, RouterOutlet]
+  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, CtfSystemWideNotificationComponent, WelcomeComponent, RouterOutlet, AssistantWidgetComponent]
 })
 export class AppComponent {
 }

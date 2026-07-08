@@ -1,0 +1,94 @@
+.assistant-widget {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1000;
+}
+
+.assistant-toggle {
+  border: 0;
+  border-radius: 999px;
+  background: #0f766e;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 0.9rem 1.1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.assistant-panel {
+  width: min(360px, calc(100vw - 2rem));
+  margin-bottom: 0.75rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.assistant-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0f766e;
+  color: white;
+  padding: 0.85rem 1rem;
+}
+
+.assistant-panel__header button {
+  background: transparent;
+  color: white;
+  border: 0;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.assistant-panel__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  max-height: 320px;
+  overflow-y: auto;
+  background: #f8fafc;
+}
+
+.assistant-message {
+  background: #e2e8f0;
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+}
+
+.assistant-message--user {
+  background: #ccfbf1;
+  margin-left: 1rem;
+}
+
+.assistant-message p {
+  margin: 0.25rem 0 0;
+  white-space: pre-wrap;
+}
+
+.assistant-panel__form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.assistant-panel__form input {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 0.65rem 0.8rem;
+}
+
+.assistant-panel__form button {
+  border: 0;
+  border-radius: 999px;
+  background: #0f766e;
+  color: white;
+  cursor: pointer;
+  padding: 0.65rem 0.9rem;
+}

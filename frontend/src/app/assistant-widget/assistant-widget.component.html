@@ -1,0 +1,34 @@
+<div class="assistant-widget">
+  <button class="assistant-toggle" type="button" (click)="toggleWidget()" aria-label="Open AI assistant">
+    <span>AI</span>
+  </button>
+
+  <section class="assistant-panel" *ngIf="isOpen()">
+    <header class="assistant-panel__header">
+      <h3>Juice Shop AI</h3>
+      <button type="button" (click)="toggleWidget()" aria-label="Close assistant">✕</button>
+    </header>
+
+    <div class="assistant-panel__messages">
+      <div *ngFor="let message of messages()" class="assistant-message" [class.assistant-message--user]="message.role === 'user'">
+        <strong>{{ message.role === 'user' ? 'You' : 'AI' }}</strong>
+        <p>{{ message.content }}</p>
+      </div>
+      <div *ngIf="isLoading()" class="assistant-message assistant-message--loading">
+        <strong>AI</strong>
+        <p>Thinking…</p>
+      </div>
+    </div>
+
+    <form class="assistant-panel__form" (ngSubmit)="sendMessage()">
+      <input
+        [(ngModel)]="question"
+        name="question"
+        type="text"
+        placeholder="Ask about products or prices"
+        autocomplete="off"
+      />
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>

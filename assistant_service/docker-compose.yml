@@ -1,0 +1,46 @@
+services:
+  chroma:
+    image: chromadb/chroma:0.5.20
+    container_name: juice-shop-chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/.chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+    restart: unless-stopped
+
+  assistant-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: juice-shop-assistant-api
+    working_dir: /workspace/assistant_service
+    env_file:
+      - ../.env.openai
+    environment:
+      CHROMA_HOST: chroma
+      CHROMA_PORT: 8000
+    depends_on:
+      - chroma
+    ports:
+      - "8000:8000"
+    volumes:
+      - ..:/workspace
+    restart: unless-stopped
+
+  frontend:
+    image: node:22-alpine
+    container_name: juice-shop-frontend
+    working_dir: /workspace/frontend
+    depends_on:
+      - assistant-api
+    ports:
+      - "4200:4200"
+    volumes:
+      - ..:/workspace
+    command: sh -c "if [ -f package-lock.json ]; then npm ci --legacy-peer-deps; else npm install --legacy-peer-deps; fi && npm run start -- --host 0.0.0.0 --port 4200"
+    restart: unless-stopped
+
+volumes:
+  chroma-data:
