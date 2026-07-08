@@ -1,94 +1,207 @@
+$brand-start: #7c3aed;
+$brand-end: #ec4899;
+$brand-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 45%, #ec4899 100%);
+
 .assistant-widget {
   position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 .assistant-toggle {
-  border: 0;
-  border-radius: 999px;
-  background: #0f766e;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: none;
+  border-radius: 50%;
+  background: $brand-gradient;
   color: white;
   cursor: pointer;
-  font-weight: 700;
-  padding: 0.9rem 1.1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.45);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.assistant-toggle:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 16px 32px rgba(124, 58, 237, 0.55);
+}
+
+.assistant-toggle:active {
+  transform: translateY(-1px) scale(1);
+}
+
+.assistant-toggle__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.assistant-toggle--open {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  box-shadow: 0 10px 25px rgba(71, 85, 105, 0.4);
 }
 
 .assistant-panel {
-  width: min(360px, calc(100vw - 2rem));
-  margin-bottom: 0.75rem;
+  width: min(370px, calc(100vw - 3rem));
+  margin-bottom: 1rem;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.28);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  animation: assistant-pop 0.22s ease;
+}
+
+@keyframes assistant-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .assistant-panel__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #0f766e;
+  background: $brand-gradient;
   color: white;
-  padding: 0.85rem 1rem;
+  padding: 0.95rem 1.1rem;
+}
+
+.assistant-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.assistant-panel__title h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.assistant-panel__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
 }
 
 .assistant-panel__header button {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.18);
   color: white;
   border: 0;
+  border-radius: 50%;
+  width: 1.9rem;
+  height: 1.9rem;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.assistant-panel__header button:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .assistant-panel__messages {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding: 0.9rem;
-  max-height: 320px;
+  gap: 0.65rem;
+  padding: 1rem;
+  max-height: 340px;
   overflow-y: auto;
-  background: #f8fafc;
+  background: #f5f3ff;
 }
 
 .assistant-message {
-  background: #e2e8f0;
-  border-radius: 10px;
-  padding: 0.65rem 0.75rem;
+  max-width: 85%;
+  background: white;
+  color: #1e293b;
+  border-radius: 14px 14px 14px 4px;
+  padding: 0.65rem 0.8rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+  align-self: flex-start;
+}
+
+.assistant-message strong {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7c3aed;
 }
 
 .assistant-message--user {
-  background: #ccfbf1;
-  margin-left: 1rem;
+  align-self: flex-end;
+  background: $brand-gradient;
+  border-radius: 14px 14px 4px 14px;
+  color: white;
+}
+
+.assistant-message--user strong {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .assistant-message p {
   margin: 0.25rem 0 0;
   white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.assistant-message--loading p {
+  color: #94a3b8;
+  font-style: italic;
 }
 
 .assistant-panel__form {
   display: flex;
   gap: 0.5rem;
-  padding: 0.75rem;
-  border-top: 1px solid #e2e8f0;
+  padding: 0.8rem;
+  border-top: 1px solid #ede9fe;
+  background: white;
 }
 
 .assistant-panel__form input {
   flex: 1;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ddd6fe;
   border-radius: 999px;
-  padding: 0.65rem 0.8rem;
+  padding: 0.7rem 0.95rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assistant-panel__form input:focus {
+  border-color: $brand-start;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
 .assistant-panel__form button {
   border: 0;
   border-radius: 999px;
-  background: #0f766e;
+  background: $brand-gradient;
   color: white;
   cursor: pointer;
-  padding: 0.65rem 0.9rem;
+  font-weight: 600;
+  padding: 0.7rem 1.1rem;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.assistant-panel__form button:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
 }
