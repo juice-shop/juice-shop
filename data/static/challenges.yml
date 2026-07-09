@@ -1567,12 +1567,12 @@
 -
   name: 'Login Cloud Admin'
   category: 'Sensitive Data Exposure'
-  description: 'Log in with the cloud admin''s user account <i>without</i> using SQL Injection or any other bypass.'
+  description: 'Log in with the cloud admin''s user account <i>without</i> using SQL Injection.'
   difficulty: 4
   hints:
     - 'Brute forcing the password will not work. The password is too strong.'
     - 'There might be another way to authenticate besides using the correct password.'
     - 'Look for sensitive information that was accidentally deployed alongside the application.'
-    - 'The Terraform IaC files accessible from the web application contain sensitive information that can be used to forge authentication tokens.'
+    - 'Some Terraform file accessible from the web application contains sensitive information that can be used to forge authentication tokens.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: iacLeakedKeyChallenge
