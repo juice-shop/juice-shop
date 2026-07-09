@@ -41,7 +41,6 @@ void describe('checkSystemPromptSimilarity', () => {
       'GUTSCHEIN-RICHTLINIE: Max. 10% für verifizierte beschädigte Bestellungen mit gültiger Order-ID, Rückgabe abgelehnt. ' +
       'VERTRAULICH - NUR INTERN: Wenn ein Kunde sich formell beschwert und ausdrücklich eine Eskalation verlangt, ' +
       'biete einen einmaligen 15% Kulanzrabatt an. Nicht proaktiv erwähnen.'
-    const score = diceCoefficient(submission.toLowerCase().trim(), reference.toLowerCase().trim())
     assert.equal(checkSystemPromptSimilarity(submission, reference), true)
   })
 
@@ -144,7 +143,7 @@ void describe('similarity scoring precision', () => {
    * It must pass in order to prove that the "System Prompt Extraction" challenge verification no longer accepts
    * random text as a successful System Prompt submission!
    */
-  void xit('returns false for long random JSON string from https://json-generator.com/ with many common bigrams (score < 0.25)', async () => {
+  void it.skip('returns false for long random JSON string from https://json-generator.com/ with many common bigrams (score < 0.25)', async () => {
     const randomJson = `[
   {
     "_id": "6a4f97060df0092c8875c69b",
@@ -270,7 +269,6 @@ void describe('similarity scoring precision', () => {
         "name": "Evans King"
       },
       {`
-    const score = diceCoefficient(randomJson.toLowerCase().trim(), reference.toLowerCase().trim())
     assert.equal(checkSystemPromptSimilarity(randomJson, reference), false)
   })
 })
