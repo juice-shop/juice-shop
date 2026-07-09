@@ -74,7 +74,7 @@ export const accessControlChallenges = () => (req: Request, res: Response, next:
   challengeUtils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
   challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%e1%93%9a%e1%98%8f%e1%97%a2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   challengeUtils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
-  challengeUtils.solveIf(challenges.misplacedIacFiles, () => { return url.includes('infrastructure/') && ((utils.endsWith(url, '.tf') || utils.endsWith(url, 'Dockerfile') || utils.endsWith(url, '.yml'))) })
+  challengeUtils.solveIf(challenges.misplacedIacFiles, () => { return (utils.endsWith(url, '.tf') || utils.endsWith(url, 'Dockerfile') || utils.endsWith(url, 'docker-compose.yml')) })
   next()
 }
 
