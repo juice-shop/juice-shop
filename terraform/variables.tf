@@ -52,10 +52,16 @@ variable "node_env" {
   default     = "production"
 }
 
-variable "container_image" {
-  description = "Docker image for the application"
+variable "ecr_repository_url" {
+  description = "ECR repository URL for the Docker image"
   type        = string
-  default     = "juice-shop:latest"
+  default     = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/juice-shop"
+}
+
+variable "container_tag" {
+  description = "Docker image tag"
+  type        = string
+  default     = "latest"
 }
 
 variable "efs_encrypted" {

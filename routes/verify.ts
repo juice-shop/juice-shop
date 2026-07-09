@@ -73,7 +73,7 @@ export const accessControlChallenges = () => (req: Request, res: Response, next:
   challengeUtils.solveIf(challenges.securityPolicyChallenge, () => { return utils.endsWith(url, '/security.txt') })
   challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return utils.endsWith(url.toLowerCase(), '%e1%93%9a%e1%98%8f%e1%97%a2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   challengeUtils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })
-  challengeUtils.solveIf(challenges.misplacedIacFiles, () => { return utils.endsWith(url, '.tf') })
+  challengeUtils.solveIf(challenges.misplacedIacFiles, () => { return url.includes('/infrastructure/') && (utils.endsWith(url, '.tf') || utils.endsWith(url, 'Dockerfile') || utils.endsWith(url, '.yml')) })
   next()
 }
 
@@ -200,6 +200,9 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   }
   if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
     leakedApiKeyChallenge()
+  }
+  if (challengeUtils.notSolved(challenges.vulnerableDockerImageChallenge)) {
+    vulnerableDockerImageChallenge()
   }
   if (challengeUtils.notSolved(challenges.systemPromptExtractionChallenge)) {
     void systemPromptExtractionChallenge()
@@ -330,6 +333,18 @@ function leakedApiKeyChallenge () {
   void checkPatternInFeedbackAndComplaints(
     challenges.leakedApiKeyChallenge,
     { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' }
+  )
+}
+
+function vulnerableDockerImageChallenge () {
+  void checkPatternInFeedbackAndComplaints(
+    challenges.vulnerableDockerImageChallenge,
+    {
+      [Op.and]: [
+        { [Op.like]: '%mongo%' },
+        { [Op.like]: '%4.4.29%' }
+      ]
+    }
   )
 }
 

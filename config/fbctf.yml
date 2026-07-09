@@ -359,3 +359,6 @@ ctf:
     iacLeakedKeyChallenge:
       name: Liechtenstein
       code: LI
+    vulnerableDockerImageChallenge:
+      name: Portugal
+      code: PT

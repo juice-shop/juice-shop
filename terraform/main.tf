@@ -2,6 +2,21 @@ provider "aws" {
   region = var.aws_region
 }
 
+resource "null_resource" "docker_build" {
+  triggers = {
+    dockerfile_hash = filemd5("${path.module}/../infrastructure/Dockerfile")
+    compose_hash    = filemd5("${path.module}/../infrastructure/docker-compose.yml")
+  }
+
+  provisioner "local-exec" {
+    command = "docker build -t ${var.ecr_repository_url}:${var.container_tag} -f ${path.module}/../infrastructure/Dockerfile ${path.module}/.."
+  }
+
+  provisioner "local-exec" {
+    command = "docker push ${var.ecr_repository_url}:${var.container_tag}"
+  }
+}
+
 resource "aws_ecs_cluster" "juice_shop" {
   name = "${var.project_name}-cluster"
 
@@ -28,7 +43,7 @@ resource "aws_ecs_task_definition" "juice_shop" {
   container_definitions = jsonencode([
     {
       name      = var.project_name
-      image     = var.container_image
+      image     = "${var.ecr_repository_url}:${var.container_tag}"
       essential = true
       portMappings = [
         {

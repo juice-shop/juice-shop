@@ -264,12 +264,12 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     next()
   }
 
-  /* /terraform directory browsing */
-  app.use('/terraform', serveIndexMiddleware, serveIndex('terraform', { icons: true, view: 'details' }))
-  app.use('/terraform', verify.accessControlChallenges())
-  app.use('/terraform', (req: Request, res: Response, next: NextFunction) => {
-    const filePath = path.resolve('terraform', path.normalize(req.path).replace(/^[\\/]+/, ''))
-    if (!filePath.startsWith(path.resolve('terraform'))) {
+  /* /infrastructure directory browsing */
+  app.use('/infrastructure', serveIndexMiddleware, serveIndex('infrastructure', { icons: true, view: 'details' }))
+  app.use('/infrastructure', verify.accessControlChallenges())
+  app.use('/infrastructure', (req: Request, res: Response, next: NextFunction) => {
+    const filePath = path.resolve('infrastructure', path.normalize(req.path).replace(/^[\\/]+/, ''))
+    if (!filePath.startsWith(path.resolve('infrastructure'))) {
       return res.status(403).end()
     }
     if (filePath.endsWith('.tf')) {
@@ -279,7 +279,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
         res.type('text/plain').send(cleaned)
       })
     } else {
-      express.static('terraform')(req, res, next)
+      express.static('infrastructure')(req, res, next)
     }
   })
 

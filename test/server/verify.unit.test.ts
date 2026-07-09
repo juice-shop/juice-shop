@@ -143,9 +143,27 @@ void describe('verify', () => {
       assert.equal(challenges.accessLogDisclosureChallenge.solved, true)
     })
 
-    void it('"misplacedIacFiles" is solved when a Terraform .tf file is requested', () => {
+    void it('"misplacedIacFiles" is solved when a Terraform .tf file under /infrastructure is requested', () => {
       challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/terraform/main.tf'
+      req.url = 'http://juice-sh.op/infrastructure/terraform/main.tf'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
+
+    void it('"misplacedIacFiles" is solved when a Dockerfile under /infrastructure is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/infrastructure/Dockerfile'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
+
+    void it('"misplacedIacFiles" is solved when a docker-compose.yml under /infrastructure is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/infrastructure/docker-compose.yml'
 
       verify.accessControlChallenges()(req, res, next)
 

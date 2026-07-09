@@ -1,0 +1,83 @@
+services:
+  nginx:
+    image: nginx:1.28.0-alpine
+    container_name: juice-shop-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - juice-shop
+    networks:
+      - juice-shop-net
+
+  juice-shop:
+    build:
+      context: ../
+      dockerfile: infrastructure/Dockerfile
+    image: juice-shop:latest
+    container_name: juice-shop-app
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    volumes:
+      - juice-shop-data:/juice-shop/data/sqlite
+    networks:
+      - juice-shop-net
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  redis:
+    image: redis:7.4.4-alpine
+    container_name: juice-shop-redis
+    restart: unless-stopped
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    expose:
+      - "6379"
+    networks:
+      - juice-shop-net
+
+  mongo:
+    image: mongo:4.4.29
+    container_name: juice-shop-mongo
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      MONGO_INITDB_DATABASE: juiceshop
+    expose:
+      - "27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - juice-shop-net
+
+volumes:
+  juice-shop-data:
+    driver: local
+  mongo-data:
+    driver: local
+
+networks:
+  juice-shop-net:
+    driver: bridge

@@ -246,6 +246,15 @@ describe('/#/contact', () => {
       cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
     })
   })
+
+  describe('challenge "vulnerableDockerImage"', () => {
+    it('should be possible to post vulnerable Docker image name and version as feedback', () => {
+      cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
+      cy.get('#comment').type('The infrastructure uses mongo 4.4.29 which is end-of-life and has known vulnerabilities.')
+      cy.get('#submitButton').should('not.be.disabled').click()
+      cy.expectChallengeSolved({ challenge: 'Vulnerable Infrastructure' })
+    })
+  })
 })
 
 function solveNextCaptcha () {

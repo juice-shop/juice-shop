@@ -1353,9 +1353,9 @@
   description: 'Access the misplaced Infrastructure as Code files that were accidentally included in the web application deliverable.'
   difficulty: 2
   hints:
-    - 'The developers probably used some kind of tool to automate their cloud deployment.'
+    - 'The developers probably used some kind of tool to automate their cloud deployment and containerization.'
     - 'Such tools typically store their configuration in a directory with a very predictable name.'
-    - 'Try common directory names that popular deployment automation tools use by convention.'
+    - 'Try common directory names that popular deployment automation and infrastructure tools use by convention.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
   key: misplacedIacFiles
 -
@@ -1573,6 +1573,18 @@
     - 'Brute forcing the password will not work. The password is too strong.'
     - 'There might be another way to authenticate besides using the correct password.'
     - 'Look for sensitive information that was accidentally deployed alongside the application.'
-    - 'Some Terraform file accessible from the web application contains sensitive information that can be used to forge authentication tokens.'
+    - 'Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
   key: iacLeakedKeyChallenge
+-
+  name: 'Vulnerable Infrastructure'
+  category: 'Vulnerable Components'
+  description: '<a href="/#/complain">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)'
+  difficulty: 3
+  hints:
+    - 'The shop accidentally exposed some infrastructure configuration files alongside the web application.'
+    - 'Look for Docker-related files in the infrastructure directory.'
+    - 'Check all referenced third-party images across the Dockerfile and docker-compose.yml and research if any of them have known vulnerabilities or are end-of-life.'
+    - 'Not every outdated-looking version number is actually vulnerable. Do your research on official CVE databases or vendor advisories.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html'
+  key: vulnerableDockerImageChallenge
