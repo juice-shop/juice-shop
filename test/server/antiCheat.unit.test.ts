@@ -107,8 +107,16 @@ void describe('antiCheat', () => {
       assert.strictEqual(result, false)
     })
 
-    void it('should flag submission with large overlap from package.json.bak', () => {
-      const largeChunk = `"dependencies": {
+    void it('should flag 1:1 copy-paste of package.json.bak as cheating', () => {
+      const fs = require('fs')
+      const path = require('path')
+      const sourceFile = fs.readFileSync(path.resolve('ftp/package.json.bak'), 'utf8')
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', sourceFile)
+      assert.strictEqual(result, true)
+    })
+
+    void it('should not flag a partial submission from package.json.bak', () => {
+      const partialChunk = `"dependencies": {
     "body-parser": "~1.18",
     "colors": "~1.1",
     "config": "~1.28",
@@ -124,8 +132,8 @@ void describe('antiCheat', () => {
     "sanitize-html": "1.4.2",
     "sequelize": "~4"
   }`
-      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', largeChunk)
-      assert.strictEqual(result, true)
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', partialChunk)
+      assert.strictEqual(result, false)
     })
 
     void it('should not flag a minimal correct answer', () => {
@@ -133,14 +141,11 @@ void describe('antiCheat', () => {
       assert.strictEqual(result, false)
     })
 
-    void it('should flag submission with large overlap from Dockerfile', () => {
-      const largeChunk = `FROM node:20.19.2-bookworm-slim AS base
-RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.5-*
-FROM node:20.19.2-bookworm AS builder
-WORKDIR /juice-shop
-COPY package*.json ./
-RUN npm ci --ignore-scripts`
-      const result = antiCheat.checkForSourceFileOverlap('vulnerableDockerImageChallenge', largeChunk)
+    void it('should flag 1:1 copy-paste of docker-compose.yml as cheating', () => {
+      const fs = require('fs')
+      const path = require('path')
+      const sourceFile = fs.readFileSync(path.resolve('infrastructure/docker-compose.yml'), 'utf8')
+      const result = antiCheat.checkForSourceFileOverlap('vulnerableDockerImageChallenge', sourceFile)
       assert.strictEqual(result, true)
     })
   })

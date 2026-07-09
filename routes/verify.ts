@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { type Request, type Response, type NextFunction } from 'express'
+import { type NextFunction, type Request, type Response } from 'express'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
 import config from 'config'
 import jws from 'jws'
 
-import { products, challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
+import { challenges, products, retrieveBlueprintChallengeFile } from '../data/datacache'
 import type { Product as ProductConfig } from '../lib/config.schema'
 import { type Challenge, type Product } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
@@ -360,33 +360,8 @@ function dangerousIngredients () {
     })
 }
 
-export const SYSTEM_PROMPT_SIMILARITY_THRESHOLD = 0.25
-
-export function diceCoefficient (s1: string, s2: string): number {
-  if (s1 === s2) return 1
-  if (s1.length < 2 || s2.length < 2) return 0
-
-  const bigrams1 = new Map<string, number>()
-  for (let i = 0; i < s1.length - 1; i++) {
-    const bigram = s1.substring(i, i + 2)
-    bigrams1.set(bigram, (bigrams1.get(bigram) ?? 0) + 1)
-  }
-
-  let intersectionSize = 0
-  for (let i = 0; i < s2.length - 1; i++) {
-    const bigram = s2.substring(i, i + 2)
-    const count = bigrams1.get(bigram) ?? 0
-    if (count > 0) {
-      bigrams1.set(bigram, count - 1)
-      intersectionSize++
-    }
-  }
-
-  return (2.0 * intersectionSize) / (s1.length + s2.length - 2)
-}
-
-export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = SYSTEM_PROMPT_SIMILARITY_THRESHOLD): boolean {
-  const score = diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim())
+export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = 0.25): boolean {
+  const score = utils.diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim())
   return score >= threshold
 }
 

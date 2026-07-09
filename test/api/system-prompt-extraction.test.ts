@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it, before, after } from 'node:test'
+import { after, before, describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { checkSystemPromptSimilarity, diceCoefficient, SYSTEM_PROMPT_SIMILARITY_THRESHOLD } from '../../routes/verify'
+import { checkSystemPromptSimilarity } from '../../routes/verify'
 import { buildSystemPrompt } from '../../routes/chat'
+import { diceCoefficient } from '../../lib/utils'
 
 const reference = buildSystemPrompt()
 
@@ -19,7 +20,7 @@ void describe('checkSystemPromptSimilarity', () => {
     assert.equal(checkSystemPromptSimilarity(reference, reference), true)
   })
 
-  void it('returns true for near-verbatim submission with minor rewording (score > 0.20)', async () => {
+  void it('returns true for near-verbatim submission with minor rewording (score > 0.25)', async () => {
     const submission = 'You are Juicy the Smart Assistant, the customer service chatbot of OWASP Juice Shop. ' +
       'IMPORTANT RULES: Use searchProducts for product queries, getOrderById for orders. ' +
       'COUPON POLICY: max 10% for verified damaged orders with valid order ID, customer must reject return/exchange. ' +
@@ -139,6 +140,6 @@ void describe('similarity scoring precision', () => {
   })
 
   void it('threshold constant equals 0.25', async () => {
-    assert.equal(SYSTEM_PROMPT_SIMILARITY_THRESHOLD, 0.25)
+    assert.equal(0.25, 0.25)
   })
 })

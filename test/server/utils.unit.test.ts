@@ -242,4 +242,31 @@ void describe('utils', () => {
       assert.equal(utils.trunc('12\n3', 5), '123')
     })
   })
+
+  void describe('diceCoefficient', () => {
+    void it('should return 1 for identical strings', () => {
+      assert.equal(utils.diceCoefficient('abc', 'abc'), 1)
+    })
+
+    void it('should return 1 for identical strings even if they are short', () => {
+      assert.equal(utils.diceCoefficient('a', 'a'), 1)
+    })
+
+    void it('should return 0 for different strings if at least one is less than 2 characters', () => {
+      assert.equal(utils.diceCoefficient('a', 'b'), 0)
+      assert.equal(utils.diceCoefficient('a', 'abc'), 0)
+    })
+
+    void it('should return 0 for completely different strings', () => {
+      assert.equal(utils.diceCoefficient('abc', 'def'), 0)
+    })
+
+    void it('should return correct coefficient for partially overlapping strings', () => {
+      // 'night' bigrams: ni, ig, gh, ht
+      // 'nacht' bigrams: na, ac, ch, ht
+      // intersection: ht (1)
+      // score: 2 * 1 / (5 + 5 - 2) = 0.25
+      assert.equal(utils.diceCoefficient('night', 'nacht'), 0.25)
+    })
+  })
 })
