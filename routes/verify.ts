@@ -13,6 +13,7 @@ import { products, challenges, retrieveBlueprintChallengeFile } from '../data/da
 import type { Product as ProductConfig } from '../lib/config.schema'
 import { type Challenge, type Product } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
+import * as antiCheat from '../lib/antiCheat'
 import { ComplaintModel } from '../models/complaint'
 import { FeedbackModel } from '../models/feedback'
 import * as security from '../lib/insecurity'
@@ -146,9 +147,10 @@ async function checkPatternInFeedbackAndComplaints (
 ): Promise<void> {
   const feedbackCheck = FeedbackModel.findAndCountAll({
     where: { comment: fieldCriteria }
-  }).then(({ count }: { count: number }) => {
+  }).then(({ count, rows }: { count: number, rows: any[] }) => {
     if (count > 0) {
-      challengeUtils.solve(challenge)
+      const isCheating = rows.some((row: any) => antiCheat.checkForSourceFileOverlap(challenge.key, row.comment ?? ''))
+      challengeUtils.solve(challenge, false, isCheating)
     }
   }).catch(() => {
     throw new Error('Unable to retrieve feedback details. Please try again')
@@ -156,9 +158,10 @@ async function checkPatternInFeedbackAndComplaints (
 
   const complaintCheck = ComplaintModel.findAndCountAll({
     where: { message: fieldCriteria }
-  }).then(({ count }: { count: number }) => {
+  }).then(({ count, rows }: { count: number, rows: any[] }) => {
     if (count > 0) {
-      challengeUtils.solve(challenge)
+      const isCheating = rows.some((row: any) => antiCheat.checkForSourceFileOverlap(challenge.key, row.message ?? ''))
+      challengeUtils.solve(challenge, false, isCheating)
     }
   }).catch(() => {
     throw new Error('Unable to retrieve complaint details. Please try again')

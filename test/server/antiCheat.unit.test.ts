@@ -96,6 +96,55 @@ void describe('antiCheat', () => {
     })
   })
 
+  void describe('checkForSourceFileOverlap', () => {
+    void it('should not flag short submissions as cheating', () => {
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "1.4.2",')
+      assert.strictEqual(result, false)
+    })
+
+    void it('should not flag submissions for challenges without source file mapping', () => {
+      const result = antiCheat.checkForSourceFileOverlap('someUnknownChallenge', 'a'.repeat(200))
+      assert.strictEqual(result, false)
+    })
+
+    void it('should flag submission with large overlap from package.json.bak', () => {
+      const largeChunk = `"dependencies": {
+    "body-parser": "~1.18",
+    "colors": "~1.1",
+    "config": "~1.28",
+    "cookie-parser": "~1.4",
+    "cors": "~2.8",
+    "dottie": "~2.0",
+    "epilogue-js": "~0.7",
+    "errorhandler": "~1.5",
+    "express": "~4.16",
+    "express-jwt": "0.1.3",
+    "fs-extra": "~4.0",
+    "glob": "~5.0",
+    "sanitize-html": "1.4.2",
+    "sequelize": "~4"
+  }`
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', largeChunk)
+      assert.strictEqual(result, true)
+    })
+
+    void it('should not flag a minimal correct answer', () => {
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', '"sanitize-html": "1.4.2"')
+      assert.strictEqual(result, false)
+    })
+
+    void it('should flag submission with large overlap from Dockerfile', () => {
+      const largeChunk = `FROM node:20.19.2-bookworm-slim AS base
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init=1.2.5-*
+FROM node:20.19.2-bookworm AS builder
+WORKDIR /juice-shop
+COPY package*.json ./
+RUN npm ci --ignore-scripts`
+      const result = antiCheat.checkForSourceFileOverlap('vulnerableDockerImageChallenge', largeChunk)
+      assert.strictEqual(result, true)
+    })
+  })
+
   void describe('reset', () => {
     void it('should reset solves and interactions', () => {
       const challenge: Challenge = { key: 'directoryListingChallenge', difficulty: 1 } as any

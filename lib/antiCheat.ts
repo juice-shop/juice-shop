@@ -5,6 +5,8 @@
 
 import config from 'config'
 import colors from 'colors/safe'
+import path from 'path'
+import fs from 'fs'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
 import { readFixes } from '../routes/vulnCodeFixes'
 import { type Challenge } from '../data/types'
@@ -174,6 +176,84 @@ export const reset = () => {
   preSolveInteractions.forEach((preSolveInteraction) => {
     preSolveInteraction.interactions.fill(false)
   })
+}
+
+export const SOURCE_FILE_OVERLAP_THRESHOLD = 0.4
+
+const challengeSourceFiles: Record<string, string[]> = {
+  knownVulnerableComponentChallenge: ['ftp/package.json.bak'],
+  typosquattingNpmChallenge: ['ftp/package.json.bak'],
+  supplyChainAttackChallenge: ['ftp/package.json.bak'],
+  weirdCryptoChallenge: ['ftp/package.json.bak'],
+  vulnerableDockerImageChallenge: ['infrastructure/Dockerfile']
+}
+
+const sourceFileCache = new Map<string, string>()
+
+function loadSourceFile (relativePath: string): string {
+  if (sourceFileCache.has(relativePath)) {
+    return sourceFileCache.get(relativePath)!
+  }
+  try {
+    const content = fs.readFileSync(path.resolve(relativePath), 'utf8')
+    sourceFileCache.set(relativePath, content)
+    return content
+  } catch {
+    return ''
+  }
+}
+
+function normalizeWhitespace (text: string): string {
+  return text.replace(/\s+/g, ' ').trim().toLowerCase()
+}
+
+function longestCommonSubstringLength (s1: string, s2: string): number {
+  if (s1.length === 0 || s2.length === 0) return 0
+  const shorter = s1.length <= s2.length ? s1 : s2
+  const longer = s1.length > s2.length ? s1 : s2
+  let prev = new Array(shorter.length + 1).fill(0)
+  let curr = new Array(shorter.length + 1).fill(0)
+  let maxLen = 0
+  for (let i = 1; i <= longer.length; i++) {
+    for (let j = 1; j <= shorter.length; j++) {
+      if (longer[i - 1] === shorter[j - 1]) {
+        curr[j] = prev[j - 1] + 1
+        if (curr[j] > maxLen) maxLen = curr[j]
+      } else {
+        curr[j] = 0
+      }
+    }
+    ;[prev, curr] = [curr, prev]
+    curr.fill(0)
+  }
+  return maxLen
+}
+
+export function checkForSourceFileOverlap (challengeKey: string, submission: string): boolean {
+  const sourceFiles = challengeSourceFiles[challengeKey]
+  if (!sourceFiles || submission.length < 100) {
+    return false
+  }
+
+  const normalizedSubmission = normalizeWhitespace(submission)
+  if (normalizedSubmission.length < 80) {
+    return false
+  }
+
+  for (const filePath of sourceFiles) {
+    const fileContent = loadSourceFile(filePath)
+    if (fileContent.length === 0) continue
+
+    const normalizedFile = normalizeWhitespace(fileContent)
+    const lcsLength = longestCommonSubstringLength(normalizedSubmission, normalizedFile)
+    const overlapRatio = lcsLength / normalizedSubmission.length
+
+    if (overlapRatio >= SOURCE_FILE_OVERLAP_THRESHOLD) {
+      logger.warn(`Detected source file overlap for ${colors.cyan(challengeKey)}: ${Math.round(overlapRatio * 100)}% of submission matches ${filePath}`)
+      return true
+    }
+  }
+  return false
 }
 
 const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<boolean> => {
