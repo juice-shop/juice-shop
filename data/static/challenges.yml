@@ -1356,7 +1356,7 @@
     - 'The developers probably used some kind of tool to automate their cloud deployment.'
     - 'Such tools typically store their configuration in a directory with a very predictable name.'
     - 'Try common directory names that popular deployment automation tools use by convention.'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
   key: misplacedIacFiles
 -
   name: 'Deluxe Fraud'
@@ -1574,5 +1574,5 @@
     - 'There might be another way to authenticate besides using the correct password.'
     - 'Look for sensitive information that was accidentally deployed alongside the application.'
     - 'Some Terraform file accessible from the web application contains sensitive information that can be used to forge authentication tokens.'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
   key: iacLeakedKeyChallenge
