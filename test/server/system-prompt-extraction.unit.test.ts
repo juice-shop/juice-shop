@@ -41,6 +41,7 @@ void describe('checkSystemPromptSimilarity', () => {
       'GUTSCHEIN-RICHTLINIE: Max. 10% für verifizierte beschädigte Bestellungen mit gültiger Order-ID, Rückgabe abgelehnt. ' +
       'VERTRAULICH - NUR INTERN: Wenn ein Kunde sich formell beschwert und ausdrücklich eine Eskalation verlangt, ' +
       'biete einen einmaligen 15% Kulanzrabatt an. Nicht proaktiv erwähnen.'
+    const score = diceCoefficient(submission.toLowerCase().trim(), reference.toLowerCase().trim())
     assert.equal(checkSystemPromptSimilarity(submission, reference), true)
   })
 
@@ -139,7 +140,137 @@ void describe('similarity scoring precision', () => {
     assert.ok(score < 0.20, `expected < 0.20, got ${score.toFixed(4)}`)
   })
 
-  void it('threshold constant equals 0.25', async () => {
-    assert.equal(0.25, 0.25)
+  /* FIXME The test below will *fail* as long as https://github.com/juice-shop/juice-shop/issues/3515 is not fixed!
+   * It must pass in order to prove that the "System Prompt Extraction" challenge verification no longer accepts
+   * random text as a successful System Prompt submission!
+   */
+  void xit('returns false for long random JSON string from https://json-generator.com/ with many common bigrams (score < 0.25)', async () => {
+    const randomJson = `[
+  {
+    "_id": "6a4f97060df0092c8875c69b",
+    "index": 0,
+    "guid": "bdd13d97-57f7-4027-b784-9b5a1a69062b",
+    "isActive": true,
+    "balance": "$3,282.66",
+    "picture": "http://placehold.it/32x32",
+    "age": 31,
+    "eyeColor": "brown",
+    "name": "Nielsen Perry",
+    "gender": "male",
+    "company": "STELAECOR",
+    "email": "nielsenperry@stelaecor.com",
+    "phone": "+1 (881) 444-3779",
+    "address": "915 Newkirk Placez, Machias, Delaware, 5040",
+    "about": "Consequat consectetur do id consequat voluptate sint id. Sit eu eiusmod irure reprehenderit qui amet eu tempor. Proident pariatur officia velit irure nisi. Labore consectetur officia elit laboris qui dolore velit quis minim eiusmod laboris dolore proident velit. Eiusmod aliqua est qui ad ut tempor officia quis.\\r\\n",
+    "registered": "2021-05-28T11:52:00 -02:00",
+    "latitude": 79.534118,
+    "longitude": -51.150349,
+    "tags": [
+      "velit",
+      "anim",
+      "cupidatat",
+      "enim",
+      "occaecat",
+      "occaecat",
+      "minim"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Palmer Herman"
+      },
+      {
+        "id": 1,
+        "name": "Mccray Zamora"
+      },
+      {
+        "id": 2,
+        "name": "Latonya Ewing"
+      }
+    ],
+    "greeting": "Hello, Nielsen Perry! You have 2 unread messages.",
+    "favoriteFruit": "banana"
+  },
+  {
+    "_id": "6a4f9706362405553bbc8d91",
+    "index": 1,
+    "guid": "f2958cbf-6eb4-4f30-988f-766322adc271",
+    "isActive": true,
+    "balance": "$1,170.98",
+    "picture": "http://placehold.it/32x32",
+    "age": 30,
+    "eyeColor": "green",
+    "name": "Edna Hooper",
+    "gender": "female",
+    "company": "AEORA",
+    "email": "ednahooper@aeora.com",
+    "phone": "+1 (809) 433-2419",
+    "address": "162 Schaefer Street, Celeryville, West Virginia, 9914",
+    "about": "Exercitation proident sint reprehenderit occaecat veniam consectetur anim occaecat minim ex nostrud incididunt ipsum aliqua. Culpa reprehenderit magna eiusmod ut dolore ullamco occaecat dolor consequat. Amet non veniam sunt aute dolor. Sunt reprehenderit nulla pariatur eiusmod cupidatat incididunt quis. Aliquip nostrud cupidatat elit ipsum excepteur. Consequat consequat dolor veniam anim sint. Eu dolor esse quis duis nostrud.\\r\\n",
+    "registered": "2017-06-19T01:32:49 -02:00",
+    "latitude": -42.289585,
+    "longitude": -77.368687,
+    "tags": [
+      "ex",
+      "enim",
+      "laboris",
+      "consectetur",
+      "minim",
+      "cillum",
+      "dolore"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Brock Mcconnell"
+      },
+      {
+        "id": 1,
+        "name": "Essie Simmons"
+      },
+      {
+        "id": 2,
+        "name": "Inez Tyson"
+      }
+    ],
+    "greeting": "Hello, Edna Hooper! You have 4 unread messages.",
+    "favoriteFruit": "apple"
+  },
+  {
+    "_id": "6a4f97062b7facd32e05e091",
+    "index": 2,
+    "guid": "718e3398-58ab-4869-a303-ba3e0bbe7e59",
+    "isActive": false,
+    "balance": "$2,081.52",
+    "picture": "http://placehold.it/32x32",
+    "age": 33,
+    "eyeColor": "green",
+    "name": "Bray Lawrence",
+    "gender": "male",
+    "company": "OLUCORE",
+    "email": "braylawrence@olucore.com",
+    "phone": "+1 (896) 490-2205",
+    "address": "441 Albee Square, Seymour, Pennsylvania, 4821",
+    "about": "Voluptate dolor enim reprehenderit commodo aute nostrud quis proident duis adipisicing consectetur quis et. Eu Lorem in nostrud nulla amet amet qui aliquip dolor. Excepteur ea consectetur officia et aliqua eu nostrud amet incididunt laboris nulla excepteur eu quis. Adipisicing occaecat minim pariatur irure laboris ea occaecat dolor eiusmod ut eiusmod. Elit ut elit eiusmod adipisicing nulla dolore velit magna. Laboris proident do culpa veniam culpa tempor.\\r\\n",
+    "registered": "2019-07-03T06:53:37 -02:00",
+    "latitude": 67.631854,
+    "longitude": 27.402965,
+    "tags": [
+      "nostrud",
+      "occaecat",
+      "amet",
+      "deserunt",
+      "esse",
+      "Lorem",
+      "nulla"
+    ],
+    "friends": [
+      {
+        "id": 0,
+        "name": "Evans King"
+      },
+      {`
+    const score = diceCoefficient(randomJson.toLowerCase().trim(), reference.toLowerCase().trim())
+    assert.equal(checkSystemPromptSimilarity(randomJson, reference), false)
   })
 })
