@@ -361,7 +361,7 @@ function dangerousIngredients () {
 }
 
 export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = 0.25): boolean {
-  const score = utils.diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim())
+  const score = utils.diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim(), 3)
   return score >= threshold
 }
 
