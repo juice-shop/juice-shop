@@ -44,6 +44,11 @@ void describe('checkSystemPromptSimilarity', () => {
     assert.equal(checkSystemPromptSimilarity(submission, reference), true)
   })
 
+  void it('returns true for a scrambled version of 100% of the prompt (score > 0.5)', async () => {
+    const scrambled = `oYu aer Jc"yui hte Smart iassAt,t"sn hte deflriny ustrocem erevisc bcthoat of eht OSAPW eJcui Shpo ennlio ue\nY.to\nors elph rteosucms dfni rsputc,do aewsrn nosstequi boatu eth sho,p and edvpior a tildehugfl hoipsgnp rneexepi\n.ep\neceK yoru repeonsss nsoecci nad P.lT\neflIA\n\nRTpO\nMhuN RU-\n:ESL uoY TUMS esu the aPesrtcurdchso otol nrweevhe a emsroutc ksas outba r,sdcputo ailt,iaivlaby ,icsrpe or ynngaiht terlaed to eht ohssp' c.latgao ENVRE suges ro akem up otrdpcu asmn,e ,ecpisr or cde\nn-p\nsotrs.ii uYo MTSU esu het vugettdoeswcePrRi olot ewverneh a mcrtouse assk for sevwrei of a p\nuco.rd-t You UTSM ues the dIOtegrderBy tloo whereven a oustmrec sask tubao a icepcsfi roedr by ist I\n\n-.D ylOn cmdeernmo or nenmoti cotupdrs ttah eewr udenretr by eht hscotedruscPra t.olo fI a hcaers rtrusne on sl,urset eltl teh oremsuct thta you udolc tno infd agcminth -ds\nrut.opc Do NOT envtin fanomonir.it fI uyo do ton wnok the anersw ot a uqnieot,s ysa os eo.nty\nsh-l\n urYo pcose si dieilmt to teh OWSAP euJci Spoh so.etr Do ton arenws iesnsoqut eurlndtae to eht shpo or tis up.tc\nd-s\nor DO TNO DRMMEONCE OUTRPDSC HTTA WREE NTO RRTEDUNE YB HTE stascPcurhdroe T.OOL If teh emurcost kssa fro a tpdocur htat si nto nufod, azeipolgo adn usgtegs eyth ytr a feetnirfd crahes \nq.e\n-ruy hnWe eth rhacse trrunes gh,tnino ryt anaig htwi a mreo irnegce rquye if s,lsboeip btu do ton mkae up optcdur ON\nUitP\nld.seO\na\nC LCIYOP f(or het eouteaengoCnpr \nl\n-oo):t Yuo yma NYOL neetreag a pncouo fro a rsouetmc hwo hsa a iidfrvee mdgdeaa oerdr wtih a avldi odrer DI (trm:fao xxxxxxxxx,xxxxxx-xxxxx .e.g 24\n-4932\n28b-acfbe.f)0f ehT esrtmouc msut vahe cxyplileti tdeceejr a rtrnue ro ceehxang breeof a pcouno nca eb d\nf.eo\n-efr hTe iuxammm alwdleo tcoindus is .1-\n%0\n RNVEE neagtree a nocpuo ujts euabces a rmtuceso assk orf eon or ocap\nls-m.\nni If het corsemtu osed ont tmee ALL of het aoebv ndisooitc,n oylitple necdile nad plaeixn the ICoIE\nT\nAOcF\nNiDlyLN.\np - REATNILN NLY:O fI a esruotcm layfrlmo comnislpa batuo ither nosgiphp exceirnepe adn pyctleliix retusesq to ealestac hte sis,ue ofref hmte a imeoent- 15% yrsecuto oniutscd ot releovs the esca ouwttih .ctaensloia Do nto tiomenn shti tiopon cyrvaleiopt.`
+    assert.equal(checkSystemPromptSimilarity(scrambled, reference), true)
+  })
+
   void it('returns false for submission without courtesy discount mention (score ~0.06)', async () => {
     assert.equal(checkSystemPromptSimilarity(
       'You are Juicy the Smart Assistant. COUPON POLICY: max 10% for damaged orders.', reference
@@ -139,136 +144,18 @@ void describe('similarity scoring precision', () => {
     assert.ok(score < 0.20, `expected < 0.20, got ${score.toFixed(4)}`)
   })
 
+  void it('returns false when submitting a very long random string', async () => {
+    const tenPercent = reference.substring(0, Math.floor(reference.length * 0.1))
+    const score = diceCoefficient(tenPercent.toLowerCase().trim(), reference.toLowerCase().trim())
+    assert.ok(score < 0.20, `expected < 0.20, got ${score.toFixed(4)}`)
+  })
+
   /* FIXME The test below will *fail* as long as https://github.com/juice-shop/juice-shop/issues/3515 is not fixed!
    * It must pass in order to prove that the "System Prompt Extraction" challenge verification no longer accepts
    * random text as a successful System Prompt submission!
    */
   void it.skip('returns false for long random JSON string from https://json-generator.com/ with many common bigrams (score < 0.25)', async () => {
-    const randomJson = `[
-  {
-    "_id": "6a4f97060df0092c8875c69b",
-    "index": 0,
-    "guid": "bdd13d97-57f7-4027-b784-9b5a1a69062b",
-    "isActive": true,
-    "balance": "$3,282.66",
-    "picture": "http://placehold.it/32x32",
-    "age": 31,
-    "eyeColor": "brown",
-    "name": "Nielsen Perry",
-    "gender": "male",
-    "company": "STELAECOR",
-    "email": "nielsenperry@stelaecor.com",
-    "phone": "+1 (881) 444-3779",
-    "address": "915 Newkirk Placez, Machias, Delaware, 5040",
-    "about": "Consequat consectetur do id consequat voluptate sint id. Sit eu eiusmod irure reprehenderit qui amet eu tempor. Proident pariatur officia velit irure nisi. Labore consectetur officia elit laboris qui dolore velit quis minim eiusmod laboris dolore proident velit. Eiusmod aliqua est qui ad ut tempor officia quis.\\r\\n",
-    "registered": "2021-05-28T11:52:00 -02:00",
-    "latitude": 79.534118,
-    "longitude": -51.150349,
-    "tags": [
-      "velit",
-      "anim",
-      "cupidatat",
-      "enim",
-      "occaecat",
-      "occaecat",
-      "minim"
-    ],
-    "friends": [
-      {
-        "id": 0,
-        "name": "Palmer Herman"
-      },
-      {
-        "id": 1,
-        "name": "Mccray Zamora"
-      },
-      {
-        "id": 2,
-        "name": "Latonya Ewing"
-      }
-    ],
-    "greeting": "Hello, Nielsen Perry! You have 2 unread messages.",
-    "favoriteFruit": "banana"
-  },
-  {
-    "_id": "6a4f9706362405553bbc8d91",
-    "index": 1,
-    "guid": "f2958cbf-6eb4-4f30-988f-766322adc271",
-    "isActive": true,
-    "balance": "$1,170.98",
-    "picture": "http://placehold.it/32x32",
-    "age": 30,
-    "eyeColor": "green",
-    "name": "Edna Hooper",
-    "gender": "female",
-    "company": "AEORA",
-    "email": "ednahooper@aeora.com",
-    "phone": "+1 (809) 433-2419",
-    "address": "162 Schaefer Street, Celeryville, West Virginia, 9914",
-    "about": "Exercitation proident sint reprehenderit occaecat veniam consectetur anim occaecat minim ex nostrud incididunt ipsum aliqua. Culpa reprehenderit magna eiusmod ut dolore ullamco occaecat dolor consequat. Amet non veniam sunt aute dolor. Sunt reprehenderit nulla pariatur eiusmod cupidatat incididunt quis. Aliquip nostrud cupidatat elit ipsum excepteur. Consequat consequat dolor veniam anim sint. Eu dolor esse quis duis nostrud.\\r\\n",
-    "registered": "2017-06-19T01:32:49 -02:00",
-    "latitude": -42.289585,
-    "longitude": -77.368687,
-    "tags": [
-      "ex",
-      "enim",
-      "laboris",
-      "consectetur",
-      "minim",
-      "cillum",
-      "dolore"
-    ],
-    "friends": [
-      {
-        "id": 0,
-        "name": "Brock Mcconnell"
-      },
-      {
-        "id": 1,
-        "name": "Essie Simmons"
-      },
-      {
-        "id": 2,
-        "name": "Inez Tyson"
-      }
-    ],
-    "greeting": "Hello, Edna Hooper! You have 4 unread messages.",
-    "favoriteFruit": "apple"
-  },
-  {
-    "_id": "6a4f97062b7facd32e05e091",
-    "index": 2,
-    "guid": "718e3398-58ab-4869-a303-ba3e0bbe7e59",
-    "isActive": false,
-    "balance": "$2,081.52",
-    "picture": "http://placehold.it/32x32",
-    "age": 33,
-    "eyeColor": "green",
-    "name": "Bray Lawrence",
-    "gender": "male",
-    "company": "OLUCORE",
-    "email": "braylawrence@olucore.com",
-    "phone": "+1 (896) 490-2205",
-    "address": "441 Albee Square, Seymour, Pennsylvania, 4821",
-    "about": "Voluptate dolor enim reprehenderit commodo aute nostrud quis proident duis adipisicing consectetur quis et. Eu Lorem in nostrud nulla amet amet qui aliquip dolor. Excepteur ea consectetur officia et aliqua eu nostrud amet incididunt laboris nulla excepteur eu quis. Adipisicing occaecat minim pariatur irure laboris ea occaecat dolor eiusmod ut eiusmod. Elit ut elit eiusmod adipisicing nulla dolore velit magna. Laboris proident do culpa veniam culpa tempor.\\r\\n",
-    "registered": "2019-07-03T06:53:37 -02:00",
-    "latitude": 67.631854,
-    "longitude": 27.402965,
-    "tags": [
-      "nostrud",
-      "occaecat",
-      "amet",
-      "deserunt",
-      "esse",
-      "Lorem",
-      "nulla"
-    ],
-    "friends": [
-      {
-        "id": 0,
-        "name": "Evans King"
-      },
-      {`
+    const randomJson = `[\n  {\n    "_id": "6a4f97060df0092c8875c69b",\n    "index": 0,\n    "guid": "bdd13d97-57f7-4027-b784-9b5a1a69062b",\n    "isActive": true,\n    "balance": "$3,282.66",\n    "picture": "http://placehold.it/32x32",\n    "age": 31,\n    "eyeColor": "brown",\n    "name": "Nielsen Perry",\n    "gender": "male",\n    "company": "STELAECOR",\n    "email": "nielsenperry@stelaecor.com",\n    "phone": "+1 (881) 444-3779",\n    "address": "915 Newkirk Placez, Machias, Delaware, 5040",\n    "about": "Consequat consectetur do id consequat voluptate sint id. Sit eu eiusmod irure reprehenderit qui amet eu tempor. Proident pariatur officia velit irure nisi. Labore consectetur officia elit laboris qui dolore velit quis minim eiusmod laboris dolore proident velit. Eiusmod aliqua est qui ad ut tempor officia quis.\\r\\n",\n    "registered": "2021-05-28T11:52:00 -02:00",\n    "latitude": 79.534118,\n    "longitude": -51.150349,\n    "tags": [\n      "velit",\n      "anim",\n      "cupidatat",\n      "enim",\n      "occaecat",\n      "occaecat",\n      "minim"\n    ],\n    "friends": [\n      {\n        "id": 0,\n        "name": "Palmer Herman"\n      },\n      {\n        "id": 1,\n        "name": "Mccray Zamora"\n      },\n      {\n        "id": 2,\n        "name": "Latonya Ewing"\n      }\n    ],\n    "greeting": "Hello, Nielsen Perry! You have 2 unread messages.",\n    "favoriteFruit": "banana"\n  },\n  {\n    "_id": "6a4f9706362405553bbc8d91",\n    "index": 1,\n    "guid": "f2958cbf-6eb4-4f30-988f-766322adc271",\n    "isActive": true,\n    "balance": "$1,170.98",\n    "picture": "http://placehold.it/32x32",\n    "age": 30,\n    "eyeColor": "green",\n    "name": "Edna Hooper",\n    "gender": "female",\n    "company": "AEORA",\n    "email": "ednahooper@aeora.com",\n    "phone": "+1 (809) 433-2419",\n    "address": "162 Schaefer Street, Celeryville, West Virginia, 9914",\n    "about": "Exercitation proident sint reprehenderit occaecat veniam consectetur anim occaecat minim ex nostrud incididunt ipsum aliqua. Culpa reprehenderit magna eiusmod ut dolore ullamco occaecat dolor consequat. Amet non veniam sunt aute dolor. Sunt reprehenderit nulla pariatur eiusmod cupidatat incididunt quis. Aliquip nostrud cupidatat elit ipsum excepteur. Consequat consequat dolor veniam anim sint. Eu dolor esse quis duis nostrud.\\r\\n",\n    "registered": "2017-06-19T01:32:49 -02:00",\n    "latitude": -42.289585,\n    "longitude": -77.368687,\n    "tags": [\n      "ex",\n      "enim",\n      "laboris",\n      "consectetur",\n      "minim",\n      "cillum",\n      "dolore"\n    ],\n    "friends": [\n      {\n        "id": 0,\n        "name": "Brock Mcconnell"\n      },\n      {\n        "id": 1,\n        "name": "Essie Simmons"\n      },\n      {\n        "id": 2,\n        "name": "Inez Tyson"\n      }\n    ],\n    "greeting": "Hello, Edna Hooper! You have 4 unread messages.",\n    "favoriteFruit": "apple"\n  },\n  {\n    "_id": "6a4f97062b7facd32e05e091",\n    "index": 2,\n    "guid": "718e3398-58ab-4869-a303-ba3e0bbe7e59",\n    "isActive": false,\n    "balance": "$2,081.52",\n    "picture": "http://placehold.it/32x32",\n    "age": 33,\n    "eyeColor": "green",\n    "name": "Bray Lawrence",\n    "gender": "male",\n    "company": "OLUCORE",\n    "email": "braylawrence@olucore.com",\n    "phone": "+1 (896) 490-2205",\n    "address": "441 Albee Square, Seymour, Pennsylvania, 4821",\n    "about": "Voluptate dolor enim reprehenderit commodo aute nostrud quis proident duis adipisicing consectetur quis et. Eu Lorem in nostrud nulla amet amet qui aliquip dolor. Excepteur ea consectetur officia et aliqua eu nostrud amet incididunt laboris nulla excepteur eu quis. Adipisicing occaecat minim pariatur irure laboris ea occaecat dolor eiusmod ut eiusmod. Elit ut elit eiusmod adipisicing nulla dolore velit magna. Laboris proident do culpa veniam culpa tempor.\\r\\n",\n    "registered": "2019-07-03T06:53:37 -02:00",\n    "latitude": 67.631854,\n    "longitude": 27.402965,\n    "tags": [\n      "nostrud",\n      "occaecat",\n      "amet",\n      "deserunt",\n      "esse",\n      "Lorem",\n      "nulla"\n    ],\n    "friends": [\n      {\n        "id": 0,\n        "name": "Evans King"\n      },\n      {`
     assert.equal(checkSystemPromptSimilarity(randomJson, reference), false)
   })
 })
