@@ -3,31 +3,40 @@
     <header class="assistant-panel__header">
       <div class="assistant-panel__title">
         <span class="assistant-panel__avatar">🍹</span>
-        <h3>Juice Shop AI</h3>
+        <div class="assistant-panel__title-text">
+          <h3>Juice Shop AI</h3>
+          <p>Ask about products, offers and pricing.</p>
+        </div>
       </div>
       <button type="button" (click)="toggleWidget()" aria-label="Close assistant">✕</button>
     </header>
 
     <div class="assistant-panel__messages">
       <div *ngFor="let message of messages()" class="assistant-message" [class.assistant-message--user]="message.role === 'user'">
-        <strong>{{ message.role === 'user' ? 'You' : 'AI' }}</strong>
-        <p>{{ message.content }}</p>
+        <div class="assistant-message__bubble">
+          <span class="assistant-message__tag">{{ message.role === 'user' ? 'You' : 'Assistant' }}</span>
+          <p>{{ message.content }}</p>
+        </div>
       </div>
       <div *ngIf="isLoading()" class="assistant-message assistant-message--loading">
-        <strong>AI</strong>
-        <p>Thinking…</p>
+        <div class="assistant-message__bubble">
+          <span class="assistant-message__tag">Assistant</span>
+          <p>Thinking…</p>
+        </div>
       </div>
     </div>
 
     <form class="assistant-panel__form" (ngSubmit)="sendMessage()">
-      <input
-        [(ngModel)]="question"
-        name="question"
-        type="text"
-        placeholder="Ask about products or prices"
-        autocomplete="off"
-      />
-      <button type="submit" aria-label="Send message">Send</button>
+      <div class="assistant-input">
+        <input
+          [(ngModel)]="question"
+          name="question"
+          type="text"
+          placeholder="Ask about product details, price or availability"
+          autocomplete="off"
+        />
+        <button type="submit" aria-label="Send message">Send</button>
+      </div>
     </form>
   </section>
 
@@ -39,5 +48,6 @@
     [attr.aria-label]="isOpen() ? 'Close AI assistant' : 'Open AI assistant'"
   >
     <span class="assistant-toggle__icon">{{ isOpen() ? '✕' : '💬' }}</span>
+    <span class="assistant-toggle__label">Assistant</span>
   </button>
 </div>
