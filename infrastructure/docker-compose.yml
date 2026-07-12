@@ -1,3 +1,4 @@
+# vuln-code-snippet start vulnerableDockerImageChallenge
 services:
   nginx:
     image: nginx:1.28.0-alpine
@@ -55,7 +56,7 @@ services:
       - juice-shop-net
 
   mongo:
-    image: mongo:4.4.29
+    image: mongo:4.4.29 # vuln-code-snippet vuln-line vulnerableDockerImageChallenge
     container_name: juice-shop-mongo
     restart: unless-stopped
     healthcheck:
@@ -81,3 +82,4 @@ volumes:
 networks:
   juice-shop-net:
     driver: bridge
+# vuln-code-snippet end vulnerableDockerImageChallenge

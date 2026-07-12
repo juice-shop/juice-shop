@@ -272,7 +272,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     if (!filePath.startsWith(path.resolve('infrastructure'))) {
       return res.status(403).end()
     }
-    if (filePath.endsWith('.tf')) {
+    if (filePath.endsWith('.tf') || filePath.endsWith('.yml') || filePath.endsWith('Dockerfile')) {
       fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) return next()
         const cleaned = data.split('\n').filter(line => !line.trim().match(/^#\s*vuln-code-snippet\s/)).map(line => line.replace(/\s*#\s*vuln-code-snippet\s.*$/, '')).join('\n')

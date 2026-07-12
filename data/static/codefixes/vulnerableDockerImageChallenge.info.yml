@@ -1,0 +1,12 @@
+fixes:
+  - id: 1
+    explanation: 'Updating to MongoDB 6.0 is insufficient as this version is already long past its End-of-Life (July 2025).'
+  - id: 2
+    explanation: 'Using the "latest" tag is bad practice as it makes the deployment non-deterministic and can lead to unexpected breakages when new major versions are released.'
+  - id: 3
+    explanation: 'Updating to a current stable version like MongoDB 8.0 is the recommended fix. It ensures you have the latest security patches and long-term support.'
+hints:
+  - 'Look for an outdated component within the infrastructure configuration.'
+  - 'One of the services is running on a version that has already reached its End-of-Life (EOL).'
+  - 'Focus on the database service and verify its current support status.'
+  - 'MongoDB 4.4 is no longer supported.'

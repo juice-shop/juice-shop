@@ -1310,6 +1310,30 @@
 			9
 		]
 	},
+	"vulnerableDockerImageChallenge_1.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
+		]
+	},
+	"vulnerableDockerImageChallenge_2.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
+		]
+	},
+	"vulnerableDockerImageChallenge_3_correct.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
+		]
+	},
 	"weakPasswordChallenge_1_correct.ts": {
 		"added": [],
 		"removed": [
