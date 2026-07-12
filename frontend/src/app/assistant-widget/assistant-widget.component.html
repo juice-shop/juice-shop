@@ -1,11 +1,10 @@
 <div class="assistant-widget">
-  <button class="assistant-toggle" type="button" (click)="toggleWidget()" aria-label="Open AI assistant">
-    <span>AI</span>
-  </button>
-
   <section class="assistant-panel" *ngIf="isOpen()">
     <header class="assistant-panel__header">
-      <h3>Juice Shop AI</h3>
+      <div class="assistant-panel__title">
+        <span class="assistant-panel__avatar">🍹</span>
+        <h3>Juice Shop AI</h3>
+      </div>
       <button type="button" (click)="toggleWidget()" aria-label="Close assistant">✕</button>
     </header>
 
@@ -28,7 +27,17 @@
         placeholder="Ask about products or prices"
         autocomplete="off"
       />
-      <button type="submit">Send</button>
+      <button type="submit" aria-label="Send message">Send</button>
     </form>
   </section>
+
+  <button
+    class="assistant-toggle"
+    [class.assistant-toggle--open]="isOpen()"
+    type="button"
+    (click)="toggleWidget()"
+    [attr.aria-label]="isOpen() ? 'Close AI assistant' : 'Open AI assistant'"
+  >
+    <span class="assistant-toggle__icon">{{ isOpen() ? '✕' : '💬' }}</span>
+  </button>
 </div>
