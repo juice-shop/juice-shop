@@ -1,0 +1,32 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+<button mat-fab color="primary" id="aiWidgetToggle" (click)="toggle()" aria-label="Open AI Assistant">
+  <mat-icon>{{ isOpen ? 'close' : 'smart_toy' }}</mat-icon>
+</button>
+
+@if (isOpen) {
+  <mat-card id="aiWidgetPanel">
+    <mat-card-title>AI Assistant</mat-card-title>
+    <mat-card-content id="aiWidgetMessages">
+      @for (message of messages; track $index) {
+        <div class="message" [ngClass]="message.role">
+          {{ message.text }}
+        </div>
+      }
+      @if (isLoading) {
+        <mat-spinner diameter="24"></mat-spinner>
+      }
+    </mat-card-content>
+    <mat-card-actions id="aiWidgetInputRow">
+      <mat-form-field appearance="outline" id="aiWidgetField">
+        <input matInput [(ngModel)]="draft" (keyup.enter)="send()" placeholder="Ask about a product…" aria-label="Message" />
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="send()" [disabled]="isLoading" aria-label="Send">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+}

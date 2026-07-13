@@ -71,3 +71,5 @@ config/*.yml
 # Misc
 .playwright-mcp/
 cypress/screenshots/
+
+.env.openai

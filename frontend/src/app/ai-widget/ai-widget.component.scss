@@ -1,0 +1,61 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
+#aiWidgetToggle {
+  position: fixed;
+  right: $space-l;
+  bottom: $space-l;
+  z-index: 1000;
+}
+
+#aiWidgetPanel {
+  position: fixed;
+  right: $space-l;
+  bottom: calc(#{$space-l} + 4rem);
+  width: 320px;
+  max-width: calc(100vw - #{$space-xl});
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+#aiWidgetMessages {
+  height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  padding: $space-xs 0;
+}
+
+.message {
+  padding: $space-xs $space-s;
+  border-radius: $space-s;
+  max-width: 85%;
+  white-space: pre-wrap;
+  font-size: 14px;
+
+  &.user {
+    align-self: flex-end;
+    background-color: var(--mat-sys-primary-container, #d6e3ff);
+  }
+
+  &.assistant {
+    align-self: flex-start;
+    background-color: var(--mat-sys-surface-variant, #e0e0e0);
+  }
+}
+
+#aiWidgetInputRow {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+#aiWidgetField {
+  flex: 1;
+}
