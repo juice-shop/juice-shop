@@ -587,7 +587,7 @@
   "Brute forcing the password will not work. The password is too strong.": "Brute forcing the password will not work. The password is too strong.",
   "There might be another way to authenticate besides using the correct password.": "There might be another way to authenticate besides using the correct password.",
   "Look for sensitive information that was accidentally deployed alongside the application.": "Look for sensitive information that was accidentally deployed alongside the application.",
-  "Some Terraform file accessible from the web application contains sensitive information that can be used to forge authentication tokens.": "Some Terraform file accessible from the web application contains sensitive information that can be used to forge authentication tokens.",
+  "Some infrastructure file accessible from the web application contains sensitive information that can be used to forge authentication tokens.": "Some infrastructure file accessible from the web application contains sensitive information that can be used to forge authentication tokens.",
   "Your eldest siblings middle name?": "Your eldest siblings middle name?",
   "Mother's maiden name?": "Mother's maiden name?",
   "Mother's birth date? (MM/DD/YY)": "Mother's birth date? (MM/DD/YY)",
@@ -649,5 +649,13 @@
   "Can you spot a place where a SQL query is being cobbled together in an unsafe way?": "Can you spot a place where a SQL query is being cobbled together in an unsafe way?",
   "Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.": "Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.",
   "Invalid email/password cannot be empty": "Invalid email/password cannot be empty",
-  "<a href=\"https://owasp.slack.com\" target=\"_blank\">More...</a>": "<a href=\"https://owasp.slack.com\" target=\"_blank\">More...</a>"
+  "<a href=\"https://owasp.slack.com\" target=\"_blank\">More...</a>": "<a href=\"https://owasp.slack.com\" target=\"_blank\">More...</a>",
+  "<a href=\"/#/complain\">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)": "<a href=\"/#/complain\">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)",
+  "The developers probably used some kind of tool to automate their cloud deployment and containerization.": "The developers probably used some kind of tool to automate their cloud deployment and containerization.",
+  "Try common directory names that popular deployment automation and infrastructure tools use by convention.": "Try common directory names that popular deployment automation and infrastructure tools use by convention.",
+  "Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.": "Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.",
+  "The shop accidentally exposed some infrastructure configuration files alongside the web application.": "The shop accidentally exposed some infrastructure configuration files alongside the web application.",
+  "Look for Docker-related files in the infrastructure directory.": "Look for Docker-related files in the infrastructure directory.",
+  "Check all referenced third-party images across the Dockerfile and docker-compose.yml and research if any of them have known vulnerabilities or are end-of-life.": "Check all referenced third-party images across the Dockerfile and docker-compose.yml and research if any of them have known vulnerabilities or are end-of-life.",
+  "Not every outdated-looking version number is actually vulnerable. Do your research on official CVE databases or vendor advisories.": "Not every outdated-looking version number is actually vulnerable. Do your research on official CVE databases or vendor advisories."
 }
