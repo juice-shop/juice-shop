@@ -367,6 +367,15 @@ jobs:
           fi
       - name: "Deploy ${{ github.ref }} to Heroku"
         uses: akhileshns/heroku-deploy@581dd286c962b6972d427fcf8980f60755c15520 #v3.13.15
+      - name: "Install Heroku CLI"
+        run: | 
+          curl -fsSL https://cli-assets.heroku.com/install.sh -o heroku_install.sh
+          echo "Check HASH for heroku_install.sh"
+          sha256sum heroku_install.sh > heroku_install.sh.sha256
+          echo "your_actual_sha256_here  heroku_install.sh" > file.sha256
+          shasum -c file.sha256
+          sh heroku_install.sh
+
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ env.HEROKU_APP }}
