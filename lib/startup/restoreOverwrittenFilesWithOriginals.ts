@@ -6,31 +6,41 @@
 import path from 'node:path'
 import * as utils from '../utils'
 import logger from '../logger'
+import { copyFileSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { copyFile, access } from 'node:fs/promises'
-import { glob } from 'glob'
+import { glob, globSync } from 'glob'
 
 const exists = async (path: string) => await access(path).then(() => true).catch(() => false)
 
+let restorationPromise: Promise<void> | null = null
+
 const restoreOverwrittenFilesWithOriginals = async () => {
-  await copyFile(path.resolve('data/static/legal.md'), path.resolve('ftp/legal.md'))
-
-  if (await exists(path.resolve('frontend/dist'))) {
-    await copyFile(
-      path.resolve('data/static/owasp_promo.vtt'),
-      path.resolve('frontend/dist/frontend/assets/public/videos/owasp_promo.vtt')
-    )
+  if (restorationPromise !== null) {
+    return await restorationPromise
   }
+  restorationPromise = (async () => {
+    if (process.env.NODE_ENV === 'test' && existsSync(path.resolve('i18n/en.json'))) {
+      return
+    }
+    try {
+      copyFileSync(path.resolve('data/static/legal.md'), path.resolve('ftp/legal.md'))
 
-  try {
-    const files = await glob(path.resolve('data/static/i18n/*.json').replace(/\\/g, '/'))
-    await Promise.all(
-      files.map(async (filename: string) => {
-        await copyFile(filename, path.resolve('i18n/', path.basename(filename)))
-      })
-    )
-  } catch (err) {
-    logger.warn('Error listing JSON files in /data/static/i18n folder: ' + utils.getErrorMessage(err))
-  }
+      if (existsSync(path.resolve('frontend/dist'))) {
+        copyFileSync(
+          path.resolve('data/static/owasp_promo.vtt'),
+          path.resolve('frontend/dist/frontend/assets/public/videos/owasp_promo.vtt')
+        )
+      }
+
+      const files = globSync(path.resolve('data/static/i18n/*.json').replace(/\\/g, '/'))
+      for (const filename of files) {
+        copyFileSync(filename, path.resolve('i18n/', path.basename(filename)))
+      }
+    } catch (err) {
+      logger.warn('Error restoring i18n files: ' + utils.getErrorMessage(err))
+    }
+  })()
+  return await restorationPromise
 }
 
 export default restoreOverwrittenFilesWithOriginals

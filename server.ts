@@ -319,7 +319,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     directory: path.resolve('i18n'),
     cookie: 'language',
     defaultLocale: 'en',
-    autoReload: true
+    autoReload: process.env.NODE_ENV !== 'test'
   })
   app.use(i18n.init)
 
@@ -702,11 +702,13 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 }
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
-restoreOverwrittenFilesWithOriginals().then(() => {
-  configureApp(app, sequelize)
-}).catch((err) => {
-  console.error(err)
-})
+if (process.env.NODE_ENV !== 'test') {
+  restoreOverwrittenFilesWithOriginals().then(() => {
+    configureApp(app, sequelize)
+  }).catch((err) => {
+    console.error(err)
+  })
+}
 
 const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const mimeTypeMap: any = {
@@ -799,6 +801,7 @@ export async function createApp (options?: { inMemoryDb?: boolean }) {
   Prometheus.register.clear()
   const testApp = express()
   testApp.set('view engine', 'hbs')
+  await restoreOverwrittenFilesWithOriginals()
   configureApp(testApp, seq)
   await seq.sync({ force: true })
   await datacreator()
