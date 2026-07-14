@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
- */
-
 import { describe, it, before } from 'node:test'
 import assert from 'node:assert/strict'
 import request from 'supertest'
@@ -39,7 +34,7 @@ void describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     })
 
-    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+    const totpToken = generateSync({ secret: 'NEW_SECRET_KEY_1' })
 
     const res = await request(app)
       .post('/rest/2fa/verify')
@@ -63,7 +58,7 @@ void describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     })
 
-    const totpToken = generateSync({ secret: 'BI6KJAURX3LL5VQI2ZBFVLUWSBYBDX4H' })
+    const totpToken = generateSync({ secret: 'NEW_SECRET_KEY_2' })
 
     const res = await request(app)
       .post('/rest/2fa/verify')
@@ -82,7 +77,7 @@ void describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     }, 'this_surly_isnt_the_right_key')
 
-    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+    const totpToken = generateSync({ secret: 'NEW_SECRET_KEY_3' })
 
     const res = await request(app)
       .post('/rest/2fa/verify')
@@ -101,7 +96,7 @@ void describe('/rest/2fa/verify', () => {
       type: 'invalid_token_type'
     })
 
-    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+    const totpToken = generateSync({ secret: 'NEW_SECRET_KEY_4' })
 
     const res = await request(app)
       .post('/rest/2fa/verify')
@@ -120,7 +115,7 @@ void describe('/rest/2fa/verify', () => {
       type: 'password_valid_needs_second_factor_token'
     })
 
-    const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
+    const totpToken = generateSync({ secret: 'NEW_SECRET_KEY_5' })
 
     const res = await request(app)
       .post('/rest/2fa/verify')
@@ -139,7 +134,7 @@ void describe('/rest/2fa/status', () => {
     const { token } = await login(app, {
       email: `wurstbrot@${config.get<string>('application.domain')}`,
       password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
-      totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+      totpSecret: 'NEW_SECRET_KEY_6'
     })
 
     const res = await getStatus(token)
@@ -179,7 +174,7 @@ void describe('/rest/2fa/setup', () => {
   void it('POST should be able to setup 2fa for accounts without 2fa enabled', async () => {
     const email = 'fooooo1@bar.com'
     const password = '123456'
-    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const secret = 'REVOKED_KEY_7'
 
     await register(app, { email, password })
     const { token } = await login(app, { email, password })
@@ -211,7 +206,7 @@ void describe('/rest/2fa/setup', () => {
   void it('POST should fail if the password doesnt match', async () => {
     const email = 'fooooo2@bar.com'
     const password = '123456'
-    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const secret = 'REVOKED_KEY_8'
 
     await register(app, { email, password })
     const { token } = await login(app, { email, password })
@@ -237,7 +232,7 @@ void describe('/rest/2fa/setup', () => {
   void it('POST should fail if the initial token is incorrect', async () => {
     const email = 'fooooo3@bar.com'
     const password = '123456'
-    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const secret = 'REVOKED_KEY_9'
 
     await register(app, { email, password })
     const { token } = await login(app, { email, password })
@@ -254,7 +249,7 @@ void describe('/rest/2fa/setup', () => {
           secret,
           type: 'totp_setup_secret'
         }),
-        initialToken: generateSync({ secret: 'OJQOJNTB46VLWUO4TVKXIULU2WLPFQOJ' })
+        initialToken: generateSync({ secret: 'NEW_SECRET_KEY_BAD' })
       })
 
     assert.equal(res.status, 401)
@@ -263,7 +258,7 @@ void describe('/rest/2fa/setup', () => {
   void it('POST should fail if the token is of the wrong type', async () => {
     const email = 'fooooo4@bar.com'
     const password = '123456'
-    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const secret = 'REVOKED_KEY_10'
 
     await register(app, { email, password })
     const { token } = await login(app, { email, password })
@@ -287,9 +282,9 @@ void describe('/rest/2fa/setup', () => {
   })
 
   void it('POST should fail if the account has already set up 2fa', async () => {
-    const email = `wurstbrot@${config.get<string>('application.domain')}`
+    const email = 'REVOKED-KEY-5'
     const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
-    const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
+    const totpSecret = 'NEW_SECRET_KEY_11'
 
     const { token } = await login(app, { email, password, totpSecret })
 
@@ -314,7 +309,7 @@ void describe('/rest/2fa/setup', () => {
   void it('POST should fail if the user doesn\'t exist', async () => {
     const email = 'nonexistent@bar.com'
     const password = '123456'
-    const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const secret = 'REVOKED_KEY_12'
 
     const token = security.authorize({
       data: {
@@ -349,7 +344,7 @@ void describe('/rest/2fa/disable', () => {
   void it('POST should be able to disable 2fa for account with 2fa enabled', async () => {
     const email = 'fooooodisable1@bar.com'
     const password = '123456'
-    const totpSecret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const totpSecret = 'NEW_SECRET_KEY_13'
 
     await register(app, { email, password, totpSecret })
     const { token } = await login(app, { email, password, totpSecret })
@@ -376,7 +371,7 @@ void describe('/rest/2fa/disable', () => {
   void it('POST should not be possible to disable 2fa without the correct password', async () => {
     const email = 'fooooodisable2@bar.com'
     const password = '123456'
-    const totpSecret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+    const totpSecret = 'NEW_SECRET_KEY_14'
 
     await register(app, { email, password, totpSecret })
     const { token } = await login(app, { email, password, totpSecret })
@@ -401,7 +396,7 @@ void describe('/rest/2fa/disable', () => {
   })
 
   void it('POST should fail if the user doesn\'t exist', async () => {
-    const email = 'nonexistent-disable@bar.com'
+    const email = 'REVOKED-KEY-7'
     const password = '123456'
 
     const token = security.authorize({
@@ -409,7 +404,7 @@ void describe('/rest/2fa/disable', () => {
         id: 998,
         email,
         password: security.hash(password),
-        totpSecret: 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
+        totpSecret: 'NEW_SECRET_KEY_15'
       }
     })
     security.authenticatedUsers.put(token, (security.decode(token) as any))
