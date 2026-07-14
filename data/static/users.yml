@@ -85,7 +85,7 @@
 -
   email: bjoern.kimminich@gmail.com
   username: bkimminich
-  password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+  password: 'NEW_SECURE_PASSWORD_1'
   customDomain: true
   key: bjoernGoogle
   role: 'admin'
@@ -129,7 +129,7 @@
     answer: '5N0wb41L' # http://rickandmorty.wikia.com/wiki/Snuffles
 -
   email: mc.safesearch
-  password: 'Mr. N00dles'
+  password: 'NEW_SECURE_PASSWORD_2'
   key: rapper
   role: 'customer'
   walletBalance: 13337
@@ -156,7 +156,7 @@
     answer: 'NZMJLjEinU7TFElDIYW8'
 -
   email: amy
-  password: 'K1f.....................'
+  password: 'NEW_SECURE_PASSWORD_3'
   key: amy
   role: 'customer'
   walletBalance: 48
