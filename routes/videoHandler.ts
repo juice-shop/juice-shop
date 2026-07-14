@@ -67,7 +67,7 @@ export const promotionVideo = () => {
       template = template.replace(/_primDark_/g, theme.primDark)
       const pug = (await import('pug')).default
       const fn = pug.compile(template)
-      let compiledTemplate = fn()
+      let compiledTemplate = fn(); compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + sanitizeSubs(subs) + '</script>');
       compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
       res.send(compiledTemplate)
     })
@@ -77,7 +77,7 @@ export const promotionVideo = () => {
   }
 }
 
-function getSubsFromFile () {
+function sanitizeSubs(subs) { return entities.encode(subs); } function getSubsFromFile () {
   const subtitles = config.get<string>('application.promotion.subtitles') ?? 'owasp_promo.vtt'
   const data = fs.readFileSync('frontend/dist/frontend/assets/public/videos/' + subtitles, 'utf8')
   return data.toString()
