@@ -1,4 +1,4 @@
-doctype html
+doctrine html
 html(lang='en')
     head
         title _title_
@@ -18,12 +18,12 @@ html(lang='en')
             .brand img { max-height: 50px; width: auto; }
             .brand span { font: 500 20px/32px Roboto,"Helvetica Neue",sans-serif; }
             video {
-            min-width: 320px;
-            width: 100%;
-            display: block;
-            margin-bottom: 5px;
-            height: 50vh;
-            outline: none;
+                min-width: 320px;
+                width: 100%;
+                display: block;
+                margin-bottom: 5px;
+                height: 50vh;
+                outline: none;
             }
             @media (max-width: 900px) {
               .app-title {
@@ -45,7 +45,7 @@ html(lang='en')
           article(style='min-width: 320px; max-width: 700px; margin: 24px auto 50px; padding: 16px; border-radius: 12px;')
             h5(style='color: _textColor_;') Promotion Video
             video(controls='controls')
-               source(src='./video', type='video/mp4')
+                source(src='./video', type='video/mp4')
 
         script#subtitle.
 
@@ -62,7 +62,7 @@ html(lang='en')
             return seconds + 60 * minutes + 60 * 60 * hours;
             }
             function quick_and_dirty_vtt_or_srt_parser(vtt) {
-            var lines = vtt.trim().replace('\\r\n', '\n').split(/[\r\n]/).map(function(line) {
+            var lines = vtt.trim().replace('\r\n', '\n').split(/[\n]/).map(function(line) {
             return line.trim();
             });
             var cues = [];
@@ -70,8 +70,8 @@ html(lang='en')
             var end = null;
             var payload = null;
             for (var i = 0; i < lines.length; i++) {
-            if (lines[i].indexOf('-->') >= 0) {
-            var splitted = lines[i].split(/[ \\t]+-->[ \t]+/);
+            if (lines[i] && lines[i].indexOf('-->') >= 0) {
+            var splitted = lines[i].split(/[ \t]+-->[ \t]+/).map(s => s.trim());
             if (splitted.length != 2) {
             throw 'Error when splitting "-->": ' + lines[i];
             }
@@ -90,7 +90,7 @@ html(lang='en')
             if (payload == null) {
             payload = lines[i];
             } else {
-            payload += '\\n' + lines[i];
+            payload += '\n' + lines[i];
             }
             }
             }
