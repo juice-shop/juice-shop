@@ -24,7 +24,29 @@ jobs:
       with:
         path: juice-shop
     - name: Update challenges.yml
-      run: |
+      env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: |
+        if [ "$GITHUB_REF_NAME" = "master" ]; then
+          DEST_FILE="_data/snippets.json"
+        else
+          DEST_FILE="_data/snippets_dev.json"
+        fi
+        rm -f $DEST_FILE
+        CHALLENGES=$(ls juice-shop/data/static/codefixes/*.info.yml | xargs -n 1 basename | sed 's/\.info\.yml//')
+        CHALLENGE_JSON=$(echo $CHALLENGES | jq -R . | jq -s -c '{"challenges": .}')
+        echo $CHALLENGE_JSON > $DEST_FILE
+        
+        if [ "$GITHUB_REF_NAME" = "master" ]; then
+          DEST_FILE="_data/challenges.yml"
+        else
+          DEST_FILE="_data/challenges_dev.yml"
+        fi
+        rm -f $DEST_FILE
+        cp juice-shop/data/static/challenges.yml $DEST_FILE
+        
         if [ "${{ github.ref_name }}" = "master" ]; then
           DEST_FILE="_data/challenges.yml"
         else
@@ -33,7 +55,29 @@ jobs:
         rm -f $DEST_FILE
         cp juice-shop/data/static/challenges.yml $DEST_FILE
     - name: Update snippets
-      run: |
+      env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        env:
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+        run: |
+        if [ "$GITHUB_REF_NAME" = "master" ]; then
+          DEST_FILE="_data/snippets.json"
+        else
+          DEST_FILE="_data/snippets_dev.json"
+        fi
+        rm -f $DEST_FILE
+        CHALLENGES=$(ls juice-shop/data/static/codefixes/*.info.yml | xargs -n 1 basename | sed 's/\.info\.yml//')
+        CHALLENGE_JSON=$(echo $CHALLENGES | jq -R . | jq -s -c '{"challenges": .}')
+        echo $CHALLENGE_JSON > $DEST_FILE
+        
+        if [ "$GITHUB_REF_NAME" = "master" ]; then
+          DEST_FILE="_data/challenges.yml"
+        else
+          DEST_FILE="_data/challenges_dev.yml"
+        fi
+        rm -f $DEST_FILE
+        cp juice-shop/data/static/challenges.yml $DEST_FILE
+        
         if [ "${{ github.ref_name }}" = "master" ]; then
           DEST_FILE="_data/snippets.json"
         else
