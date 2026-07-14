@@ -19,10 +19,12 @@ jobs:
         repository: juice-shop/pwning-juice-shop
         ref: ${{ github.ref_name }}
     - name: Update challenges.yml
+      env:
+        GITHUB_REF_NAME: ${{ github.ref_name }}
       run: |
         cd docs/modules/ROOT/assets/data
         rm challenges.yml
-        wget https://raw.githubusercontent.com/juice-shop/juice-shop/${{ github.ref_name }}/data/static/challenges.yml
+        wget https://raw.githubusercontent.com/juice-shop/juice-shop/$GITHUB_REF_NAME/data/static/challenges.yml
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
         commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
