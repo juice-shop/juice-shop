@@ -22,10 +22,10 @@ const restoreOverwrittenFilesWithOriginals = async () => {
   }
 
   try {
-    const files = await glob(path.resolve('data/static/i18n/*.json'), { windowsPathsNoEscape: true })
+    const files = await glob(path.resolve('data/static/i18n/*.json').replace(/\\/g, '/'))
     await Promise.all(
       files.map(async (filename: string) => {
-        await copyFile(filename, path.resolve('i18n/', filename.substring(filename.lastIndexOf('/') + 1)))
+        await copyFile(filename, path.resolve('i18n/', path.basename(filename)))
       })
     )
   } catch (err) {
