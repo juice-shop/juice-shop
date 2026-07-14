@@ -258,7 +258,7 @@ void describe('/rest/chat', { timeout: 120000 }, () => {
   })
 
   void it('POST includes authenticated user name in system prompt', { timeout: 15000 }, async () => {
-    const { token } = await login(app, { email: 'bjoern.kimminich@gmail.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
+    const { token } = await login(app, { email: 'REVOKED@example.com', password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=' })
     let parsedBody: any
     onLlmRequest = (_req, body, res) => {
       parsedBody = JSON.parse(body)
