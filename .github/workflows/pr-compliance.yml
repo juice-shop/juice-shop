@@ -100,8 +100,8 @@ jobs:
           script: |
             const pr = JSON.parse(process.env.PR_JSON);
             const prBody = pr.body || '';
-            const aiNoContent = prBody.includes('[x] My contribution does not include any AI-generated content');
-            const aiWithContent = prBody.includes('[x] My contribution includes AI-generated content, as disclosed below');
+            const aiNoContent = /\[[xX]\]\s*My contribution does not include (any )?AI-generated content/i.test(prBody);
+            const aiWithContent = /\[[xX]\]\s*My contribution includes AI-generated content/i.test(prBody);
             const aiMissing = !aiNoContent && !aiWithContent;
             core.setOutput('violation', aiMissing ? 'true' : 'false');
             console.log(`AI disclosure check: ${aiMissing ? '❌ FAILED' : '✅ PASSED'}`);
@@ -116,7 +116,7 @@ jobs:
           script: |
             const pr = JSON.parse(process.env.PR_JSON);
             const prBody = pr.body || '';
-            const affirmationMissing = !prBody.includes('[x] My code follows the [CONTRIBUTING.md]');
+            const affirmationMissing = !/\[[xX]\]\s*My code follows the \[?CONTRIBUTING\.md\]?/i.test(prBody);
             core.setOutput('violation', affirmationMissing ? 'true' : 'false');
             console.log(`Affirmation check: ${affirmationMissing ? '❌ FAILED' : '✅ PASSED'}`);
         env:
