@@ -38,6 +38,7 @@ This document is the **primary authoritative source** of context for all AI assi
 3. **Code Changes and RSN**: When modifying challenge-related code, the Refactoring Safety Net must pass.
 4. **Dependency Updates**: Verify compatibility with `package.json` and `frontend/package.json`.
 5. **Translation Modifications**: Use [Crowdin](https://crowdin.com/project/owasp-juice-shop), not direct file editing.
+6. **Insecure Infrastructure Code**: All files in the `./infrastructure` and `./infrastructure/terraform` directories are **intentionally insecure** and part of several hacking & coding challenges! **DO NOT** use them to deploy any actual infrastructure. To actually deploy OWASP Juice Shop, use the `Dockerfile` in the root of this repository.
 
 ## Recommended Use Cases
 
