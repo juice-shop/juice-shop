@@ -1,0 +1,37 @@
+name: "SAST Triage"
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+
+      - name: "Scan with opengrep"
+        run: |
+          curl -fsSLo /usr/local/bin/opengrep \
+            https://github.com/opengrep/opengrep/releases/download/v1.25.0/opengrep_manylinux_x86
+          chmod +x /usr/local/bin/opengrep
+          git clone --depth 1 https://github.com/opengrep/opengrep-rules /tmp/rules
+          opengrep scan -f /tmp/rules/javascript -f /tmp/rules/typescript \
+            --sarif --dataflow-traces --output findings.sarif
+
+      - name: "Triage findings"
+        uses: alexpermiakov/sast-triage@v1
+        with:
+          provider: anthropic
+          model: claude-sonnet-5
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: "Upload triage report"
+        if: always()
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b #v4.5.0
+        with:
+          name: triage-report
+          path: |
+            triage-report.md
+            triage-cache.json
