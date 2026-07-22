@@ -128,6 +128,71 @@
 			</p>
 		</section>
 
+        <section data-transition="zoom-out">
+            <h2 class="neon">AI Hacking Challenges</h2>
+            <table style="font-size: 90%">
+                <tr>
+                    <td><strong>Chatbot Prompt Injection</strong><br>⭐⭐</td>
+                    <td>Trick the chatbot into generating a coupon code for you despite its coupon policy saying otherwise.</td>
+                    <td>🧑‍💻<br>✅</td>
+                </tr>
+                <tr>
+                    <td><strong>Greedy Chatbot Manipulation</strong><br>⭐⭐⭐</td>
+                    <td>Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.</td>
+                    <td>🧑‍💻<br>✅</td>
+                </tr>
+                <tr>
+                    <td><strong>System Prompt Extraction</strong><br>⭐⭐⭐</td>
+                    <td>Extract the chatbot's system prompt using prompt injection, then submit your findings (including any confidential sections) via the Customer Complaint form.</td>
+                    <td>🧑‍💻<br>⛔</td>
+                </tr>
+                <tr>
+                    <td><strong>AI Debugging</strong><br>⭐⭐</td>
+                    <td>Reveal some behind-the-scenes information on the chatbot as a non-admin user.</td>
+                    <td>🧑‍💻<br>⛔</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>Why AI challenges?</h2>
+            <p>
+                LLMs are everywhere and bring a brand-new attack surface
+            </p>
+            <img src="assets/llm_top10_2025.png" height="400">
+            <p>
+                <small>
+                    Juice Shop now lets you <span class="neon">hands-on explore and exploit</span> the kind of flaws described in the
+                    <a href="https://genai.owasp.org/llm-top-10/">OWASP Top 10 for LLM Applications</a>. The legacy NLP-based chatbot
+                    and its challenges were retired to make room for these.
+                </small>
+            </p>
+        </section>
+
+        <section>
+            <h2>Bring your own LLM</h2>
+            <p>
+                The AI challenges need a <span class="neon">configured LLM/AI endpoint</span>
+            </p>
+            <table>
+                <tr>
+                    <td>🖥️&nbsp;<strong>Local</strong></td>
+                    <td>Offline models via <a href="https://ollama.com">Ollama</a></td>
+                    <td><small>Completely free of charge but performance limited depending on your local machine</small></td>
+                </tr>
+                <tr>
+                    <td>☁️&nbsp;<strong>Remote</strong></td>
+                    <td>OpenAI-compatible servers (e.g. <a href="https://openrouter.ai">OpenRouter</a>) for hosted models</td>
+                    <td><small>You can choose between pay-as-you-go models or rate-limited free models</small></td>
+                </tr>
+            </table>
+            <p>
+                <small>
+                    Juice Shop will check the configured LLM/AI endpoint during server startup and show whether it is reachable in the respective challenge cards on the Score Board.
+                </small>
+            </p>
+        </section>
+
 		<section>
 			<h2>MultiJuicer Platform <small id="multiJuicerVersion"></small></h2>
 			<p>
