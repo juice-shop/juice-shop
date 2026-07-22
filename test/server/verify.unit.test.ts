@@ -231,6 +231,20 @@ void describe('verify', () => {
       assert.equal(next.mock.calls.length, 1)
       assert.equal(next.mock.calls[0].arguments[0], err)
     })
+
+    void it('should sanitize absolute path from error stack and message to prevent full path disclosure', () => {
+      res.statusCode = 500
+      const cwd = process.cwd()
+      err = new Error(`An error occurred in ${cwd}/somefile.ts`)
+      err.stack = `Error: An error occurred in ${cwd}/somefile.ts\n    at Object.test (${cwd}/test.ts:1:1)`
+
+      verify.errorHandlingChallenge()(err, req, res, next)
+
+      assert.ok(!err.message.includes(cwd))
+      assert.ok(err.message.includes('./somefile.ts'))
+      assert.ok(!err.stack.includes(cwd))
+      assert.ok(err.stack.includes('./test.ts'))
+    })
   })
 
   void describe('databaseRelatedChallenges', () => {

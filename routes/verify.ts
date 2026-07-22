@@ -78,8 +78,25 @@ export const accessControlChallenges = () => (req: Request, res: Response, next:
   next()
 }
 
-export const errorHandlingChallenge = () => (err: unknown, req: Request, { statusCode }: Response, next: NextFunction) => {
-  challengeUtils.solveIf(challenges.errorHandlingChallenge, () => { return err && (statusCode === 200 || statusCode > 401) })
+export const errorHandlingChallenge = () => (err: any, req: Request, res: Response, next: NextFunction) => {
+  challengeUtils.solveIf(challenges.errorHandlingChallenge, () => { return err && (res.statusCode === 200 || res.statusCode > 401) })
+  if (err && typeof err === 'object') {
+    const cwd = process.cwd()
+    if (err.message && typeof err.message === 'string' && err.message.includes(cwd)) {
+      try {
+        err.message = err.message.replaceAll(cwd, '.')
+      } catch (e) {
+        Object.defineProperty(err, 'message', { value: err.message.replaceAll(cwd, '.'), writable: true, configurable: true })
+      }
+    }
+    if (err.stack && typeof err.stack === 'string' && err.stack.includes(cwd)) {
+      try {
+        err.stack = err.stack.replaceAll(cwd, '.')
+      } catch (e) {
+        Object.defineProperty(err, 'stack', { value: err.stack.replaceAll(cwd, '.'), writable: true, configurable: true })
+      }
+    }
+  }
   next(err)
 }
 
