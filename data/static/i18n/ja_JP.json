@@ -651,7 +651,7 @@
   "Invalid email/password cannot be empty": "メールアドレスまたはパスワードを空にすることはできません。",
   "<a href=\"https://owasp.slack.com\" target=\"_blank\">More...</a>": "<a href=\"https://owasp.slack.com\" target=\"_blank\">詳細はこちら…</a>",
   "<a href=\"/#/complain\">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)": "既知の脆弱性を持つインフラコンポーネントの使用について<a href=\"/#/complain\">ショップへ報告</a>してください。（問い合わせの際は、該当するコンポーネントをできる限り具体的に特定してください）",
-  "The developers probably used some kind of tool to automate their cloud deployment and containerization.": "The developers probably used some kind of tool to automate their cloud deployment and containerization.",
+  "The developers probably used some kind of tool to automate their cloud deployment and containerization.": "開発者はクラウド環境のデプロイやコンテナ化を自動化するために、何らかのツールを使用していた可能性があります。",
   "Try common directory names that popular deployment automation and infrastructure tools use by convention.": "Try common directory names that popular deployment automation and infrastructure tools use by convention.",
   "Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.": "Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.",
   "The shop accidentally exposed some infrastructure configuration files alongside the web application.": "The shop accidentally exposed some infrastructure configuration files alongside the web application.",
