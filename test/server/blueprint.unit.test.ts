@@ -2,6 +2,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import config from 'config'
 import type { Product as ProductConfig } from '@juice-shop/lib/config.schema'
+import { primaryProductImage } from '@juice-shop/lib/config.schema'
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -32,17 +33,18 @@ void describe('blueprint', () => {
     void it('should contain properties from exifForBlueprintChallenge', async () => {
       for (const product of products) {
         if (product.fileForRetrieveBlueprintChallenge && product.image) {
-          if (utils.isUrl(product.image)) {
-            pathToImage = path.resolve('frontend/dist/frontend', pathToImage, product.image.substring(product.image.lastIndexOf('/') + 1))
-            const response = await fetch(product.image)
+          const image = primaryProductImage(product.image)
+          if (utils.isUrl(image)) {
+            pathToImage = path.resolve('frontend/dist/frontend', pathToImage, image.substring(image.lastIndexOf('/') + 1))
+            const response = await fetch(image)
             if (!response.ok || !response.body) {
-              assert.fail(`Could not download image from ${product.image}`)
+              assert.fail(`Could not download image from ${image}`)
               return
             }
             const fileStream = fs.createWriteStream(pathToImage, { flags: 'w' })
             await finished(Readable.fromWeb(response.body as any).pipe(fileStream))
           } else {
-            pathToImage = path.resolve('frontend/src', pathToImage, product.image)
+            pathToImage = path.resolve('frontend/src', pathToImage, image)
           }
 
           if (product.exifForBlueprintChallenge?.[0]) {

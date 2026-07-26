@@ -8,6 +8,7 @@ import assert from 'node:assert/strict'
 import request from 'supertest'
 import type { Express } from 'express'
 import { createTestApp } from './helpers/setup'
+import { challenges } from '../../data/datacache'
 import * as security from '../../lib/insecurity'
 
 let app: Express
@@ -31,6 +32,7 @@ void describe('/api/Complaints', () => {
     assert.equal(typeof res.body.data.id, 'number')
     assert.equal(typeof res.body.data.createdAt, 'string')
     assert.equal(typeof res.body.data.updatedAt, 'string')
+    assert.equal(challenges.supplyChainAttackChallenge.solved, true)
   })
 
   void it('GET all complaints is forbidden via public API', async () => {

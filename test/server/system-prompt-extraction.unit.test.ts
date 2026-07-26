@@ -5,7 +5,7 @@
 
 import { after, before, describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { checkSystemPromptSimilarity } from '../../routes/verify'
+import { checkSystemPromptSimilarity } from '../../lib/challengeDetection'
 import { buildSystemPrompt } from '../../routes/chat'
 import { diceCoefficient } from '../../lib/utils'
 

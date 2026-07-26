@@ -88,6 +88,7 @@ void describe('/api/Feedbacks', () => {
     assert.equal(res.status, 201)
     assert.ok(res.headers['content-type']?.includes('application/json'))
     assert.equal(res.body.data.UserId, 3)
+    assert.equal(challenges.weirdCryptoChallenge.solved, true)
   })
 
   void it('POST feedback in a non-existing users name as anonymous user fails with constraint error', async () => {
@@ -135,6 +136,8 @@ void describe('/api/Feedbacks', () => {
     assert.equal(res.status, 201)
     assert.ok(res.headers['content-type']?.includes('application/json'))
     assert.equal(res.body.data.UserId, 4)
+    assert.equal(challenges.typosquattingNpmChallenge.solved, true)
+    assert.equal(challenges.typosquattingAngularChallenge.solved, true)
   })
 
   void it('POST feedback is associated with any passed user ID', async () => {

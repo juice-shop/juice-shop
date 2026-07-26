@@ -106,6 +106,19 @@ void describe('/api/Products/:id', () => {
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('application/json'))
     assert.equal(res.body.data.description, '<a href="http://kimminich.de" target="_blank">More...</a>')
+    assert.equal(challenges.changeProductChallenge.solved, false)
+  })
+
+  void it('PUT update product description with the expected URL solves the "changeProductChallenge"', async () => {
+    const res = await request(app)
+      .put('/api/Products/' + tamperingProductId)
+      .set(jsonHeader)
+      .send({
+        description: `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`
+      })
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('application/json'))
+    assert.equal(challenges.changeProductChallenge.solved, true)
   })
 
   void it('DELETE existing product is forbidden via public API', async () => {

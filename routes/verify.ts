@@ -4,21 +4,14 @@
  */
 
 import { type NextFunction, type Request, type Response } from 'express'
-import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
-import config from 'config'
 import jws from 'jws'
 
-import { challenges, products, retrieveBlueprintChallengeFile } from '../data/datacache'
-import type { Product as ProductConfig } from '../lib/config.schema'
-import { type Challenge, type Product } from '../data/types'
+import { challenges, retrieveBlueprintChallengeFile } from '../data/datacache'
+import { type Challenge } from '../data/types'
 import * as challengeUtils from '../lib/challengeUtils'
-import * as antiCheat from '../lib/antiCheat'
-import { ComplaintModel } from '../models/complaint'
-import { FeedbackModel } from '../models/feedback'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
-import { buildSystemPrompt } from './chat'
 
 export const emptyUserRegistration = () => (req: Request, res: Response, next: NextFunction) => {
   challengeUtils.solveIf(challenges.emptyUserRegistration, () => {
@@ -83,15 +76,50 @@ export const errorHandlingChallenge = () => (err: unknown, req: Request, { statu
   next(err)
 }
 
+/* Only tokens whose payload email matches one of these patterns can solve a JWT
+   challenge, so all other tokens are screened out (and remembered) without any
+   signature verification. Screening is independent of the challenge solve state,
+   so remembered tokens can never suppress a legitimate solve. */
+const jwtChallengeEmailPatterns = [/jwtn3d@/, /rsa_lord@/, /cloud-admin@/]
+const screenedTokens = new Set<string>()
+const screenedTokensCapacity = 1000
+
+function rememberScreenedToken (token: string) {
+  if (screenedTokens.size >= screenedTokensCapacity) {
+    const oldestToken = screenedTokens.values().next().value
+    if (oldestToken !== undefined) {
+      screenedTokens.delete(oldestToken)
+    }
+  }
+  screenedTokens.add(token)
+}
+
 export const jwtChallenges = () => (req: Request, res: Response, next: NextFunction) => {
+  const token = utils.jwtFrom(req)
+  if (!token || screenedTokens.has(token)) {
+    next()
+    return
+  }
+  const decoded = jws.decode(token) ? jwt.decode(token) : null
+  if (decoded === null || typeof decoded === 'string') {
+    rememberScreenedToken(token)
+    next()
+    return
+  }
+  const email = decoded?.data?.email
+  if (typeof email !== 'string' || !jwtChallengeEmailPatterns.some((pattern) => pattern.test(email))) {
+    rememberScreenedToken(token)
+    next()
+    return
+  }
   if (challengeUtils.notSolved(challenges.jwtUnsignedChallenge)) {
-    jwtChallenge(challenges.jwtUnsignedChallenge, req, 'none', /jwtn3d@/)
+    jwtChallenge(challenges.jwtUnsignedChallenge, token, decoded, 'none', /jwtn3d@/)
   }
   if (utils.isChallengeEnabled(challenges.jwtForgedChallenge) && challengeUtils.notSolved(challenges.jwtForgedChallenge)) {
-    jwtChallenge(challenges.jwtForgedChallenge, req, 'HS256', /rsa_lord@/)
+    jwtChallenge(challenges.jwtForgedChallenge, token, decoded, 'HS256', /rsa_lord@/)
   }
   if (challengeUtils.notSolved(challenges.iacLeakedKeyChallenge)) {
-    jwtChallenge(challenges.iacLeakedKeyChallenge, req, 'RS256', /cloud-admin@/)
+    jwtChallenge(challenges.iacLeakedKeyChallenge, token, decoded, 'RS256', /cloud-admin@/)
   }
   next()
 }
@@ -113,23 +141,14 @@ export const serverSideChallenges = () => (req: Request, res: Response, next: Ne
   next()
 }
 
-function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, email: string | RegExp) {
-  const token = utils.jwtFrom(req)
-  if (token) {
-    const decoded = jws.decode(token) ? jwt.decode(token) : null
-
-    if (decoded === null || typeof decoded === 'string') {
-      return
+function jwtChallenge (challenge: Challenge, token: string, decoded: jwt.JwtPayload, algorithm: string, email: string | RegExp) {
+  jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
+    if (err === null) {
+      challengeUtils.solveIf(challenge, () => {
+        return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
+      })
     }
-
-    jwt.verify(token, security.publicKey, (err: jwt.VerifyErrors | null) => {
-      if (err === null) {
-        challengeUtils.solveIf(challenge, () => {
-          return hasAlgorithm(token, algorithm) && hasEmail(decoded as { data: { email: string } }, email)
-        })
-      }
-    })
-  }
+  })
 }
 
 function hasAlgorithm (token: string, algorithm: string) {
@@ -139,239 +158,4 @@ function hasAlgorithm (token: string, algorithm: string) {
 
 function hasEmail (token: { data: { email: string } }, email: string | RegExp) {
   return token?.data?.email?.match(email)
-}
-
-async function checkPatternInFeedbackAndComplaints (
-  challenge: Challenge,
-  fieldCriteria: any
-): Promise<void> {
-  const feedbackCheck = FeedbackModel.findAndCountAll({
-    where: { comment: fieldCriteria }
-  }).then(({ count, rows }: { count: number, rows: any[] }) => {
-    if (count > 0) {
-      const isCheating = rows.some((row: any) => antiCheat.checkForSourceFileOverlap(challenge.key, row.comment ?? ''))
-      challengeUtils.solve(challenge, false, isCheating)
-    }
-  }).catch(() => {
-    throw new Error('Unable to retrieve feedback details. Please try again')
-  })
-
-  const complaintCheck = ComplaintModel.findAndCountAll({
-    where: { message: fieldCriteria }
-  }).then(({ count, rows }: { count: number, rows: any[] }) => {
-    if (count > 0) {
-      const isCheating = rows.some((row: any) => antiCheat.checkForSourceFileOverlap(challenge.key, row.message ?? ''))
-      challengeUtils.solve(challenge, false, isCheating)
-    }
-  }).catch(() => {
-    throw new Error('Unable to retrieve complaint details. Please try again')
-  })
-
-  await Promise.all([feedbackCheck, complaintCheck])
-}
-
-export const databaseRelatedChallenges = () => (req: Request, res: Response, next: NextFunction) => {
-  if (challengeUtils.notSolved(challenges.changeProductChallenge) && products.osaft) {
-    changeProductChallenge(products.osaft)
-  }
-  if (challengeUtils.notSolved(challenges.feedbackChallenge)) {
-    feedbackChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.knownVulnerableComponentChallenge)) {
-    knownVulnerableComponentChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.weirdCryptoChallenge)) {
-    weirdCryptoChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.typosquattingNpmChallenge)) {
-    typosquattingNpmChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.typosquattingAngularChallenge)) {
-    typosquattingAngularChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.hiddenImageChallenge)) {
-    hiddenImageChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.supplyChainAttackChallenge)) {
-    supplyChainAttackChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.dlpPastebinDataLeakChallenge)) {
-    dlpPastebinDataLeakChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.csafChallenge)) {
-    csafChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.leakedApiKeyChallenge)) {
-    leakedApiKeyChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.vulnerableDockerImageChallenge)) {
-    vulnerableDockerImageChallenge()
-  }
-  if (challengeUtils.notSolved(challenges.systemPromptExtractionChallenge)) {
-    void systemPromptExtractionChallenge()
-  }
-  next()
-}
-
-function changeProductChallenge (osaft: Product) {
-  let urlForProductTamperingChallenge: string | null = null
-  void osaft.reload().then(() => {
-    for (const product of config.get<ProductConfig[]>('products')) {
-      if (product.urlForProductTamperingChallenge !== undefined) {
-        urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
-        break
-      }
-    }
-    if (urlForProductTamperingChallenge) {
-      if (!utils.contains(osaft.description, `${urlForProductTamperingChallenge}`)) {
-        if (utils.contains(osaft.description, `<a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">`)) {
-          challengeUtils.solve(challenges.changeProductChallenge)
-        }
-      }
-    }
-  })
-}
-
-function feedbackChallenge () {
-  FeedbackModel.findAndCountAll({ where: { rating: 5 } }).then(({ count }: { count: number }) => {
-    if (count === 0) {
-      challengeUtils.solve(challenges.feedbackChallenge)
-    }
-  }).catch(() => {
-    throw new Error('Unable to retrieve feedback details. Please try again')
-  })
-}
-
-function knownVulnerableComponentChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.knownVulnerableComponentChallenge,
-    { [Op.or]: knownVulnerableComponents() }
-  )
-}
-
-function knownVulnerableComponents () {
-  return [
-    {
-      [Op.and]: [
-        { [Op.like]: '%sanitize-html%' },
-        { [Op.like]: '%1.4.2%' }
-      ]
-    },
-    {
-      [Op.and]: [
-        { [Op.like]: '%express-jwt%' },
-        { [Op.like]: '%0.1.3%' }
-      ]
-    }
-  ]
-}
-
-function weirdCryptoChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.weirdCryptoChallenge,
-    { [Op.or]: weirdCryptos() }
-  )
-}
-
-function weirdCryptos () {
-  return [
-    { [Op.like]: '%z85%' },
-    { [Op.like]: '%base85%' },
-    { [Op.like]: '%hashids%' },
-    { [Op.like]: '%md5%' },
-    { [Op.like]: '%base64%' }
-  ]
-}
-
-function typosquattingNpmChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.typosquattingNpmChallenge,
-    { [Op.like]: '%epilogue-js%' }
-  )
-}
-
-function typosquattingAngularChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.typosquattingAngularChallenge,
-    { [Op.like]: '%ngy-cookie%' }
-  )
-}
-
-function hiddenImageChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.hiddenImageChallenge,
-    { [Op.like]: '%pickle rick%' }
-  )
-}
-
-function supplyChainAttackChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.supplyChainAttackChallenge,
-    { [Op.or]: eslintScopeVulnIds() }
-  )
-}
-
-function eslintScopeVulnIds () {
-  return [
-    { [Op.like]: '%eslint-scope/issues/39%' },
-    { [Op.like]: '%npm:eslint-scope:20180712%' }
-  ]
-}
-
-function dlpPastebinDataLeakChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.dlpPastebinDataLeakChallenge,
-    { [Op.and]: dangerousIngredients() }
-  )
-}
-
-function csafChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.csafChallenge,
-    { [Op.like]: '%' + config.get<string>('challenges.csafHashValue') + '%' }
-  )
-}
-
-function leakedApiKeyChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.leakedApiKeyChallenge,
-    { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' }
-  )
-}
-
-function vulnerableDockerImageChallenge () {
-  void checkPatternInFeedbackAndComplaints(
-    challenges.vulnerableDockerImageChallenge,
-    {
-      [Op.and]: [
-        { [Op.like]: '%mongo%' },
-        { [Op.like]: '%4.4.29%' }
-      ]
-    }
-  )
-}
-
-function dangerousIngredients () {
-  return config.get<ProductConfig[]>('products')
-    .flatMap((product) => product.keywordsForPastebinDataLeakChallenge)
-    .filter(Boolean)
-    .map((keyword) => {
-      return { [Op.like]: `%${keyword}%` }
-    })
-}
-
-export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = 0.25): boolean {
-  const score = utils.diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim(), 3)
-  return score >= threshold
-}
-
-async function systemPromptExtractionChallenge (): Promise<void> {
-  const reference = buildSystemPrompt().toLowerCase().trim()
-  const complaints = await ComplaintModel.findAll().catch(() => [])
-  for (const complaint of complaints) {
-    if (checkSystemPromptSimilarity(complaint.message ?? '', reference)) {
-      challengeUtils.solveIf(challenges.systemPromptExtractionChallenge, () => true)
-      return
-    }
-  }
 }

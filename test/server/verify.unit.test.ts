@@ -5,10 +5,8 @@
 
 import { describe, it, beforeEach, mock } from 'node:test'
 import assert from 'node:assert/strict'
-import config from 'config'
-import { challenges, products, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
-import type { Product, Challenge } from '@juice-shop/data/types'
-import type { Product as ProductConfig } from '../../lib/config.schema'
+import { challenges, setRetrieveBlueprintChallengeFile } from '../../data/datacache'
+import type { Challenge } from '@juice-shop/data/types'
 import * as security from '../../lib/insecurity'
 import { type UserModel } from '@juice-shop/models/user'
 import * as verify from '../../routes/verify'
@@ -233,46 +231,6 @@ void describe('verify', () => {
     })
   })
 
-  void describe('databaseRelatedChallenges', () => {
-    void describe('"changeProductChallenge"', () => {
-      beforeEach(() => {
-        challenges.changeProductChallenge = { solved: false, save } as unknown as Challenge
-        products.osaft = { reload () { return { then (cb: any) { cb() } } } } as unknown as Product
-      })
-
-      void it(`is solved when the link in the O-Saft product goes to ${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}`, () => {
-        products.osaft.description = `O-Saft, yeah! <a href="${config.get<string>('challenges.overwriteUrlForProductTamperingChallenge')}" target="_blank">More...</a>`
-
-        verify.databaseRelatedChallenges()(req, res, next)
-
-        assert.equal(challenges.changeProductChallenge.solved, true)
-      })
-
-      void it('is not solved when the link in the O-Saft product is changed to an arbitrary URL', () => {
-        products.osaft.description = 'O-Saft, nooo! <a href="http://arbitrary.url" target="_blank">More...</a>'
-
-        verify.databaseRelatedChallenges()(req, res, next)
-
-        assert.equal(challenges.changeProductChallenge.solved, false)
-      })
-
-      void it('is not solved when the link in the O-Saft product remained unchanged', () => {
-        let urlForProductTamperingChallenge = null
-        for (const product of config.get<ProductConfig[]>('products')) {
-          if (product.urlForProductTamperingChallenge !== undefined) {
-            urlForProductTamperingChallenge = product.urlForProductTamperingChallenge
-            break
-          }
-        }
-        products.osaft.description = `Vanilla O-Saft! <a href="${urlForProductTamperingChallenge}" target="_blank">More...</a>`
-
-        verify.databaseRelatedChallenges()(req, res, next)
-
-        assert.equal(challenges.changeProductChallenge.solved, false)
-      })
-    })
-  })
-
   void describe('jwtChallenges', () => {
     beforeEach(() => {
       challenges.jwtUnsignedChallenge = { solved: false, save } as unknown as Challenge
@@ -358,19 +316,29 @@ void describe('verify', () => {
 
       assert.equal(challenges.iacLeakedKeyChallenge.solved, false)
     })
-  })
 
-  void describe('checkSystemPromptSimilarity', () => {
-    void it('should return true if similarity is above threshold', () => {
-      const s1 = 'This is a test'
-      const s2 = 'This is a test'
-      assert.ok(verify.checkSystemPromptSimilarity(s1, s2))
+    void it('"jwtUnsignedChallenge" is still solved when the same forged token was already seen in an earlier request', () => {
+      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
+
+      verify.jwtChallenges()(req, res, next)
+      assert.equal(challenges.jwtUnsignedChallenge.solved, true)
+
+      challenges.jwtUnsignedChallenge = { solved: false, save } as unknown as Challenge
+      verify.jwtChallenges()(req, res, next)
+      assert.equal(challenges.jwtUnsignedChallenge.solved, true)
     })
 
-    void it('should return false if similarity is below threshold', () => {
-      const s1 = 'This is a test'
-      const s2 = 'Something completely different'
-      assert.ok(!verify.checkSystemPromptSimilarity(s1, s2, 0.9))
+    void it('no challenge is ever solved via a regularly signed token with a regular email no matter how often it is used', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'admin@juice-sh.op' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.jwtUnsignedChallenge.solved, false)
+      assert.equal(challenges.jwtForgedChallenge.solved, false)
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, false)
     })
   })
 })
