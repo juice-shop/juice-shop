@@ -52,6 +52,7 @@
     "build:frontend": "cd frontend && npm run build",
     "build:server": "tsc",
     "cypress:open": "cypress open",
+    "images:convert": "tsx lib/scripts/convertImages.ts",
     "cypress:run": "cypress run",
     "postinstall": "cd frontend && npm install && cd .. && npm run build:frontend && (npm run --silent build:server || cd .)",
     "lint": "eslint *.ts data lib models routes test/**/*.ts views && npm run lint:config && cd frontend && npm run lint && npm run lint:scss && cd ..",

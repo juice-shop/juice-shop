@@ -122,11 +122,17 @@ export const HackingInstructorSchema = z.object({
   hintPlaybackSpeed: z.enum(['faster', 'fast', 'normal', 'slow', 'slower'])
 })
 
+// A product image can either be a single filename (backwards compatible) or a list of
+// filenames. When a list is given, the first entry is the primary image that gets stored
+// and displayed; the remaining entries are alternates (e.g. for galleries) that are still
+// considered when generating AVIF variants.
+export const ProductImageSchema = z.union([z.string(), z.array(z.string()).nonempty()])
+
 export const ProductSchema = z.object({
   name: z.string(),
   price: z.number(),
   description: z.string(),
-  image: z.string(),
+  image: ProductImageSchema,
   deluxePrice: z.number().optional(),
   limitPerUser: z.number().optional(),
   reviews: z.array(z.object({ text: z.string(), author: z.string() })).optional(),
@@ -215,7 +221,18 @@ export type ServerConfig = z.infer<typeof ServerSchema>
 export type ApplicationConfig = z.infer<typeof ApplicationSchema>
 export type ChallengesConfig = z.infer<typeof ChallengesSchema>
 export type HackingInstructorConfig = z.infer<typeof HackingInstructorSchema>
+export type ProductImage = z.infer<typeof ProductImageSchema>
 export type Product = z.infer<typeof ProductSchema>
 export type Memory = z.infer<typeof MemorySchema>
+
+/** Returns all image filenames configured for a product (a single-image config yields one entry). */
+export function productImages (image: ProductImage): string[] {
+  return Array.isArray(image) ? [...image] : [image]
+}
+
+/** Returns the primary image filename of a product (the first one for list configurations). */
+export function primaryProductImage (image: ProductImage): string {
+  return Array.isArray(image) ? image[0] : image
+}
 export type CtfConfig = z.infer<typeof CtfSchema>
 export type AppConfig = z.infer<typeof AppConfigSchema>

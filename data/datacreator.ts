@@ -25,6 +25,7 @@ import { type Product } from './types'
 import logger from '../lib/logger'
 import { getCodeChallenges } from '../lib/codingChallenges'
 import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.schema'
+import { primaryProductImage } from '../lib/config.schema'
 import config from 'config'
 import * as utils from '../lib/utils'
 import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
@@ -382,13 +383,14 @@ async function createProducts () {
     product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
-    // set default image values
-    product.image = product.image ?? 'undefined.png'
-    if (utils.isUrl(product.image)) {
-      const imageUrl = product.image
-      product.image = utils.extractFilename(product.image)
-      void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
+    // set default image values, collapsing a configured image list down to its primary image
+    let image = primaryProductImage(product.image ?? 'undefined.png')
+    if (utils.isUrl(image)) {
+      const imageUrl = image
+      image = utils.extractFilename(image)
+      void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + image)
     }
+    product.image = image
     return product
   })
 
@@ -428,7 +430,7 @@ async function createProducts () {
           description: product.description,
           price: product.price,
           deluxePrice: product.deluxePrice ?? product.price,
-          image: product.image
+          image: primaryProductImage(product.image)
         }).catch(
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)

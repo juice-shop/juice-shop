@@ -29,18 +29,18 @@
       matTooltip="Click for more information"
       matTooltipPosition="above"
     >
-      <div
-        class="image-container"
-        [style.background-image]="
-          'url(\'assets/public/images/products/' + product.image + '\')'
-        "
-      >
-        <img
-          mat-card-image
-          [src]="'assets/public/images/products/' + product.image"
-          alt="{{ product.name }}"
-          class="img-thumbnail"
-        />
+      <div class="image-container" [style.background-image]="backgroundImage()">
+        <picture>
+          @for (source of imageSources(); track source.type) {
+            <source [srcset]="source.srcset" [type]="source.type" />
+          }
+          <img
+            mat-card-image
+            [src]="imageSrc()"
+            alt="{{ product.name }}"
+            class="img-thumbnail"
+          />
+        </picture>
       </div>
       <div class="info-box">
         <div class="name">{{ product.name }}</div>

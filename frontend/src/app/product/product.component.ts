@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core'
+import { Component, inject, input, computed, ChangeDetectionStrategy } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -16,6 +16,7 @@ import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { MatDialog } from '@angular/material/dialog'
+import { productImagePath, productImageSources, productImageBackground } from '../shared/product-image'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -35,6 +36,11 @@ export class ProductComponent {
   item = input.required<ProductTableEntry>()
   isLoggedIn = input.required<boolean>()
   isDeluxe = input.required<boolean>()
+
+  // Original image (the <picture> fallback) plus its optimized format <source>s and backdrop.
+  protected readonly imageSrc = computed(() => productImagePath(this.item().image))
+  protected readonly imageSources = computed(() => productImageSources(this.item().image))
+  protected readonly backgroundImage = computed(() => productImageBackground(this.item().image))
 
   addToBasket(id?: number) {
     if (id == null) {

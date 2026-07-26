@@ -24,6 +24,7 @@ import { MatButtonModule, MatIconButton } from '@angular/material/button'
 import { MatDivider } from '@angular/material/divider'
 import { MatTooltip } from '@angular/material/tooltip'
 import { AsyncPipe } from '@angular/common'
+import { productImagePath, productImageSources, type ImageSource } from '../shared/product-image'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 
@@ -48,6 +49,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public reviews$: any
   public userSubscription: any
   public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])
+
+  // Original image (the <picture> fallback) plus its optimized format <source> descriptors.
+  get imageSrc (): string {
+    return productImagePath(this.data.productData.image)
+  }
+
+  get imageSources (): ImageSource[] {
+    return productImageSources(this.data.productData.image)
+  }
 
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)

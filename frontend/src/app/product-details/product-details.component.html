@@ -8,7 +8,12 @@
   <div class="container">
     <div class="details-row">
       <div class="no-shrink">
-        <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
+        <picture>
+          @for (source of imageSources; track source.type) {
+            <source [srcset]="source.srcset" [type]="source.type" />
+          }
+          <img class="img-thumbnail" [src]="imageSrc" alt="{{data.productData.name}}">
+        </picture>
       </div>
 
       <div>
