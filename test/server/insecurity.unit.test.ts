@@ -203,4 +203,28 @@ void describe('insecurity', () => {
       assert.equal(security.hmac(''), 'f052179ec5894a2e79befa8060cfcb517f1e14f7f6222af854377b6481ae953e')
     })
   })
+
+  void describe('deluxeToken', () => {
+    void it('returns SHA-256 HMAC with private key as salt for email and deluxe role', () => {
+      assert.equal(security.deluxeToken('test@juice-sh.op'), '91e2b6493fda679d95ae05ac0d1cdce82c2ad4f7b518202a3ed54732531bc7e1')
+    })
+  })
+
+  void describe('isCustomer', () => {
+    void it('returns true if decoded token has customer role', () => {
+      const user = { data: { role: 'customer' } }
+      const token = security.authorize(user)
+      assert.equal(security.isCustomer({ headers: { authorization: `Bearer ${token}` } } as unknown as Request), true)
+    })
+
+    void it('returns false if decoded token has other role', () => {
+      const user = { data: { role: 'admin' } }
+      const token = security.authorize(user)
+      assert.equal(security.isCustomer({ headers: { authorization: `Bearer ${token}` } } as unknown as Request), false)
+    })
+
+    void it('returns false if no token is present', () => {
+      assert.equal(security.isCustomer({ headers: {} } as unknown as Request), false)
+    })
+  })
 })

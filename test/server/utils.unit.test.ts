@@ -27,6 +27,16 @@ void describe('utils', () => {
     })
   })
 
+  void describe('queryResultToJson', () => {
+    void it('returns object with status success and passed data by default', () => {
+      assert.deepEqual(utils.queryResultToJson('test'), { status: 'success', data: 'test' })
+    })
+
+    void it('returns object with passed status and passed data', () => {
+      assert.deepEqual(utils.queryResultToJson('test', 'error'), { status: 'error', data: 'test' })
+    })
+  })
+
   void describe('extractFilename', () => {
     void it('returns standalone filename unchanged', () => {
       assert.equal(utils.extractFilename('test.exe'), 'test.exe')
@@ -216,6 +226,20 @@ void describe('utils', () => {
       assert.equal(result[0].key, 'key')
       assert.equal(result[1].key, 'nested')
       assert.equal(result[1].value, 'value')
+    })
+  })
+
+  void describe('containsOrEscaped', () => {
+    void it('returns true if string contains element', () => {
+      assert.equal(utils.containsOrEscaped('abc"def', 'abc'), true)
+    })
+
+    void it('returns true if string contains escaped element', () => {
+      assert.equal(utils.containsOrEscaped('abc\\"def', 'abc"def'), true)
+    })
+
+    void it('returns false if string contains neither element nor escaped element', () => {
+      assert.equal(utils.containsOrEscaped('abcdef', 'xyz'), false)
     })
   })
 
