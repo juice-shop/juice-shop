@@ -431,6 +431,11 @@
 
 </div>
 
+<div class="speaker-bobble-heads" id="speakerBobbleHeads" style="display: none;">
+	<img src="https://cdn.bsky.app/img/avatar/plain/did:plc:7m6rymnz5t4pxqi4bubbda3z/bafkreib3wdbrfer2qvmwcivvmj3hkkwetdt36hocylpz4yatkdpqcstqje@jpeg" class="speaker-bobble-head" id="bobble-bjoern" title="Björn">
+	<img src="https://media.infosec.exchange/infosec.exchange/accounts/avatars/109/338/803/267/598/841/original/651af466dd34c347.png" class="speaker-bobble-head" id="bobble-jannik" title="Jannik">
+</div>
+
 <script src="lib/js/head.min.js"></script>
 <script src="js/reveal.js"></script>
 
@@ -455,6 +460,29 @@
       { src: 'plugin/zoom-js/zoom.js', async: true },
       { src: 'plugin/notes/notes.js', async: true }
     ]
+  });
+
+  Reveal.addEventListener('slidechanged', function(event) {
+    const bobbleHeads = document.getElementById('speakerBobbleHeads');
+    if (event.indexh > 1 && !Reveal.isLastSlide()) {
+      bobbleHeads.style.display = 'block';
+      const notes = event.currentSlide.querySelector('aside.notes');
+      const notesText = notes ? notes.textContent : '';
+      const bjoernHead = document.getElementById('bobble-bjoern');
+      const jannikHead = document.getElementById('bobble-jannik');
+      if (notesText.includes('Jannik')) {
+        jannikHead.classList.remove('inactive');
+        bjoernHead.classList.add('inactive');
+      } else if (notesText.includes('Björn')) {
+        bjoernHead.classList.remove('inactive');
+        jannikHead.classList.add('inactive');
+      } else {
+        bjoernHead.classList.remove('inactive');
+        jannikHead.classList.remove('inactive');
+      }
+    } else {
+      bobbleHeads.style.display = 'none';
+    }
   });
 
 </script>
