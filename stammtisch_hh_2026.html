@@ -462,23 +462,50 @@
     ]
   });
 
+  function getSpeaker(slide) {
+    if (!slide) return null;
+    const notes = slide.querySelector('aside.notes');
+    const notesText = notes ? notes.textContent : '';
+    if (notesText.includes('Jannik') && notesText.includes('Björn')) return 'both';
+    if (notesText.includes('Jannik')) return 'jannik';
+    if (notesText.includes('Björn')) return 'bjoern';
+    return 'both';
+  }
+
   Reveal.addEventListener('slidechanged', function(event) {
     const bobbleHeads = document.getElementById('speakerBobbleHeads');
     if (event.indexh > 1 && !Reveal.isLastSlide()) {
       bobbleHeads.style.display = 'block';
-      const notes = event.currentSlide.querySelector('aside.notes');
-      const notesText = notes ? notes.textContent : '';
       const bjoernHead = document.getElementById('bobble-bjoern');
       const jannikHead = document.getElementById('bobble-jannik');
-      if (notesText.includes('Jannik')) {
-        jannikHead.classList.remove('inactive');
+
+      const currentSpeaker = getSpeaker(event.currentSlide);
+
+      // Look ahead for speaker change
+      const allSlides = Array.from(document.querySelectorAll('.slides section')).filter(s => s.querySelectorAll('section').length === 0);
+      const currentIndex = allSlides.indexOf(event.currentSlide);
+      let nextSpeaker = null;
+      if (currentIndex !== -1 && currentIndex < allSlides.length - 1) {
+        nextSpeaker = getSpeaker(allSlides[currentIndex + 1]);
+      }
+
+      const changeImminent = nextSpeaker && currentSpeaker !== 'both' && nextSpeaker !== 'both' && currentSpeaker !== nextSpeaker;
+
+      bjoernHead.classList.remove('inactive', 'imminent-change', 'active-static');
+      jannikHead.classList.remove('inactive', 'imminent-change', 'active-static');
+
+      if (currentSpeaker === 'jannik') {
         bjoernHead.classList.add('inactive');
-      } else if (notesText.includes('Björn')) {
-        bjoernHead.classList.remove('inactive');
+        if (changeImminent) {
+          bjoernHead.classList.add('imminent-change');
+          jannikHead.classList.add('active-static');
+        }
+      } else if (currentSpeaker === 'bjoern') {
         jannikHead.classList.add('inactive');
-      } else {
-        bjoernHead.classList.remove('inactive');
-        jannikHead.classList.remove('inactive');
+        if (changeImminent) {
+          jannikHead.classList.add('imminent-change');
+          bjoernHead.classList.add('active-static');
+        }
       }
     } else {
       bobbleHeads.style.display = 'none';

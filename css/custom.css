@@ -186,6 +186,16 @@
     animation: none;
 }
 
+.speaker-bobble-head.inactive.imminent-change {
+    opacity: 0.55;
+    filter: grayscale(80%);
+    animation: bobble 3s infinite ease-in-out;
+}
+
+.speaker-bobble-head.active-static {
+    animation: none;
+}
+
 @keyframes bobble {
     0%, 100% { transform: rotate(0deg) translateY(0); }
     25% { transform: rotate(-5deg) translateY(-2px); }
