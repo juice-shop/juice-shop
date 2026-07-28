@@ -288,7 +288,7 @@
 			<aside class="notes">Presenter: Jannik</aside>
 		</section>
 
-		<section>
+		<section class="crying-slide">
 			<h3>FBCTF, deprecated since 2018 😭</h3>
 			<img src="https://pwning.owasp-juice.shop/companion-guide/latest/_images/part4/fbctf_1.png">
 			<aside class="notes">Presenter: Jannik</aside>
@@ -353,7 +353,7 @@
 			</section>
 		</section>
 
-        <section>
+        <section class="crying-slide">
             <h2 class="neon">Spam PR Statistics</h2>
             <p>
                 Juice Shop enacts a strict <a href="https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html#_handling_of_spam_prs" target="_blank">no-spam-policy</a> to keep the project clean
@@ -361,7 +361,7 @@
             <img src="assets/spam_prs.png"/>
             <p>
                 <small>
-                    Until 2024, most spam PRs came from user mistakes when "playing around" with tools &amp; scanners. With AI tools gaining popularity, the project has been receiving an increasing number of spam PRs with auto-generated content.
+                    Until 2024, most spam PRs came from user mistakes when "playing around" with tools &amp; scanners. With AI tools gaining popularity, the project has been receiving an increasing number of spam PRs 😭 with auto-generated content.
                 </small>
             </p>
             <aside class="notes">Presenter: Björn</aside>
@@ -432,8 +432,12 @@
 </div>
 
 <div class="speaker-bobble-heads" id="speakerBobbleHeads" style="display: none;">
-	<img src="https://cdn.bsky.app/img/avatar/plain/did:plc:7m6rymnz5t4pxqi4bubbda3z/bafkreib3wdbrfer2qvmwcivvmj3hkkwetdt36hocylpz4yatkdpqcstqje@jpeg" class="speaker-bobble-head" id="bobble-bjoern" title="Björn">
-	<img src="https://media.infosec.exchange/infosec.exchange/accounts/avatars/109/338/803/267/598/841/original/651af466dd34c347.png" class="speaker-bobble-head" id="bobble-jannik" title="Jannik">
+	<div class="speaker-bobble-head" id="bobble-bjoern" title="Björn">
+		<img src="https://cdn.bsky.app/img/avatar/plain/did:plc:7m6rymnz5t4pxqi4bubbda3z/bafkreib3wdbrfer2qvmwcivvmj3hkkwetdt36hocylpz4yatkdpqcstqje@jpeg">
+	</div>
+	<div class="speaker-bobble-head" id="bobble-jannik" title="Jannik">
+		<img src="https://media.infosec.exchange/infosec.exchange/accounts/avatars/109/338/803/267/598/841/original/651af466dd34c347.png">
+	</div>
 </div>
 
 <script src="lib/js/head.min.js"></script>
@@ -506,6 +510,14 @@
           jannikHead.classList.add('imminent-change');
           bjoernHead.classList.add('active-static');
         }
+      }
+
+      if (event.currentSlide.classList.contains('crying-slide')) {
+        bjoernHead.classList.add('crying');
+        jannikHead.classList.add('crying');
+      } else {
+        bjoernHead.classList.remove('crying');
+        jannikHead.classList.remove('crying');
       }
     } else {
       bobbleHeads.style.display = 'none';

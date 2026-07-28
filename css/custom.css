@@ -177,6 +177,16 @@
     transition: all 0.5s ease-in-out;
     transform-origin: bottom center;
     animation: bobble 3s infinite ease-in-out;
+    display: inline-block;
+    position: relative;
+    vertical-align: bottom;
+}
+
+.speaker-bobble-head img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
 }
 
 .speaker-bobble-head.inactive {
@@ -184,6 +194,26 @@
     filter: grayscale(100%);
     border-color: #999;
     animation: none;
+}
+
+.speaker-bobble-head.crying::before,
+.speaker-bobble-head.crying::after {
+    content: '💧';
+    position: absolute;
+    top: 15px;
+    font-size: 20px;
+    opacity: 0;
+    animation: teardrop 2s infinite;
+    pointer-events: none;
+}
+
+.speaker-bobble-head.crying::before {
+    left: 5px;
+}
+
+.speaker-bobble-head.crying::after {
+    right: 5px;
+    animation-delay: 1s;
 }
 
 .speaker-bobble-head.inactive.imminent-change {
@@ -201,4 +231,11 @@
     25% { transform: rotate(-5deg) translateY(-2px); }
     50% { transform: rotate(5deg) translateY(1px); }
     75% { transform: rotate(-3deg) translateY(-1px); }
+}
+
+@keyframes teardrop {
+    0% { transform: translateY(0) scale(0.5); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(50px) scale(1); opacity: 0; }
 }
