@@ -119,6 +119,56 @@ void describe('/profile', () => {
     assert.ok(res.text.includes('not_a_defined_symbol'))
   })
 
+  void it('GET user profile still evaluates SSTI payload when #{} is NOT at the start of the username', async () => {
+    await request(app)
+      .post('/profile')
+      .set('Cookie', authHeader.Cookie)
+      .type('form')
+      .send({ username: 'A#{7*7}' })
+      .redirects(0)
+
+    const res = await request(app)
+      .get('/profile')
+      .set(authHeader)
+
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('text/html'))
+    assert.ok(res.text.includes('A49'))
+  })
+
+  void it('GET user profile does NOT evaluate SSTI payload in safe mode', async (t) => {
+    const originalGet = config.get.bind(config)
+    t.mock.method(config, 'get', (setting: string) => {
+      if (setting === 'challenges.safetyMode') {
+        return 'enabled'
+      }
+      return originalGet(setting)
+    })
+    const challenge = datacache.challenges.usernameXssChallenge
+    const originalDisabledEnv = challenge.disabledEnv
+    challenge.disabledEnv = 'Docker'
+
+    try {
+      await request(app)
+        .post('/profile')
+        .set('Cookie', authHeader.Cookie)
+        .type('form')
+        .send({ username: 'A#{7*7}' })
+        .redirects(0)
+
+      const res = await request(app)
+        .get('/profile')
+        .set(authHeader)
+
+      assert.equal(res.status, 200)
+      assert.ok(res.headers['content-type']?.includes('text/html'))
+      assert.ok(!res.text.includes('A49'))
+      assert.ok(res.text.includes('A#{7*7}'))
+    } finally {
+      challenge.disabledEnv = originalDisabledEnv
+    }
+  })
+
   void it('should be solved when origin header matches configured CSRF URL', async () => {
     const csrfUrl = config.get<string>('challenges.overwriteUrlForCsrfChallenge')
     datacache.challenges.csrfChallenge.solved = false
