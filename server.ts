@@ -126,6 +126,10 @@ import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+// INTENTIONALLY INSECURE routes added for the DevSecOps pipeline assignment.
+import { insecureSearchProducts } from './routes/insecureSearch'
+import { insecurePing } from './routes/insecurePing'
+import { insecureCalc } from './routes/insecureCalc'
 
 const app = express()
 const server = new http.Server(app)
@@ -600,6 +604,10 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.get('/rest/user/whoami', utils.asyncHandler(retrieveLoggedInUser()))
   app.get('/rest/user/authentication-details', utils.asyncHandler(authenticatedUsers()))
   app.get('/rest/products/search', utils.asyncHandler(searchProducts()))
+  // INTENTIONALLY INSECURE endpoints (DevSecOps pipeline assignment).
+  app.get('/rest/products/insecure-search', utils.asyncHandler(insecureSearchProducts()))
+  app.get('/rest/insecure/ping', insecurePing())
+  app.get('/rest/insecure/calc', insecureCalc())
   app.get('/rest/basket/:id', utils.asyncHandler(retrieveBasket()))
   app.post('/rest/basket/:id/checkout', placeOrder())
   app.put('/rest/basket/:id/coupon/:coupon', utils.asyncHandler(applyCoupon()))

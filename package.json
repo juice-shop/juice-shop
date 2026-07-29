@@ -91,6 +91,9 @@
     ]
   },
   "dependencies": {
+    "lodash": "4.17.11",
+    "minimist": "0.0.8",
+    "marked": "0.3.6",
     "@ai-sdk/openai-compatible": "^2.0.35",
     "@fontsource/roboto": "^5.2.9",
     "ai": "^6.0.116",
