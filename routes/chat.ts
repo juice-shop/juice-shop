@@ -239,16 +239,20 @@ export function chat () {
             break
           case 'finish':
             res.write(`data: ${JSON.stringify({ choices: [{ finish_reason: event.finishReason }] })}\n\n`)
-            if (event.totalUsage.inputTokens) {
-              metricInputTokensTotal.inc(Math.max(0, event.totalUsage.inputTokens))
-              metricInputTokens.labels({ type: 'cache_read' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.cacheReadTokens ?? 0))
-              metricInputTokens.labels({ type: 'cache_write' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.cacheWriteTokens ?? 0))
-              metricInputTokens.labels({ type: 'no_cache' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.noCacheTokens ?? 0))
-            }
-            if (event.totalUsage.outputTokens) {
-              metricOutputTokensTotal.inc(Math.max(0, event.totalUsage.outputTokens))
-              metricOutputTokens.labels({ type: 'reasoning' }).inc(Math.max(0, event.totalUsage.outputTokenDetails?.reasoningTokens ?? 0))
-              metricOutputTokens.labels({ type: 'text' }).inc(Math.max(0, event.totalUsage.outputTokenDetails?.textTokens ?? 0))
+            try {
+              if (event.totalUsage.inputTokens) {
+                metricInputTokensTotal.inc(Math.max(0, event.totalUsage.inputTokens))
+                metricInputTokens.labels({ type: 'cache_read' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.cacheReadTokens ?? 0))
+                metricInputTokens.labels({ type: 'cache_write' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.cacheWriteTokens ?? 0))
+                metricInputTokens.labels({ type: 'no_cache' }).inc(Math.max(0, event.totalUsage.inputTokenDetails?.noCacheTokens ?? 0))
+              }
+              if (event.totalUsage.outputTokens) {
+                metricOutputTokensTotal.inc(Math.max(0, event.totalUsage.outputTokens))
+                metricOutputTokens.labels({ type: 'reasoning' }).inc(Math.max(0, event.totalUsage.outputTokenDetails?.reasoningTokens ?? 0))
+                metricOutputTokens.labels({ type: 'text' }).inc(Math.max(0, event.totalUsage.outputTokenDetails?.textTokens ?? 0))
+              }
+            } catch (metricError) {
+              logger.warn('Failed to record chat token usage metrics: ' + summarizeLlmError(metricError))
             }
             break
           case 'error':
