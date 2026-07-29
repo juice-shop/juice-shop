@@ -1,0 +1,28 @@
+services:
+  chromadb:
+    image: chromadb/chroma:0.5.20
+    container_name: juice-shop-chromadb
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    volumes:
+      - chroma-data:/chroma/chroma
+
+  ai-assistant:
+    build: .
+    container_name: juice-shop-ai-assistant
+    ports:
+      - "8080:8080"
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - JUICE_SHOP_BASE_URL=http://host.docker.internal:3000
+    env_file:
+      - ../.env.claude
+    depends_on:
+      - chromadb
+
+volumes:
+  chroma-data:

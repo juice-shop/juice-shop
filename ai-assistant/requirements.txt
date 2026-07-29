@@ -1,0 +1,7 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+anthropic>=0.90.0
+python-dotenv>=1.0
+httpx>=0.27
+chromadb>=0.5
+pyyaml>=6.0

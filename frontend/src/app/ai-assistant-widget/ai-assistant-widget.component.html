@@ -1,0 +1,45 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+  -->
+
+@if (isOpen()) {
+  <div class="assistant-panel" role="dialog" aria-label="AI Assistant">
+    <div class="panel-header">
+      <span class="header-title">AI Assistant</span>
+      <button mat-icon-button (click)="toggle()" aria-label="Close AI Assistant">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="panel-body">
+      @if (messages().length === 0) {
+        <div class="empty-state">Ask me anything about our products!</div>
+      }
+      @for (message of messages(); track $index) {
+        <div class="chat-bubble" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'" [class.error]="message.error">
+          {{ message.content }}
+        </div>
+      }
+      @if (loading()) {
+        <div class="chat-bubble assistant typing">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      }
+    </div>
+
+    <div class="panel-input">
+      <app-chat-input-box [disabled]="loading()" (messageSent)="sendMessage($event)"></app-chat-input-box>
+    </div>
+  </div>
+}
+
+<button mat-fab
+        class="toggle-button"
+        color="primary"
+        (click)="toggle()"
+        [attr.aria-label]="isOpen() ? 'Close AI Assistant' : 'Open AI Assistant'">
+  <mat-icon>{{ isOpen() ? 'close' : 'smart_toy' }}</mat-icon>
+</button>

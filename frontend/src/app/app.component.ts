@@ -12,6 +12,7 @@ import { CtfSystemWideNotificationComponent } from './ctf-system-wide-notificati
 import { ServerStartedNotificationComponent } from './server-started-notification/server-started-notification.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { SidenavComponent } from './sidenav/sidenav.component'
+import { AiAssistantWidgetComponent } from './ai-assistant-widget/ai-assistant-widget.component'
 import { MatSidenavContainer, MatSidenav } from '@angular/material/sidenav'
 
 dom.watch()
@@ -20,7 +21,7 @@ dom.watch()
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, CtfSystemWideNotificationComponent, WelcomeComponent, RouterOutlet]
+  imports: [MatSidenavContainer, MatSidenav, SidenavComponent, NavbarComponent, ServerStartedNotificationComponent, ChallengeSolvedNotificationComponent, CtfSystemWideNotificationComponent, WelcomeComponent, RouterOutlet, AiAssistantWidgetComponent]
 })
 export class AppComponent {
 }

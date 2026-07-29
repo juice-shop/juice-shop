@@ -4,6 +4,7 @@ node_modules/
 order_*.pdf
 app/
 !frontend/src/app
+!ai-assistant/app
 uploads/complaints/*.*
 !uploads/complaints/.gitkeep
 ftp/legal.md

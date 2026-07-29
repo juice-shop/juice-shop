@@ -5,5 +5,6 @@
 
 export const environment = {
   production: true,
-  hostServer: '.'
+  hostServer: '.',
+  aiAssistantUrl: 'http://localhost:8080'
 }
