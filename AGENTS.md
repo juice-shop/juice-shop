@@ -85,8 +85,8 @@ The AI should suggest code following [JS Standard Style](http://standardjs.com/)
 ### 3. Testing Requirements
 
 For any code changes (unless only `REFERENCES.md` or `SOLUTIONS.md` were modified):
-- **Unit/Integration Tests**: New features and changes should have tests.
-- **E2E Tests**: Required for new/modified challenges.
+- **Unit/Integration Tests**: New features and changes should have tests. For how to write them, keep coverage high, and close coverage gaps, see the [write-tests skill](./.ai/skills/write-tests/SKILL.md).
+- **E2E Tests**: Required for new/modified challenges (authoring guidance in the [write-tests skill](./.ai/skills/write-tests/SKILL.md)).
 - **RSN (Refactoring Safety Net)**: Required when modifying existing code that is part of a coding challenge (see the [verify-rsn-fix skill](./.ai/skills/verify-rsn-fix/SKILL.md) for details).
 - **Run Tests Locally**:
   ```bash
@@ -208,6 +208,7 @@ npm run rsn
 - [generate-release-notes skill](./.ai/skills/generate-release-notes/SKILL.md): Instructions for generating release notes.
 - [verify-challenge skill](./.ai/skills/verify-challenge/SKILL.md): Instructions for verifying new challenges fulfill all project requirements and metadata
 - [verify-rsn-fix skill](./.ai/skills/verify-rsn-fix/SKILL.md): Instructions for identifying and fixing broken RSN caused by code changes
+- [write-tests skill](./.ai/skills/write-tests/SKILL.md): Instructions for writing automated tests (frontend, server, API, Cypress E2E), keeping code coverage high, and closing coverage gaps found in `lcov.info` files
 
 ## Verification of Agent Context
 
