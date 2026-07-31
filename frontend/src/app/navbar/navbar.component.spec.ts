@@ -39,6 +39,7 @@ import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.componen
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { LanguagesService } from '../Services/languages.service'
 import { BasketService } from '../Services/basket.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { Subject } from 'rxjs'
 import { environment } from '../../environments/environment'
 
@@ -63,6 +64,7 @@ describe('NavbarComponent', () => {
     let loginGuard
     let languagesService: any
     let basketService: any
+    let windowRefService: any
     let itemTotalSubject: Subject<number>
 
     beforeEach(async () => {
@@ -116,6 +118,14 @@ describe('NavbarComponent', () => {
         }
         basketService.getItemTotal.mockReturnValue(itemTotalSubject.asObservable())
 
+        windowRefService = {
+            nativeWindow: {
+                location: {
+                    reload: vi.fn().mockName("window.location.reload")
+                }
+            }
+        }
+
         TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([
                     { path: 'search', component: SearchResultComponent }
@@ -149,6 +159,7 @@ describe('NavbarComponent', () => {
                 { provide: LoginGuard, useValue: loginGuard },
                 { provide: LanguagesService, useValue: languagesService },
                 { provide: BasketService, useValue: basketService },
+                { provide: WindowRefService, useValue: windowRefService },
                 TranslateService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
