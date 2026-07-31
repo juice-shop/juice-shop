@@ -227,4 +227,121 @@ void describe('insecurity', () => {
       assert.equal(security.isCustomer({ headers: {} } as unknown as Request), false)
     })
   })
+
+  void describe('isDeluxe', () => {
+    void it('returns true if decoded token has deluxe role and valid deluxe token', () => {
+      const user = { data: { email: 'deluxe@juice-sh.op', role: 'deluxe', deluxeToken: security.deluxeToken('deluxe@juice-sh.op') } }
+      const token = security.authorize(user)
+      assert.equal(security.isDeluxe({ headers: { authorization: `Bearer ${token}` } } as unknown as Request), true)
+    })
+
+    void it('returns false if decoded token has deluxe role but invalid deluxe token', () => {
+      const user = { data: { email: 'deluxe@juice-sh.op', role: 'deluxe', deluxeToken: 'invalid' } }
+      const token = security.authorize(user)
+      assert.equal(security.isDeluxe({ headers: { authorization: `Bearer ${token}` } } as unknown as Request), false)
+    })
+
+    void it('returns false if decoded token has other role', () => {
+      const user = { data: { email: 'admin@juice-sh.op', role: 'admin' } }
+      const token = security.authorize(user)
+      assert.equal(security.isDeluxe({ headers: { authorization: `Bearer ${token}` } } as unknown as Request), false)
+    })
+  })
+
+  void describe('isRedirectAllowed', () => {
+    void it('returns true for allowed URLs', () => {
+      for (const url of security.redirectAllowlist) {
+        assert.equal(security.isRedirectAllowed(url), true)
+      }
+    })
+
+    void it('returns true for URLs containing allowed URLs', () => {
+      assert.equal(security.isRedirectAllowed('https://github.com/juice-shop/juice-shop/issues'), true)
+    })
+
+    void it('returns false for disallowed URLs', () => {
+      assert.equal(security.isRedirectAllowed('https://google.com'), false)
+      assert.equal(security.isRedirectAllowed('https://owasp.org'), false)
+    })
+  })
+
+  void describe('sanitizeFilename', () => {
+    void it('returns sanitized filename', () => {
+      assert.equal(security.sanitizeFilename('file/name.txt'), 'filename.txt')
+      assert.equal(security.sanitizeFilename('../../etc/passwd'), '....etcpasswd')
+    })
+  })
+
+  void describe('authenticatedUsers.updateFrom', () => {
+    void it('updates user in token map', () => {
+      const token = '22222'
+      const user = { data: { id: 2 } } as any
+      security.authenticatedUsers.updateFrom({ headers: { authorization: `Bearer ${token}` } } as Request, user)
+      assert.deepEqual(security.authenticatedUsers.get(token), user)
+    })
+  })
+
+  void describe('middlewares', () => {
+    void it('isAccounting should allow next() for accounting role', () => {
+      const user = { data: { role: 'accounting' } }
+      const token = security.authorize(user)
+      const req = { headers: { authorization: `Bearer ${token}` } } as any
+      let nextCalled = false
+      const next = () => { nextCalled = true }
+      security.isAccounting()(req, {} as any, next)
+      assert.ok(nextCalled)
+    })
+
+    void it('isAccounting should return 403 for other roles', () => {
+      const user = { data: { role: 'admin' } }
+      const token = security.authorize(user)
+      const req = { headers: { authorization: `Bearer ${token}` } } as any
+      let statusSet = 0
+      const res = {
+        status: (s: number) => { statusSet = s; return res },
+        json: () => {}
+      } as any
+      security.isAccounting()(req, res, () => {})
+      assert.equal(statusSet, 403)
+    })
+
+    void it('appendUserId should append user id to req.body', () => {
+      const token = '33333'
+      const user = { data: { id: 3 } } as any
+      security.authenticatedUsers.put(token, user)
+      const req = { headers: { authorization: `Bearer ${token}` }, body: {} } as any
+      let nextCalled = false
+      const next = () => { nextCalled = true }
+      security.appendUserId()(req, {} as any, next)
+      assert.equal(req.body.UserId, 3)
+      assert.ok(nextCalled)
+    })
+
+    void it('appendUserId should return 401 if token is invalid or missing', () => {
+      const req = { headers: {}, body: {} } as any
+      let statusSet = 0
+      const res = {
+        status: (s: number) => { statusSet = s; return res },
+        json: () => {}
+      } as any
+      security.appendUserId()(req, res, () => {})
+      assert.equal(statusSet, 401)
+    })
+
+    void it('updateAuthenticatedUsers should call next()', () => {
+      const req = { cookies: {}, headers: {} } as any
+      let nextCalled = false
+      const next = () => { nextCalled = true }
+      security.updateAuthenticatedUsers()(req, {} as any, next)
+      assert.ok(nextCalled)
+    })
+
+    void it('isAuthorized returns a middleware', () => {
+      assert.equal(typeof security.isAuthorized(), 'function')
+    })
+
+    void it('denyAll returns a middleware', () => {
+      assert.equal(typeof security.denyAll(), 'function')
+    })
+  })
 })

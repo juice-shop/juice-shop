@@ -221,7 +221,7 @@ export function checkForSourceFileOverlap (challengeKey: string, submission: str
   return false
 }
 
-const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<boolean> => {
+export const checkForIdenticalSolvedChallenge = async (challenge: Challenge): Promise<boolean> => {
   const codingChallenges = await getCodeChallenges()
   if (!codingChallenges.has(challenge.key)) {
     return false

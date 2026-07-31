@@ -221,6 +221,17 @@ void describe('challengeUtils', () => {
   })
 
   void describe('sendNotification', () => {
+    void it('should return early if challenge is not solved', () => {
+      const challenge = {
+        key: 'scoreBoardChallenge',
+        solved: false
+      } as any
+
+      challengeUtils.sendNotification(challenge, false)
+
+      assert.equal(datacache.notifications.length, 0)
+    })
+
     void it('should push notification to datacache and emit via socket.io', (t) => {
       const challenge = {
         key: 'scoreBoardChallenge',

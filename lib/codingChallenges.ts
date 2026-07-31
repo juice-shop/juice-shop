@@ -55,7 +55,7 @@ function getCodeChallengesFromFile (file: FileMatch) {
   return challenges.map((challengeKey) => getCodingChallengeFromFileContent(fileContent, challengeKey))
 }
 
-function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
+export function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
   const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
   if (snippets == null) {
     throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
@@ -84,7 +84,7 @@ function getCodingChallengeFromFileContent (source: string, challengeKey: string
   return { challengeKey, snippet, vulnLines, neutralLines }
 }
 
-class BrokenBoundary extends Error {
+export class BrokenBoundary extends Error {
   constructor (message: string) {
     super(message)
     this.name = 'BrokenBoundary'

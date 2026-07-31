@@ -232,4 +232,110 @@ describe('BasketService', () => {
         expect(sessionStorage.getItem('guestBasket')).toBeNull()
         httpMock.verify()
     })
+
+    it('should handle non-array guest basket in sessionStorage', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify({ not: 'an array' }))
+        expect(service.getGuestBasketItems()).toEqual([])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should handle JSON parse error in guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', 'invalid JSON')
+        expect(service.getGuestBasketItems()).toEqual([])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should add new item to guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.removeItem('guestBasket')
+
+        service.addToGuestBasket(1, 2)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 1, quantity: 2 }])
+
+        service.addToGuestBasket(2)
+        expect(service.getGuestBasketItems()).toEqual([
+            { ProductId: 1, quantity: 2 },
+            { ProductId: 2, quantity: 1 }
+        ])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should increment quantity of existing item in guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify([{ ProductId: 1, quantity: 2 }]))
+
+        service.addToGuestBasket(1, 3)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 1, quantity: 5 }])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should update guest basket item quantity', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify([{ ProductId: 1, quantity: 2 }]))
+
+        service.updateGuestBasketItemQuantity(1, 10)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 1, quantity: 10 }])
+
+        service.updateGuestBasketItemQuantity(1, 0) // Should be Math.max(1, quantity)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 1, quantity: 1 }])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should do nothing when updating quantity of non-existent guest basket item', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify([{ ProductId: 1, quantity: 2 }]))
+
+        service.updateGuestBasketItemQuantity(2, 10)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 1, quantity: 2 }])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should remove item from guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify([
+            { ProductId: 1, quantity: 2 },
+            { ProductId: 2, quantity: 3 }
+        ]))
+
+        service.removeGuestBasketItem(1)
+        expect(service.getGuestBasketItems()).toEqual([{ ProductId: 2, quantity: 3 }])
+        sessionStorage.removeItem('guestBasket')
+    })
+
+    it('should clear guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.setItem('guestBasket', JSON.stringify([{ ProductId: 1, quantity: 2 }]))
+
+        service.clearGuestBasket()
+        expect(sessionStorage.getItem('guestBasket')).toBeNull()
+    })
+
+    it('should return early if merging empty guest basket', () => {
+        const service = TestBed.inject(BasketService)
+        sessionStorage.removeItem('guestBasket')
+
+        let res: any
+        service.mergeGuestBasketIntoUserBasket(42).subscribe((val) => (res = val))
+        expect(res).toBeUndefined()
+    })
+
+    it('should handle error when finding target basket during merge', () => {
+        const service = TestBed.inject(BasketService)
+        const httpMock = TestBed.inject(HttpTestingController)
+
+        sessionStorage.setItem('guestBasket', JSON.stringify([{ ProductId: 1, quantity: 2 }]))
+
+        service.mergeGuestBasketIntoUserBasket(42).subscribe()
+
+        const findReq = httpMock.expectOne('http://localhost:3000/rest/basket/42')
+        findReq.error(new ErrorEvent('Find failed'), { status: 500, statusText: 'Internal Error' })
+
+        const postReq = httpMock.expectOne('http://localhost:3000/api/BasketItems/')
+        postReq.flush({ data: {} })
+
+        expect(sessionStorage.getItem('guestBasket')).toBeNull()
+        httpMock.verify()
+    })
 })
