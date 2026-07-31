@@ -102,6 +102,7 @@ If the challenge has an associated coding challenge:
 
 ## 6. Testing Requirements
 
+-   Every new/changed challenge **must** have a Cypress E2E test proving it can be solved. This skill only verifies that such a test **exists** and is correctly gated; for **how to author** the E2E solve test (and unit/API tests), follow the [write-tests skill](../write-tests/SKILL.md).
 -   If the challenge has `disabledEnv` set, the corresponding API or Cypress tests **must** be wrapped in an enablement check:
     ```typescript
     if (utils.isChallengeEnabled(challenges.myNewChallenge)) {
