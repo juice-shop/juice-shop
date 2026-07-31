@@ -1,5 +1,5 @@
 describe('/', () => {
-  describe('challenge "easterEgg2"', () => {
+  describe('challenge "easterEggLevelTwoChallenge"', () => {
     it('should be able to access "secret" url for easter egg', () => {
       cy.on('uncaught:exception', (err) => {
         if (err.message.includes('getExtension') || err.message.includes('Cannot read properties of null')) {
@@ -24,7 +24,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "privacyPolicyProof"', () => {
+  describe('challenge "privacyPolicyProofChallenge"', () => {
     it('should be able to access proof url for reading the privacy policy', () => {
       // cy.visit fails on a non 2xx status code hence passed the parameter
       cy.visit(
@@ -43,7 +43,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "retrieveBlueprint"', () => {
+  describe('challenge "retrieveBlueprintChallenge"', () => {
     it('should be able to access the blueprint file', () => {
       cy.task<string>('GetBlueprint').then((foundBlueprint: string) => {
         // cy.visit requires a text/html response and this is an STL file hence cy.request has been used
@@ -53,7 +53,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "missingEncoding"', () => {
+  describe('challenge "missingEncodingChallenge"', () => {
     it('should be able to access the crazy cat photo', () => {
       // cy.visit requires a text/html response and this is an image hence cy.request has been used
       cy.request(
@@ -63,7 +63,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "securityPolicy"', () => {
+  describe('challenge "securityPolicyChallenge"', () => {
     it('should be able to access the security.txt file', () => {
       // cy.visit requires a text/html response and this is an image hence cy.request has been used
       cy.request('/.well-known/security.txt')
@@ -71,7 +71,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "emailLeak"', () => {
+  describe('challenge "emailLeakChallenge"', () => {
     it('should be able to request the callback on /rest/user/whoami', () => {
       // cy.visit requires a text/html response and this is a text/javascript hence cy.request has been used
       cy.request('/rest/user/whoami?callback=func')
@@ -79,7 +79,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "accessLogDisclosure"', () => {
+  describe('challenge "accessLogDisclosureChallenge"', () => {
     it("should be able to access today's access log file", () => {
       // cy.visit requires a text/html response hence cy.request has been used
       cy.task<Date>('toISO8601').then((date: Date) => {

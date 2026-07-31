@@ -2,7 +2,7 @@ describe('/profile', () => {
   beforeEach(() => {
     cy.login({ email: 'admin', password: 'admin123' })
   })
-  describe('challenge "ssrf"', () => {
+  describe('challenge "ssrfChallenge"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
       cy.visit('/profile')
 
@@ -15,7 +15,7 @@ describe('/profile', () => {
     })
   })
 
-  describe('challenge "usernameXss"', () => {
+  describe('challenge "usernameXssChallenge"', () => {
     it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
@@ -32,7 +32,7 @@ describe('/profile', () => {
           })
 
           cy.get('#username').clear()
-          cy.get('#username').type('αδмιη')
+          cy.get('#username').type('Î±Î´Ð¼Î¹Î·')
           cy.get('#submit').click()
 
           cy.get('#url').type(
@@ -46,7 +46,7 @@ describe('/profile', () => {
     })
   })
 
-  describe('challenge "ssti"', () => {
+  describe('challenge "sstiChallenge"', () => {
     it('should be possible to inject arbitrary nodeJs commands in username', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
@@ -68,7 +68,7 @@ describe('/profile', () => {
     })
   })
 
-  describe('challenge "csrf"', () => {
+  describe('challenge "csrfChallenge"', () => {
     // FIXME Only works on Chrome <80 but Protractor uses latest Chrome version. Test can probably never be turned on again.
     xit('should be possible to perform a CSRF attack against the user profile page', () => {
       cy.visit('http://htmledit.squarefree.com')

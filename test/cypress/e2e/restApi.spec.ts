@@ -1,5 +1,5 @@
 describe('/api', () => {
-  describe('challenge "restfulXss"', () => {
+  describe('challenge "restfulXssChallenge"', () => {
     beforeEach(() => {
       cy.login({ email: 'admin', password: 'admin123' })
     })
@@ -45,7 +45,7 @@ describe('/api', () => {
     })
   })
 
-  describe('challenge "changeProduct"', () => {
+  describe('challenge "changeProductChallenge"', () => {
     it('should be possible to change product via PUT request without being logged in', () => {
       cy.task<number>('GetTamperingProductId').then((tamperingProductId: number) => {
         cy.task<string>('GetOverwriteUrl').then((overwriteUrl: string) => {
@@ -75,7 +75,7 @@ describe('/api', () => {
 })
 
 describe('/rest/saveLoginIp', () => {
-  describe('challenge "httpHeaderXss"', () => {
+  describe('challenge "httpHeaderXssChallenge"', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',

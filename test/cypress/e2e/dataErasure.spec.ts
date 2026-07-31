@@ -3,7 +3,7 @@ describe('/dataerasure', () => {
     cy.login({ email: 'admin', password: 'admin123' })
   })
 
-  describe('challenge "lfr"', () => {
+  describe('challenge "lfrChallenge"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
       cy.window().then(async () => {
         const params = 'layout=../package.json'

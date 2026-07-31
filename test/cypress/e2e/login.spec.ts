@@ -3,7 +3,7 @@ describe('/#/login', () => {
     cy.visit('/#/login')
   })
 
-  describe('challenge "loginAdmin"', () => {
+  describe('challenge "loginAdminChallenge"', () => {
     it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', () => {
       cy.get('#email').type("' or 1=1--")
       cy.get('#password').type('a')
@@ -22,7 +22,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginJim"', () => {
+  describe('challenge "loginJimChallenge"', () => {
     it('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -35,7 +35,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginBender"', () => {
+  describe('challenge "loginBenderChallenge"', () => {
     it('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -48,7 +48,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "adminCredentials"', () => {
+  describe('challenge "weakPasswordChallenge"', () => {
     it('should be able to log in with original (weak) admin credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -61,7 +61,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginSupport"', () => {
+  describe('challenge "loginSupportChallenge"', () => {
     it('should be able to log in with original support-team credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -74,7 +74,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginRapper"', () => {
+  describe('challenge "loginRapperChallenge"', () => {
     it('should be able to log in with original MC SafeSearch credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -87,7 +87,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginAmy"', () => {
+  describe('challenge "loginAmyChallenge"', () => {
     it('should be able to log in with original Amy credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -100,12 +100,12 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "dlpPasswordSpraying"', () => {
+  describe('challenge "dlpPasswordSprayingChallenge"', () => {
     it('should be able to log in with original Jannik credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
           cy.get('#email').type(`J12934@${appDomain}`)
-          cy.get('#password').type('0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB')
+          cy.get('#password').type('0Y8rMnww$*9VFYEÂ§59-!Fg1L6t&6lB')
           cy.get('#loginButton').click()
         }
       )
@@ -113,7 +113,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
+  describe('challenge "twoFactorAuthUnsafeSecretStorageChallenge"', () => {
     it('should be able to log into a existing 2fa protected account given the right token', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -133,7 +133,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "oauthUserPassword"', () => {
+  describe('challenge "oauthUserPasswordChallenge"', () => {
     it('should be able to log in as bjoern.kimminich@gmail.com with base64-encoded email as password', () => {
       cy.get('#email').type('bjoern.kimminich@gmail.com')
       cy.get('#password').type('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
@@ -143,7 +143,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "ghostLogin"', () => {
+  describe('challenge "ghostLoginChallenge"', () => {
     it('should be able to log in as chris.pike@juice-sh.op by using "\' or deletedAt IS NOT NULL --"', () => {
       cy.get('#email').type("' or deletedAt IS NOT NULL--")
       cy.get('#password').type('a')
