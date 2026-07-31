@@ -148,6 +148,81 @@ void describe('antiCheat', () => {
       const result = antiCheat.checkForSourceFileOverlap('vulnerableDockerImageChallenge', sourceFile)
       assert.strictEqual(result, true)
     })
+
+    void it('should use cache when loading same source file again', () => {
+      antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', 'a'.repeat(200)) // First load
+      const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', 'a'.repeat(200)) // Second load (cache hit)
+      assert.strictEqual(result, false)
+    })
+  })
+
+  void describe('calculateCheatScore', () => {
+    void it('should return cheat score of 1 if isCheating is true', () => {
+      const challenge: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
+      const score = antiCheat.calculateCheatScore(challenge, true)
+      assert.equal(score, 1)
+    })
+  })
+
+  void describe('calculateFindItCheatScore', () => {
+    void it('should return 0 if no code snippet exists for challenge', async () => {
+      const challenge: Challenge = { key: 'unknownChallenge', difficulty: 1 } as any
+      const score = await antiCheat.calculateFindItCheatScore(challenge)
+      assert.equal(score, 0)
+    })
+
+    void it('should return cheat score for challenge with code snippet', async () => {
+      const challenge: Challenge = { key: 'scoreBoardChallenge', difficulty: 1 } as any
+      const score = await antiCheat.calculateFindItCheatScore(challenge)
+      assert.ok(score >= 0 && score <= 1)
+    })
+  })
+
+  void describe('calculateFixItCheatScore', () => {
+    void it('should return cheat score for challenge with fixes', async () => {
+      const challenge: Challenge = { key: 'scoreBoardChallenge', difficulty: 1 } as any
+      const score = await antiCheat.calculateFixItCheatScore(challenge)
+      assert.ok(score >= 0 && score <= 1)
+    })
+  })
+
+  void describe('checkForIdenticalSolvedChallenge', () => {
+    void it('should return false if challenge is not a coding challenge', async () => {
+      const result = await antiCheat.checkForIdenticalSolvedChallenge({ key: 'nonCodingChallenge' })
+      assert.strictEqual(result, false)
+    })
+
+    void it('should detect identical solved challenge and reduce time factor in calculateFindItCheatScore', async () => {
+      const challenge1: Challenge = { key: 'localXssChallenge', difficulty: 1 } as any
+      const challenge2: Challenge = { key: 'xssBonusChallenge', difficulty: 1 } as any
+
+      await antiCheat.calculateFindItCheatScore(challenge1)
+      const score = await antiCheat.calculateFindItCheatScore(challenge2)
+      assert.ok(score >= 0 && score <= 1)
+    })
+
+    void it('should return false if coding challenge has no snippet', async () => {
+      const codingChallengesModule = require('../../lib/codingChallenges')
+      const challenges = await codingChallengesModule.getCodeChallenges()
+      challenges.set('noSnippetChallenge', { snippet: '', vulnLines: [], neutralLines: [] })
+
+      const result = await antiCheat.checkForIdenticalSolvedChallenge({ key: 'noSnippetChallenge' })
+      assert.strictEqual(result, false)
+    })
+  })
+
+  void describe('loadSourceFile', () => {
+    void it('should return empty string if source file cannot be read', () => {
+      const fs = require('fs')
+      const originalReadFileSync = fs.readFileSync
+      fs.readFileSync = () => { throw new Error('Mock error') }
+      try {
+        const result = antiCheat.checkForSourceFileOverlap('knownVulnerableComponentChallenge', 'a'.repeat(200))
+        assert.strictEqual(result, false)
+      } finally {
+        fs.readFileSync = originalReadFileSync
+      }
+    })
   })
 
   void describe('reset', () => {

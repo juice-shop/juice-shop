@@ -16,6 +16,7 @@ import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { MatGridListModule } from '@angular/material/grid-list'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { EventEmitter } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
@@ -65,6 +66,7 @@ describe('AddressCreateComponent', () => {
                 { provide: AddressService, useValue: addressService },
                 { provide: TranslateService, useValue: translateService },
                 { provide: MatSnackBar, useValue: snackBar },
+                SnackBarHelperService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
             ]
@@ -240,5 +242,34 @@ describe('AddressCreateComponent', () => {
         expect(component.addressControl.value).toBe('Bakers Street')
         expect(component.cityControl.value).toBe('NYC')
         expect(component.stateControl.value).toBe('NY')
+    })
+
+    it('should show snackbar error when translation fails after address creation', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        addressService.save.mockReturnValue(of({ city: 'NYC' }))
+        translateService.get.mockReturnValue(throwError('ADDRESS_ADDED'))
+        component.save()
+        expect(spy).toHaveBeenCalledWith('ADDRESS_ADDED', 'confirmBar')
+    })
+
+    it('should show snackbar error when translation fails after address update', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        component.mode = 'edit'
+        addressService.put.mockReturnValue(of({ city: 'NYC' }))
+        translateService.get.mockReturnValue(throwError('ADDRESS_UPDATED'))
+        component.save()
+        expect(spy).toHaveBeenCalledWith('ADDRESS_UPDATED', 'confirmBar')
+    })
+
+    it('should show snackbar error and clear form when address creation fails', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        addressService.save.mockReturnValue(throwError({ error: { error: 'Save failed' } }))
+        vi.spyOn(component, 'resetForm')
+        component.save()
+        expect(spy).toHaveBeenCalledWith('Save failed', 'errorBar')
+        expect(component.resetForm).toHaveBeenCalled()
     })
 })

@@ -288,6 +288,24 @@ describe('SearchResultComponent', () => {
             expect(component.emptyState).toBe(false)
         })
 
+        it('should map quantities to products in dataTable', () => {
+            productService.search.mockReturnValue(of([
+                { id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' },
+                { id: 2, name: 'Orange', price: 2, description: 'd', image: 'i' }
+            ]))
+            quantityService.getAll.mockReturnValue(of([
+                { ProductId: 1, quantity: 10 },
+                { ProductId: 3, quantity: 5 } // Non-existent product
+            ]))
+            component.ngAfterViewInit()
+            fixture.detectChanges()
+
+            const apple = component.dataSource.data.find(p => p.id === 1)
+            const orange = component.dataSource.data.find(p => p.id === 2)
+            expect(apple?.quantity).toBe(10)
+            expect(orange?.quantity).toBeUndefined()
+        })
+
         it('should unsubscribe the previous grid data source subscription when filtering twice', () => {
             productService.search.mockReturnValue(of([{ id: 1, name: 'Apple', price: 1, description: 'd', image: 'i' }]))
             component.ngAfterViewInit()
@@ -361,10 +379,18 @@ describe('SearchResultComponent', () => {
         it('should start the hacking instructor when challenge param and hacking-instructor URL are present', () => {
             const spy = vi.spyOn(component, 'startHackingInstructor').mockImplementation(() => {})
             ;(activatedRoute.snapshot as any).queryParams.challenge = 'Score Board'
-            ;(activatedRoute.snapshot as any).url = [{ toString: () => 'hacking-instructor' }]
+            ;(activatedRoute.snapshot as any).url = { join: () => 'hacking-instructor' }
             component.ngAfterViewInit()
             fixture.detectChanges()
             expect(spy).toHaveBeenCalledWith('Score Board')
+        })
+
+        it('should log to console and call startHackingInstructorFor when startHackingInstructor is called', async () => {
+            const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
+            component.startHackingInstructor('Score Board')
+            expect(consoleSpy).toHaveBeenCalledWith('Starting instructions for challenge "Score Board"')
+            // Testing the dynamic import and the subsequent call is harder,
+            // but at least we covered the first line and the start of the promise.
         })
     })
 

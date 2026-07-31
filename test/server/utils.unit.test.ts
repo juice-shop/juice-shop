@@ -293,4 +293,64 @@ void describe('utils', () => {
       assert.equal(utils.diceCoefficient('night', 'nacht'), 0.25)
     })
   })
+
+  void describe('toMMMYY', () => {
+    void it('returns MMMYY representation of date', () => {
+      assert.equal(utils.toMMMYY(new Date('1980-01-02')), 'JAN80')
+      assert.equal(utils.toMMMYY(new Date('2026-12-31')), 'DEC26')
+    })
+  })
+
+  void describe('isUrl', () => {
+    void it('returns true for strings starting with http', () => {
+      assert.ok(utils.isUrl('http://test.com'))
+      assert.ok(utils.isUrl('https://test.com'))
+    })
+
+    void it('returns false for strings not starting with http', () => {
+      assert.ok(!utils.isUrl('ftp://test.com'))
+      assert.ok(!utils.isUrl('test.com'))
+    })
+  })
+
+  void describe('version', () => {
+    void it('returns package version if no module is specified', () => {
+      assert.ok(utils.version())
+    })
+
+    void it('returns module version if module is specified', () => {
+      assert.ok(utils.version('express'))
+    })
+  })
+
+  void describe('jwtFrom', () => {
+    void it('extracts token from authorization header', () => {
+      assert.equal(utils.jwtFrom({ headers: { authorization: 'Bearer 12345' } }), '12345')
+      assert.equal(utils.jwtFrom({ headers: { authorization: 'bearer abcde' } }), 'abcde')
+    })
+
+    void it('returns undefined if authorization header is missing or malformed', () => {
+      assert.equal(utils.jwtFrom({ headers: {} }), undefined)
+      assert.equal(utils.jwtFrom({ headers: { authorization: '12345' } }), undefined)
+      assert.equal(utils.jwtFrom({ headers: { authorization: 'Basic 12345' } }), undefined)
+    })
+  })
+
+  void describe('randomHexString', () => {
+    void it('returns random hex string of specified length', () => {
+      assert.equal(utils.randomHexString(10).length, 10)
+      assert.equal(utils.randomHexString(1).length, 1)
+    })
+  })
+
+  void describe('getErrorMessage', () => {
+    void it('returns message if error is an Error object', () => {
+      assert.equal(utils.getErrorMessage(new Error('Test error')), 'Test error')
+    })
+
+    void it('returns string representation if error is not an Error object', () => {
+      assert.equal(utils.getErrorMessage('Test error'), 'Test error')
+      assert.equal(utils.getErrorMessage({}), '[object Object]')
+    })
+  })
 })
