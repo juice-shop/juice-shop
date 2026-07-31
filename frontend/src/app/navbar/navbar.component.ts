@@ -16,6 +16,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -97,6 +98,7 @@ export class NavbarComponent implements OnInit {
   private readonly loginGuard = inject(LoginGuard)
   private readonly snackBar = inject(MatSnackBar)
   private readonly basketService = inject(BasketService)
+  private readonly windowRefService = inject(WindowRefService)
 
   public userEmail = ''
   public languages: any[] = []
@@ -261,7 +263,7 @@ export class NavbarComponent implements OnInit {
         panelClass: ['mat-body']
       })
       snackBarRef.onAction().subscribe(() => {
-        location.reload()
+        this.windowRefService.nativeWindow.location.reload()
       })
     }
   }
