@@ -4,7 +4,7 @@ describe('/#/search', () => {
   beforeEach(() => {
     cy.visit('/#/search')
   })
-  describe('challenge "localXss"', () => {
+  describe('challenge "localXssChallenge"', () => {
     // Cypress alert bug
     xit('search query should be susceptible to reflected XSS attacks', () => {
       cy.get('#searchQuery').click()
@@ -17,7 +17,7 @@ describe('/#/search', () => {
       cy.expectChallengeSolved({ challenge: 'DOM XSS' })
     })
   })
-  describe('challenge "xssBonusPayload"', () => {
+  describe('challenge "xssBonusChallenge"', () => {
     it('search query should be susceptible to reflected XSS attacks', () => {
       cy.get('#searchQuery').click()
       cy.get('app-mat-search-bar input')
@@ -31,7 +31,7 @@ describe('/#/search', () => {
 })
 
 describe('/rest/products/search', () => {
-  describe('challenge "unionSqlInjection"', () => {
+  describe('challenge "unionSqlInjectionChallenge"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
       cy.request(
         "/rest/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9' from users--"
@@ -40,7 +40,7 @@ describe('/rest/products/search', () => {
     })
   })
 
-  describe('challenge "dbSchema"', () => {
+  describe('challenge "dbSchemaChallenge"', () => {
     it('query param in product search endpoint should be susceptible to UNION SQL injection attacks', () => {
       cy.request(
         "/rest/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9' from sqlite_master--"
@@ -76,7 +76,7 @@ describe('/rest/products/search', () => {
     })
   })
 
-  xdescribe('challenge "christmasSpecial"', () => {
+  xdescribe('challenge "christmasSpecialChallenge"', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',

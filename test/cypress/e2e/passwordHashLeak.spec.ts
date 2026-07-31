@@ -1,4 +1,4 @@
-describe('challenge "Password Hash Leak"', () => {
+describe('challenge "passwordHashLeakChallenge"', () => {
   beforeEach(() => {
     cy.login({ email: 'admin@juice-sh.op', password: 'admin123' })
   })

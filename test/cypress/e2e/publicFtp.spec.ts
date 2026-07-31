@@ -1,5 +1,5 @@
 describe('/ftp', () => {
-  describe('challenge "confidentialDocument"', () => {
+  describe('challenge "directoryListingChallenge"', () => {
     it('should be able to access file /ftp/acquisitions.md', () => {
       cy.request('/ftp/acquisitions.md')
       cy.expectChallengeSolved({ challenge: 'Confidential Document' })
@@ -18,28 +18,28 @@ describe('/ftp', () => {
     })
   })
 
-  describe('challenge "forgottenBackup"', () => {
+  describe('challenge "forgottenBackupChallenge"', () => {
     it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
       cy.request('/ftp/coupons_2013.md.bak%2500.md')
       cy.expectChallengeSolved({ challenge: 'Forgotten Sales Backup' })
     })
   })
 
-  describe('challenge "forgottenDevBackup"', () => {
+  describe('challenge "forgottenDevBackupChallenge"', () => {
     it('should be able to access file /ftp/package.json.bak with poison null byte attack', () => {
       cy.request('/ftp/package.json.bak%2500.md')
       cy.expectChallengeSolved({ challenge: 'Forgotten Developer Backup' })
     })
   })
 
-  describe('challenge "easterEgg1"', () => {
+  describe('challenge "easterEggLevelOneChallenge"', () => {
     it('should be able to access file /ftp/easter.egg with poison null byte attack', () => {
       cy.request('/ftp/eastere.gg%2500.md')
       cy.expectChallengeSolved({ challenge: 'Easter Egg' })
     })
   })
 
-  describe('challenge "misplacedSiemFileChallenge"', () => {
+  describe('challenge "misplacedSignatureFileChallenge"', () => {
     it('should be able to access file /ftp/suspicious_errors.yml with poison null byte attack', () => {
       cy.request('/ftp/suspicious_errors.yml%2500.md')
       cy.expectChallengeSolved({ challenge: 'Misplaced Signature File' })

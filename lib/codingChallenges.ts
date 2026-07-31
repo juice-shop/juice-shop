@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import logger from './logger'
 
-export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './data/static/web3-snippets', './frontend/src/app', './models', './terraform', './infrastructure'])
+export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './data/static/web3-snippets', './frontend/src/app', './models', './infrastructure'])
 
 interface FileMatch {
   path: string
@@ -36,7 +36,7 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
         }
       }
     } catch (e) {
-      logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
+      logger.warn(`File ${currPath} could not be read. It might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
     }
   }
 

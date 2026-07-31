@@ -1,5 +1,5 @@
 describe('/', () => {
-  describe('challenge "jwtUnsigned"', () => {
+  describe('challenge "jwtUnsignedChallenge"', () => {
     it('should accept an unsigned token with email jwtn3d@juice-sh.op in the payload ', () => {
       cy.window().then(() => {
         localStorage.setItem(
@@ -12,7 +12,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "jwtForged"', () => {
+  describe('challenge "jwtForgedChallenge"', () => {
     it('should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ', () => {
       cy.task('isWindows').then((isWindows) => {
         if (!isWindows) {
@@ -30,7 +30,7 @@ describe('/', () => {
     })
   })
 
-  describe('challenge "iacLeakedKey"', () => {
+  describe('challenge "iacLeakedKeyChallenge"', () => {
     it('should accept an RS256-signed token with email cloud-admin@juice-sh.op using the leaked private key', () => {
       cy.window().then(() => {
         localStorage.setItem(

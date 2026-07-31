@@ -114,12 +114,13 @@ To add an E2E test for a challenge that lacks one:
 
 1. Identify the challenge `key` and `name` in `data/static/challenges.yml`.
 2. Find the most similar existing spec in `test/cypress/e2e/` (group by attack type: direct URL access → `directAccess.spec.ts`, injection → `noSql.spec.ts`/`search.spec.ts`, auth → `login.spec.ts`, etc.) and mirror it.
-3. Perform the solving interaction with Cypress (`cy.visit`, `cy.request`, `cy.get(...).type/click`, `cy.login({...})`), then assert with the custom command:
+3. Wrap the challenge test in a `describe` block named `challenge "<challengeKey>"` (e.g., `describe('challenge "adminSectionChallenge"', () => { ... })`).
+4. Perform the solving interaction with Cypress (`cy.visit`, `cy.request`, `cy.get(...).type/click`, `cy.login({...})`), then assert with the custom command:
    ```typescript
    cy.expectChallengeSolved({ challenge: 'Exact Challenge Name From challenges.yml' })
    ```
-4. If the challenge has `disabledEnv`, wrap it so it is skipped where disabled (mirror the API-side guard in `patterns/api.md`).
-5. Run it: `npm start & npm run test:e2e` (Cypress needs the app running, Chrome, and internet access, per the companion guide).
+5. If the challenge has `disabledEnv`, wrap it so it is skipped where disabled (mirror the API-side guard in `patterns/api.md`).
+6. Run it: `npm start & npm run test:e2e` (Cypress needs the app running, Chrome, and internet access, per the companion guide).
 
 Full patterns and the available custom commands are in [`patterns/cypress.md`](./patterns/cypress.md).
 
