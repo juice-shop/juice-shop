@@ -12,8 +12,11 @@
   <ng-container matColumnDef="image">
     <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
     <mat-cell *matCellDef="let element" class="content-align">
-      <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
-        class="img-responsive img-thumbnail">
+      <picture>
+        <source [srcset]="getAvifSrc(element.image)" type="image/avif">
+        <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
+          class="img-responsive img-thumbnail">
+      </picture>
       </mat-cell>
       <mat-footer-cell *matFooterCellDef class="content-align"></mat-footer-cell>
     </ng-container>
