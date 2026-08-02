@@ -188,4 +188,9 @@ export class ProductComponent {
       }
     })
   }
+
+  getAvifSrc (image: string): string {
+    const baseName = image.substring(0, image.lastIndexOf('.'))
+    return `assets/public/images/products/${baseName}-6x.avif`
+  }
 }

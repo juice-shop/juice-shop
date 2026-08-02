@@ -35,12 +35,15 @@
           'url(\'assets/public/images/products/' + product.image + '\')'
         "
       >
-        <img
-          mat-card-image
-          [src]="'assets/public/images/products/' + product.image"
-          alt="{{ product.name }}"
-          class="img-thumbnail"
-        />
+        <picture>
+          <source [srcset]="getAvifSrc(product.image)" type="image/avif">
+          <img
+            mat-card-image
+            [src]="'assets/public/images/products/' + product.image"
+            alt="{{ product.name }}"
+            class="img-thumbnail"
+          />
+        </picture>
       </div>
       <div class="info-box">
         <div class="name">{{ product.name }}</div>
