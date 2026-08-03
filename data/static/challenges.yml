@@ -304,6 +304,9 @@
     - 'Simply using the deprecated interface suffices to solve this challenge. No attack or exploit is necessary.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html'
   key: deprecatedInterfaceChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Easter Egg'
   category: 'Broken Access Control'
