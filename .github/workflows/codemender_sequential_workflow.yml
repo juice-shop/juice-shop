@@ -1,0 +1,122 @@
+name: CodeMender Scheduled Remediation
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  codemender-remediator:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 1. Authenticate to Google Cloud securely
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+
+      # 2. Download and Install CodeMender On-The-Fly
+      - name: Install CodeMender CLI
+        run: |
+          echo "Downloading CodeMender..."
+          curl -sS -o cm-linux.zip "https://storage.googleapis.com/codemender-public/cmoc/cmoc-linux-amd64.zip"
+          unzip -q cm-linux.zip
+          chmod +x cmoc-linux-amd64
+          sudo mv cmoc-linux-amd64 /usr/local/bin/cm
+          cm --version
+
+      # 3. Configure Git Identity for the Bot
+      - name: Configure Git Identity
+        run: |
+          git config --global user.name "CodeMender Remediation Bot"
+          git config --global user.email "codemender-bot@google.com"
+
+      # 4. The Core CodeMender Pipeline (Embedded Bash Logic)
+      - name: Run CodeMender Pipeline
+        run: |
+          set -e
+          echo "🚀 Starting CodeMender Nightly Remediation..."
+          
+          # Initialize Workspace and create optimized config.yaml
+          cm init
+          cat <<EOF > ~/.codemender/config.yaml
+          vcs:
+            type: "git"
+            commands:
+              reset: "git checkout HEAD -- ."
+          build:
+            command: "npm install && npm test"
+          scan:
+            extensions:
+              include: [".js", ".ts", ".html", ".css", ".json", ".yaml"]
+          tools:
+            confirm_commands: false
+            confirm_writes: false
+          EOF
+
+          # Scan Phase (Cost-Optimized Model)
+          echo "🔍 Scanning codebase with Gemini 3.5 Flash..."
+          cm find . --model gemini-3.5-flash -y
+
+          # Query Findings
+          CRITICAL_FINDINGS=$(cm report --severity CRITICAL --status OPEN --format json)
+          FINDINGS_COUNT=$(echo "$CRITICAL_FINDINGS" | jq '. | length')
+
+          if [ "$FINDINGS_COUNT" -eq 0 ]; then
+            echo "🎉 Success! No open CRITICAL vulnerabilities found."
+            echo "NO_FINDINGS=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
+
+          echo "⚠️ Found $FINDINGS_COUNT open CRITICAL findings. Starting remediation..."
+          echo "NO_FINDINGS=false" >> "$GITHUB_ENV"
+
+          # Fix Phase (High-Reasoning Model)
+          FINDING_IDS=$(echo "$CRITICAL_FINDINGS" | jq -r '.[].id')
+
+          for FINDING_ID in $FINDING_IDS; do
+            echo "🩹 Remediating finding: $FINDING_ID using Gemini 3.1 Pro..."
+            cm fix "$FINDING_ID" --model gemini-3.1-pro-preview -y
+          done
+
+          # Export Reports
+          echo "📊 Generating final reports..."
+          mkdir -p codemender_reports
+          cm report --format md > codemender_reports/summary.md
+          cm report --format html > codemender_reports/dashboard.html
+          echo "✅ Remediation pipeline completed successfully!"
+
+      # 5. Upload the Interactive Dashboard (Only if findings exist)
+      - name: Upload HTML Security Dashboard
+        if: env.NO_FINDINGS == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: codemender-html-dashboard
+          path: codemender_reports/dashboard.html
+
+      # 6. Create the Pull Request (Only if findings exist)
+      - name: Create Pull Request
+        if: env.NO_FINDINGS == 'false'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "security: apply automated CodeMender patches"
+          branch: security/nightly-remediation
+          delete-branch: true
+          title: "🔒 Nightly Security Patch: Automated CodeMender Remediation"
+          body-path: codemender_reports/summary.md
+          labels: |
+            security
+            automerge
+
