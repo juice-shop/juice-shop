@@ -1,0 +1,29 @@
+name: "Frogbot Scan Repository"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"   # daily at 00:00 UTC
+  push:
+    branches:
+      - master            # juice-shop uses master, not main
+permissions:
+  pull-requests: write
+  contents: write
+  security-events: write
+jobs:
+  scan-repository:
+    runs-on: ubuntu-latest
+    name: Scan Repository (${{ matrix.branch }} branch)
+    strategy:
+      matrix:
+        branch: ["master"]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+      - uses: jfrog/frogbot@v3
+        env:
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+          JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JF_GIT_BASE_BRANCH: ${{ matrix.branch }}
