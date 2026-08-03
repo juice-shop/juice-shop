@@ -1,0 +1,74 @@
+name: Checkmarx One Scan
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+  pull-requests: write   # needed so Checkmarx can comment/decorate the PR
+  security-events: write # needed if you publish results as SARIF to code scanning
+
+jobs:
+  checkmarx-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history required for incremental scans to diff correctly
+
+      # ---------------------------------------------------------------
+      # Incremental scan — runs ONLY on pull requests
+      # Faster, scans only the delta introduced by the PR branch
+      # ---------------------------------------------------------------
+      - name: Checkmarx One Incremental Scan (PR)
+        if: github.event_name == 'pull_request'
+        uses: checkmarx/ast-github-action@main
+        with:
+          base_uri: ${{ secrets.CX_BASE_URI }}
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          cx_tenant: ${{ secrets.CX_TENANT }}
+          project_name: ${{ github.event.repository.name }}
+          branch: ${{ github.head_ref }}
+          additional_params: >
+            --sast-incremental
+            --report-format markdown
+            --scan-info-format json
+
+      # ---------------------------------------------------------------
+      # Full scan — runs ONLY when code is merged/pushed to main
+      # Complete baseline scan of the entire codebase
+      # ---------------------------------------------------------------
+      - name: Checkmarx One Full Scan (Merge to main)
+        if: github.event_name == 'push'
+        uses: checkmarx/ast-github-action@main
+        with:
+          base_uri: ${{ secrets.CX_BASE_URI }}
+          cx_client_id: ${{ secrets.CX_CLIENT_ID }}
+          cx_client_secret: ${{ secrets.CX_CLIENT_SECRET }}
+          cx_tenant: ${{ secrets.CX_TENANT }}
+          project_name: ${{ github.event.repository.name }}
+          branch: ${{ github.ref_name }}
+          additional_params: >
+            --report-format markdown
+            --scan-info-format json
+
+      # ---------------------------------------------------------------
+      # Upload scan report as a build artifact (optional, both events)
+      # ---------------------------------------------------------------
+      - name: Upload Checkmarx Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkmarx-report-${{ github.run_id }}
+          path: "${{ github.workspace }}/cx_result.*"
+          if-no-files-found: ignore
