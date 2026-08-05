@@ -72,8 +72,12 @@ void describe('Required Internet resource', () => {
     assert.ok(body.includes('current=0Y8rMnww$*9VFYE%C2%A759-!Fg1L6t&amp;6lB'))
   })
 
-  void it('StackOverflow question "Less verbose access logs using expressjs/morgan" with log snippet and PasteBin paste URL spoiler available', async () => {
+  void it('StackOverflow question "Less verbose access logs using expressjs/morgan" with log snippet and PasteBin paste URL spoiler available', async (t) => {
     const res = await fetch('https://stackoverflow.com/questions/57061271/less-verbose-access-logs-using-expressjs-morgan')
+    if (res.status === 403) {
+      t.skip('StackOverflow returned 403 (bot detection blocked the request)')
+      return
+    }
     const body = await res.text()
     assert.equal(res.status, 200)
     assert.ok(body.includes('/rest/continue-code'))
