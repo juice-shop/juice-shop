@@ -36,7 +36,18 @@ export const isUrl = (url: string) => {
 
 export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
 
-export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
+export const endsWith = (str?: string, suffix?: string) => {
+  if (str === undefined || str === null) {
+    return false
+  }
+  if (suffix === undefined || suffix === null) {
+    return false
+  }
+  if (suffix === '') {
+    return true
+  }
+  return str.endsWith(suffix)
+}
 
 export const contains = (str: string, element: string) => str ? str.includes(element) : false
 
