@@ -172,6 +172,14 @@ void describe('utils', () => {
       assert.equal(utils.endsWith('Bla Blubb', 'Blubb'), true)
     })
 
+    void it('rejects string when the substring appears earlier but not at the end', () => {
+      assert.equal(utils.endsWith('Bla Blubb', 'Bl'), false)
+    })
+
+    void it('treats an empty suffix as matching any string', () => {
+      assert.equal(utils.endsWith('Bla Blubb', ''), true)
+    })
+
     void it('rejects string not ending with another string', () => {
       assert.equal(utils.endsWith('Bla Blubb', 'Lala'), false)
     })
