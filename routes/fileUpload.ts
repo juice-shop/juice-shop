@@ -37,7 +37,7 @@ async function extractZipBuffer (buffer: Buffer) {
 }
 
 async function handleZipFileUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (!utils.endsWith(file?.originalname.toLowerCase(), '.zip')) {
+  if (!(file?.originalname?.toLowerCase().endsWith('.zip') ?? false)) {
     next()
     return
   }
@@ -68,7 +68,7 @@ function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
 }
 
 async function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (utils.endsWith(file?.originalname.toLowerCase(), '.xml')) {
+  if (file?.originalname?.toLowerCase().endsWith('.xml') ?? false) {
     challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
     if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
       const data = file.buffer.toString()
@@ -79,7 +79,7 @@ async function handleXmlUpload ({ file }: Request, res: Response, next: NextFunc
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : String(err)
-        if (utils.contains(errorMessage, 'Script execution timed out')) {
+        if (errorMessage.includes('Script execution timed out')) {
           if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
             challengeUtils.solve(challenges.xxeDosChallenge)
           }
@@ -99,7 +99,7 @@ async function handleXmlUpload ({ file }: Request, res: Response, next: NextFunc
 }
 
 function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (utils.endsWith(file?.originalname.toLowerCase(), '.yml') || utils.endsWith(file?.originalname.toLowerCase(), '.yaml')) {
+  if ((file?.originalname?.toLowerCase().endsWith('.yml') ?? false) || (file?.originalname?.toLowerCase().endsWith('.yaml') ?? false)) {
     challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
     if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) {
       const data = file.buffer.toString()
@@ -111,7 +111,7 @@ function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction)
         next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(yamlString, 400) + ' (' + file.originalname + ')'))
       } catch (err: unknown) {
         const errorMessage = err instanceof Error ? err.message : String(err)
-        if (utils.contains(errorMessage, 'Invalid string length') || utils.contains(errorMessage, 'Script execution timed out')) {
+        if (errorMessage.includes('Invalid string length') || errorMessage.includes('Script execution timed out')) {
           if (challengeUtils.notSolved(challenges.yamlBombChallenge)) {
             challengeUtils.solve(challenges.yamlBombChallenge)
           }

@@ -31,25 +31,19 @@ export const queryResultToJson = <T>(
 }
 
 export const isUrl = (url: string) => {
-  return startsWith(url, 'http')
+  return url.startsWith('http')
 }
 
-export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
-
-export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
-
-export const contains = (str: string, element: string) => str ? str.includes(element) : false
-
 export const containsEscaped = function (str: string, element: string) {
-  return contains(str, element.replace(/"/g, '\\"'))
+  return str ? str.includes(element.replace(/"/g, '\\"')) : false
 }
 
 export const containsOrEscaped = function (str: string, element: string) {
-  return contains(str, element) || containsEscaped(str, element)
+  return (str ? str.includes(element) : false) || containsEscaped(str, element)
 }
 
 export const unquote = function (str: string) {
-  if (str && startsWith(str, '"') && endsWith(str, '"')) {
+  if (str && str.startsWith('"') && str.endsWith('"')) {
     return str.substring(1, str.length - 1)
   } else {
     return str
@@ -105,7 +99,7 @@ export const toISO8601 = (date: Date) => {
 
 export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
-  if (contains(file, '?')) {
+  if (file ? file.includes('?') : false) {
     file = file.substring(0, file.indexOf('?'))
   }
   return file
@@ -198,7 +192,7 @@ export const parseJsonCustom = (jsonString: string) => {
 }
 
 export const toSimpleIpAddress = (ipv6: string) => {
-  if (startsWith(ipv6, '::ffff:')) {
+  if (ipv6?.startsWith('::ffff:')) {
     return ipv6.substr(7)
   } else if (ipv6 === '::1') {
     return '127.0.0.1'

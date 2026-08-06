@@ -167,36 +167,6 @@ void describe('utils', () => {
     }
   })
 
-  void describe('startsWith', () => {
-    void it('accepts string starting with another string', () => {
-      assert.equal(utils.startsWith('Bla Blubb', 'Bla'), true)
-    })
-
-    void it('rejects string not starting with another string', () => {
-      assert.equal(utils.startsWith('Bla Blubb', 'Lala'), false)
-    })
-  })
-
-  void describe('endsWith', () => {
-    void it('accepts string ending with another string', () => {
-      assert.equal(utils.endsWith('Bla Blubb', 'Blubb'), true)
-    })
-
-    void it('rejects string not ending with another string', () => {
-      assert.equal(utils.endsWith('Bla Blubb', 'Lala'), false)
-    })
-  })
-
-  void describe('contains', () => {
-    void it('accepts string containing another string', () => {
-      assert.equal(utils.contains('Bla Blubb', 'la Bl'), true)
-    })
-
-    void it('rejects string containing another string', () => {
-      assert.equal(utils.contains('Bla Blubb', 'Lala'), false)
-    })
-  })
-
   void describe('toISO8601', () => {
     void it('converts date to ISO 8601 representation', () => {
       assert.equal(utils.toISO8601(new Date('2025-12-15T00:00:00Z')), '2025-12-15')

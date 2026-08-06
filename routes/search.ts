@@ -29,7 +29,7 @@ export function searchProducts () {
             const users = utils.queryResultToJson(data)
             if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {
-                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)
+                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && dataString.includes(users.data[i].password)
                 if (!solved) {
                   break
                 }
