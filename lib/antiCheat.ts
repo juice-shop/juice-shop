@@ -63,7 +63,7 @@ const challengeSourceFiles: Record<string, string[]> = {
 export const checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
   preSolveInteractions.forEach((preSolveInteraction) => {
     for (let i = 0; i < preSolveInteraction.urlFragments.length; i++) {
-      if (utils.endsWith(url, preSolveInteraction.urlFragments[i])) {
+      if (url.endsWith(preSolveInteraction.urlFragments[i])) {
         preSolveInteraction.interactions[i] = true
       }
     }
