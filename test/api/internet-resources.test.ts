@@ -72,8 +72,7 @@ void describe('Required Internet resource', () => {
     assert.ok(body.includes('current=0Y8rMnww$*9VFYE%C2%A759-!Fg1L6t&amp;6lB'))
   })
 
-  // FIXME Disable test as StackOverflow is blocking these with 403 errors, even when sending User-Agent or other browser headers.
-  void xit('StackOverflow question "Less verbose access logs using expressjs/morgan" with log snippet and PasteBin paste URL spoiler available', async () => {
+  void it('StackOverflow question "Less verbose access logs using expressjs/morgan" with log snippet and PasteBin paste URL spoiler available', { skip: 'FIXME StackOverflow blocking with 403 error' }, async () => {
     const res = await fetch('https://stackoverflow.com/questions/57061271/less-verbose-access-logs-using-expressjs-morgan')
     const body = await res.text()
     assert.equal(res.status, 200)
