@@ -9,6 +9,7 @@ import request from 'supertest'
 import type { Express } from 'express'
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
+import { QuantityModel } from '../../models/quantity'
 
 let app: Express
 let authHeader: { Authorization: string, 'content-type': string }
@@ -234,5 +235,22 @@ void describe('/api/BasketItems/:id', () => {
       .set(authHeader)
       .send({ quantity: 1 })
     assert.equal(res.status, 500)
+  })
+
+  void it('should handle error when QuantityModel.findOne fails during PUT update', async (t) => {
+    const createRes = await request(app)
+      .post('/api/BasketItems')
+      .set(authHeader)
+      .send({ BasketId: 2, ProductId: 13, quantity: 3 })
+    assert.equal(createRes.status, 200)
+
+    t.mock.method(QuantityModel, 'findOne', () => { throw new Error('Quantity findOne error') })
+
+    const res = await request(app)
+      .put('/api/BasketItems/' + createRes.body.data.id)
+      .set(authHeader)
+      .send({ quantity: 5 })
+    assert.equal(res.status, 500)
+    assert.match(res.text, /Quantity findOne error/)
   })
 })
