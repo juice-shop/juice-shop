@@ -1,0 +1,145 @@
+﻿name: SAST PR Scan
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ROLE_ARN: arn:aws:iam::485237569462:role/sastGithubActionsRole
+  S3_BUCKET: sast-reports-485237569462
+  JOB_QUEUE: sast-queue
+  JOB_DEFINITION: sast-semgrep-sonarqube
+  FAIL_ON_SEVERITY: high
+
+jobs:
+  sast-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR head commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Configure AWS credentials (OIDC — no stored keys)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Package the checked-out source
+        run: tar --exclude='.git' -czf source.tar.gz .
+
+      - name: Upload source to S3
+        id: upload
+        run: |
+          KEY="scan-input/${{ github.repository }}/pr-${{ github.event.pull_request.number }}/${{ github.sha }}/source.tar.gz"
+          aws s3 cp source.tar.gz "s3://${S3_BUCKET}/${KEY}"
+          echo "key=${KEY}" >> "$GITHUB_OUTPUT"
+
+      - name: Submit Batch job
+        id: submit
+        run: |
+          cat > override.json <<EOF
+          {
+            "taskProperties": [{
+              "containers": [{
+                "name": "scanner",
+                "environment": [
+                  {"name":"SOURCE_S3_URI","value":"s3://${S3_BUCKET}/${{ steps.upload.outputs.key }}"},
+                  {"name":"REPO_SLUG","value":"${{ github.event.repository.name }}"},
+                  {"name":"REPO_FULL_NAME","value":"${{ github.repository }}"},
+                  {"name":"COMMIT_SHA","value":"${{ github.sha }}"},
+                  {"name":"PR_NUMBER","value":"${{ github.event.pull_request.number }}"},
+                  {"name":"FAIL_ON_SEVERITY","value":"${FAIL_ON_SEVERITY}"}
+                ]
+              }]
+            }]
+          }
+          EOF
+          JOB_ID=$(aws batch submit-job \
+            --job-name "pr-${{ github.event.pull_request.number }}-run${{ github.run_number }}" \
+            --job-queue "${JOB_QUEUE}" \
+            --job-definition "${JOB_DEFINITION}" \
+            --ecs-properties-override file://override.json \
+            --query jobId --output text)
+          echo "job_id=${JOB_ID}" >> "$GITHUB_OUTPUT"
+          echo "Submitted job ${JOB_ID}"
+
+      - name: Wait for the job to finish
+        id: wait
+        run: |
+          JOB_ID="${{ steps.submit.outputs.job_id }}"
+          STATUS="SUBMITTED"
+          for i in $(seq 1 80); do
+            STATUS=$(aws batch describe-jobs --jobs "${JOB_ID}" --query 'jobs[0].status' --output text)
+            echo "[$i] status=${STATUS}"
+            if [[ "${STATUS}" == "SUCCEEDED" || "${STATUS}" == "FAILED" ]]; then break; fi
+            sleep 15
+          done
+          echo "status=${STATUS}" >> "$GITHUB_OUTPUT"
+          if [[ "${STATUS}" != "SUCCEEDED" ]]; then
+            echo "::error::Batch job did not complete cleanly (status=${STATUS})"
+            exit 1
+          fi
+
+      - name: Download the report
+        run: |
+          JOB_ID="${{ steps.submit.outputs.job_id }}"
+          PREFIX="sast-reports/${{ github.event.repository.name }}/${JOB_ID}"
+          mkdir -p report
+          aws s3 cp "s3://${S3_BUCKET}/${PREFIX}/" ./report/ --recursive
+
+      - name: Post PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = JSON.parse(fs.readFileSync('./report/summary.json', 'utf8'));
+            const sev = summary.severity_counts || {};
+            const order = ['critical', 'high', 'medium', 'low', 'info'];
+            const rows = order.map(s => `| ${s} | ${sev[s] ?? 0} |`).join('\n');
+            const gateTripped = (sev.critical || 0) + (sev.high || 0) > 0;
+
+            const body = [
+              '## SAST scan result',
+              '',
+              `**Total findings:** ${summary.total}`,
+              `**Commit:** \`${summary.commit}\``,
+              '',
+              '| Severity | Count |',
+              '|---|---:|',
+              rows,
+              '',
+              gateTripped
+                ? '🔴 **Gate: FAILED** — critical/high findings present. See the full report in the workflow run artifacts.'
+                : '🟢 **Gate: PASSED**',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Upload full report as a workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sast-report-pr-${{ github.event.pull_request.number }}
+          path: report/
+
+      - name: Enforce the severity gate
+        run: |
+          CRITICAL=$(jq '.severity_counts.critical // 0' report/summary.json)
+          HIGH=$(jq '.severity_counts.high // 0' report/summary.json)
+          if [[ "$((CRITICAL + HIGH))" -gt 0 ]]; then
+            echo "::error::Critical/high findings present — failing the check."
+            exit 1
+          fi
