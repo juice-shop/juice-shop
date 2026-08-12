@@ -57,6 +57,24 @@ void describe('chat', () => {
       const userId = await chat.getUserId(req as any)
       assert.equal(userId, 42)
     })
+
+    void it('should reject a token with an invalid signature', async () => {
+      const token = security.authorize({ data: { id: 42 } })
+      const [header, payload, signature] = token.split('.')
+      const forgedSignature = (signature.startsWith('a') ? 'b' : 'a') + signature.slice(1)
+      const forgedToken = `${header}.${payload}.${forgedSignature}`
+      const req = { headers: { authorization: `Bearer ${forgedToken}` } }
+      const userId = await chat.getUserId(req as any)
+      assert.equal(userId, undefined)
+    })
+
+    void it('should reject an unsigned token', async () => {
+      const header = Buffer.from(JSON.stringify({ typ: 'JWT', alg: 'none' })).toString('base64url')
+      const payload = Buffer.from(JSON.stringify({ data: { id: 42 } })).toString('base64url')
+      const req = { headers: { authorization: `Bearer ${header}.${payload}.` } }
+      const userId = await chat.getUserId(req as any)
+      assert.equal(userId, undefined)
+    })
   })
 
   void describe('getUserNameFromToken', () => {

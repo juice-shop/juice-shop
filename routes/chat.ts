@@ -20,6 +20,8 @@ import * as db from '../data/mongodb'
 import { type Review } from '../data/types'
 import logger from '../lib/logger'
 import { Counter } from 'prom-client'
+// @ts-expect-error FIXME no typescript definitions for jws
+import * as jws from 'jws'
 
 export function summarizeLlmError (error: unknown): string {
   if (!(error instanceof Error)) {
@@ -42,8 +44,13 @@ const appName = config.get<string>('application.name')
 export async function getUserId (req: Request): Promise<number | undefined> {
   const token = utils.jwtFrom(req)
   if (!token) return undefined
-  const decoded = security.decode(token) as { data?: { id?: number } } | undefined
-  return decoded?.data?.id
+  try {
+    const decoded = jws.decode(token) as { header?: { alg?: string }, payload?: { data?: { id?: number } } } | null
+    if (decoded?.header?.alg !== 'RS256' || !security.verify(token)) return undefined
+    return decoded.payload?.data?.id
+  } catch {
+    return undefined
+  }
 }
 
 export async function getUserNameFromToken (req: Request): Promise<string | undefined> {
