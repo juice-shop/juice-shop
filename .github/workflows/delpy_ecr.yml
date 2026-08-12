@@ -10,7 +10,7 @@ on:
 env:
 
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: containersecpoc/test
+  ECR_REPOSITORY: containersecpoc/juice-shop
 
 jobs:
 
