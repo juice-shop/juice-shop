@@ -94,7 +94,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
           # no cache: npm — this Juice Shop fork ships no package-lock.json
 
       - name: Install App Dependencies (so verify can run the app)
