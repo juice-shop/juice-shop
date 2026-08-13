@@ -1,0 +1,374 @@
+name: CodeMender CI/CD Guardrail
+
+# ---------------------------------------------------------------------------
+# Module 2 Lab — autonomous security scanning + VERIFICATION with Google
+# CodeMender (the cm CLI), wired as a CI/CD deployment guardrail.
+#
+# Flow (one push to main):
+#   checkout -> setup node + install app deps -> install cm -> cm init
+#     -> cm find (scan, UPLOADS source) -> cm report -f json (artifact)
+#     -> triage -> cm verify (REPRODUCE the exploit against the running app)
+#     -> cm fix (generate + build-test a patch for each un-dismissed finding)
+#     -> open a remediation PR carrying those patches
+#     -> SECURITY GATE (fail red on any un-dismissed HIGH/CRITICAL)
+#
+# This pipeline scans, confirms which findings are real by reproducing the
+# exploit, PROPOSES fixes as a pull request, and blocks deployment until the
+# un-dismissed findings are resolved. The PR is the remediation; a human still
+# reviews and merges it (the gate stays red until main is fixed).
+#
+# Why the app is installed: cm verify builds and RUNS the target app to
+# fire a proof-of-concept exploit. Without the dependencies present it cannot
+# start the app, so verification comes back inconclusive. npm ci below gives
+# verify a runnable Juice Shop so it can reach a real VERIFIED / DISMISSED verdict.
+#
+# Auth (see lab/README.md):
+#   * GOOGLE_API_KEY  — the (forthcoming) CodeMender API key, passed to cm.
+#     The current v0.1.0 binary authenticates with an embedded build key, so the
+#     pipeline runs even before the GA API enforces this key.
+#   * GITHUB_TOKEN    — built-in; downloads the private cm release AND pushes
+#     the remediation branch + opens the PR (needs contents/PR write, below).
+# ---------------------------------------------------------------------------
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:          # doc-only changes shouldn't trigger a long scan+verify
+      - '**.md'
+      - 'lab/**'
+      - '.gitignore'
+  workflow_dispatch:
+    inputs:
+      verify_limit:
+        description: "Max top HIGH/CRITICAL findings to verify"
+        required: false
+        default: "1"
+
+permissions:
+  contents: write          # push the CodeMender remediation branch
+  pull-requests: write     # open the remediation PR
+
+env:
+  # Scoped scan target. Kept well under cm's ~10 MB per-scan upload limit and
+  # contains the canonical CRITICAL finding (SQL injection in routes/login.ts).
+  SCAN_PATH: routes
+  # The cm binary is pulled from Google's Artifact Registry with
+  # gcloud artifacts generic download, per the CodeMender set-up-environment
+  # doc. NOTE: this needs an authenticated gcloud/ADC identity on the runner.
+  CM_DL_PROJECT: cmoc-prod
+  CM_DL_LOCATION: us
+  CM_DL_REPO: codemender-cli-production
+  CM_DL_VERSION: stable
+  CM_ASSET_ZIP: cm-linux-amd64.zip
+  # Project whose CodeMender preview entitlement + ADC quota are used. MUST be
+  # allowlisted for the codemender-preview agent (e.g. cloud-llm-preview1). The
+  # GCP_SA_KEY service account needs access here (aiplatform) and read on the
+  # cmoc-prod download repo above. Provided per-repo as the CM_PROJECT secret
+  # (instructor hands out the project id); falls back to cloud-llm-preview1.
+  CM_PROJECT: ${{ secrets.CM_PROJECT || 'cloud-llm-preview1' }}
+  # How many of the top-ranked HIGH/CRITICAL findings to verify in one run.
+  # Verify is slow (builds+runs the app per finding), so the default is 1 to stay
+  # within the job budget; raise it via the workflow_dispatch verify_limit input.
+  VERIFY_LIMIT: ${{ github.event.inputs.verify_limit || '1' }}
+  # Per-finding cap for cm verify. Verification builds & runs the app and
+  # fires real exploits, which is slow; give it real headroom. On timeout the
+  # finding is kept (treated as inconclusive → still blocks at the gate).
+  PER_VERIFY_TIMEOUT: "2700"
+  # Per-finding cap for cm fix (generate the patch + build-test it by running
+  # the app). Also slow; on timeout that finding is left unpatched and the gate
+  # still blocks it.
+  PER_FIX_TIMEOUT: "2700"
+
+jobs:
+  codemender-security:
+    name: Scan, Verify and Remediate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 150         # verify + fix each build/run the app per finding
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # full history so cm can evaluate code context
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          # no cache: npm — this Juice Shop fork ships no package-lock.json
+
+      - name: Install App Dependencies (so verify can run the app)
+        run: |
+          set -uo pipefail
+          # cm verify starts the app to fire a PoC exploit — it needs a
+          # runnable Juice Shop. No lock file in this repo, so use npm install
+          # (fall back to a lockfile-exact ci if one is ever added).
+          npm ci --no-audit --no-fund 2>/dev/null || npm install --no-audit --no-fund
+          echo "node_modules present: $([ -d node_modules ] && echo yes || echo no)"
+
+      - name: Authenticate to Google Cloud
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          set -euo pipefail
+          # The Artifact Registry download AND the cm binary both need a GCP
+          # identity. Authenticate a service account (from the GCP_SA_KEY secret)
+          # for BOTH gcloud (the download) and ADC (cm's Vertex AI calls at
+          # runtime — find/verify/fix). gcloud is preinstalled on ubuntu-latest.
+          if [ -z "${GCP_SA_KEY:-}" ]; then
+            echo "::error title=Missing GCP_SA_KEY::Add a service-account key JSON as the GCP_SA_KEY secret. It needs read on the cmoc-prod download repo and CodeMender/Vertex access on ${CM_PROJECT}."
+            exit 1
+          fi
+          KEY="$RUNNER_TEMP/gcp-sa.json"
+          printf '%s' "$GCP_SA_KEY" > "$KEY"
+          gcloud auth activate-service-account --key-file="$KEY" --quiet
+          gcloud config set project "$CM_PROJECT" --quiet
+          # Expose the same key as ADC so the cm binary authenticates to Vertex AI.
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$KEY" >> "$GITHUB_ENV"
+          echo "GOOGLE_CLOUD_PROJECT=$CM_PROJECT" >> "$GITHUB_ENV"
+          echo "Active account: $(gcloud auth list --filter=status:ACTIVE --format='value(account)')"
+
+      - name: Install CodeMender CLI (cm)
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/cmbin"
+          # Download the cm binary from Google's Artifact Registry, per the doc:
+          # https://docs.cloud.google.com/gemini-enterprise-agent-platform/codemender/set-up-environment
+          # NOTE: this generic repo is not public — it needs an authenticated
+          # gcloud/ADC identity on the runner (see the "Authenticate to Google
+          # Cloud" prerequisite). gcloud is preinstalled on ubuntu-latest.
+          echo "Downloading cm ($CM_ASSET_ZIP) from Artifact Registry $CM_DL_REPO ..."
+          gcloud artifacts generic download \
+            --project="$CM_DL_PROJECT" --location="$CM_DL_LOCATION" \
+            --repository="$CM_DL_REPO" --package=cm --version="$CM_DL_VERSION" \
+            --name="$CM_ASSET_ZIP" --destination="$RUNNER_TEMP/cmbin"
+          ( cd "$RUNNER_TEMP/cmbin" && unzip -oq "$CM_ASSET_ZIP" && chmod +x cm )
+          echo "$RUNNER_TEMP/cmbin" >> "$GITHUB_PATH"     # cm on PATH for later steps
+          cm --version || true
+
+      - name: Initialize CodeMender Workspace (cm init)
+        run: |
+          set -uo pipefail
+          # Mints the local Tink identity keyset at ~/.codemender/identity.key.
+          # NOTE: intentionally NO vcs: config — a git reset (git clean -fd) would
+          # delete node_modules before verify can run the app. Leaving VCS unset keeps
+          # the installed dependencies in place for cm verify.
+          cm init -y 2>/dev/null || cm init 2>/dev/null || true
+          [ -f "$HOME/.codemender/identity.key" ] && echo "CodeMender identity initialized." \
+            || echo "::warning::No identity.key yet; cm may create it on first use."
+
+      - name: CodeMender Scan (cm find)
+        id: scan
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          set -uo pipefail
+          echo "Scanning '$SCAN_PATH' (source is uploaded to the CodeMender backend)..."
+          cm find "$SCAN_PATH" -y 2>&1 | tee "$RUNNER_TEMP/cm-find.cm.log"
+
+      - name: Export Security Report (cm report -f json)
+        if: always()
+        run: |
+          set -uo pipefail
+          cm report -f json > "$RUNNER_TEMP/cm-security-report.json" 2> "$RUNNER_TEMP/cm-report.err" || true
+          echo "----- report (first 2 KB) -----"
+          head -c 2048 "$RUNNER_TEMP/cm-security-report.json" || true
+          echo
+
+      - name: Upload Security Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: codemender-report
+          path: ${{ runner.temp }}/cm-security-report.json
+          if-no-files-found: warn
+
+      - name: Triage Findings
+        id: triage
+        env:
+          CM_FIX_LIMIT: ${{ env.VERIFY_LIMIT }}    # cm_triage reads this to pick the top-N
+        run: |
+          python3 .github/scripts/cm_triage.py "$RUNNER_TEMP/cm-security-report.json"
+
+      - name: Verify Findings (cm verify)
+        id: verify
+        if: ${{ steps.triage.outputs.fix_ids != '' }}
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          set -uo pipefail
+          # Reproduce each triaged finding against the running app. cm verify
+          # sets the finding VERIFIED (real) or DISMISSED (false positive). Each call
+          # is time-boxed; on timeout we cancel the server-side session and keep the
+          # finding (treated as not-dismissed, so a real vuln is never silently cleared).
+          cancel_sessions() {
+            cm session list 2>/dev/null | awk '/RUNNING/{print $1}' \
+              | while read -r s; do [ -n "$s" ] && cm session cancel "$s" >/dev/null 2>&1 || true; done
+          }
+          for FID in ${{ steps.triage.outputs.fix_ids }}; do
+            echo "::group::cm verify $FID (<= ${PER_VERIFY_TIMEOUT}s)"
+            cancel_sessions
+            ( cd "$SCAN_PATH" && timeout "$PER_VERIFY_TIMEOUT" cm verify "$FID" -y --bypass-warning ) \
+              2>&1 | tee "$RUNNER_TEMP/verify-$FID.cm.log" \
+              || echo "verify for $FID timed out or errored — kept as inconclusive."
+            cancel_sessions
+            echo "::endgroup::"
+          done
+          cm report -f json > "$RUNNER_TEMP/cm-verified-report.json" 2> "$RUNNER_TEMP/cm-verify.err" || true
+          VERIFIED_IDS="$(python3 .github/scripts/cm_select.py "$RUNNER_TEMP/cm-verified-report.json" VERIFIED ${{ steps.triage.outputs.fix_ids }})"
+          DISMISSED_IDS="$(python3 .github/scripts/cm_select.py "$RUNNER_TEMP/cm-verified-report.json" DISMISSED ${{ steps.triage.outputs.fix_ids }})"
+          # Remediation targets = every triaged finding verify did NOT dismiss
+          # (VERIFIED + inconclusive) — the same set the gate blocks on.
+          FIX_TARGETS="$(python3 .github/scripts/cm_select.py "$RUNNER_TEMP/cm-verified-report.json" not:DISMISSED ${{ steps.triage.outputs.fix_ids }})"
+          V=$(printf '%s' "$VERIFIED_IDS" | wc -w | tr -d ' ')
+          D=$(printf '%s' "$DISMISSED_IDS" | wc -w | tr -d ' ')
+          C=$(printf '%s' "${{ steps.triage.outputs.fix_ids }}" | wc -w | tr -d ' ')
+          echo "verified_count=$V" >> "$GITHUB_OUTPUT"
+          echo "dismissed_count=$D" >> "$GITHUB_OUTPUT"
+          echo "verified_ids=$VERIFIED_IDS" >> "$GITHUB_OUTPUT"
+          echo "fix_targets=$FIX_TARGETS" >> "$GITHUB_OUTPUT"
+          echo "Verified $V / dismissed $D / inconclusive $((C - V - D)) of $C candidate(s)."
+          {
+            echo "## 🔬 CodeMender Verify"
+            echo ""
+            echo "Reproduced against the running app: **$V VERIFIED**, **$D DISMISSED**, **$((C - V - D)) inconclusive** of $C triaged candidate(s)."
+            if [ -n "$VERIFIED_IDS" ]; then
+              echo ""; echo "Confirmed real:"
+              for i in $VERIFIED_IDS; do echo "- \$i\"; done
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 0     # verify status is captured in outputs; the gate owns pass/fail
+
+      - name: Upload Verify Logs
+        if: ${{ always() && steps.triage.outputs.fix_ids != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: codemender-verify-logs
+          path: ${{ runner.temp }}/verify-*.cm.log
+          if-no-files-found: ignore
+
+      - name: Remediate Findings (cm fix)
+        id: fix
+        if: ${{ steps.verify.outputs.fix_targets != '' }}
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          set -uo pipefail
+          # Generate a patch for each finding verify did NOT dismiss. cm fix
+          # writes the change into the working tree, build-tests it, and re-runs
+          # the exploit. Time-boxed like verify; a timeout leaves that finding
+          # unpatched (the gate still blocks it). node_modules is preserved (we
+          # never configured cm's git VCS), so fix can build & run the app.
+          cancel_sessions() {
+            cm session list 2>/dev/null | awk '/RUNNING/{print $1}' \
+              | while read -r s; do [ -n "$s" ] && cm session cancel "$s" >/dev/null 2>&1 || true; done
+          }
+          for FID in ${{ steps.verify.outputs.fix_targets }}; do
+            echo "::group::cm fix $FID (<= ${PER_FIX_TIMEOUT}s)"
+            cancel_sessions
+            ( cd "$SCAN_PATH" && timeout "$PER_FIX_TIMEOUT" cm fix "$FID" -y --bypass-warning ) \
+              2>&1 | tee "$RUNNER_TEMP/fix-$FID.cm.log" \
+              || echo "fix for $FID timed out or errored — left unpatched."
+            cancel_sessions
+            echo "::endgroup::"
+          done
+          cm report -f md > "$RUNNER_TEMP/cm-fix-report.md" 2>/dev/null || true
+
+      - name: Upload Fix Logs
+        if: ${{ always() && steps.verify.outputs.fix_targets != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: codemender-fix-logs
+          path: ${{ runner.temp }}/fix-*.cm.log
+          if-no-files-found: ignore
+
+      - name: Open Remediation PR
+        id: pr
+        if: ${{ steps.fix.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -uo pipefail
+          # Stage CodeMender's edits to already-tracked source only. git add -u
+          # never touches untracked paths, so node_modules, a generated
+          # package-lock.json, and cm's scratch dirs are all left out automatically.
+          # (An explicit ':(exclude)node_modules' pathspec instead trips git's
+          # ignored-file guard and exits non-zero under the runner's bash -e.)
+          git add -u
+          # Drop compiled-Python churn: the repo tracks
+          # .github/scripts/__pycache__/*.pyc, which the triage/select steps
+          # rewrite at runtime — keep that out of the remediation PR so the diff
+          # is just CodeMender's source fix.
+          git reset -q -- '*.pyc' 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "cm fix produced no code changes — nothing to open a PR for."
+            echo "opened=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          BRANCH="codemender/fix-${GITHUB_RUN_ID}"
+          COUNT=$(printf '%s' "${{ steps.verify.outputs.fix_targets }}" | wc -w | tr -d ' ')
+          git config user.name  "codemender[bot]"
+          git config user.email "codemender-bot@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git commit -qm "security: CodeMender remediation for $COUNT un-dismissed finding(s)"
+          git push -u origin "$BRANCH"
+          {
+            echo "Automated remediation from the **CodeMender guardrail**."
+            echo ""
+            echo "CodeMender generated and build-tested a fix for **$COUNT** un-dismissed HIGH/CRITICAL finding(s) surfaced by the scan of \$SCAN_PATH\. Each fix was applied only after \cm fix\ re-ran the proof-of-concept exploit against the patched app."
+            echo ""
+            echo "⚠️ Review the diff carefully before merging — pre-GA CodeMender is for evaluation and should be closely supervised."
+            echo ""
+            echo "<details><summary>CodeMender report</summary>"; echo ""
+            cat "$RUNNER_TEMP/cm-fix-report.md" 2>/dev/null || true
+            echo ""; echo "</details>"
+          } > "$RUNNER_TEMP/pr-body.md"
+          PR_URL="$(gh pr create --base "${GITHUB_REF_NAME}" --head "$BRANCH" \
+            --title "security: CodeMender remediation ($COUNT finding(s))" \
+            --body-file "$RUNNER_TEMP/pr-body.md")"
+          echo "Opened PR: $PR_URL"
+          echo "opened=true" >> "$GITHUB_OUTPUT"
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+          { echo "## 🔧 CodeMender Remediation"; echo ""; \
+            echo "Opened **$PR_URL** with fixes for **$COUNT** finding(s). Review, approve, and merge to clear the gate."; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Security Gate (block un-dismissed HIGH/CRITICAL)
+        if: always()
+        run: |
+          set -uo pipefail
+          # -----------------------------------------------------------------
+          # Gate logic — a fail-safe on un-dismissed HIGH/CRITICAL findings:
+          #
+          #     BLOCK = high_critical - dismissed_count
+          #     BLOCK > 0  ->  exit 1   (run goes RED, deployment blocked)
+          #     BLOCK = 0  ->  pass     (ONLY when every HIGH/CRITICAL was DISMISSED)
+          #
+          # Notes on the design (kept deliberately conservative):
+          #  * "Not DISMISSED" is what blocks. A finding that verify marked
+          #    VERIFIED — or that stayed inconclusive/unverified — both count as
+          #    still-blocking. verified_count (VER) is printed for context only;
+          #    it does NOT enter the decision.
+          #  * high_critical is the WHOLE scan's HIGH/CRITICAL count, but
+          #    dismissed_count only reflects the top-N findings verify examined
+          #    (VERIFY_LIMIT, default 1). So when the scan surfaces many findings
+          #    the gate effectively always blocks until VERIFY_LIMIT is raised
+          #    enough to dismiss them all. Intentional: green means "nothing left
+          #    unproven," not "we checked one."
+          #  * cm fix / the remediation PR do NOT change this outcome — main is
+          #    still vulnerable until the PR is reviewed and merged. Merge it (or
+          #    dismiss the findings), then re-run to clear the gate.
+          # -----------------------------------------------------------------
+          HC="${{ steps.triage.outputs.high_critical }}"; HC="${HC:-0}"
+          DIS="${{ steps.verify.outputs.dismissed_count }}"; DIS="${DIS:-0}"
+          VER="${{ steps.verify.outputs.verified_count }}"; VER="${VER:-0}"
+          PR_OPENED="${{ steps.pr.outputs.opened }}"
+          BLOCK=$(( HC - DIS ))
+          [ "$BLOCK" -lt 0 ] && BLOCK=0
+          echo "HIGH/CRITICAL found: $HC | verified real: $VER | dismissed: $DIS | still blocking: $BLOCK"
+          if [ "$BLOCK" -gt 0 ]; then
+            HINT=""
+            [ "$PR_OPENED" = "true" ] && HINT=" A CodeMender remediation PR was opened — review and merge it, then re-run to clear the gate."
+            echo "::error title=Deployment blocked::$BLOCK un-dismissed HIGH/CRITICAL finding(s) ($VER confirmed by verify).${HINT} Failing the pipeline."
+            exit 1
+          fi
+          echo "All HIGH/CRITICAL findings were dismissed by verification — security gate passed. ✅"
