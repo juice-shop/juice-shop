@@ -72,7 +72,9 @@ export function quantityCheckBeforeBasketItemUpdate () {
         if (item == null) {
           throw new Error('No such item found!')
         }
-        void quantityCheck(req, res, next, item.ProductId, req.body.quantity)
+        void quantityCheck(req, res, next, item.ProductId, req.body.quantity).catch((error: Error) => {
+          next(error)
+        })
       } else {
         next()
       }
