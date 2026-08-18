@@ -192,6 +192,10 @@
   margin-top: $space-2xl;
 }
 
+.related-title {
+  margin-bottom: $space-m;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -205,16 +209,4 @@
   @media (max-width: 580px) {
     grid-template-columns: 1fr;
   }
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
 }
