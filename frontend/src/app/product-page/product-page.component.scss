@@ -1,0 +1,220 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
+.container {
+  min-width: calc(360px - 2 * $space-m);
+  width: 80%;
+  margin: 0 auto;
+  padding-bottom: $space-2xl;
+}
+
+.breadcrumb {
+  margin-bottom: $space-s;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-xs;
+  list-style: none;
+  margin: 0;
+  padding: $space-s 0;
+}
+
+.breadcrumb-item {
+  font-size: small;
+
+  a {
+    color: var(--theme-accent);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+
+  &[aria-current='page'] {
+    color: var(--theme-text-fade-40);
+  }
+}
+
+.back-row {
+  margin-bottom: $space-m;
+
+  button {
+    padding-left: 0;
+  }
+}
+
+.status-message {
+  margin: $space-2xl 0;
+  text-align: center;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: minmax(200px, 320px) 1fr;
+  gap: $space-l;
+  padding: $space-m;
+  background: var(--mat-sys-surface-container);
+
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.details-image {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.img-thumbnail {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  padding: $space-3xs;
+  border: var(--theme-thumbnail-border);
+  box-sizing: border-box;
+}
+
+.product-name {
+  margin-top: 0;
+}
+
+.product-description {
+  word-break: break-word;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: $space-m;
+}
+
+.item-price {
+  font-size: large;
+  margin: $space-xs 0;
+}
+
+.detail-divider {
+  margin: $space-l 0;
+}
+
+.reviews-title {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.review-item {
+  margin-bottom: $space-m;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-s;
+}
+
+.review-author {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.review-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.review-message {
+  margin: 0;
+  word-break: break-word;
+}
+
+.rw-button {
+  margin-left: 0;
+}
+
+.like-counter {
+  margin-left: $space-2xs;
+}
+
+.noResultText {
+  display: block;
+  margin-top: $space-s;
+  text-align: center;
+}
+
+.review-form {
+  margin-top: $space-l;
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+.write-review-title {
+  margin-bottom: $space-m;
+}
+
+.hint-spacing {
+  margin-left: $space-2xs;
+}
+
+.submit-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+}
+
+.related {
+  margin-top: $space-2xl;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: $space-l;
+  justify-content: center;
+
+  @media (max-width: 959.98px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

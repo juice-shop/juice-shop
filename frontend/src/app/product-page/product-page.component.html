@@ -1,0 +1,132 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+<main class="container">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb-list">
+      <li class="breadcrumb-item">
+        <a routerLink="/search">{{ 'TITLE_ALL_PRODUCTS' | translate }}</a>
+      </li>
+      @if (searchQuery()) {
+        <li class="breadcrumb-item" aria-hidden="true">/</li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/search']" [queryParams]="{ q: searchQuery() }">{{ 'NAV_SEARCH' | translate }}</a>
+        </li>
+      }
+      <li class="breadcrumb-item" aria-hidden="true">/</li>
+      <li class="breadcrumb-item" aria-current="page">{{ productResource.value()?.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="back-row">
+    <button mat-button type="button" (click)="goBack()">
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      <span>{{ 'LABEL_BACK' | translate }}</span>
+    </button>
+  </div>
+
+  @if (productResource.value(); as product) {
+    <section class="details mat-elevation-z6" aria-labelledby="product-name">
+      <div class="details-image">
+        <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" alt="{{ product.name }}">
+      </div>
+
+      <div class="details-info">
+        <h1 id="product-name" class="product-name">{{ product.name }}</h1>
+        <div class="product-description" [innerHTML]="product.description"></div>
+        <div class="price-row">
+          <p class="item-price">{{ product.price }}&curren;</p>
+          @if (points() > 0) {
+            <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
+              aria-label="Bonus points when buying the product">
+              <span class="fa-2x fa-layers fa-fw" aria-hidden="true">
+                <i class="fas fa-crown"></i>
+                <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ points() }}</span>
+              </span>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <mat-divider class="detail-divider"></mat-divider>
+
+    <section class="reviews" aria-labelledby="reviews-title">
+      <h2 id="reviews-title" class="reviews-title">
+        <span translate>LABEL_REVIEWS</span> <span>({{ (reviewsResource.value() ?? []).length }})</span>
+      </h2>
+
+      @if ((reviewsResource.value() ?? []).length >= 1) {
+        <ul class="review-list">
+          @for (review of reviewsResource.value() ?? []; track review._id) {
+            <li class="review-item">
+              <article class="review">
+                <header class="review-header">
+                  <cite class="review-author">{{ review.author }}</cite>
+                  <div class="review-actions">
+                    @if (review.author !== 'Anonymous' && review.author === author()) {
+                      <button mat-icon-button type="button" (click)="editReview(review)"
+                        matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}"
+                        aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}">
+                        <mat-icon aria-hidden="true">edit</mat-icon>
+                      </button>
+                    }
+                    <button mat-icon-button type="button" (click)="likeReview(review)"
+                      [disabled]="review.liked || !isLoggedIn()"
+                      class="rw-button"
+                      aria-label="Rate a helpful review">
+                      <mat-icon aria-hidden="true">thumb_up</mat-icon>
+                      <span class="like-counter accent-notification">{{ review.likesCount }}</span>
+                    </button>
+                  </div>
+                </header>
+                <p class="review-message">{{ review.message }}</p>
+              </article>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="noResultText" translate>EMPTY_REVIEW_LIST</p>
+      }
+
+      <form class="review-form" (ngSubmit)="addReview(textPut)"
+        [style.display]="isLoggedIn() ? 'block' : 'none'">
+        <h3 class="write-review-title" translate>WRITE_REVIEW</h3>
+        <mat-form-field appearance="outline" color="tertiary" floatLabel="always">
+          <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
+          <mat-hint>
+            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+            <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+          </mat-hint>
+          <textarea [formControl]="reviewControl" #textPut cols="50" matInput
+            placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate }}"
+            matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+            matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
+          <mat-hint align="end">{{ reviewText().length }}/160</mat-hint>
+        </mat-form-field>
+
+        <button type="submit" id="submitButton" [disabled]="!reviewText().trim()"
+          mat-raised-button color="primary" class="submit-button"
+          aria-label="Send the review">
+          <mat-icon aria-hidden="true">send</mat-icon>
+          <span>{{ 'BTN_SUBMIT' | translate }}</span>
+        </button>
+      </form>
+    </section>
+
+    <section class="related" aria-labelledby="related-title">
+      <h2 id="related-title" class="visually-hidden">Related products</h2>
+      @if ((relatedProductsResource.value() ?? []).length > 0) {
+        <div class="products-grid">
+          @for (item of relatedProductsResource.value() ?? []; track item.id) {
+            <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
+          }
+        </div>
+      }
+    </section>
+  } @else if (productId() != null && !productResource.isLoading()) {
+    <p class="status-message" translate>NO_SEARCH_RESULT</p>
+  }
+</main>

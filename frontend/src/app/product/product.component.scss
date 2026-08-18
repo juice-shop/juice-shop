@@ -21,6 +21,14 @@
   height: 100%;
 }
 
+.product-link {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .info-box {
   text-align: center;
 }
