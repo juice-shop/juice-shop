@@ -1,0 +1,185 @@
+/*
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { ChangeDetectionStrategy, Component, computed, inject, resource } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
+import { Location } from '@angular/common'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { catchError, map } from 'rxjs/operators'
+import { firstValueFrom, of } from 'rxjs'
+import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
+import { MatButtonModule } from '@angular/material/button'
+import { MatIconModule } from '@angular/material/icon'
+import { MatDivider } from '@angular/material/divider'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatCardModule } from '@angular/material/card'
+import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
+import { TranslateModule } from '@ngx-translate/core'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCrown } from '@fortawesome/free-solid-svg-icons'
+
+import { ProductService } from '../Services/product.service'
+import { ProductReviewService } from '../Services/product-review.service'
+import { UserService } from '../Services/user.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { DeluxeGuard } from '../app.guard'
+import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
+import { ProductComponent } from '../product/product.component'
+import { type Product } from '../Models/product.model'
+import { type Review } from '../Models/review.model'
+
+library.add(faCrown)
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-product-page',
+  templateUrl: './product-page.component.html',
+  styleUrl: './product-page.component.scss',
+  imports: [
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDivider,
+    MatTooltip,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatLabel,
+    MatHint,
+    TranslateModule,
+    ProductComponent
+  ]
+})
+export class ProductPageComponent {
+  private readonly route = inject(ActivatedRoute)
+  private readonly router = inject(Router)
+  private readonly location = inject(Location)
+  private readonly dialog = inject(MatDialog)
+  private readonly productService = inject(ProductService)
+  private readonly productReviewService = inject(ProductReviewService)
+  private readonly userService = inject(UserService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly deluxeGuard = inject(DeluxeGuard)
+
+  readonly productId = toSignal(
+    this.route.paramMap.pipe(map((params) => {
+      const id = params.get('id')
+      return id != null ? Number(id) : undefined
+    })),
+    { initialValue: undefined }
+  )
+
+  readonly searchQuery = toSignal(
+    this.route.queryParamMap.pipe(map((params) => params.get('q') ?? '')),
+    { initialValue: '' }
+  )
+
+  readonly productResource = resource({
+    params: () => this.productId(),
+    loader: ({ params: id }) =>
+      firstValueFrom(
+        this.productService.get(id).pipe(
+          catchError(() => of(undefined))
+        )
+      )
+  })
+
+  readonly reviewsResource = resource({
+    params: () => this.productId(),
+    loader: ({ params: id }) =>
+      firstValueFrom(
+        this.productReviewService.get(id).pipe(
+          catchError(() => of([]))
+        )
+      )
+  })
+
+  readonly relatedProductsResource = resource({
+    params: () => {
+      const id = this.productId()
+      return id != null ? { id, q: this.searchQuery() } : undefined
+    },
+    loader: ({ params }) =>
+      firstValueFrom(
+        this.productService.search(params.q).pipe(
+          map((products: Product[]) => products
+            .filter((product) => product.id !== params.id)
+            .slice(0, 4)),
+          catchError(() => of([]))
+        )
+      )
+  })
+
+  readonly author = toSignal(
+    this.userService.whoAmI(['email']).pipe(
+      map((user: { email?: string }) => (user?.email ? user.email : 'Anonymous')),
+      catchError(() => of('Anonymous'))
+    ),
+    { initialValue: 'Anonymous' }
+  )
+
+  readonly reviewControl = new UntypedFormControl('', [Validators.maxLength(160)])
+  readonly reviewText = toSignal(
+    this.reviewControl.valueChanges.pipe(map((value: string) => value ?? '')),
+    { initialValue: '' }
+  )
+
+  readonly points = computed(() => {
+    const price = this.productResource.value()?.price
+    return price != null ? Math.round(price / 10) : 0
+  })
+
+  goBack (): void {
+    if (window.history.length > 1) {
+      this.location.back()
+    } else {
+      void this.router.navigate(['/search'])
+    }
+  }
+
+  addReview (textPut: HTMLTextAreaElement): void {
+    const id = this.productId()
+    if (id == null) {
+      return
+    }
+    const review = { message: textPut.value, author: this.author() }
+    this.reviewControl.setValue('')
+    this.productReviewService.create(id, review).subscribe({
+      next: () => this.reviewsResource.reload(),
+      error: (err) => { console.log(err) }
+    })
+    this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
+  }
+
+  editReview (review: Review): void {
+    this.dialog.open(ProductReviewEditComponent, {
+      width: '500px',
+      height: 'max-content',
+      data: {
+        reviewData: review
+      }
+    }).afterClosed().subscribe(() => this.reviewsResource.reload())
+  }
+
+  likeReview (review: Review): void {
+    this.productReviewService.like(review._id).subscribe(() => {
+      console.log('Liked ' + review._id)
+    })
+    setTimeout(() => this.reviewsResource.reload(), 200)
+  }
+
+  isLoggedIn (): boolean {
+    return localStorage.getItem('token') !== null
+  }
+
+  isDeluxe (): boolean {
+    return this.deluxeGuard.isDeluxe()
+  }
+}

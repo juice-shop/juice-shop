@@ -74,6 +74,11 @@ const loadAboutComponent = async () => {
   return module.AboutComponent
 }
 
+const loadProductPage = async () => {
+  const module = await import('./product-page/product-page.component')
+  return module.ProductPageComponent
+}
+
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -130,6 +135,10 @@ const routes: Routes = [
   {
     path: 'order-completion/:id',
     component: OrderCompletionComponent
+  },
+  {
+    path: 'product/:id',
+    loadComponent: async () => await loadProductPage()
   },
   {
     path: 'contact',
