@@ -117,10 +117,10 @@
     </section>
 
     <section class="related" aria-labelledby="related-title">
-      <h2 id="related-title" class="visually-hidden">Related products</h2>
-      @if ((relatedProductsResource.value() ?? []).length > 0) {
-        <div class="products-grid">
-          @for (item of relatedProductsResource.value() ?? []; track item.id) {
+      <h2 id="related-title" class="related-title" translate>LABEL_RELATED_PRODUCTS</h2>
+      @if (relatedProducts().length > 0) {
+        <div class="products-grid" #relatedGrid>
+          @for (item of relatedProducts(); track item.id) {
             <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
           }
         </div>

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { ChangeDetectionStrategy, Component, computed, inject, resource } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, NgZone, type OnDestroy, resource, signal, viewChild } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { Location } from '@angular/common'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
@@ -57,7 +57,7 @@ library.add(faCrown)
     ProductComponent
   ]
 })
-export class ProductPageComponent {
+export class ProductPageComponent implements OnDestroy {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly location = inject(Location)
@@ -67,6 +67,22 @@ export class ProductPageComponent {
   private readonly userService = inject(UserService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly deluxeGuard = inject(DeluxeGuard)
+  private readonly ngZone = inject(NgZone)
+
+  readonly relatedGrid = viewChild<ElementRef<HTMLElement>>('relatedGrid')
+  readonly columnCount = signal(4)
+  readonly relatedDisplayCount = computed(() => Math.max(1, this.columnCount()))
+  readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
+  private resizeObserver?: ResizeObserver
+
+  constructor () {
+    effect(() => {
+      const grid = this.relatedGrid()
+      if (grid && !this.resizeObserver) {
+        this.observeGrid(grid.nativeElement)
+      }
+    })
+  }
 
   readonly productId = toSignal(
     this.route.paramMap.pipe(map((params) => {
@@ -109,9 +125,12 @@ export class ProductPageComponent {
     loader: ({ params }) =>
       firstValueFrom(
         this.productService.search(params.q).pipe(
-          map((products: Product[]) => products
-            .filter((product) => product.id !== params.id)
-            .slice(0, 4)),
+          map((products: Product[]) => {
+            const others = products.filter((product) => product.id !== params.id)
+            // Keep search results in relevance order; shuffle only the
+            // all-products fallback so deep links still show varied items.
+            return params.q ? others : this.shuffle(others)
+          }),
           catchError(() => of([]))
         )
       )
@@ -181,5 +200,35 @@ export class ProductPageComponent {
 
   isDeluxe (): boolean {
     return this.deluxeGuard.isDeluxe()
+  }
+
+  private shuffle<T> (items: T[]): T[] {
+    const shuffled = [...items]
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = shuffled[i]
+      shuffled[i] = shuffled[j]
+      shuffled[j] = temp
+    }
+    return shuffled
+  }
+
+  ngOnDestroy (): void {
+    this.resizeObserver?.disconnect()
+  }
+
+  private observeGrid (grid: HTMLElement): void {
+    this.resizeObserver = new ResizeObserver(() => {
+      this.ngZone.run(() => this.updateColumnCount(grid))
+    })
+    this.resizeObserver.observe(grid)
+    this.updateColumnCount(grid)
+  }
+
+  private updateColumnCount (grid: HTMLElement): void {
+    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length
+    if (columns > 0 && columns !== this.columnCount()) {
+      this.columnCount.set(columns)
+    }
   }
 }
