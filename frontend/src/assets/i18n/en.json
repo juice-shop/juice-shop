@@ -68,6 +68,7 @@
   "BASKET_ADD_PRODUCT_OUT_OF_STOCK": "We are out of stock! Sorry for the inconvenience.",
   "LABEL_PRODUCT": "Product",
   "LABEL_PRODUCT_ORDERED": "Ordered products",
+  "LABEL_RELATED_PRODUCTS": "Related products",
   "LABEL_EXPECTED_DELIVERY": "Expected Delivery",
   "LABEL_DAYS": "Days",
   "LABEL_NAME": "Name",
