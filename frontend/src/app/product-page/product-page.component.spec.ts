@@ -18,6 +18,14 @@ import { UserService } from '../Services/user.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { DeluxeGuard } from '../app.guard'
 
+if (typeof globalThis.ResizeObserver === 'undefined') {
+    globalThis.ResizeObserver = class ResizeObserver {
+        observe () {}
+        unobserve () {}
+        disconnect () {}
+    } as any
+}
+
 describe('ProductPageComponent', () => {
     let component: ProductPageComponent
     let fixture: ComponentFixture<ProductPageComponent>
@@ -149,5 +157,32 @@ describe('ProductPageComponent', () => {
     it('should open the edit review dialog', () => {
         component.editReview({ _id: 'abc', message: 'Nice', author: 'someone' })
         expect(dialog.open).toHaveBeenCalled()
+    })
+
+    it('should load related products excluding the current product', async () => {
+        productService.search.mockReturnValue(of([
+            { id: 12, name: 'Current' },
+            ...Array.from({ length: 10 }, (_, index) => ({ id: index + 1, name: `Product ${index + 1}` }))
+        ]))
+        const relatedFixture = TestBed.createComponent(ProductPageComponent)
+        const relatedComponent = relatedFixture.componentInstance
+        relatedFixture.detectChanges()
+        await vi.waitFor(() => {
+            const related = relatedComponent.relatedProductsResource.value() as any[]
+            expect(related).toHaveLength(10)
+            expect(related.some((product) => product.id === 12)).toBe(false)
+        })
+        expect(productService.search).toHaveBeenCalledWith('apple')
+    })
+
+    it('should display one row of related products based on the grid columns', () => {
+        component.columnCount.set(1)
+        expect(component.relatedDisplayCount()).toBe(1)
+        component.columnCount.set(3)
+        expect(component.relatedDisplayCount()).toBe(3)
+        component.columnCount.set(4)
+        expect(component.relatedDisplayCount()).toBe(4)
+        component.columnCount.set(6)
+        expect(component.relatedDisplayCount()).toBe(6)
     })
 })
