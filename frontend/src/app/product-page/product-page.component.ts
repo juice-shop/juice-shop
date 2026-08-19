@@ -6,7 +6,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, NgZone, type OnDestroy, resource, signal, viewChild } from '@angular/core'
 import { toSignal } from '@angular/core/rxjs-interop'
 import { Location } from '@angular/common'
-import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { catchError, map } from 'rxjs/operators'
 import { firstValueFrom, of } from 'rxjs'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -41,7 +41,6 @@ library.add(faCrown)
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
   imports: [
-    RouterLink,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
