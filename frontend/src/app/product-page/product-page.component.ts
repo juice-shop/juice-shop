@@ -73,11 +73,12 @@ export class ProductPageComponent implements OnDestroy {
   readonly relatedDisplayCount = computed(() => Math.max(1, this.columnCount()))
   readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
   private resizeObserver?: ResizeObserver
+  private observedGrid?: HTMLElement
 
   constructor () {
     effect(() => {
       const grid = this.relatedGrid()
-      if (grid && !this.resizeObserver) {
+      if (grid) {
         this.observeGrid(grid.nativeElement)
       }
     })
@@ -217,6 +218,11 @@ export class ProductPageComponent implements OnDestroy {
   }
 
   private observeGrid (grid: HTMLElement): void {
+    if (this.observedGrid === grid) {
+      return
+    }
+    this.resizeObserver?.disconnect()
+    this.observedGrid = grid
     this.resizeObserver = new ResizeObserver(() => {
       this.ngZone.run(() => this.updateColumnCount(grid))
     })
@@ -225,6 +231,9 @@ export class ProductPageComponent implements OnDestroy {
   }
 
   private updateColumnCount (grid: HTMLElement): void {
+    if (!grid.isConnected) {
+      return
+    }
     const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length
     if (columns > 0 && columns !== this.columnCount()) {
       this.columnCount.set(columns)
