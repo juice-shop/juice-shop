@@ -150,10 +150,11 @@
   display: inline-flex;
   align-items: center;
   gap: $space-2xs;
+  margin-top: $space-m;
 }
 
-.related {
-  margin-top: $space-2xl;
+.section-divider {
+  margin: $space-l 0;
 }
 
 .related-title {
