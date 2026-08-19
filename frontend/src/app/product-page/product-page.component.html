@@ -35,12 +35,13 @@
       </div>
     </section>
 
-    <mat-divider class="detail-divider"></mat-divider>
-
-    <section class="reviews" aria-labelledby="reviews-title">
-      <h2 id="reviews-title" class="reviews-title">
-        <span translate>LABEL_REVIEWS</span> <span>({{ (reviewsResource.value() ?? []).length }})</span>
-      </h2>
+    <mat-expansion-panel class="reviews-panel mat-elevation-z0" [(expanded)]="reviewsExpanded" aria-label="Expand for Reviews">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span translate>LABEL_REVIEWS</span>
+          <span class="review-count">({{ (reviewsResource.value() ?? []).length }})</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
       @if ((reviewsResource.value() ?? []).length >= 1) {
         <ul class="review-list">
@@ -98,9 +99,7 @@
           <span>{{ 'BTN_SUBMIT' | translate }}</span>
         </button>
       </form>
-    </section>
-
-    <mat-divider class="section-divider"></mat-divider>
+    </mat-expansion-panel>
 
     <section aria-labelledby="related-title">
       <h2 id="related-title" class="related-title" translate>LABEL_RELATED_PRODUCTS</h2>

@@ -67,14 +67,13 @@
   margin: $space-xs 0;
 }
 
-.detail-divider {
-  margin: $space-l 0;
+.review-count {
+  margin-left: $space-xs;
 }
 
-.reviews-title {
-  display: flex;
-  align-items: center;
-  gap: $space-xs;
+.reviews-panel {
+  margin-block-start: $space-l;
+  margin-block-end: $space-l;
 }
 
 .review-list {
@@ -151,10 +150,6 @@
   align-items: center;
   gap: $space-2xs;
   margin-top: $space-m;
-}
-
-.section-divider {
-  margin: $space-l 0;
 }
 
 .related-title {
