@@ -12,38 +12,6 @@
   padding-bottom: $space-2xl;
 }
 
-.breadcrumb {
-  margin-bottom: $space-s;
-}
-
-.breadcrumb-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: $space-xs;
-  list-style: none;
-  margin: 0;
-  padding: $space-s 0;
-}
-
-.breadcrumb-item {
-  font-size: small;
-
-  a {
-    color: var(--theme-accent);
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      text-decoration: underline;
-    }
-  }
-
-  &[aria-current='page'] {
-    color: var(--theme-text-fade-40);
-  }
-}
-
 .back-row {
   margin-bottom: $space-m;
 

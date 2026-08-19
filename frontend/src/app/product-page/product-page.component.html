@@ -4,22 +4,6 @@
 -->
 
 <main class="container">
-  <nav class="breadcrumb" aria-label="Breadcrumb">
-    <ol class="breadcrumb-list">
-      <li class="breadcrumb-item">
-        <a routerLink="/search">{{ 'TITLE_ALL_PRODUCTS' | translate }}</a>
-      </li>
-      @if (searchQuery()) {
-        <li class="breadcrumb-item" aria-hidden="true">/</li>
-        <li class="breadcrumb-item">
-          <a [routerLink]="['/search']" [queryParams]="{ q: searchQuery() }">{{ 'NAV_SEARCH' | translate }}</a>
-        </li>
-      }
-      <li class="breadcrumb-item" aria-hidden="true">/</li>
-      <li class="breadcrumb-item" aria-current="page">{{ productResource.value()?.name }}</li>
-    </ol>
-  </nav>
-
   <div class="back-row">
     <button mat-button type="button" (click)="goBack()">
       <mat-icon aria-hidden="true">arrow_back</mat-icon>
