@@ -23,12 +23,17 @@
 
 .details {
   display: grid;
-  grid-template-columns: minmax(200px, 320px) 1fr;
+  grid-template-columns: minmax(200px, 450px) 1fr;
   gap: $space-l;
   padding: $space-m;
   background: var(--mat-sys-surface-container);
+  
 
-  @media (max-width: 580px) {
+  @media (max-width: 959.98px) {
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  }
+
+  @media (max-width: 599.98px) {
     grid-template-columns: 1fr;
   }
 }
@@ -41,7 +46,7 @@
 
 .img-thumbnail {
   width: 100%;
-  max-width: 320px;
+  max-width: 600px;
   height: auto;
   padding: $space-3xs;
   border: var(--theme-thumbnail-border);
