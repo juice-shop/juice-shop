@@ -29,6 +29,11 @@
   cursor: pointer;
 }
 
+.product-link:link,
+.product-link:visited {
+  color: inherit;
+}
+
 .info-box {
   text-align: center;
 }
