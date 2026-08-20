@@ -199,6 +199,7 @@ export class PurchaseBasketComponent implements OnInit {
   }
 
   getAvifSrc (image: string): string {
+    if (!image) return ''
     const baseName = image.substring(0, image.lastIndexOf('.'))
     return `assets/public/images/products/${baseName}-6x.avif`
   }
