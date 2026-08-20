@@ -57,6 +57,10 @@
   word-break: break-word;
 }
 
+.description-divider {
+  margin: $space-m 0;
+}
+
 .price-row {
   display: flex;
   align-items: center;
@@ -150,8 +154,9 @@
 }
 
 .item-price {
-  font-size: large;
+  font-size: xx-large;
   margin: $space-xs 0;
+  color: var(--theme-accent);
 }
 
 .review-count {
