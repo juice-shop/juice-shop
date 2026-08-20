@@ -18,12 +18,13 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 
 import { ProductService } from '../Services/product.service'
+import { BasketService } from '../Services/basket.service'
 import { ProductReviewService } from '../Services/product-review.service'
 import { UserService } from '../Services/user.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -64,6 +65,8 @@ export class ProductPageComponent implements OnDestroy {
   private readonly location = inject(Location)
   private readonly dialog = inject(MatDialog)
   private readonly productService = inject(ProductService)
+  private readonly basketService = inject(BasketService)
+  private readonly translateService = inject(TranslateService)
   private readonly productReviewService = inject(ProductReviewService)
   private readonly userService = inject(UserService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
@@ -75,6 +78,7 @@ export class ProductPageComponent implements OnDestroy {
   readonly relatedDisplayCount = computed(() => Math.max(1, this.columnCount()))
   readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
   readonly reviewsExpanded = signal(false)
+  readonly quantity = signal(1)
   private resizeObserver?: ResizeObserver
   private observedGrid?: HTMLElement
 
@@ -203,6 +207,96 @@ export class ProductPageComponent implements OnDestroy {
 
   isDeluxe (): boolean {
     return this.deluxeGuard.isDeluxe()
+  }
+
+  incrementQuantity (): void {
+    this.quantity.update((value) => value + 1)
+  }
+
+  decrementQuantity (): void {
+    this.quantity.update((value) => Math.max(1, value - 1))
+  }
+
+  addToBasket (): void {
+    const id = this.productId()
+    if (id == null) {
+      return
+    }
+
+    if (!this.isLoggedIn()) {
+      this.basketService.addToGuestBasket(id, this.quantity())
+      this.productService.get(id).subscribe({
+        next: (product) => this.showBasketSnackbar('BASKET_ADD_PRODUCT', product.name),
+        error: (err) => { console.log(err) }
+      })
+      return
+    }
+
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
+      next: (basket) => {
+        const productsInBasket: any[] = basket.Products
+        const existingProduct = productsInBasket.find((item) => item.id === id)
+        if (existingProduct != null) {
+          this.increaseBasketItem(existingProduct.BasketItem.id)
+        } else {
+          this.saveBasketItem(id)
+        }
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
+
+  private increaseBasketItem (basketItemId: number): void {
+    this.basketService.get(basketItemId).subscribe({
+      next: (existingBasketItem) => {
+        const newQuantity = existingBasketItem.quantity + this.quantity()
+        this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe({
+          next: (updatedBasketItem) => {
+            this.productService.get(updatedBasketItem.ProductId).subscribe({
+              next: (product) => {
+                this.showBasketSnackbar('BASKET_ADD_SAME_PRODUCT', product.name)
+                this.basketService.updateNumberOfCartItems()
+              },
+              error: (err) => { console.log(err) }
+            })
+          },
+          error: (err) => {
+            this.snackBarHelperService.open(err.error?.error, 'errorBar')
+            console.log(err)
+          }
+        })
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
+
+  private saveBasketItem (id: number): void {
+    this.basketService.save({
+      ProductId: id,
+      BasketId: sessionStorage.getItem('bid'),
+      quantity: this.quantity()
+    }).subscribe({
+      next: (newBasketItem) => {
+        this.productService.get(newBasketItem.ProductId).subscribe({
+          next: (product) => {
+            this.showBasketSnackbar('BASKET_ADD_PRODUCT', product.name)
+            this.basketService.updateNumberOfCartItems()
+          },
+          error: (err) => { console.log(err) }
+        })
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
+    })
+  }
+
+  private showBasketSnackbar (translationKey: string, productName: string): void {
+    this.translateService.get(translationKey, { product: productName }).subscribe({
+      next: (message) => this.snackBarHelperService.open(message, 'confirmBar'),
+      error: (translationId) => this.snackBarHelperService.open(translationId, 'confirmBar')
+    })
   }
 
   private shuffle<T> (items: T[]): T[] {

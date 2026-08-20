@@ -7,12 +7,13 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { provideZoneChangeDetection } from '@angular/core'
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDialog } from '@angular/material/dialog'
 import { of } from 'rxjs'
 
 import { ProductPageComponent } from './product-page.component'
 import { ProductService } from '../Services/product.service'
+import { BasketService } from '../Services/basket.service'
 import { ProductReviewService } from '../Services/product-review.service'
 import { UserService } from '../Services/user.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -30,6 +31,7 @@ describe('ProductPageComponent', () => {
     let component: ProductPageComponent
     let fixture: ComponentFixture<ProductPageComponent>
     let productService: any
+    let basketService: any
     let productReviewService: any
     let userService: any
     let snackBarHelper: any
@@ -54,6 +56,19 @@ describe('ProductPageComponent', () => {
         }
         productService.get.mockReturnValue(of(testProduct))
         productService.search.mockReturnValue(of([]))
+
+        basketService = {
+            find: vi.fn().mockName('BasketService.find'),
+            get: vi.fn().mockName('BasketService.get'),
+            put: vi.fn().mockName('BasketService.put'),
+            save: vi.fn().mockName('BasketService.save'),
+            addToGuestBasket: vi.fn().mockName('BasketService.addToGuestBasket'),
+            updateNumberOfCartItems: vi.fn().mockName('BasketService.updateNumberOfCartItems')
+        }
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.get.mockReturnValue(of({ id: 1, quantity: 1 }))
+        basketService.put.mockReturnValue(of({ ProductId: 12 }))
+        basketService.save.mockReturnValue(of({ ProductId: 12 }))
 
         productReviewService = {
             get: vi.fn().mockName('ProductReviewService.get'),
@@ -95,6 +110,7 @@ describe('ProductPageComponent', () => {
                 { provide: Router, useValue: router },
                 { provide: Location, useValue: location },
                 { provide: ProductService, useValue: productService },
+                { provide: BasketService, useValue: basketService },
                 { provide: ProductReviewService, useValue: productReviewService },
                 { provide: UserService, useValue: userService },
                 { provide: SnackBarHelperService, useValue: snackBarHelper },
@@ -104,6 +120,9 @@ describe('ProductPageComponent', () => {
         })
             .compileComponents()
 
+        const translateService = TestBed.inject(TranslateService)
+        vi.spyOn(translateService, 'get').mockReturnValue(of('ok'))
+
         fixture = TestBed.createComponent(ProductPageComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
@@ -111,6 +130,51 @@ describe('ProductPageComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy()
+    })
+
+    it('should add the product to the guest basket when logged out', () => {
+        localStorage.removeItem('token')
+        component.addToBasket()
+        expect(basketService.addToGuestBasket).toHaveBeenCalledWith(12, 1)
+        expect(productService.get).toHaveBeenCalledWith(12)
+    })
+
+    it('should save a new basket item when logged in', () => {
+        localStorage.setItem('token', 'token')
+        sessionStorage.setItem('bid', '4711')
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.save.mockReturnValue(of({ ProductId: 12 }))
+        component.addToBasket()
+        expect(basketService.find).toHaveBeenCalledWith(4711)
+        expect(basketService.save).toHaveBeenCalledWith({ ProductId: 12, BasketId: '4711', quantity: 1 })
+    })
+
+    it('should increment and decrement the quantity, never below one', () => {
+        component.incrementQuantity()
+        component.incrementQuantity()
+        expect(component.quantity()).toBe(3)
+        component.decrementQuantity()
+        expect(component.quantity()).toBe(2)
+        component.decrementQuantity()
+        component.decrementQuantity()
+        expect(component.quantity()).toBe(1)
+    })
+
+    it('should add the selected quantity to the guest basket', () => {
+        localStorage.removeItem('token')
+        component.quantity.set(3)
+        component.addToBasket()
+        expect(basketService.addToGuestBasket).toHaveBeenCalledWith(12, 3)
+    })
+
+    it('should save the selected quantity for a new basket item when logged in', () => {
+        localStorage.setItem('token', 'token')
+        sessionStorage.setItem('bid', '4711')
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.save.mockReturnValue(of({ ProductId: 12 }))
+        component.quantity.set(3)
+        component.addToBasket()
+        expect(basketService.save).toHaveBeenCalledWith({ ProductId: 12, BasketId: '4711', quantity: 3 })
     })
 
     it('should report logged-in state from the stored token', () => {
