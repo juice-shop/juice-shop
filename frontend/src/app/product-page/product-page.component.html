@@ -32,6 +32,21 @@
             </div>
           }
         </div>
+        <div class="purchase-row">
+          <div class="quantity-stepper" role="group" aria-label="Quantity">
+            <button mat-icon-button type="button" (click)="decrementQuantity()" aria-label="Decrease quantity">
+              <mat-icon aria-hidden="true">remove</mat-icon>
+            </button>
+            <span class="quantity-value" aria-live="polite">{{ quantity() }}</span>
+            <button mat-icon-button type="button" (click)="incrementQuantity()" aria-label="Increase quantity">
+              <mat-icon aria-hidden="true">add</mat-icon>
+            </button>
+          </div>
+          <button mat-raised-button color="primary" class="add-to-basket-button" (click)="addToBasket()" aria-label="{{ 'ADD_BASKET' | translate }}">
+            <mat-icon aria-hidden="true">add_shopping_cart</mat-icon>
+            <span>{{ 'ADD_BASKET' | translate }}</span>
+          </button>
+        </div>
       </div>
     </section>
 
