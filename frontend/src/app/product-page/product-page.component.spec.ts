@@ -39,6 +39,7 @@ describe('ProductPageComponent', () => {
     let deluxeGuard: any
     let router: any
     let location: any
+    let activatedRoute: any
 
     const testProduct = {
         id: 12,
@@ -102,11 +103,16 @@ describe('ProductPageComponent', () => {
             back: vi.fn().mockName('Location.back')
         }
 
+        activatedRoute = {
+            paramMap: of(convertToParamMap({ id: '12' })),
+            queryParamMap: of(convertToParamMap({ q: 'apple' }))
+        }
+
         await TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(), ProductPageComponent],
             providers: [
                 provideZoneChangeDetection(),
-                { provide: ActivatedRoute, useValue: { paramMap: of(convertToParamMap({ id: '12' })), queryParamMap: of(convertToParamMap({ q: 'apple' })) } },
+                { provide: ActivatedRoute, useValue: activatedRoute },
                 { provide: Router, useValue: router },
                 { provide: Location, useValue: location },
                 { provide: ProductService, useValue: productService },
@@ -130,6 +136,30 @@ describe('ProductPageComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy()
+    })
+
+    it('should keep the reviews panel closed by default', () => {
+        expect(component.reviewsExpanded()).toBe(false)
+    })
+
+    it('should open the reviews panel when the goto-reviews query param is true', async () => {
+        activatedRoute.queryParamMap = of(convertToParamMap({ 'goto-reviews': 'true' }))
+        const reviewsFixture = TestBed.createComponent(ProductPageComponent)
+        const reviewsComponent = reviewsFixture.componentInstance
+        reviewsFixture.detectChanges()
+        await vi.waitFor(() => expect(reviewsComponent.reviewsExpanded()).toBe(true))
+    })
+
+    it('should scroll to the reviews section when the goto-reviews query param is true', async () => {
+        activatedRoute.queryParamMap = of(convertToParamMap({ 'goto-reviews': 'true' }))
+        const scrollFixture = TestBed.createComponent(ProductPageComponent)
+        const scrollComponent = scrollFixture.componentInstance
+        const scrollSpy = vi.spyOn(scrollComponent as any, 'scrollToReviewsSection').mockImplementation(() => {})
+        scrollFixture.detectChanges()
+        await vi.waitFor(() => {
+            scrollFixture.detectChanges()
+            expect(scrollSpy).toHaveBeenCalled()
+        })
     })
 
     it('should add the product to the guest basket when logged out', () => {
