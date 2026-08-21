@@ -191,6 +191,34 @@ describe('ProductPageComponent', () => {
         expect(deluxeGuard.isDeluxe).toHaveBeenCalled()
     })
 
+    it('should show the normal price for non-deluxe users', async () => {
+        deluxeGuard.isDeluxe.mockReturnValue(false)
+        productService.get.mockReturnValue(of({ ...testProduct, deluxePrice: 9.99 }))
+        const priceFixture = TestBed.createComponent(ProductPageComponent)
+        priceFixture.detectChanges()
+        await vi.waitFor(() => {
+            priceFixture.detectChanges()
+            const price = priceFixture.nativeElement.querySelector('.item-price')
+            expect(price).toBeTruthy()
+            expect(price.textContent).toContain('19.9')
+            expect(price.querySelector('.expired')).toBeNull()
+        })
+    })
+
+    it('should show the deluxe price struck through for deluxe users', async () => {
+        deluxeGuard.isDeluxe.mockReturnValue(true)
+        productService.get.mockReturnValue(of({ ...testProduct, deluxePrice: 9.99 }))
+        const priceFixture = TestBed.createComponent(ProductPageComponent)
+        priceFixture.detectChanges()
+        await vi.waitFor(() => {
+            priceFixture.detectChanges()
+            const price = priceFixture.nativeElement.querySelector('.item-price')
+            expect(price).toBeTruthy()
+            expect(price.querySelector('.expired')?.textContent).toContain('19.9')
+            expect(price.textContent).toContain('9.99')
+        })
+    })
+
     it('should go back using browser history when available', () => {
         Object.defineProperty(window.history, 'length', { configurable: true, get: () => 3 })
         component.goBack()
