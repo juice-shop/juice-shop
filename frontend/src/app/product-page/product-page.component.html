@@ -15,49 +15,49 @@
     <mat-card class="details" aria-labelledby="product-name">
       <mat-card-content class="details-content">
         <div class="details-image">
-        <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" alt="{{ product.name }}">
-      </div>
-
-      <div class="details-info">
-        <h1 id="product-name" class="product-name">{{ product.name }}</h1>
-        <div class="product-description" [innerHTML]="product.description"></div>
-        <mat-divider class="description-divider"></mat-divider>
-        <div class="price-row">
-          <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
-            @if (!isDeluxe() || product.price === product.deluxePrice) {
-              {{ product.price }}&curren;
-            }
-            @if (isDeluxe() && product.price !== product.deluxePrice) {
-              <s class="expired">{{ product.price }}</s>
-              {{ product.deluxePrice }}&curren;
-            }
-          </p>
-          @if (points() > 0) {
-            <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
-              aria-label="Bonus points when buying the product">
-              <span class="fa-2x fa-layers fa-fw" aria-hidden="true">
-                <i class="fas fa-crown"></i>
-                <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ points() }}</span>
-              </span>
-            </div>
-          }
+          <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" [alt]="product.name">
         </div>
-        <div class="purchase-row">
-          <div class="quantity-stepper" role="group" aria-label="Quantity">
-            <button mat-icon-button type="button" (click)="decrementQuantity()" aria-label="Decrease quantity">
-              <mat-icon aria-hidden="true">remove</mat-icon>
-            </button>
-            <span class="quantity-value" aria-live="polite">{{ quantity() }}</span>
-            <button mat-icon-button type="button" (click)="incrementQuantity()" aria-label="Increase quantity">
-              <mat-icon aria-hidden="true">add</mat-icon>
+
+        <div class="details-info">
+          <h1 id="product-name" class="product-name">{{ product.name }}</h1>
+          <div class="product-description" [innerHTML]="product.description"></div>
+          <mat-divider class="description-divider"></mat-divider>
+          <div class="price-row">
+            <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
+              @if (!isDeluxe() || product.price === product.deluxePrice) {
+                {{ product.price }}&curren;
+              }
+              @if (isDeluxe() && product.price !== product.deluxePrice) {
+                <s class="expired">{{ product.price }}</s>
+                {{ product.deluxePrice }}&curren;
+              }
+            </p>
+            @if (points() > 0) {
+              <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
+                aria-label="Bonus points when buying the product">
+                <span class="fa-2x fa-layers fa-fw" aria-hidden="true">
+                  <i class="fas fa-crown"></i>
+                  <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ points() }}</span>
+                </span>
+              </div>
+            }
+          </div>
+          <div class="purchase-row">
+            <div class="quantity-stepper" role="group" aria-label="Quantity">
+              <button mat-icon-button type="button" (click)="decrementQuantity()" aria-label="Decrease quantity">
+                <mat-icon aria-hidden="true">remove</mat-icon>
+              </button>
+              <span class="quantity-value" aria-live="polite">{{ quantity() }}</span>
+              <button mat-icon-button type="button" (click)="incrementQuantity()" aria-label="Increase quantity">
+                <mat-icon aria-hidden="true">add</mat-icon>
+              </button>
+            </div>
+            <button mat-raised-button color="primary" class="add-to-basket-button" (click)="addToBasket()" aria-label="{{ 'ADD_BASKET' | translate }}">
+              <mat-icon aria-hidden="true">add_shopping_cart</mat-icon>
+              <span>{{ 'ADD_BASKET' | translate }}</span>
             </button>
           </div>
-          <button mat-raised-button color="primary" class="add-to-basket-button" (click)="addToBasket()" aria-label="{{ 'ADD_BASKET' | translate }}">
-            <mat-icon aria-hidden="true">add_shopping_cart</mat-icon>
-            <span>{{ 'ADD_BASKET' | translate }}</span>
-          </button>
         </div>
-      </div>
       </mat-card-content>
     </mat-card>
 
