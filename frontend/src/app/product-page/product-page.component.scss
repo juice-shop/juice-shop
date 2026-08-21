@@ -21,13 +21,10 @@
   text-align: center;
 }
 
-.details {
+.details-content {
   display: grid;
   grid-template-columns: minmax(200px, 450px) 1fr;
   gap: $space-l;
-  padding: $space-m;
-  background: var(--mat-sys-surface-container);
-  
 
   @media (max-width: 959.98px) {
     grid-template-columns: 1fr;

@@ -12,8 +12,9 @@
   </div>
 
   @if (productResource.value(); as product) {
-    <section class="details mat-elevation-z6" aria-labelledby="product-name">
-      <div class="details-image">
+    <mat-card class="details" aria-labelledby="product-name">
+      <mat-card-content class="details-content">
+        <div class="details-image">
         <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" alt="{{ product.name }}">
       </div>
 
@@ -57,7 +58,8 @@
           </button>
         </div>
       </div>
-    </section>
+      </mat-card-content>
+    </mat-card>
 
     <mat-expansion-panel #reviewsPanel class="reviews-panel mat-elevation-z0" [(expanded)]="reviewsExpanded" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
