@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatDivider } from '@angular/material/divider'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'
 import { MatTooltip } from '@angular/material/tooltip'
-import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
@@ -52,7 +51,6 @@ library.add(faCrown)
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     MatTooltip,
-    MatCardModule,
     MatInputModule,
     MatFormFieldModule,
     MatLabel,
