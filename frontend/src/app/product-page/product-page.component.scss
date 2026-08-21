@@ -154,9 +154,18 @@
 }
 
 .item-price {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
   font-size: xx-large;
   margin: $space-xs 0;
   color: var(--theme-accent);
+}
+
+.expired {
+  color: var(--theme-warn);
+  opacity: 0.7;
+  font-size: small;
 }
 
 .review-count {
