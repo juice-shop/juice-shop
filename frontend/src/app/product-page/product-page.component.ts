@@ -76,6 +76,7 @@ export class ProductPageComponent implements OnDestroy {
   private readonly ngZone = inject(NgZone)
 
   readonly relatedGrid = viewChild<ElementRef<HTMLElement>>('relatedGrid')
+  readonly reviewsPanel = viewChild('reviewsPanel', { read: ElementRef })
   readonly columnCount = signal(4)
   readonly relatedDisplayCount = computed(() => Math.max(1, this.columnCount()))
   readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
@@ -85,6 +86,16 @@ export class ProductPageComponent implements OnDestroy {
   private observedGrid?: HTMLElement
 
   constructor () {
+    effect(() => {
+      if (this.reviewsQuery() === 'true') {
+        this.reviewsExpanded.set(true)
+        const panel = this.reviewsPanel()
+        if (this.productResource.value() != null && panel) {
+          this.scrollToReviewsSection(panel.nativeElement)
+        }
+      }
+    })
+
     effect(() => {
       const grid = this.relatedGrid()
       if (grid) {
@@ -104,6 +115,11 @@ export class ProductPageComponent implements OnDestroy {
   readonly searchQuery = toSignal(
     this.route.queryParamMap.pipe(map((params) => params.get('q') ?? '')),
     { initialValue: '' }
+  )
+
+  readonly reviewsQuery = toSignal(
+    this.route.queryParamMap.pipe(map((params) => params.get('goto-reviews'))),
+    { initialValue: undefined }
   )
 
   readonly productResource = resource({
@@ -314,6 +330,14 @@ export class ProductPageComponent implements OnDestroy {
 
   ngOnDestroy (): void {
     this.resizeObserver?.disconnect()
+  }
+
+  private scrollToReviewsSection (element: HTMLElement): void {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    })
   }
 
   private observeGrid (grid: HTMLElement): void {
