@@ -22,7 +22,15 @@
         <div class="product-description" [innerHTML]="product.description"></div>
         <mat-divider class="description-divider"></mat-divider>
         <div class="price-row">
-          <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">{{ product.price }}&curren;</p>
+          <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
+            @if (!isDeluxe() || product.price === product.deluxePrice) {
+              {{ product.price }}&curren;
+            }
+            @if (isDeluxe() && product.price !== product.deluxePrice) {
+              <s class="expired">{{ product.price }}</s>
+              {{ product.deluxePrice }}&curren;
+            }
+          </p>
           @if (points() > 0) {
             <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
               aria-label="Bonus points when buying the product">
