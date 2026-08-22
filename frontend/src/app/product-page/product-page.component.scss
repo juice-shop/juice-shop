@@ -27,6 +27,10 @@
   padding: $space-2xl 0;
 }
 
+.loading--compact {
+  padding: $space-l 0;
+}
+
 .details-content {
   display: grid;
   grid-template-columns: minmax(200px, 450px) 1fr;
