@@ -21,6 +21,12 @@
   text-align: center;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: $space-2xl 0;
+}
+
 .details-content {
   display: grid;
   grid-template-columns: minmax(200px, 450px) 1fr;
