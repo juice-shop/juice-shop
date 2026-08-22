@@ -11,7 +11,11 @@
     </button>
   </div>
 
-  @if (productResource.value(); as product) {
+  @if (productResource.isLoading()) {
+    <div class="loading" role="status" aria-live="polite">
+      <mat-spinner aria-label="Loading"></mat-spinner>
+    </div>
+  } @else if (productResource.value(); as product) {
     <mat-card class="details" aria-labelledby="product-name">
       <mat-card-content class="details-content">
         <div class="details-image">
@@ -137,7 +141,7 @@
         </div>
       }
     </section>
-  } @else if (productId() != null && !productResource.isLoading()) {
+  } @else if (productId() != null) {
     <p class="status-message" translate>NO_SEARCH_RESULT</p>
   }
 </main>
