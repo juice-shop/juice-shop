@@ -18,6 +18,7 @@ import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } fr
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatCardModule } from '@angular/material/card'
 import { MatInputModule } from '@angular/material/input'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
@@ -54,6 +55,7 @@ library.add(faCrown)
     MatTooltip,
     MatCardModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatLabel,
     MatHint,
