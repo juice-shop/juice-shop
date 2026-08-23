@@ -223,6 +223,7 @@
   "EMPTY_REVIEW_LIST": "There is no review for this product yet.",
   "EMPTY_SEARCH_RESULT": "Try adjusting your search to find what you're looking for.",
   "NO_SEARCH_RESULT": "No results found",
+  "PRODUCT_NOT_FOUND": "Product not found",
   "DATA_SUBJECT_TITLE": "Request Data Erasure",
   "GDPR_HEADING": "Data Erasure Request (Art. 17 GDPR)",
   "GDPR_MESSAGE": "We take data security, customer privacy, and legal compliance very serious. In accordance with GDPR we allow you to request complete erasure of your account and any associated data.",
