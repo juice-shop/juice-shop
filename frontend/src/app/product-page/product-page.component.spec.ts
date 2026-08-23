@@ -9,7 +9,7 @@ import { ActivatedRoute, convertToParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatDialog } from '@angular/material/dialog'
-import { of } from 'rxjs'
+import { of, Subject } from 'rxjs'
 
 import { ProductPageComponent } from './product-page.component'
 import { ProductService } from '../Services/product.service'
@@ -306,5 +306,62 @@ describe('ProductPageComponent', () => {
         expect(component.relatedDisplayCount()).toBe(4)
         component.columnCount.set(6)
         expect(component.relatedDisplayCount()).toBe(6)
+    })
+
+    it('should show a spinner while the product is loading', async () => {
+        const pending = new Subject<any>()
+        productService.get.mockReturnValue(pending)
+        const loadingFixture = TestBed.createComponent(ProductPageComponent)
+        loadingFixture.detectChanges()
+        expect(loadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading"]')).toBeTruthy()
+        expect(loadingFixture.nativeElement.querySelector('.details')).toBeNull()
+
+        pending.next(testProduct)
+        pending.complete()
+        await vi.waitFor(() => {
+            loadingFixture.detectChanges()
+            expect(loadingFixture.nativeElement.querySelector('.details')).toBeTruthy()
+            expect(loadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading"]')).toBeNull()
+        })
+    })
+
+    it('should show a spinner while reviews are loading', async () => {
+        const pending = new Subject<any[]>()
+        productReviewService.get.mockReturnValue(pending)
+        const reviewsLoadingFixture = TestBed.createComponent(ProductPageComponent)
+        reviewsLoadingFixture.detectChanges()
+        await vi.waitFor(() => {
+            reviewsLoadingFixture.detectChanges()
+            expect(reviewsLoadingFixture.nativeElement.querySelector('.details')).toBeTruthy()
+        })
+        expect(reviewsLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading reviews"]')).toBeTruthy()
+        expect(reviewsLoadingFixture.nativeElement.querySelector('.review-item')).toBeNull()
+
+        pending.next([])
+        pending.complete()
+        await vi.waitFor(() => {
+            reviewsLoadingFixture.detectChanges()
+            expect(reviewsLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading reviews"]')).toBeNull()
+        })
+    })
+
+    it('should show a spinner while related products are loading', async () => {
+        const pending = new Subject<any[]>()
+        productService.search.mockReturnValue(pending)
+        const relatedLoadingFixture = TestBed.createComponent(ProductPageComponent)
+        relatedLoadingFixture.detectChanges()
+        await vi.waitFor(() => {
+            relatedLoadingFixture.detectChanges()
+            expect(relatedLoadingFixture.nativeElement.querySelector('.details')).toBeTruthy()
+        })
+        expect(relatedLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading related products"]')).toBeTruthy()
+        expect(relatedLoadingFixture.nativeElement.querySelector('.products-grid')).toBeNull()
+
+        pending.next([])
+        pending.complete()
+        await vi.waitFor(() => {
+            relatedLoadingFixture.detectChanges()
+            expect(relatedLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading related products"]')).toBeNull()
+        })
     })
 })
