@@ -364,4 +364,14 @@ describe('ProductPageComponent', () => {
             expect(relatedLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading related products"]')).toBeNull()
         })
     })
+
+    it('should show a "Product not found" message when the product does not exist', async () => {
+        productService.get.mockReturnValue(of(undefined))
+        const notFoundFixture = TestBed.createComponent(ProductPageComponent)
+        notFoundFixture.detectChanges()
+        await vi.waitFor(() => {
+            notFoundFixture.detectChanges()
+            expect(notFoundFixture.nativeElement.querySelector('.status-message')).toBeTruthy()
+        })
+    })
 })
