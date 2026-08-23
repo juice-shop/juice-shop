@@ -207,6 +207,19 @@ describe('ProductPageComponent', () => {
         expect(basketService.save).toHaveBeenCalledWith({ ProductId: 12, BasketId: '4711', quantity: 3 })
     })
 
+    it('should increment the quantity of an existing basket item', () => {
+        localStorage.setItem('token', 'token')
+        sessionStorage.setItem('bid', '4711')
+        basketService.find.mockReturnValue(of({ Products: [{ id: 12, BasketItem: { id: 99 } }] }))
+        basketService.get.mockReturnValue(of({ id: 99, quantity: 2 }))
+        basketService.put.mockReturnValue(of({ ProductId: 12 }))
+        component.addToBasket()
+        expect(basketService.find).toHaveBeenCalledWith(4711)
+        expect(basketService.get).toHaveBeenCalledWith(99)
+        expect(basketService.put).toHaveBeenCalledWith(99, { quantity: 3 })
+        expect(basketService.updateNumberOfCartItems).toHaveBeenCalled()
+    })
+
     it('should report logged-in state from the stored token', () => {
         localStorage.removeItem('token')
         expect(component.isLoggedIn()).toBe(false)
@@ -219,6 +232,13 @@ describe('ProductPageComponent', () => {
         deluxeGuard.isDeluxe.mockReturnValue(true)
         expect(component.isDeluxe()).toBe(true)
         expect(deluxeGuard.isDeluxe).toHaveBeenCalled()
+    })
+
+    it('should compute bonus points from the product price', async () => {
+        const pointsFixture = TestBed.createComponent(ProductPageComponent)
+        const pointsComponent = pointsFixture.componentInstance
+        pointsFixture.detectChanges()
+        await vi.waitFor(() => expect(pointsComponent.points()).toBe(2))
     })
 
     it('should show the normal price for non-deluxe users', async () => {
