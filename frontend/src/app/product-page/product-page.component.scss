@@ -74,6 +74,34 @@
   gap: $space-m;
 }
 
+.bonus-points {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bonus-crown {
+  font-size: 2.5em;
+}
+
+.bonus-counter {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0.75em;
+  height: 1.25em;
+  padding: 0 0.3em;
+  border-radius: 0.625em;
+  font-size: 1em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .purchase-row {
   display: flex;
   align-items: center;
