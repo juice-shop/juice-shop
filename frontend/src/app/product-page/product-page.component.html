@@ -69,7 +69,13 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <span translate>LABEL_REVIEWS</span>
-          <span class="review-count">({{ (reviewsResource.value() ?? []).length }})</span>
+          <span class="review-count">
+            @if (reviewsResource.isLoading()) {
+              <mat-spinner diameter="16" aria-label="Loading reviews"></mat-spinner>
+            } @else {
+              ({{ (reviewsResource.value() ?? []).length }})
+            }
+          </span>
         </mat-panel-title>
       </mat-expansion-panel-header>
 
