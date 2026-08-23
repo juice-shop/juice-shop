@@ -176,6 +176,8 @@
 }
 
 .review-count {
+  display: inline-flex;
+  align-items: center;
   margin-left: $space-xs;
 }
 
