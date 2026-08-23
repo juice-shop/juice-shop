@@ -39,9 +39,9 @@
             @if (points() > 0) {
               <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
                 aria-label="Bonus points when buying the product">
-                <span class="fa-2x fa-layers fa-fw" aria-hidden="true">
-                  <i class="fas fa-crown"></i>
-                  <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ points() }}</span>
+                <span class="bonus-points" aria-hidden="true">
+                  <i class="fas fa-crown bonus-crown"></i>
+                  <span class="bonus-counter warn-notification">{{ points() }}</span>
                 </span>
               </div>
             }
