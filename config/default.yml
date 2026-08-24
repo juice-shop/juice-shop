@@ -356,7 +356,7 @@ products:
     deluxePrice: 0.99
     deletedDate: '2020-11-30'
     limitPerUser: 5
-    image: ccg_common.png
+    image: ccg_common.jpg
     reviews:
       - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
   -
@@ -367,7 +367,7 @@ products:
     deletedDate: '2020-11-30'
     quantity: 2
     limitPerUser: 1
-    image: ccg_foil.png
+    image: ccg_foil.jpg
     reviews:
       - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
   -
