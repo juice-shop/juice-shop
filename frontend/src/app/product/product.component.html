@@ -36,7 +36,7 @@
         "
       >
         <picture>
-          <source [srcset]="getAvifSrc(product.image)" type="image/avif">
+          <source [srcset]="avifSrcSet()" type="image/avif">
           <img
             mat-card-image
             [src]="'assets/public/images/products/' + product.image"

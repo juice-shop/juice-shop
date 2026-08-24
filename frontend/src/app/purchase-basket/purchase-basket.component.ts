@@ -198,9 +198,11 @@ export class PurchaseBasketComponent implements OnInit {
     return this.deluxeGuard.isDeluxe()
   }
 
-  getAvifSrc (image: string): string {
+  getAvifSrcSet (image: string): string {
     if (!image) return ''
     const baseName = image.substring(0, image.lastIndexOf('.'))
-    return `assets/public/images/products/${baseName}-6x.avif`
+    return [1, 2, 3]
+      .map(size => `assets/public/images/products/${baseName}-${size}x.avif ${size}x`)
+      .join(', ')
   }
 }

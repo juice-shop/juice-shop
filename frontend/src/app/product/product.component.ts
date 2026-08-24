@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core'
+import { Component, inject, input, computed, ChangeDetectionStrategy } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -35,6 +35,15 @@ export class ProductComponent {
   item = input.required<ProductTableEntry>()
   isLoggedIn = input.required<boolean>()
   isDeluxe = input.required<boolean>()
+
+  avifSrcSet = computed(() => {
+    const image = this.item().image
+    if (!image) return ''
+    const baseName = image.substring(0, image.lastIndexOf('.'))
+    return [1, 2, 3]
+      .map(size => `assets/public/images/products/${baseName}-${size}x.avif ${size}x`)
+      .join(', ')
+  })
 
   addToBasket(id?: number) {
     if (id == null) {
@@ -187,11 +196,5 @@ export class ProductComponent {
         productData: product
       }
     })
-  }
-
-  getAvifSrc (image: string): string {
-    if (!image) return ''
-    const baseName = image.substring(0, image.lastIndexOf('.'))
-    return `assets/public/images/products/${baseName}-6x.avif`
   }
 }
