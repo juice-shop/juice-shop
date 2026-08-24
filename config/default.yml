@@ -429,32 +429,32 @@ products:
     name: 'Pineapple Juice (1000ml)'
     description: 'Tropical refreshment from the finest sun-ripened pineapples.'
     price: 2.99
-    image: pineapple_juice.png
+    image: pineapple_juice.jpg
   -
     name: 'Melon Juice (1000ml)'
     description: 'Refreshing and sweet juice made from ripe melons.'
     price: 2.49
-    image: melon_juice.png
+    image: melon_juice.jpg
   -
     name: 'Grape Juice (1000ml)'
     description: 'Deep purple and full of antioxidants from selected grapes.'
     price: 2.99
-    image: grape_juice.png
+    image: grape_juice.jpg
   -
     name: 'Dragonfruit Juice (500ml)'
     description: 'Exotic and vibrant juice made from dragonfruit.'
     price: 3.99
-    image: dragonfruit_juice.png
+    image: dragonfruit_juice.jpg
   -
     name: 'Berry Juice (1000ml)'
     description: 'A delicious blend of fresh forest berries.'
     price: 3.49
-    image: berry_juice.png
+    image: berry_juice.jpg
   -
     name: 'Basil Smoothie'
     description: 'A unique blend of fresh basil and ginger for a healthy kick.'
     price: 2.99
-    image: basil_smoothie.png
+    image: basil_smoothie.jpg
     reviews:
       - { text: "(ง'̀-'́)ง", author: basil }
   -
