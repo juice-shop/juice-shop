@@ -1,44 +1,3 @@
-# Socket Security GitHub Actions Workflow
-# This workflow runs Socket Security scans on every commit to any branch
-# It automatically detects git repository information and handles different event types
-
-name: socket-security-workflow
-run-name: Socket Security Github Action
-
-on:
-  push:
-    branches: ['**']  # Run on all branches, all commits
-  pull_request:
-    types: [opened, synchronize, reopened]
-  issue_comment:
-    types: [created]
-
-# Prevent concurrent runs for the same commit
-concurrency:
-  group: socket-scan-${{ github.ref }}-${{ github.sha }}
-  cancel-in-progress: true
-
-jobs:
-  socket-security:
-    permissions:
-      issues: write
-      contents: read
-      pull-requests: write
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          # For PRs, fetch one additional commit for proper diff analysis
-          fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
-      
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      
-      - name: Install Socket CLI
-        run: pip install socketsecurity --upgrade
-      
       - name: Run Socket Security Scan
         env:
           SOCKET_SECURITY_API_KEY: ${{ secrets.SOCKET_SECURITY_API_KEY }}
@@ -51,7 +10,7 @@ jobs:
           elif [ "${{ github.event_name }}" == "issue_comment" ]; then
             PR_NUMBER=${{ github.event.issue.number }}
           fi
-          
+
           # Run Socket CLI with minimal required parameters
           # The CLI automatically detects:
           # - Repository name from git
@@ -64,4 +23,5 @@ jobs:
           socketcli \
             --target-path $GITHUB_WORKSPACE \
             --scm github \
-            --pr-number $PR_NUMBER
+            --pr-number $PR_NUMBER \
+            --reach
