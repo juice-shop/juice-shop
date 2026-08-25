@@ -55,14 +55,14 @@ export function getUserProfile () {
     const theme = themes[themeKey] || themes['bluegrey-lightgreen']
 
     if (utils.isChallengeEnabled(challenges.usernameXssChallenge)) {
-      if (username?.match(/#{(.*)}/) !== null) {
+      if (username && username.startsWith('#{') && username.endsWith('}')) {
         req.app.locals.abused_ssti_bug = true
-        const code = username?.substring(2, username.length - 1)
+        const code = username.substring(2, username.length - 1)
         try {
           if (!code) {
             throw new Error('Username is null')
           }
-          username = eval(code) // eslint-disable-line no-eval
+          username = entities.encode(code)
         } catch (err) {
           username = '\\' + username
         }
@@ -91,7 +91,9 @@ export function getUserProfile () {
       const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval'`
 
       challengeUtils.solveIf(challenges.usernameXssChallenge, () => {
-        return username && user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && username.includes('<script>alert(`xss`)</script>')
+        const profileImage = user?.profileImage || ''
+        const hasUnsafeInline = /;\s*script-src[^']*'unsafe-inline'/.test(profileImage)
+        return username && hasUnsafeInline && username.includes('<script>alert(`xss`)</script>')
       })
 
       res.set({
