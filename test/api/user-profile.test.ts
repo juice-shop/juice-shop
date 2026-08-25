@@ -18,7 +18,7 @@ let authHeader: { Cookie: string }
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  const { token } = await login(app, { email: 'jim@juice-sh.op', password: 'ncc-1701' })
+  const { token } = await login(app, { email: 'jim@juice-sh.op', password: process.env.TEST_JIM_PASSWORD ?? 'ncc-1701' })
   authHeader = { Cookie: `token=${token}` }
 }, { timeout: 60000 })
 
@@ -55,7 +55,7 @@ void describe('/profile', () => {
   })
 
   void it('GET user profile contains role but NO deluxe membership link if user is already deluxe', async () => {
-    const { token } = await login(app, { email: 'ciso@juice-sh.op', password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb' })
+    const { token } = await login(app, { email: 'ciso@juice-sh.op', password: process.env.TEST_CISO_PASSWORD ?? 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb' })
     const res = await request(app)
       .get('/profile')
       .set('Cookie', `token=${token}`)
@@ -191,7 +191,7 @@ void describe('/profile', () => {
     await request(app)
       .post('/profile')
       .set('Cookie', authHeader.Cookie)
-      .set('Origin', 'http://attacker.com')
+      .set('Origin', 'https://attacker.com')
       .send({ username: 'No_CSRF' })
       .expect(302)
     assert.equal(datacache.challenges.csrfChallenge.solved, false)
