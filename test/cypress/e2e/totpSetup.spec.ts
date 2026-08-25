@@ -3,7 +3,7 @@ describe('/#/basket', () => {
     beforeEach(() => {
       cy.login({
         email: 'wurstbrot',
-        password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
+        password: Cypress.env('WURSTBROT_PASSWORD'),
         totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
       })
     })
@@ -17,7 +17,7 @@ describe('/#/basket', () => {
     beforeEach(() => {
       cy.login({
         email: 'amy',
-        password: 'K1f.....................'
+        password: Cypress.env('AMY_PASSWORD')
       })
     })
 
