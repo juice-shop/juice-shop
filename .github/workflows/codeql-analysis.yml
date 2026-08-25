@@ -20,7 +20,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@d4c3b4e2f8a9b1c0d6e5f4a3b2c1d0e9f8a7b6c5
       with:
         languages: ${{ matrix.language }}
         queries: security-extended
@@ -31,6 +31,6 @@ jobs:
           - exclude:
                id: js/missing-rate-limiting
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+      uses: github/codeql-action/autobuild@a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@f0e1d2c3b4a5968776655443322110ffeeddccb0
