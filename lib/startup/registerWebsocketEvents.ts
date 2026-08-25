@@ -42,7 +42,7 @@ const registerWebsocketEvents = (server: any) => {
     })
 
     socket.on('verifySvgInjectionChallenge', (data: any) => {
-      challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/cataas.com\/cat.*/) && security.isRedirectAllowed(data) })
+      challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { try { if (typeof data !== 'string') return false; const parsed = new URL(data, 'http://localhost'); const isRedirectPath = parsed.pathname.includes('/redirect'); const to = parsed.searchParams.get('to') || ''; return isRedirectPath && to.startsWith('https://cataas.com/cat') && security.isRedirectAllowed(data); } catch (e) { return false } })
     })
 
     socket.on('verifyCloseNotificationsChallenge', (data: any) => {
