@@ -5,7 +5,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "noSqlCommandChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: Cypress.env('ADMIN_PASSWORD') })
     })
     it('should be possible to inject a command into the get route', () => {
       cy.task('isDocker').then((isDocker) => {
@@ -50,7 +50,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "noSqlReviewsChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: Cypress.env('ADMIN_PASSWORD') })
     })
 
     it('should be possible to inject a selector into the update route', () => {
@@ -73,7 +73,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "forgedReviewChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
+      cy.login({ email: 'mc.safesearch', password: Cypress.env('MC_SAFESRCH_PASSWORD') })
     })
 
     it('should be possible to edit any existing review', () => {
@@ -117,7 +117,7 @@ describe('/rest/products/reviews', () => {
 
   describe('challenge "timingAttackChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
+      cy.login({ email: 'mc.safesearch', password: Cypress.env('MC_SAFESRCH_PASSWORD') })
     })
 
     it('should be possible to like reviews multiple times', () => {
