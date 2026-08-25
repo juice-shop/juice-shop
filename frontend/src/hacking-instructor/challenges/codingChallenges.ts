@@ -17,7 +17,7 @@ export const CodingChallengesInstruction: ChallengeInstruction = {
       fixture: 'app-navbar',
       fixtureAfter: true,
       unskippable: true,
-      resolved: waitForAngularRouteToBeVisited('score-board') // FIXME The tutorial does not progress automatically. Workaround ^^^^^^^^^^^^^^^^ instruction above should be removed when fixed.
+      resolved: waitForAngularRouteToBeVisited('score-board') // The tutorial progresses when the Score Board route is visited.
     },
     {
       text:
