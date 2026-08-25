@@ -16,17 +16,17 @@ import express from 'express'
 import colors from 'colors/safe'
 import serveIndex from 'serve-index'
 import bodyParser from 'body-parser'
-// @ts-expect-error FIXME due to non-existing type definitions for finale-rest
+// @ts-expect-error due to non-existing type definitions for finale-rest
 import * as finale from 'finale-rest'
 import compression from 'compression'
-// @ts-expect-error FIXME due to non-existing type definitions for express-robots-txt
+// @ts-expect-error due to non-existing type definitions for express-robots-txt
 import robots from 'express-robots-txt'
 import cookieParser from 'cookie-parser'
 import * as Prometheus from 'prom-client'
 import swaggerUi from 'swagger-ui-express'
 import featurePolicy from 'feature-policy'
 import { IpFilter } from 'express-ipfilter'
-// @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
+// @ts-expect-error due to non-existing type definitions for express-security.txt
 import securityTxt from 'express-security.txt'
 import { rateLimit } from 'express-rate-limit'
 import { getStream } from 'file-stream-rotator'
@@ -240,10 +240,10 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const origEnd = res.end
-    // @ts-expect-error FIXME assignment broken due to seemingly void return value
+    // @ts-expect-error assignment broken due to seemingly void return value
     res.end = function () {
       if (arguments.length && typeof arguments[0] === 'string') {
-        const reqPath = req.originalUrl.replace(/\?.*$/, '')
+        const reqPath = req.originalUrl.split('?')[0]
 
         const currentFolder = reqPath.split('/').pop()!
         arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
@@ -258,7 +258,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
           return 'a href="' + relativePath + '"'
         })
       }
-      // @ts-expect-error FIXME passed argument has wrong type
+      // @ts-expect-error passed argument has wrong type
       origEnd.apply(this, arguments)
     }
     next()
@@ -272,10 +272,15 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     if (!filePath.startsWith(path.resolve('infrastructure')) || filePath.endsWith('README.md')) {
       return res.status(403).end()
     }
-    if (filePath.endsWith('.tf') || filePath.endsWith('.yml') || filePath.endsWith('Dockerfile')) {
+      if (filePath.endsWith('.tf') || filePath.endsWith('.yml') || filePath.endsWith('Dockerfile')) {
       fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) return next()
-        const cleaned = data.split('\n').filter(line => !line.trim().match(/^#\s*vuln-code-snippet\s/)).map(line => line.replace(/\s*#\s*vuln-code-snippet\s.*$/, '')).join('\n')
+        const lines = data.split('\n')
+        const filtered = lines.filter(line => !line.trim().startsWith('# vuln-code-snippet '))
+        const cleaned = filtered.map(line => {
+          const idx = line.indexOf('# vuln-code-snippet')
+          return idx >= 0 ? line.substring(0, idx).trimEnd() : line
+        }).join('\n')
         res.type('text/plain').send(cleaned)
       })
     } else {
@@ -305,7 +310,8 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use(express.static(path.resolve('frontend/dist/frontend')))
-  app.use(cookieParser('kekse'))
+  const cookieSecret = process.env.COOKIE_SECRET ?? 'change-this-secret'
+  app.use(cookieParser(cookieSecret))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Serve vendor dependencies locally instead of from CDN */
@@ -332,7 +338,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
-    // @ts-expect-error FIXME intentionally saving original request in this property
+    // @ts-expect-error intentionally saving original request in this property
     req.rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
       if (!req.body) {
@@ -698,7 +704,13 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
-  app.use(errorhandler())
+  if (process.env.NODE_ENV !== 'production') {
+    app.use(errorhandler())
+  } else {
+    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+      res.status(500).end()
+    })
+  }
 }
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
@@ -710,7 +722,7 @@ if (process.env.NODE_ENV !== 'test') {
   })
 }
 
-const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
+const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 100000 } })
 const mimeTypeMap: any = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
