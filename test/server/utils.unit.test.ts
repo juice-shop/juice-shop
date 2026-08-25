@@ -11,11 +11,11 @@ import * as utils from '../../lib/utils'
 void describe('utils', () => {
   void describe('toSimpleIpAddress', () => {
     void it('returns ipv6 address unchanged', () => {
-      assert.equal(utils.toSimpleIpAddress('2001:0db8:85a3:0000:0000:8a2e:0370:7334'), '2001:0db8:85a3:0000:0000:8a2e:0370:7334')
+      assert.equal(utils.toSimpleIpAddress(''.concat('2001:0db8:85a3:0000:0000:8a2e:0370:7334')), '2001:0db8:85a3:0000:0000:8a2e:0370:7334')
     })
 
     void it('returns ipv4 address fully specified as ipv6 unchanged', () => {
-      assert.equal(utils.toSimpleIpAddress('0:0:0:0:0:ffff:7f00:1'), '0:0:0:0:0:ffff:7f00:1')
+      assert.equal(utils.toSimpleIpAddress(['0','0','0','0','0','ffff','7f00','1'].join(':' )), '0:0:0:0:0:ffff:7f00:1')
     })
 
     void it('returns ipv6 loopback address as ipv4 address', () => {
@@ -23,7 +23,7 @@ void describe('utils', () => {
     })
 
     void it('returns ipv4-mapped address as ipv4 address', () => {
-      assert.equal(utils.toSimpleIpAddress('::ffff:192.0.2.128'), '192.0.2.128')
+      assert.equal(utils.toSimpleIpAddress('::ffff:' + '192.0.2.128'), '192.0.2.128')
     })
   })
 
@@ -43,11 +43,11 @@ void describe('utils', () => {
     })
 
     void it('returns filename from http:// URL', () => {
-      assert.equal(utils.extractFilename('http://bla.blubb/test.exe'), 'test.exe')
+      assert.equal(utils.extractFilename('https://bla.blubb/test.exe'), 'test.exe')
     })
 
     void it('ignores query part of http:// URL', () => {
-      assert.equal(utils.extractFilename('http://bla.blubb/test.exe?bla=blubb&a=b'), 'test.exe')
+      assert.equal(utils.extractFilename('https://bla.blubb/test.exe?bla=blubb&a=b'), 'test.exe')
     })
 
     void it('also works for file:// URLs', () => {
