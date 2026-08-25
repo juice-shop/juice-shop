@@ -14,6 +14,94 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
+  name              = "/aws/vpc/${var.project_name}-flow-logs"
+  retention_in_days = 14
+}
+
+resource "aws_iam_role" "flow_logs_role" {
+  name = "${var.project_name}-flow-logs-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "vpc-flow-logs.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_iam_role_policy" "flow_logs_policy" {
+  name = "${var.project_name}-flow-logs-policy"
+  role = aws_iam_role.flow_logs_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_flow_log" "vpc_flow_logs" {
+  log_destination     = aws_cloudwatch_log_group.vpc_flow_logs.arn
+  resource_id         = aws_vpc.main.id
+  traffic_type        = "ALL"
+  log_destination_type = "cloud-watch-logs"
+  iam_role_arn        = aws_iam_role.flow_logs_role.arn
+}
+
+resource "aws_networkfirewall_firewall_policy" "main" {
+  name = "${var.project_name}-firewall-policy"
+
+  firewall_policy {
+    # minimal, empty policy placeholder to attach firewall to VPC
+  }
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_networkfirewall_firewall" "main" {
+  name               = "${var.project_name}-firewall"
+  firewall_policy_arn = aws_networkfirewall_firewall_policy.main.arn
+  vpc_id             = aws_vpc.main.id
+
+  subnet_mapping {
+    subnet_id = aws_subnet.public[0].id
+  }
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_accessanalyzer_analyzer" "this" {
+  name = "${var.project_name}-analyzer"
+  type = "ACCOUNT"
+}
+
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
@@ -65,17 +153,11 @@ resource "aws_security_group" "alb" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["10.0.0.0/8"]
+    description = "Allow HTTPS from trusted network"
   }
 
   egress {
@@ -83,6 +165,7 @@ resource "aws_security_group" "alb" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = {
@@ -102,6 +185,7 @@ resource "aws_security_group" "ecs" {
     to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
+    description     = "Allow traffic from ALB security group"
   }
 
   egress {
@@ -109,6 +193,7 @@ resource "aws_security_group" "ecs" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = {
@@ -124,6 +209,12 @@ resource "aws_lb" "juice_shop" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
+  enable_deletion_protection = true
+  drop_invalid_header_fields  = true
+  access_logs {
+    enabled = true
+    bucket  = var.lb_access_logs_bucket
+  }
 
   tags = {
     Project     = var.project_name
@@ -159,8 +250,12 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    type = "redirect"
+    redirect {
+      protocol    = "HTTPS"
+      port        = "443"
+      status_code = "HTTP_301"
+    }
   }
 }
 
@@ -228,6 +323,7 @@ resource "aws_security_group" "efs" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
+    description     = "Allow NFS (2049) from ECS tasks"
     security_groups = [aws_security_group.ecs.id]
   }
 
