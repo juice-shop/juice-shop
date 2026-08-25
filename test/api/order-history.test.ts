@@ -22,7 +22,7 @@ void describe('/rest/order-history', () => {
   void it('GET own previous orders', async () => {
     const { token } = await login(app, {
       email: 'admin@' + config.get<string>('application.domain'),
-      password: 'admin123'
+      password: process.env.TEST_ADMIN_PASSWORD ?? 'admin123'
     })
 
     const res = await request(app)
@@ -53,7 +53,7 @@ void describe('/rest/order-history/orders', () => {
   void it('GET all orders is forbidden for customers', async () => {
     const { token } = await login(app, {
       email: 'jim@' + config.get<string>('application.domain'),
-      password: 'ncc-1701'
+      password: process.env.TEST_JIM_PASSWORD ?? 'ncc-1701'
     })
 
     const res = await request(app)
@@ -66,7 +66,7 @@ void describe('/rest/order-history/orders', () => {
   void it('GET all orders is forbidden for admin', async () => {
     const { token } = await login(app, {
       email: 'admin@' + config.get<string>('application.domain'),
-      password: 'admin123'
+      password: process.env.TEST_ADMIN_PASSWORD ?? 'admin123'
     })
 
     const res = await request(app)
@@ -79,7 +79,7 @@ void describe('/rest/order-history/orders', () => {
   void it('GET all orders for accountant', async () => {
     const { token } = await login(app, {
       email: 'accountant@' + config.get<string>('application.domain'),
-      password: 'i am an awesome accountant'
+      password: process.env.TEST_ACCOUNTANT_PASSWORD ?? 'i am an awesome accountant'
     })
 
     const res = await request(app)
@@ -94,7 +94,7 @@ void describe('/rest/order-history/:id/delivery-status', () => {
   void it('PUT delivery status is forbidden for admin', async () => {
     const { token } = await login(app, {
       email: 'admin@' + config.get<string>('application.domain'),
-      password: 'admin123'
+      password: process.env.TEST_ADMIN_PASSWORD ?? 'admin123'
     })
 
     const res = await request(app)
@@ -108,7 +108,7 @@ void describe('/rest/order-history/:id/delivery-status', () => {
   void it('PUT delivery status is forbidden for customer', async () => {
     const { token } = await login(app, {
       email: 'jim@' + config.get<string>('application.domain'),
-      password: 'ncc-1701'
+      password: process.env.TEST_JIM_PASSWORD ?? 'ncc-1701'
     })
 
     const res = await request(app)
@@ -122,7 +122,7 @@ void describe('/rest/order-history/:id/delivery-status', () => {
   void it('PUT delivery status is allowed for accountant', async () => {
     const { token } = await login(app, {
       email: 'accountant@' + config.get<string>('application.domain'),
-      password: 'i am an awesome accountant'
+      password: process.env.TEST_ACCOUNTANT_PASSWORD ?? 'i am an awesome accountant'
     })
 
     const res = await request(app)
