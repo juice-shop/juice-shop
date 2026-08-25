@@ -1,7 +1,7 @@
 describe('/api', () => {
   describe('challenge "restfulXssChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: Cypress.env('ADMIN_PASSWORD') })
     })
 
     // Cypress alert bug
@@ -79,7 +79,7 @@ describe('/rest/saveLoginIp', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',
-        password: 'admin123'
+        password: Cypress.env('ADMIN_PASSWORD')
       })
     })
 
