@@ -80,7 +80,7 @@ void describe('/rest/2fa/verify', () => {
     const tmpTokenWurstbrot = jwt.sign({
       userId: 10,
       type: 'password_valid_needs_second_factor_token'
-    }, 'this_surly_isnt_the_right_key')
+    }, process.env.TEST_INVALID_JWT_SECRET || 'invalid-signing-key')
 
     const totpToken = generateSync({ secret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH' })
 
@@ -138,7 +138,7 @@ void describe('/rest/2fa/status', () => {
   void it('GET should indicate 2fa is setup for 2fa enabled users', async () => {
     const { token } = await login(app, {
       email: `wurstbrot@${config.get<string>('application.domain')}`,
-      password: 'EinBelegtesBrotMitSchinkenSCHINKEN!',
+      password: process.env.TEST_PASSWORD_WURSTBROT || 'EinBelegtesBrotMitSchinkenSCHINKEN_REVOKED!',
       totpSecret: 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
     })
 
@@ -153,7 +153,7 @@ void describe('/rest/2fa/status', () => {
   void it('GET should indicate 2fa is not setup for users with 2fa disabled', async () => {
     const { token } = await login(app, {
       email: `J12934@${config.get<string>('application.domain')}`,
-      password: '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
+      password: process.env.TEST_PASSWORD_J12934 || '0Y8rMnww$*9VFYE§59-!Fg1L6t&6lB'
     })
 
     const res = await getStatus(token)
@@ -178,7 +178,7 @@ void describe('/rest/2fa/status', () => {
 void describe('/rest/2fa/setup', () => {
   void it('POST should be able to setup 2fa for accounts without 2fa enabled', async () => {
     const email = 'fooooo1@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOOO1 || '123456'
     const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password })
@@ -210,7 +210,7 @@ void describe('/rest/2fa/setup', () => {
 
   void it('POST should fail if the password doesnt match', async () => {
     const email = 'fooooo2@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOOO2 || '123456'
     const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password })
@@ -236,7 +236,7 @@ void describe('/rest/2fa/setup', () => {
 
   void it('POST should fail if the initial token is incorrect', async () => {
     const email = 'fooooo3@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOOO3 || '123456'
     const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password })
@@ -262,7 +262,7 @@ void describe('/rest/2fa/setup', () => {
 
   void it('POST should fail if the token is of the wrong type', async () => {
     const email = 'fooooo4@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOOO4 || '123456'
     const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password })
@@ -288,7 +288,7 @@ void describe('/rest/2fa/setup', () => {
 
   void it('POST should fail if the account has already set up 2fa', async () => {
     const email = `wurstbrot@${config.get<string>('application.domain')}`
-    const password = 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+    const password = process.env.TEST_PASSWORD_WURSTBROT || 'EinBelegtesBrotMitSchinkenSCHINKEN!'
     const totpSecret = 'IFTXE3SPOEYVURT2MRYGI52TKJ4HC3KH'
 
     const { token } = await login(app, { email, password, totpSecret })
@@ -313,7 +313,7 @@ void describe('/rest/2fa/setup', () => {
 
   void it('POST should fail if the user doesn\'t exist', async () => {
     const email = 'nonexistent@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOOO3_USER_NOT_EXIST || '123456'
     const secret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     const token = security.authorize({
@@ -348,7 +348,7 @@ void describe('/rest/2fa/setup', () => {
 void describe('/rest/2fa/disable', () => {
   void it('POST should be able to disable 2fa for account with 2fa enabled', async () => {
     const email = 'fooooodisable1@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOODISABLE1 || '123456'
     const totpSecret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password, totpSecret })
@@ -375,7 +375,7 @@ void describe('/rest/2fa/disable', () => {
 
   void it('POST should not be possible to disable 2fa without the correct password', async () => {
     const email = 'fooooodisable2@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_FOOOODISABLE2 || '123456'
     const totpSecret = 'KDR5FXSOLNV6A5UAQYCKROSJZF7SVML7'
 
     await register(app, { email, password, totpSecret })
@@ -402,7 +402,7 @@ void describe('/rest/2fa/disable', () => {
 
   void it('POST should fail if the user doesn\'t exist', async () => {
     const email = 'nonexistent-disable@bar.com'
-    const password = '123456'
+    const password = process.env.TEST_PASSWORD_NONEXISTENT_DISABLE || '123456'
 
     const token = security.authorize({
       data: {
