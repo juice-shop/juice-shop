@@ -7,7 +7,7 @@ describe('/#/register', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',
-        password: 'admin123'
+      password: Cypress.env('ADMIN_PASSWORD')
       })
     })
 
@@ -25,8 +25,8 @@ describe('/#/register', () => {
                 },
                 body: JSON.stringify({
                   email: '<iframe src="javascript:alert(`xss`)">',
-                  password: 'XSSed',
-                  passwordRepeat: 'XSSed',
+                  password: Cypress.env('XSS_USER_PASSWORD'),
+                  passwordRepeat: Cypress.env('XSS_USER_PASSWORD'),
                   role: 'admin'
                 })
               }
@@ -57,8 +57,8 @@ describe('/#/register', () => {
           },
           body: JSON.stringify({
             email: 'testing@test.com',
-            password: 'pwned',
-            passwordRepeat: 'pwned',
+              password: Cypress.env('NEW_ADMIN_PASSWORD'),
+              passwordRepeat: Cypress.env('NEW_ADMIN_PASSWORD'),
             role: 'admin'
           })
         })
@@ -81,7 +81,7 @@ describe('/#/register', () => {
           },
           body: JSON.stringify({
             email: 'uncle@bob.com',
-            password: 'ThereCanBeOnlyOne'
+            password: Cypress.env('USER_PASSWORD')
           })
         })
         if (response.status === 201) {
