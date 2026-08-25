@@ -39,7 +39,7 @@ void describe('redirect', () => {
   })
 
   void it('should raise error for URL not on allowlist', () => {
-    req.query.to = 'http://kimminich.de'
+    req.query.to = 'https://kimminich.de'
 
     performRedirect()(req, res, next)
 
@@ -76,7 +76,7 @@ void describe('redirect', () => {
   })
 
   void it('tricking the allowlist should solve "redirectChallenge"', () => {
-    req.query.to = 'http://kimminich.de?to=https://github.com/juice-shop/juice-shop'
+    req.query.to = 'https://kimminich.de?to=https://github.com/juice-shop/juice-shop'
     challenges.redirectChallenge = { solved: false, save } as unknown as Challenge
 
     performRedirect()(req, res, next)
