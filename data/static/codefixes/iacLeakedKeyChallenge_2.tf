@@ -14,12 +14,35 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_flow_log" "vpc_flow" {
+  resource_id          = aws_vpc.main.id
+  traffic_type         = "ALL"
+  log_destination_type = "s3"
+  log_destination      = var.lb_access_logs_bucket
+}
+
+resource "aws_networkfirewall_firewall" "main" {
+  name               = "${var.project_name}-network-firewall"
+  vpc_id             = aws_vpc.main.id
+
+  subnet_mapping {
+    subnet_id = aws_subnet.public[0].id
+  }
+
+  firewall_policy_arn = var.network_firewall_policy_arn
+}
+
+resource "aws_accessanalyzer_analyzer" "main" {
+  name = "${var.project_name}-access-analyzer"
+  type = "ACCOUNT"
+}
+
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidrs[count.index]
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     Name        = "${var.project_name}-public-${count.index}"
@@ -65,24 +88,19 @@ resource "aws_security_group" "alb" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.vpc_cidr]
+    description = "Allow HTTPS from within VPC"
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.vpc_cidr]
+    description = "Allow outbound traffic to VPC"
   }
 
   tags = {
@@ -102,6 +120,7 @@ resource "aws_security_group" "ecs" {
     to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
+    description     = "Allow application traffic from ALB"
   }
 
   egress {
@@ -109,6 +128,7 @@ resource "aws_security_group" "ecs" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow all outbound traffic"
   }
 
   tags = {
@@ -118,12 +138,24 @@ resource "aws_security_group" "ecs" {
   }
 }
 
+resource "aws_shield_protection" "alb_protection" {
+  name         = "${var.project_name}-alb-protection"
+  resource_arn = aws_lb.juice_shop.arn
+}
+
 resource "aws_lb" "juice_shop" {
   name               = "${var.project_name}-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
+  enable_deletion_protection = true
+  drop_invalid_header_fields = true
+  access_logs {
+    enabled = true
+    bucket  = var.lb_access_logs_bucket
+    prefix  = "${var.project_name}/alb"
+  }
 
   tags = {
     Project     = var.project_name
@@ -159,15 +191,24 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    type = "redirect"
+    redirect {
+      protocol   = "HTTPS"
+      port       = "443"
+      status_code = "HTTP_301"
+    }
   }
+}
+
+resource "aws_wafregional_web_acl_association" "juice_shop_waf" {
+  resource_arn = aws_lb.juice_shop.arn
+  web_acl_id   = var.waf_web_acl_id
 }
 
 resource "aws_iam_server_certificate" "juice_shop_tls" {
   name             = "${var.project_name}-tls-cert"
   certificate_body = file("${path.module}/certs/server.crt")
-  private_key      = base64decode("LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQ0KTUlJQ1hBSUJBQUtCZ1FETndxTEVlOXdnVFhDYkM3K1JQZERiQmJlcWpkYnM0a09QT0lHenFMcFh2Slhsxx...")
+  private_key      = file("${path.module}/certs/server.key")
 
   lifecycle {
     create_before_destroy = true
@@ -228,6 +269,7 @@ resource "aws_security_group" "efs" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
+    description     = "Allow NFS from ECS tasks"
     security_groups = [aws_security_group.ecs.id]
   }
 
@@ -235,6 +277,7 @@ resource "aws_security_group" "efs" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
+    description = "Allow all outbound traffic"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -248,6 +291,7 @@ resource "aws_security_group" "efs" {
 resource "aws_efs_file_system" "juice_shop_data" {
   creation_token = "${var.project_name}-sqlite-data"
   encrypted      = var.efs_encrypted
+  kms_key_id     = var.efs_kms_key_id
 
   performance_mode = "generalPurpose"
   throughput_mode  = "bursting"
