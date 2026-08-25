@@ -99,8 +99,8 @@ void describe('preconditionValidation', () => {
     })
 
     void it('should detect URL with ollama hostname', () => {
-      assert.equal(isOllamaUrl('http://ollama:11434/v1'), true)
-      assert.equal(isOllamaUrl('http://ollama/v1'), true)
+      assert.equal(isOllamaUrl('https://ollama:11434/v1'), true)
+      assert.equal(isOllamaUrl('https://ollama/v1'), true)
     })
 
     void it('should detect URL with /ollama path prefix', () => {
