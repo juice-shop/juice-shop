@@ -25,7 +25,7 @@ export default tseslint.config(
       // strategy, so this rule (which flags opting out of OnPush) is disabled for now.
       '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off', // requires the `strictNullChecks` compiler option
-      // FIXME warnings below this line need to be checked and fixed.
+      // TODO warnings below this line need to be checked and fixed.
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@typescript-eslint/consistent-type-assertions': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
@@ -34,7 +34,7 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'off',
       '@typescript-eslint/no-empty-function': 'off',
       'prefer-rest-params': 'off',
-      // FIXME warnings below this line were introduced with turning on type recommendations.
+      // TODO warnings below this line were introduced with turning on type recommendations.
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
