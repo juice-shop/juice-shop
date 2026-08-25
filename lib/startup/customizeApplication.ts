@@ -6,7 +6,7 @@
 import fs from 'node:fs'
 import config from 'config'
 import * as utils from '../utils'
-// @ts-expect-error FIXME due to non-existing type definitions for replace
+// @ts-expect-error: no type definitions for 'replace'
 import replace from 'replace'
 
 const customizeApplication = async () => {
@@ -95,7 +95,7 @@ const customizeTitle = () => {
 const customizeTheme = () => {
   const bodyClass = '"' + config.get<string>('application.theme') + '-theme"'
   replace({
-    regex: /".*-theme"/,
+    regex: /"[A-Za-z0-9_-]+-theme"/,
     replacement: bodyClass,
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
@@ -106,7 +106,7 @@ const customizeTheme = () => {
 const customizeCookieConsentBanner = () => {
   const contentProperty = '"content": { "message": "' + config.get<string>('application.cookieConsent.message') + '", "dismiss": "' + config.get<string>('application.cookieConsent.dismissText') + '", "link": "' + config.get<string>('application.cookieConsent.linkText') + '", "href": "' + config.get<string>('application.cookieConsent.linkUrl') + '" }'
   replace({
-    regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
+    regex: /"content": { "message": "[^"]*", "dismiss": "[^"]*", "link": "[^"]*", "href": "[^"]*" }/,
     replacement: contentProperty,
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
@@ -115,7 +115,20 @@ const customizeCookieConsentBanner = () => {
 }
 
 const slugify = (name: string) => {
-  return name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '')
+  const lower = name.toLowerCase()
+  let out = ''
+  for (const ch of lower) {
+    if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch === '_') {
+      out += ch
+    } else if (out.length === 0 || out.endsWith('-')) {
+      
+    } else {
+      out += '-'
+    }
+  }
+  while (out.startsWith('-')) out = out.slice(1)
+  while (out.endsWith('-')) out = out.slice(0, -1)
+  return out
 }
 
 const customizeTerraformFiles = () => {
