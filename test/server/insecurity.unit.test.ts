@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-// @ts-expect-error FIXME no typescript definitions for z85 :(
+// @ts-expect-error no TypeScript definitions for z85
 import z85 from 'z85'
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
