@@ -17,7 +17,8 @@ let authHeader: { Authorization: string, 'content-type': string }
 before(async () => {
   const result = await createTestApp()
   app = result.app
-  const { token } = await login(app, { email: 'demo', password: 'demo' })
+  const demoPassword = process.env.TEST_DEMO_PASSWORD ?? 'demo'
+  const { token } = await login(app, { email: 'demo', password: demoPassword })
   authHeader = { Authorization: `Bearer ${token}`, 'content-type': 'application/json' }
 }, { timeout: 60000 })
 
@@ -76,14 +77,15 @@ void describe('/api/Wallets', () => {
   })
   void it('GET wallet balance for user without a wallet returns 404', async () => {
     const email = `newuser${Date.now()}@juice-sh.op`
+    const newUserPassword = process.env.TEST_NEWUSER_PASSWORD ?? `P${Date.now()}${Math.random().toString(36).slice(2,10)}`
     const userRes = await request(app)
       .post('/api/Users')
-      .send({ email, password: 'password', passwordRepeat: 'password', securityQuestion: { id: 1 }, securityAnswer: 'answer' })
+      .send({ email, password: newUserPassword, passwordRepeat: newUserPassword, securityQuestion: { id: 1 }, securityAnswer: 'answer' })
     const userId = userRes.body.data.id
 
     const loginRes = await request(app)
       .post('/rest/user/login')
-      .send({ email, password: 'password' })
+      .send({ email, password: newUserPassword })
 
     await WalletModel.destroy({ where: { UserId: userId } })
 
