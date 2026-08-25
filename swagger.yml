@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   -
-    url: /b2b/v2
+    url: https://api.example.com/b2b/v2
 info:
   version: 2.0.0
   title: 'NextGen B2B API'
@@ -19,9 +19,29 @@ paths:
   /orders:
     post:
       operationId: createCustomerOrder
-      tags: [Order]
+      tags: [{ name: 'Order' }]
       description: 'Create new customer order'
-      responses: { '200': { description: 'New customer order is created', content: { application/json: { schema: { $ref: '#/components/schemas/OrderConfirmation' } } } } }
+      responses:
+        '200':
+          description: 'New customer order is created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderConfirmation'
+        '400':
+          description: 'Bad request'
+        '401':
+          description: 'Unauthorized'
+        '403':
+          description: 'Forbidden'
+        '415':
+          description: 'Unsupported Media Type'
+        '429':
+          description: 'Too Many Requests'
+        '500':
+          description: 'Internal Server Error'
+        default:
+          description: 'Unexpected error'
       requestBody: { content: { application/json: { schema: { $ref: '#/components/schemas/Order' } } }, description: 'Customer order to be placed' }
 components:
   securitySchemes:
@@ -32,21 +52,24 @@ components:
   schemas:
     Order:
       required: [cid]
-      properties: { cid: { type: string, uniqueItems: true, example: JS0815DE }, orderLines: { $ref: '#/components/schemas/OrderLines' }, orderLinesData: { $ref: '#/components/schemas/OrderLinesData' } }
+      properties: { cid: { type: string, example: 'JS0815DE', pattern: '^[A-Z0-9]{2,}$', maxLength: 64 }, orderLines: { $ref: '#/components/schemas/OrderLines' }, orderLinesData: { $ref: '#/components/schemas/OrderLinesData' } }
     OrderConfirmation:
       required: [cid, orderNo, paymentDue]
-      properties: { cid: { type: string, uniqueItems: true, example: JS0815DE }, orderNo: { type: string, uniqueItems: true, example: 3d06ac5e1bdf39d26392f8100f124742 }, paymentDue: { description: 'All payments are due 14 days after order placement', type: string, format: date, example: '2018-01-19' } }
+      properties: { cid: { type: string, example: 'JS0815DE', pattern: '^[A-Z0-9]{2,}$', maxLength: 64 }, orderNo: { type: string, example: '3d06ac5e1bdf39d26392f8100f124742', pattern: '^[a-f0-9]{8,}$', maxLength: 64 }, paymentDue: { description: 'All payments are due 14 days after order placement', type: string, format: date, example: '2018-01-19', pattern: '^\\d{4}-\\d{2}-\\d{2}$', maxLength: 10 } }
     OrderLine:
       description: 'Order line in default JSON format'
       required: [productId, quantity]
-      properties: { productId: { type: integer, example: 8 }, quantity: { type: integer, minimum: 1, example: 500 }, customerReference: { type: string, example: PO0000001 } }
+      properties: { productId: { type: integer, format: int32, minimum: 1, maximum: 1000000, example: 8 }, quantity: { type: integer, format: int32, minimum: 1, maximum: 1000000, example: 500 }, customerReference: { type: string, example: PO0000001, pattern: '^[A-Za-z0-9\.\|\-]+$', maxLength: 64 } }
     OrderLines:
       type: array
       items: { $ref: '#/components/schemas/OrderLine' }
+      maxItems: 100
     OrderLinesData:
       description: 'Order line(s) in customer specific JSON format'
       type: string
+      pattern: '^\[.*\]$'
+      maxLength: 10000
       example: '[{"productId": 12,"quantity": 10000,"customerReference": ["PO0000001.2", "SM20180105|042"],"couponCode": "pes[Bh.u*t"},{"productId": 13,"quantity": 2000,"customerReference": "PO0000003.4"}]'
 security:
   -
-    bearerAuth: []
+    bearerAuth: ['default']
