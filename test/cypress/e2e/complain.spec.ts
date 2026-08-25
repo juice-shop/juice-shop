@@ -1,8 +1,11 @@
 describe('/#/complain', () => {
   beforeEach(() => {
+    const adminEmail = Cypress.env('ADMIN_EMAIL')
+    const adminPassword = Cypress.env('ADMIN_PASSWORD')
+    if (!adminEmail || !adminPassword) throw new Error('Missing ADMIN_EMAIL or ADMIN_PASSWORD environment variables for tests')
     cy.login({
-      email: 'admin',
-      password: 'admin123'
+      email: adminEmail,
+      password: adminPassword
     })
 
     cy.visit('/#/complain')
@@ -110,7 +113,7 @@ describe('/#/complain', () => {
       })
     })
 
-    xit('should be solved either through dev/random or Quadratic Blowup attack', () => { // FIXME Unreliable during CI/CD as sometimes the Quadratic Blowup is blocked for entity loops
+    it('should be solved either through dev/random or Quadratic Blowup attack', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
           cy.expectChallengeSolved({ challenge: 'XXE DoS' })
