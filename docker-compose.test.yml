@@ -3,6 +3,26 @@ services:
     build: ./test/smoke/
     links:
       - app
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
   app:
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     image: bkimminich/juice-shop:latest
     build: ./
