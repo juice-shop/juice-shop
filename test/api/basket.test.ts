@@ -29,7 +29,7 @@ before(
 
     const { token } = await login(app, {
       email: 'jim@juice-sh.op',
-      password: 'ncc-1701'
+      password: process.env.TEST_JIM_PASSWORD ?? 'ncc-1701'
     })
     authHeader = {
       Authorization: 'Bearer ' + token,
@@ -111,7 +111,7 @@ void describe('/rest/basket/:id', () => {
   void it('GET existing basket of another user', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: process.env.TEST_BJOERN_PASSWORD ?? 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
     })
     const res = await request(app)
       .get('/rest/basket/2')
@@ -178,7 +178,7 @@ void describe('/rest/basket/:id/checkout', () => {
     })
 
     void it('should return 500 if WalletModel.findOne fails during checkout', async (t) => {
-      const { token } = await login(app, { email: 'admin@' + config.get<string>('application.domain'), password: 'admin123' })
+      const { token } = await login(app, { email: 'admin@' + config.get<string>('application.domain'), password: process.env.TEST_ADMIN_PASSWORD ?? 'admin123' })
       const adminAuthHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
       await request(app).post('/api/BasketItems').set(adminAuthHeader).send({ BasketId: 1, ProductId: 1, quantity: 1 })
       t.mock.method(WalletModel, 'findOne', () => { throw new Error('Wallet error') })
@@ -189,7 +189,7 @@ void describe('/rest/basket/:id/checkout', () => {
     })
 
     void it('should return 500 if ordersCollection.insert fails during checkout', async (t) => {
-      const { token } = await login(app, { email: 'admin@' + config.get<string>('application.domain'), password: 'admin123' })
+      const { token } = await login(app, { email: 'admin@' + config.get<string>('application.domain'), password: process.env.TEST_ADMIN_PASSWORD ?? 'admin123' })
       const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
       await request(app).post('/api/BasketItems').set(authHeader).send({ BasketId: 1, ProductId: 1, quantity: 1 })
 
