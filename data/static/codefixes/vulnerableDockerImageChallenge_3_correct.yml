@@ -3,9 +3,18 @@ services:
     image: nginx:1.28.0-alpine
     container_name: juice-shop-proxy
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    expose:
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -20,8 +29,17 @@ services:
     image: juice-shop:latest
     container_name: juice-shop-app
     restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     expose:
       - "3000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     environment:
       - NODE_ENV=production
       - REDIS_URL=redis://redis:6379
@@ -31,7 +49,7 @@ services:
       mongo:
         condition: service_healthy
     volumes:
-      - juice-shop-data:/juice-shop/data/sqlite
+      - /juice-shop/data/sqlite
     networks:
       - juice-shop-net
     deploy:
@@ -43,6 +61,10 @@ services:
     image: redis:7.4.4-alpine
     container_name: juice-shop-redis
     restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -58,6 +80,10 @@ services:
     image: mongo:8.0.0
     container_name: juice-shop-mongo
     restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -68,7 +94,7 @@ services:
     expose:
       - "27017"
     volumes:
-      - mongo-data:/data/db
+      - /data/db
     networks:
       - juice-shop-net
 
