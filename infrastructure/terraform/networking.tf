@@ -15,12 +15,100 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
+  name              = "/aws/vpc/${var.project_name}-${var.environment}-flow-logs"
+  retention_in_days = 14
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_iam_role" "flow_logs_role" {
+  name = "${var.project_name}-flow-logs-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "vpc-flow-logs.amazonaws.com"
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "flow_logs_role_attach" {
+  role       = aws_iam_role.flow_logs_role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
+resource "aws_flow_log" "vpc_flow" {
+  log_destination      = aws_cloudwatch_log_group.vpc_flow_logs.arn
+  log_destination_type = "cloud-watch-logs"
+  iam_role_arn         = aws_iam_role.flow_logs_role.arn
+  resource_id          = aws_vpc.main.id
+  traffic_type         = "ALL"
+}
+
+resource "aws_networkfirewall_firewall_policy" "juice_shop" {
+  name = "${var.project_name}-nwfw-policy"
+
+  firewall_policy {
+    stateless_default_actions          = ["aws:pass"]
+    stateless_fragment_default_actions = ["aws:pass"]
+  }
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_networkfirewall_firewall" "juice_shop" {
+  name                = "${var.project_name}-nwfw"
+  firewall_policy_arn = aws_networkfirewall_firewall_policy.juice_shop.arn
+  vpc_id              = aws_vpc.main.id
+
+  subnet_mappings = [
+    {
+      subnet_id = aws_subnet.public[0].id
+    }
+  ]
+
+  delete_protection = false
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_accessanalyzer_analyzer" "juice_shop" {
+  name = "${var.project_name}-analyzer"
+  type = "ACCOUNT"
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidrs[count.index]
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     Name        = "${var.project_name}-public-${count.index}"
@@ -66,20 +154,23 @@ resource "aws_security_group" "alb" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description     = "Internal ALB management - restricted"
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs.id]
   }
 
   ingress {
+    description = "Allow HTTPS from trusted network"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [aws_vpc.main.cidr_block]
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -99,6 +190,7 @@ resource "aws_security_group" "ecs" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
+    description     = "Allow traffic from ALB"
     from_port       = 3000
     to_port         = 3000
     protocol        = "tcp"
@@ -106,6 +198,7 @@ resource "aws_security_group" "ecs" {
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -125,11 +218,39 @@ resource "aws_lb" "juice_shop" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
+  enable_deletion_protection = true
+  drop_invalid_header_fields = true
+  access_logs {
+    bucket  = var.alb_access_log_bucket
+    enabled = true
+    prefix  = "${var.project_name}/alb"
+  }
+
+  protection = true
 
   tags = {
     Project     = var.project_name
     Environment = var.environment
   }
+}
+
+resource "aws_wafregional_web_acl" "juice_shop" {
+  name        = "${var.project_name}-waf"
+  metric_name = "${var.project_name}WAF"
+
+  default_action {
+    type = "ALLOW"
+  }
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_wafregional_web_acl_association" "juice_shop" {
+  resource_arn = aws_lb.juice_shop.arn
+  web_acl_id   = aws_wafregional_web_acl.juice_shop.id
 }
 
 resource "aws_lb_target_group" "juice_shop" {
@@ -160,15 +281,19 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    type = "redirect"
+    redirect {
+      protocol    = "HTTPS"
+      port        = "443"
+      status_code = "HTTP_301"
+    }
   }
 }
 
 resource "aws_iam_server_certificate" "juice_shop_tls" {
   name             = "${var.project_name}-tls-cert"
   certificate_body = file("${path.module}/certs/server.crt")
-  private_key      = "-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQDNwqLEe9wgTXCbC7+RPdDbBbeqjdbs4kOPOIGzqLpXvJXlxxW8\niMz0EaM4BKUqYsIa+ndv3NAn2RxCd5ubVdJJcX43zO6Ko0TFEZx/65gY3BE0O6sy\nCEmUP4qbSd6exou/F+WTISzbQ5FBVPVmhnYhG/kpwt/cIxK5iUn5hm+4tQIDAQAB\nAoGBAI+8xiPoOrA+KMnG/T4jJsG6TsHQcDHvJi7o1IKC/hnIXha0atTX5AUkRRce\n95qSfvKFweXdJXSQ0JMGJyfuXgU6dI0TcseFRfewXAa/ssxAC+iUVR6KUMh1PE2w\nXLitfeI6JLvVtrBYswm2I7CtY0q8n5AGimHWVXJPLfGV7m0BAkEA+fqFt2LXbLty\ng6wZyxMA/cnmt5Nt3U2dAu77MzFJvibANUNHE4HPLZxjGNXN+a6m0K6TD4kDdh5H\nfUYLWWRBYQJBANK3carmulBwqzcDBjsJ0YrIONBpCAsXxk8idXb8jL9aNIg15Wum\nm2enqqObahDHB5jnGOLmbasizvSVqypfM9UCQCQl8xIqy+YgURXzXCN+kwUgHinr\nutZms87Jyi+D8Br8NY0+Nlf+zHvXAomD2W5CsEK7C+8SLBr3k/TsnRWHJuECQHFE\n9RA2OP8WoaLPuGCyFXaxzICThSRZYluVnWkZtxsBhW2W8z1b8PvWUE7kMy7Tnkze\nJS2LSnaNHoyxi7IaPQUCQCwWU4U+v4lD7uYBw00Ga/xt+7+UqFPlPVdz1yyr4q24\nZxaw0LgmuEvgU5dycq8N7JxjTubX0MIRR+G9fmDBBl8=\n-----END RSA PRIVATE KEY-----" # vuln-code-snippet vuln-line iacLeakedKeyChallenge
+  private_key      = file("${path.module}/certs/server.key") # vuln-code-snippet vuln-line iacLeakedKeyChallenge
 
   lifecycle {
     create_before_destroy = true
@@ -229,10 +354,12 @@ resource "aws_security_group" "efs" {
     from_port       = 2049
     to_port         = 2049
     protocol        = "tcp"
+    description     = "Allow NFS from ECS security group"
     security_groups = [aws_security_group.ecs.id]
   }
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -249,6 +376,7 @@ resource "aws_security_group" "efs" {
 resource "aws_efs_file_system" "juice_shop_data" {
   creation_token = "${var.project_name}-sqlite-data"
   encrypted      = var.efs_encrypted
+  kms_key_id     = aws_kms_key.juice_shop.arn
 
   performance_mode = "generalPurpose"
   throughput_mode  = "bursting"
