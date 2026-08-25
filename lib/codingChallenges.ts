@@ -47,40 +47,66 @@ function getCodeChallengesFromFile (file: FileMatch) {
   const fileContent = file.content
 
   // get all challenges which are in the file by a regex capture group
-  const challengeKeyRegex = /[/#]{0,2} vuln-code-snippet start (?<challenges>.*)/g
+  const challengeKeyRegex = /[#\/]{0,2} vuln-code-snippet start (?<challenges>[^\r\n]*)/g
   const challenges = [...fileContent.matchAll(challengeKeyRegex)]
-    .flatMap(match => match.groups?.challenges?.split(' ') ?? [])
+    .flatMap(match => match.groups?.challenges?.trim().split(/\s+/) ?? [])
     .filter(Boolean)
 
   return challenges.map((challengeKey) => getCodingChallengeFromFileContent(fileContent, challengeKey))
 }
 
 export function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
-  const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
-  if (snippets == null) {
+  const startMarker = `vuln-code-snippet start ${challengeKey}`
+  const endMarker = `vuln-code-snippet end ${challengeKey}`
+  const startIdx = source.indexOf(startMarker)
+  const endIdx = source.indexOf(endMarker, startIdx === -1 ? 0 : startIdx)
+  if (startIdx === -1 || endIdx === -1) {
     throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
   }
-  let snippet = snippets[0] // TODO Currently only a single code snippet is supported
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet start.*[\r\n]{0,2}/g, '')
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet end.*/g, '')
-  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-line[\r\n]{0,2}/g, '')
-  snippet = snippet.replace(/.*[/#]{0,2} vuln-code-snippet hide-start([^])*[/#]{0,2} vuln-code-snippet hide-end[\r\n]{0,2}/g, '')
-  snippet = snippet.trim()
-
-  let lines = snippet.split('\r\n')
-  if (lines.length === 1) lines = snippet.split('\n')
-  if (lines.length === 1) lines = snippet.split('\r')
+  let snippet = source.slice(startIdx, endIdx + endMarker.length) // TODO Currently only a single code snippet is supported
+  let firstNewline = snippet.indexOf('\r\n')
+  let nlLen = 2
+  if (firstNewline === -1) {
+    firstNewline = snippet.indexOf('\n')
+    nlLen = 1
+  }
+  if (firstNewline === -1) {
+    firstNewline = snippet.indexOf('\r')
+    nlLen = 1
+  }
+  if (firstNewline !== -1) snippet = snippet.slice(firstNewline + nlLen)
+  const endMarkerIdx = snippet.lastIndexOf(endMarker)
+  if (endMarkerIdx !== -1) {
+    snippet = snippet.slice(0, endMarkerIdx)
+    if (snippet.endsWith('\r\n')) snippet = snippet.slice(0, -2)
+    else if (snippet.endsWith('\n') || snippet.endsWith('\r')) snippet = snippet.slice(0, -1)
+  }
+  let normalized = snippet.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+  const hideStart = 'vuln-code-snippet hide-start'
+  const hideEnd = 'vuln-code-snippet hide-end'
+  let idx = normalized.indexOf(hideStart)
+  while (idx !== -1) {
+    const endHide = normalized.indexOf(hideEnd, idx)
+    if (endHide === -1) {
+      normalized = normalized.slice(0, idx)
+      break
+    }
+    normalized = normalized.slice(0, idx) + normalized.slice(endHide + hideEnd.length)
+    idx = normalized.indexOf(hideStart)
+  }
+  let lines = normalized.split('\n').filter(line => !line.includes('vuln-code-snippet hide-line'))
   const vulnLines = []
   const neutralLines = []
   for (let i = 0; i < lines.length; i++) {
-    if (new RegExp(`vuln-code-snippet vuln-line.*${challengeKey}`).exec(lines[i]) != null) {
+    const line = lines[i]
+    if (line.indexOf('vuln-code-snippet vuln-line') !== -1 && line.indexOf(challengeKey) !== -1) {
       vulnLines.push(i + 1)
-    } else if (new RegExp(`vuln-code-snippet neutral-line.*${challengeKey}`).exec(lines[i]) != null) {
+    } else if (line.indexOf('vuln-code-snippet neutral-line') !== -1 && line.indexOf(challengeKey) !== -1) {
       neutralLines.push(i + 1)
     }
   }
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet vuln-line.*/g, '')
-  snippet = snippet.replace(/\s?[/#]{0,2} vuln-code-snippet neutral-line.*/g, '')
+  lines = lines.filter(line => !(line.indexOf('vuln-code-snippet vuln-line') !== -1 && line.indexOf(challengeKey) !== -1) && !(line.indexOf('vuln-code-snippet neutral-line') !== -1 && line.indexOf(challengeKey) !== -1))
+  snippet = lines.join('\n').trim()
   return { challengeKey, snippet, vulnLines, neutralLines }
 }
 
