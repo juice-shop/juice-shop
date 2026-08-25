@@ -15,12 +15,48 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_flow_log" "main" {
+  vpc_id        = aws_vpc.main.id
+  traffic_type  = "ALL"
+  log_destination = "arn:aws:s3:::juice-shop-flow-logs"
+}
+
+resource "aws_networkfirewall_firewall_policy" "main" {
+  name = "${var.project_name}-fwpolicy"
+
+  firewall_policy {
+    stateless_default_action {
+      type = "aws:pass"
+    }
+    stateless_fragment_default_action {
+      type = "aws:pass"
+    }
+  }
+}
+
+resource "aws_networkfirewall_firewall" "main" {
+  name                 = "${var.project_name}-firewall"
+  firewall_policy_arn  = aws_networkfirewall_firewall_policy.main.arn
+  vpc_id               = aws_vpc.main.id
+
+  subnet_mappings {
+    subnet_id = aws_subnet.public[0].id
+  }
+
+  delete_protection = false
+}
+
+resource "aws_accessanalyzer_analyzer" "main" {
+  name = "${var.project_name}-analyzer"
+  type = "ACCOUNT"
+}
+
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
   cidr_block              = var.public_subnet_cidrs[count.index]
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     Name        = "${var.project_name}-public-${count.index}"
@@ -69,21 +105,24 @@ resource "aws_security_group" "alb" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description  = "Removed: HTTP access disabled"
+    cidr_blocks  = []
   }
 
   ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description  = "Allow HTTPS from VPC"
+    cidr_blocks  = [aws_vpc.main.cidr_block]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description  = "Allow all outbound traffic"
+    cidr_blocks  = ["0.0.0.0/0"]
   }
 
   tags = {
@@ -125,6 +164,8 @@ resource "aws_lb" "juice_shop" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
+  enable_deletion_protection = true
+  drop_invalid_header_fields = true
 
   tags = {
     Project     = var.project_name
@@ -160,8 +201,12 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    type = "redirect"
+    redirect {
+      protocol    = "HTTPS"
+      port        = "443"
+      status_code = "HTTP_301"
+    }
   }
 }
 
