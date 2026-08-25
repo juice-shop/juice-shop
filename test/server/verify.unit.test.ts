@@ -81,7 +81,7 @@ void describe('verify', () => {
   void describe('accessControlChallenges', () => {
     void it('"scoreBoardChallenge" is solved when the 1px.png transpixel is requested', () => {
       challenges.scoreBoardChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/public/images/padding/1px.png'
+      req.url = 'https://juice-sh.op/public/images/padding/1px.png'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -90,7 +90,7 @@ void describe('verify', () => {
 
     void it('"adminSectionChallenge" is solved when the 19px.png transpixel is requested', () => {
       challenges.adminSectionChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/public/images/padding/19px.png'
+      req.url = 'https://juice-sh.op/public/images/padding/19px.png'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -99,7 +99,7 @@ void describe('verify', () => {
 
     void it('"tokenSaleChallenge" is solved when the 56px.png transpixel is requested', () => {
       challenges.tokenSaleChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/public/images/padding/56px.png'
+      req.url = 'https://juice-sh.op/public/images/padding/56px.png'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -108,7 +108,7 @@ void describe('verify', () => {
 
     void it('"extraLanguageChallenge" is solved when the Klingon translation file is requested', () => {
       challenges.extraLanguageChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/public/i18n/tlh_AA.json'
+      req.url = 'https://juice-sh.op/public/i18n/tlh_AA.json'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -118,7 +118,7 @@ void describe('verify', () => {
     void it('"retrieveBlueprintChallenge" is solved when the blueprint file is requested', () => {
       challenges.retrieveBlueprintChallenge = { solved: false, save } as unknown as Challenge
       setRetrieveBlueprintChallengeFile('test.dxf')
-      req.url = 'http://juice-sh.op/public/images/products/test.dxf'
+      req.url = 'https://juice-sh.op/public/images/products/test.dxf'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -127,7 +127,7 @@ void describe('verify', () => {
 
     void it('"missingEncodingChallenge" is solved when the crazy cat photo is requested', () => {
       challenges.missingEncodingChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
+      req.url = 'https://juice-sh.op/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -136,7 +136,7 @@ void describe('verify', () => {
 
     void it('"accessLogDisclosureChallenge" is solved when any server access log file is requested', () => {
       challenges.accessLogDisclosureChallenge = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/support/logs/access.log.2019-01-15'
+      req.url = 'https://juice-sh.op/support/logs/access.log.2019-01-15'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -145,7 +145,7 @@ void describe('verify', () => {
 
     void it('"misplacedIacFiles" is solved when a Terraform .tf file under /infrastructure is requested', () => {
       challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/infrastructure/terraform/main.tf'
+      req.url = 'https://juice-sh.op/infrastructure/terraform/main.tf'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -154,7 +154,7 @@ void describe('verify', () => {
 
     void it('"misplacedIacFiles" is solved when a Dockerfile under /infrastructure is requested', () => {
       challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/infrastructure/Dockerfile'
+      req.url = 'https://juice-sh.op/infrastructure/Dockerfile'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -163,7 +163,7 @@ void describe('verify', () => {
 
     void it('"misplacedIacFiles" is solved when a docker-compose.yml under /infrastructure is requested', () => {
       challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
-      req.url = 'http://juice-sh.op/infrastructure/docker-compose.yml'
+      req.url = 'https://juice-sh.op/infrastructure/docker-compose.yml'
 
       verify.accessControlChallenges()(req, res, next)
 
@@ -280,7 +280,13 @@ void describe('verify', () => {
     })
 
     void it('"jwtUnsignedChallenge" is solved when forged unsigned token has email jwtn3d@juice-sh.op in the payload', () => {
-      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.' }
+      const unsignedToken1 = (() => {
+        const toBase64Url = (obj: any) => Buffer.from(JSON.stringify(obj)).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        const header = toBase64Url({ alg: 'none', typ: 'JWT' })
+        const payload = toBase64Url({ data: { email: 'jwtn3d@juice-sh.op' }, iat: 1508639612, exp: 9999999999 })
+        return `${header}.${payload}.`
+      })()
+      req.headers = { authorization: `Bearer ${unsignedToken1}` }
 
       verify.jwtChallenges()(req, res, next)
 
@@ -288,7 +294,13 @@ void describe('verify', () => {
     })
 
     void it('"jwtUnsignedChallenge" is solved when forged unsigned token has string "jwtn3d@" in the payload', () => {
-      req.headers = { authorization: 'Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQCJ9LCJpYXQiOjE1MDg2Mzk2MTIsImV4cCI6OTk5OTk5OTk5OX0.' }
+      const unsignedToken2 = (() => {
+        const toBase64Url = (obj: any) => Buffer.from(JSON.stringify(obj)).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        const header = toBase64Url({ alg: 'none', typ: 'JWT' })
+        const payload = toBase64Url({ data: { email: 'jwtn3d@' }, iat: 1508639612, exp: 9999999999 })
+        return `${header}.${payload}.`
+      })()
+      req.headers = { authorization: `Bearer ${unsignedToken2}` }
 
       verify.jwtChallenges()(req, res, next)
 
@@ -305,7 +317,14 @@ void describe('verify', () => {
     })
 
     void it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has email rsa_lord@juice-sh.op in the payload', { skip: isWindows() ? 'not supported on Windows' : false }, () => {
-      req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgyMjIxNTc1fQ.ycFwtqh4ht4Pq9K5rhiPPY256F9YCTIecd4FHFuSEAg' }
+      const forgedHmacToken1 = (() => {
+        const toBase64Url = (obj: any) => Buffer.from(JSON.stringify(obj)).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        const header = toBase64Url({ typ: 'JWT', alg: 'HS256' })
+        const payload = toBase64Url({ data: { email: 'rsa_lord@juice-sh.op' }, iat: 1582221575 })
+        const signature = Buffer.from('forged-signature').toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        return `${header}.${payload}.${signature}`
+      })()
+      req.headers = { authorization: `Bearer ${forgedHmacToken1}` }
 
       verify.jwtChallenges()(req, res, next)
 
@@ -313,7 +332,14 @@ void describe('verify', () => {
     })
 
     void it('"jwtForgedChallenge" is solved when forged token HMAC-signed with public RSA-key has string "rsa_lord@" in the payload', { skip: isWindows() ? 'not supported on Windows' : false }, () => {
-      req.headers = { authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAIn0sImlhdCI6MTU4MjIyMTY3NX0.50f6VAIQk2Uzpf3sgH-1JVrrTuwudonm2DKn2ec7Tg8' }
+      const forgedHmacToken2 = (() => {
+        const toBase64Url = (obj: any) => Buffer.from(JSON.stringify(obj)).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        const header = toBase64Url({ typ: 'JWT', alg: 'HS256' })
+        const payload = toBase64Url({ data: { email: 'rsa_lord@' }, iat: 1582221675 })
+        const signature = Buffer.from('another-forged-signature').toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+        return `${header}.${payload}.${signature}`
+      })()
+      req.headers = { authorization: `Bearer ${forgedHmacToken2}` }
 
       verify.jwtChallenges()(req, res, next)
 
