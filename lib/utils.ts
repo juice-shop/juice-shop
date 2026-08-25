@@ -55,10 +55,10 @@ export const trunc = function (str: string, length: number) {
   return (str.length > length) ? str.substr(0, length - 1) + '...' : str
 }
 
-export const version = (module?: string) => {
+export const version = (module?: string): string | undefined => {
   if (module) {
-    // @ts-expect-error FIXME Ignoring any type issue on purpose
-    return packageJson.dependencies[module]
+    const deps = (packageJson as { dependencies?: Record<string, string> }).dependencies
+    return deps ? deps[module] : undefined
   } else {
     return packageJson.version
   }
@@ -212,8 +212,8 @@ export const matchesSystemIniFile = (text: string) => {
 }
 
 export const matchesEtcPasswdFile = (text: string) => {
-  const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
-  return match !== null && match.length >= 1
+  const passwdLinePattern = /(^|\n)[A-Za-z0-9._-]+:[^:\n]+:\d+:\d+:[^\n]*:/m
+  return passwdLinePattern.test(text) || text.includes('Note that this file is consulted directly')
 }
 
 export function diceCoefficient (s1: string, s2: string, n = 2): number {
