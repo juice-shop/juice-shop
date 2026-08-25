@@ -85,41 +85,41 @@ void describe('/metrics', () => {
 
       assert.match(
         res.text,
-        /^.*_version_info\{version="[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?",major="[0-9]+",minor="[0-9]+",patch="[0-9]+",app=".*"\} 1$/m
+        /_version_info\{version="[0-9]+\.[0-9]+\.[0-9]+(?:-SNAPSHOT)?",major="[0-9]+",minor="[0-9]+",patch="[0-9]+",app="[^"]+"\} 1/m
       )
     })
 
     void it('GET includes per-difficulty and per-category challenge solved/total gauges', async () => {
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^.*_challenges_solved\{difficulty="[1-6]",category=".+",app=".*"\} [0-9]+$/m)
-      assert.match(res.text, /^.*_challenges_total\{difficulty="[1-6]",category=".+",app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /_challenges_solved\{difficulty="[1-6]",category="[^"]+",app="[^"]+"\} [0-9]+/m)
+      assert.match(res.text, /_challenges_total\{difficulty="[1-6]",category="[^"]+",app="[^"]+"\} [0-9]+/m)
     })
 
     void it('GET includes cheat score gauge', async () => {
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^.*_cheat_score\{app=".*"\} [0-9.]+$/m)
+      assert.match(res.text, /_cheat_score\{app="[^"]+"\} [0-9]+(?:\.[0-9]+)?/m)
     })
 
     void it('GET includes coding challenge progress gauges for all three phases', async () => {
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^.*_coding_challenges_progress\{phase="find it",app=".*"\} [0-9]+$/m)
-      assert.match(res.text, /^.*_coding_challenges_progress\{phase="fix it",app=".*"\} [0-9]+$/m)
-      assert.match(res.text, /^.*_coding_challenges_progress\{phase="unsolved",app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /_coding_challenges_progress\{phase="find it",app="[^"]+"\} [0-9]+/m)
+      assert.match(res.text, /_coding_challenges_progress\{phase="fix it",app="[^"]+"\} [0-9]+/m)
+      assert.match(res.text, /_coding_challenges_progress\{phase="unsolved",app="[^"]+"\} [0-9]+/m)
     })
 
     void it('GET includes registered user counts from update loop', async () => {
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^.*_users_registered_total\{app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /_users_registered_total\{app="[^"]+"\} [0-9]+/m)
     })
 
     void it('GET includes http request counter incremented by the request middleware', async () => {
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^http_requests_count\{status_code="2XX",app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /http_requests_count\{status_code="2XX",app="[^"]+"\} [0-9]+/m)
     })
   })
 
@@ -134,7 +134,7 @@ void describe('/metrics', () => {
 
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^file_uploads_count\{file_type=".*",app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /file_uploads_count\{file_type="[^"]+",app="[^"]+"\} [0-9]+/m)
     })
 
     void it('GET includes file upload error counter after an upload that triggers a downstream error', async () => {
@@ -147,7 +147,7 @@ void describe('/metrics', () => {
 
       const res = await request(app).get('/metrics')
 
-      assert.match(res.text, /^file_upload_errors\{file_type=".*",app=".*"\} [0-9]+$/m)
+      assert.match(res.text, /file_upload_errors\{file_type="[^"]+",app="[^"]+"\} [0-9]+/m)
     })
   })
 })
