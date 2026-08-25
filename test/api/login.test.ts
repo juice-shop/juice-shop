@@ -24,7 +24,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'kalli@kasper.le',
-        password: 'kallliiii'
+        password: config.get<string>('testCredentials.kalliPassword')
       })
       .expect(201)
 
@@ -33,7 +33,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'kalli@kasper.le',
-        password: 'kallliiii'
+        password: config.get<string>('testCredentials.kalliPassword')
       })
 
     assert.equal(res.status, 200)
@@ -49,7 +49,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'otto@mei.er',
-        password: 'ooootto'
+        password: config.get<string>('testCredentials.ottoPassword')
       })
 
     assert.equal(res.status, 401)
@@ -73,7 +73,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'admin@' + config.get<string>('application.domain'),
-        password: 'admin123'
+        password: config.get<string>('testCredentials.adminPassword')
       })
 
     assert.equal(res.status, 200)
@@ -87,7 +87,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'support@' + config.get<string>('application.domain'),
-        password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+        password: config.get<string>('testCredentials.supportPassword')
       })
 
     assert.equal(res.status, 200)
@@ -101,7 +101,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'mc.safesearch@' + config.get<string>('application.domain'),
-        password: 'Mr. N00dles'
+        password: config.get<string>('testCredentials.mcSafeSearchPassword')
       })
 
     assert.equal(res.status, 200)
@@ -115,7 +115,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'amy@' + config.get<string>('application.domain'),
-        password: 'K1f.....................'
+        password: config.get<string>('testCredentials.amyPassword')
       })
 
     assert.equal(res.status, 200)
@@ -129,7 +129,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'wurstbrot@' + config.get<string>('application.domain'),
-        password: 'EinBelegtesBrotMitSchinkenSCHINKEN!'
+        password: config.get<string>('testCredentials.wurstbrotPassword')
       })
 
     assert.equal(res.status, 401)
@@ -144,7 +144,7 @@ void describe('/rest/user/login', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: config.get<string>('testCredentials.bjoernPassword')
       })
 
     assert.equal(res.status, 200)
@@ -242,7 +242,7 @@ void describe('/rest/saveLoginIp', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'bjoern.kimminich@gmail.com',
-        password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+        password: config.get<string>('testCredentials.bjoernPassword')
       })
 
     assert.equal(loginRes.status, 200)
@@ -251,11 +251,11 @@ void describe('/rest/saveLoginIp', () => {
       .get('/rest/saveLoginIp')
       .set({
         Authorization: 'Bearer ' + loginRes.body.authentication.token,
-        'true-client-ip': '1.2.3.4'
+        'true-client-ip': config.get<string>('testValues.clientIp')
       })
 
     assert.equal(res.status, 200)
-    assert.equal(res.body.lastLoginIp, '1.2.3.4')
+    assert.equal(res.body.lastLoginIp, config.get<string>('testValues.clientIp'))
   })
 
   void it('GET last login IP will be saved as remote IP when True-Client-IP is not present', async () => {
