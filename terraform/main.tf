@@ -2,6 +2,26 @@ provider "aws" {
   region = var.aws_region
 }
 
+resource "aws_kms_key" "juice_shop_logs" {
+  description             = "KMS key for encrypting Juice Shop CloudWatch Logs"
+  deletion_window_in_days = 30
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
+resource "aws_accessanalyzer_analyzer" "juice_shop_analyzer" {
+  analyzer_name = "${var.project_name}-analyzer"
+  type          = "ACCOUNT"
+
+  tags = {
+    Project     = var.project_name
+    Environment = var.environment
+  }
+}
+
 resource "null_resource" "docker_build" {
   triggers = {
     dockerfile_hash = filemd5("${path.module}/../infrastructure/Dockerfile")
@@ -106,7 +126,7 @@ resource "aws_ecs_service" "juice_shop" {
   network_configuration {
     subnets          = aws_subnet.public[*].id
     security_groups  = [aws_security_group.ecs.id]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 
   load_balancer {
@@ -126,6 +146,7 @@ resource "aws_ecs_service" "juice_shop" {
 resource "aws_cloudwatch_log_group" "juice_shop" {
   name              = "/ecs/${var.project_name}"
   retention_in_days = 30
+  kms_key_id        = aws_kms_key.juice_shop_logs.arn
 
   tags = {
     Project     = var.project_name
