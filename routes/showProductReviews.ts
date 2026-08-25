@@ -13,7 +13,7 @@ import * as db from '../data/mongodb'
 import * as utils from '../lib/utils'
 
 // Blocking sleep function as in native MongoDB
-// @ts-expect-error FIXME Type safety broken for global object
+declare global { var sleep: (time: number) => void }
 global.sleep = (time: number) => {
   // Ensure that users don't accidentally dos their servers for too long
   if (time > 2000) {
