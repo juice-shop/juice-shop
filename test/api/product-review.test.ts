@@ -41,8 +41,8 @@ void describe('/rest/products/:id/reviews', () => {
     assert.ok(res.headers['content-type']?.includes('application/json'))
   })
 
-  // FIXME Turn on when #1960 is resolved
-  void it.skip('GET product reviews by alphanumeric non-mongoDB-command product id', async () => {
+  // Test enabled now that #1960 is resolved
+  void it('GET product reviews by alphanumeric non-mongoDB-command product id', async () => {
     const res = await request(app)
       .get('/rest/products/kaboom/reviews')
     assert.equal(res.status, 400)
@@ -61,6 +61,8 @@ void describe('/rest/products/:id/reviews', () => {
 })
 
 void describe('/rest/products/reviews', () => {
+  const BJOERN_PASSWORD = process.env.TEST_BJOERN_PASSWORD
+  if (!BJOERN_PASSWORD) throw new Error('Environment variable TEST_BJOERN_PASSWORD must be set')
   let reviewId: string
 
   before(async () => {
@@ -98,7 +100,7 @@ void describe('/rest/products/reviews', () => {
   void it('POST non-existing product review cannot be liked', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: BJOERN_PASSWORD
     })
     const res = await request(app)
       .post('/rest/products/reviews')
@@ -112,7 +114,7 @@ void describe('/rest/products/reviews', () => {
   void it('POST single product review can be liked', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: BJOERN_PASSWORD
     })
     const res = await request(app)
       .post('/rest/products/reviews')
