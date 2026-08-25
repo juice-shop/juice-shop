@@ -37,7 +37,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('GET deluxe membership status for deluxe members throws error', async () => {
     const { token } = await login(app, {
       email: 'ciso@' + config.get<string>('application.domain'),
-      password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+      password: process.env.PASSWORD_CISO as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -52,7 +52,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('GET deluxe membership status for admin throws error', async () => {
     const { token } = await login(app, {
       email: 'admin@' + config.get<string>('application.domain'),
-      password: 'admin123'
+      password: process.env.PASSWORD_ADMIN as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -67,7 +67,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('GET deluxe membership status for accountant throws error', async () => {
     const { token } = await login(app, {
       email: 'accountant@' + config.get<string>('application.domain'),
-      password: 'i am an awesome accountant'
+      password: process.env.PASSWORD_ACCOUNTANT as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -82,7 +82,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST upgrade deluxe membership status for customers with card payment', async () => {
     const { token } = await login(app, {
       email: `bender@${config.get<string>('application.domain')}`,
-      password: 'OhG0dPlease1nsertLiquor!'
+      password: process.env.PASSWORD_BENDER as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -107,7 +107,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST upgrade deluxe membership status for customers with wallet payment', async () => {
     const { token } = await login(app, {
       email: `mc.safesearch@${config.get<string>('application.domain')}`,
-      password: 'Mr. N00dles'
+      password: process.env.PASSWORD_MC_SAFESEARCH as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -125,7 +125,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST upgrade deluxe membership fails for customers with insufficient wallet balance', async () => {
     const { token } = await login(app, {
       email: `amy@${config.get<string>('application.domain')}`,
-      password: 'K1f.....................'
+      password: process.env.PASSWORD_AMY as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -143,7 +143,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST deluxe membership status with wrong card id throws error', async () => {
     const { token } = await login(app, {
       email: `jim@${config.get<string>('application.domain')}`,
-      password: 'ncc-1701'
+      password: process.env.PASSWORD_JIM as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -162,7 +162,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST deluxe membership status for deluxe members throws error', async () => {
     const { token } = await login(app, {
       email: 'ciso@' + config.get<string>('application.domain'),
-      password: 'mDLx?94T~1CfVfZMzw@sJ9f?s3L6lbMqE70FfI8^54jbNikY5fymx7c!YbJb'
+      password: process.env.PASSWORD_CISO as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -180,7 +180,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST deluxe membership status for admin throws error', async () => {
     const { token } = await login(app, {
       email: 'admin@' + config.get<string>('application.domain'),
-      password: 'admin123'
+      password: process.env.PASSWORD_ADMIN as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
@@ -198,7 +198,7 @@ void describe('/rest/deluxe-membership', () => {
   void it('POST deluxe membership status for accountant throws error', async () => {
     const { token } = await login(app, {
       email: 'accountant@' + config.get<string>('application.domain'),
-      password: 'i am an awesome accountant'
+      password: process.env.PASSWORD_ACCOUNTANT as string
     })
     const authHeader = { Authorization: 'Bearer ' + token, 'content-type': 'application/json' }
 
