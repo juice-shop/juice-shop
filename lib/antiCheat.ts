@@ -14,8 +14,9 @@ import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 import { type NextFunction, type Request, type Response } from 'express'
 import * as utils from './utils'
-// @ts-expect-error FIXME due to non-existing type definitions for median
-import median from 'median'
+// Use require with an explicit function type since no @types/median are available
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const median = require('median') as (values: number[]) => number
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 const tightlyCoupledChallenges = {
@@ -153,8 +154,10 @@ export const totalCheatScore = () => {
 }
 
 function areTightlyCoupled (challenge: Challenge, previousChallenge: Challenge) {
-  // @ts-expect-error FIXME any type issues
-  return tightlyCoupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || tightlyCoupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
+  const keyA = (challenge as unknown as { key?: string }).key
+  const keyB = (previousChallenge as unknown as { key?: string }).key
+  if (!keyA || !keyB) return false
+  return (tightlyCoupledChallenges[keyA]?.indexOf(keyB) ?? -1) > -1 || (tightlyCoupledChallenges[keyB]?.indexOf(keyA) ?? -1) > -1
 }
 
 function isLooselyCoupledToPreviouslySolved (challenge: Challenge) {
