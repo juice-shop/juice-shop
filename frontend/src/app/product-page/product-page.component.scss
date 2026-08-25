@@ -116,7 +116,7 @@
   display: flex;
   width: 100%;
   max-width: 360px;
-  padding: 1.6rem 4rem;
+  padding: $space-xl $space-4xl;
   font-size: x-large;
 
   &::before {
@@ -184,7 +184,7 @@
   }
 
   .container {
-    padding-bottom: 7rem;
+    padding-bottom: $space-4xl + $space-3xl;
   }
 }
 
