@@ -258,6 +258,9 @@ export function chat () {
           case 'error':
             res.write(`data: ${JSON.stringify({ error: `LLM error: ${event.error as string}` })}\n\n`)
             break
+          default:
+            logger.warn('Chatbot stream: unhandled event type: ' + String(event.type))
+            break
         }
       }
 
