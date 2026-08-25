@@ -1,6 +1,6 @@
 describe('/profile', () => {
   beforeEach(() => {
-    cy.login({ email: 'admin', password: 'admin123' })
+    cy.login({ email: 'admin', password: Cypress.env('ADMIN_PASSWORD') })
   })
   describe('challenge "ssrfChallenge"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
@@ -69,9 +69,9 @@ describe('/profile', () => {
   })
 
   describe('challenge "csrfChallenge"', () => {
-    // FIXME Only works on Chrome <80 but Protractor uses latest Chrome version. Test can probably never be turned on again.
+    // Skipped: only works on Chrome <80 and is incompatible with current browser versions.
     xit('should be possible to perform a CSRF attack against the user profile page', () => {
-      cy.visit('http://htmledit.squarefree.com')
+      cy.visit('https://htmledit.squarefree.com')
       /* The script executed below is equivalent to pasting this string into http://htmledit.squarefree.com: */
       /* <form action="http://localhost:3000/profile" method="POST"><input type="hidden" name="username" value="CSRF"/><input type="submit"/></form><script>document.forms[0].submit();</script> */
       let document: any
@@ -104,8 +104,8 @@ describe('/profile', () => {
           headers: {
             'Content-type': 'application/x-www-form-urlencoded',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
-            Origin: 'http://htmledit.squarefree.com', // FIXME Not allowed by browser due to "unsafe header not permitted"
-            Cookie: `token=${localStorage.getItem('token')}` // FIXME Not allowed by browser due to "unsafe header not permitted"
+            Origin: 'https://htmledit.squarefree.com',
+            // Cookie header removed - browser blocks unsafe header
           },
           body: formData
         })
