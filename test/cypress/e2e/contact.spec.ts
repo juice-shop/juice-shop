@@ -8,7 +8,12 @@ describe('/#/contact', () => {
 
   describe('challenge "forgedFeedback"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      const adminEmail = Cypress.env('adminEmail')
+      const adminPassword = Cypress.env('adminPassword')
+      if (!adminEmail || !adminPassword) {
+        throw new Error('Admin credentials not set in Cypress environment variables: adminEmail/adminPassword')
+      }
+      cy.login({ email: adminEmail, password: adminPassword })
       cy.visit('/#/contact')
       solveNextCaptcha()
     })
@@ -44,7 +49,12 @@ describe('/#/contact', () => {
 
   describe('challenge "persistedXssFeedbackChallenge"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      const adminEmail = Cypress.env('adminEmail')
+      const adminPassword = Cypress.env('adminPassword')
+      if (!adminEmail || !adminPassword) {
+        throw new Error('Admin credentials not set in Cypress environment variables: adminEmail/adminPassword')
+      }
+      cy.login({ email: adminEmail, password: adminPassword })
       cy.visit('/#/contact')
       solveNextCaptcha()
     })
@@ -263,8 +273,57 @@ function solveNextCaptcha () {
     .invoke('text')
     .then((val) => {
       cy.get('#captchaControl').clear()
-      // eslint-disable-next-line no-eval
-      const answer = eval(val).toString()
+      const expr = String(val).trim()
+      function tokenize (s: string) {
+        const re = /\s*([()+\-*/]|\d+(?:\.\d+)?)/g
+        const tokens: string[] = []
+        let m: RegExpExecArray | null
+        while ((m = re.exec(s)) !== null) tokens.push(m[1])
+        return tokens
+      }
+      function toRPN (tokens: string[]) {
+        const out: string[] = []
+        const ops: string[] = []
+        const prec: Record<string, number> = { '+': 1, '-': 1, '*': 2, '/': 2 }
+        for (const t of tokens) {
+          if (!isNaN(Number(t))) {
+            out.push(t)
+          } else if (t === '(') {
+            ops.push(t)
+          } else if (t === ')') {
+            while (ops.length && ops[ops.length - 1] !== '(') out.push(ops.pop() as string)
+            ops.pop()
+          } else {
+            while (ops.length && ops[ops.length - 1] !== '(' && (prec[ops[ops.length - 1]] ?? 0) >= (prec[t] ?? 0)) out.push(ops.pop() as string)
+            ops.push(t)
+          }
+        }
+        while (ops.length) out.push(ops.pop() as string)
+        return out
+      }
+      function evalRPN (rpn: string[]) {
+        const st: number[] = []
+        for (const token of rpn) {
+          if (!isNaN(Number(token))) st.push(Number(token))
+          else {
+            const b = st.pop() as number
+            const a = st.pop() as number
+            let r = 0
+            switch (token) {
+              case '+': r = a + b; break
+              case '-': r = a - b; break
+              case '*': r = a * b; break
+              case '/': r = a / b; break
+            }
+            st.push(r)
+          }
+        }
+        return st.pop()
+      }
+      const tokens = tokenize(expr)
+      const rpn = toRPN(tokens)
+      const result = evalRPN(rpn)
+      const answer = result == null || !Number.isFinite(result) ? '' : String(result)
       cy.get('#captchaControl').type(answer)
     })
 }
