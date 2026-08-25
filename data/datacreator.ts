@@ -35,8 +35,8 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 import { variableDependencies, domainDependencies, preconditionResults } from '../lib/startup/validatePreconditions'
-// @ts-expect-error FIXME due to non-existing type definitions for replace
-import replace from 'replace'
+// Import replace without type definitions
+const replace: any = require('replace')
 
 const entities = new Entities()
 
@@ -298,14 +298,10 @@ async function createRandomFakeUsers () {
     return makeRandomString(5).toLowerCase() + '@' + randomDomain
   }
 
-  function makeRandomString (length: number) {
-    let text = ''
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-    for (let i = 0; i < length; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
-
-    return text
-  }
+    function makeRandomString (length: number) {
+      // Use crypto-backed randomness from utils.randomHexString for security-sensitive uses
+      return utils.randomHexString(length)
+    }
 
   return await Promise.all(new Array(config.get('application.numberOfRandomFakeUsers')).fill(0).map(
     async () => await UserModel.create({
@@ -320,7 +316,7 @@ async function createQuantity () {
     config.get<ProductConfig[]>('products').map(async (product, index) => {
       return await QuantityModel.create({
         ProductId: index + 1,
-        quantity: product.quantity ?? Math.floor(Math.random() * 70 + 30),
+        quantity: product.quantity ?? ((parseInt(utils.randomHexString(2), 16) % 70) + 30),
         limitPerUser: product.limitPerUser ?? null
       }).catch((err: unknown) => {
         logger.error(`Could not create quantity: ${utils.getErrorMessage(err)}`)
@@ -378,7 +374,7 @@ async function createMemories () {
 
 async function createProducts () {
   const products = structuredClone(config.get<ProductConfig[]>('products')).map((product) => {
-    product.price = product.price ?? Math.floor(Math.random() * 9 + 1)
+    product.price = product.price ?? ((parseInt(utils.randomHexString(1), 16) % 9) + 1)
     product.deluxePrice = product.deluxePrice ?? product.price
     product.description = product.description || 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
 
@@ -752,7 +748,7 @@ async function createOrders () {
       totalPrice: basket1Products[0].total + basket1Products[1].total,
       bonus: basket1Products[0].bonus + basket1Products[1].bonus,
       products: basket1Products,
-      eta: Math.floor((Math.random() * 5) + 1).toString(),
+      eta: ((parseInt(utils.randomHexString(1), 16) % 5) + 1).toString(),
       delivered: false
     },
     {
