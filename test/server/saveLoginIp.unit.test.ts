@@ -31,7 +31,8 @@ void describe('saveLoginIp', () => {
 
   void it('should use the first element if true-client-ip header is an array', async () => {
     mock.method(security.authenticatedUsers, 'from', () => ({ data: { id: 1 } }))
-    req.headers['true-client-ip'] = ['1.1.1.1', '2.2.2.2']
+    const ipList = ['192.0.2.1', '192.0.2.2']
+    req.headers['true-client-ip'] = ipList
     const findByPkMock = mock.method(UserModel, 'findByPk', async () => ({
       update: mock.fn(async (data: any) => data)
     }))
@@ -41,7 +42,7 @@ void describe('saveLoginIp', () => {
     assert.equal(findByPkMock.mock.calls.length, 1)
     const updateCall = findByPkMock.mock.calls[0].result as any
     const updateMock = (await updateCall).update
-    assert.equal(updateMock.mock.calls[0].arguments[0].lastLoginIp, '1.1.1.1')
+    assert.equal(updateMock.mock.calls[0].arguments[0].lastLoginIp, ipList[0])
   })
 
   void it('should call next with error if update fails', async () => {
