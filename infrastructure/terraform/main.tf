@@ -15,6 +15,10 @@ resource "null_resource" "docker_build" {
   provisioner "local-exec" {
     command = "docker push ${var.ecr_repository_url}:${var.container_tag}"
   }
+
+  provisioner "local-exec" {
+    command = "aws accessanalyzer create-analyzer --analyzer-name juice_shop_analyzer --type ACCOUNT || true"
+  }
 }
 
 resource "aws_ecs_cluster" "juice_shop" {
@@ -106,7 +110,7 @@ resource "aws_ecs_service" "juice_shop" {
   network_configuration {
     subnets          = aws_subnet.public[*].id
     security_groups  = [aws_security_group.ecs.id]
-    assign_public_ip = true
+    assign_public_ip = false
   }
 
   load_balancer {
@@ -126,6 +130,7 @@ resource "aws_ecs_service" "juice_shop" {
 resource "aws_cloudwatch_log_group" "juice_shop" {
   name              = "/ecs/${var.project_name}"
   retention_in_days = 30
+  kms_key_id        = aws_kms_key.juice_shop_logs.arn
 
   tags = {
     Project     = var.project_name
