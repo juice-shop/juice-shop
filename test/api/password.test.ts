@@ -25,11 +25,11 @@ void describe('/rest/user/change-password', () => {
       .set({ 'content-type': 'application/json' })
       .send({
         email: 'kuni@be.rt',
-        password: 'kunigunde'
+      password: process.env.TEST_KUNI_PASSWORD as string
       })
       .expect(201)
 
-    const { token } = await login(app, { email: 'kuni@be.rt', password: 'kunigunde' })
+    const { token } = await login(app, { email: 'kuni@be.rt', password: process.env.TEST_KUNI_PASSWORD as string })
 
     const res = await request(app)
       .get('/rest/user/change-password?current=kunigunde&new=foo&repeat=foo')
@@ -41,7 +41,7 @@ void describe('/rest/user/change-password', () => {
   void it('GET password change with passing wrong current password', async () => {
     const { token } = await login(app, {
       email: 'bjoern@' + config.get<string>('application.domain'),
-      password: 'monkey summer birthday are all bad passwords but work just fine in a long passphrase'
+      password: process.env.TEST_BJOERN_PASSWORD as string
     })
 
     const res = await request(app)
@@ -92,7 +92,7 @@ void describe('/rest/user/change-password', () => {
   void it('GET password change for Bender without current password using GET request', async () => {
     const { token } = await login(app, {
       email: 'bender@' + config.get<string>('application.domain'),
-      password: 'OhG0dPlease1nsertLiquor!'
+      password: process.env.TEST_BENDER_PASSWORD as string
     })
 
     const res = await request(app)
