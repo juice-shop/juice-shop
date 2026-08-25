@@ -11,15 +11,29 @@ export function captchas () {
     const captchaId = req.app.locals.captchaId++
     const operators = ['*', '+', '-']
 
-    const firstTerm = Math.floor((Math.random() * 10) + 1)
-    const secondTerm = Math.floor((Math.random() * 10) + 1)
-    const thirdTerm = Math.floor((Math.random() * 10) + 1)
+    const { randomInt } = await import('crypto')
+    const firstTerm = randomInt(1, 11)
+    const secondTerm = randomInt(1, 11)
+    const thirdTerm = randomInt(1, 11)
 
-    const firstOperator = operators[Math.floor((Math.random() * 3))]
-    const secondOperator = operators[Math.floor((Math.random() * 3))]
+    const firstOperator = operators[randomInt(0, 3)]
+    const secondOperator = operators[randomInt(0, 3)]
 
     const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    const answer = eval(expression).toString() // eslint-disable-line no-eval
+    const computeAnswer = (a: number, op1: string, b: number, op2: string, c: number): number => {
+      if (op1 === '*' && op2 === '*') return a * b * c
+      if (op1 === '*' && op2 !== '*') {
+        const temp = a * b
+        return op2 === '+' ? temp + c : temp - c
+      }
+      if (op1 !== '*' && op2 === '*') {
+        const temp = b * c
+        return op1 === '+' ? a + temp : a - temp
+      }
+      const first = op1 === '+' ? a + b : a - b
+      return op2 === '+' ? first + c : first - c
+    }
+    const answer = computeAnswer(firstTerm, firstOperator, secondTerm, secondOperator, thirdTerm).toString()
 
     const captcha = {
       captchaId,
