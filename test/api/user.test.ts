@@ -49,7 +49,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'horst@horstma.nn',
-        password: 'hooooorst'
+        password: process.env.TEST_USER_PASSWORD
       })
     assert.equal(res.status, 201)
     assert.ok(res.headers['content-type']?.includes('application/json'))
@@ -65,7 +65,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'horst2@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.TEST_ADMIN_PASSWORD,
         role: 'admin'
       })
     assert.equal(res.status, 201)
@@ -83,7 +83,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: ' ',
-        password: ' '
+        password: process.env.TEST_BLANK_USER_PASSWORD
       })
     assert.equal(res.status, 201)
     assert.ok(res.headers['content-type']?.includes('application/json'))
@@ -99,14 +99,14 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'blank-duplicate@test.test',
-        password: ' '
+        password: process.env.TEST_BLANK_DUPLICATE_PASSWORD
       })
     const res = await request(app)
       .post('/api/Users')
       .set(jsonHeader)
       .send({
         email: 'blank-duplicate@test.test',
-        password: ' '
+        password: process.env.TEST_BLANK_DUPLICATE_PASSWORD
       })
     assert.equal(res.status, 400)
     assert.ok(res.headers['content-type']?.includes('application/json'))
@@ -118,7 +118,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: ' test@gmail.com',
-        password: ' test'
+        password: process.env.TEST_WHITESPACE_USER_PASSWORD
       })
     assert.equal(res.status, 201)
     assert.ok(res.headers['content-type']?.includes('application/json'))
@@ -133,7 +133,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'horst3@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.TEST_DELUXE_USER_PASSWORD,
         role: 'deluxe'
       })
     assert.equal(res.status, 201)
@@ -151,7 +151,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'horst4@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.TEST_ACCOUNTING_USER_PASSWORD,
         role: 'accounting'
       })
     assert.equal(res.status, 201)
@@ -169,7 +169,7 @@ void describe('/api/Users', () => {
       .set(jsonHeader)
       .send({
         email: 'horst5@horstma.nn',
-        password: 'hooooorst',
+        password: process.env.TEST_INVALID_ROLE_USER_PASSWORD,
         role: 'accountinguser'
       })
     assert.equal(res.status, 400)
@@ -186,7 +186,7 @@ void describe('/api/Users', () => {
         .set(jsonHeader)
         .send({
           email: '<iframe src="javascript:alert(`xss`)">',
-          password: 'does.not.matter'
+          password: process.env.XSS_USER_PASSWORD
         })
       assert.equal(res.status, 201)
       assert.ok(res.headers['content-type']?.includes('application/json'))
@@ -237,7 +237,7 @@ void describe('/rest/user/whoami', () => {
   void it('GET own user id and email on who-am-i request', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: process.env.BJOERN_PASSWORD_B64
     })
     const res = await request(app)
       .get('/rest/user/whoami')
@@ -277,7 +277,7 @@ void describe('/rest/user/whoami', () => {
   void it('GET who-am-i request returns nothing on expired auth token', async () => {
     const res = await request(app)
       .get('/rest/user/whoami')
-      .set({ Authorization: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6eyJpZCI6MSwidXNlcm5hbWUiOiIiLCJlbWFpbCI6ImFkbWluQGp1aWNlLXNoLm9wIiwicGFzc3dvcmQiOiIwMTkyMDIzYTdiYmQ3MzI1MDUxNmYwNjlkZjE4YjUwMCIsInJvbGUiOiJhZG1pbiIsImxhc3RMb2dpbklwIjoiMC4wLjAuMCIsInByb2ZpbGVJbWFnZSI6ImRlZmF1bHQuc3ZnIiwidG90cFNlY3JldCI6IiIsImlzQWN0aXZlIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDE5LTA4LTE5IDE1OjU2OjE1LjYyOSArMDA6MDAiLCJ1cGRhdGVkQXQiOiIyMDE5LTA4LTE5IDE1OjU2OjE1LjYyOSArMDA6MDAiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE1NjYyMzAyMjQsImV4cCI6MTU2NjI0ODIyNH0.FL0kkcInY5sDMGKeLHfEOYDTQd3BjR6_mK7Tcm_RH6iCLotTSRRoRxHpLkbtIQKqBFIt14J4BpLapkzG7ppRWcEley5nego-4iFOmXQvCBz5ISS3HdtM0saJnOe0agyVUen3huFp4F2UCth_y2ScjMn_4AgW66cz8NSFPRVpC8g' })
+      .set({ Authorization: process.env.EXPIRED_AUTH_TOKEN })
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('application/json'))
     assert.deepEqual(res.body.user, {})
@@ -286,7 +286,7 @@ void describe('/rest/user/whoami', () => {
   void it('GET who-am-i with fields parameter returns only requested fields', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: process.env.BJOERN_PASSWORD_B64
     })
     const res = await request(app)
       .get('/rest/user/whoami?fields=id,email')
@@ -301,7 +301,7 @@ void describe('/rest/user/whoami', () => {
   void it('GET who-am-i with fields parameter does not return password by default', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: process.env.BJOERN_PASSWORD_B64
     })
     const res = await request(app)
       .get('/rest/user/whoami?fields=id,email')
@@ -315,7 +315,7 @@ void describe('/rest/user/whoami', () => {
   void it('GET who-am-i with fields parameter can be tricked into returning password', async () => {
     const { token } = await login(app, {
       email: 'bjoern.kimminich@gmail.com',
-      password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
+      password: process.env.BJOERN_PASSWORD_B64
     })
     const res = await request(app)
       .get('/rest/user/whoami?fields=id,email,password')
