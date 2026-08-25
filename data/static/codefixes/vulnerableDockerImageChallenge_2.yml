@@ -3,9 +3,18 @@ services:
     image: nginx:1.28.0-alpine
     container_name: juice-shop-proxy
     restart: unless-stopped
+    cap_drop:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:80/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     ports:
-      - "80:80"
-      - "443:443"
+      - "127.0.0.1:8080:80"
+      - "127.0.0.1:8443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -22,6 +31,15 @@ services:
     restart: unless-stopped
     expose:
       - "3000"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     environment:
       - NODE_ENV=production
       - REDIS_URL=redis://redis:6379
@@ -30,8 +48,8 @@ services:
         condition: service_healthy
       mongo:
         condition: service_healthy
-    volumes:
-      - juice-shop-data:/juice-shop/data/sqlite
+    tmpfs:
+      - /juice-shop/data/sqlite:rw,size=64m
     networks:
       - juice-shop-net
     deploy:
@@ -43,6 +61,10 @@ services:
     image: redis:7.4.4-alpine
     container_name: juice-shop-redis
     restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -58,6 +80,10 @@ services:
     image: mongo:latest
     container_name: juice-shop-mongo
     restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -67,8 +93,8 @@ services:
       MONGO_INITDB_DATABASE: juiceshop
     expose:
       - "27017"
-    volumes:
-      - mongo-data:/data/db
+    tmpfs:
+      - /data/db:rw,size=64m
     networks:
       - juice-shop-net
 
