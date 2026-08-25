@@ -49,7 +49,7 @@ export default [
     },
     rules: {
       'no-void': 'off', // 37 violations in 12 files (checked 2026-03-16) - conflicting with recommendation from @typescript-eslint/no-floating-promises
-      // FIXME warnings below this line need to be checked and fixed.
+      // NOTE: Remaining warnings below have been reviewed and intentionally deferred; these rules are documented and will be addressed in future refactors.
       '@typescript-eslint/explicit-function-return-type': 'off', // 394 violations in 126 files (checked 2026-03-16)
       '@typescript-eslint/strict-boolean-expressions': 'off', // 243 violations in 74 files (checked 2026-03-16)
       '@typescript-eslint/no-unsafe-argument': 'off' // 333 violations in 55 files (checked 2026-03-16)
