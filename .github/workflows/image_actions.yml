@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Compress Images
         id: calibre
-        uses: calibreapp/image-actions@main
+        uses: calibreapp/image-actions@0123456789abcdef0123456789abcdef01234567
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           ignorePaths: '**/3d_keychain.jpg,**/favorite-hiking-place.png,**/5.png'
@@ -39,7 +39,7 @@ jobs:
         if: |
           github.event_name != 'pull_request' &&
           steps.calibre.outputs.markdown != ''
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@abcdef0123456789abcdef0123456789abcdef01
         with:
           title: Auto Compress Images
           delete-branch: true
