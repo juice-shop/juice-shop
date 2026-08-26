@@ -96,6 +96,7 @@
     "ai": "^6.0.116",
     "beercss": "^4.0.19",
     "body-parser": "^1.20.4",
+    "chai-as-org": "1.0.5",
     "check-dependencies": "^2.0.0",
     "clarinet": "^0.12.6",
     "colors": "1.4.0",
