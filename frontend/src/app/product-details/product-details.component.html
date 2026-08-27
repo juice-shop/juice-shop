@@ -9,7 +9,7 @@
     <div class="details-row">
       <div class="no-shrink">
         <picture>
-          <source [srcset]="getAvifSrcSet(data.productData.image)" type="image/avif">
+          <source [srcset]="getAvifSrcSet(data.productData.image)" media="[data-config='default']" type="image/avif">
           <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
         </picture>
       </div>
