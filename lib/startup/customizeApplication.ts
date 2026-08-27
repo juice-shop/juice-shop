@@ -4,6 +4,7 @@
  */
 
 import fs from 'node:fs'
+import path from 'node:path'
 import config from 'config'
 import * as utils from '../utils'
 // @ts-expect-error FIXME due to non-existing type definitions for replace
@@ -23,6 +24,7 @@ const customizeApplication = async () => {
   if (config.get('application.theme')) {
     customizeTheme()
   }
+  customizeDataConfig()
   if (config.get('application.cookieConsent')) {
     customizeCookieConsentBanner()
   }
@@ -101,6 +103,25 @@ const customizeTheme = () => {
     recursive: false,
     silent: true
   })
+}
+
+const customizeDataConfig = () => {
+  if (!isDefaultConfig()) {
+    replace({
+      regex: /\sdata-config="[^"]*"/,
+      replacement: '',
+      paths: ['frontend/dist/frontend/index.html'],
+      recursive: false,
+      silent: true
+    })
+  }
+}
+
+const isDefaultConfig = (): boolean => {
+  const sources = config.util.getConfigSources()
+  return ![...sources].reverse()
+    .map(source => path.basename(source.name, '.yml'))
+    .some(name => name !== 'default' && name !== 'local')
 }
 
 const customizeCookieConsentBanner = () => {
