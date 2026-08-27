@@ -17,7 +17,7 @@ resource "null_resource" "docker_build" {
   }
 }
 
-resource "aws_ecs_cluster" "juice_shop" {
+resource "aws_ecs_cluster" "hayrok_commercehub" {
   name = "${var.project_name}-cluster"
 
   setting {
@@ -32,7 +32,7 @@ resource "aws_ecs_cluster" "juice_shop" {
   }
 }
 
-resource "aws_ecs_task_definition" "juice_shop" {
+resource "aws_ecs_task_definition" "hayrok_commercehub" {
   family                   = "${var.project_name}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -61,14 +61,14 @@ resource "aws_ecs_task_definition" "juice_shop" {
       mountPoints = [
         {
           sourceVolume  = "sqlite-data"
-          containerPath = "/juice-shop/data/sqlite"
+          containerPath = "/hayrok-commercehub/data/sqlite"
           readOnly      = false
         }
       ]
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          "awslogs-group"         = aws_cloudwatch_log_group.juice_shop.name
+          "awslogs-group"         = aws_cloudwatch_log_group.hayrok_commercehub.name
           "awslogs-region"        = var.aws_region
           "awslogs-stream-prefix" = "ecs"
         }
@@ -80,11 +80,11 @@ resource "aws_ecs_task_definition" "juice_shop" {
     name = "sqlite-data"
 
     efs_volume_configuration {
-      file_system_id     = aws_efs_file_system.juice_shop_data.id
+      file_system_id     = aws_efs_file_system.hayrok_commercehub_data.id
       transit_encryption = "ENABLED"
 
       authorization_config {
-        access_point_id = aws_efs_access_point.juice_shop_data.id
+        access_point_id = aws_efs_access_point.hayrok_commercehub_data.id
         iam             = "DISABLED"
       }
     }
@@ -96,10 +96,10 @@ resource "aws_ecs_task_definition" "juice_shop" {
   }
 }
 
-resource "aws_ecs_service" "juice_shop" {
+resource "aws_ecs_service" "hayrok_commercehub" {
   name            = "${var.project_name}-service"
-  cluster         = aws_ecs_cluster.juice_shop.id
-  task_definition = aws_ecs_task_definition.juice_shop.arn
+  cluster         = aws_ecs_cluster.hayrok_commercehub.id
+  task_definition = aws_ecs_task_definition.hayrok_commercehub.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
 
@@ -110,7 +110,7 @@ resource "aws_ecs_service" "juice_shop" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    target_group_arn = aws_lb_target_group.hayrok_commercehub.arn
     container_name   = var.project_name
     container_port   = 3000
   }
@@ -123,7 +123,7 @@ resource "aws_ecs_service" "juice_shop" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "juice_shop" {
+resource "aws_cloudwatch_log_group" "hayrok_commercehub" {
   name              = "/ecs/${var.project_name}"
   retention_in_days = 30
 

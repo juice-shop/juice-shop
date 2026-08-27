@@ -119,7 +119,7 @@ resource "aws_security_group" "ecs" {
   }
 }
 
-resource "aws_lb" "juice_shop" {
+resource "aws_lb" "hayrok_commercehub" {
   name               = "${var.project_name}-alb"
   internal           = false
   load_balancer_type = "application"
@@ -132,7 +132,7 @@ resource "aws_lb" "juice_shop" {
   }
 }
 
-resource "aws_lb_target_group" "juice_shop" {
+resource "aws_lb_target_group" "hayrok_commercehub" {
   name        = "${var.project_name}-tg"
   port        = 3000
   protocol    = "HTTP"
@@ -155,17 +155,17 @@ resource "aws_lb_target_group" "juice_shop" {
 }
 
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.juice_shop.arn
+  load_balancer_arn = aws_lb.hayrok_commercehub.arn
   port              = 80
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    target_group_arn = aws_lb_target_group.hayrok_commercehub.arn
   }
 }
 
-resource "aws_iam_server_certificate" "juice_shop_tls" {
+resource "aws_iam_server_certificate" "hayrok_commercehub_tls" {
   name             = "${var.project_name}-tls-cert"
   certificate_body = file("${path.module}/certs/server.crt")
   private_key      = "-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQDNwqLEe9wgTXCbC7+RPdDbBbeqjdbs4kOPOIGzqLpXvJXlxxW8\niMz0EaM4BKUqYsIa+ndv3NAn2RxCd5ubVdJJcX43zO6Ko0TFEZx/65gY3BE0O6sy\nCEmUP4qbSd6exou/F+WTISzbQ5FBVPVmhnYhG/kpwt/cIxK5iUn5hm+4tQIDAQAB\nAoGBAI+8xiPoOrA+KMnG/T4jJsG6TsHQcDHvJi7o1IKC/hnIXha0atTX5AUkRRce\n95qSfvKFweXdJXSQ0JMGJyfuXgU6dI0TcseFRfewXAa/ssxAC+iUVR6KUMh1PE2w\nXLitfeI6JLvVtrBYswm2I7CtY0q8n5AGimHWVXJPLfGV7m0BAkEA+fqFt2LXbLty\ng6wZyxMA/cnmt5Nt3U2dAu77MzFJvibANUNHE4HPLZxjGNXN+a6m0K6TD4kDdh5H\nfUYLWWRBYQJBANK3carmulBwqzcDBjsJ0YrIONBpCAsXxk8idXb8jL9aNIg15Wum\nm2enqqObahDHB5jnGOLmbasizvSVqypfM9UCQCQl8xIqy+YgURXzXCN+kwUgHinr\nutZms87Jyi+D8Br8NY0+Nlf+zHvXAomD2W5CsEK7C+8SLBr3k/TsnRWHJuECQHFE\n9RA2OP8WoaLPuGCyFXaxzICThSRZYluVnWkZtxsBhW2W8z1b8PvWUE7kMy7Tnkze\nJS2LSnaNHoyxi7IaPQUCQCwWU4U+v4lD7uYBw00Ga/xt+7+UqFPlPVdz1yyr4q24\nZxaw0LgmuEvgU5dycq8N7JxjTubX0MIRR+G9fmDBBl8=\n-----END RSA PRIVATE KEY-----" # vuln-code-snippet vuln-line iacLeakedKeyChallenge
@@ -181,15 +181,15 @@ resource "aws_iam_server_certificate" "juice_shop_tls" {
 }
 
 resource "aws_lb_listener" "https" {
-  load_balancer_arn = aws_lb.juice_shop.arn
+  load_balancer_arn = aws_lb.hayrok_commercehub.arn
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
-  certificate_arn   = aws_iam_server_certificate.juice_shop_tls.arn
+  certificate_arn   = aws_iam_server_certificate.hayrok_commercehub_tls.arn
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    target_group_arn = aws_lb_target_group.hayrok_commercehub.arn
   }
 }
 
@@ -246,7 +246,7 @@ resource "aws_security_group" "efs" {
   }
 }
 
-resource "aws_efs_file_system" "juice_shop_data" {
+resource "aws_efs_file_system" "hayrok_commercehub_data" {
   creation_token = "${var.project_name}-sqlite-data"
   encrypted      = var.efs_encrypted
 
@@ -260,15 +260,15 @@ resource "aws_efs_file_system" "juice_shop_data" {
   }
 }
 
-resource "aws_efs_mount_target" "juice_shop_data" {
+resource "aws_efs_mount_target" "hayrok_commercehub_data" {
   count           = length(var.public_subnet_cidrs)
-  file_system_id  = aws_efs_file_system.juice_shop_data.id
+  file_system_id  = aws_efs_file_system.hayrok_commercehub_data.id
   subnet_id       = aws_subnet.public[count.index].id
   security_groups = [aws_security_group.efs.id]
 }
 
-resource "aws_efs_access_point" "juice_shop_data" {
-  file_system_id = aws_efs_file_system.juice_shop_data.id
+resource "aws_efs_access_point" "hayrok_commercehub_data" {
+  file_system_id = aws_efs_file_system.hayrok_commercehub_data.id
 
   posix_user {
     uid = 1000

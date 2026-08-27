@@ -126,6 +126,9 @@ import { serveCodeSnippet, checkVulnLines } from './routes/vulnCodeSnippet'
 import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHistory'
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
+import { hvrRoutes } from './routes/hvr'
+import { companionRoutes } from './routes/companion'
+import { crapiRoutes } from './routes/crapi'
 
 const app = express()
 const server = new http.Server(app)
@@ -612,6 +615,9 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   }
 
   /* Custom Restful API */
+  hvrRoutes(app)
+  companionRoutes(app, seq)
+  crapiRoutes(app, seq)
   app.post('/rest/user/login', login())
   app.get('/rest/user/change-password', utils.asyncHandler(changePassword()))
   app.post('/rest/user/reset-password', utils.asyncHandler(resetPassword()))

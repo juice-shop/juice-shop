@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "project_name" {
   description = "Name of the project"
   type        = string
-  default     = "juice-shop"
+  default     = "hayrok-commercehub"
 }
 
 variable "environment" {
@@ -55,7 +55,7 @@ variable "node_env" {
 variable "ecr_repository_url" {
   description = "ECR repository URL for the Docker image"
   type        = string
-  default     = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/juice-shop"
+  default     = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/hayrok-commercehub"
 }
 
 variable "container_tag" {
