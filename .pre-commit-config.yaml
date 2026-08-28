@@ -1,0 +1,8 @@
+repos:
+- repo: https://github.com/semgrep/pre-commit
+  rev: 'v1.173.0'
+  hooks:
+    - id: semgrep-ci
+      entry: semgrep
+      args: ["ci", "--dry-run", "--secrets", "--baseline-commit", "HEAD"]
+      pass_filenames: false
