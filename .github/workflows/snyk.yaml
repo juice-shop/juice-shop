@@ -1,0 +1,45 @@
+name: Snyk Security Gate
+
+on:
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  security-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js (or your stack's runtime)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk Scan & Enforce Threshold Policy
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          # Run scan and save JSON output (pass || true to prevent early step crash)
+          snyk test --json > snyk-results.json || true
+          
+          # Count Critical and High vulnerabilities
+          CRITICAL_COUNT=$(jq '[.vulnerabilities[]? | select(.severity=="critical")] | length' snyk-results.json)
+          HIGH_COUNT=$(jq '[.vulnerabilities[]? | select(.severity=="high")] | length' snyk-results.json)
+          
+          echo "-------------------------------------"
+          echo "Snyk Policy Check Summary:"
+          echo "Critical Vulnerabilities: $CRITICAL_COUNT (Max Allowed: 1)"
+          echo "High Vulnerabilities:     $HIGH_COUNT (Max Allowed: 3)"
+          echo "-------------------------------------"
+          
+          # Enforce Gating: Block if >1 Critical OR >3 High
+          if [ "$CRITICAL_COUNT" -gt 1 ] || [ "$HIGH_COUNT" -gt 3 ]; then
+            echo "❌ POLICY VIOLATION: PR blocked due to exceeding vulnerability thresholds."
+            exit 1
+          else
+            echo "✅ Security Gate Passed."
+            exit 0
+          fi
