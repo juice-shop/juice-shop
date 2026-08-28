@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
 import { type Product } from '../Models/product.model'
+import { ProductImageComponent } from '../product-image/product-image.component'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
@@ -32,7 +33,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
+  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe, ProductImageComponent]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog)
@@ -102,13 +103,5 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   isLoggedIn () {
     return localStorage.getItem('token')
-  }
-
-  getAvifSrcSet (image: string): string {
-    if (!image) return ''
-    const baseName = image.substring(0, image.lastIndexOf('.'))
-    return [1, 2, 3]
-      .map(size => `assets/public/images/products/${baseName}-${size}x.avif ${size}x`)
-      .join(', ')
   }
 }

@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Component, inject, input, computed, ChangeDetectionStrategy } from '@angular/core'
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -15,12 +15,13 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { ProductImageComponent } from '../product-image/product-image.component'
 import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product',
-  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon],
+  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, ProductImageComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -35,15 +36,6 @@ export class ProductComponent {
   item = input.required<ProductTableEntry>()
   isLoggedIn = input.required<boolean>()
   isDeluxe = input.required<boolean>()
-
-  avifSrcSet = computed(() => {
-    const image = this.item().image
-    if (!image) return ''
-    const baseName = image.substring(0, image.lastIndexOf('.'))
-    return [1, 2, 3]
-      .map(size => `assets/public/images/products/${baseName}-${size}x.avif ${size}x`)
-      .join(', ')
-  })
 
   addToBasket(id?: number) {
     if (id == null) {

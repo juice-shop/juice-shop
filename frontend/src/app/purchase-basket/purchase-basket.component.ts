@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, type OnInit, Output, inject, ChangeDete
 import { BasketService } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { ProductService } from '../Services/product.service'
+import { ProductImageComponent } from '../product-image/product-image.component'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -26,7 +27,7 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss'],
-  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule, ProductImageComponent]
 })
 export class PurchaseBasketComponent implements OnInit {
   private readonly deluxeGuard = inject(DeluxeGuard)
@@ -196,13 +197,5 @@ export class PurchaseBasketComponent implements OnInit {
 
   isDeluxe () {
     return this.deluxeGuard.isDeluxe()
-  }
-
-  getAvifSrcSet (image: string): string {
-    if (!image) return ''
-    const baseName = image.substring(0, image.lastIndexOf('.'))
-    return [1, 2, 3]
-      .map(size => `assets/public/images/products/${baseName}-${size}x.avif ${size}x`)
-      .join(', ')
   }
 }
