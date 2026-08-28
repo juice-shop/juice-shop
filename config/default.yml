@@ -105,6 +105,16 @@ products:
     limitPerUser: 5
     description: 'The all-time classic.'
     image: apple_juice.jpg
+    alternateImages:
+      - file: apple_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: apple_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: apple_juice-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'One of my favorites!', author: admin }
       - { text: "Great! We'll have an apple party. Everyone brings an apple and - STUFFS IT DOWN EACH OTHER'S THROAT!", author: basil }
@@ -114,6 +124,16 @@ products:
     price: 2.99
     deluxePrice: 2.49
     image: orange_juice.jpg
+    alternateImages:
+      - file: orange_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: orange_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: orange_juice-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'y0ur f1r3wall needs m0r3 musc13', author: uvogin }
   -
@@ -121,6 +141,16 @@ products:
     description: 'Now with even more exotic flavour.'
     price: 8.99
     image: eggfruit_juice.jpg
+    alternateImages:
+      - file: eggfruit_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: eggfruit_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: eggfruit_juice-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'I bought it, would buy again. 5/7', author: admin }
   -
@@ -128,6 +158,16 @@ products:
     description: 'Made from blended Raspberry Pi, water and sugar.'
     price: 4.99
     image: raspberry_juice.jpg
+    alternateImages:
+      - file: raspberry_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: raspberry_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: raspberry_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Lemon Juice (500ml)'
     description: 'Sour but full of vitamins.'
@@ -135,11 +175,31 @@ products:
     deluxePrice: 1.99
     limitPerUser: 5
     image: lemon_juice.jpg
+    alternateImages:
+      - file: lemon_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: lemon_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: lemon_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Banana Juice (1000ml)'
     description: 'Monkeys love it the most.'
     price: 1.99
     image: banana_juice.jpg
+    alternateImages:
+      - file: banana_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: banana_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: banana_juice-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'Fry liked it too.', author: bender }
   -
@@ -148,28 +208,78 @@ products:
     price: 22.49
     limitPerUser: 5
     image: fan_shirt.jpg
+    alternateImages:
+      - file: fan_shirt-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fan_shirt-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fan_shirt-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop CTF Girlie-Shirt'
     description: 'For serious Capture-the-Flag heroines only!'
     price: 22.49
     image: fan_girlie.jpg
+    alternateImages:
+      - file: fan_girlie-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fan_girlie-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fan_girlie-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP SSL Advanced Forensic Tool (O-Saft)'
     description: 'O-Saft is an easy to use tool to show information about SSL certificate and tests the SSL connection according given list of ciphers and various SSL configurations.'
     price: 0.01
     image: orange_juice.jpg
+    alternateImages:
+      - file: orange_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: orange_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: orange_juice-3x.avif
+        format: image/avif
+        density: 3x
     urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/O-Saft'
   -
     name: 'Christmas Super-Surprise-Box (2014 Edition)'
     description: 'Contains a random selection of 10 bottles (each 500ml) of our tastiest juices and an extra fan shirt for an unbeatable price!'
     price: 29.99
     image: undefined.jpg
+    alternateImages:
+      - file: undefined-1x.avif
+        format: image/avif
+        density: 1x
+      - file: undefined-2x.avif
+        format: image/avif
+        density: 2x
+      - file: undefined-3x.avif
+        format: image/avif
+        density: 3x
     useForChristmasSpecialChallenge: true
   -
     name: 'Rippertuer Special Juice'
     description: 'Contains a magical collection of the rarest fruits gathered from all around the world, like Cherymoya Annona cherimola, Jabuticaba Myrciaria cauliflora, Bael Aegle marmelos... and others, at an unbelievable price! <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
     price: 16.99
     image: undefined.jpg
+    alternateImages:
+      - file: undefined-1x.avif
+        format: image/avif
+        density: 1x
+      - file: undefined-2x.avif
+        format: image/avif
+        density: 2x
+      - file: undefined-3x.avif
+        format: image/avif
+        density: 3x
     keywordsForPastebinDataLeakChallenge:
       - hueteroneel
       - eurogium edule
@@ -178,32 +288,92 @@ products:
     description: 'Die-cut sticker with the official 2015/2016 logo. By now this is a rare collectors item. <em>Out of stock!</em>'
     price: 999.99
     image: sticker.png
+    alternateImages:
+      - file: sticker-1x.avif
+        format: image/avif
+        density: 1x
+      - file: sticker-2x.avif
+        format: image/avif
+        density: 2x
+      - file: sticker-3x.avif
+        format: image/avif
+        density: 3x
     deletedDate: '2017-04-28'
   -
     name: 'OWASP Juice Shop Iron-Ons (16pcs)'
     description: 'Upgrade your clothes with washer safe <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">iron-ons</a> of the OWASP Juice Shop or CTF Extension logo!'
     price: 14.99
     image: iron-on.jpg
+    alternateImages:
+      - file: iron-on-1x.avif
+        format: image/avif
+        density: 1x
+      - file: iron-on-2x.avif
+        format: image/avif
+        density: 2x
+      - file: iron-on-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Magnets (16pcs)'
     description: 'Your fridge will be even cooler with these OWASP Juice Shop or CTF Extension logo <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">magnets</a>!'
     price: 15.99
     image: magnets.jpg
+    alternateImages:
+      - file: magnets-1x.avif
+        format: image/avif
+        density: 1x
+      - file: magnets-2x.avif
+        format: image/avif
+        density: 2x
+      - file: magnets-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Sticker Page'
     description: 'Massive decoration opportunities with these OWASP Juice Shop or CTF Extension <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker pages</a>! Each page has 16 stickers on it.'
     price: 9.99
     image: sticker_page.jpg
+    alternateImages:
+      - file: sticker_page-1x.avif
+        format: image/avif
+        density: 1x
+      - file: sticker_page-2x.avif
+        format: image/avif
+        density: 2x
+      - file: sticker_page-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Sticker Single'
     description: 'Super high-quality vinyl <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">sticker single</a> with the OWASP Juice Shop or CTF Extension logo! The ultimate laptop decal!'
     price: 4.99
     image: sticker_single.jpg
+    alternateImages:
+      - file: sticker_single-1x.avif
+        format: image/avif
+        density: 1x
+      - file: sticker_single-2x.avif
+        format: image/avif
+        density: 2x
+      - file: sticker_single-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Temporary Tattoos (16pcs)'
     description: 'Get one of these <a href="https://www.stickeryou.com/products/owasp-juice-shop/794" target="_blank">temporary tattoos</a> to proudly wear the OWASP Juice Shop or CTF Extension logo on your skin! If you tweet a photo of yourself with the tattoo, you get a couple of our stickers for free! Please mention <a href="https://twitter.com/owasp_juiceshop" target="_blank"><code>@owasp_juiceshop</code></a> in your tweet!'
     price: 14.99
     image: tattoo.jpg
+    alternateImages:
+      - file: tattoo-1x.avif
+        format: image/avif
+        density: 1x
+      - file: tattoo-2x.avif
+        format: image/avif
+        density: 2x
+      - file: tattoo-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'I straight-up gots nuff props fo''these tattoos!', author: rapper }
   -
@@ -211,11 +381,31 @@ products:
     description: 'Black mug with regular logo on one side and CTF logo on the other! Your colleagues will envy you!'
     price: 21.99
     image: fan_mug.jpg
+    alternateImages:
+      - file: fan_mug-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fan_mug-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fan_mug-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Hoodie'
     description: 'Mr. Robot-style apparel. But in black. And with logo.'
     price: 49.99
     image: fan_hoodie.jpg
+    alternateImages:
+      - file: fan_hoodie-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fan_hoodie-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fan_hoodie-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop-CTF Velcro Patch'
     description: '4x3.5" embroidered patch with velcro backside. The ultimate decal for every tactical bag or backpack!'
@@ -223,6 +413,16 @@ products:
     quantity: 5
     limitPerUser: 5
     image: velcro-patch.jpg
+    alternateImages:
+      - file: velcro-patch-1x.avif
+        format: image/avif
+        density: 1x
+      - file: velcro-patch-2x.avif
+        format: image/avif
+        density: 2x
+      - file: velcro-patch-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'This thang would look phat on Bobby''s jacked fur coat!', author: rapper }
       - { text: 'Looks so much better on my uniform than the boring Starfleet symbol.', author: jim }
@@ -231,11 +431,31 @@ products:
     description: 'Harvested and manufactured in the Black Forest, Germany. Can cause hyperactive behavior in children. Can cause permanent green tongue when consumed undiluted.'
     price: 6.99
     image: woodruff_syrup.jpg
+    alternateImages:
+      - file: woodruff_syrup-1x.avif
+        format: image/avif
+        density: 1x
+      - file: woodruff_syrup-2x.avif
+        format: image/avif
+        density: 2x
+      - file: woodruff_syrup-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Green Smoothie'
     description: 'Looks poisonous but is actually very good for your health! Made from green cabbage, spinach, kiwi and grass.'
     price: 1.99
     image: green_smoothie.jpg
+    alternateImages:
+      - file: green_smoothie-1x.avif
+        format: image/avif
+        density: 1x
+      - file: green_smoothie-2x.avif
+        format: image/avif
+        density: 2x
+      - file: green_smoothie-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'Fresh out of a replicator.', author: jim }
   -
@@ -243,22 +463,62 @@ products:
     description: 'Juice of the <em>Cydonia oblonga</em> fruit. Not exactly sweet but rich in Vitamin C.'
     price: 4.99
     image: quince.jpg
+    alternateImages:
+      - file: quince-1x.avif
+        format: image/avif
+        density: 1x
+      - file: quince-2x.avif
+        format: image/avif
+        density: 2x
+      - file: quince-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Apple Pomace'
     description: 'Finest pressings of apples. Allergy disclaimer: Might contain traces of worms. Can be <a href="/#recycle">sent back to us</a> for recycling.'
     price: 0.89
     limitPerUser: 5
     image: apple_pressings.jpg
+    alternateImages:
+      - file: apple_pressings-1x.avif
+        format: image/avif
+        density: 1x
+      - file: apple_pressings-2x.avif
+        format: image/avif
+        density: 2x
+      - file: apple_pressings-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Fruit Press'
     description: 'Fruits go in. Juice comes out. Pomace you can send back to us for recycling purposes.'
     price: 89.99
     image: fruit_press.jpg
+    alternateImages:
+      - file: fruit_press-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fruit_press-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fruit_press-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Logo (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
     image: 3d_keychain.jpg # Exif metadata contains "OpenSCAD" as subtle hint...
+    alternateImages:
+      - file: 3d_keychain-1x.avif
+        format: image/avif
+        density: 1x
+      - file: 3d_keychain-2x.avif
+        format: image/avif
+        density: 2x
+      - file: 3d_keychain-3x.avif
+        format: image/avif
+        density: 3x
     fileForRetrieveBlueprintChallenge: JuiceShop.stl # ...to blueprint file type
     exifForBlueprintChallenge:
       - OpenSCAD
@@ -268,23 +528,63 @@ products:
     price: 278.74
     quantity: 0
     image: artwork.jpg
+    alternateImages:
+      - file: artwork-1x.avif
+        format: image/avif
+        density: 1x
+      - file: artwork-2x.avif
+        format: image/avif
+        density: 2x
+      - file: artwork-3x.avif
+        format: image/avif
+        density: 3x
     deletedDate: '2020-12-24'
   -
     name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'
     price: 0.03
     image: waspy.png
+    alternateImages:
+      - file: waspy-1x.avif
+        format: image/avif
+        density: 1x
+      - file: waspy-2x.avif
+        format: image/avif
+        density: 2x
+      - file: waspy-3x.avif
+        format: image/avif
+        density: 3x
     deletedDate: '2017-07-01'
   -
     name: 'Strawberry Juice (500ml)'
     description: 'Sweet & tasty!'
     price: 3.99
     image: strawberry_juice.jpeg
+    alternateImages:
+      - file: strawberry_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: strawberry_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: strawberry_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Carrot Juice (1000ml)'
     description: 'As the old German saying goes: "Carrots are good for the eyes. Or has anyone ever seen a rabbit with glasses?"'
     price: 2.99
     image: carrot_juice.jpeg
+    alternateImages:
+      - file: carrot_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: carrot_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: carrot_juice-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: '0 st4rs f0r 7h3 h0rr1bl3 s3cur17y', author: uvogin }
   -
@@ -292,12 +592,32 @@ products:
     description: '10 sheets of Sweden-themed stickers with 15 stickers on each.'
     price: 19.1
     image: stickersheet_se.png
+    alternateImages:
+      - file: stickersheet_se-1x.avif
+        format: image/avif
+        density: 1x
+      - file: stickersheet_se-2x.avif
+        format: image/avif
+        density: 2x
+      - file: stickersheet_se-3x.avif
+        format: image/avif
+        density: 3x
     deletedDate: '2017-09-20'
   -
     name: 'Pwning OWASP Juice Shop'
     description: '<em>The official Companion Guide</em> by Björn Kimminich available <a href="https://leanpub.com/juice-shop">for free on LeanPub</a> and also <a href="https://pwning.owasp-juice.shop">readable online</a>!'
     price: 5.99
     image: cover_small.jpg
+    alternateImages:
+      - file: cover_small-1x.avif
+        format: image/avif
+        density: 1x
+      - file: cover_small-2x.avif
+        format: image/avif
+        density: 2x
+      - file: cover_small-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'Even more interesting than watching Interdimensional Cable!', author: morty }
   -
@@ -307,18 +627,48 @@ products:
     quantity: 3
     limitPerUser: 1
     image: melon_bike.jpeg
+    alternateImages:
+      - file: melon_bike-1x.avif
+        format: image/avif
+        density: 1x
+      - file: melon_bike-2x.avif
+        format: image/avif
+        density: 2x
+      - file: melon_bike-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Juice Shop Coaster (10pcs)'
     description: 'Our 95mm circle coasters are printed in full color and made from thick, premium coaster board.'
     price: 19.99
     quantity: 0
     image: coaster.jpg
+    alternateImages:
+      - file: coaster-1x.avif
+        format: image/avif
+        density: 1x
+      - file: coaster-2x.avif
+        format: image/avif
+        density: 2x
+      - file: coaster-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'OWASP Snakes and Ladders - Web Applications'
     description: 'This amazing web application security awareness board game is <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1969196030">available for Tabletop Simulator on Steam Workshop</a> now!'
     price: 0.01
     quantity: 8
     image: snakes_ladders.jpg
+    alternateImages:
+      - file: snakes_ladders-1x.avif
+        format: image/avif
+        density: 1x
+      - file: snakes_ladders-2x.avif
+        format: image/avif
+        density: 2x
+      - file: snakes_ladders-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'Wait for a 10$ Steam sale of Tabletop Simulator!', author: bjoernOwasp }
   -
@@ -327,6 +677,16 @@ products:
     price: 0.01
     quantity: 0
     image: snakes_ladders_m.jpg
+    alternateImages:
+      - file: snakes_ladders_m-1x.avif
+        format: image/avif
+        density: 1x
+      - file: snakes_ladders_m-2x.avif
+        format: image/avif
+        density: 2x
+      - file: snakes_ladders_m-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "Here yo' learn how tha fuck ta not show yo' goddamn phone on camera!", author: rapper }
   -
@@ -335,6 +695,16 @@ products:
     price: 2.00
     quantity: 0
     image: holo_sticker.png
+    alternateImages:
+      - file: holo_sticker-1x.avif
+        format: image/avif
+        density: 1x
+      - file: holo_sticker-2x.avif
+        format: image/avif
+        density: 2x
+      - file: holo_sticker-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "Rad, dude!", author: rapper }
       - { text: "Looks spacy on Bones' new tricorder!", author: jim }
@@ -346,6 +716,16 @@ products:
     quantity: 0
     limitPerUser: 1
     image: fan_facemask.jpg
+    alternateImages:
+      - file: fan_facemask-1x.avif
+        format: image/avif
+        density: 1x
+      - file: fan_facemask-2x.avif
+        format: image/avif
+        density: 2x
+      - file: fan_facemask-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "K33p5 y0ur ju1cy 5plu773r 70 y0ur53lf!", author: uvogin }
       - { text: "Puny mask for puny human weaklings!", author: bender }
@@ -357,6 +737,16 @@ products:
     deletedDate: '2020-11-30'
     limitPerUser: 5
     image: ccg_common.jpg
+    alternateImages:
+      - file: ccg_common-1x.avif
+        format: image/avif
+        density: 1x
+      - file: ccg_common-2x.avif
+        format: image/avif
+        density: 2x
+      - file: ccg_common-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "Ooooh, puny human playing Mau Mau, now?", author: bender }
   -
@@ -368,6 +758,16 @@ products:
     quantity: 2
     limitPerUser: 1
     image: ccg_foil.jpg
+    alternateImages:
+      - file: ccg_foil-1x.avif
+        format: image/avif
+        density: 1x
+      - file: ccg_foil-2x.avif
+        format: image/avif
+        density: 2x
+      - file: ccg_foil-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "Mau Mau with bling-bling? Humans are so pathetic!", author: bender }
   -
@@ -377,6 +777,16 @@ products:
     quantity: 1
     limitPerUser: 1
     image: permafrost.jpg
+    alternateImages:
+      - file: permafrost-1x.avif
+        format: image/avif
+        density: 1x
+      - file: permafrost-2x.avif
+        format: image/avif
+        density: 2x
+      - file: permafrost-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "🧊 Let it go, let it go 🎶 Can't hold it back anymore 🎶 Let it go, let it go 🎶 Turn away and slam the door ❄️", author: rapper }
   -
@@ -385,6 +795,16 @@ products:
     price: 5000
     quantity: 1
     image: artwork2.jpg
+    alternateImages:
+      - file: artwork2-1x.avif
+        format: image/avif
+        density: 1x
+      - file: artwork2-2x.avif
+        format: image/avif
+        density: 2x
+      - file: artwork2-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "I'd stand on my head to make you a deal for this piece of art.", author: stan }
       - { text: "Just when my opinion of humans couldn't get any lower, along comes Stan...", author: bender }
@@ -395,6 +815,16 @@ products:
     quantity: 3
     limitPerUser: 1
     image: card_alpha.jpg
+    alternateImages:
+      - file: card_alpha-1x.avif
+        format: image/avif
+        density: 1x
+      - file: card_alpha-2x.avif
+        format: image/avif
+        density: 2x
+      - file: card_alpha-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'DO NOT PLAY WITH THIS! Double-sleeve, then put it in the GitHub Arctic Vault for perfect preservation and boost of secondary market value!', author: accountant }
   -
@@ -404,6 +834,16 @@ products:
     deletedDate: '2021-09-25'
     limitPerUser: 1
     image: 20th.jpeg
+    alternateImages:
+      - file: 20th-1x.avif
+        format: image/avif
+        density: 1x
+      - file: 20th-2x.avif
+        format: image/avif
+        density: 2x
+      - file: 20th-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "I'll be there! Will you, too?", author: bjoernOwasp }
   -
@@ -413,6 +853,16 @@ products:
     quantity: 3
     limitPerUser: 1
     image: lego_case.jpg
+    alternateImages:
+      - file: lego_case-1x.avif
+        format: image/avif
+        density: 1x
+      - file: lego_case-2x.avif
+        format: image/avif
+        density: 2x
+      - file: lego_case-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'Check out the /#/photo-wall for some impressions of the assembly process!', author: bjoernOwasp }
   -
@@ -422,6 +872,16 @@ products:
     deletedDate: '2024-09-26'
     limitPerUser: 1
     image: user_day_ticket.png
+    alternateImages:
+      - file: user_day_ticket-1x.avif
+        format: image/avif
+        density: 1x
+      - file: user_day_ticket-2x.avif
+        format: image/avif
+        density: 2x
+      - file: user_day_ticket-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: 'The DSOMM Live Assessment session will even use Juice Shop as its "real-world" example!', author: timo }
       - { text: 'We will showcase the amazing MultiJuicer Lego Tower at this event!', author: jannik }
@@ -430,31 +890,91 @@ products:
     description: 'Tropical refreshment from the finest sun-ripened pineapples.'
     price: 2.99
     image: pineapple_juice.jpg
+    alternateImages:
+      - file: pineapple_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: pineapple_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: pineapple_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Melon Juice (1000ml)'
     description: 'Refreshing and sweet juice made from ripe melons.'
     price: 2.49
     image: melon_juice.jpg
+    alternateImages:
+      - file: melon_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: melon_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: melon_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Grape Juice (1000ml)'
     description: 'Deep purple and full of antioxidants from selected grapes.'
     price: 2.99
     image: grape_juice.jpg
+    alternateImages:
+      - file: grape_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: grape_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: grape_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Dragonfruit Juice (500ml)'
     description: 'Exotic and vibrant juice made from dragonfruit.'
     price: 3.99
     image: dragonfruit_juice.jpg
+    alternateImages:
+      - file: dragonfruit_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: dragonfruit_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: dragonfruit_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Berry Juice (1000ml)'
     description: 'A delicious blend of fresh forest berries.'
     price: 3.49
     image: berry_juice.jpg
+    alternateImages:
+      - file: berry_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: berry_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: berry_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Basil Smoothie'
     description: 'A unique blend of fresh basil and ginger for a healthy kick.'
     price: 2.99
     image: basil_smoothie.jpg
+    alternateImages:
+      - file: basil_smoothie-1x.avif
+        format: image/avif
+        density: 1x
+      - file: basil_smoothie-2x.avif
+        format: image/avif
+        density: 2x
+      - file: basil_smoothie-3x.avif
+        format: image/avif
+        density: 3x
     reviews:
       - { text: "(ง'̀-'́)ง", author: basil }
   -
@@ -462,21 +982,61 @@ products:
     description: 'Traditional Balkan drink made from fermented millet. Lightly sweet-sour, refreshing, and naturally energizing.'
     price: 2.49
     image: braga.jpg
+    alternateImages:
+      - file: braga-1x.avif
+        format: image/avif
+        density: 1x
+      - file: braga-2x.avif
+        format: image/avif
+        density: 2x
+      - file: braga-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Elderflower Cordial (500ml)'
     description: 'Floral and fragrant soft drink made from elderflowers. Traditionally enjoyed chilled.'
     price: 3.29
     image: elderflower_cordial.jpg
+    alternateImages:
+      - file: elderflower_cordial-1x.avif
+        format: image/avif
+        density: 1x
+      - file: elderflower_cordial-2x.avif
+        format: image/avif
+        density: 2x
+      - file: elderflower_cordial-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Sea Buckthorn Juice (500ml)'
     description: 'Tangy and slightly sour juice, extremely rich in Vitamin C and antioxidants.'
     price: 3.99
     image: sea_buckthorn_juice.jpg
+    alternateImages:
+      - file: sea_buckthorn_juice-1x.avif
+        format: image/avif
+        density: 1x
+      - file: sea_buckthorn_juice-2x.avif
+        format: image/avif
+        density: 2x
+      - file: sea_buckthorn_juice-3x.avif
+        format: image/avif
+        density: 3x
   -
     name: 'Pomegranate Drink (500ml)'
     description: 'A sweet and tart refreshment inspired by classic grenadine flavors.'
     price: 4.49
     image: pomegranate_drink.jpg
+    alternateImages:
+      - file: pomegranate_drink-1x.avif
+        format: image/avif
+        density: 1x
+      - file: pomegranate_drink-2x.avif
+        format: image/avif
+        density: 2x
+      - file: pomegranate_drink-3x.avif
+        format: image/avif
+        density: 3x
 memories:
   -
     image: 'magn(et)ificent!-1571814229653.jpg'

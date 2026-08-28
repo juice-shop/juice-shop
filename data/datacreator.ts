@@ -428,7 +428,8 @@ async function createProducts () {
           description: product.description,
           price: product.price,
           deluxePrice: product.deluxePrice ?? product.price,
-          image: product.image
+          image: product.image,
+          alternateImages: product.alternateImages ?? null
         }).catch(
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
