@@ -13,7 +13,7 @@
     <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
     <mat-cell *matCellDef="let element" class="content-align">
       <picture>
-        <source [srcset]="getAvifSrcSet(element.image)" media="[data-config='default']" type="image/avif">
+        <source [srcset]="getAvifSrcSet(element.image)" type="image/avif">
         <img [src]="'assets/public/images/products/'+element.image" alt={{element.name}}
           class="img-responsive img-thumbnail">
       </picture>
