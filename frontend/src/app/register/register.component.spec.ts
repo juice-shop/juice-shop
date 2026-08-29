@@ -137,6 +137,20 @@ describe('RegisterComponent', () => {
         expect(component.registerForm.repeatPassword().valid()).toBe(true)
     })
 
+    it('should be compulsory to select a security question', () => {
+        component.registerModel.update((model) => ({ ...model, securityQuestion: 0 }))
+        expect(component.registerForm.securityQuestion().valid()).toBeFalsy()
+        component.registerModel.update((model) => ({ ...model, securityQuestion: 1 }))
+        expect(component.registerForm.securityQuestion().valid()).toBe(true)
+    })
+
+    it('should be compulsory to provide a security answer', () => {
+        component.registerModel.update((model) => ({ ...model, securityAnswer: '' }))
+        expect(component.registerForm.securityAnswer().valid()).toBeFalsy()
+        component.registerModel.update((model) => ({ ...model, securityAnswer: 'Answer' }))
+        expect(component.registerForm.securityAnswer().valid()).toBe(true)
+    })
+
     it('redirects to login page after user registration', async () => {
         userService.save.mockReturnValue(of({ id: 1, question: 'Wat is?' }))
         securityAnswerService.save.mockReturnValue(of({}))
