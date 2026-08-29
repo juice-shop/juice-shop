@@ -133,7 +133,9 @@ export const AlternateImageSchema = z.union([
     format: z.string(),
     width: z.string()
   })
-])
+], {
+  error: '"file" and "format" are required, plus exactly one of "density" (e.g. "1x") or "width" (e.g. "450w")'
+})
 
 export const ProductSchema = z.object({
   name: z.string(),
