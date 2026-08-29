@@ -6,7 +6,7 @@
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { FormField, email, form, maxLength, minLength, required, submit, validate } from '@angular/forms/signals'
-import { Component, NgZone, inject, signal, ChangeDetectionStrategy, type OnInit } from '@angular/core'
+import { Component, inject, signal, ChangeDetectionStrategy, type OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router, RouterLink } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
   private readonly translateService = inject(TranslateService)
   private readonly snackBar = inject(MatSnackBar)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
-  private readonly ngZone = inject(NgZone)
 
   public readonly registerModel = signal({
     email: '',
@@ -110,7 +109,7 @@ export class RegisterComponent implements OnInit {
           answer: this.registerModel().securityAnswer,
           SecurityQuestionId: this.registerModel().securityQuestion
         }))
-        this.ngZone.run(async () => await this.router.navigate(['/login']))
+        await this.router.navigate(['/login'])
         this.snackBarHelperService.open('CONFIRM_REGISTER')
       } catch (err: any) {
         console.log(err)
