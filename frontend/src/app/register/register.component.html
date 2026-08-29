@@ -17,115 +17,111 @@
           <mat-label translate>LABEL_EMAIL</mat-label>
           <input id="emailControl" [formField]="registerForm.email" (focus)="error.set(null)" type="text" matInput
             aria-label="Email address field">
-            @if (registerForm.email().getError('required')) {
-              <mat-error translate>MANDATORY_EMAIL</mat-error>
-            }
-            @if (registerForm.email().getError('email')) {
-              <mat-error translate>INVALID_EMAIL</mat-error>
+          @if (registerForm.email().getError('required')) {
+          <mat-error translate>MANDATORY_EMAIL</mat-error>
+          }
+          @if (registerForm.email().getError('email')) {
+          <mat-error translate>INVALID_EMAIL</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="tertiary" subscriptSizing="dynamic">
+          <mat-label translate>LABEL_PASSWORD</mat-label>
+          <input #password id="passwordControl" [formField]="registerForm.password" (focus)="error.set(null)"
+            type="password" matInput aria-label="Field for the password">
+          <mat-hint translate>
+            <i class="fas fa-exclamation-circle"></i>
+            <em class="hint-spacing" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
+          </mat-hint>
+          <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
+          @if (registerForm.password().getError('required')) {
+          <mat-error translate>MANDATORY_PASSWORD
+          </mat-error>
+          }
+          @if (registerForm.password().getError('minLength') || registerForm.password().getError('maxLength')) {
+          <mat-error translate [translateParams]="{length: '5-40'}">INVALID_PASSWORD_LENGTH
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="tertiary">
+          <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
+          <input #repeatPassword id="repeatPasswordControl" [formField]="registerForm.repeatPassword"
+            (focus)="error.set(null)" type="password" matInput aria-label="Field to confirm the password">
+          <mat-hint align="end">{{repeatPassword.value?.length || 0}}/40</mat-hint>
+          @if (registerForm.repeatPassword().getError('required')) {
+          <mat-error translate>
+            MANDATORY_PASSWORD_REPEAT
+          </mat-error>
+          }
+          @if (registerForm.repeatPassword().getError('notSame')) {
+          <mat-error translate>
+            PASSWORDS_NOT_MATCHING
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-slide-toggle #passwordInfoToggle [color]="passwordStrength.color">{{'SHOW_PASSWORD_ADVICE' |
+          translate}}</mat-slide-toggle>
+        <app-password-strength #passwordStrength [password]="password.value"></app-password-strength>
+        @if (passwordInfoToggle.checked) {
+        <app-password-strength-info [passwordComponent]="passwordStrength"
+          [lowerCaseCriteriaMsg]="'LOWER_CASE_CRITERIA_MSG' | translate"
+          [upperCaseCriteriaMsg]="'UPPER_CASE_CRITERIA_MSG'| translate"
+          [digitsCriteriaMsg]="'DIGITS_CRITERIA_MSG'| translate"
+          [specialCharsCriteriaMsg]="'SPECIAL_CHARS_CRITERIA_MSG' | translate"
+          [minCharsCriteriaMsg]="'MIN_CHARS_CRITERIA_MSG' | translate:{value: 8}">
+        </app-password-strength-info>
+        }
+
+        <div class="security-container">
+
+          <mat-form-field color="tertiary" appearance="outline">
+            <mat-label>
+              {{'LABEL_SECURITY_QUESTION' | translate}}
+            </mat-label>
+            <mat-select id="securityQuestionControl" [formField]="registerForm.securityQuestion" placeholder=""
+              (focus)="error.set(null)" aria-label="Selection list for the security question">
+              @for (question of securityQuestions(); track question.id) {
+              <mat-option [value]="question.id" class="mat-body-medium">
+                {{question.question}}
+              </mat-option>
+              }
+            </mat-select>
+            <mat-hint translate>
+              <i class="fas fa-exclamation-circle"></i>
+              <em class="hint-spacing" translate>CANNOT_BE_CHANGED_LATER</em>
+            </mat-hint>
+            @if (registerForm.securityQuestion().getError('required')) {
+            <mat-error translate>
+              MANDATORY_SECURITY_QUESTION
+            </mat-error>
             }
           </mat-form-field>
 
-          <mat-form-field appearance="outline" color="tertiary" subscriptSizing="dynamic">
-            <mat-label translate>LABEL_PASSWORD</mat-label>
-            <input #password id="passwordControl" [formField]="registerForm.password" (focus)="error.set(null)" type="password"
-              matInput aria-label="Field for the password">
-              <mat-hint translate>
-                <i class="fas fa-exclamation-circle"></i>
-                <em class="hint-spacing" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
-              </mat-hint>
-              <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
-              @if (registerForm.password().getError('required')) {
-                <mat-error translate>MANDATORY_PASSWORD
-                </mat-error>
-              }
-              @if (registerForm.password().getError('minLength') || registerForm.password().getError('maxLength')) {
-                <mat-error
-                  translate [translateParams]="{length: '5-40'}">INVALID_PASSWORD_LENGTH
-                </mat-error>
-              }
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" color="tertiary">
-              <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
-              <input #repeatPassword id="repeatPasswordControl" [formField]="registerForm.repeatPassword"
-                (focus)="error.set(null)" type="password" matInput aria-label="Field to confirm the password">
-                <mat-hint align="end">{{repeatPassword.value?.length || 0}}/40</mat-hint>
-                @if (registerForm.repeatPassword().getError('required')) {
-                  <mat-error translate>
-                    MANDATORY_PASSWORD_REPEAT
-                  </mat-error>
-                }
-                @if (registerForm.repeatPassword().getError('notSame')) {
-                  <mat-error translate>
-                    PASSWORDS_NOT_MATCHING
-                  </mat-error>
-                }
-              </mat-form-field>
-
-              <mat-slide-toggle #passwordInfoToggle [color]="passwordStrength.color">{{'SHOW_PASSWORD_ADVICE' | translate}}</mat-slide-toggle>
-              <app-password-strength #passwordStrength [password]="password.value"></app-password-strength>
-              @if (passwordInfoToggle.checked) {
-                <app-password-strength-info [passwordComponent]="passwordStrength"
-                  [lowerCaseCriteriaMsg]="'LOWER_CASE_CRITERIA_MSG' | translate"
-                  [upperCaseCriteriaMsg]="'UPPER_CASE_CRITERIA_MSG'| translate"
-                  [digitsCriteriaMsg]="'DIGITS_CRITERIA_MSG'| translate"
-                  [specialCharsCriteriaMsg]="'SPECIAL_CHARS_CRITERIA_MSG' | translate"
-                  [minCharsCriteriaMsg]="'MIN_CHARS_CRITERIA_MSG' | translate:{value: 8}">
-                </app-password-strength-info>
-              }
-
-              <div class="security-container">
-
-                <mat-form-field color="tertiary" appearance="outline">
-                  <mat-label>
-                    {{'LABEL_SECURITY_QUESTION' | translate}}
-                  </mat-label>
-                  <mat-select id="securityQuestionControl" [formField]="registerForm.securityQuestion" placeholder=""
-                    (focus)="error.set(null)"
-                    aria-label="Selection list for the security question">
-                    @for (question of securityQuestions(); track question.id) {
-                      <mat-option [value]="question.id" class="mat-body-medium">
-                        {{question.question}}
-                      </mat-option>
-                    }
-                  </mat-select>
-                  <mat-hint translate>
-                    <i class="fas fa-exclamation-circle"></i>
-                    <em class="hint-spacing" translate>CANNOT_BE_CHANGED_LATER</em>
-                  </mat-hint>
-                  @if (registerForm.securityQuestion().getError('required')) {
-                    <mat-error translate>
-                      MANDATORY_SECURITY_QUESTION
-                    </mat-error>
-                  }
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" color="tertiary">
-                  <mat-label translate>SECURITY_ANSWER</mat-label>
-                  <input id="securityAnswerControl" [formField]="registerForm.securityAnswer" (focus)="error.set(null)" type="text"
-                    matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate"
-                    aria-label="Field for the answer to the security question">
-                    @if (registerForm.securityAnswer().getError('required')) {
-                      <mat-error translate>
-                        MANDATORY_SECURITY_ANSWER
-                      </mat-error>
-                    }
-                  </mat-form-field>
-                </div>
-
-                <button type="submit"
-                  id="registerButton"
-                  mat-raised-button color="primary"
-                  [disabled]="registerForm().invalid()"
-                  aria-label="Button to complete the registration">
-                  <mat-icon>person_add</mat-icon>
-                  {{'BTN_REGISTER' | translate}}
-                </button>
-
-                <div id="alreadyACustomerLink">
-                  <a class="primary-link" routerLink="/login" translate>ALREADY_A_CUSTOMER</a>
-                </div>
-              </form>
-            </div>
-          </mat-card>
+          <mat-form-field appearance="outline" color="tertiary">
+            <mat-label translate>SECURITY_ANSWER</mat-label>
+            <input id="securityAnswerControl" [formField]="registerForm.securityAnswer" (focus)="error.set(null)"
+              type="text" matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate"
+              aria-label="Field for the answer to the security question">
+            @if (registerForm.securityAnswer().getError('required')) {
+            <mat-error translate>
+              MANDATORY_SECURITY_ANSWER
+            </mat-error>
+            }
+          </mat-form-field>
         </div>
+
+        <button type="submit" id="registerButton" mat-raised-button color="primary"
+          [disabled]="registerForm().invalid()" aria-label="Button to complete the registration">
+          <mat-icon>person_add</mat-icon>
+          {{'BTN_REGISTER' | translate}}
+        </button>
+
+        <div id="alreadyACustomerLink">
+          <a class="primary-link" routerLink="/login" translate>ALREADY_A_CUSTOMER</a>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>
