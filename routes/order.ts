@@ -75,11 +75,10 @@ export function placeOrder () {
             if (BasketItem != null) {
               challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
               try {
-                const quantityRow = await QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } })
-                if (quantityRow) {
-                  const newQuantity = quantityRow.quantity - BasketItem.quantity
-                  await QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } })
-                }
+                await QuantityModel.decrement(
+                  { quantity: BasketItem.quantity },
+                  { where: { ProductId: BasketItem.ProductId } }
+                )
               } catch (error: unknown) {
                 next(error)
                 return
