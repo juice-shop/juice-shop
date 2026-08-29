@@ -9,36 +9,36 @@
 
       <h1 class="mat-headline-medium" translate>TITLE_REGISTRATION</h1>
 
-      <div class="error" ng-if="error">{{ error }}</div>
+      <div class="error">{{ error() }}</div>
 
       <form class="form-container" id="registration-form" (ngSubmit)="save()">
 
         <mat-form-field appearance="outline" color="tertiary">
           <mat-label translate>LABEL_EMAIL</mat-label>
-          <input id="emailControl" [formControl]="emailControl" (focus)="this.error=null" type="text" matInput
+          <input id="emailControl" [formField]="registerForm.email" (focus)="error.set(null)" type="text" matInput
             aria-label="Email address field">
-            @if (emailControl.invalid && emailControl.errors.required) {
+            @if (registerForm.email().getError('required')) {
               <mat-error translate>MANDATORY_EMAIL</mat-error>
             }
-            @if (emailControl.invalid && emailControl.errors.email) {
+            @if (registerForm.email().getError('email')) {
               <mat-error translate>INVALID_EMAIL</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="outline" color="tertiary" subscriptSizing="dynamic">
             <mat-label translate>LABEL_PASSWORD</mat-label>
-            <input #password id="passwordControl" [formControl]="passwordControl" (focus)="this.error=null" type="password"
+            <input #password id="passwordControl" [formField]="registerForm.password" (focus)="error.set(null)" type="password"
               matInput aria-label="Field for the password">
               <mat-hint translate>
                 <i class="fas fa-exclamation-circle"></i>
                 <em class="hint-spacing" translate>{{ 'INVALID_PASSWORD_LENGTH' | translate: {length: '5-40'} }}</em>
               </mat-hint>
               <mat-hint align="end">{{password.value?.length || 0}}/20</mat-hint>
-              @if (passwordControl.invalid && passwordControl.errors.required) {
+              @if (registerForm.password().getError('required')) {
                 <mat-error translate>MANDATORY_PASSWORD
                 </mat-error>
               }
-              @if (passwordControl.invalid && (passwordControl.errors.minlength || passwordControl.errors.maxlength)) {
+              @if (registerForm.password().getError('minLength') || registerForm.password().getError('maxLength')) {
                 <mat-error
                   translate [translateParams]="{length: '5-40'}">INVALID_PASSWORD_LENGTH
                 </mat-error>
@@ -47,15 +47,15 @@
 
             <mat-form-field appearance="outline" color="tertiary">
               <mat-label translate>LABEL_PASSWORD_REPEAT</mat-label>
-              <input #repeatPassword id="repeatPasswordControl" [formControl]="repeatPasswordControl"
-                (focus)="this.error=null" type="password" matInput aria-label="Field to confirm the password">
+              <input #repeatPassword id="repeatPasswordControl" [formField]="registerForm.repeatPassword"
+                (focus)="error.set(null)" type="password" matInput aria-label="Field to confirm the password">
                 <mat-hint align="end">{{repeatPassword.value?.length || 0}}/40</mat-hint>
-                @if (repeatPasswordControl.invalid && repeatPasswordControl.errors.required) {
+                @if (registerForm.repeatPassword().getError('required')) {
                   <mat-error translate>
                     MANDATORY_PASSWORD_REPEAT
                   </mat-error>
                 }
-                @if (repeatPasswordControl.invalid && repeatPasswordControl.errors.notSame) {
+                @if (registerForm.repeatPassword().getError('notSame')) {
                   <mat-error translate>
                     PASSWORDS_NOT_MATCHING
                   </mat-error>
@@ -80,10 +80,10 @@
                   <mat-label>
                     {{'LABEL_SECURITY_QUESTION' | translate}}
                   </mat-label>
-                  <mat-select [formControl]="securityQuestionControl" placeholder="" [(value)]="selected"
-                    (focus)="this.error=null" name="securityQuestion"
+                  <mat-select id="securityQuestionControl" [formField]="registerForm.securityQuestion" placeholder=""
+                    (focus)="error.set(null)"
                     aria-label="Selection list for the security question">
-                    @for (question of securityQuestions; track question.id) {
+                    @for (question of securityQuestions(); track question.id) {
                       <mat-option [value]="question.id" class="mat-body-medium">
                         {{question.question}}
                       </mat-option>
@@ -93,7 +93,7 @@
                     <i class="fas fa-exclamation-circle"></i>
                     <em class="hint-spacing" translate>CANNOT_BE_CHANGED_LATER</em>
                   </mat-hint>
-                  @if (securityQuestionControl.invalid && securityQuestionControl.errors.required) {
+                  @if (registerForm.securityQuestion().getError('required')) {
                     <mat-error translate>
                       MANDATORY_SECURITY_QUESTION
                     </mat-error>
@@ -102,10 +102,10 @@
 
                 <mat-form-field appearance="outline" color="tertiary">
                   <mat-label translate>SECURITY_ANSWER</mat-label>
-                  <input id="securityAnswerControl" [formControl]="securityAnswerControl" (focus)="this.error=null" type="text"
+                  <input id="securityAnswerControl" [formField]="registerForm.securityAnswer" (focus)="error.set(null)" type="text"
                     matInput [placeholder]="'SECURITY_ANSWER_PLACEHOLDER' | translate"
                     aria-label="Field for the answer to the security question">
-                    @if (securityAnswerControl.invalid && securityAnswerControl.errors.required) {
+                    @if (registerForm.securityAnswer().getError('required')) {
                       <mat-error translate>
                         MANDATORY_SECURITY_ANSWER
                       </mat-error>
@@ -116,7 +116,7 @@
                 <button type="submit"
                   id="registerButton"
                   mat-raised-button color="primary"
-                  [disabled]="emailControl.invalid || passwordControl.invalid || repeatPasswordControl.invalid || securityQuestionControl.invalid || securityAnswerControl.invalid"
+                  [disabled]="registerForm().invalid()"
                   aria-label="Button to complete the registration">
                   <mat-icon>person_add</mat-icon>
                   {{'BTN_REGISTER' | translate}}
