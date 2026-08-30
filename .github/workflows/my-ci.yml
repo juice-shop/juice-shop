@@ -4,21 +4,23 @@ on:
   push:
     branches:
       - devsecops-learning
-
+      
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: actions/setup-java@v5
+      - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v7
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
 
-      - name: Run the Maven verify phase
-        run: mvn --batch-mode --update-snapshots verify
+      
 
 
       
