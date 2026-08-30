@@ -1,1 +1,25 @@
+name: my workflow
 
+on:
+  push:
+    branches:
+      - devsecops-learning
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run the Maven verify phase
+        run: mvn --batch-mode --update-snapshots verify
+
+
+      
+  
