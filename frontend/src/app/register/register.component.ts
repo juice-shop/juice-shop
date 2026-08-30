@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
     maxLength(s.password, 40)
     required(s.repeatPassword)
     validate(s.repeatPassword, ({ value, valueOf }) => {
-      if (value() !== valueOf(s.password)) {
+      if (value() && value() !== valueOf(s.password)) {
         return { kind: 'notSame' }
       }
       return undefined
