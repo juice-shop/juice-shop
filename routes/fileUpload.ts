@@ -126,8 +126,9 @@ function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction)
       res.status(410)
       next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
     }
+  } else {
+    next()
   }
-  res.status(204).end()
 }
 
 export {
