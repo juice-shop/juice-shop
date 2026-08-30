@@ -7,7 +7,7 @@
 
 mat-card {
   height: auto;
-  min-width: 320px;
+  min-width: 460px;
   width: 25%;
   padding: $space-l $space-xl;
 }
@@ -44,6 +44,10 @@ mat-slide-toggle {
   flex-direction: column;
   margin-top: $space-m;
   position: relative;
+
+  mat-form-field:last-child {
+    margin-bottom: 0;
+  }
 }
 
 ::ng-deep mat-option .mat-mdc-option-text {
