@@ -68,66 +68,68 @@ function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
 }
 
 async function handleXmlUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if (file?.originalname?.toLowerCase().endsWith('.xml') ?? false) {
-    challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
-    if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
-      const data = file.buffer.toString()
-      try {
-        const xmlString = await parseXmlString(data)
-        challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
-        res.status(410)
-        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
-      } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : String(err)
-        if (errorMessage.includes('Script execution timed out')) {
-          if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
-            challengeUtils.solve(challenges.xxeDosChallenge)
-          }
-          res.status(503)
-          next(new Error('Sorry, we are temporarily not available! Please try again later.'))
-        } else {
-          res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + errorMessage + ' (' + file.originalname + ')'))
-        }
-      }
-    } else {
-      res.status(410)
-      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
-    }
+  if (!(file?.originalname?.toLowerCase().endsWith('.xml') ?? false)) {
+    next()
+    return
   }
-  next()
+  challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
+  if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) { // XXE attacks in Docker/Heroku containers regularly cause "segfault" crashes
+    const data = file.buffer.toString()
+    try {
+      const xmlString = await parseXmlString(data)
+      challengeUtils.solveIf(challenges.xxeFileDisclosureChallenge, () => { return (utils.matchesEtcPasswdFile(xmlString) || utils.matchesSystemIniFile(xmlString)) })
+      res.status(410)
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(xmlString, 400) + ' (' + file.originalname + ')'))
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err)
+      if (errorMessage.includes('Script execution timed out')) {
+        if (challengeUtils.notSolved(challenges.xxeDosChallenge)) {
+          challengeUtils.solve(challenges.xxeDosChallenge)
+        }
+        res.status(503)
+        next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+      } else {
+        res.status(410)
+        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + errorMessage + ' (' + file.originalname + ')'))
+      }
+    }
+  } else {
+    res.status(410)
+    next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
+  }
 }
 
 function handleYamlUpload ({ file }: Request, res: Response, next: NextFunction) {
-  if ((file?.originalname?.toLowerCase().endsWith('.yml') ?? false) || (file?.originalname?.toLowerCase().endsWith('.yaml') ?? false)) {
-    challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
-    if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) {
-      const data = file.buffer.toString()
-      try {
-        const sandbox = { yaml, data }
-        vm.createContext(sandbox)
-        const yamlString = vm.runInContext('JSON.stringify(yaml.load(data))', sandbox, { timeout: 2000 })
-        res.status(410)
-        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(yamlString, 400) + ' (' + file.originalname + ')'))
-      } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : String(err)
-        if (errorMessage.includes('Invalid string length') || errorMessage.includes('Script execution timed out')) {
-          if (challengeUtils.notSolved(challenges.yamlBombChallenge)) {
-            challengeUtils.solve(challenges.yamlBombChallenge)
-          }
-          res.status(503)
-          next(new Error('Sorry, we are temporarily not available! Please try again later.'))
-        } else {
-          res.status(410)
-          next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + errorMessage + ' (' + file.originalname + ')'))
-        }
-      }
-    } else {
-      res.status(410)
-      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
-    }
+  if (!((file?.originalname?.toLowerCase().endsWith('.yml') ?? false) || (file?.originalname?.toLowerCase().endsWith('.yaml') ?? false))) {
+    res.status(204).end()
+    return
   }
-  res.status(204).end()
+  challengeUtils.solveIf(challenges.deprecatedInterfaceChallenge, () => { return true })
+  if (((file?.buffer) != null) && utils.isChallengeEnabled(challenges.deprecatedInterfaceChallenge)) {
+    const data = file.buffer.toString()
+    try {
+      const sandbox = { yaml, data }
+      vm.createContext(sandbox)
+      const yamlString = vm.runInContext('JSON.stringify(yaml.load(data))', sandbox, { timeout: 2000 })
+      res.status(410)
+      next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + utils.trunc(yamlString, 400) + ' (' + file.originalname + ')'))
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err)
+      if (errorMessage.includes('Invalid string length') || errorMessage.includes('Script execution timed out')) {
+        if (challengeUtils.notSolved(challenges.yamlBombChallenge)) {
+          challengeUtils.solve(challenges.yamlBombChallenge)
+        }
+        res.status(503)
+        next(new Error('Sorry, we are temporarily not available! Please try again later.'))
+      } else {
+        res.status(410)
+        next(new Error('B2B customer complaints via file upload have been deprecated for security reasons: ' + errorMessage + ' (' + file.originalname + ')'))
+      }
+    }
+  } else {
+    res.status(410)
+    next(new Error('B2B customer complaints via file upload have been deprecated for security reasons (' + file?.originalname + ')'))
+  }
 }
 
 export {
