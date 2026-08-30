@@ -9,10 +9,16 @@ mat-card {
   height: auto;
   min-width: 320px;
   width: 25%;
+  padding: $space-l $space-xl;
 }
 
 mat-form-field {
-  padding-top: $space-s;
+  padding-top: $space-m;
+}
+
+mat-slide-toggle {
+  margin-top: $space-l;
+  margin-bottom: $space-xs;
 }
 
 .form-container {
