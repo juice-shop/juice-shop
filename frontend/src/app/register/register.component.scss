@@ -13,11 +13,10 @@ mat-card {
 }
 
 mat-form-field {
-  padding-top: $space-m;
+  margin-bottom: $space-m;
 }
 
 mat-slide-toggle {
-  margin-top: $space-l;
   margin-bottom: $space-xs;
 }
 
@@ -43,6 +42,7 @@ mat-slide-toggle {
 .security-container {
   display: flex;
   flex-direction: column;
+  margin-top: $space-m;
   position: relative;
 }
 
