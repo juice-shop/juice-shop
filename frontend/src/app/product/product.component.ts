@@ -42,6 +42,17 @@ export class ProductComponent {
     }
 
     if (!this.isLoggedIn()) {
+      const guestBasketQuantity = this.basketService.getGuestBasketItems()
+        .filter(item => item.ProductId === id)
+        .reduce((sum, item) => sum + item.quantity, 0)
+      const newQuantity = guestBasketQuantity + 1
+      const violation = this.basketService.getGuestBasketQuantityViolation(newQuantity, this.item(), this.isDeluxe())
+
+      if (violation != null) {
+        this.snackBarHelperService.openBasketQuantityViolation(violation)
+        return
+      }
+
       this.basketService.addToGuestBasket(id)
       this.productService.get(id).subscribe({
         next: (product) => {
