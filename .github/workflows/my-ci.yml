@@ -1,4 +1,4 @@
-name: my workflow
+name: node.js
 
 on:
   push:
