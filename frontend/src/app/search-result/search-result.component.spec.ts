@@ -294,7 +294,7 @@ describe('SearchResultComponent', () => {
                 { id: 2, name: 'Orange', price: 2, description: 'd', image: 'i' }
             ]))
             quantityService.getAll.mockReturnValue(of([
-                { ProductId: 1, quantity: 10 },
+                { ProductId: 1, quantity: 10, limitPerUser: 2 },
                 { ProductId: 3, quantity: 5 } // Non-existent product
             ]))
             component.ngAfterViewInit()
@@ -303,7 +303,9 @@ describe('SearchResultComponent', () => {
             const apple = component.dataSource.data.find(p => p.id === 1)
             const orange = component.dataSource.data.find(p => p.id === 2)
             expect(apple?.quantity).toBe(10)
+            expect(apple?.limitPerUser).toBe(2)
             expect(orange?.quantity).toBeUndefined()
+            expect(orange?.limitPerUser).toBeUndefined()
         })
 
         it('should unsubscribe the previous grid data source subscription when filtering twice', () => {
