@@ -13,4 +13,4 @@ export interface Product {
   deluxePrice: number
 }
 
-export type ProductTableEntry = Product & { quantity?: number }
+export type ProductTableEntry = Product & { quantity?: number, limitPerUser?: number | null }
