@@ -62,6 +62,8 @@
   "TITLE_ALL_PRODUCTS": "Semua Produk",
   "BASKET_ADD_SAME_PRODUCT": "Ditambahkan {{product}} lain ke daftar keranjang.",
   "BASKET_ADD_PRODUCT": "{{product}} ditempatkan ke daftar keranjang.",
+  "BASKET_ADD_PRODUCT_LIMIT": "You can order only up to {{quantity}} items of this product.",
+  "BASKET_ADD_PRODUCT_OUT_OF_STOCK": "We are out of stock! Sorry for the inconvenience.",
   "LABEL_PRODUCT": "Produk",
   "LABEL_PRODUCT_ORDERED": "Produk yang dipesan",
   "LABEL_EXPECTED_DELIVERY": "Tanggal pengiriman yang diharapkan",
