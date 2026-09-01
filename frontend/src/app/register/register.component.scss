@@ -28,7 +28,7 @@ mat-form-field {
 }
 
 mat-form-field:has(+ mat-slide-toggle) {
-  margin-bottom: $space-xs;
+  margin-bottom: $space-2xs;
 }
 
 mat-slide-toggle {
