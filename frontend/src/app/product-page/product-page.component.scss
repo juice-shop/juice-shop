@@ -206,6 +206,8 @@
   }
 
   .container {
+    width: calc(100% - 2 * $space-m);
+    margin: 0 $space-m;
     padding-bottom: $space-4xl + $space-3xl;
   }
 }
