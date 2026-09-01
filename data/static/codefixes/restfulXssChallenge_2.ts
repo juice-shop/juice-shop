@@ -24,6 +24,7 @@ ngAfterViewInit () {
             continue
           }
           entry.quantity = quantity.quantity
+          entry.limitPerUser = quantity.limitPerUser
         }
         this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
         this.updatePageSizeOptions()
