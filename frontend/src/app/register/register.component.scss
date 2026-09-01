@@ -12,6 +12,17 @@ mat-card {
   padding: $space-l $space-xl;
 }
 
+@media (max-width: 599.98px) {
+  mat-card {
+    width: 100%;
+    min-width: auto;
+    margin-bottom: $space-l;
+    margin-left: $space-m;
+    margin-right: $space-m;
+    
+  }
+}
+
 mat-form-field {
   margin-bottom: $space-m;
 }
