@@ -132,31 +132,31 @@
 }
 
 .add-to-basket-button {
-  --mdc-filled-button-container-height: 80px;
+  --mdc-filled-button-container-height: 64px;
   position: relative;
   overflow: hidden;
   display: flex;
   width: 100%;
-  max-width: 360px;
-  padding: $space-xl $space-4xl;
-  font-size: x-large;
+  max-width: 250px;
+  padding: $space-l $space-3xl;
+  font-size: large;
 
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 4rem;
+    width: 3rem;
     bottom: 0;
     background-color: var(--theme-accent);
   }
 
   mat-icon {
     position: absolute;
-    left: 1.8rem;
-    width: 2rem;
-    height: 1.6rem;
-    font-size: 1.6rem;
+    left: 1.4rem;
+    width: 1.6rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -203,6 +203,23 @@
     padding: $space-s $space-m;
     background: var(--mat-sys-surface-container);
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .add-to-basket-button {
+    --mdc-filled-button-container-height: 80px;
+    padding: $space-xl $space-4xl;
+    font-size: x-large;
+  }
+
+  .add-to-basket-button::before {
+    width: 4rem;
+  }
+
+  .add-to-basket-button mat-icon {
+    left: 1.8rem;
+    width: 2rem;
+    height: 1.6rem;
+    font-size: 1.6rem;
   }
 
   .container {
