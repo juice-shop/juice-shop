@@ -18,7 +18,10 @@
   } @else if (productResource.value(); as product) {
     <mat-card class="details" aria-labelledby="product-name">
       <mat-card-content class="details-content">
-        <div class="details-image">
+        <div
+          class="details-image"
+          [style.background-image]="'url(\'assets/public/images/products/' + product.image + '\')'"
+        >
           <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" [alt]="product.name">
         </div>
 

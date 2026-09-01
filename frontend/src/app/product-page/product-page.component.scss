@@ -42,15 +42,37 @@
 }
 
 .details-image {
+  position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
+  aspect-ratio: 0.9;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+
+  @media (max-width: 959.98px) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.details-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-position: inherit;
+  background-size: inherit;
+  filter: blur(8px);
+  transform: scale(1.08);
 }
 
 .img-thumbnail {
   width: 100%;
-  max-width: 600px;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
   padding: $space-3xs;
   border: var(--theme-thumbnail-border);
   box-sizing: border-box;
