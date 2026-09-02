@@ -5,6 +5,7 @@
 
 import { type Request, type Response, type NextFunction } from 'express'
 import { CaptchaModel } from '../models/captcha'
+import sanitizeHtml from 'sanitize-html' // 1. Import de la bibliothèque de désinfection
 
 export function captchas () {
   return async (req: Request, res: Response) => {
@@ -36,6 +37,15 @@ export const verifyCaptcha = () => async (req: Request, res: Response, next: Nex
   try {
     const captcha = await CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } })
     if ((captcha != null) && req.body.captcha === captcha.answer) {
+      
+      // 2. CORRECTION XSS STORED : Nettoyage du commentaire reçu
+      if (req.body.comment != null) {
+        req.body.comment = sanitizeHtml(req.body.comment, {
+          allowedTags: [], // Supprime toutes les balises HTML et scripts
+          allowedAttributes: {}
+        })
+      }
+
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
