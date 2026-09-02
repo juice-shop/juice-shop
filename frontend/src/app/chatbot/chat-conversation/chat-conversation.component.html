@@ -2,7 +2,7 @@
   <a routerLink="/chatbot" class="back-link" aria-label="Back to chatbot">
     <mat-icon>chevron_left</mat-icon>
   </a>
-  <img [src]="chatBotAvatar()" [alt]="'CHATBOT_AVATAR_ALT' | translate" class="header-avatar" />
+  <img [src]="chatBotAvatar()" [alt]="chatBotName()" />
   <span class="header-title">{{ chatBotName() }}</span>
 </div>
 

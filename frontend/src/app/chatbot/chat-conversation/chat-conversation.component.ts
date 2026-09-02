@@ -47,7 +47,7 @@ export class ChatConversationComponent implements OnInit {
   showToolCalls = signal(false)
   isToolCallsCollapsed = signal(true)
   messageInput = signal('')
-  chatBotName = signal('Juicy')
+  chatBotName = signal('Juicy the Smart Assistant')
   chatBotAvatar = signal('assets/public/images/JuicyBot.png')
 
   private conversationId = ''
