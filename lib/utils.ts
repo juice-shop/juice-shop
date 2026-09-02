@@ -109,8 +109,10 @@ export const downloadToFile = async (url: string, dest: string) => {
   try {
     const data = await download(url)
     fs.writeFileSync(dest, data)
+    return true
   } catch (err) {
     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
+    return false
   }
 }
 
