@@ -45,7 +45,7 @@ const customizeLogo = async () => {
 const customizeChatbotAvatar = async () => {
   const avatarImage = await retrieveCustomFile('application.chatBot.avatar', 'frontend/dist/frontend/assets/public/images')
   if (avatarImage) {
-    fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/ChatbotAvatar.png')
+    fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/chatbotAvatar.png')
   }
 }
 
