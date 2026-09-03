@@ -8,6 +8,7 @@ import fs from 'node:fs'
 import logger from './logger'
 import config from 'config'
 import download from 'download'
+import { ProxyAgent } from 'proxy-agent'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
 import type { Challenge } from '@juice-shop/data/types'
@@ -19,6 +20,7 @@ export { default as isDocker } from './is-docker'
 export { default as isWindows } from './is-windows'
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+const proxyAgent = new ProxyAgent()
 
 export const queryResultToJson = <T>(
   data: T,
@@ -105,9 +107,13 @@ export const extractFilename = (url: string) => {
   return file
 }
 
-export const downloadToFile = async (url: string, dest: string) => {
+export const downloadToFile = async (
+  url: string,
+  dest: string,
+  downloadData: (url: string, options: download.DownloadOptions) => Promise<Buffer> = download
+) => {
   try {
-    const data = await download(url)
+    const data = await downloadData(url, { agent: proxyAgent })
     fs.writeFileSync(dest, data)
     return true
   } catch (err) {
