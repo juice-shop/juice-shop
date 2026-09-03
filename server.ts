@@ -4,8 +4,6 @@
  */
 import i18n from 'i18n'
 import cors from 'cors'
-import fs from 'node:fs'
-import yaml from 'js-yaml'
 import config from 'config'
 import morgan from 'morgan'
 import multer from 'multer'
@@ -14,7 +12,6 @@ import http from 'node:http'
 import path from 'node:path'
 import express from 'express'
 import colors from 'colors/safe'
-import serveIndex from 'serve-index'
 import bodyParser from 'body-parser'
 // @ts-expect-error FIXME due to non-existing type definitions for finale-rest
 import * as finale from 'finale-rest'
@@ -23,7 +20,6 @@ import compression from 'compression'
 import robots from 'express-robots-txt'
 import cookieParser from 'cookie-parser'
 import * as Prometheus from 'prom-client'
-import swaggerUi from 'swagger-ui-express'
 import featurePolicy from 'feature-policy'
 import { IpFilter } from 'express-ipfilter'
 // @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
@@ -83,7 +79,6 @@ import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
 import { trackOrder } from './routes/trackOrder'
 import { saveLoginIp } from './routes/saveLoginIp'
-import { serveKeyFiles } from './routes/keyServer'
 import * as basketItems from './routes/basketItems'
 import { performRedirect } from './routes/redirect'
 import { serveEasterEgg } from './routes/easterEgg'
@@ -91,8 +86,6 @@ import { getLanguageList } from './routes/languages'
 import { getUserProfile } from './routes/userProfile'
 import { serveAngularClient } from './routes/angular'
 import { resetPassword } from './routes/resetPassword'
-import { serveLogFiles } from './routes/logfileServer'
-import { servePublicFiles } from './routes/fileServer'
 import { addMemory, getMemories } from './routes/memory'
 import { changePassword } from './routes/changePassword'
 import { countryMapping } from './routes/countryMapping'
@@ -109,7 +102,6 @@ import { updateUserProfile } from './routes/updateUserProfile'
 import { getVideo, promotionVideo } from './routes/videoHandler'
 import { likeProductReviews } from './routes/likeProductReviews'
 import { repeatNotification } from './routes/repeatNotification'
-import { serveQuarantineFiles } from './routes/quarantineServer'
 import { showProductReviews } from './routes/showProductReviews'
 import { nftMintListener, walletNFTVerify } from './routes/nftMint'
 import { createProductReviews } from './routes/createProductReviews'
@@ -135,8 +127,6 @@ const server = new http.Server(app)
 const errorhandler = require('errorhandler')
 
 const startTime = Date.now()
-
-const swaggerDocument = yaml.load(fs.readFileSync('./swagger.yml', 'utf8'))
 
 const appName = config.get<string>('application.customMetricsPrefix')
 const startupGauge = new Prometheus.Gauge({
@@ -237,76 +227,15 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Checks for challenges solved by abusing SSTi and SSRF bugs */
   app.use('/solve/challenges/server-side', verify.serverSideChallenges())
 
-  /* Create middleware to change paths from the serve-index plugin from absolute to relative */
-  const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const origEnd = res.end
-    // @ts-expect-error FIXME assignment broken due to seemingly void return value
-    res.end = function () {
-      if (arguments.length && typeof arguments[0] === 'string') {
-        const reqPath = req.originalUrl.replace(/\?.*$/, '')
-
-        const currentFolder = reqPath.split('/').pop()!
-        arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
-          let relativePath = path.relative(reqPath, matchedUrl)
-          if (relativePath === '') {
-            relativePath = currentFolder
-          } else if (!relativePath.startsWith('.') && currentFolder !== '') {
-            relativePath = currentFolder + '/' + relativePath
-          } else {
-            relativePath = relativePath.replace('..', '.')
-          }
-          return 'a href="' + relativePath + '"'
-        })
-      }
-      // @ts-expect-error FIXME passed argument has wrong type
-      origEnd.apply(this, arguments)
-    }
-    next()
-  }
-
-  /* /infrastructure directory browsing */
-  app.use('/infrastructure', serveIndexMiddleware, serveIndex('infrastructure', { icons: true, view: 'details', filter: (filename) => filename !== 'README.md' }))
-  app.use('/infrastructure', verify.accessControlChallenges())
-  app.use('/infrastructure', (req: Request, res: Response, next: NextFunction) => {
-    const filePath = path.resolve('infrastructure', path.normalize(req.path).replace(/^[\\/]+/, ''))
-    if (!filePath.startsWith(path.resolve('infrastructure')) || filePath.endsWith('README.md')) {
-      return res.status(403).end()
-    }
-    if (filePath.endsWith('.tf') || filePath.endsWith('.yml') || filePath.endsWith('Dockerfile')) {
-      fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) return next()
-        const cleaned = data.split('\n').filter(line => !line.trim().match(/^#\s*vuln-code-snippet\s/)).map(line => line.replace(/\s*#\s*vuln-code-snippet\s.*$/, '')).join('\n')
-        res.type('text/plain').send(cleaned)
-      })
-    } else {
-      express.static('infrastructure')(req, res, next)
-    }
-  })
-
-  // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
-  /* /ftp directory browsing and file download */ // vuln-code-snippet neutral-line directoryListingChallenge
-  app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
-  app.use('/ftp(?!/quarantine)/:file', servePublicFiles()) // vuln-code-snippet vuln-line directoryListingChallenge
-  app.use('/ftp/quarantine/:file', serveQuarantineFiles()) // vuln-code-snippet neutral-line directoryListingChallenge
-
-  app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
   app.use('/.well-known', express.static('.well-known'))
 
-  /* /encryptionkeys directory browsing */
-  app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
-  app.use('/encryptionkeys/:file', serveKeyFiles())
-
-  /* /logs directory browsing */ // vuln-code-snippet neutral-line accessLogDisclosureChallenge
-  app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
-  app.use('/support/logs', verify.accessControlChallenges()) // vuln-code-snippet hide-line
-  app.use('/support/logs/:file', serveLogFiles()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
-
-  /* Swagger documentation for B2B v2 endpoints */
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+  // Training artifacts must never be exposed by a production deployment.
+  app.use(['/infrastructure', '/ftp', '/encryptionkeys', '/support/logs'], (_req: Request, res: Response) => {
+    res.sendStatus(404)
+  })
 
   app.use(express.static(path.resolve('frontend/dist/frontend')))
   app.use(cookieParser('kekse'))
-  // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Serve vendor dependencies locally instead of from CDN */
   app.use('/vendor/beercss', express.static(path.resolve('node_modules/beercss/dist/cdn')))
