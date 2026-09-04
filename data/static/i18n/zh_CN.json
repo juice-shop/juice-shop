@@ -150,7 +150,7 @@
   "Log in with Amy's original user credentials. (This could take 93.83 billion trillion trillion centuries to brute force, but luckily she did not read the \"One Important Final Note\")": "使用Amy的原始用户凭据登录。(这可能要花费938.3万亿亿亿世纪的才能暴力破解，但幸运的是她没有读过“最后的重要提示”)",
   "Log in with Bender's user account.": "使用Bender的用户帐户登录。",
   "Log in with Bjoern's Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.": "使用 Bjoern的 Gmail 帐户登录而 <i>不</i> 更改他的密码，使用SQL 注入或骇入他的Google帐户。",
-  "Log in with the cloud admin's user account <i>without</i> using SQL Injection.": "Log in with the cloud admin's user account <i>without</i> using SQL Injection.",
+  "Log in with the cloud admin's user account <i>without</i> using SQL Injection.": "在<i>不使用</i>SQL注入的情况下使用云管理员的用户账户登录",
   "Log in with Jim's user account.": "使用Jim的用户帐户登录。",
   "Log in with MC SafeSearch's original user credentials without applying SQL Injection or any other bypass.": "使用MC SafeSearch的原始用户凭据登录而不使用 SQL 注入或任何其他绕过方法.",
   "Log in with the support team's original user credentials without applying SQL Injection or any other bypass.": "使用支持团队的原始用户凭据登录而不使用SQL注入或任何其他绕过方法。",
