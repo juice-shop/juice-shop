@@ -55,6 +55,10 @@ const routes: Routes = [
     component: OrderCompletionComponent
   },
   {
+    path: 'product/:id',
+    loadComponent: async () => await loadProductPage()
+  },
+  {
     path: 'contact',
     component: ContactComponent
   },

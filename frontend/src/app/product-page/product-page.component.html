@@ -1,0 +1,164 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+<main class="container">
+  <div class="back-row">
+    <button mat-button type="button" (click)="goBack()">
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      <span>{{ 'LABEL_BACK' | translate }}</span>
+    </button>
+  </div>
+
+  @if (productResource.isLoading()) {
+    <div class="loading" role="status" aria-live="polite">
+      <mat-spinner diameter="60" aria-label="Loading"></mat-spinner>
+    </div>
+  } @else if (productResource.value(); as product) {
+    <mat-card class="details" aria-labelledby="product-name">
+      <mat-card-content class="details-content">
+        <div
+          class="details-image"
+          [style.background-image]="'url(\'assets/public/images/products/' + product.image + '\')'"
+        >
+          <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" [alt]="product.name">
+        </div>
+
+        <div class="details-info">
+          <h1 id="product-name" class="product-name">{{ product.name }}</h1>
+          <div class="product-description" [innerHTML]="product.description"></div>
+          <mat-divider class="description-divider"></mat-divider>
+          <div class="price-row">
+            <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
+              @if (!isDeluxe() || product.price === product.deluxePrice) {
+                {{ product.price }}&curren;
+              }
+              @if (isDeluxe() && product.price !== product.deluxePrice) {
+                <s class="expired">{{ product.price }}</s>
+                {{ product.deluxePrice }}&curren;
+              }
+            </p>
+            @if (points() > 0) {
+              <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
+                aria-label="Bonus points when buying the product">
+                <span class="bonus-points" aria-hidden="true">
+                  <i class="fas fa-crown bonus-crown"></i>
+                  <span class="bonus-counter warn-notification">{{ points() }}</span>
+                </span>
+              </div>
+            }
+          </div>
+          <div class="purchase-row">
+            <div class="quantity-stepper" role="group" aria-label="Quantity">
+              <button mat-icon-button type="button" (click)="decrementQuantity()" aria-label="Decrease quantity">
+                <mat-icon aria-hidden="true">remove</mat-icon>
+              </button>
+              <span class="quantity-value" aria-live="polite">{{ quantity() }}</span>
+              <button mat-icon-button type="button" (click)="incrementQuantity()" aria-label="Increase quantity">
+                <mat-icon aria-hidden="true">add</mat-icon>
+              </button>
+            </div>
+            <button mat-raised-button color="primary" class="add-to-basket-button" (click)="addToBasket()" aria-label="{{ 'ADD_BASKET' | translate }}">
+              <mat-icon aria-hidden="true">add_shopping_cart</mat-icon>
+              <span>{{ 'ADD_BASKET' | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-expansion-panel #reviewsPanel class="reviews-panel mat-elevation-z0" [(expanded)]="reviewsExpanded" aria-label="Expand for Reviews">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <span translate>LABEL_REVIEWS</span>
+          <span class="review-count">
+            @if (reviewsResource.isLoading()) {
+              <mat-spinner diameter="16" aria-label="Loading reviews"></mat-spinner>
+            } @else {
+              ({{ (reviewsResource.value() ?? []).length }})
+            }
+          </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      @if (reviewsResource.isLoading()) {
+        <div class="loading loading--compact" role="status" aria-live="polite">
+          <mat-spinner diameter="40" aria-label="Loading reviews"></mat-spinner>
+        </div>
+      } @else if ((reviewsResource.value() ?? []).length >= 1) {
+        <ul class="review-list">
+          @for (review of reviewsResource.value() ?? []; track review._id) {
+            <li class="review-item">
+              <article class="review">
+                <header class="review-header">
+                  <cite class="review-author">{{ review.author }}</cite>
+                  <div class="review-actions">
+                    @if (review.author !== 'Anonymous' && review.author === author()) {
+                      <button mat-icon-button type="button" (click)="editReview(review)"
+                        matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}"
+                        aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}">
+                        <mat-icon aria-hidden="true">edit</mat-icon>
+                      </button>
+                    }
+                    <button mat-icon-button type="button" (click)="likeReview(review)"
+                      [disabled]="review.liked || !isLoggedIn()"
+                      class="rw-button"
+                      aria-label="Rate a helpful review">
+                      <mat-icon aria-hidden="true">thumb_up</mat-icon>
+                      <span class="like-counter accent-notification">{{ review.likesCount }}</span>
+                    </button>
+                  </div>
+                </header>
+                <p class="review-message">{{ review.message }}</p>
+              </article>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="noResultText" translate>EMPTY_REVIEW_LIST</p>
+      }
+
+      <form class="review-form" (ngSubmit)="addReview(textPut)"
+        [style.display]="isLoggedIn() ? 'block' : 'none'">
+        <h3 class="write-review-title" translate>WRITE_REVIEW</h3>
+        <mat-form-field appearance="outline" color="tertiary" floatLabel="always">
+          <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
+          <mat-hint>
+            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+            <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+          </mat-hint>
+          <textarea [formControl]="reviewControl" #textPut cols="50" matInput
+            placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate }}"
+            matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+            matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
+          <mat-hint align="end">{{ reviewText().length }}/160</mat-hint>
+        </mat-form-field>
+
+        <button type="submit" id="submitButton" [disabled]="!reviewText().trim()"
+          mat-raised-button color="primary" class="submit-button"
+          aria-label="Send the review">
+          <mat-icon aria-hidden="true">send</mat-icon>
+          <span>{{ 'BTN_SUBMIT' | translate }}</span>
+        </button>
+      </form>
+    </mat-expansion-panel>
+
+    <section aria-labelledby="related-title">
+      <h2 id="related-title" class="related-title" translate>LABEL_RELATED_PRODUCTS</h2>
+      @if (relatedProductsResource.isLoading()) {
+        <div class="loading loading--compact" role="status" aria-live="polite">
+          <mat-spinner diameter="40" aria-label="Loading related products"></mat-spinner>
+        </div>
+      } @else if (relatedProducts().length > 0) {
+        <div class="products-grid" #relatedGrid>
+          @for (item of relatedProducts(); track item.id) {
+            <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
+          }
+        </div>
+      }
+    </section>
+  } @else if (productId() != null) {
+    <p class="status-message" translate>PRODUCT_NOT_FOUND</p>
+  }
+</main>

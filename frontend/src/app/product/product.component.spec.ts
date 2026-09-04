@@ -5,13 +5,12 @@
 
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { MatDialog } from '@angular/material/dialog'
 import { of, throwError } from 'rxjs'
 import { provideZoneChangeDetection } from '@angular/core'
+import { ActivatedRoute, provideRouter } from '@angular/router'
 
 import { ProductComponent } from './product.component'
-import { ProductDetailsComponent } from '../product-details/product-details.component'
-import { type Product, type ProductTableEntry } from '../Models/product.model'
+import { type ProductTableEntry } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { BasketService } from '../Services/basket.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -23,7 +22,7 @@ describe('ProductComponent', () => {
     let basketService: any
     let translateService: TranslateService
     let translateServiceGetSpy: any
-    let dialog: any
+    let activatedRoute: any
     let snackBarHelper: any
 
     const testProduct: ProductTableEntry = {
@@ -37,8 +36,8 @@ describe('ProductComponent', () => {
     }
 
     beforeEach(async () => {
-        dialog = {
-            open: vi.fn().mockName("MatDialog.open")
+        activatedRoute = {
+            snapshot: { queryParams: { q: 'apple' } }
         }
         productService = {
             search: vi.fn().mockName("ProductService.search"),
@@ -69,7 +68,8 @@ describe('ProductComponent', () => {
         await TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(), ProductComponent],
             providers: [
-                { provide: MatDialog, useValue: dialog },
+                provideRouter([]),
+                { provide: ActivatedRoute, useValue: activatedRoute },
                 { provide: ProductService, useValue: productService },
                 { provide: BasketService, useValue: basketService },
                 { provide: SnackBarHelperService, useValue: snackBarHelper },
@@ -89,15 +89,15 @@ describe('ProductComponent', () => {
         fixture.detectChanges()
     })
 
-    it('should open a modal dialog with product details', () => {
-        component.showDetail({ id: 42 } as Product)
-        expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
-            width: '500px',
-            height: 'max-content',
-            data: {
-                productData: { id: 42 }
-            }
-        })
+    it('should render a link to the product page', () => {
+        const link = fixture.nativeElement.querySelector('a.product-link')
+        expect(link).toBeTruthy()
+        expect(link.getAttribute('href')).toContain('/product/1')
+    })
+
+    it('should forward the current search query in the product link', () => {
+        const link = fixture.nativeElement.querySelector('a.product-link')
+        expect(link.getAttribute('href')).toContain('q=apple')
     })
 
     it('should add new product to basket', () => {
