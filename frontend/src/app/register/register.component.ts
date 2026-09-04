@@ -5,8 +5,8 @@
 
 import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
-import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
+import { FormField, email, form, maxLength, minLength, required, submit, validate } from '@angular/forms/signals'
+import { Component, inject, signal, ChangeDetectionStrategy, type OnInit } from '@angular/core'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { Router, RouterLink } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -28,6 +28,8 @@ import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/materi
 import { MatCardModule } from '@angular/material/card'
 
 import { MatIconModule } from '@angular/material/icon'
+import { FormsModule } from '@angular/forms'
+import { firstValueFrom } from 'rxjs'
 
 library.add(faUserPlus, faExclamationCircle)
 
@@ -36,7 +38,7 @@ library.add(faUserPlus, faExclamationCircle)
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, MatOption, MatButtonModule, RouterLink, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, FormField, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatSelect, MatOption, MatButtonModule, RouterLink, MatIconModule]
 })
 export class RegisterComponent implements OnInit {
   private readonly securityQuestionService = inject(SecurityQuestionService)
@@ -46,69 +48,80 @@ export class RegisterComponent implements OnInit {
   private readonly translateService = inject(TranslateService)
   private readonly snackBar = inject(MatSnackBar)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
-  private readonly ngZone = inject(NgZone)
 
-  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
-  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
-  public repeatPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, matchValidator(this.passwordControl)])
-  public securityQuestionControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public securityAnswerControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public securityQuestions!: SecurityQuestion[]
-  public selected?: number
-  public error: string | null = null
+  public readonly registerModel = signal({
+    email: '',
+    password: '',
+    repeatPassword: '',
+    securityQuestion: 0,
+    securityAnswer: ''
+  })
+
+  public readonly registerForm = form(this.registerModel, (s) => {
+    required(s.email)
+    email(s.email)
+    required(s.password)
+    minLength(s.password, 5)
+    maxLength(s.password, 40)
+    required(s.repeatPassword)
+    validate(s.repeatPassword, ({ value, valueOf }) => {
+      if (value() && value() !== valueOf(s.password)) {
+        return { kind: 'notSame' }
+      }
+      return undefined
+    })
+    required(s.securityQuestion)
+    validate(s.securityQuestion, ({ value }) => {
+      if (!value()) {
+        return { kind: 'required' }
+      }
+      return undefined
+    })
+    required(s.securityAnswer)
+  })
+
+  public securityQuestions = signal<SecurityQuestion[]>([])
+  public error = signal<string | null>(null)
 
   ngOnInit (): void {
     this.securityQuestionService.find(null).subscribe({
-      next: (securityQuestions: any) => {
-        this.securityQuestions = securityQuestions
+      next: (securityQuestions: SecurityQuestion[]) => {
+        this.securityQuestions.set(securityQuestions ?? [])
       },
       error: (err) => { console.log(err) }
     })
   }
 
   save () {
-    const user = {
-      email: this.emailControl.value,
-      password: this.passwordControl.value,
-      passwordRepeat: this.repeatPasswordControl.value,
-      securityQuestion: this.securityQuestions.find((question) => question.id === this.securityQuestionControl.value),
-      securityAnswer: this.securityAnswerControl.value
-    }
+    return submit(this.registerForm, async () => {
+      const user = {
+        email: this.registerModel().email,
+        password: this.registerModel().password,
+        passwordRepeat: this.registerModel().repeatPassword,
+        securityQuestion: this.securityQuestions().find((question) => question.id === this.registerModel().securityQuestion),
+        securityAnswer: this.registerModel().securityAnswer
+      }
 
-    this.userService.save(user).subscribe({
-      next: (response: any) => {
-        this.securityAnswerService.save({
+      try {
+        const response: any = await firstValueFrom(this.userService.save(user))
+        await firstValueFrom(this.securityAnswerService.save({
           UserId: response.id,
-          answer: this.securityAnswerControl.value,
-          SecurityQuestionId: this.securityQuestionControl.value
-        }).subscribe(() => {
-          this.ngZone.run(async () => await this.router.navigate(['/login']))
-          this.snackBarHelperService.open('CONFIRM_REGISTER')
-        })
-      },
-      error: (err) => {
+          answer: this.registerModel().securityAnswer,
+          SecurityQuestionId: this.registerModel().securityQuestion
+        }))
+        await this.router.navigate(['/login'])
+        this.snackBarHelperService.open('CONFIRM_REGISTER')
+      } catch (err: any) {
         console.log(err)
         if (err.error?.errors) {
           const error = err.error.errors[0]
           if (error.message) {
-
-            this.error = error.message[0].toUpperCase() + error.message.slice(1)
+            this.error.set(error.message[0].toUpperCase() + error.message.slice(1))
           } else {
-            this.error = error
+            this.error.set(error)
           }
         }
       }
     })
-  }
-}
-
-function matchValidator (passwordControl: AbstractControl) {
-  return function matchOtherValidate (repeatPasswordControl: UntypedFormControl) {
-    const password = passwordControl.value
-    const passwordRepeat = repeatPasswordControl.value
-    if (password !== passwordRepeat) {
-      return { notSame: true }
-    }
-    return null
   }
 }
