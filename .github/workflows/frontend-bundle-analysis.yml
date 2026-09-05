@@ -7,6 +7,7 @@ on:
 
 env:
   NODE_DEFAULT_VERSION: 24
+  NPM_VERSION: 11.19.1
   NODE_OPTIONS: "--max_old_space_size=4096"
 
 jobs:
@@ -23,6 +24,7 @@ jobs:
 
       - name: "Install backend dependencies"
         run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
           npm install --ignore-scripts
 
       - name: "Install frontend dependencies and build"

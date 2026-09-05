@@ -1,5 +1,8 @@
 name: "Let me lint:fix that for you"
 
+env:
+  NPM_VERSION: 11.19.1
+
 on: [push]
 
 jobs:
@@ -14,6 +17,7 @@ jobs:
         node-version: 22
     - name: "Install application"
       run: |
+        npm install --global npm@${{ env.NPM_VERSION }}
         npm install --ignore-scripts
         cd frontend
         npm install --ignore-scripts --legacy-peer-deps

@@ -5,6 +5,7 @@ on:
       - v*
 env:
   CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
+  NPM_VERSION: 11.19.1
   TYPESCRIPT_VERSION: '^6.0.3'                      # keep in sync with package.json
 jobs:
   create-release:
@@ -51,6 +52,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
           npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
           npm install -g archiver
