@@ -86,9 +86,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Get tag name"
-        id: tag
-        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479 #v1.1.0 TODO Action is archived and should be replaced eventually
       - name: "Set labels for ${{ github.ref }}"
         run: |
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
@@ -101,7 +98,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+            bkimminich/juice-shop:${{ github.ref_name }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}
