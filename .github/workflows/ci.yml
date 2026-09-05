@@ -19,6 +19,7 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 24
+  NPM_VERSION: 11.19.1
   NODE_OPTIONS: "--max_old_space_size=4096"
   CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
 jobs:
@@ -33,6 +34,7 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application minimalistically"
         run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
           npm install --ignore-scripts
           cd frontend
           npm install --ignore-scripts
@@ -48,7 +50,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application"
-        run: npm install
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
       - name: "Check coding challenges for accidental code discrepancies"
         run: npm run rsn
   frontend-test:
@@ -68,7 +72,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
       - name: "Execute frontend unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -107,7 +113,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
       - name: "Execute server unit tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -144,7 +152,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
       - name: "Execute integration tests"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
@@ -200,7 +210,9 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install application"
         if: github.repository == 'juice-shop/juice-shop' || (github.repository != 'juice-shop/juice-shop' && matrix.os == 'ubuntu-latest' && matrix.node-version == '24')
-        run: npm install
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install
       - name: "Execute server tests for each custom configuration"
         uses: nick-invision/retry@7152eba30c6575329ac0576536151aca5a72780e #v3.0.0
         with:
@@ -233,7 +245,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
-        run: npm install -g @angular/cli
+        run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install --global @angular/cli
       - name: "Install application"
         run: npm install
       - name: "Execute end-to-end tests on Ubuntu"
@@ -279,6 +293,7 @@ jobs:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       - name: "Install CLI tools"
         run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
           npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
           npm install -g archiver
