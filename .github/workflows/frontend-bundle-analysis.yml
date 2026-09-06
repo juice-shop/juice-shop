@@ -22,21 +22,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
 
-      - name: "Install backend dependencies"
+      - name: "Install dependencies"
         run: |
           npm install --global npm@${{ env.NPM_VERSION }}
           npm install --ignore-scripts
 
-      - name: "Install frontend dependencies and build"
-        run: |
-          cd frontend
-          npm install --ignore-scripts
-          npm run build
+      - name: "Build frontend"
+        run: npm run build:frontend
 
       - name: "Generate bundle report"
-        run: |
-          cd frontend
-          npm run bundle-visualizer
+        run: npm run bundle-visualizer
 
       - name: "Install Playwright for screenshot"
         run: npm install playwright

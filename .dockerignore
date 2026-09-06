@@ -21,7 +21,6 @@ dist/
 Dockerfile
 frontend/.angular/
 frontend/dist/
-frontend/node_modules/
 logs/
 monitoring/
 node_modules/

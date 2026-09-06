@@ -18,8 +18,6 @@ jobs:
     - name: "Install application"
       run: |
         npm install --global npm@${{ env.NPM_VERSION }}
-        npm install --ignore-scripts
-        cd frontend
         npm install --ignore-scripts --legacy-peer-deps
     - name: "Fix everything which can be fixed"
       run: 'npm run lint:fix'

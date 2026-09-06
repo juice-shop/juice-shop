@@ -7,14 +7,16 @@ import {
   BeeTokenABI,
   nftABI
 } from '../../assets/public/ContractABIs'
-import { getDefaultProvider, ethers, type BigNumber } from 'ethers'
+import { ethers } from 'ethers'
 import {
-  createClient,
+  createConfig,
   connect,
   disconnect,
   getAccount,
-  InjectedConnector
+  http,
+  injected
 } from '@wagmi/core'
+import { sepolia } from '@wagmi/core/chains'
 import { FormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
@@ -23,10 +25,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const client = createClient({
-  autoConnect: true,
-  provider: getDefaultProvider()
+const config = createConfig({
+  chains: [sepolia],
+  connectors: [injected()],
+  transports: {
+    [sepolia.id]: http()
+  }
 })
 const { ethereum } = window
 
@@ -108,8 +112,8 @@ export class FaucetComponent implements OnInit {
 
   async fetchMyBeeBalance () {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
 
       const contract = new ethers.Contract(
         BeeTokenAddress,
@@ -117,11 +121,9 @@ export class FaucetComponent implements OnInit {
         signer
       )
       const userAddress = await signer.getAddress()
-      const balanceBigNumber: BigNumber = await contract.balanceOf(userAddress)
+      const balanceBigNumber: bigint = await contract.balanceOf(userAddress)
       console.log(balanceBigNumber)
-      this.myBEEBalance = balanceBigNumber
-        .div(ethers.constants.WeiPerEther)
-        .toNumber()
+      this.myBEEBalance = Number(balanceBigNumber / ethers.parseEther('1'))
       if (this.myBEEBalance >= 1000 && !this.challengeSolved) {
         this.mintButtonDisabled = false
       }
@@ -135,8 +137,8 @@ export class FaucetComponent implements OnInit {
 
   async fetchBeeBalance () {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
 
       const contract = new ethers.Contract(
         BeeFaucetAddress,
@@ -157,21 +159,21 @@ export class FaucetComponent implements OnInit {
 
   async handleAuth () {
     try {
-      const { isConnected } = getAccount()
+      const { isConnected } = getAccount(config)
 
       if (isConnected) {
-        await disconnect()
+        await disconnect(config)
       }
       if (!window.ethereum) {
         this.snackBarHelperService.open('PLEASE_INSTALL_WEB3_WALLET', 'errorBar')
         return
       }
 
-      const provider = await connect({ connector: new InjectedConnector() })
-      this.metamaskAddress = provider.account
+      const connection = await connect(config, { connector: injected() })
+      this.metamaskAddress = connection.accounts[0]
       this.userData = {
-        address: provider.account,
-        chain: provider.chain.id,
+        address: connection.accounts[0],
+        chain: connection.chainId,
         network: 'evm'
       }
       await ethereum.request({
@@ -191,9 +193,9 @@ export class FaucetComponent implements OnInit {
         ]
       })
       const targetChainId = '11155111'
-      const currentChainId = String(provider.chain?.id)
+      const currentChainId = String(connection.chainId)
 
-      if (provider && currentChainId !== targetChainId) {
+      if (connection && currentChainId !== targetChainId) {
         this.session = false
         this.snackBarHelperService.open('PLEASE_CONNECT_TO_SEPOLIA_NETWORK', 'errorBar')
       } else {
@@ -215,13 +217,13 @@ export class FaucetComponent implements OnInit {
       return
     }
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
       const userAddress = await signer.getAddress()
 
       const balanceBigNumber = await provider.getBalance(userAddress)
 
-      const balanceEth = ethers.utils.formatEther(balanceBigNumber)
+      const balanceEth = ethers.formatEther(balanceBigNumber)
 
       console.log('ETH balance:', balanceEth, typeof balanceEth)
       if (balanceEth < '0.001') {
@@ -254,9 +256,9 @@ export class FaucetComponent implements OnInit {
       this.nftMintText = translatedString
     })
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
-      const amountToApprove = ethers.utils.parseUnits('1000', '18')
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
+      const amountToApprove = ethers.parseUnits('1000', '18')
       const BeeTokenContract = new ethers.Contract(
         BeeTokenAddress,
         BeeTokenABI,
@@ -311,7 +313,7 @@ export class FaucetComponent implements OnInit {
   }
 
   async signOut () {
-    await disconnect()
+    await disconnect(config)
     this.session = false
   }
 }

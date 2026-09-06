@@ -2,14 +2,16 @@ import { Component, ChangeDetectorRef, inject, OnInit, ChangeDetectionStrategy }
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { web3WalletABI } from '../../assets/public/ContractABIs'
-import { getDefaultProvider, ethers } from 'ethers'
+import { ethers } from 'ethers'
 import {
-  createClient,
+  createConfig,
   connect,
   disconnect,
   getAccount,
-  InjectedConnector
+  http,
+  injected
 } from '@wagmi/core'
+import { sepolia } from '@wagmi/core/chains'
 import { MatIconModule } from '@angular/material/icon'
 import { FormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
@@ -20,10 +22,12 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 const { ethereum } = window
 const BankAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const client = createClient({
-  autoConnect: true,
-  provider: getDefaultProvider()
+const config = createConfig({
+  chains: [sepolia],
+  connectors: [injected()],
+  transports: {
+    [sepolia.id]: http()
+  }
 })
 
 @Component({
@@ -60,13 +64,13 @@ export class WalletWeb3Component implements OnInit {
 
   async depositETH () {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
 
       const contract = new ethers.Contract(BankAddress, web3WalletABI, signer)
       const depositAmount = this.inputAmount.toString()
       const transaction = await contract.ethdeposit(this.metamaskAddress, {
-        value: ethers.utils.parseEther(depositAmount)
+        value: ethers.parseEther(depositAmount)
       })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const txConfirmation = await transaction.wait()
@@ -78,13 +82,13 @@ export class WalletWeb3Component implements OnInit {
 
   async withdrawETH () {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
 
       const contract = new ethers.Contract(BankAddress, web3WalletABI, signer)
       const withdrawalAmount = this.inputAmount.toString()
       const transaction = await contract.withdraw(
-        ethers.utils.parseEther(withdrawalAmount)
+        ethers.parseEther(withdrawalAmount)
       )
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const txConfirmation = await transaction.wait()
@@ -96,11 +100,11 @@ export class WalletWeb3Component implements OnInit {
 
   async getUserEthBalance () {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const signer = provider.getSigner()
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const signer = await provider.getSigner()
       const contract = new ethers.Contract(BankAddress, web3WalletABI, signer)
       const userBalance = await contract.balanceOf(this.metamaskAddress)
-      const formattedBalance = ethers.utils.formatEther(userBalance)
+      const formattedBalance = ethers.formatEther(userBalance)
       this.walletBalance = formattedBalance
     } catch (error) {
       this.errorMessage = error.message
@@ -109,18 +113,18 @@ export class WalletWeb3Component implements OnInit {
 
   async handleAuth () {
     try {
-      const { isConnected } = getAccount()
+      const { isConnected } = getAccount(config)
 
       if (isConnected) {
-        await disconnect()
+        await disconnect(config)
       }
       if (!window.ethereum) {
         this.snackBarHelperService.open('PLEASE_INSTALL_WEB3_WALLET', 'errorBar')
         return
       }
 
-      const provider = await connect({ connector: new InjectedConnector() })
-      this.metamaskAddress = provider.account
+      const connection = await connect(config, { connector: injected() })
+      this.metamaskAddress = connection.accounts[0]
       this.keysService.walletAddressSend(this.metamaskAddress).subscribe(
         {
           next: (response) => {
@@ -135,8 +139,8 @@ export class WalletWeb3Component implements OnInit {
         }
       )
       this.userData = {
-        address: provider.account,
-        chain: provider.chain.id,
+        address: connection.accounts[0],
+        chain: connection.chainId,
         network: 'evm'
       }
       await ethereum.request({
@@ -156,9 +160,9 @@ export class WalletWeb3Component implements OnInit {
         ]
       })
       const targetChainId = '11155111'
-      const currentChainId = String(provider.chain?.id)
+      const currentChainId = String(connection.chainId)
 
-      if (provider && currentChainId !== targetChainId) {
+      if (connection && currentChainId !== targetChainId) {
         this.session = false
         this.snackBarHelperService.open('PLEASE_CONNECT_TO_SEPOLIA_NETWORK', 'errorBar')
       } else {
