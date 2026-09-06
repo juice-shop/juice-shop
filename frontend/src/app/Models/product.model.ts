@@ -22,4 +22,4 @@ export interface Product {
   alternateImages?: AlternateImage[]
 }
 
-export type ProductTableEntry = Product & { quantity?: number }
+export type ProductTableEntry = Product & { quantity?: number, limitPerUser?: number | null }

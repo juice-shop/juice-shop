@@ -21,6 +21,15 @@ interface GuestBasketItem {
   quantity: number
 }
 
+export interface GuestBasketQuantityInfo {
+  limitPerUser?: number | null
+  quantity?: number
+}
+
+export type GuestBasketQuantityViolation =
+  | { type: 'limit', limitPerUser: number }
+  | { type: 'stock' }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -132,6 +141,22 @@ export class BasketService {
     guestItemToUpdate.quantity = Math.max(1, quantity)
     sessionStorage.setItem(this.guestBasketKey, JSON.stringify(guestBasketItems))
     this.updateNumberOfCartItems()
+  }
+
+  getGuestBasketQuantityViolation (quantity: number, quantityInfo?: GuestBasketQuantityInfo, isDeluxe = false): GuestBasketQuantityViolation | null {
+    if (quantityInfo == null) {
+      return null
+    }
+
+    if (!isDeluxe && quantityInfo.limitPerUser != null && quantityInfo.limitPerUser > 0 && quantity > quantityInfo.limitPerUser) {
+      return { type: 'limit', limitPerUser: quantityInfo.limitPerUser }
+    }
+
+    if (quantityInfo.quantity != null && quantity > quantityInfo.quantity) {
+      return { type: 'stock' }
+    }
+
+    return null
   }
 
   removeGuestBasketItem (productId: number): void {

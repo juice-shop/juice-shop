@@ -5,6 +5,7 @@ on:
       - v*
 env:
   CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
+  NPM_VERSION: 11.19.1
   TYPESCRIPT_VERSION: '^6.0.3'                      # keep in sync with package.json
 jobs:
   create-release:
@@ -51,6 +52,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
+          npm install --global npm@${{ env.NPM_VERSION }}
           npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
           npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
           npm install -g archiver
@@ -86,9 +88,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Get tag name"
-        id: tag
-        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479 #v1.1.0 TODO Action is archived and should be replaced eventually
       - name: "Set labels for ${{ github.ref }}"
         run: |
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
@@ -101,7 +100,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+            bkimminich/juice-shop:${{ github.ref_name }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}

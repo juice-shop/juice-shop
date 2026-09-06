@@ -4,10 +4,11 @@
  */
 
 import { Component, EventEmitter, Input, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
-import { BasketService } from '../Services/basket.service'
+import { BasketService, type GuestBasketQuantityInfo } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
 import { ProductService } from '../Services/product.service'
 import { ProductImageComponent } from '../product-image/product-image.component'
+import { QuantityService } from '../Services/quantity.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -34,6 +35,7 @@ export class PurchaseBasketComponent implements OnInit {
   private readonly basketService = inject(BasketService)
   private readonly userService = inject(UserService)
   private readonly productService = inject(ProductService)
+  private readonly quantityService = inject(QuantityService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Input() public allowEdit = false
@@ -46,6 +48,7 @@ export class PurchaseBasketComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0
   public userEmail: string
+  private guestQuantityInfo = new Map<number, GuestBasketQuantityInfo>()
 
   ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
@@ -111,8 +114,12 @@ export class PurchaseBasketComponent implements OnInit {
       )
     })
 
-    forkJoin(guestProductRequests).subscribe({
-      next: (productResults) => {
+    forkJoin([this.quantityService.getAll().pipe(catchError(() => of([]))), ...guestProductRequests]).subscribe({
+      next: ([quantities, ...productResults]) => {
+        this.guestQuantityInfo = new Map(
+          quantities.map(quantity => [quantity.ProductId, { quantity: quantity.quantity, limitPerUser: quantity.limitPerUser }])
+        )
+
         this.dataSource = productResults
           .filter(result => result != null)
           .map(result => {
@@ -166,7 +173,12 @@ export class PurchaseBasketComponent implements OnInit {
         return
       }
 
-      this.basketService.updateGuestBasketItemQuantity(id, existingGuestItem.quantity + value)
+      const newQuantity = existingGuestItem.quantity + value
+      if (value > 0 && !this.isWithinGuestQuantityLimits(id, newQuantity)) {
+        return
+      }
+
+      this.basketService.updateGuestBasketItemQuantity(id, newQuantity)
       this.load()
       return
     }
@@ -197,5 +209,16 @@ export class PurchaseBasketComponent implements OnInit {
 
   isDeluxe () {
     return this.deluxeGuard.isDeluxe()
+  }
+
+  private isWithinGuestQuantityLimits (productId: number, quantity: number): boolean {
+    const violation = this.basketService.getGuestBasketQuantityViolation(quantity, this.guestQuantityInfo.get(productId), this.isDeluxe())
+
+    if (violation != null) {
+      this.snackBarHelperService.openBasketQuantityViolation(violation)
+      return false
+    }
+
+    return true
   }
 }
