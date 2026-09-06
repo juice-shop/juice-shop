@@ -18,7 +18,7 @@ jobs:
     - name: "Install application"
       run: |
         npm install --global npm@${{ env.NPM_VERSION }}
-        npm install --ignore-scripts --legacy-peer-deps
+        npm ci --ignore-scripts
     - name: "Fix everything which can be fixed"
       run: 'npm run lint:fix'
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1

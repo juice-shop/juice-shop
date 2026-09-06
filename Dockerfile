@@ -1,7 +1,7 @@
 FROM node:24 AS installer
 COPY . /juice-shop
 WORKDIR /juice-shop
-RUN npm install
+RUN npm ci
 RUN npm prune --omit=dev
 RUN npm dedupe --omit=dev
 RUN rm -rf frontend/.angular
