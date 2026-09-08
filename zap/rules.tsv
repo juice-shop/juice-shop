@@ -1,0 +1,8 @@
+# ZAP baseline rule configuration — fields are TAB separated
+# Rule ID<TAB>Decision<TAB>Reason
+10010 WARN Review HttpOnly cookie behavior
+10011 WARN Local HTTP lab cannot prove Secure cookie behavior
+10015 WARN Review cache policy by endpoint
+10020 WARN Review framing protection
+10021 WARN Review X-Content-Type-Options
+10038 WARN Review Content-Security-Policy
