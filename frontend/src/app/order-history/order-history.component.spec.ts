@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatDividerModule } from '@angular/material/divider'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
-import { ProductService } from '../Services/product.service'
 import { RouterTestingModule } from '@angular/router/testing'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
@@ -18,11 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { throwError } from 'rxjs/internal/observable/throwError'
 import { OrderHistoryService } from '../Services/order-history.service'
 import { OrderHistoryComponent } from './order-history.component'
-import { type Product } from '../Models/product.model'
-import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { BasketService } from '../Services/basket.service'
@@ -31,21 +27,11 @@ import { Router } from '@angular/router'
 describe('AccountingComponent', () => {
     let component: OrderHistoryComponent
     let fixture: ComponentFixture<OrderHistoryComponent>
-    let productService
     let orderHistoryService
-    let dialog: any
     let basketService: any
     let router: any
 
     beforeEach(async () => {
-        dialog = {
-            open: vi.fn().mockName("MatDialog.open")
-        }
-        dialog.open.mockReturnValue(null)
-        productService = {
-            get: vi.fn().mockName("ProductService.get")
-        }
-        productService.get.mockReturnValue(of({}))
         orderHistoryService = {
             get: vi.fn().mockName("OrderHistoryService.get")
         }
@@ -64,13 +50,10 @@ describe('AccountingComponent', () => {
                 MatCardModule,
                 MatIconModule,
                 MatTooltipModule,
-                MatDialogModule,
                 MatExpansionModule,
                 OrderHistoryComponent],
             providers: [
-                { provide: ProductService, useValue: productService },
                 { provide: OrderHistoryService, useValue: orderHistoryService },
-                { provide: MatDialog, useValue: dialog },
                 { provide: BasketService, useValue: basketService },
                 { provide: Router, useValue: router },
                 provideHttpClient(withInterceptorsFromDi()),
@@ -112,25 +95,9 @@ describe('AccountingComponent', () => {
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
-    it('should log error from get product API call directly to browser console', () => {
-        productService.get.mockReturnValue(throwError('Error'))
-        console.log = vi.fn()
-        component.showDetail(1)
-        fixture.detectChanges()
-        expect(console.log).toHaveBeenCalledWith('Error')
-    })
-
-    it('should open a modal dialog when showDetail is called', () => {
-        productService.get.mockReturnValue(of({ id: 42, name: 'A', description: 'B', image: 'C', price: 10 } as Product))
+    it('should navigate to the product page reviews when showDetail is called', () => {
         component.showDetail(42)
-        expect(productService.get).toHaveBeenCalled()
-        expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
-            width: '500px',
-            height: 'max-content',
-            data: {
-                productData: { id: 42, name: 'A', description: 'B', image: 'C', price: 10, deluxePrice: undefined, points: 1 }
-            }
-        })
+        expect(router.navigate).toHaveBeenCalledWith(['/product', 42], { queryParams: { 'goto-reviews': 'true' } })
     })
 
     it('should reverse the order list and map all order fields including products', () => {
@@ -147,14 +114,6 @@ describe('AccountingComponent', () => {
         expect(component.orders[0].delivered).toBe(false)
         expect(component.orders[1].delivered).toBe(true)
         expect(component.orders[1].products.data).toEqual([{ id: 1, name: 'P1', price: 5, quantity: 2, total: 10 }])
-    })
-
-    it('should round points to nearest integer when opening product details', () => {
-        productService.get.mockReturnValue(of({ id: 7, name: 'X', description: 'D', image: 'I', price: 19, deluxePrice: 15 } as Product))
-        component.showDetail(7)
-        const passed = dialog.open.mock.calls[0][1].data.productData
-        expect(passed.points).toBe(2)
-        expect(passed.deluxePrice).toBe(15)
     })
 
     it('should open the order confirmation PDF in a new tab using the basket host server', () => {
