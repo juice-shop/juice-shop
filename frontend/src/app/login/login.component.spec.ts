@@ -233,6 +233,37 @@ describe('LoginComponent', () => {
             expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
             expect(compiled.querySelector('.breakLine')).toBeNull()
         })
+
+        it('should show the OAuth login section and toggle password visibility', () => {
+            component.oauthUnavailable = false
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+
+            expect(compiled.querySelector('#loginButtonGoogle')).toBeTruthy()
+            expect(compiled.querySelector('.breakLine')).toBeTruthy()
+
+            const password = compiled.querySelector('#password') as HTMLInputElement
+            const toggle = compiled.querySelector('[aria-label="Button to display the password"]') as HTMLButtonElement
+            expect(password.type).toBe('password')
+            toggle.click()
+            fixture.detectChanges()
+
+            expect(component.hide).toBe(false)
+            expect(password.type).toBe('text')
+            expect(compiled.querySelector('[aria-label="Button to hide the password"]')).toBeTruthy()
+        })
+
+        it('should submit the form when email and password are provided', () => {
+            const loginSpy = vi.spyOn(component, 'login')
+            component.emailControl.setValue('user@example.com')
+            component.passwordControl.setValue('password')
+            fixture.detectChanges()
+
+            const form = (fixture.nativeElement as HTMLElement).querySelector('#login-form') as HTMLFormElement
+            form.dispatchEvent(new Event('submit'))
+
+            expect(loginSpy).toHaveBeenCalled()
+        })
     })
 
     describe('google OAuth configuration', () => {

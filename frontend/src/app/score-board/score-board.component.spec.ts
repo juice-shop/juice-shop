@@ -136,6 +136,33 @@ describe('ScoreBoardComponent', () => {
         expect(component.filteredChallenges).toHaveLength(3)
     })
 
+    it('should render the loading spinner while challenges are initializing', () => {
+        component.isInitialized = false
+        fixture.detectChanges()
+
+        expect(fixture.nativeElement.querySelector('mat-spinner')).toBeTruthy()
+    })
+
+    it('should render the empty state when filters match no challenges', () => {
+        component.filteredChallenges = []
+        fixture.detectChanges()
+
+        expect(fixture.nativeElement.querySelector('.empty-challenges')).toBeTruthy()
+    })
+
+    it('should hide filter settings when tutorials-first restriction is enabled', () => {
+        component.applicationConfiguration = {
+            ...component.applicationConfiguration,
+            challenges: {
+                ...component.applicationConfiguration?.challenges,
+                restrictToTutorialsFirst: true
+            }
+        } as any
+        fixture.detectChanges()
+
+        expect(fixture.nativeElement.querySelector('filter-settings')).toBeNull()
+    })
+
     it('should handle error when unlocking a hint', (): void => {
         hintService.put.mockReturnValue(throwError('Error'))
         console.log = vi.fn()
