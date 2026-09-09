@@ -46,13 +46,10 @@
 }
 
 .image-container {
-  aspect-ratio: 0.897;
+  aspect-ratio: 0.9;
   width: 100%;
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-position: center;
   background-size: cover;
   border: var(--theme-thumbnail-border);
