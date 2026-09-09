@@ -305,7 +305,7 @@ jobs:
           echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
       - name: "Package application"
         run: |
-          npm install --production
+          npm install
           npm run package:ci
       - name: "Unpack application archive"
         run: |
