@@ -1,0 +1,73 @@
+name: ZAP Baseline — Juice Shop Lab
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main, security/zap-baseline ]
+  workflow_dispatch:
+    inputs:
+      spider_minutes:
+        description: "Spider duration in minutes"
+        required: true
+        default: "2"
+      enforce_gate:
+        description: "Fail the job when policy returns alerts"
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zap-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TARGET_URL: http://127.0.0.1:3000
+  JUICE_SHOP_IMAGE: bkimminich/juice-shop:latest
+
+jobs:
+  zap-baseline:
+    name: zap-baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Start Juice Shop
+        run: |
+          docker run -d --rm --name juice-shop -p 3000:3000 "$JUICE_SHOP_IMAGE"
+
+      - name: Wait for Juice Shop
+        run: |
+          for attempt in {1..30}; do
+            if curl -fsS "$TARGET_URL" >/dev/null; then
+              echo "Juice Shop is ready"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs juice-shop
+          exit 1
+
+      - name: Run ZAP baseline
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: ${{ env.TARGET_URL }}
+          rules_file_name: .zap/rules.tsv
+          cmd_options: >-
+            -a -m ${{ inputs.spider_minutes || '2' }} -T 10
+          fail_action: ${{ inputs.enforce_gate || false }}
+          allow_issue_writing: false
+          artifact_name: zap-baseline-report
+
+      - name: Show target diagnostics on failure
+        if: failure()
+        run: docker logs juice-shop
+
+      - name: Stop Juice Shop
+        if: always()
+        run: docker stop juice-shop || true
