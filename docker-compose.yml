@@ -1,0 +1,8 @@
+services:
+  juice-shop:
+    build:
+      context: .
+    container_name: ie3142-juice-shop
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
