@@ -1,8 +1,21 @@
+version: '3.8'
 services:
-  sut:
-    build: ./test/smoke/
-    links:
-      - app
-  app:
-    image: bkimminich/juice-shop:latest
-    build: ./
+  juice-shop:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=unsafe
+      - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - juice-shop-data:/app/data
+    networks:
+      - juice-net
+    restart: unless-stopped
+
+volumes:
+  juice-shop-data:
+
+networks:
+  juice-net:
+    driver: bridge
