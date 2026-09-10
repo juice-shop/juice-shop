@@ -140,6 +140,12 @@ describe('LoginComponent', () => {
         expect(component.oauthUnavailable).toBe(true)
     })
 
+    it('should not attempt login while the form is invalid', async () => {
+        userService.login.mockReturnValue(of({}))
+        await component.login()
+        expect(userService.login).not.toHaveBeenCalled()
+    })
+
     it('forwards to main page after successful login', async () => {
         component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
         userService.login.mockReturnValue(of({}))
@@ -222,11 +228,41 @@ describe('LoginComponent', () => {
             expect(compiled.querySelector('#newCustomerLink a')).toBeTruthy()
         })
 
+        it('should enable the login button once email and password are provided', () => {
+            component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
+            fixture.detectChanges()
+            const loginButton = (fixture.nativeElement as HTMLElement).querySelector('#loginButton') as HTMLButtonElement
+            expect(loginButton.disabled).toBe(false)
+        })
+
+        it('should check the remember-me checkbox when a remembered email exists', () => {
+            localStorage.setItem('email', 'a@a')
+            component.ngOnInit()
+            fixture.detectChanges()
+            const checkbox = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe input') as HTMLInputElement
+            expect(checkbox.checked).toBe(true)
+        })
+
+        it('should update the login model when the remember-me checkbox is toggled', () => {
+            const checkbox = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe') as HTMLElement
+            checkbox.click()
+            fixture.detectChanges()
+            expect(component.loginModel().rememberMe).toBe(true)
+        })
+
         it('should show the error message banner when an error is set', () => {
             component.error.set('Invalid credentials')
             fixture.detectChanges()
             const errorEl = (fixture.nativeElement as HTMLElement).querySelector('.error')
             expect(errorEl?.textContent).toContain('Invalid credentials')
+        })
+
+        it('should clear the error when the email input receives focus', () => {
+            component.error.set('Invalid credentials')
+            fixture.detectChanges()
+            const emailInput = (fixture.nativeElement as HTMLElement).querySelector('#email') as HTMLInputElement
+            emailInput.dispatchEvent(new Event('focus'))
+            expect(component.error()).toBeNull()
         })
 
         it('should hide the OAuth login section when oauthUnavailable is true', () => {
@@ -235,6 +271,15 @@ describe('LoginComponent', () => {
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
             expect(compiled.querySelector('.breakLine')).toBeNull()
+        })
+
+        it('should invoke googleLogin when the Google button is clicked', () => {
+            component.oauthUnavailable = false
+            fixture.detectChanges()
+            const googleSpy = vi.spyOn(component, 'googleLogin')
+            const googleButton = (fixture.nativeElement as HTMLElement).querySelector('#loginButtonGoogle') as HTMLButtonElement
+            googleButton.click()
+            expect(googleSpy).toHaveBeenCalled()
         })
 
         it('should show the OAuth login section and toggle password visibility', () => {
@@ -253,7 +298,13 @@ describe('LoginComponent', () => {
 
             expect(component.hide).toBe(false)
             expect(password.type).toBe('text')
-            expect(compiled.querySelector('[aria-label="Button to hide the password"]')).toBeTruthy()
+            const hideToggle = compiled.querySelector('[aria-label="Button to hide the password"]') as HTMLButtonElement
+            expect(hideToggle).toBeTruthy()
+            hideToggle.click()
+            fixture.detectChanges()
+
+            expect(component.hide).toBe(true)
+            expect(password.type).toBe('password')
         })
 
         it('should submit the form when email and password are provided', () => {
