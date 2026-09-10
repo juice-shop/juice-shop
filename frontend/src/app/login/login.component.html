@@ -9,30 +9,30 @@
 
       <h1 class="mat-headline-medium">Login</h1>
 
-      @if (error) {
-      <div class="error">{{error}}</div>
+      @if (error()) {
+      <div class="error">{{error()}}</div>
       }
 
       <form class="form-container" id="login-form" (ngSubmit)="login()">
 
         <mat-form-field color="tertiary" appearance="outline">
           <mat-label translate>LABEL_EMAIL</mat-label>
-          <input id="email" #email name="email"
-            [formControl]="emailControl"
-            (focus)="this.error=null"
+          <input id="email"
+            [formField]="loginForm.email"
+            (focus)="error.set(null)"
             matInput placeholder=""
             aria-label="Text field for the login email"
           >
-          @if (emailControl.invalid) {
+          @if (loginForm.email().getError('required')) {
           <mat-error translate>MANDATORY_EMAIL</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field color="tertiary" appearance="outline">
           <mat-label translate>LABEL_PASSWORD</mat-label>
-          <input id="password" #password name="password"
-            [formControl]="passwordControl"
-            (focus)="this.error=null"
+          <input id="password"
+            [formField]="loginForm.password"
+            (focus)="error.set(null)"
             matInput placeholder="" [type]="hide ? 'password' : 'text'"
             aria-label="Text field for the login password"
           >
@@ -47,7 +47,7 @@
             <i class="fas fa-eye-slash" aria-label="Eye Slash"></i>
           </button>
           }
-          @if (passwordControl.invalid) {
+          @if (loginForm.password().getError('required')) {
           <mat-error translate>MANDATORY_PASSWORD</mat-error>
           }
         </mat-form-field>
@@ -57,7 +57,7 @@
         <button
           type="submit"
           id="loginButton"
-          [disabled]="!emailControl.value||!passwordControl.value"
+          [disabled]="!loginForm.email().value() || !loginForm.password().value()"
           mat-raised-button
           color="primary"
           aria-label="Login"
@@ -68,7 +68,7 @@
           {{'BTN_LOGIN' | translate}}
         </button>
 
-        <mat-checkbox [formControl]="rememberMe" id="rememberMe" aria-label="Checkbox to stay logged in or not logged in">
+        <mat-checkbox [formField]="loginForm.rememberMe" id="rememberMe" aria-label="Checkbox to stay logged in or not logged in">
           {{'REMEMBER_ME' | translate}}
         </mat-checkbox>
 
