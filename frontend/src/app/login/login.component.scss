@@ -39,6 +39,10 @@ mat-form-field:nth-child(2) {
   padding-bottom: $space-ml;
 }
 
+.password-toggle-button {
+  margin-right: $space-s;
+}
+
 #loginButton,
 #loginButtonGoogle {
   margin-left: 20%;
