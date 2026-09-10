@@ -1,0 +1,33 @@
+Application:
+OWASP Juice Shop v20.2.0
+
+Client:
+Angular frontend
+
+Server:
+Node.js + Express
+
+API:
+REST API
+
+Primary Database:
+SQLite
+
+ORM:
+Sequelize
+
+Additional Store:
+MarsDB
+
+Container:
+Docker
+
+Exposed Port:
+3000
+
+Main Data Flow:
+Browser → Angular → Express/REST API → Data Layer
+
+Main Trust Boundaries:
+1. Browser/User → Application
+2. Application Backend → Data Layer
