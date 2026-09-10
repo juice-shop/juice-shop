@@ -60,30 +60,18 @@ describe('filterChallenges', () => {
     })
 
     it('should filter challenges based on categories properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['foobar'] }).map((challenge) => challenge.key)).toHaveLength(2)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['foobar'] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-3']))
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['foobar'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
     })
 
     it('should filter challenges based on difficulties properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [1, 6] }).map((challenge) => challenge.key)).toHaveLength(2)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [1, 6] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-3']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [3] }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [3] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-2']))
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [1, 6] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [3] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-2'].sort())
     })
 
     it('should filter challenges based on tags properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['easy'] }).map((challenge) => challenge.key)).toHaveLength(2)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['easy'] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-3']))
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['easy'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
     })
 
     it('should filter challenges with "External Dependency" tag matching any "Requires ..." tag', () => {
@@ -101,11 +89,7 @@ describe('filterChallenges', () => {
             ...CHALLENGE_3,
             tagList: ['hard']
         } as EnrichedChallenge
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-
-        expect(filterChallenges([challengeWithRequires, challengeWithOtherRequires, challengeWithoutRequires], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG] }).map((challenge) => challenge.key)).toHaveLength(2)
-
-        expect(filterChallenges([challengeWithRequires, challengeWithOtherRequires, challengeWithoutRequires], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-requires', 'challenge-requires-2']))
+        expect(filterChallenges([challengeWithRequires, challengeWithOtherRequires, challengeWithoutRequires], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-requires', 'challenge-requires-2'].sort())
     })
 
     it('should allow combining "External Dependency" with other tags', () => {
@@ -124,64 +108,38 @@ describe('filterChallenges', () => {
             key: 'challenge-easy',
             tagList: ['easy']
         } as EnrichedChallenge
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-
-        expect(filterChallenges([challengeWithRequires, challengeWithHardTag, challengeWithEasyTag], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }).map((challenge) => challenge.key)).toHaveLength(2)
-
-        expect(filterChallenges([challengeWithRequires, challengeWithHardTag, challengeWithEasyTag], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-requires', 'challenge-hard']))
+       expect(filterChallenges([challengeWithRequires, challengeWithHardTag, challengeWithEasyTag], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-requires', 'challenge-hard'].sort())
     })
 
     it('should filter challenges based on status properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-2']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-3']))
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-2'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
+       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
     })
 
     it('should filter challenges based on searchQuery properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'lorem' }).map((challenge) => challenge.key)).toHaveLength(3)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'lorem' }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2', 'challenge-3']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-3']))
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'lorem' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
     })
 
     it('should filter challenges based on disabled setting properly', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }).map((challenge) => challenge.key)).toHaveLength(3)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2', 'challenge-3']))
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }).map((challenge) => challenge.key)).toHaveLength(2)
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2']))
+       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
     })
 
     it('should only show unsolved tutorial of first difficulty if no challenges are solved', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1']))
+       expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
     })
 
     it('should only show tutorial challenges when restrictToTutorialChallengesFirst is set', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toHaveLength(1)
-        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1']))
+        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
     })
 
     it('should only show unsolved tutorial of first difficulty and solved ones of easier difficulties', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toHaveLength(2)
-        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2']))
+        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
     })
 
     it('should only show ignore tutorial mode when all tutorial challenges are solved', () => {
-        // TODO: vitest-migration: Verify this matches strict array content (multiset equality). Vitest's arrayContaining is a subset check.
-        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: true }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toHaveLength(3)
-        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: true }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(expect.arrayContaining(['challenge-1', 'challenge-2', 'challenge-3']))
+        expect(filterChallenges([{ ...CHALLENGE_1, solved: true }, { ...CHALLENGE_2, solved: true }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
     })
 })
