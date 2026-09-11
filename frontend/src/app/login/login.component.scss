@@ -22,7 +22,6 @@ mat-card {
 
 .forgot-pw {
   font-size: 11px;
-  margin-top: -$space-m;
 }
 
 mat-checkbox {
@@ -32,11 +31,7 @@ mat-checkbox {
 }
 
 mat-form-field {
-  padding-top: $space-s;
-}
-
-mat-form-field:nth-child(2) {
-  padding-bottom: $space-ml;
+  margin-bottom: $space-m;
 }
 
 .password-toggle-button {
