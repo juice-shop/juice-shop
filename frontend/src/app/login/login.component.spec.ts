@@ -244,8 +244,8 @@ describe('LoginComponent', () => {
         })
 
         it('should update the login model when the remember-me checkbox is toggled', () => {
-            const checkbox = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe') as HTMLElement
-            checkbox.click()
+            const checkboxInput = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe input') as HTMLInputElement
+            checkboxInput.click()
             fixture.detectChanges()
             expect(component.loginModel().rememberMe).toBe(true)
         })
