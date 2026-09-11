@@ -9,7 +9,8 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
-import { RouterTestingModule } from '@angular/router/testing'
+import { provideRouter } from '@angular/router'
+import { provideLocationMocks } from '@angular/common/testing'
 
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -66,9 +67,7 @@ describe('LoginComponent', () => {
         }
 
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes([
-                    { path: 'search', component: SearchResultComponent }
-                ]),
+            imports: [
                 CookieModule.forRoot(),
                 TranslateModule.forRoot(),
                 MatCheckboxModule,
@@ -84,6 +83,8 @@ describe('LoginComponent', () => {
                 MatTooltipModule,
                 LoginComponent, SearchResultComponent],
             providers: [
+                provideRouter([{ path: 'search', component: SearchResultComponent }]),
+                provideLocationMocks(),
                 { provide: UserService, useValue: userService },
                 { provide: ConfigurationService, useValue: configurationService },
                 { provide: BasketService, useValue: basketService },
