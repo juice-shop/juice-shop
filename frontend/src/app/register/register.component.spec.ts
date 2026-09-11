@@ -10,7 +10,8 @@ import { SecurityQuestionService } from '../Services/security-question.service'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { RegisterComponent } from './register.component'
-import { RouterTestingModule } from '@angular/router/testing'
+import { provideRouter } from '@angular/router'
+import { provideLocationMocks } from '@angular/common/testing'
 import { Location } from '@angular/common'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
@@ -48,9 +49,7 @@ describe('RegisterComponent', () => {
         }
         userService.save.mockReturnValue(of({}))
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes([
-                    { path: 'login', component: LoginComponent }
-                ]),
+            imports: [
                 TranslateModule.forRoot(),
                 MatCardModule,
                 MatFormFieldModule,
@@ -65,6 +64,8 @@ describe('RegisterComponent', () => {
                 MatSlideToggleModule,
                 RegisterComponent, LoginComponent],
             providers: [
+                provideRouter([{ path: 'login', component: LoginComponent }]),
+                provideLocationMocks(),
                 { provide: SecurityAnswerService, useValue: securityAnswerService },
                 { provide: SecurityQuestionService, useValue: securityQuestionService },
                 { provide: UserService, useValue: userService },
