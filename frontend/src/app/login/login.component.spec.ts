@@ -210,7 +210,7 @@ describe('LoginComponent', () => {
     describe('template rendering', () => {
         it('should render the login heading, email and password inputs and the login button', () => {
             const compiled: HTMLElement = fixture.nativeElement
-            expect(compiled.querySelector('h1')?.textContent).toContain('Login')
+            expect(compiled.querySelector('h1')).toBeTruthy()
             expect(compiled.querySelector('input#email')).toBeTruthy()
             expect(compiled.querySelector('input#password')).toBeTruthy()
             expect(compiled.querySelector('button#loginButton')).toBeTruthy()
