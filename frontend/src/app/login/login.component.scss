@@ -9,8 +9,19 @@ $break-line: #c0c0c0;
 
 mat-card {
   height: auto;
-  min-width: 320px;
+  min-width: 400px;
   width: 25%;
+  padding: $space-l $space-xl;
+}
+
+@media (max-width: 599.98px) {
+  mat-card {
+    width: 100%;
+    min-width: auto;
+    margin-bottom: $space-l;
+    margin-left: $space-m;
+    margin-right: $space-m;
+  }
 }
 
 .form-container {
