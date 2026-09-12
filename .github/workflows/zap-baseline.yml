@@ -26,7 +26,7 @@ concurrency:
 
 env:
   TARGET_URL: http://127.0.0.1:3000
-  JUICE_SHOP_IMAGE: bkimminich/juice-shop:latest
+  JUICE_SHOP_IMAGE: juice-shop-lab:latest
 
 jobs:
   zap-baseline:
@@ -37,7 +37,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
+        
+      - name: Build Juice Shop
+        run: |
+          docker build -t "$JUICE_SHOP_IMAGE" .
+          
       - name: Start Juice Shop
         run: |
           docker run -d --rm --name juice-shop -p 3000:3000 "$JUICE_SHOP_IMAGE"
