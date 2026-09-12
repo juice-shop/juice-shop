@@ -207,6 +207,14 @@ describe('LoginComponent', () => {
         expect(localStorage.getItem('email')).toBe('horst@juice-sh.op')
     })
 
+    it('removes the remembered email on login with remember-me checkbox unticked', async () => {
+        localStorage.setItem('email', 'horst@juice-sh.op')
+        userService.login.mockReturnValue(of({}))
+        component.loginModel.update((model) => ({ ...model, email: 'horst@juice-sh.op', password: 'p', rememberMe: false }))
+        await component.login()
+        expect(localStorage.getItem('email')).toBeNull()
+    })
+
     describe('template rendering', () => {
         it('should render the login heading, email and password inputs and the login button', () => {
             const compiled: HTMLElement = fixture.nativeElement
