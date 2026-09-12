@@ -256,6 +256,7 @@ describe('LoginComponent', () => {
             fixture.detectChanges()
             const errorEl = (fixture.nativeElement as HTMLElement).querySelector('.error')
             expect(errorEl?.textContent).toContain('Invalid credentials')
+            expect(errorEl?.getAttribute('role')).toBe('alert')
         })
 
         it('should clear the error when the email input receives focus', () => {

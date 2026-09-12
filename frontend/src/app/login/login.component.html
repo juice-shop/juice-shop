@@ -8,7 +8,7 @@
     <h1 class="mat-headline-medium" translate>TITLE_LOGIN</h1>
 
     @if (error()) {
-    <div class="error">{{error()}}</div>
+    <div class="error" role="alert">{{error()}}</div>
     }
 
     <form class="form-container" id="login-form" (ngSubmit)="login()">
