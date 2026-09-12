@@ -232,5 +232,13 @@ describe('RegisterComponent', () => {
             const link = compiled.querySelector('#alreadyACustomerLink a')
             expect(link).toBeTruthy()
         })
+
+        it('should show the error message banner as an alert when an error is set', () => {
+            component.error.set('Invalid registration data')
+            fixture.detectChanges()
+            const errorEl = (fixture.nativeElement as HTMLElement).querySelector('.error')
+            expect(errorEl?.textContent).toContain('Invalid registration data')
+            expect(errorEl?.getAttribute('role')).toBe('alert')
+        })
     })
 })
