@@ -24,6 +24,10 @@ mat-card {
   }
 }
 
+.error {
+  margin-bottom: $space-m;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
