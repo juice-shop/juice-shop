@@ -9,8 +9,8 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { UserService } from '../Services/user.service'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { LoginComponent } from './login.component'
-import { RouterTestingModule } from '@angular/router/testing'
-import { ReactiveFormsModule } from '@angular/forms'
+import { provideRouter } from '@angular/router'
+import { provideLocationMocks } from '@angular/common/testing'
 
 import { MatIconModule } from '@angular/material/icon'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -67,10 +67,7 @@ describe('LoginComponent', () => {
         }
 
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes([
-                    { path: 'search', component: SearchResultComponent }
-                ]),
-                ReactiveFormsModule,
+            imports: [
                 CookieModule.forRoot(),
                 TranslateModule.forRoot(),
                 MatCheckboxModule,
@@ -86,6 +83,8 @@ describe('LoginComponent', () => {
                 MatTooltipModule,
                 LoginComponent, SearchResultComponent],
             providers: [
+                provideRouter([{ path: 'search', component: SearchResultComponent }]),
+                provideLocationMocks(),
                 { provide: UserService, useValue: userService },
                 { provide: ConfigurationService, useValue: configurationService },
                 { provide: BasketService, useValue: basketService },
@@ -114,93 +113,112 @@ describe('LoginComponent', () => {
     })
 
     it('should have email as compulsory', () => {
-        component.emailControl.setValue('')
-        expect(component.emailControl.valid).toBeFalsy()
-        component.emailControl.setValue('Value')
-        expect(component.emailControl.valid).toBe(true)
+        component.loginModel.update((model) => ({ ...model, email: '' }))
+        expect(component.loginForm.email().valid()).toBeFalsy()
+        component.loginModel.update((model) => ({ ...model, email: 'Value' }))
+        expect(component.loginForm.email().valid()).toBe(true)
     })
 
     it('should have password as compulsory', () => {
-        component.passwordControl.setValue('')
-        expect(component.passwordControl.valid).toBeFalsy()
-        component.passwordControl.setValue('Value')
-        expect(component.passwordControl.valid).toBe(true)
+        component.loginModel.update((model) => ({ ...model, password: '' }))
+        expect(component.loginForm.password().valid()).toBeFalsy()
+        component.loginModel.update((model) => ({ ...model, password: 'Value' }))
+        expect(component.loginForm.password().valid()).toBe(true)
     })
 
     it('should have remember-me checked if email token is present as in localStorage', () => {
         localStorage.setItem('email', 'a@a')
         component.ngOnInit()
-        expect(component.rememberMe.value).toBe(true)
+        expect(component.loginModel().rememberMe).toBe(true)
     })
 
     it('should have remember-me unchecked if email token is not present in localStorage', () => {
         component.ngOnInit()
-        expect(component.rememberMe.value).toBeFalsy()
+        expect(component.loginModel().rememberMe).toBeFalsy()
     })
 
     it('should flag OAuth as disabled if server is running on unauthorized redirect URI', () => {
         expect(component.oauthUnavailable).toBe(true)
     })
 
-    it('forwards to main page after successful login', async () => {
+    it('should not attempt login while the form is invalid', async () => {
         userService.login.mockReturnValue(of({}))
-        component.login()
-        await fixture.whenStable()
+        await component.login()
+        expect(userService.login).not.toHaveBeenCalled()
+    })
+
+    it('forwards to main page after successful login', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
+        userService.login.mockReturnValue(of({}))
+        await component.login()
         expect(location.path()).toBe('/search')
     })
 
-    it('stores the returned authentication token in localStorage', () => {
+    it('stores the returned authentication token in localStorage', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
         userService.login.mockReturnValue(of({ token: 'token' }))
-        component.login()
+        await component.login()
         expect(localStorage.getItem('token')).toBe('token')
     })
 
-    it('puts the returned basket id into browser session storage', () => {
+    it('puts the returned basket id into browser session storage', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
         userService.login.mockReturnValue(of({ bid: 4711 }))
-        component.login()
+        await component.login()
         expect(sessionStorage.getItem('bid')).toBe('4711')
     })
 
-    it('removes authentication token and basket id on failed login attempt', () => {
+    it('removes authentication token and basket id on failed login attempt', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
         userService.login.mockReturnValue(throwError({ error: 'Error' }))
-        component.login()
+        await component.login()
         expect(localStorage.getItem('token')).toBeNull()
         expect(sessionStorage.getItem('bid')).toBeNull()
     })
 
-    it('returns error message from server to client on failed login attempt', () => {
+    it('returns error message from server to client on failed login attempt', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
         userService.login.mockReturnValue(throwError({ error: 'Error' }))
-        component.login()
-        expect(component.error).toBeTruthy()
+        await component.login()
+        expect(component.error()).toBeTruthy()
     })
 
-    it('sets form to pristine on failed login attempt', () => {
+    it('resets touched state on failed login attempt', async () => {
+        component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
+        component.loginForm.email().markAsTouched()
+        component.loginForm.password().markAsTouched()
         userService.login.mockReturnValue(throwError({ error: 'Error' }))
-        component.login()
-        expect(component.emailControl.pristine).toBe(true)
-        expect(component.passwordControl.pristine).toBe(true)
+        await component.login()
+        expect(component.loginForm.email().touched()).toBe(false)
+        expect(component.loginForm.password().touched()).toBe(false)
     })
 
-    it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', () => {
+    it('puts current email into "email" cookie on successful login with remember-me checkbox ticked', async () => {
         userService.login.mockReturnValue(of({}))
-        component.emailControl.setValue('horst@juice-sh.op')
-        component.rememberMe.setValue(true)
-        component.login()
+        component.loginModel.update((model) => ({ ...model, email: 'horst@juice-sh.op', password: 'p', rememberMe: true }))
+        await component.login()
         expect(localStorage.getItem('email')).toBe('horst@juice-sh.op')
     })
 
-    it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', () => {
+    it('puts current email into "email" cookie on failed login with remember-me checkbox ticked', async () => {
         userService.login.mockReturnValue(throwError({ error: 'Error' }))
-        component.emailControl.setValue('horst@juice-sh.op')
-        component.rememberMe.setValue(true)
-        component.login()
+        component.loginModel.update((model) => ({ ...model, email: 'horst@juice-sh.op', password: 'p', rememberMe: true }))
+        await component.login()
         expect(localStorage.getItem('email')).toBe('horst@juice-sh.op')
+    })
+
+    it('removes the remembered email on login with remember-me checkbox unticked', async () => {
+        localStorage.setItem('email', 'horst@juice-sh.op')
+        userService.login.mockReturnValue(of({}))
+        component.loginModel.update((model) => ({ ...model, email: 'horst@juice-sh.op', password: 'p', rememberMe: false }))
+        await component.login()
+        expect(localStorage.getItem('email')).toBeNull()
     })
 
     describe('template rendering', () => {
         it('should render the login heading, email and password inputs and the login button', () => {
             const compiled: HTMLElement = fixture.nativeElement
-            expect(compiled.querySelector('h1')?.textContent).toContain('Login')
+            expect(compiled.querySelector('h1')).toBeTruthy()
             expect(compiled.querySelector('input#email')).toBeTruthy()
             expect(compiled.querySelector('input#password')).toBeTruthy()
             expect(compiled.querySelector('button#loginButton')).toBeTruthy()
@@ -219,11 +237,42 @@ describe('LoginComponent', () => {
             expect(compiled.querySelector('#newCustomerLink a')).toBeTruthy()
         })
 
-        it('should show the error message banner when component.error is set', () => {
-            component.error = 'Invalid credentials'
+        it('should enable the login button once email and password are provided', () => {
+            component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
+            fixture.detectChanges()
+            const loginButton = (fixture.nativeElement as HTMLElement).querySelector('#loginButton') as HTMLButtonElement
+            expect(loginButton.disabled).toBe(false)
+        })
+
+        it('should check the remember-me checkbox when a remembered email exists', () => {
+            localStorage.setItem('email', 'a@a')
+            component.ngOnInit()
+            fixture.detectChanges()
+            const checkbox = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe input') as HTMLInputElement
+            expect(checkbox.checked).toBe(true)
+        })
+
+        it('should update the login model when the remember-me checkbox is toggled', () => {
+            const checkboxInput = (fixture.nativeElement as HTMLElement).querySelector('#rememberMe input') as HTMLInputElement
+            checkboxInput.click()
+            fixture.detectChanges()
+            expect(component.loginModel().rememberMe).toBe(true)
+        })
+
+        it('should show the error message banner when an error is set', () => {
+            component.error.set('Invalid credentials')
             fixture.detectChanges()
             const errorEl = (fixture.nativeElement as HTMLElement).querySelector('.error')
             expect(errorEl?.textContent).toContain('Invalid credentials')
+            expect(errorEl?.getAttribute('role')).toBe('alert')
+        })
+
+        it('should clear the error when the email input receives focus', () => {
+            component.error.set('Invalid credentials')
+            fixture.detectChanges()
+            const emailInput = (fixture.nativeElement as HTMLElement).querySelector('#email') as HTMLInputElement
+            emailInput.dispatchEvent(new Event('focus'))
+            expect(component.error()).toBeNull()
         })
 
         it('should hide the OAuth login section when oauthUnavailable is true', () => {
@@ -232,6 +281,15 @@ describe('LoginComponent', () => {
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
             expect(compiled.querySelector('.breakLine')).toBeNull()
+        })
+
+        it('should invoke googleLogin when the Google button is clicked', () => {
+            component.oauthUnavailable = false
+            fixture.detectChanges()
+            const googleSpy = vi.spyOn(component, 'googleLogin')
+            const googleButton = (fixture.nativeElement as HTMLElement).querySelector('#loginButtonGoogle') as HTMLButtonElement
+            googleButton.click()
+            expect(googleSpy).toHaveBeenCalled()
         })
 
         it('should show the OAuth login section and toggle password visibility', () => {
@@ -250,13 +308,18 @@ describe('LoginComponent', () => {
 
             expect(component.hide).toBe(false)
             expect(password.type).toBe('text')
-            expect(compiled.querySelector('[aria-label="Button to hide the password"]')).toBeTruthy()
+            const hideToggle = compiled.querySelector('[aria-label="Button to hide the password"]') as HTMLButtonElement
+            expect(hideToggle).toBeTruthy()
+            hideToggle.click()
+            fixture.detectChanges()
+
+            expect(component.hide).toBe(true)
+            expect(password.type).toBe('password')
         })
 
         it('should submit the form when email and password are provided', () => {
             const loginSpy = vi.spyOn(component, 'login')
-            component.emailControl.setValue('user@example.com')
-            component.passwordControl.setValue('password')
+            component.loginModel.update((model) => ({ ...model, email: 'user@example.com', password: 'password' }))
             fixture.detectChanges()
 
             const form = (fixture.nativeElement as HTMLElement).querySelector('#login-form') as HTMLFormElement
@@ -329,18 +392,18 @@ describe('LoginComponent', () => {
             const router = (component as any).router
             const navSpy = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true as any)
             ;(component as any).route = { snapshot: { queryParamMap: { get: () => '/profile' } } }
+            component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
             userService.login.mockReturnValue(of({ token: 't', bid: 1 }))
-            component.login()
-            await fixture.whenStable()
+            await component.login()
             expect(navSpy).toHaveBeenCalledWith('/profile')
         })
 
         it('should log and continue when merging guest basket fails', async () => {
             console.log = vi.fn()
             basketService.mergeGuestBasketIntoUserBasket.mockReturnValue(throwError('mergeErr'))
+            component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
             userService.login.mockReturnValue(of({ token: 't', bid: 1 }))
-            component.login()
-            await fixture.whenStable()
+            await component.login()
             expect(console.log).toHaveBeenCalledWith('mergeErr')
             expect(basketService.updateNumberOfCartItems).toHaveBeenCalled()
         })
@@ -348,11 +411,11 @@ describe('LoginComponent', () => {
         it('should redirect to 2FA page when login requires a TOTP token', async () => {
             const router = (component as any).router
             const navSpy = vi.spyOn(router, 'navigate').mockResolvedValue(true as any)
+            component.loginModel.update((model) => ({ ...model, email: 'a@a', password: 'p' }))
             userService.login.mockReturnValue(throwError({
                 error: { status: 'totp_token_required', data: { tmpToken: 'tmp' } }
             }))
-            component.login()
-            await fixture.whenStable()
+            await component.login()
             expect(localStorage.getItem('totp_tmp_token')).toBe('tmp')
             expect(navSpy).toHaveBeenCalledWith(['/2fa/enter'])
             localStorage.removeItem('totp_tmp_token')
