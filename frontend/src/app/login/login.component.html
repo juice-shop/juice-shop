@@ -34,17 +34,13 @@
           matInput placeholder="" [type]="hide ? 'password' : 'text'"
           aria-label="Text field for the login password"
         >
-        @if (hide) {
-        <button type="button" class="password-toggle-button" mat-icon-button matSuffix (click)="hide = !hide" aria-label="Button to display the password"
-          matTooltip="{{ 'SHOW_PWD_TOOLTIP' | translate  }}" matTooltipPosition=right>
-          <i class="fas fa-eye" aria-label="Eye"></i>
+        <button type="button" class="password-toggle-button" mat-icon-button matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="(hide ? 'SHOW_PWD_TOOLTIP' : 'HIDE_PWD_TOOLTIP') | translate"
+          [matTooltip]="(hide ? 'SHOW_PWD_TOOLTIP' : 'HIDE_PWD_TOOLTIP') | translate"
+          matTooltipPosition="right">
+          <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
-        } @else {
-        <button type="button" class="password-toggle-button" mat-icon-button matSuffix (click)="hide = !hide" aria-label="Button to hide the password"
-          matTooltip="{{ 'HIDE_PWD_TOOLTIP' | translate  }}" matTooltipPosition=right>
-          <i class="fas fa-eye-slash" aria-label="Eye Slash"></i>
-        </button>
-        }
         @if (loginForm.password().getError('required')) {
         <mat-error translate>MANDATORY_PASSWORD</mat-error>
         }
