@@ -168,13 +168,14 @@ describe('ForgotPasswordComponent', () => {
         expect(component.forgotPasswordForm.password().value()).toBe('')
     })
 
-    it('should change the password when the change button is clicked', async () => {
+    it('should change the password when the form is submitted', async () => {
         component.securityQuestion.set('What is your favorite test tool?')
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         fixture.detectChanges()
         const resetButton: HTMLButtonElement = fixture.nativeElement.querySelector('#resetButton')
         expect(resetButton.disabled).toBe(false)
-        resetButton.click()
+        const form = (fixture.nativeElement as HTMLElement).querySelector('#forgot-password-form') as HTMLFormElement
+        form.dispatchEvent(new Event('submit'))
         await fixture.whenStable()
         expect(userService.resetPassword).toHaveBeenCalledWith({
             email: 'user@test.test',
