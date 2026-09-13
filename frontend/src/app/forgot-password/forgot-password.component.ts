@@ -5,8 +5,9 @@
 
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
-import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
+import { disabled, email, form, FormField, minLength, required, submit, validate } from '@angular/forms/signals'
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
@@ -30,116 +31,103 @@ library.add(faSave, faEdit)
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormField, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
 })
 export class ForgotPasswordComponent {
   private readonly securityQuestionService = inject(SecurityQuestionService)
   private readonly userService = inject(UserService)
   private readonly translate = inject(TranslateService)
 
-  public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
-  public securityQuestionControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required])
-  public passwordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, Validators.minLength(5)])
-  public repeatPasswordControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required, matchValidator(this.passwordControl)])
-  public securityQuestion?: string
-  public error?: string
-  public confirmation?: string
-  public timeoutDuration = 1000
-  private timeout
+  public readonly forgotPasswordModel = signal({
+    email: '',
+    securityQuestion: '',
+    password: '',
+    repeatPassword: ''
+  })
+
+  public readonly securityQuestion = signal<string | undefined>(undefined)
+  public readonly error = signal<string | undefined>(undefined)
+  public readonly confirmation = signal<string | undefined>(undefined)
+  public readonly timeoutDuration = 1000
+  private timeout: ReturnType<typeof setTimeout> | undefined
+
+  public readonly forgotPasswordForm = form(this.forgotPasswordModel, (s) => {
+    required(s.email)
+    email(s.email)
+    disabled(s.securityQuestion, { when: () => !this.securityQuestion() })
+    required(s.securityQuestion)
+    disabled(s.password, { when: () => !this.securityQuestion() })
+    required(s.password)
+    minLength(s.password, 5)
+    disabled(s.repeatPassword, { when: () => !this.securityQuestion() })
+    required(s.repeatPassword)
+    validate(s.repeatPassword, ({ value, valueOf }) => {
+      if (value() && value() !== valueOf(s.password)) {
+        return { kind: 'notSame' }
+      }
+      return undefined
+    })
+  })
 
   findSecurityQuestion () {
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
-      this.securityQuestion = undefined
-      if (this.emailControl.value) {
-        this.securityQuestionService.findBy(this.emailControl.value).subscribe({
-          next: (securityQuestion: SecurityQuestion) => {
-            if (securityQuestion) {
-              this.securityQuestion = securityQuestion.question
-              this.securityQuestionControl.enable()
-              this.passwordControl.enable()
-              this.repeatPasswordControl.enable()
-            } else {
-              this.securityQuestionControl.disable()
-              this.passwordControl.disable()
-              this.repeatPasswordControl.disable()
-            }
-          },
-          error: (error) => error
-        }
-        )
-      } else {
-        this.securityQuestionControl.disable()
-        this.passwordControl.disable()
-        this.repeatPasswordControl.disable()
+      this.securityQuestion.set(undefined)
+      const email = this.forgotPasswordModel().email
+      if (!email) {
+        return
       }
+      this.securityQuestionService.findBy(email).subscribe({
+        next: (securityQuestion: SecurityQuestion) => {
+          if (securityQuestion) {
+            this.securityQuestion.set(securityQuestion.question)
+          }
+        },
+        error: () => undefined
+      })
     }, this.timeoutDuration)
   }
 
   resetPassword () {
-    this.userService.resetPassword({
-      email: this.emailControl.value,
-      answer: this.securityQuestionControl.value,
-      new: this.passwordControl.value,
-      repeat: this.repeatPasswordControl.value
-    }).subscribe({
-      next: () => {
-        this.error = undefined
-        this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe({
-          next: (passwordSuccessfullyChanged) => {
-            this.confirmation = passwordSuccessfullyChanged
-          },
-          error: (translationId) => {
-            this.confirmation = translationId
-          }
-        })
+    return submit(this.forgotPasswordForm, async () => {
+      const { email, securityQuestion, password, repeatPassword } = this.forgotPasswordModel()
+      try {
+        await firstValueFrom(this.userService.resetPassword({
+          email,
+          answer: securityQuestion,
+          new: password,
+          repeat: repeatPassword
+        }))
+        this.error.set(undefined)
+        this.confirmation.set(await this.passwordChangedConfirmation())
         this.resetForm()
-      },
-      error: (error) => {
-        this.error = error.error
-        this.confirmation = undefined
+      } catch (err: any) {
+        this.error.set(err?.error)
+        this.confirmation.set(undefined)
         this.resetErrorForm()
       }
     })
   }
 
   resetForm () {
-    this.emailControl.setValue('')
-    this.emailControl.markAsPristine()
-    this.emailControl.markAsUntouched()
-    this.securityQuestionControl.setValue('')
-    this.securityQuestionControl.markAsPristine()
-    this.securityQuestionControl.markAsUntouched()
-    this.passwordControl.setValue('')
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
-    this.repeatPasswordControl.setValue('')
-    this.repeatPasswordControl.markAsPristine()
-    this.repeatPasswordControl.markAsUntouched()
+    this.forgotPasswordForm.email().reset('')
+    this.forgotPasswordForm.securityQuestion().reset('')
+    this.forgotPasswordForm.password().reset('')
+    this.forgotPasswordForm.repeatPassword().reset('')
   }
 
   resetErrorForm () {
-    this.emailControl.markAsPristine()
-    this.emailControl.markAsUntouched()
-    this.securityQuestionControl.setValue('')
-    this.securityQuestionControl.markAsPristine()
-    this.securityQuestionControl.markAsUntouched()
-    this.passwordControl.setValue('')
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
-    this.repeatPasswordControl.setValue('')
-    this.repeatPasswordControl.markAsPristine()
-    this.repeatPasswordControl.markAsUntouched()
+    this.forgotPasswordForm.email().reset()
+    this.forgotPasswordForm.securityQuestion().reset('')
+    this.forgotPasswordForm.password().reset('')
+    this.forgotPasswordForm.repeatPassword().reset('')
   }
-}
 
-function matchValidator (passwordControl: AbstractControl) {
-  return function matchOtherValidate (repeatPasswordControl: UntypedFormControl) {
-    const password = passwordControl.value
-    const passwordRepeat = repeatPasswordControl.value
-    if (password !== passwordRepeat) {
-      return { notSame: true }
+  private async passwordChangedConfirmation (): Promise<string> {
+    try {
+      return await firstValueFrom(this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED'))
+    } catch (translationId) {
+      return translationId as string
     }
-    return null
   }
 }
