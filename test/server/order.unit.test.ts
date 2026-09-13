@@ -5,6 +5,7 @@
 
 import { describe, it, beforeEach, mock } from 'node:test'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
 import { placeOrder } from '../../routes/order'
 import { BasketModel } from '../../models/basket'
 import { BasketItemModel } from '../../models/basketitem'
@@ -13,6 +14,21 @@ import { WalletModel } from '../../models/wallet'
 import { DeliveryModel } from '../../models/delivery'
 import * as db from '../../data/mongodb'
 import * as security from '../../lib/insecurity'
+
+// Wait for asynchronous PDF cleanup after the order fails.
+async function waitForOrderPdfFiles (before: string[], timeoutMs = 2000): Promise<string[]> {
+  const deadline = Date.now() + timeoutMs
+  let current = listOrderPdfFiles()
+  while (current.length > before.length && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 20))
+    current = listOrderPdfFiles()
+  }
+  return current.filter((file) => !before.includes(file))
+}
+
+function listOrderPdfFiles (): string[] {
+  return fs.readdirSync('ftp/').filter((file) => file.startsWith('order_') && file.endsWith('.pdf'))
+}
 
 void describe('order', () => {
   let req: any
@@ -84,6 +100,7 @@ void describe('order', () => {
     mock.method(QuantityModel, 'findOne', async () => ({ quantity: 10 }))
     const error = new Error('Quantity update error')
     mock.method(QuantityModel, 'update', async () => { throw error })
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -93,6 +110,7 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
   })
 
   void it('should call next with error if WalletModel.decrement fails', async () => {
@@ -116,6 +134,7 @@ void describe('order', () => {
     mock.method(WalletModel, 'findOne', async () => ({ balance: 1000 }))
     const error = new Error('Wallet decrement error')
     mock.method(WalletModel, 'decrement', async () => { throw error })
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -125,6 +144,7 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
   })
 
   void it('should call next with error if WalletModel.increment fails', async () => {
@@ -147,6 +167,7 @@ void describe('order', () => {
     req.body.UserId = 1
     const error = new Error('Wallet increment error')
     mock.method(WalletModel, 'increment', async () => { throw error })
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -156,6 +177,7 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
   })
 
   void it('should call next with error if DeliveryModel.findOne fails', async () => {
@@ -170,6 +192,7 @@ void describe('order', () => {
     req.body.orderDetails = { deliveryMethodId: 1 }
     const error = new Error('Delivery error')
     mock.method(DeliveryModel, 'findOne', async () => { throw error })
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -179,6 +202,7 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
   })
 
   void it('should call next with error if ordersCollection.insert fails', async () => {
@@ -192,6 +216,7 @@ void describe('order', () => {
     mock.method(security.authenticatedUsers, 'from', () => ({ data: { email: 'test@juice-sh.op' } }))
     const error = new Error('Insert error')
     mock.method(db.ordersCollection, 'insert', async () => { throw error })
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -201,6 +226,7 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
   })
 
   void it('should call next with error if BasketItemModel.destroy fails', async () => {
@@ -215,6 +241,7 @@ void describe('order', () => {
     const error = new Error('Destroy error')
     mock.method(BasketItemModel, 'destroy', async () => { throw error })
     mock.method(db.ordersCollection, 'insert', async () => {})
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -224,6 +251,10 @@ void describe('order', () => {
     const err = await p
 
     assert.equal(err, error)
+    // Clean up the PDF created by the successful order.
+    for (const file of listOrderPdfFiles().filter((f) => !filesBefore.includes(f))) {
+      fs.unlinkSync(`ftp/${file}`)
+    }
   })
 
   void it('should handle base64 coupon data in calculateApplicableDiscount', async () => {
@@ -242,6 +273,7 @@ void describe('order', () => {
     mock.method(db.ordersCollection, 'insert', async () => {})
     mock.method(BasketItemModel, 'destroy', async () => {})
     mock.method(WalletModel, 'increment', async () => {})
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       res.json = (data: any) => { resolve(data) }
@@ -251,6 +283,9 @@ void describe('order', () => {
     await p
 
     assert.ok(true)
+    for (const file of listOrderPdfFiles().filter((f) => !filesBefore.includes(f))) {
+      fs.unlinkSync(`ftp/${file}`)
+    }
   })
 
   void it('should call next with error if wallet balance is insufficient', async () => {
@@ -272,6 +307,7 @@ void describe('order', () => {
     req.body.UserId = 1
     req.body.orderDetails = { paymentId: 'wallet' }
     mock.method(WalletModel, 'findOne', async () => ({ balance: 10 }))
+    const filesBefore = listOrderPdfFiles()
 
     const p = new Promise((resolve) => {
       next = (err: any) => { resolve(err) }
@@ -281,5 +317,32 @@ void describe('order', () => {
     const err = await p as Error
 
     assert.match(err.message, /Insufficient wallet balance/)
+    assert.deepEqual(await waitForOrderPdfFiles(filesBefore), [], 'the half-written order PDF should not be left behind in ftp/')
+  })
+
+  void it('should keep the order pdf file in ftp/ after a successful order', async () => {
+    const basket = {
+      id: 1,
+      Products: [],
+      update: mock.fn(async () => {}),
+      coupon: null
+    }
+    mock.method(BasketModel, 'findOne', async () => basket)
+    mock.method(security.authenticatedUsers, 'from', () => ({ data: { email: 'test@juice-sh.op' } }))
+    mock.method(db.ordersCollection, 'insert', async () => {})
+    mock.method(BasketItemModel, 'destroy', async () => {})
+    mock.method(WalletModel, 'increment', async () => {})
+    const filesBefore = listOrderPdfFiles()
+
+    const p = new Promise((resolve) => {
+      res.json = (data: any) => { resolve(data) }
+    })
+
+    placeOrder()(req, res, next)
+    await p
+
+    const newFiles = listOrderPdfFiles().filter((file) => !filesBefore.includes(file))
+    assert.equal(newFiles.length, 1, 'a completed order should still produce its confirmation PDF')
+    fs.unlinkSync(`ftp/${newFiles[0]}`)
   })
 })

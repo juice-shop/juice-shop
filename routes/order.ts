@@ -32,6 +32,11 @@ interface Product {
 export function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
+    // Track the PDF stream so failed orders can clean up the partial file.
+    let doc: PDFKit.PDFDocument | undefined
+    let fileWriter: fs.WriteStream | undefined
+    let pdfPath: string | undefined
+
     BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
       .then(async (basket: BasketModel | null) => {
         if (basket != null) {
@@ -40,9 +45,10 @@ export function placeOrder () {
           const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
           const { default: PDFDocument } = await import('pdfkit')
-          const doc = new PDFDocument()
+          doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
-          const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
+          pdfPath = path.join('ftp/', pdfFile)
+          fileWriter = doc.pipe(fs.createWriteStream(pdfPath))
 
           fileWriter.on('finish', () => {
             void (async () => {
@@ -74,15 +80,10 @@ export function placeOrder () {
           for (const { BasketItem, price, deluxePrice, name, id } of basket.Products ?? []) {
             if (BasketItem != null) {
               challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
-              try {
-                const quantityRow = await QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } })
-                if (quantityRow) {
-                  const newQuantity = quantityRow.quantity - BasketItem.quantity
-                  await QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } })
-                }
-              } catch (error: unknown) {
-                next(error)
-                return
+              const quantityRow = await QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } })
+              if (quantityRow) {
+                const newQuantity = quantityRow.quantity - BasketItem.quantity
+                await QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } })
               }
               let itemPrice: number
               if (security.isDeluxe(req)) {
@@ -149,19 +150,13 @@ export function placeOrder () {
               if ((wallet != null) && wallet.balance >= totalPrice) {
                 await WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } })
               } else {
-                next(new Error('Insufficient wallet balance.'))
-                return
+                throw new Error('Insufficient wallet balance.')
               }
             }
-            try {
-              await WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } })
-            } catch (error: unknown) {
-              next(error)
-              return
-            }
+            await WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } })
           }
 
-          db.ordersCollection.insert({
+          await db.ordersCollection.insert({
             promotionalAmount: discountAmount,
             paymentId: req.body.orderDetails ? req.body.orderDetails.paymentId : null,
             addressId: req.body.orderDetails ? req.body.orderDetails.addressId : null,
@@ -173,15 +168,22 @@ export function placeOrder () {
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,
             eta: deliveryMethod.eta.toString()
-          }).then(() => {
-            doc.end()
-          }).catch((error: unknown) => {
-            next(error)
           })
+          doc.end()
         } else {
-          next(new Error(`Basket with id=${id} does not exist.`))
+          throw new Error(`Basket with id=${id} does not exist.`)
         }
       }).catch((error: unknown) => {
+        // Remove the partial PDF and close its stream when order processing fails.
+        if (fileWriter != null && pdfPath != null) {
+          doc?.unpipe(fileWriter)
+          const writer = fileWriter
+          const filePath = pdfPath
+          writer.once('close', () => {
+            fs.promises.unlink(filePath).catch(() => {})
+          })
+          writer.destroy()
+        }
         next(error)
       })
   }
