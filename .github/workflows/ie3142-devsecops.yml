@@ -1,0 +1,208 @@
+name: IE3142 DevSecOps Pipeline
+
+on:
+  push:
+    branches:
+      - ie3142-devsecops
+
+  pull_request:
+    branches:
+      - ie3142-devsecops
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+
+  # =========================================================
+  # 1. BUILD AND TEST
+  # =========================================================
+
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npm run build
+
+      - name: Run tests
+        run: npm test
+
+
+  # =========================================================
+  # 2. SAST - SEMGREP
+  # =========================================================
+
+  sast:
+    name: SAST - Semgrep
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep
+        continue-on-error: true
+        run: |
+          semgrep scan \
+            --config p/owasp-top-ten \
+            --error \
+            --json \
+            --output semgrep-report.json \
+            .
+
+      - name: Upload Semgrep report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep-report.json
+          if-no-files-found: warn
+
+
+  # =========================================================
+  # 3. DEPENDENCY / SCA SCANNING
+  # =========================================================
+
+  dependency-scan:
+    name: Dependency Scan - npm audit
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Audit backend dependencies
+        continue-on-error: true
+        run: |
+          npm audit \
+            --audit-level=high \
+            --json > npm-audit-backend.json
+
+      - name: Audit frontend dependencies
+        continue-on-error: true
+        working-directory: frontend
+        run: |
+          npm audit \
+            --audit-level=high \
+            --json > ../npm-audit-frontend.json
+
+      - name: Upload npm audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-reports
+          path: |
+            npm-audit-backend.json
+            npm-audit-frontend.json
+          if-no-files-found: warn
+
+
+  # =========================================================
+  # 4. SECRETS SCANNING - BLOCKING GATE
+  # =========================================================
+
+  secrets-scan:
+    name: Secrets Scan - Gitleaks
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run Gitleaks
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" \
+            ghcr.io/gitleaks/gitleaks:v8.30.1 \
+            dir /repo \
+            --redact \
+            --report-format json \
+            --report-path /repo/gitleaks-report.json \
+            --exit-code 1
+
+      - name: Upload Gitleaks report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: gitleaks-report.json
+          if-no-files-found: warn
+
+
+  # =========================================================
+  # 5. DOCKER IMAGE + TRIVY
+  # =========================================================
+
+  container-scan:
+    name: Container Scan - Trivy
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t ie3142-juice-shop:${{ github.sha }} \
+            .
+
+      - name: Scan Docker image with Trivy
+        continue-on-error: true
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ie3142-juice-shop:${{ github.sha }}
+          format: table
+          output: trivy-report.txt
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+
+      - name: Upload Trivy report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.txt
+          if-no-files-found: warn
+          
