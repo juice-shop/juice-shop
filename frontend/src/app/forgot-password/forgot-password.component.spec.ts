@@ -168,6 +168,61 @@ describe('ForgotPasswordComponent', () => {
         expect(component.forgotPasswordForm.password().value()).toBe('')
     })
 
+    it('should change the password when the change button is clicked', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        fixture.detectChanges()
+        const resetButton: HTMLButtonElement = fixture.nativeElement.querySelector('#resetButton')
+        expect(resetButton.disabled).toBe(false)
+        resetButton.click()
+        await fixture.whenStable()
+        expect(userService.resetPassword).toHaveBeenCalledWith({
+            email: 'user@test.test',
+            answer: 'Answer',
+            new: 'password',
+            repeat: 'password'
+        })
+        expect(component.confirmation()).toBeDefined()
+    })
+
+    it('should show the confirmation once the password was changed and hide it again on further edits', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        await component.resetPassword()
+        fixture.detectChanges()
+        const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
+        expect(confirmation.hidden).toBe(false)
+
+        component.forgotPasswordForm.email().markAsDirty()
+        fixture.detectChanges()
+        expect(confirmation.hidden).toBe(true)
+    })
+
+    it('should show the error and hide the confirmation when the password change failed', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
+        await component.resetPassword()
+        fixture.detectChanges()
+        const error: HTMLElement = fixture.nativeElement.querySelector('.error')
+        const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
+        expect(error.hidden).toBe(false)
+        expect(error.textContent).toContain('Error')
+        expect(confirmation.hidden).toBe(true)
+    })
+
+    it('should look up the security question when an email address is entered', () => {
+        vi.useFakeTimers()
+        securityQuestionService.findBy.mockReturnValue(of({ question: 'What is your favorite test tool?' }))
+        const emailInput: HTMLInputElement = fixture.nativeElement.querySelector('#email')
+        emailInput.value = 'known@user.test'
+        emailInput.dispatchEvent(new Event('input'))
+        vi.advanceTimersByTime(component.timeoutDuration)
+        expect(securityQuestionService.findBy).toHaveBeenCalledWith('known@user.test')
+        expect(component.securityQuestion()).toBe('What is your favorite test tool?')
+        vi.useRealTimers()
+    })
+
     it('should find the security question of a user with a known email address', () => {
         vi.useFakeTimers()
         securityQuestionService.findBy.mockReturnValue(of({ question: 'What is your favorite test tool?' }))
