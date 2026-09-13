@@ -301,16 +301,19 @@ describe('LoginComponent', () => {
             expect(compiled.querySelector('.breakLine')).toBeTruthy()
 
             const password = compiled.querySelector('#password') as HTMLInputElement
-            const toggle = compiled.querySelector('[aria-label="Button to display the password"]') as HTMLButtonElement
+            const toggle = compiled.querySelector('.password-toggle-button') as HTMLButtonElement
             expect(password.type).toBe('password')
+            expect(toggle.querySelector('mat-icon')?.textContent?.trim()).toBe('visibility')
+            const showLabel = toggle.getAttribute('aria-label')
+            expect(showLabel).toBeTruthy()
             toggle.click()
             fixture.detectChanges()
 
             expect(component.hide).toBe(false)
             expect(password.type).toBe('text')
-            const hideToggle = compiled.querySelector('[aria-label="Button to hide the password"]') as HTMLButtonElement
-            expect(hideToggle).toBeTruthy()
-            hideToggle.click()
+            expect(toggle.querySelector('mat-icon')?.textContent?.trim()).toBe('visibility_off')
+            expect(toggle.getAttribute('aria-label')).not.toBe(showLabel)
+            toggle.click()
             fixture.detectChanges()
 
             expect(component.hide).toBe(true)
