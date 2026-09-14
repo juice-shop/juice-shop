@@ -6,8 +6,9 @@
 import { CookieService } from 'ngy-cookie'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { Component, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { FormField, form, minLength, required, submit } from '@angular/forms/signals'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +22,7 @@ import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
-import { of } from 'rxjs'
+import { firstValueFrom, of } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 
 import { MatCardModule } from '@angular/material/card'
@@ -35,7 +36,7 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButtonModule, MatIconModule, MatCheckbox]
+  imports: [MatCardModule, MatFormFieldModule, MatLabel, TranslateModule, MatInputModule, FormsModule, FormField, MatError, MatIconButton, MatSuffix, MatTooltip, RouterLink, MatButtonModule, MatIconModule, MatCheckbox]
 })
 
 export class LoginComponent implements OnInit {
@@ -46,16 +47,21 @@ export class LoginComponent implements OnInit {
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly basketService = inject(BasketService)
-  private readonly ngZone = inject(NgZone)
 
-  public emailControl = new UntypedFormControl('', [Validators.required])
+  public readonly loginModel = signal({
+    email: '',
+    password: '',
+    rememberMe: false
+  })
 
-  public passwordControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1)])
+  public readonly loginForm = form(this.loginModel, (s) => {
+    required(s.email)
+    required(s.password)
+    minLength(s.password, 1)
+  })
 
   public hide = true
-  public user: any
-  public rememberMe: UntypedFormControl = new UntypedFormControl(false)
-  public error: any
+  public error = signal<any>(null)
   public clientId = '1005568560502-6hm16lef8oh46hr2d98vf2ohlnj4nfhq.apps.googleusercontent.com'
   public oauthUnavailable = true
   public redirectUri = ''
@@ -64,14 +70,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit (): void {
     const email = localStorage.getItem('email')
-    if (email) {
-      this.user = {}
-      this.user.email = email
-      this.rememberMe.setValue(true)
-    } else {
-      this.rememberMe.setValue(false)
-    }
-
+    this.loginModel.update((model) => ({ ...model, rememberMe: !!email }))
 
     this.redirectUri = `${this.windowRefService.nativeWindow.location.protocol}//${this.windowRefService.nativeWindow.location.host}`
     this.configurationService.getApplicationConfiguration().subscribe({
@@ -93,11 +92,20 @@ export class LoginComponent implements OnInit {
   }
 
   login () {
-    this.user = {}
-    this.user.email = this.emailControl.value
-    this.user.password = this.passwordControl.value
-    this.userService.login(this.user).subscribe({
-      next: (authentication: any) => {
+    return submit(this.loginForm, async () => {
+      const user = {
+        email: this.loginModel().email,
+        password: this.loginModel().password
+      }
+
+      if (this.loginModel().rememberMe) {
+        localStorage.setItem('email', user.email)
+      } else {
+        localStorage.removeItem('email')
+      }
+
+      try {
+        const authentication: any = await firstValueFrom(this.userService.login(user))
         const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
         localStorage.setItem('token', authentication.token)
         const expires = new Date()
@@ -105,44 +113,36 @@ export class LoginComponent implements OnInit {
         this.cookieService.put('token', authentication.token, { expires })
         sessionStorage.setItem('bid', authentication.bid)
 
-        this.basketService.mergeGuestBasketIntoUserBasket(authentication.bid)
+        await firstValueFrom(this.basketService.mergeGuestBasketIntoUserBasket(authentication.bid)
           .pipe(
             catchError((err) => {
               console.log(err)
               return of(void 0)
             })
-          )
-          .subscribe(() => {
-            this.completeLogin(redirectUrl)
-          })
-      },
-      error: ({ error }) => {
-        if (error.status && error.data && error.status === 'totp_token_required') {
+          ))
+        await this.completeLogin(redirectUrl)
+      } catch (err: any) {
+        const error = err?.error
+        if (error?.status && error?.data && error.status === 'totp_token_required') {
           localStorage.setItem('totp_tmp_token', error.data.tmpToken)
-          this.ngZone.run(async () => await this.router.navigate(['/2fa/enter']))
+          await this.router.navigate(['/2fa/enter'])
           return
         }
         localStorage.removeItem('token')
         this.cookieService.remove('token')
         sessionStorage.removeItem('bid')
-        this.error = error
+        this.error.set(error)
         this.userService.isLoggedIn.next(false)
-        this.emailControl.markAsPristine()
-        this.passwordControl.markAsPristine()
+        this.loginForm.email().reset()
+        this.loginForm.password().reset()
       }
     })
-
-    if (this.rememberMe.value) {
-      localStorage.setItem('email', this.user.email)
-    } else {
-      localStorage.removeItem('email')
-    }
   }
 
-  private completeLogin (redirectUrl: string): void {
+  private completeLogin (redirectUrl: string): Promise<boolean> {
     this.basketService.updateNumberOfCartItems()
     this.userService.isLoggedIn.next(true)
-    this.ngZone.run(async () => await this.router.navigateByUrl(redirectUrl))
+    return this.router.navigateByUrl(redirectUrl)
   }
 
   googleLogin () {
