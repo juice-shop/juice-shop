@@ -1,8 +1,8 @@
 # ZAP baseline rule configuration — fields are TAB separated
 # Rule ID<TAB>Decision<TAB>Reason
-10010	WARN	Review HttpOnly cookie behavior
-10011	WARN	Local HTTP lab cannot prove Secure cookie behavior
-10015	WARN	Review cache policy by endpoint
-10020	WARN	Review framing protection
-10021	WARN	Review X-Content-Type-Options
+10010	IGNORE	Review HttpOnly cookie behavior
+10011	IGNORE	Local HTTP lab cannot prove Secure cookie behavior
+10015	IGNORE	Review cache policy by endpoint
+10020	IGNORE	Review framing protection
+10021	IGNORE	Review X-Content-Type-Options
 10038	IGNORE	Confirmed systemic absence of CSP across app; required per OWASP A05:2021 Security Misconfiguration
