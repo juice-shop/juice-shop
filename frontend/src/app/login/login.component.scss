@@ -9,8 +9,23 @@ $break-line: #c0c0c0;
 
 mat-card {
   height: auto;
-  min-width: 320px;
+  min-width: 410px;
   width: 25%;
+  padding: $space-l $space-xl;
+}
+
+@media (max-width: 599.98px) {
+  mat-card {
+    width: 100%;
+    min-width: auto;
+    margin-bottom: $space-l;
+    margin-left: $space-m;
+    margin-right: $space-m;
+  }
+}
+
+.error {
+  margin-bottom: $space-m;
 }
 
 .form-container {
@@ -22,7 +37,6 @@ mat-card {
 
 .forgot-pw {
   font-size: 11px;
-  margin-top: -$space-m;
 }
 
 mat-checkbox {
@@ -32,11 +46,11 @@ mat-checkbox {
 }
 
 mat-form-field {
-  padding-top: $space-s;
+  margin-bottom: $space-m;
 }
 
-mat-form-field:nth-child(2) {
-  padding-bottom: $space-ml;
+.password-toggle-button {
+  margin-right: $space-s;
 }
 
 #loginButton,
