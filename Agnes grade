@@ -1,0 +1,1 @@
+git ls-tree --name-only $(git log -1 --format=%H) assurance/week02/
