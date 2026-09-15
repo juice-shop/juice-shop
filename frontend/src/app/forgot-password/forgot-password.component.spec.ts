@@ -199,11 +199,12 @@ describe('ForgotPasswordComponent', () => {
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         await submitForm()
         const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
-        expect(confirmation.hidden).toBe(false)
+        expect(confirmation).toBeTruthy()
+        expect(confirmation.getAttribute('role')).toBe('status')
 
         component.forgotPasswordForm.email().markAsDirty()
         fixture.detectChanges()
-        expect(confirmation.hidden).toBe(true)
+        expect(fixture.nativeElement.querySelector('.confirmation')).toBeNull()
     })
 
     it('should return the form to its initial state after the password was changed', async () => {
@@ -233,10 +234,10 @@ describe('ForgotPasswordComponent', () => {
         userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
         await submitForm()
         const error: HTMLElement = fixture.nativeElement.querySelector('.error')
-        const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
-        expect(error.hidden).toBe(false)
+        expect(error).toBeTruthy()
+        expect(error.getAttribute('role')).toBe('alert')
         expect(error.textContent).toContain('Error')
-        expect(confirmation.hidden).toBe(true)
+        expect(fixture.nativeElement.querySelector('.confirmation')).toBeNull()
     })
 
     it('should look up the security question when an email address is entered', () => {

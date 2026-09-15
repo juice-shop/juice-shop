@@ -6,7 +6,7 @@
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
 import { disabled, email, form, FormField, FormRoot, minLength, required, validate } from '@angular/forms/signals'
-import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
@@ -74,6 +74,13 @@ export class ForgotPasswordComponent {
       action: () => this.changePassword()
     }
   })
+
+  public readonly isPristine = computed(() =>
+    !this.forgotPasswordForm.email().dirty() &&
+    !this.forgotPasswordForm.securityQuestion().dirty() &&
+    !this.forgotPasswordForm.password().dirty() &&
+    !this.forgotPasswordForm.repeatPassword().dirty()
+  )
 
   findSecurityQuestion () {
     clearTimeout(this.timeout)
