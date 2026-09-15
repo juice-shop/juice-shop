@@ -5,7 +5,7 @@
 
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
-import { disabled, email, form, FormField, minLength, required, submit, validate } from '@angular/forms/signals'
+import { disabled, email, form, FormField, FormRoot, minLength, required, validate } from '@angular/forms/signals'
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -23,7 +23,6 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatSuffix, MatError, MatHint } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FormsModule } from '@angular/forms'
 
 library.add(faSave, faEdit)
 
@@ -32,19 +31,21 @@ library.add(faSave, faEdit)
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, FormField, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormRoot, FormField, MatIconModule, MatSuffix, MatTooltip, MatError, MatHint, MatSlideToggle, PasswordStrengthComponent, PasswordStrengthInfoComponent, MatButtonModule]
 })
 export class ForgotPasswordComponent {
   private readonly securityQuestionService = inject(SecurityQuestionService)
   private readonly userService = inject(UserService)
   private readonly translate = inject(TranslateService)
 
-  public readonly forgotPasswordModel = signal({
+  private readonly initialModel = {
     email: '',
     securityQuestion: '',
     password: '',
     repeatPassword: ''
-  })
+  }
+
+  public readonly forgotPasswordModel = signal({ ...this.initialModel })
 
   public readonly securityQuestion = signal<string | undefined>(undefined)
   public readonly error = signal<string | undefined>(undefined)
@@ -68,6 +69,10 @@ export class ForgotPasswordComponent {
       }
       return undefined
     })
+  }, {
+    submission: {
+      action: () => this.changePassword()
+    }
   })
 
   findSecurityQuestion () {
@@ -89,32 +94,29 @@ export class ForgotPasswordComponent {
     }, this.timeoutDuration)
   }
 
-  resetPassword () {
-    return submit(this.forgotPasswordForm, async () => {
-      const { email, securityQuestion, password, repeatPassword } = this.forgotPasswordModel()
-      try {
-        await firstValueFrom(this.userService.resetPassword({
-          email,
-          answer: securityQuestion,
-          new: password,
-          repeat: repeatPassword
-        }))
-        this.error.set(undefined)
-        this.confirmation.set(await this.passwordChangedConfirmation())
-        this.resetForm()
-      } catch (err: any) {
-        this.error.set(err?.error)
-        this.confirmation.set(undefined)
-        this.resetErrorForm()
-      }
-    })
+  private async changePassword () {
+    const { email, securityQuestion, password, repeatPassword } = this.forgotPasswordModel()
+    try {
+      await firstValueFrom(this.userService.resetPassword({
+        email,
+        answer: securityQuestion,
+        new: password,
+        repeat: repeatPassword
+      }))
+      this.error.set(undefined)
+      this.confirmation.set(await this.passwordChangedConfirmation())
+      this.resetForm()
+    } catch (err: any) {
+      this.error.set(err?.error)
+      this.confirmation.set(undefined)
+      this.resetErrorForm()
+    }
   }
 
   resetForm () {
-    this.forgotPasswordForm.email().reset('')
-    this.forgotPasswordForm.securityQuestion().reset('')
-    this.forgotPasswordForm.password().reset('')
-    this.forgotPasswordForm.repeatPassword().reset('')
+    this.forgotPasswordForm().reset({ ...this.initialModel })
+    // drop the looked-up question so the form returns to its initial state
+    this.securityQuestion.set(undefined)
   }
 
   resetErrorForm () {

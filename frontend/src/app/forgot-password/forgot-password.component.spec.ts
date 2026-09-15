@@ -30,6 +30,13 @@ describe('ForgotPasswordComponent', () => {
         component.forgotPasswordModel.update((model) => ({ ...model, ...values }))
     }
 
+    const submitForm = async () => {
+        const form = (fixture.nativeElement as HTMLElement).querySelector('#forgot-password-form') as HTMLFormElement
+        form.dispatchEvent(new Event('submit'))
+        await fixture.whenStable()
+        fixture.detectChanges()
+    }
+
     beforeEach(async () => {
         securityQuestionService = {
             findBy: vi.fn().mockName("SecurityQuestionService.findBy")
@@ -135,10 +142,13 @@ describe('ForgotPasswordComponent', () => {
     })
 
     it('should reset form on calling resetForm', () => {
+        component.securityQuestion.set('What is your favorite test tool?')
         setModel({ email: 'email', securityQuestion: 'security answer', password: 'password', repeatPassword: 'password' })
         component.forgotPasswordForm.email().markAsDirty()
         component.forgotPasswordForm.email().markAsTouched()
         component.resetForm()
+        expect(component.securityQuestion()).toBeUndefined()
+        expect(component.forgotPasswordForm.password().disabled()).toBe(true)
         expect(component.forgotPasswordForm.email().value()).toBe('')
         expect(component.forgotPasswordForm.email().dirty()).toBe(false)
         expect(component.forgotPasswordForm.email().touched()).toBe(false)
@@ -151,7 +161,7 @@ describe('ForgotPasswordComponent', () => {
         component.securityQuestion.set('What is your favorite test tool?')
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         vi.spyOn(component, 'resetForm')
-        await component.resetPassword()
+        await submitForm()
         expect(component.confirmation()).toBeDefined()
         expect(component.resetForm).toHaveBeenCalled()
     })
@@ -161,7 +171,7 @@ describe('ForgotPasswordComponent', () => {
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
         vi.spyOn(component, 'resetErrorForm')
-        await component.resetPassword()
+        await submitForm()
         expect(component.error()).toBe('Error')
         expect(component.resetErrorForm).toHaveBeenCalled()
         expect(component.forgotPasswordForm.email().value()).toBe('user@test.test')
@@ -174,9 +184,7 @@ describe('ForgotPasswordComponent', () => {
         fixture.detectChanges()
         const resetButton: HTMLButtonElement = fixture.nativeElement.querySelector('#resetButton')
         expect(resetButton.disabled).toBe(false)
-        const form = (fixture.nativeElement as HTMLElement).querySelector('#forgot-password-form') as HTMLFormElement
-        form.dispatchEvent(new Event('submit'))
-        await fixture.whenStable()
+        await submitForm()
         expect(userService.resetPassword).toHaveBeenCalledWith({
             email: 'user@test.test',
             answer: 'Answer',
@@ -189,8 +197,7 @@ describe('ForgotPasswordComponent', () => {
     it('should show the confirmation once the password was changed and hide it again on further edits', async () => {
         component.securityQuestion.set('What is your favorite test tool?')
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
-        await component.resetPassword()
-        fixture.detectChanges()
+        await submitForm()
         const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
         expect(confirmation.hidden).toBe(false)
 
@@ -199,12 +206,32 @@ describe('ForgotPasswordComponent', () => {
         expect(confirmation.hidden).toBe(true)
     })
 
+    it('should return the form to its initial state after the password was changed', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        fixture.detectChanges()
+        await submitForm()
+        expect(component.confirmation()).toBeDefined()
+        expect(component.securityQuestion()).toBeUndefined()
+        expect((fixture.nativeElement.querySelector('#email') as HTMLInputElement).disabled).toBe(false)
+        expect((fixture.nativeElement.querySelector('#securityAnswer') as HTMLInputElement).disabled).toBe(true)
+        expect((fixture.nativeElement.querySelector('#newPassword') as HTMLInputElement).disabled).toBe(true)
+        expect((fixture.nativeElement.querySelector('#newPasswordRepeat') as HTMLInputElement).disabled).toBe(true)
+        expect(fixture.nativeElement.querySelectorAll('mat-error').length).toBe(0)
+    })
+
+    it('should show the mandatory error when an empty form is submitted', async () => {
+        fixture.detectChanges()
+        await submitForm()
+        const errors = Array.from(fixture.nativeElement.querySelectorAll('mat-error')).map((e: any) => e.textContent.trim())
+        expect(errors).toEqual(['MANDATORY_EMAIL'])
+    })
+
     it('should show the error and hide the confirmation when the password change failed', async () => {
         component.securityQuestion.set('What is your favorite test tool?')
         setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
-        await component.resetPassword()
-        fixture.detectChanges()
+        await submitForm()
         const error: HTMLElement = fixture.nativeElement.querySelector('.error')
         const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
         expect(error.hidden).toBe(false)
