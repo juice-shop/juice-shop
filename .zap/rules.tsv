@@ -1,18 +1,18 @@
 # ZAP baseline rule configuration — fields are TAB separated
 # Rule ID<TAB>Decision<TAB>Reason
-10010	IGNORE	Temporary suppression for gate enforcement demonstration
-10011	IGNORE	Temporary suppression for gate enforcement demonstration
-10015	IGNORE	Temporary suppression for gate enforcement demonstration
-10020	IGNORE	Temporary suppression for gate enforcement demonstration
-10021	IGNORE	Temporary suppression for gate enforcement demonstration
+10010	WARN	Review HttpOnly cookie behavior
+10011	WARN	Local HTTP lab cannot prove Secure cookie behavior
+10015	WARN	Review cache policy by endpoint
+10020	WARN	Review framing protection
+10021	WARN	Review X-Content-Type-Options
 10038	IGNORE	See .zap/exceptions/10038-csp-exception.md
-10049	IGNORE	Temporary suppression for gate enforcement demonstration
-10063	IGNORE	Temporary suppression for gate enforcement demonstration
-10094	IGNORE	Temporary suppression for gate enforcement demonstration
-10096	IGNORE	Temporary suppression for gate enforcement demonstration
-10098	IGNORE	Temporary suppression for gate enforcement demonstration
-10109	IGNORE	Temporary suppression for gate enforcement demonstration
-10110	IGNORE	Temporary suppression for gate enforcement demonstration
-90004	IGNORE	Temporary suppression for gate enforcement demonstration
-90005	IGNORE	Temporary suppression for gate enforcement demonstration
-110009	IGNORE	Temporary suppression for gate enforcement demonstration
+10049	WARN	Review caching header consistency across endpoints
+10063	WARN	Review deprecated Feature-Policy header usage
+10094	WARN	Review Base64 encoded content for sensitive data
+10096	WARN	Review disclosed Unix timestamps for sensitive patterns
+10098	WARN	Review CORS Access-Control-Allow-Origin configuration
+10109	WARN	Informational, confirms modern web application detection
+10110	WARN	Review use of dangerous JS functions in main.js
+90004	WARN	Review Cross-Origin-Embedder-Policy and Cross-Origin-Opener-Policy headers
+90005	WARN	Review Sec-Fetch-* request header enforcement
+110009	WARN	Review full path disclosure in ftp directory listing
