@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDialog } from '@angular/material/dialog'
 import { WelcomeBannerComponent } from '../welcome-banner/welcome-banner.component'
 import { CookieService } from 'ngy-cookie'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-welcome',
   templateUrl: 'welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
@@ -17,9 +18,9 @@ import { CookieService } from 'ngy-cookie'
 })
 
 export class WelcomeComponent implements OnInit {
-  private readonly dialog = inject(MatDialog);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly cookieService = inject(CookieService);
+  private readonly dialog = inject(MatDialog)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly cookieService = inject(CookieService)
 
   private readonly welcomeBannerStatusCookieKey = 'welcomebanner_status'
 

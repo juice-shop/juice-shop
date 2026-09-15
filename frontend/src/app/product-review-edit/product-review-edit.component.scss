@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-form-field {
   width: 100%;
 }
@@ -10,4 +12,8 @@ mat-form-field {
 .column-layout {
   display: flex;
   flex-direction: column;
+}
+
+.submit-button {
+  margin-left: $space-2xs;
 }

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import {
@@ -45,10 +44,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
         set (description: string) {
           if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
-              return utils.contains(
-                description,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
+              return description?.includes('<iframe src="javascript:alert(`xss`)">') ?? false
             })
           } else {
             description = security.sanitizeSecure(description)

@@ -4,7 +4,7 @@ describe('/#/basket', () => {
       cy.login({ email: 'admin', password: 'admin123' })
     })
 
-    describe('challenge "negativeOrder"', () => {
+    describe('challenge "negativeOrderChallenge"', () => {
       it('should be possible to update a basket to a negative quantity via the Rest API', () => {
         cy.window().then(async () => {
           const response = await fetch(
@@ -75,7 +75,7 @@ describe('/#/basket', () => {
     beforeEach(() => {
       cy.login({ email: 'jim', password: 'ncc-1701' })
     })
-    describe('challenge "manipulateClock"', () => {
+    describe('challenge "manipulateClockChallenge"', () => {
       it('should be possible to enter WMNSDY2019 coupon & place order with this expired coupon', () => {
         cy.window().then(() => {
           window.localStorage.couponPanelExpanded = false
@@ -102,7 +102,7 @@ describe('/#/basket', () => {
       })
     })
 
-    describe('challenge "forgedCoupon"', () => {
+    describe('challenge "forgedCouponChallenge"', () => {
       it('should be able to access file /ftp/coupons_2013.md.bak with poison null byte attack', () => {
         cy.request(`${Cypress.config('baseUrl')}/ftp/coupons_2013.md.bak%2500.md`)
       })

@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators'
 })
 
 export class DataSubjectService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/user'

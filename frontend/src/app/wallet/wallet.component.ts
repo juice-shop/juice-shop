@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { WalletService } from '../Services/wallet.service'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -16,15 +16,16 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, FormsModule, MatInputModule, ReactiveFormsModule, MatError, MatButtonModule, MatIconModule]
 })
 export class WalletComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly walletService = inject(WalletService);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly walletService = inject(WalletService)
+  private readonly ngZone = inject(NgZone)
 
   public balance: string
   public balanceControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])

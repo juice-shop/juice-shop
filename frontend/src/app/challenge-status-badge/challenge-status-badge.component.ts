@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, Input, inject } from '@angular/core'
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core'
 import { WindowRefService } from '../Services/window-ref.service'
 import { ChallengeService } from '../Services/challenge.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -19,14 +19,15 @@ import { MatButtonModule } from '@angular/material/button'
 library.add(faWindows)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-challenge-status-badge',
   templateUrl: './challenge-status-badge.component.html',
   styleUrls: ['./challenge-status-badge.component.scss'],
   imports: [MatButtonModule, MatTooltip, MatIconModule, TranslateModule]
 })
 export class ChallengeStatusBadgeComponent {
-  private readonly challengeService = inject(ChallengeService);
-  private readonly windowRefService = inject(WindowRefService);
+  private readonly challengeService = inject(ChallengeService)
+  private readonly windowRefService = inject(WindowRefService)
 
   @Input() public challenge: Challenge = { } as Challenge
   @Input() public allowRepeatNotifications = false

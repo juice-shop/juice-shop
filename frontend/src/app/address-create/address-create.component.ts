@@ -4,8 +4,7 @@
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, type OnInit, inject } from '@angular/core'
-import { FormSubmitService } from '../Services/form-submit.service'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
@@ -18,19 +17,19 @@ import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/materi
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
   imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
-  private readonly location = inject(Location);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly addressService = inject(AddressService);
-  private readonly router = inject(Router);
-  activatedRoute = inject(ActivatedRoute);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly location = inject(Location)
+  private readonly addressService = inject(AddressService)
+  private readonly router = inject(Router)
+  activatedRoute = inject(ActivatedRoute)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -57,7 +56,6 @@ export class AddressCreateComponent implements OnInit {
         this.addressId = null
       }
     })
-    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => { this.save() })
   }
 
   save () {

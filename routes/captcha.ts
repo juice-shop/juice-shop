@@ -4,7 +4,6 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { type Captcha } from '../data/types'
 import { CaptchaModel } from '../models/captcha'
 
 export function captchas () {
@@ -33,14 +32,15 @@ export function captchas () {
   }
 }
 
-export const verifyCaptcha = () => (req: Request, res: Response, next: NextFunction) => {
-  CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } }).then((captcha: Captcha | null) => {
+export const verifyCaptcha = () => async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const captcha = await CaptchaModel.findOne({ where: { captchaId: req.body.captchaId } })
     if ((captcha != null) && req.body.captcha === captcha.answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
-  }).catch((error: Error) => {
+  } catch (error) {
     next(error)
-  })
+  }
 }

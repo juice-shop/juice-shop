@@ -4,7 +4,7 @@
  */
 
 import { TranslateService } from '@ngx-translate/core'
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSlash, faHandPaper } from '@fortawesome/free-solid-svg-icons'
@@ -13,14 +13,15 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faUserSlash, faHandPaper)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss'],
   imports: [MatCardModule]
 })
 export class ErrorPageComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly translate = inject(TranslateService);
+  private readonly route = inject(ActivatedRoute)
+  private readonly translate = inject(TranslateService)
 
   public error: string | null = null
 

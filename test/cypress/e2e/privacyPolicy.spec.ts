@@ -1,5 +1,5 @@
 describe('/#/privacy-security/privacy-policy', () => {
-  describe('challenge "privacyPolicy"', () => {
+  describe('challenge "privacyPolicyChallenge"', () => {
     it('should be possible to access privacy policy', () => {
       cy.visit('/#/privacy-security/privacy-policy')
       cy.url().should('match', /\/privacy-policy/)

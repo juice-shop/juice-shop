@@ -1,5 +1,12 @@
-$vertical-margin: 4px;
-$vertical-padding: 8px;
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../styles/variables' as *;
+
+$vertical-margin: $space-2xs;
+$vertical-padding: $space-xs;
 
 :host {
   // use 2 columns ipads and smaller
@@ -16,24 +23,24 @@ $vertical-padding: 8px;
   border-radius: 4px;
 
   color: var(--theme-text);
-  column-gap: 12px;
+  column-gap: $space-m;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 
   height: calc(100% - (2 * $vertical-margin + 2 * $vertical-padding));
 
-  margin: $vertical-margin 4px;
+  margin: $vertical-margin $space-2xs;
 
-  padding: $vertical-padding 12px;
-  row-gap: 2px;
-  
+  padding: $vertical-padding $space-m;
+  row-gap: $space-2xs;
+
   .difficulty-container {
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
+
   .total-challenges {
     color: var(--theme-text-invert-30);
   }
@@ -48,7 +55,7 @@ $vertical-padding: 8px;
     font-size: 11px;
     line-height: 11px;
     // text looks a bit more centered in the star if it is a bit under the center
-    margin-top: 2px;
+    margin-top: $space-3xs;
     position: absolute;
   }
 }

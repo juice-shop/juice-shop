@@ -132,6 +132,7 @@
   password: 'Mr. N00dles'
   key: rapper
   role: 'customer'
+  walletBalance: 13337
   securityQuestion:
     id: 8
     answer: 'I even shared my pizza bagels with you!'
@@ -158,6 +159,7 @@
   password: 'K1f.....................'
   key: amy
   role: 'customer'
+  walletBalance: 48
   securityQuestion:
     id: 8
     answer: 'Dr. Dr. Dr. Dr. Zoidberg'
@@ -270,3 +272,21 @@
   password: 'IamUsedForTesting'
   key: LetUsTest
   role: 'admin'
+-
+  email: cloud-admin
+  password: 'DVKH3gn7G$2Rk!f5Tz@9Lm&Qp4Wx#Yj8Bc0Ns6Ue1Io7Ah2Sd4Fg6Hj8Kl0Zx3Cv5Bn7Mq9Wr1Et3Yu5Ip'
+  key: cloudAdmin
+  role: 'admin'
+  profileImage: 'default.svg'
+  securityQuestion:
+    id: 10
+    answer: 'xK9#mP2$vL5nQ8wR3jF6hT0yB7cA4dG1eU'
+-
+  email: basil
+  password: 'my little nest of vipers'
+  key: basil
+  role: 'customer'
+  walletBalance: 2
+  securityQuestion:
+    id: 14
+    answer: 'English Riviera'

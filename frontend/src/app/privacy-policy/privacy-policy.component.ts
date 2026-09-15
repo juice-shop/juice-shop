@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ConfigurationService } from '../Services/configuration.service'
 import { MatDivider } from '@angular/material/divider'
@@ -11,14 +11,15 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
   imports: [MatCardModule, TranslateModule, MatDivider]
 })
 export class PrivacyPolicyComponent implements OnInit {
-  private readonly _document = inject<HTMLDocument>(DOCUMENT);
-  private readonly configurationService = inject(ConfigurationService);
+  private readonly _document = inject<HTMLDocument>(DOCUMENT)
+  private readonly configurationService = inject(ConfigurationService)
 
   public applicationName = 'OWASP Juice Shop'
   public privacyContactEmail!: string

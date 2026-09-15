@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class CountryMappingService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
 

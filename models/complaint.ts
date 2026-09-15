@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
-
 import {
   Model,
   type InferAttributes,
@@ -35,7 +33,7 @@ const ComplaintModelInit = (sequelize: Sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      message: DataTypes.STRING,
+      message: DataTypes.STRING(4096),
       file: DataTypes.STRING
     },
     {

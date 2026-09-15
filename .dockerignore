@@ -11,7 +11,10 @@ Dockerfile
 .npmrc
 /bom.json
 /bom.xml
+.nyc_output
+coverage
 
 # Pattern is *not covered* by node_modules/ above no matter what IntelliJ says!
 frontend/node_modules/
 frontend/dist/
+frontend/.angular/

@@ -5,14 +5,14 @@
 
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
-import { environment } from 'src/environments/environment'
+import { environment } from '../../../src/environments/environment'
 import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityQuestionService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/SecurityQuestions'

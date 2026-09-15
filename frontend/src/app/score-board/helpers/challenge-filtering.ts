@@ -1,6 +1,8 @@
 import { type EnrichedChallenge } from '../types/EnrichedChallenge'
 import { type FilterSetting, type SolvedStatus } from '../filter-settings/FilterSetting'
 
+export const EXTERNAL_DEPENDENCY_TAG = 'External Dependency'
+
 export function filterChallenges (
   challenges: EnrichedChallenge[],
   filterSetting: FilterSetting
@@ -26,9 +28,14 @@ export function filterChallenges (
         if (filterSetting.tags.length === 0) {
           return true
         }
-        return challenge.tagList.some((tag) =>
-          filterSetting.tags.includes(tag)
-        )
+        const filterTags = filterSetting.tags
+        const includesExternalDependency = filterTags.includes(EXTERNAL_DEPENDENCY_TAG)
+        return challenge.tagList.some((tag) => {
+          if (includesExternalDependency && tag.startsWith('Requires ')) {
+            return true
+          }
+          return filterTags.includes(tag)
+        })
       })
       // filter by status
       .filter((challenge) => {

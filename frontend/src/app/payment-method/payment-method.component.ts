@@ -4,7 +4,7 @@
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, EventEmitter, Input, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, Input, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { PaymentService } from '../Services/payment.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon'
 library.add(faPaperPlane, faTrashAlt)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss'],
@@ -30,9 +31,9 @@ library.add(faPaperPlane, faTrashAlt)
 })
 
 export class PaymentMethodComponent implements OnInit {
-  paymentService = inject(PaymentService);
-  private readonly translate = inject(TranslateService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  paymentService = inject(PaymentService)
+  private readonly translate = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   @Output() emitSelection = new EventEmitter()
   @Input() public allowDelete = false
@@ -47,14 +48,12 @@ export class PaymentMethodComponent implements OnInit {
   public storedCards: any
   public card: any = {}
   public dataSource
-  public monthRange: any[]
-  public yearRange: any[]
+  public readonly monthRange = Array.from(Array(12).keys()).map(i => i + 1)
+  public readonly yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
   public cardsExist = false
   public paymentId: any = undefined
 
   ngOnInit (): void {
-    this.monthRange = Array.from(Array(12).keys()).map(i => i + 1)
-    this.yearRange = Array.from(Array(20).keys()).map(i => i + 2080)
     if (this.allowDelete) {
       this.displayedColumns.push('Remove')
     } else {

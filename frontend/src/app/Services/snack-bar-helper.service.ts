@@ -11,8 +11,8 @@ import { TranslateService } from '@ngx-translate/core'
   providedIn: 'root'
 })
 export class SnackBarHelperService {
-  private readonly translateService = inject(TranslateService);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly translateService = inject(TranslateService)
+  private readonly snackBar = inject(MatSnackBar)
 
 
   open (message: string, cssClass?: string) {

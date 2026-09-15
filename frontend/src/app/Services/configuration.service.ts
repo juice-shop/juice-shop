@@ -39,6 +39,11 @@ export interface Config {
       nftUrl: string
       questionnaireUrl: string
     }
+    chatBot: {
+      name: string
+      avatar: string
+      sampleQuestions: string[]
+    }
     recyclePage: {
       topProductImage: string
       bottomProductImage: string
@@ -80,7 +85,7 @@ export interface Config {
     restrictToTutorialsFirst: boolean
     safetyMode: string
     overwriteUrlForProductTamperingChallenge: string
-    showFeedbackButtons: boolean
+    overwriteUrlForCsrfChallenge: string
   }
   hackingInstructor: {
     isEnabled: boolean
@@ -92,6 +97,10 @@ export interface Config {
     showFlagsInNotifications: boolean
     showCountryDetailsInNotifications: string
     countryMapping: any[]
+    systemWideNotifications?: {
+      url?: string
+      pollFrequencySeconds?: number
+    }
   }
 }
 
@@ -99,7 +108,7 @@ export interface Config {
   providedIn: 'root'
 })
 export class ConfigurationService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'

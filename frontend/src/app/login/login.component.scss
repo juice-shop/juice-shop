@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 $break-line: #c0c0c0;
 
 mat-card {
@@ -20,27 +22,27 @@ mat-card {
 
 .forgot-pw {
   font-size: 11px;
-  margin-top: -15px;
+  margin-top: -$space-m;
 }
 
 mat-checkbox {
-  margin-bottom: 20px;
+  margin-bottom: $space-ml;
   margin-left: 20%;
-  margin-top: 5px;
+  margin-top: $space-2xs;
 }
 
 mat-form-field {
-  padding-top: 10px;
+  padding-top: $space-s;
 }
 
 mat-form-field:nth-child(2) {
-  padding-bottom: 20px;
+  padding-bottom: $space-ml;
 }
 
 #loginButton,
 #loginButtonGoogle {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
 
 }
@@ -60,7 +62,7 @@ mat-form-field:nth-child(2) {
 }
 
 .textOnLine {
-  padding: 0 5px;
+  padding: 0 $space-2xs;
 }
 
 .line {
@@ -71,7 +73,7 @@ mat-form-field:nth-child(2) {
 #newCustomerLink {
   align-self: center;
   font-size: 12px;
-  margin-top: 40px;
+  margin-top: $space-2xl;
 }
 
 .center-container {

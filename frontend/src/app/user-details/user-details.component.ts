@@ -4,7 +4,7 @@
  */
 
 import { UserService } from '../Services/user.service'
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
@@ -17,14 +17,15 @@ import { MatIconModule } from '@angular/material/icon'
 library.add(faArrowCircleLeft)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
   imports: [MatDialogContent, MatDivider, TranslateModule, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
 export class UserDetailsComponent implements OnInit {
-  dialogData = inject(MAT_DIALOG_DATA);
-  private readonly userService = inject(UserService);
+  dialogData = inject(MAT_DIALOG_DATA)
+  private readonly userService = inject(UserService)
 
   public user: any
 

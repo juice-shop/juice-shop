@@ -10,10 +10,6 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 import { Web3SandboxComponent } from './web3-sandbox.component'
-import { CodemirrorModule } from '@ctrl/ngx-codemirror'
-import 'codemirror/mode/javascript/javascript'
-import 'codemirror/mode/markdown/markdown'
-import 'codemirror-solidity/solidity'
 import { TranslateModule } from '@ngx-translate/core'
 
 const routes: Routes = [
@@ -25,7 +21,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CodemirrorModule,
     CommonModule,
     RouterModule.forChild(routes),
     TranslateModule,
@@ -40,12 +35,12 @@ const routes: Routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Web3SandboxModule {
-  configurationService = inject(ConfigurationService);
-  overlayContainer = inject(OverlayContainer);
+  configurationService = inject(ConfigurationService)
+  overlayContainer = inject(OverlayContainer)
 
   constructor () {
-    const configurationService = this.configurationService;
-    const overlayContainer = this.overlayContainer;
+    const configurationService = this.configurationService
+    const overlayContainer = this.overlayContainer
 
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer

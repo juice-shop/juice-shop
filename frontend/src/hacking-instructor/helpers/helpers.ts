@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 let config
 const playbackDelays = {
@@ -12,6 +12,17 @@ const playbackDelays = {
   normal: 1.0,
   slow: 1.25,
   slower: 1.5
+}
+
+export async function isChallengeSolved (challengeName: string): Promise<boolean> {
+  try {
+    const res = await fetch('/api/Challenges/')
+    const json = await res.json()
+    const challenges: { name: string, solved: boolean }[] = json.data || []
+    return challenges.some(c => c.name === challengeName && c.solved)
+  } catch {
+    return false
+  }
 }
 
 export async function sleep (timeInMs: number): Promise<void> {

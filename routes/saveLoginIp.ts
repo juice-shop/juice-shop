@@ -12,7 +12,7 @@ import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
 
 export function saveLoginIp () {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     const loggedInUser = security.authenticatedUsers.from(req)
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
@@ -27,15 +27,13 @@ export function saveLoginIp () {
       if (lastLoginIp === undefined) {
         lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress ?? '')
       }
-      UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-        user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
-          res.json(user)
-        }).catch((error: Error) => {
-          next(error)
-        })
-      }).catch((error: Error) => {
+      try {
+        const user = await UserModel.findByPk(loggedInUser.data.id)
+        const updatedUser = await user?.update({ lastLoginIp: lastLoginIp?.toString() })
+        res.json(updatedUser)
+      } catch (error) {
         next(error)
-      })
+      }
     } else {
       res.sendStatus(401)
     }

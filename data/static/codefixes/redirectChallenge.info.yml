@@ -6,7 +6,7 @@ fixes:
   - id: 3
     explanation: "HTML-escaping is completely wrong in this situation because the code is dealing with URLs and not HTML input."
   - id: 4
-    explanation: "Using indexOf allowed any URLs as long as they contained any allow-listed URL, even if it just would be as a parameter. Replacing this with an actual equality check mitigates this lapse and makes the redirect only work for allow-listed URLs."
+    explanation: "Using includes allowed any URLs as long as they contained any allow-listed URL, even if it just would be as a parameter. Replacing this with a strict equality check mitigates this lapse and makes the redirect only work for allow-listed URLs."
 hints:
   - "You should take a close look at how this code checks for allowed vs. forbidded URLs to redirect to."
   - "Try to play through how the logical operators and used standard functions work in this situation."

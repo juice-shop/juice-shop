@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment'
   providedIn: 'root'
 })
 export class KeysService {
-  private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient)
 
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/web3'

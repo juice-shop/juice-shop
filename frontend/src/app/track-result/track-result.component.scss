@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 mat-card {
   h1 {
     margin-top: 0;
@@ -17,20 +19,23 @@ mat-card {
 
 .heading {
   background: rgba(0, 0, 0, 0.2);
-  height: 35px;
   justify-content: center;
-  padding: 0 20px;
+  padding: $space-s $space-ml;
   width: 90%;
+
+  h2 {
+    margin: 0;
+  }
 }
 
 .product-name {
-  margin-right: 25px;
+  margin-right: $space-l;
 }
 
 .table-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: $space-xl;
 }
 
 .table-heading h4 {
@@ -38,7 +43,7 @@ mat-card {
 }
 
 .row.fa-4x svg {
-  margin-right: 10px;
+  margin-right: $space-s;
 }
 
 .mat-own-card {
@@ -52,7 +57,7 @@ mat-card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: $space-s;
   place-content: stretch center;
 
   h2 {
@@ -60,6 +65,15 @@ mat-card {
     padding: 0;
   }
 }
+
+.delivery-status {
+  text-align: center;
+}
+
+.eta-badge {
+  width: max-content;
+}
+
 @media (max-width: 959.98px) {
   .mat-column-price { display: none; }
 }

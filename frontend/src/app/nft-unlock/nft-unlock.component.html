@@ -3,7 +3,7 @@
     <button
       class="detail-container offer-container warning-container align-self-center"
       mat-raised-button
-      color="warn"
+      color="error"
       >
       {{ 'BTN_SBT_NOTE' | translate }}
     </button>
@@ -45,7 +45,7 @@
           </div>
           <form (ngSubmit)="submitForm()">
             <div class="form-group">
-              <mat-form-field color="accent" appearance="outline" class="responsive-field">
+              <mat-form-field color="tertiary" appearance="outline" class="responsive-field">
                 <mat-label>{{ 'LABEL_PRIVATE_KEY' | translate }}</mat-label>
                 <input
                   matInput
@@ -60,7 +60,7 @@
               </mat-form-field>
               <h5 class="error">{{ errorMessage }}</h5>
             </div>
-            <button type="submit" class="btn btn-primary" mat-raised-button color="accent">
+            <button type="submit" class="btn btn-primary" mat-raised-button color="tertiary">
               {{ 'BTN_AUTHENTICATE' | translate }}
             </button>
           </form>

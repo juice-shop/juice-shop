@@ -9,7 +9,7 @@ describe('/#/forgot-password', () => {
     cy.intercept('GET', '/rest/user/security-question?email=*').as('securityQuestion')
   })
 
-  describe('as Jim', () => {
+  describe('challenge "resetPasswordJimChallenge"', () => {
     it('should be able to reset password with his security answer', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -28,7 +28,7 @@ describe('/#/forgot-password', () => {
     })
   })
 
-  describe('as Bender', () => {
+  describe('challenge "resetPasswordBenderChallenge"', () => {
     it('should be able to reset password with his security answer', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -48,7 +48,7 @@ describe('/#/forgot-password', () => {
   })
 
   describe('as Bjoern', () => {
-    describe('for his internal account', () => {
+    describe('challenge "resetPasswordBjoernChallenge"', () => {
       it('should be able to reset password with his security answer', () => {
         cy.task<string>('GetFromConfig', 'application.domain').then(
           (appDomain: string) => {
@@ -67,7 +67,7 @@ describe('/#/forgot-password', () => {
       })
     })
 
-    describe('for his OWASP account', () => {
+    describe('challenge "resetPasswordBjoernOwaspChallenge"', () => {
       it('should be able to reset password with his security answer', () => {
         cy.get('#email').type('bjoern@owasp.org')
         cy.wait('@securityQuestion')
@@ -83,7 +83,7 @@ describe('/#/forgot-password', () => {
     })
   })
 
-  describe('as Morty', () => {
+  describe('challenge "resetPasswordMortyChallenge"', () => {
     it('should be able to reset password with his security answer', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -102,7 +102,7 @@ describe('/#/forgot-password', () => {
     })
   })
 
-  describe('as Uvogin', () => {
+  describe('challenge "resetPasswordUvoginChallenge"', () => {
     it('should be able to reset password with his security answer', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {

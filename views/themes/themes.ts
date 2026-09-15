@@ -7,9 +7,9 @@ export const themes = {
   'bluegrey-lightgreen': {
     bgColor: '#303030',
     textColor: '#FFFFFF',
-    navColor: '#546E7A',
-    primLight: '#424242',
-    primDark: '#263238'
+    navColor: '#4f6f7a',
+    primLight: '#3e3e3e',
+    primDark: '#303030'
   },
   'blue-lightblue': {
     bgColor: '#FAFAFA',
@@ -59,5 +59,12 @@ export const themes = {
     navColor: '#cddc39',
     primLight: '#ddee48',
     primDark: '#97a621'
+  },
+  'neon-fire': {
+    bgColor: '#000000',
+    textColor: '#ff2d55',
+    navColor: '#000000',
+    primLight: '#1a1a1a',
+    primDark: '#000000'
   }
 } as const

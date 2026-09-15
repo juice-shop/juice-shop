@@ -5,13 +5,13 @@
 
 import { type NextFunction, type Request, type Response } from 'express'
 import yaml from 'js-yaml'
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 
 import { getCodeChallenges } from '../lib/codingChallenges'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as accuracy from '../lib/accuracy'
 import * as utils from '../lib/utils'
-import { type ChallengeKey } from 'models/challenge'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 interface SnippetRequestBody {
   challenge: string
@@ -86,8 +86,8 @@ export const checkVulnLines = () => async (req: Request<Record<string, unknown>,
   const selectedLines: number[] = req.body.selectedLines
   const verdict = getVerdict(vulnLines, neutralLines, selectedLines)
   let hint
-  if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
-    const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
+  if (await fs.stat('./data/static/codefixes/' + key + '.info.yml')) {
+    const codingChallengeInfos = yaml.load(await fs.readFile('./data/static/codefixes/' + key + '.info.yml', { encoding: 'utf8' }))
     if (codingChallengeInfos?.hints) {
       if (accuracy.getFindItAttempts(key) > codingChallengeInfos.hints.length) {
         if (vulnLines.length === 1) {

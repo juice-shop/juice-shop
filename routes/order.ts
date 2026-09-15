@@ -6,7 +6,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import config from 'config'
-import PDFDocument from 'pdfkit'
 import { type Request, type Response, type NextFunction } from 'express'
 
 import { challenges, products } from '../data/datacache'
@@ -40,14 +39,21 @@ export function placeOrder () {
           const email = customer ? customer.data ? customer.data.email : '' : ''
           const orderId = security.hash(email).slice(0, 4) + '-' + utils.randomHexString(16)
           const pdfFile = `order_${orderId}.pdf`
+          const { default: PDFDocument } = await import('pdfkit')
           const doc = new PDFDocument()
           const date = new Date().toJSON().slice(0, 10)
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
-          fileWriter.on('finish', async () => {
-            void basket.update({ coupon: null })
-            await BasketItemModel.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
+          fileWriter.on('finish', () => {
+            void (async () => {
+              try {
+                void basket.update({ coupon: null })
+                await BasketItemModel.destroy({ where: { BasketId: id } })
+                res.json({ orderConfirmation: orderId })
+              } catch (error: unknown) {
+                next(error)
+              }
+            })()
           })
 
           doc.font('Times-Roman').fontSize(40).text(config.get<string>('application.name'), { align: 'center' })
@@ -65,17 +71,19 @@ export function placeOrder () {
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+          for (const { BasketItem, price, deluxePrice, name, id } of basket.Products ?? []) {
             if (BasketItem != null) {
               challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
-              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: any) => {
-                const newQuantity = product.quantity - BasketItem.quantity
-                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
-                  next(error)
-                })
-              }).catch((error: unknown) => {
+              try {
+                const quantityRow = await QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } })
+                if (quantityRow) {
+                  const newQuantity = quantityRow.quantity - BasketItem.quantity
+                  await QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem.ProductId } })
+                }
+              } catch (error: unknown) {
                 next(error)
-              })
+                return
+              }
               let itemPrice: number
               if (security.isDeluxe(req)) {
                 itemPrice = deluxePrice
@@ -98,7 +106,7 @@ export function placeOrder () {
               totalPrice += itemTotal
               totalPoints += itemBonus
             }
-          })
+          }
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req) ?? 0
           let discountAmount = '0'
@@ -139,16 +147,18 @@ export function placeOrder () {
             if (req.body.orderDetails && req.body.orderDetails.paymentId === 'wallet') {
               const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
               if ((wallet != null) && wallet.balance >= totalPrice) {
-                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
-                  next(error)
-                })
+                await WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } })
               } else {
                 next(new Error('Insufficient wallet balance.'))
+                return
               }
             }
-            WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+            try {
+              await WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } })
+            } catch (error: unknown) {
               next(error)
-            })
+              return
+            }
           }
 
           db.ordersCollection.insert({
@@ -165,6 +175,8 @@ export function placeOrder () {
             eta: deliveryMethod.eta.toString()
           }).then(() => {
             doc.end()
+          }).catch((error: unknown) => {
+            next(error)
           })
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
@@ -176,10 +188,9 @@ export function placeOrder () {
 }
 
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
-  if (security.discountFromCoupon(basket.coupon ?? undefined)) {
-    const discount = security.discountFromCoupon(basket.coupon ?? undefined)
+  const discount = security.discountFromCoupon(basket.coupon ?? undefined)
+  if (discount) {
     challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return (discount ?? 0) >= 80 })
-    console.log(discount)
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')

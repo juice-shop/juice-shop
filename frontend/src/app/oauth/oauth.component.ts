@@ -6,22 +6,23 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { UserService } from '../Services/user.service'
 import { CookieService } from 'ngy-cookie'
-import { Component, NgZone, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-oauth',
   templateUrl: './oauth.component.html',
   styleUrls: ['./oauth.component.scss'],
   imports: [MatCardModule, TranslateModule]
 })
 export class OAuthComponent implements OnInit {
-  private readonly cookieService = inject(CookieService);
-  private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
-  private readonly ngZone = inject(NgZone);
+  private readonly cookieService = inject(CookieService)
+  private readonly userService = inject(UserService)
+  private readonly router = inject(Router)
+  private readonly route = inject(ActivatedRoute)
+  private readonly ngZone = inject(NgZone)
 
 
   ngOnInit (): void {

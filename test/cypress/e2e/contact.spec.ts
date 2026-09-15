@@ -1,4 +1,4 @@
-import type { Product as ProductConfig } from '../../../lib/config.types'
+import type { Product as ProductConfig } from '../../../lib/config.schema'
 
 describe('/#/contact', () => {
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe('/#/contact', () => {
       cy.get('#userId').clear().type('2')
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type('Picard stinks!')
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
 
       cy.visit('/#/administration')
 
@@ -42,7 +42,7 @@ describe('/#/contact', () => {
     })
   })
 
-  describe('challenge "persistedXssFeedback"', () => {
+  describe('challenge "persistedXssFeedbackChallenge"', () => {
     beforeEach(() => {
       cy.login({ email: 'admin', password: 'admin123' })
       cy.visit('/#/contact')
@@ -58,7 +58,7 @@ describe('/#/contact', () => {
           cy.get('#comment').type(
             '<<script>Foo</script>iframe src="javascript:alert(`xss`)">'
           )
-          cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+          cy.get('#submitButton').should('not.be.disabled').click()
 
           cy.visit('/#/about')
           cy.on('window:alert', (t) => {
@@ -75,62 +75,62 @@ describe('/#/contact', () => {
     })
   })
 
-  describe('challenge "vulnerableComponent"', () => {
+  describe('challenge "knownVulnerableComponentChallenge"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type('sanitize-html 1.4.2 is non-recursive.')
       cy.get('#comment').type('express-jwt 0.1.3 has broken crypto.')
 
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Vulnerable Library' })
     })
   })
 
-  describe('challenge "weirdCrypto"', () => {
+  describe('challenge "weirdCryptoChallenge"', () => {
     it('should be possible to post weird crypto algorithm/library as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type(
         'The following libraries are bad for crypto: z85, base85, md5 and hashids'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Weird Crypto' })
     })
   })
 
-  describe('challenge "typosquattingNpm"', () => {
+  describe('challenge "typosquattingNpmChallenge"', () => {
     it('should be possible to post typosquatting NPM package as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: epilogue-js'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
     })
   })
 
-  describe('challenge "typosquattingAngular"', () => {
+  describe('challenge "typosquattingAngularChallenge"', () => {
     it('should be possible to post typosquatting NPM package as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type(
         'You are a typosquatting victim of this NPM package: ngy-cookie'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
     })
   })
 
-  describe('challenge "hiddenImage"', () => {
+  describe('challenge "hiddenImageChallenge"', () => {
     it('should be possible to post hidden character name as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type(
         'Pickle Rick is hiding behind one of the support team ladies'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Steganography' })
     })
   })
 
-  describe('challenge "zeroStars"', () => {
+  describe('challenge "zeroStarsChallenge"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
       cy.visit('/')
       cy.window().then(async () => {
@@ -180,7 +180,7 @@ describe('/#/contact', () => {
     })
   })
 
-  describe('challenge "captchaBypass"', () => {
+  describe('challenge "captchaBypassChallenge"', () => {
     it('should be possible to post 10 or more customer feedbacks in less than 20 seconds', () => {
       cy.window().then(async () => {
         for (let i = 0; i < 15; i++) {
@@ -223,18 +223,18 @@ describe('/#/contact', () => {
     })
   })
 
-  describe('challenge "supplyChainAttack"', () => {
+  describe('challenge "supplyChainAttackChallenge"', () => {
     it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.get('#comment').type(
         'Turn on 2FA! Now!!! https://github.com/eslint/eslint-scope/issues/39'
       )
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Supply Chain Attack' })
     })
   })
 
-  describe('challenge "dlpPastebinDataLeak"', () => {
+  describe('challenge "dlpPastebinDataLeakChallenge"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
       cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
       cy.task<ProductConfig>('GetPastebinLeakProduct').then((pastebinLeakProduct: ProductConfig) => {
@@ -242,8 +242,17 @@ describe('/#/contact', () => {
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )
       })
-      cy.get('#submitButton').click({ force: true }) // FIXME Analyze Cypress recordings to properly fix behavior during test
+      cy.get('#submitButton').should('not.be.disabled').click()
       cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
+    })
+  })
+
+  describe('challenge "vulnerableDockerImageChallenge"', () => {
+    it('should be possible to post vulnerable Docker image name and version as feedback', () => {
+      cy.get('#rating').type('{rightarrow}{rightarrow}{rightarrow}')
+      cy.get('#comment').type('The infrastructure uses mongo 4.4.29 which is end-of-life and has known vulnerabilities.')
+      cy.get('#submitButton').should('not.be.disabled').click()
+      cy.expectChallengeSolved({ challenge: 'Vulnerable Infrastructure' })
     })
   })
 })

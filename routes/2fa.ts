@@ -10,14 +10,8 @@ import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
 import * as utils from '../lib/utils'
 import { challenges } from '../data/datacache'
-import * as otplib from 'otplib'
+import { generateSecret, verifySync } from 'otplib'
 import * as security from '../lib/insecurity'
-
-otplib.authenticator.options = {
-  // Accepts tokens as valid even when they are 30sec to old or to new
-  // This is a standard as the clocks of the authenticator and server might not align perfectly.
-  window: 1
-}
 
 export async function verify (req: Request, res: Response) {
   const { tmpToken, totpToken } = req.body
@@ -34,7 +28,7 @@ export async function verify (req: Request, res: Response) {
       throw new Error('No such user found!')
     }
 
-    const isValid = otplib.authenticator.check(totpToken, user.totpSecret)
+    const isValid = verifySync({ secret: user.totpSecret, token: totpToken, epochTolerance: 30 }).valid
 
     const plainUser = utils.queryResultToJson(user)
 
@@ -70,7 +64,7 @@ export async function status (req: Request, res: Response) {
     const { data: user } = data
 
     if (user.totpSecret === '') {
-      const secret = otplib.authenticator.generateSecret()
+      const secret = generateSecret()
 
       res.json({
         setup: false,
@@ -122,7 +116,7 @@ export async function setup (req: Request, res: Response) {
     if (type !== 'totp_setup_secret') {
       throw new Error('SetupToken is of wrong type')
     }
-    if (!otplib.authenticator.check(initialToken, secret)) {
+    if (!verifySync({ secret, token: initialToken, epochTolerance: 30 }).valid) {
       throw new Error('Initial token doesnt match the secret from the setupToken')
     }
 

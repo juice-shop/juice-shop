@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 import { AccountingGuard, AdminGuard, DeluxeGuard, LoginGuard } from './app.guard'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing'
@@ -11,183 +11,233 @@ import { ErrorPageComponent } from './error-page/error-page.component'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
 describe('LoginGuard', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '403', component: ErrorPageComponent }
-      ])],
-      providers: [LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: '403', component: ErrorPageComponent }
+                ])],
+            providers: [LoginGuard, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+        })
     })
-  })
 
-  it('should be created', inject([LoginGuard], (guard: LoginGuard) => {
-    expect(guard).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const guard = TestBed.inject(LoginGuard)
 
-  it('should open for authenticated users', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.setItem('token', 'TOKEN')
-    expect(guard.canActivate()).toBeTrue()
-  }))
-
-  it('should close for anonymous users', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.removeItem('token')
-    expect(guard.canActivate()).toBeFalse()
-  }))
-
-  it('returns payload from decoding a valid JWT', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
-    expect(guard.tokenDecode()).toEqual({
-      sub: '1234567890',
-      name: 'John Doe',
-      iat: 1516239022
+        expect(guard).toBeTruthy()
     })
-  }))
 
-  it('returns nothing when decoding an invalid JWT', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.setItem('token', '12345.abcde')
-    expect(guard.tokenDecode()).toBeNull()
-  }))
+    it('should open for authenticated users', () => {
+        const guard = TestBed.inject(LoginGuard)
 
-  it('returns nothing when decoding an non-existing JWT', inject([LoginGuard], (guard: LoginGuard) => {
-    localStorage.removeItem('token')
-    expect(guard.tokenDecode()).toBeNull()
-  }))
+        localStorage.setItem('token', 'TOKEN')
+        expect(guard.canActivate()).toBe(true)
+    })
+
+    it('should close for anonymous users', () => {
+        const guard = TestBed.inject(LoginGuard)
+
+        localStorage.removeItem('token')
+        expect(guard.canActivate()).toBe(false)
+    })
+
+    it('returns payload from decoding a valid JWT', () => {
+        const guard = TestBed.inject(LoginGuard)
+
+        localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c')
+        expect(guard.tokenDecode()).toEqual({
+            sub: '1234567890',
+            name: 'John Doe',
+            iat: 1516239022
+        })
+    })
+
+    it('returns nothing when decoding an invalid JWT', () => {
+        const guard = TestBed.inject(LoginGuard)
+
+        localStorage.setItem('token', '12345.abcde')
+        expect(guard.tokenDecode()).toBeNull()
+    })
+
+    it('returns nothing when decoding an non-existing JWT', () => {
+        const guard = TestBed.inject(LoginGuard)
+
+        localStorage.removeItem('token')
+        expect(guard.tokenDecode()).toBeNull()
+    })
 })
 
 describe('AdminGuard', () => {
-  let loginGuard: any
+    let loginGuard: any
 
-  beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
+    beforeEach(() => {
+        loginGuard = {
+            tokenDecode: vi.fn().mockName("LoginGuard.tokenDecode"),
+            forbidRoute: vi.fn().mockName("LoginGuard.forbidRoute")
+        }
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '403', component: ErrorPageComponent }
-      ])],
-      providers: [
-        AdminGuard,
-        { provide: LoginGuard, useValue: loginGuard },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: '403', component: ErrorPageComponent }
+                ])],
+            providers: [
+                AdminGuard,
+                { provide: LoginGuard, useValue: loginGuard },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
     })
-  })
 
-  it('should be created', inject([AdminGuard], (guard: AdminGuard) => {
-    expect(guard).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const guard = TestBed.inject(AdminGuard)
 
-  it('should open for admins', inject([AdminGuard], (guard: AdminGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'admin' } })
-    expect(guard.canActivate()).toBeTrue()
-  }))
+        expect(guard).toBeTruthy()
+    })
 
-  it('should close for regular customers', inject([AdminGuard], (guard: AdminGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'customer' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+    it('should open for admins', () => {
+        const guard = TestBed.inject(AdminGuard)
 
-  it('should close for deluxe customers', inject([AdminGuard], (guard: AdminGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'deluxe' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'admin' } })
+        expect(guard.canActivate()).toBe(true)
+    })
 
-  it('should close for accountants', inject([AdminGuard], (guard: AdminGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'accounting' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+    it('should close for regular customers', () => {
+        const guard = TestBed.inject(AdminGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'customer' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
+
+    it('should close for deluxe customers', () => {
+        const guard = TestBed.inject(AdminGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'deluxe' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
+
+    it('should close for accountants', () => {
+        const guard = TestBed.inject(AdminGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
 })
 
 describe('AccountingGuard', () => {
-  let loginGuard: any
+    let loginGuard: any
 
-  beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode', 'forbidRoute'])
+    beforeEach(() => {
+        loginGuard = {
+            tokenDecode: vi.fn().mockName("LoginGuard.tokenDecode"),
+            forbidRoute: vi.fn().mockName("LoginGuard.forbidRoute")
+        }
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '403', component: ErrorPageComponent }
-      ])],
-      providers: [
-        AccountingGuard,
-        { provide: LoginGuard, useValue: loginGuard },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: '403', component: ErrorPageComponent }
+                ])],
+            providers: [
+                AccountingGuard,
+                { provide: LoginGuard, useValue: loginGuard },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
     })
-  })
 
-  it('should be created', inject([AccountingGuard], (guard: AccountingGuard) => {
-    expect(guard).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const guard = TestBed.inject(AccountingGuard)
 
-  it('should open for accountants', inject([AccountingGuard], (guard: AccountingGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'accounting' } })
-    expect(guard.canActivate()).toBeTrue()
-  }))
+        expect(guard).toBeTruthy()
+    })
 
-  it('should close for regular customers', inject([AccountingGuard], (guard: AccountingGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'customer' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+    it('should open for accountants', () => {
+        const guard = TestBed.inject(AccountingGuard)
 
-  it('should close for deluxe customers', inject([AccountingGuard], (guard: AccountingGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'deluxe' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+        expect(guard.canActivate()).toBe(true)
+    })
 
-  it('should close for admins', inject([AccountingGuard], (guard: AccountingGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'admin' } })
-    expect(guard.canActivate()).toBeFalse()
-    expect(loginGuard.forbidRoute).toHaveBeenCalled()
-  }))
+    it('should close for regular customers', () => {
+        const guard = TestBed.inject(AccountingGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'customer' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
+
+    it('should close for deluxe customers', () => {
+        const guard = TestBed.inject(AccountingGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'deluxe' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
+
+    it('should close for admins', () => {
+        const guard = TestBed.inject(AccountingGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'admin' } })
+        expect(guard.canActivate()).toBe(false)
+        expect(loginGuard.forbidRoute).toHaveBeenCalled()
+    })
 })
 
 describe('DeluxeGuard', () => {
-  let loginGuard: any
+    let loginGuard: any
 
-  beforeEach(() => {
-    loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
+    beforeEach(() => {
+        loginGuard = {
+            tokenDecode: vi.fn().mockName("LoginGuard.tokenDecode")
+        }
 
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([
-        { path: '403', component: ErrorPageComponent }
-      ])],
-      providers: [
-        DeluxeGuard,
-        { provide: LoginGuard, useValue: loginGuard },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting()
-      ]
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule.withRoutes([
+                    { path: '403', component: ErrorPageComponent }
+                ])],
+            providers: [
+                DeluxeGuard,
+                { provide: LoginGuard, useValue: loginGuard },
+                provideHttpClient(withInterceptorsFromDi()),
+                provideHttpClientTesting()
+            ]
+        })
     })
-  })
 
-  it('should be created', inject([DeluxeGuard], (guard: DeluxeGuard) => {
-    expect(guard).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const guard = TestBed.inject(DeluxeGuard)
 
-  it('should open for deluxe customers', inject([DeluxeGuard], (guard: DeluxeGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'deluxe' } })
-    expect(guard.isDeluxe()).toBeTrue()
-  }))
+        expect(guard).toBeTruthy()
+    })
 
-  it('should close for regular customers', inject([DeluxeGuard], (guard: DeluxeGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'customer' } })
-    expect(guard.isDeluxe()).toBeFalse()
-  }))
+    it('should open for deluxe customers', () => {
+        const guard = TestBed.inject(DeluxeGuard)
 
-  it('should close for admins', inject([DeluxeGuard], (guard: DeluxeGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'admin' } })
-    expect(guard.isDeluxe()).toBeFalse()
-  }))
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'deluxe' } })
+        expect(guard.isDeluxe()).toBe(true)
+    })
 
-  it('should close for accountants', inject([DeluxeGuard], (guard: DeluxeGuard) => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: 'accounting' } })
-    expect(guard.isDeluxe()).toBeFalse()
-  }))
+    it('should close for regular customers', () => {
+        const guard = TestBed.inject(DeluxeGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'customer' } })
+        expect(guard.isDeluxe()).toBe(false)
+    })
+
+    it('should close for admins', () => {
+        const guard = TestBed.inject(DeluxeGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'admin' } })
+        expect(guard.isDeluxe()).toBe(false)
+    })
+
+    it('should close for accountants', () => {
+        const guard = TestBed.inject(DeluxeGuard)
+
+        loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+        expect(guard.isDeluxe()).toBe(false)
+    })
 })

@@ -3,8 +3,11 @@ filterTable () {
     if (queryParam) {
       queryParam = queryParam.trim()
       this.dataSource.filter = queryParam.toLowerCase()
-      this.searchValue = this.sanitizer.bypassSecurityTrustScript(queryParam) 
-      this.gridDataSource.subscribe((result: any) => {
+      this.searchValue = this.sanitizer.bypassSecurityTrustScript(queryParam)
+      if (this.gridDataSourceSubscription) {
+        this.gridDataSourceSubscription.unsubscribe()
+      }
+      this.gridDataSourceSubscription = this.gridDataSource.subscribe((result: ProductTableEntry[]) => {
         if (result.length === 0) {
           this.emptyState = true
         } else {

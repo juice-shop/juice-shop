@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ImageCaptchaService } from '../Services/image-captcha.service'
 import { DataSubjectService } from '../Services/data-subject.service'
@@ -19,15 +19,16 @@ import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss'],
   imports: [MatCardModule, TranslateModule, MatRadioGroup, FormsModule, ReactiveFormsModule, MatLabel, MatRadioButton, MatFormFieldModule, MatInputModule, MatHint, MatError, MatButtonModule, MatIconModule]
 })
 export class DataExportComponent implements OnInit {
-  sanitizer = inject(DomSanitizer);
-  private readonly imageCaptchaService = inject(ImageCaptchaService);
-  private readonly dataSubjectService = inject(DataSubjectService);
+  sanitizer = inject(DomSanitizer)
+  private readonly imageCaptchaService = inject(ImageCaptchaService)
+  private readonly dataSubjectService = inject(DataSubjectService)
 
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])

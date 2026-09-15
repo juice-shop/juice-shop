@@ -1,0 +1,147 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+@use '@angular/material' as mat;
+
+@include mat.core();
+@include mat.elevation-classes();
+
+$deeppurple-amber-config: (
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$yellow-palette,
+  )
+);
+$deeppurple-amber-theme: mat.define-theme($deeppurple-amber-config);
+
+.deeppurple-amber-theme {
+  @include mat.theme($deeppurple-amber-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$indigo-pink-config: (
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$rose-palette,
+  )
+);
+$indigo-pink-theme: mat.define-theme($indigo-pink-config);
+
+.indigo-pink-theme {
+  @include mat.theme($indigo-pink-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$pink-bluegrey-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$rose-palette,
+    tertiary: mat.$cyan-palette,
+  )
+);
+$pink-bluegrey-theme: mat.define-theme($pink-bluegrey-config);
+
+.pink-bluegrey-theme {
+  @include mat.theme($pink-bluegrey-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$purple-green-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$violet-palette,
+    tertiary: mat.$green-palette,
+  )
+);
+$purple-green-theme: mat.define-theme($purple-green-config);
+
+.purple-green-theme {
+  @include mat.theme($purple-green-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$blue-lightblue-config: (
+  color: (
+    theme-type: light,
+    primary: mat.$blue-palette,
+    tertiary: mat.$cyan-palette,
+  )
+);
+$blue-lightblue-theme: mat.define-theme($blue-lightblue-config);
+
+.blue-lightblue-theme {
+  @include mat.theme($blue-lightblue-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$bluegrey-lightgreen-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$chartreuse-palette,
+  )
+);
+$bluegrey-lightgreen-theme: mat.define-theme($bluegrey-lightgreen-config);
+
+.bluegrey-lightgreen-theme {
+  @include mat.theme($bluegrey-lightgreen-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$deeporange-indigo-config: (
+  color: (
+    theme-type: light,
+    primary: mat.$orange-palette,
+    tertiary: mat.$azure-palette,
+  )
+);
+$deeporange-indigo-theme: mat.define-theme($deeporange-indigo-config);
+
+.deeporange-indigo-theme {
+  @include mat.theme($deeporange-indigo-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$lime-green-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$chartreuse-palette,
+    tertiary: mat.$green-palette,
+  )
+);
+$lime-green-theme: mat.define-theme($lime-green-config);
+
+.lime-green-theme {
+  @include mat.theme($lime-green-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+$neon-fire-config: (
+  color: (
+    theme-type: dark,
+    primary: mat.$rose-palette,
+    tertiary: mat.$yellow-palette,
+  )
+);
+$neon-fire-theme: mat.define-theme($neon-fire-config);
+
+.neon-fire-theme {
+  @include mat.theme($neon-fire-config);
+  color: var(--mat-sys-on-surface);
+  background-color: var(--mat-sys-surface);
+}
+
+html {
+  font-family: var(--mat-sys-body-medium-font, Roboto, 'Helvetica Neue', sans-serif);
+}

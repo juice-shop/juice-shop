@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import * as utils from '../lib/utils'
 import * as challengeUtils from '../lib/challengeUtils'
 import {
@@ -44,10 +43,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
           if (utils.isChallengeEnabled(challenges.persistedXssFeedbackChallenge)) {
             sanitizedComment = security.sanitizeHtml(comment)
             challengeUtils.solveIf(challenges.persistedXssFeedbackChallenge, () => {
-              return utils.contains(
-                sanitizedComment,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
+              return sanitizedComment?.includes('<iframe src="javascript:alert(`xss`)">') ?? false
             })
           } else {
             sanitizedComment = security.sanitizeSecure(comment)

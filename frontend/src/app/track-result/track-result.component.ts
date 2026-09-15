@@ -5,7 +5,7 @@
 
 import { ActivatedRoute } from '@angular/router'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
-import { Component, type OnInit, inject } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { TrackOrderService } from '../Services/track-order.service'
 import { DomSanitizer } from '@angular/platform-browser'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -24,15 +24,16 @@ export enum Status {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-track-result',
   templateUrl: './track-result.component.html',
   styleUrls: ['./track-result.component.scss'],
   imports: [MatCardModule, TranslateModule, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow]
 })
 export class TrackResultComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private readonly trackOrderService = inject(TrackOrderService);
-  private readonly sanitizer = inject(DomSanitizer);
+  private readonly route = inject(ActivatedRoute)
+  private readonly trackOrderService = inject(TrackOrderService)
+  private readonly sanitizer = inject(DomSanitizer)
 
   public displayedColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource = new MatTableDataSource()

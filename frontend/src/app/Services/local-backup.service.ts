@@ -6,24 +6,26 @@
 import { Injectable, inject } from '@angular/core'
 import { type Backup } from '../Models/backup.model'
 import { CookieService } from 'ngy-cookie'
-import { saveAs } from 'file-saver'
+
 import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { forkJoin, from, of } from 'rxjs'
+import { firstValueFrom, forkJoin, from, of } from 'rxjs'
 import { ChallengeService } from './challenge.service'
+import { WindowRefService } from './window-ref.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalBackupService {
-  private readonly cookieService = inject(CookieService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
-  private readonly snackBar = inject(MatSnackBar);
+  private readonly cookieService = inject(CookieService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly windowRefService = inject(WindowRefService)
 
   private readonly VERSION = 1
 
-  save (fileName = 'owasp_juice_shop') {
+  async save (fileName = 'owasp_juice_shop'): Promise<void> {
     const backup: Backup = { version: this.VERSION }
 
     backup.banners = {
@@ -32,26 +34,33 @@ export class LocalBackupService {
     }
     backup.language = this.cookieService.get('language') ? this.cookieService.get('language') : undefined
 
-    const continueCode = this.challengeService.continueCode()
-    const continueCodeFindIt = this.challengeService.continueCodeFindIt()
-    const continueCodeFixIt = this.challengeService.continueCodeFixIt()
-    forkJoin([continueCode, continueCodeFindIt, continueCodeFixIt]).subscribe({
-      next: ([continueCode, continueCodeFindIt, continueCodeFixIt]) => {
-        backup.continueCode = continueCode
-        backup.continueCodeFindIt = continueCodeFindIt
-        backup.continueCodeFixIt = continueCodeFixIt
-        const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-        saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-      },
-      error: () => {
-        console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
-        backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
-        backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
-        backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
-        const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
-        saveAs(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
-      }
-    })
+    try {
+      const [continueCode, continueCodeFindIt, continueCodeFixIt] = await firstValueFrom(forkJoin([
+        this.challengeService.continueCode(),
+        this.challengeService.continueCodeFindIt(),
+        this.challengeService.continueCodeFixIt()
+      ]))
+      backup.continueCode = continueCode
+      backup.continueCodeFindIt = continueCodeFindIt
+      backup.continueCodeFixIt = continueCodeFixIt
+    } catch {
+      console.log('Failed to retrieve continue code(s) for backup from server. Using cookie values as fallback.')
+      backup.continueCode = this.cookieService.get('continueCode') ? this.cookieService.get('continueCode') : undefined
+      backup.continueCodeFindIt = this.cookieService.get('continueCodeFindIt') ? this.cookieService.get('continueCodeFindIt') : undefined
+      backup.continueCodeFixIt = this.cookieService.get('continueCodeFixIt') ? this.cookieService.get('continueCodeFixIt') : undefined
+    }
+
+    const blob = new Blob([JSON.stringify(backup)], { type: 'text/plain;charset=utf-8' })
+    this.saveFile(blob, `${fileName}-${new Date().toISOString().split('T')[0]}.json`)
+  }
+
+  saveFile (blob: Blob, fileName: string) {
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = fileName
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   restore (backupFile: File) {
@@ -76,7 +85,7 @@ export class LocalBackupService {
           const fixItProgress = backup.continueCodeFixIt ? this.challengeService.restoreProgressFixIt(encodeURIComponent(backup.continueCodeFixIt)) : of(true)
           forkJoin([hackingProgress, findItProgress, fixItProgress]).subscribe({
             next: () => {
-              location.reload()
+              this.windowRefService.nativeWindow.location.reload()
             },
             error: (err) => { console.log(err) }
           })

@@ -1,6 +1,6 @@
 # App
 node_modules/
-juiceshop.sqlite
+*.sqlite
 order_*.pdf
 app/
 !frontend/src/app
@@ -12,8 +12,6 @@ i18n/*.json
 i18n/*.invalid
 !frontend/src/assets/i18n/*.json
 !data/static/i18n/*.json
-data/chatbot/*.*
-!data/chatbot/.gitkeep
 /data/juiceshop.sqlite-journal
 
 # Build
@@ -21,6 +19,7 @@ data/chatbot/*.*
 .sass-cache/
 build/
 cache/
+coverage/
 dist/
 logs/
 vagrant/.vagrant/
@@ -41,6 +40,9 @@ out/
 *.iml
 *.iws
 *.swp
+.ai/mcp/mcp.json
+.junie/memory/
+.junie/plans/
 
 # Branch ghpages
 assets/
@@ -65,3 +67,7 @@ config/*.yml
 
 # System Files
 .DS_Store
+
+# Misc
+.playwright-mcp/
+cypress/screenshots/

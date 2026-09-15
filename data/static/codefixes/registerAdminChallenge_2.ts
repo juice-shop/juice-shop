@@ -1,13 +1,11 @@
 /* Generated API endpoints */
-  import { HintModel } from '../../../models/hint'
-
-finale.initialize({ app, sequelize })
+  finale.initialize({ app, sequelize: seq })
 
   const autoModels = [
     { name: 'Product', exclude: [], model: ProductModel },
     { name: 'Feedback', exclude: [], model: FeedbackModel },
     { name: 'BasketItem', exclude: [], model: BasketItemModel },
-    { name: 'Challenge', exclude: [], model: ChallengeModel },
+    { name: 'Challenge', exclude: [], model: ChallengeModel, include: [ChallengeDependencyModel] },
     { name: 'Complaint', exclude: [], model: ComplaintModel },
     { name: 'Recycle', exclude: [], model: RecycleModel },
     { name: 'SecurityQuestion', exclude: [], model: SecurityQuestionModel },
@@ -19,10 +17,11 @@ finale.initialize({ app, sequelize })
     { name: 'Hint', exclude: [], model: HintModel }
   ]
 
-  for (const { name, exclude, model } of autoModels) {
+  for (const { name, exclude, model, include } of autoModels) {
     const resource = finale.resource({
       model,
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude,
-      pagination: false
+      pagination: false,
+      include
     })

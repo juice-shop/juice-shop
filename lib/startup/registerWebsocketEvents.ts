@@ -4,7 +4,6 @@
  */
 
 import config from 'config'
-import * as utils from '../utils'
 import { Server } from 'socket.io'
 import { notifications, challenges } from '../../data/datacache'
 import * as challengeUtils from '../challengeUtils'
@@ -13,12 +12,11 @@ import * as security from '../insecurity'
 let firstConnectedSocket: any = null
 
 const globalWithSocketIO = global as typeof globalThis & {
-  io: SocketIOClientStatic & Server
+  io: Server
 }
 
 const registerWebsocketEvents = (server: any) => {
   const io = new Server(server, { cors: { origin: 'http://localhost:4200' } })
-  // @ts-expect-error FIXME Type safety issue when setting global socket-io object
   globalWithSocketIO.io = io
 
   io.on('connection', (socket: any) => {
@@ -39,12 +37,12 @@ const registerWebsocketEvents = (server: any) => {
     })
 
     socket.on('verifyLocalXssChallenge', (data: any) => {
-      challengeUtils.solveIf(challenges.localXssChallenge, () => { return utils.contains(data, '<iframe src="javascript:alert(`xss`)">') })
-      challengeUtils.solveIf(challenges.xssBonusChallenge, () => { return utils.contains(data, config.get('challenges.xssBonusPayload')) })
+      challengeUtils.solveIf(challenges.localXssChallenge, () => { return data?.includes('<iframe src="javascript:alert(`xss`)">') ?? false })
+      challengeUtils.solveIf(challenges.xssBonusChallenge, () => { return data?.includes(config.get('challenges.xssBonusPayload')) ?? false })
     })
 
     socket.on('verifySvgInjectionChallenge', (data: any) => {
-      challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/placecats.com\/(g\/)?[\d]+\/[\d]+.*/) && security.isRedirectAllowed(data) })
+      challengeUtils.solveIf(challenges.svgInjectionChallenge, () => { return data?.match(/.*\.\.\/\.\.\/\.\.[\w/-]*?\/redirect\?to=https?:\/\/cataas.com\/cat.*/) && security.isRedirectAllowed(data) })
     })
 
     socket.on('verifyCloseNotificationsChallenge', (data: any) => {

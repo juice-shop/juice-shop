@@ -1,5 +1,5 @@
 describe('/#/score-board', () => {
-  describe('challenge "scoreBoard"', () => {
+  describe('challenge "scoreBoardChallenge"', () => {
     it('should be possible to access score board', () => {
       cy.visit('/#/score-board')
       cy.url().should('match', /\/score-board/)
@@ -7,7 +7,7 @@ describe('/#/score-board', () => {
     })
   })
 
-  describe('challenge "continueCode"', () => {
+  describe('challenge "continueCodeChallenge"', () => {
     it('should be possible to solve the non-existent challenge #99', () => {
       cy.window().then(async () => {
         await fetch(

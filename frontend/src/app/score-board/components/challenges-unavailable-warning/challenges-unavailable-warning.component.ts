@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, Output } from '@angular/core'
+import { Component, computed, input, model, ChangeDetectionStrategy } from '@angular/core'
 
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
@@ -8,45 +8,37 @@ import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgClass } from '@angular/common'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'challenges-unavailable-warning',
   templateUrl: './challenges-unavailable-warning.component.html',
   styleUrls: ['./challenges-unavailable-warning.component.scss'],
   imports: [WarningCardComponent, NgClass, MatButtonModule, TranslateModule]
 })
-export class ChallengesUnavailableWarningComponent implements OnChanges {
-  @Input()
-  public challenges: EnrichedChallenge[]
+export class ChallengesUnavailableWarningComponent {
+  readonly challenges = input.required<EnrichedChallenge[]>()
+  readonly filterSetting = model.required<FilterSetting>()
 
-  @Input()
-  public filterSetting: FilterSetting
+  private readonly disabledChallenges = computed(() =>
+    this.challenges().filter(challenge => challenge.disabledEnv !== null)
+  )
 
-  @Output()
-  public filterSettingChange = new EventEmitter<FilterSetting>()
+  private readonly disabledOnWindowsChallenges = computed(() =>
+    this.disabledChallenges().filter(challenge => challenge.disabledEnv === 'Windows')
+  )
 
-  public numberOfDisabledChallenges = 0
-  public disabledBecauseOfEnv: string | null = null
-  public disabledOnWindows: boolean
-  public numberOfDisabledChallengesOnWindows = 0
+  readonly numberOfDisabledChallenges = computed(() => this.disabledChallenges().length)
+  readonly disabledBecauseOfEnv = computed(() => {
+    const disabled = this.disabledChallenges()
+    return disabled.length > 0 ? disabled[0].disabledEnv : null
+  })
 
-  public ngOnChanges () {
-    const disabledChallenges = this.challenges.filter(challenge => challenge.disabledEnv !== null)
-    const disabledOnWindows = disabledChallenges.filter(challenge => challenge.disabledEnv === 'Windows')
-    this.numberOfDisabledChallenges = disabledChallenges.length
-    if (this.numberOfDisabledChallenges > 0) {
-      this.disabledBecauseOfEnv = disabledChallenges[0].disabledEnv
-    }
-    if (disabledOnWindows.length > 0) {
-      this.disabledOnWindows = true
-      this.numberOfDisabledChallengesOnWindows = disabledOnWindows.length
-    }
-  }
+  readonly disabledOnWindows = computed(() => this.disabledOnWindowsChallenges().length > 0)
+  readonly numberOfDisabledChallengesOnWindows = computed(() => this.disabledOnWindowsChallenges().length)
 
-  public toggleShowDisabledChallenges () {
-    const filterSetting = {
-      ...structuredClone(this.filterSetting),
-      showDisabledChallenges: !this.filterSetting.showDisabledChallenges
-    }
-    this.filterSetting = filterSetting
-    this.filterSettingChange.emit(filterSetting)
+  toggleShowDisabledChallenges () {
+    this.filterSetting.update(current => ({
+      ...structuredClone(current),
+      showDisabledChallenges: !current.showDisabledChallenges
+    }))
   }
 }

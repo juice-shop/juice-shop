@@ -6,7 +6,7 @@
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { Component, type OnDestroy, type OnInit, inject } from '@angular/core'
+import { Component, type OnDestroy, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
@@ -28,20 +28,21 @@ import { AsyncPipe } from '@angular/common'
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
   imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-  private readonly dialog = inject(MatDialog);
+  private readonly dialog = inject(MatDialog)
   data = inject<{
     productData: Product;
-}>(MAT_DIALOG_DATA);
-  private readonly productReviewService = inject(ProductReviewService);
-  private readonly userService = inject(UserService);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+}>(MAT_DIALOG_DATA)
+  private readonly productReviewService = inject(ProductReviewService)
+  private readonly userService = inject(UserService)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public author = 'Anonymous'
   public reviews$: any
@@ -51,7 +52,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    this.userSubscription = this.userService.whoAmI().subscribe({
+    this.userSubscription = this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         if (user?.email) {
           this.author = user.email

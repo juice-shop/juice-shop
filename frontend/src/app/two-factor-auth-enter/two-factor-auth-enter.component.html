@@ -12,13 +12,13 @@
       <p translate>TITLE_TWO_FACTOR_AUTH_ENTER</p>
 
       @if (errored) {
-        <div class="error" style="margin-bottom: 10px;" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
+        <div class="error two-factor-error" translate>INVALID_TWO_FACTOR_AUTH_TOKEN</div>
       }
 
       <form (ngSubmit)="verify()" [formGroup]="twoFactorForm">
 
         <div class="form-container">
-          <mat-form-field id="inputToken" appearance="outline" color="accent">
+          <mat-form-field id="inputToken" appearance="outline" color="tertiary">
             <mat-label translate>LABEL_TWO_FACTOR_AUTH_TOKEN</mat-label>
             <input #tokenInput formControlName="token" type="text" minlength="6" maxlength="6" pattern="^[\d]{6}$" matInput id="totpToken"
               aria-label="Field for entering the Two Factor token" placeholder="{{ '2FA_ENTER_CODE_PLACEHOLDER' | translate}}">

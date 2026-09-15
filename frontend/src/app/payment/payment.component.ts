@@ -4,7 +4,7 @@
  */
 
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, NgZone, type OnInit, inject } from '@angular/core'
+import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -44,25 +44,26 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, faStickyNote, faHandHoldingUsd, faCoffee, faTimes, faStripe, faPalette)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss'],
   imports: [MatCardModule, PaymentMethodComponent, MatDivider, TranslateModule, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatIconModule]
 })
 export class PaymentComponent implements OnInit {
-  private readonly location = inject(Location);
-  private readonly cookieService = inject(CookieService);
-  private readonly userService = inject(UserService);
-  private readonly deliveryService = inject(DeliveryService);
-  private readonly walletService = inject(WalletService);
-  private readonly router = inject(Router);
-  private readonly dialog = inject(MatDialog);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly basketService = inject(BasketService);
-  private readonly translate = inject(TranslateService);
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly ngZone = inject(NgZone);
-  private readonly snackBarHelperService = inject(SnackBarHelperService);
+  private readonly location = inject(Location)
+  private readonly cookieService = inject(CookieService)
+  private readonly userService = inject(UserService)
+  private readonly deliveryService = inject(DeliveryService)
+  private readonly walletService = inject(WalletService)
+  private readonly router = inject(Router)
+  private readonly dialog = inject(MatDialog)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly basketService = inject(BasketService)
+  private readonly translate = inject(TranslateService)
+  private readonly activatedRoute = inject(ActivatedRoute)
+  private readonly ngZone = inject(NgZone)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public couponConfirmation: any
   public couponError: any

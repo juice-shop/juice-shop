@@ -1,34 +1,27 @@
-import { Component, Input, type OnChanges } from '@angular/core'
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core'
 
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
-import { type Config } from 'src/app/Services/configuration.service'
+import { type Config } from '../../../Services/configuration.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'tutorial-mode-warning',
   templateUrl: './tutorial-mode-warning.component.html',
   imports: [WarningCardComponent, MatIconModule, TranslateModule]
 })
-export class TutorialModeWarningComponent implements OnChanges {
-  @Input()
-  public allChallenges: EnrichedChallenge[]
+export class TutorialModeWarningComponent {
+  readonly allChallenges = input.required<EnrichedChallenge[]>()
+  readonly applicationConfig = input<Config | null>(null)
 
-  @Input()
-  public applicationConfig: Config | null = null
-
-  public tutorialModeActive: boolean | null = null
-
-  ngOnChanges (): void {
-    if (!this.applicationConfig?.challenges?.restrictToTutorialsFirst) {
-      this.tutorialModeActive = false
-      return
+  readonly tutorialModeActive = computed(() => {
+    if (!this.applicationConfig()?.challenges?.restrictToTutorialsFirst) {
+      return false
     }
-
-    const allTutorialChallengesSolved = this.allChallenges
+    return !this.allChallenges()
       .filter(challenge => challenge.tutorialOrder !== null)
       .every(challenge => challenge.solved)
-    this.tutorialModeActive = !allTutorialChallengesSolved
-  }
+  })
 }

@@ -8,7 +8,6 @@ application:
     showOnFirstStart: false
 challenges:
   showHints: false
-  showFeedbackButtons: false
 hackingInstructor:
   isEnabled: false
 ctf:
@@ -285,6 +284,9 @@ ctf:
     exposedMetricsChallenge:
       name: Japan
       code: JP
+    misplacedIacFiles:
+      name: Latvia
+      code: LV
     freeDeluxeChallenge:
       name: Vietnam
       code: VN
@@ -303,15 +305,9 @@ ctf:
     geoStalkingVisualChallenge:
       name: The Netherlands
       code: NL
-    killChatbotChallenge:
-      name: Czechoslovakia
-      code: CSK
     nullByteChallenge:
       name: Burundi
       code: BI
-    bullyChatbotChallenge:
-      name: Guam
-      code: GU
     lfrChallenge:
       name: Ireland
       code: IE
@@ -325,11 +321,11 @@ ctf:
       name: Afghanistan
       code: AF
     nftMintChallenge:
-      name: United Arab Emirates
-      code: UAE
+      name: Uganda
+      code: UG
     web3WalletChallenge:
       name: Mexico
-      code: MEX
+      code: MX
     web3SandboxChallenge:
       name: France
       code: FR
@@ -345,3 +341,24 @@ ctf:
     leakedApiKeyChallenge:
       name: San Marino
       code: SM
+    passwordHashLeakChallenge:
+      name: Italy
+      code: IT
+    chatbotPromptInjectionChallenge:
+      name: Finland
+      code: FI
+    chatbotGreedyInjectionChallenge:
+      name: Norway
+      code: NO
+    aiDebuggingChallenge:
+      name: Iceland
+      code: IS
+    systemPromptExtractionChallenge:
+      name: Greece
+      code: GR
+    iacLeakedKeyChallenge:
+      name: Liechtenstein
+      code: LI
+    vulnerableDockerImageChallenge:
+      name: Portugal
+      code: PT

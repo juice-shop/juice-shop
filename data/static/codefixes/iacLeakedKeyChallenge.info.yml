@@ -1,0 +1,10 @@
+fixes:
+  - id: 1
+    explanation: 'Using a Terraform variable moves the key out of this file, but if the variable has a default value with the key or is set in a committed .tfvars file, the secret is still exposed in version control.'
+  - id: 2
+    explanation: 'Base64-encoding the private key is merely obfuscation, not a security fix. The key can be trivially decoded and is still embedded in the source code and version control history.'
+  - id: 3
+    explanation: 'Loading the private key from a separate file that is excluded from version control (via .gitignore) is a proper fix. This ensures the secret is not committed to the repository and can be managed independently.'
+hints:
+  - "Look for the line that embeds sensitive cryptographic material directly in the Terraform configuration."
+  - "A private key hardcoded as a string literal in an IaC file will end up in version control for anyone with repository access to see."

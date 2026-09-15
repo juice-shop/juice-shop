@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .welcome-style {
   .mat-mdc-dialog-container {
     margin-left: auto;

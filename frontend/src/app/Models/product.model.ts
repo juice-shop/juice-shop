@@ -9,5 +9,8 @@ export interface Product {
   description: string
   image: string
   price: number
-  points: number
+  points?: number
+  deluxePrice: number
 }
+
+export type ProductTableEntry = Product & { quantity?: number }

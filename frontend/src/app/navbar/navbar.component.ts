@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
@@ -16,6 +16,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -60,6 +61,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
@@ -83,19 +85,20 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   ]
 })
 export class NavbarComponent implements OnInit {
-  private readonly administrationService = inject(AdministrationService);
-  private readonly challengeService = inject(ChallengeService);
-  private readonly configurationService = inject(ConfigurationService);
-  private readonly userService = inject(UserService);
-  private readonly ngZone = inject(NgZone);
-  private readonly cookieService = inject(CookieService);
-  private readonly router = inject(Router);
-  private readonly translate = inject(TranslateService);
-  private readonly io = inject(SocketIoService);
-  private readonly langService = inject(LanguagesService);
-  private readonly loginGuard = inject(LoginGuard);
-  private readonly snackBar = inject(MatSnackBar);
-  private readonly basketService = inject(BasketService);
+  private readonly administrationService = inject(AdministrationService)
+  private readonly challengeService = inject(ChallengeService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly userService = inject(UserService)
+  private readonly ngZone = inject(NgZone)
+  private readonly cookieService = inject(CookieService)
+  private readonly router = inject(Router)
+  private readonly translate = inject(TranslateService)
+  private readonly io = inject(SocketIoService)
+  private readonly langService = inject(LanguagesService)
+  private readonly loginGuard = inject(LoginGuard)
+  private readonly snackBar = inject(MatSnackBar)
+  private readonly basketService = inject(BasketService)
+  private readonly windowRefService = inject(WindowRefService)
 
   public userEmail = ''
   public languages: any[] = []
@@ -115,6 +118,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit (): void {
     this.getLanguages()
     this.basketService.getItemTotal().subscribe(x => (this.itemTotal = x))
+    this.basketService.updateNumberOfCartItems()
     this.administrationService.getApplicationVersion().subscribe({
       next: (version: any) => {
         if (version) {
@@ -157,6 +161,7 @@ export class NavbarComponent implements OnInit {
         this.getUserDetails()
       } else {
         this.userEmail = ''
+        this.basketService.updateNumberOfCartItems()
       }
     })
 
@@ -239,6 +244,7 @@ export class NavbarComponent implements OnInit {
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
     sessionStorage.removeItem('itemTotal')
+    sessionStorage.removeItem('guestBasket')
     this.userService.isLoggedIn.next(false)
     this.ngZone.run(async () => await this.router.navigate(['/']))
   }
@@ -257,7 +263,7 @@ export class NavbarComponent implements OnInit {
         panelClass: ['mat-body']
       })
       snackBarRef.onAction().subscribe(() => {
-        location.reload()
+        this.windowRefService.nativeWindow.location.reload()
       })
     }
   }

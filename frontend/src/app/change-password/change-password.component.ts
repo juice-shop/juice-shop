@@ -11,11 +11,10 @@ import {
   ReactiveFormsModule
 } from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component, inject, OnInit } from '@angular/core'
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 
@@ -31,6 +30,7 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faSave, faEdit)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
@@ -47,10 +47,9 @@ library.add(faSave, faEdit)
     MatButtonModule
   ]
 })
-export class ChangePasswordComponent implements OnInit {
-  private readonly userService = inject(UserService);
-  private readonly formSubmitService = inject(FormSubmitService);
-  private readonly translate = inject(TranslateService);
+export class ChangePasswordComponent {
+  private readonly userService = inject(UserService)
+  private readonly translate = inject(TranslateService)
 
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [
     Validators.required
@@ -74,16 +73,6 @@ export class ChangePasswordComponent implements OnInit {
 
   public error: any
   public confirmation: any
-
-  ngOnInit (): void {
-    this.formSubmitService.attachEnterKeyHandler(
-      'password-form',
-      'changeButton',
-      () => {
-        this.changePassword()
-      }
-    )
-  }
 
   changePassword () {
     if (

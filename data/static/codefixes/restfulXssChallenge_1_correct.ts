@@ -3,7 +3,7 @@ ngAfterViewInit () {
     const quantities = this.quantityService.getAll()
     forkJoin([quantities, products]).subscribe({
       next: ([quantities, products]) => {
-        const dataTable: TableEntry[] = []
+        const dataTable: ProductTableEntry[] = []
         this.tableData = products
         for (const product of products) {
           dataTable.push({
@@ -24,32 +24,16 @@ ngAfterViewInit () {
           }
           entry.quantity = quantity.quantity
         }
-        this.dataSource = new MatTableDataSource<TableEntry>(dataTable)
-        for (let i = 1; i <= Math.ceil(this.dataSource.data.length / 12); i++) {
-          this.pageSizeOptions.push(i * 12)
-        }
-        this.paginator.pageSizeOptions = this.pageSizeOptions
+        this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
+        this.updatePageSizeOptions()
         this.dataSource.paginator = this.paginator
+        this.setupResponsivePageSize()
         this.gridDataSource = this.dataSource.connect()
         this.resultsLength = this.dataSource.data.length
         this.filterTable()
         this.routerSubscription = this.router.events.subscribe(() => {
           this.filterTable()
         })
-        if (window.innerWidth < 2600) {
-          this.breakpoint = 4
-          if (window.innerWidth < 1740) {
-            this.breakpoint = 3
-            if (window.innerWidth < 1280) {
-              this.breakpoint = 2
-              if (window.innerWidth < 850) {
-                this.breakpoint = 1
-              }
-            }
-          }
-        } else {
-          this.breakpoint = 6
-        }
         this.cdRef.detectChanges()
       },
       error: (err) => { console.log(err) }

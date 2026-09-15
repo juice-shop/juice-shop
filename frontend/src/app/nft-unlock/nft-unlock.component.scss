@@ -1,21 +1,28 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $space-ml;
   justify-content: center;
 }
 
 .heading {
   justify-content: center;
-  margin-bottom: 10px;
-  padding: 12px 20px;
+  margin-bottom: $space-s;
+  padding: $space-m $space-ml;
 }
 
 .detail-container.offer-container {
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: $space-m;
   max-width: 700px;
   min-width: 300px;
   width: 70%;
@@ -32,12 +39,12 @@
 }
 
 .owner-text {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 .responsive-field {
   width: 100%;
-  
+
   @media (min-width: 600px) {
     max-width: 350px;
     width: 75vw;
@@ -56,7 +63,7 @@
   font-weight: 600;
   justify-content: center;
   min-height: 48px;
-  padding: 16px;
+  padding: $space-m;
   text-align: center;
   white-space: normal;
 
@@ -64,21 +71,21 @@
     font-size: 0.9em;
     line-height: 1.4;
     min-height: 56px;
-    padding: 20px 16px;
+    padding: $space-ml $space-m;
   }
 }
 
 .sbt-title {
   font-size: 1.5rem;
-  margin: 0 0 16px;
-  
+  margin: 0 0 $space-m;
+
   @media screen and (max-width: 600px) {
-    font-size: 1.25rem; 
+    font-size: 1.25rem;
   }
 }
 
 mat-card {
-  margin-bottom: 10px;
+  margin-bottom: $space-s;
 }
 
 mat-card:nth-child(1) {
@@ -88,8 +95,8 @@ mat-card:nth-child(1) {
 }
 
 .detail-box {
-  margin-bottom: 16px;
-  padding: 16px;
+  margin-bottom: $space-m;
+  padding: $space-m;
 }
 
 .box-title {
@@ -98,13 +105,13 @@ mat-card:nth-child(1) {
 }
 
 .box-text {
-  margin-top: 8px;
+  margin-top: $space-xs;
   overflow-wrap: break-word;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
+  margin-top: $space-m;
   width: 100%;
 }

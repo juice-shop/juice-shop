@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone, inject } from '@angular/core'
+import { Component, NgZone, inject, ChangeDetectionStrategy } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
@@ -15,19 +15,29 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faCartArrowDown)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss'],
   imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
-  private readonly router = inject(Router);
-  private readonly ngZone = inject(NgZone);
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
   public productCount = 0
   public bonus = 0
 
   checkout (): void {
+    if (localStorage.getItem('token') == null) {
+      this.ngZone.run(async () => await this.router.navigate(['/login'], {
+        queryParams: {
+          redirectUrl: '/basket'
+        }
+      }))
+      return
+    }
+
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 

@@ -1,14 +1,31 @@
+<title>{{_title_}}</title>
+<link rel='icon' type='image/x-icon' href="./assets/public/{{_favicon_}}">
+<link rel="stylesheet" href='/vendor/beercss/beer.min.css'>
+<link rel="stylesheet" href='/vendor/material-icons/material-icons.css'>
+<link rel="stylesheet" href='./assets/public/css/roboto.css' type='text/css'>
 <link rel="stylesheet" type="text/css" href="./assets/public/css/dataErasure.css">
-<link rel='icon' type='image/x-icon' href="./assets/public/images/JuiceShop_Logo_50px.png">
-<link rel="stylesheet" href='https://code.getmdl.io/1.3.0/material.min.css'>
-<link rel="stylesheet" href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-<link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' type='text/css'>
-<div class="header">
-    <a href="./#/"><i class='material-icons'>arrow_back</i></a>
-    <a href="./#/" class="back"><span>Back</span></a>
-    <a href="./#/" class=""><img src="./assets/public/images/JuiceShop_Logo.png" alt=""></a>
-    <a href="./#/"><span class="header-text">OWASP Juice Shop</span></a>
-</div>
+<script type="module" src="/vendor/beercss/beer.min.js"></script>
+<style>
+    body { background: {{_bgColor_}} !important; color: {{_textColor_}} !important; }
+    .formBlock { background: {{_primLight_}} !important; }
+    h4, p, h5, .form-field label, .form-field input { color: {{_textColor_}} !important; }
+    .form-field input { background-color: {{_primLight_}} !important; border: 1px solid {{_textColor_}} !important; }
+    button { background-color: {{_navColor_}} !important; color: {{_textColor_}} !important; }
+    .brand { color: {{_textColor_}} !important; }
+</style>
+<header style="background: {{_navColor_}}; padding: 8px 16px;">
+  <nav>
+    <a href="./#/" style="color: {{_textColor_}}; text-decoration:none;">
+      <i class="material-icons">arrow_back</i>
+    </a>
+    <a href="./#/" style="color: {{_textColor_}}; text-decoration:none;">Back</a>
+    <a href="./#/" class="brand">
+      <img src="./assets/public/images/{{_logo_}}" alt="" style="max-height: 50px; width: auto;">
+      <span>{{_title_}}</span>
+    </a>
+    <div class="max"></div>
+  </nav>
+</header>
 <div class="main-content">
     <div class="formBlock">
         <h4>Data Erasure Request (Art. 17 GDPR)</h4>
@@ -16,17 +33,17 @@
             you to request complete erasure of your account and any associated data.</p>
         <h5>Request Data Erasure</h5>
         <form action="/dataerasure" method="POST">
-            <div>
+            <div class="form-field">
                 <label for="email">Confirm Email Address</label>
                 <input type="email" required placeholder={{userEmail}} name="email" id="email">
             </div>
-            <div>
+            <div class="form-field">
                 <label for="securityAnswer">Answer</label>
                 <input type="text" required placeholder="{{securityQuestion}}" id="securityAnswer"
                     name="securityAnswer">
             </div>
             <div class="deleteButton">
-            <button type="submit" class=" mdl-button mdl-button--raised" style="background-color:#546E7A; color: #FFFFFF;">
+            <button type="submit">
                 <span class="cross">&times;</span>
             Delete User Data</button>
             </div>

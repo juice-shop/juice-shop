@@ -1,3 +1,15 @@
+---
+-
+  name: 'Password Hash Leak'
+  category: 'Sensitive Data Exposure'
+  description: 'Obtain the password (hash) of the currently logged-in user directly from a REST API endpoint.'
+  difficulty: 2
+  hints:
+    - 'You need to understand what happens "behind the scenes", so make sure to use your DevTools or a proxy to inspect network traffic.'
+    - 'Look for an API endpoint that already returns some user information.'
+    - 'An overly generic solution for data retrieval can backfire if not properly safeguarded.'
+  mitigationUrl: 'https://owasp.org/API-Security/editions/2019/en/0xa3-excessive-data-exposure'
+  key: passwordHashLeakChallenge
 -
   name: 'API-only XSS'
   category: 'XSS'
@@ -14,7 +26,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Access Log'
   category: 'Observability Failures'
@@ -23,7 +34,6 @@
   hints:
     - 'Who would want a server access log to be accessible through a web application?'
     - 'Normally, server log files are written to disk on server side and are not accessible from the outside.'
-    - 'Which raises the question: Who would want a server access log to be accessible through a web application?'
     - 'One particular file found in the folder you might already have found during the "Access a confidential document" challenge might give you an idea who is interested in such a public exposure.'
     - 'Drilling down one level into the file system might not be sufficient.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html'
@@ -74,7 +84,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Bjoern''s Favorite Pet'
   category: 'Broken Authentication'
@@ -122,7 +131,6 @@
   category: 'Improper Input Validation'
   tags:
       - Web3
-      - Internet Traffic
   description: 'Mint the Honey Pot NFT by gathering BEEs from the bee haven.'
   difficulty: 3
   hints:
@@ -134,7 +142,6 @@
   category: 'Miscellaneous'
   tags:
       - Web3
-      - Internet Traffic
   description: 'Withdraw more ETH from the new wallet than you deposited.'
   difficulty: 6
   hints:
@@ -170,7 +177,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'CAPTCHA Bypass'
   category: 'Broken Anti Automation'
@@ -227,7 +233,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Client-side XSS Protection'
   category: 'XSS'
@@ -244,7 +249,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Confidential Document'
   category: 'Sensitive Data Exposure'
@@ -300,6 +304,9 @@
     - 'Simply using the deprecated interface suffices to solve this challenge. No attack or exploit is necessary.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Web_Service_Security_Cheat_Sheet.html'
   key: deprecatedInterfaceChallenge
+  disabledEnv:
+    - Docker
+    - Heroku
 -
   name: 'Easter Egg'
   category: 'Broken Access Control'
@@ -377,7 +384,7 @@
   category: 'Broken Anti Automation'
   tags:
     - Brute Force
-  description: 'First you should find out how the languages are technically changed in the user interface.'
+  description: 'Retrieve the language file that never made it into production.'
   difficulty: 5
   hints:
     - 'First you should find out how the languages are technically changed in the user interface.'
@@ -536,7 +543,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Imaginary Challenge'
   category: 'Cryptographic Issues'
@@ -769,7 +775,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'NoSQL Exfiltration'
   category: 'Injection'
@@ -787,7 +792,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
@@ -844,7 +848,7 @@
   category: 'Cryptographic Issues'
   tags:
     - Shenanigans
-  description: '<i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><i class="far fa-gem"></i><!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank"><i class="fab fa-btc fa-sm"></i> Unlock Premium Challenge</a> to access exclusive content.'
+  description: '💎💎💎💎💎<!--IvLuRfBJYlmStf9XfL6ckJFngyd9LfV1JaaN/KRTPQPidTuJ7FR+D/nkWJUF+0xUF07CeCeqYfxq+OJVVa0gNbqgYkUNvn//UbE7e95C+6e+7GtdpqJ8mqm4WcPvUGIUxmGLTTAC2+G9UuFCD1DUjg==--> <a href="https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm" target="_blank">₿ Unlock Premium Challenge</a> to access exclusive content.'
   difficulty: 6
   hints:
     - 'You do not have to pay anything to unlock this challenge! Nonetheless, donations are very much appreciated.'
@@ -915,7 +919,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Repetitive Registration'
   category: 'Improper Input Validation'
@@ -1031,7 +1034,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Score Board'
   category: 'Miscellaneous'
@@ -1076,7 +1078,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Steganography'
   category: 'Security through Obscurity'
@@ -1106,7 +1107,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Supply Chain Attack'
   category: 'Vulnerable Components'
@@ -1196,7 +1196,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'View Basket'
   category: 'Broken Access Control'
@@ -1218,7 +1217,7 @@
   category: 'Vulnerable Components'
   tags:
     - OSINT
-  description: '<a href="/#/contact">Inform the shop</a> about a vulnerable library it is using. (Mention the exact library name and version in your comment)'
+  description: '<a href="/#/contact">Inform the shop</a> about a high-severity vulnerability caused by one of its directly used dependencies. (Mention the exact library name and version in your comment)'
   difficulty: 4
   hints:
     - 'Report one of two possible answers via the "Customer Feedback" form. Do not forget to submit the library''s version as well.'
@@ -1266,7 +1265,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'XXE DoS'
   category: 'XXE'
@@ -1284,7 +1282,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'Memory Bomb'
   category: 'Insecure Deserialization'
@@ -1301,7 +1298,6 @@
   disabledEnv:
   - Docker
   - Heroku
-  - Gitpod
 -
   name: 'Zero Stars'
   category: 'Improper Input Validation'
@@ -1353,6 +1349,19 @@
   mitigationUrl: ~
   key: exposedMetricsChallenge
 -
+  name: 'Misplaced IaC Files'
+  category: 'Security Misconfiguration'
+  tags:
+    - Prerequisite
+  description: 'Access the misplaced Infrastructure as Code files that were accidentally included in the web application deliverable.'
+  difficulty: 2
+  hints:
+    - 'The developers probably used some kind of tool to automate their cloud deployment and containerization.'
+    - 'Such tools typically store their configuration in a directory with a very predictable name.'
+    - 'Try common directory names that popular deployment automation and infrastructure tools use by convention.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
+  key: misplacedIacFiles
+-
   name: 'Deluxe Fraud'
   category: 'Improper Input Validation'
   description: 'Obtain a Deluxe Membership without paying for it.'
@@ -1370,10 +1379,10 @@
   description: 'Change the name of a user by performing Cross-Site Request Forgery from <a href="http://htmledit.squarefree.com">another origin</a>.'
   difficulty: 3
   hints:
-    - 'Find a form which updates the username and then construct a malicious page in the online HTML editor. You probably need an older browser version for this.'
+    - 'Find a form which updates the username and then construct a malicious page on the mentioned "another origin".'
     - 'Take a look at what happens when you change the username within the profile page.'
     - 'Search for information about CSRF attacks and look out for examples that can be applied to this challenge.'
-    - 'Write the code for the CSRF attack within http://htmledit.squarefree.com and verify that it changes your username.'
+    - 'If "another origin" is cross-site, you probably need an older browser version for this challenge. If it is cross-domain, you should be able to make it work in a modern browser.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html'
   key: csrfChallenge
 -
@@ -1430,20 +1439,6 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Choosing_and_Using_Security_Questions_Cheat_Sheet.html'
   key: geoStalkingVisualChallenge
 -
-  name: 'Kill Chatbot'
-  category: 'Vulnerable Components'
-  tags:
-    - Code Analysis
-  description: 'Permanently disable the support chatbot so that it can no longer answer customer queries.'
-  difficulty: 5
-  hints:
-    - 'Think of a way to get a hold of the internal workings on the chatbot API.'
-    - 'In order to disable the chatbot for all users, you must first get an understanding of how it works under the hood.'
-    - 'The chatbot sure offers a lot of functionality. Could it be that juice-shop relies on a third party, possibly open source library for this?'
-    - 'Maybe you can try to gather clues from around juice shop and then go dumpster dive the internet to get a hold of the bot’s source.'
-  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html'
-  key: killChatbotChallenge
--
   name: 'Poison Null Byte'
   category: 'Improper Input Validation'
   tags:
@@ -1457,20 +1452,6 @@
     - 'Depending on the files you try to retrieve you will probably solve "Access a developer’s forgotten backup file", "Access a salesman’s forgotten backup file", "Access a misplaced SIEM signature file, or "Find the hidden easter egg" along the way.'
   mitigationUrl: ~
   key: nullByteChallenge
--
-  name: 'Bully Chatbot'
-  category: 'Miscellaneous'
-  tags:
-    - Shenanigans
-    - Brute Force
-  description: 'Receive a coupon code from the support chatbot.'
-  difficulty: 1
-  hints:
-    - 'The bot is reluctant to give you a coupon as it’s coming up with various excuses for not giving you one.'
-    - 'Asking over and over again like a little kid might actually help you succeed in this case.'
-    - 'No seriously, just keep asking.'
-  mitigationUrl: ~
-  key: bullyChatbotChallenge
 -
   name: 'Local File Read'
   category: 'Vulnerable Components'
@@ -1489,7 +1470,6 @@
   disabledEnv:
     - Docker
     - Heroku
-    - Gitpod
 -
   name: 'Mass Dispel'
   category: 'Miscellaneous'
@@ -1511,7 +1491,7 @@
   mitigationUrl: ~
   key: csafChallenge
 -
-  name: 'Exposed credentials'
+  name: 'Exposed Credentials'
   category: 'Sensitive Data Exposure'
   description: 'A developer was careless with hardcoding unused, but still valid credentials for a testing account on the client-side.'
   difficulty: 2
@@ -1533,3 +1513,81 @@
     - 'Find the place where the API call happens — as stated above, it is not in the web application — and then look for the API key itself.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html'
   key: leakedApiKeyChallenge
+-
+  name: 'Chatbot Prompt Injection'
+  category: 'Injection'
+  tags:
+    - Good for Demos
+    - AI/LLM
+  description: 'Trick the chatbot into generating a coupon code for you despite its coupon policy saying otherwise.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a tool for generating coupons, but is instructed to only use it under very specific conditions.'
+    - 'Try to convince the chatbot that the conditions for coupon generation are met, even if they are not.'
+    - 'Prompt injection techniques can help you bypass the chatbot''s restrictions on tool usage.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotPromptInjectionChallenge
+-
+  name: 'Greedy Chatbot Manipulation'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Convince the chatbot to give you a coupon of 50% or more. Because apparently a 10% max policy is just a suggestion when you ask nicely enough.'
+  difficulty: 3
+  hints:
+    - 'The chatbot''s system prompt says the maximum discount is 10%. But system prompts are more like guidelines than actual rules, right?'
+    - 'You already know how to make the chatbot generate a coupon. Now make it go way beyond the allowed maximum.'
+    - 'The chatbot trusts whatever discount value it decides to pass to its tool. Make it decide on a very generous number.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm01-prompt-injection/'
+  key: chatbotGreedyInjectionChallenge
+-
+  name: 'AI Debugging'
+  category: 'Broken Access Control'
+  tags:
+    - AI/LLM
+  description: 'Reveal some behind-the-scenes information on the chatbot as a non-admin user.'
+  difficulty: 2
+  hints:
+    - 'The chatbot has a debugging feature that shows how it interacts with its tools. It is only supposed to be visible for admins.'
+    - 'Access control for the debugging feature is only implemented on the client-side.'
+    - 'Find the cookie that controls the visibility of tool calls and set it to <code>true</code>.'
+    - 'If you see the tool calls but the challenge is not marked as solved, you might be still logged in as a user with admin privileges.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Broken_Access_Control_Cheat_Sheet.html'
+  key: aiDebuggingChallenge
+-
+  name: 'System Prompt Extraction'
+  category: 'Injection'
+  tags:
+    - AI/LLM
+  description: 'Extract the chatbot''s system prompt using prompt injection, then submit your findings (including any confidential sections) via the <a href="/#/complain">Customer Complaint form</a>.'
+  difficulty: 3
+  hints:
+    - 'The chatbot has a system prompt with both public and confidential instructions. Try to make it reveal its full configuration using prompt injection.'
+    - 'There are internal rules beyond the standard coupon policy. Think about edge cases - what happens in unusual customer situations?'
+    - 'The similarity check is lenient - you do not need to reproduce the system prompt word for word. Focus on capturing the confidential sections accurately.'
+  mitigationUrl: 'https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/'
+  key: systemPromptExtractionChallenge
+-
+  name: 'Login Cloud Admin'
+  category: 'Sensitive Data Exposure'
+  description: 'Log in with the cloud admin''s user account <i>without</i> using SQL Injection.'
+  difficulty: 4
+  hints:
+    - 'Brute forcing the password will not work. The password is too strong.'
+    - 'There might be another way to authenticate besides using the correct password.'
+    - 'Look for sensitive information that was accidentally deployed alongside the application.'
+    - 'Some Terraform file in the infrastructure directory accessible from the web application contains sensitive information that can be used to forge authentication tokens.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html'
+  key: iacLeakedKeyChallenge
+-
+  name: 'Vulnerable Infrastructure'
+  category: 'Vulnerable Components'
+  description: '<a href="/#/complain">Inform the shop</a> about the use of a known vulnerable infrastructure component. (Identify the component as specifically as possible in your complaint)'
+  difficulty: 3
+  hints:
+    - 'The shop accidentally exposed some infrastructure configuration files alongside the web application.'
+    - 'Look for Docker-related files in the infrastructure directory.'
+    - 'Check all referenced third-party images across the Dockerfile and docker-compose.yml and research if any of them have known vulnerabilities or are end-of-life.'
+    - 'Not every outdated-looking version number is actually vulnerable. Do your research on official CVE databases or vendor advisories.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html'
+  key: vulnerableDockerImageChallenge

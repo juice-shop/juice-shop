@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { type ChallengeKey } from 'models/challenge'
+import { type ChallengeKey } from '@juice-shop/models/challenge'
 import logger from './logger'
 import colors from 'colors/safe'
 const solves: Record<string, { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } }> = {}
@@ -36,6 +36,10 @@ export const totalFixItAccuracy = () => {
 
 export const getFindItAttempts = (challengeKey: ChallengeKey) => {
   return solves[challengeKey] ? solves[challengeKey].attempts['find it'] : 0
+}
+
+export const reset = () => {
+  Object.keys(solves).forEach(key => delete solves[key])
 }
 
 function totalAccuracy (phase: Phase) {

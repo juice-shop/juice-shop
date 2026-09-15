@@ -12,7 +12,7 @@ contract JuiceShopSBT is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("JuiceShopSBT", "JS") {}
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri) private onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);

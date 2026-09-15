@@ -1,13 +1,13 @@
 fixes:
   - id: 1
-    explanation: 'Wrong!'
+    explanation: 'Allowing transfers to the zero address actually weakens the Soulbound Token by permitting burning. This does not address the predictable token ID vulnerability at all.'
   - id: 2
-    explanation: 'Correct!'
+    explanation: 'Using a hash of contextual data like the timestamp, recipient address and token URI to generate the token ID makes it non-predictable and prevents an attacker from guessing or front-running token IDs.'
   - id: 3
-    explanation: 'Wrong!'
+    explanation: 'Changing the visibility of safeMint to private makes it uncallable from outside the contract, effectively breaking the minting functionality entirely. The onlyOwner modifier already restricts access sufficiently.'
   - id: 4
-    explanation: 'Wrong!'
+    explanation: 'Removing the counter increment means every subsequent call to safeMint will attempt to mint a token with the same ID, causing all minting after the first to fail.'
 hints:
-  - 'Hint1'
-  - 'Hint2'
-  - 'Hint3'
+  - 'How are the token IDs for newly minted NFTs determined?'
+  - 'What would happen if an attacker could predict the next token ID?'
+  - 'Look into the risks of using sequential counters for security-sensitive identifiers.'

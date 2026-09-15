@@ -5,22 +5,22 @@ import { CodingChallengeProgressScoreCardComponent } from './coding-challenge-pr
 import { TranslateModule } from '@ngx-translate/core'
 
 describe('CodingChallengeProgressScoreCardComponent', () => {
-  let component: CodingChallengeProgressScoreCardComponent
-  let fixture: ComponentFixture<CodingChallengeProgressScoreCardComponent>
+    let component: CodingChallengeProgressScoreCardComponent
+    let fixture: ComponentFixture<CodingChallengeProgressScoreCardComponent>
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), ScoreCardComponent,
-        CodingChallengeProgressScoreCardComponent]
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(), ScoreCardComponent,
+                CodingChallengeProgressScoreCardComponent]
+        })
+            .compileComponents()
+
+        fixture = TestBed.createComponent(CodingChallengeProgressScoreCardComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
     })
-      .compileComponents()
 
-    fixture = TestBed.createComponent(CodingChallengeProgressScoreCardComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create', () => {
+        expect(component).toBeTruthy()
+    })
 })

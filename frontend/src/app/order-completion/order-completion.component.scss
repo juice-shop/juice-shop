@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .order-completion-header {
   display: grid;
-  gap: 24px;
+  gap: $space-l;
   grid-template-columns: auto minmax(250px, max-content);
-  margin-bottom: 16px;
+  margin-bottom: $space-m;
 
   @media (max-width: 800px) {
     grid-template-columns: auto;
   }
 
   > div {
-    padding: 8px;
+    padding: $space-xs;
   }
 }
 
@@ -24,7 +26,7 @@
   display: flex;
   font-size: x-large;
   justify-content: space-between;
-  padding: 6px 8px 6px 20px;
+  padding: $space-2xs $space-xs $space-2xs $space-ml;
 }
 
 .order-links {
@@ -45,8 +47,8 @@
 mat-cell,
 mat-footer-cell,
 mat-header-cell {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: $space-s;
+  padding-right: $space-s;
 }
 
 .price-align {
@@ -63,5 +65,9 @@ mat-header-cell {
 }
 
 .bonus-point-container {
-  margin-top: 16px;
+  margin-top: $space-m;
+}
+
+.total-row {
+  font-weight: 700;
 }
