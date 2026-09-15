@@ -2,9 +2,22 @@ name: DevSecOps Lab Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches-ignore:
+      - l10n_develop
+      - gh-pages
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+      - 'monitoring/grafana-dashboard.json'
+      - 'screenshots/**'
+    tags-ignore:
+      - '*'
   pull_request:
-    branches: [ "main" ]
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+      - 'data/static/i18n/*.json'
+      - 'frontend/src/assets/i18n/*.json'
 
 jobs:
   security-scans:
