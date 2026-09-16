@@ -32,6 +32,10 @@ describe('ChangePasswordComponent', () => {
         fixture.detectChanges()
     }
 
+    const errorMessagesInField = (index: number) => Array.from(
+        (fixture.nativeElement.querySelectorAll('mat-form-field')[index] as HTMLElement).querySelectorAll('mat-error')
+    ).map((error: any) => error.textContent.trim())
+
     beforeEach(async () => {
         userService = {
             changePassword: vi.fn().mockName("UserService.changePassword")
@@ -151,6 +155,22 @@ describe('ChangePasswordComponent', () => {
         expect(errors).toContain('MANDATORY_NEW_PASSWORD')
         expect(errors).toContain('MANDATORY_PASSWORD_REPEAT')
         expect(fixture.nativeElement.querySelector('.confirmation')).toBeNull()
+    })
+
+    it('should show the length error of both new password fields when the password is too short', async () => {
+        setModel({ currentPassword: 'old', newPassword: 'abc', repeatNewPassword: 'abc' })
+        await submitForm()
+        expect(errorMessagesInField(1)).toContain('INVALID_PASSWORD_LENGTH')
+        expect(errorMessagesInField(2)).toContain('INVALID_PASSWORD_LENGTH')
+    })
+
+    it('should show the length error of both new password fields when the password is too long', async () => {
+        const tooLong = 'a'.repeat(41)
+        setModel({ currentPassword: 'old', newPassword: tooLong, repeatNewPassword: tooLong })
+        await submitForm()
+        expect(component.changePasswordForm.newPassword().getError('maxLength')).toBeDefined()
+        expect(errorMessagesInField(1)).toContain('INVALID_PASSWORD_LENGTH')
+        expect(errorMessagesInField(2)).toContain('INVALID_PASSWORD_LENGTH')
     })
 
     it('should display the confirmation after the password was changed and hide it again on further edits', async () => {
