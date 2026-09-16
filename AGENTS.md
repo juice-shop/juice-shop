@@ -2,6 +2,43 @@
 
 This document is the **primary authoritative source** of context for all AI assistants (Claude, GitHub Copilot, Codeium, Continue.dev, Junie, etc.) contributing to OWASP Juice Shop. It provides comprehensive guidelines to maintain code quality, security, and adherence to project standards.
 
+## Instruction Precedence & Guidance Layers
+
+When multiple instructions or guidance files exist, resolve conflicts in the following strict order of precedence:
+
+1. **User Directives**: Explicit instructions provided directly by the user in the active prompt/task.
+2. **Task-Specific Skills**: Dedicated instructions in `.ai/skills/<skill-name>/SKILL.md` (and their linked checklists/patterns).
+3. **Repository Guidelines (AGENTS.md)**: This root `AGENTS.md` file, serving as the primary baseline for all AI contributors.
+4. **Editor/Tool Pointer Files**: Files such as `.claude/CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules`, `.codeium/instructions.md`, `.continue/instructions.md`, and `.junie/AGENTS.md` (which delegate directly to this document).
+5. **Repository Facts & Conventions**: Schemas (`lib/config.schema.ts`), data models (`models/`), challenge registries (`data/static/challenges.yml`), configurations (`config/default.yml`), and existing test patterns.
+
+## Agent Operational Rules & Governance
+
+### 1. Reusing Repository Facts and Conventions
+- **Inspect Before Implementing**: Always check existing implementations (e.g., how adjacent routes, models, or tests are structured) before adding new code.
+- **Strict Pattern Alignment**: Mirror existing naming schemes, error handling, import ordering, and comment density. Never invent custom helper libraries or novel patterns when established repository conventions exist.
+- **Canonical Model & Key Registry**: Always check `models/challenge.ts` and `data/static/challenges.yml` for challenge identifiers, keys, and categories rather than inventing new terms.
+
+### 2. Handling Ambiguity and Missing Business Facts
+- **Ground Truth First**: Resolve ambiguities by checking canonical repository files (`data/static/challenges.yml`, `config/default.yml`, `lib/config.schema.ts`, `package.json`).
+- **Never Hallucinate or Assume**: If business logic, challenge attributes, or required metadata cannot be derived from existing repository facts or task inputs, stop and ask the user for clarification. Never invent placeholder flags, fictional challenge mechanics, or unverified security assertions.
+
+### 3. Canonical External Sources
+- **Security Mitigations**: Only link to official OWASP resources (the **OWASP Cheat Sheet Series** is strongly preferred) in challenge mitigation URLs.
+- **External Metadata Verification**: When crawling external references (for `REFERENCES.md`, `SOLUTIONS.md`, or release notes), extract only verified facts (author, title, date, version). Discard unverified claims or commercial spam.
+- **Translations**: Canonical translation workflow is hosted on [Crowdin](https://crowdin.com/project/owasp-juice-shop). Do not edit `i18n/*.json` files directly.
+
+### 4. Narrow Scope & Change Boundaries
+- **Surgical Changes**: Restrict modifications strictly to files relevant to the active task. Do not perform drive-by refactorings, reformat untouched files, or adjust unrelated configurations.
+- **Doc-Only Efficiency**: For edits confined to `REFERENCES.md` or `SOLUTIONS.md`, skip heavy test execution and linting commands (`npm run lint`, `npm test`) unless explicitly requested.
+
+### 5. Repository Rule and Checklist Application
+Before completing any non-trivial change, verify against the relevant repository checklist:
+- **New or modified challenges**: Follow `.ai/skills/verify-challenge/checklists/challenge-checklist.md`.
+- **Test additions and coverage**: Follow `.ai/skills/write-tests/checklists/testing-checklist.md`.
+- **Release note drafting**: Follow `.ai/skills/generate-release-notes/checklists/release-notes-checklist.md`.
+- **Snippet/codefix changes**: Execute and verify `npm run rsn` following `.ai/skills/verify-rsn-fix/SKILL.md`.
+
 ## Project Overview
 
 - **Project**: OWASP Juice Shop - an intentionally insecure web application for security training

@@ -5,7 +5,35 @@ description: Instructions for adding new hacking guides, videos, or tools to SOL
 
 # Skill: Adding a new Solution or Tool to SOLUTIONS.md
 
-This skill provides instructions for Junie to analyze a new hacking guide, video, or tool, determine if it belongs in `SOLUTIONS.md` or `REFERENCES.md`, collect necessary metadata, and add it to the correct section f `SOLUTIONS.md` following the existing format.
+This skill provides instructions for analyzing a new hacking guide, video, or tool, determining if it belongs in `SOLUTIONS.md` or `REFERENCES.md`, collecting necessary metadata, and adding it to the correct section of `SOLUTIONS.md` following the existing format.
+
+## Repository Targets & Scope
+
+- **Primary Target**: `SOLUTIONS.md`
+- **Secondary Target (Redirect only)**: `REFERENCES.md` (when the entry represents general news, appearances, or non-solution articles)
+
+## Source-of-Truth & Data Handling Rules
+
+- **External Metadata**: The provided external URL / repository / video description is the primary source of truth for resource titles, authors, tools used, and walkthrough targets.
+- **Challenge Ground Truth**: `data/static/challenges.yml` is the canonical source of truth for Juice Shop challenge names, keys, and official categories.
+- **Version Baseline**: `package.json` provides the current application version when inferring recent Juice Shop compatibility tags (`🧃vX.x`).
+- **Section Structure**: `SOLUTIONS.md` is the source of truth for section organization and formatting conventions.
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Adding or updating list entries in appropriate sections of `SOLUTIONS.md`.
+  - Updating the Table of Contents in `SOLUTIONS.md` if section headings are modified.
+  - Redirecting to `REFERENCES.md` if the resource does not provide solutions or exploit tooling.
+- **Forbidden Changes**:
+  - Modifying application source code (`server.ts`, `routes/`, `lib/`, `frontend/`).
+  - Modifying challenge definitions in `data/static/challenges.yml` or codefixes in `data/static/codefixes/`.
+  - Modifying test files, translation files, or build scripts.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Unmatched Challenge Names**: If a walkthrough mentions challenge titles that do not match `data/static/challenges.yml`, check if the challenge was renamed historically or prompt the user for clarification before adding.
+- **Missing Author or Version**: If author details or targeted Juice Shop versions cannot be determined from the source, ask the user instead of fabricating version tags.
 
 ## Distinguishing Between SOLUTIONS.md and REFERENCES.md
 
@@ -44,11 +72,8 @@ If in doubt, and the content contains spoilers (indicated by `:godmode:` or `:bu
 8.  **Update Table of Contents**: If a new top-level section is added (rare), update the TOC.
 9.  **Skip Validation Commands**: Since `SOLUTIONS.md` is a plain text file, running `npm run lint`, `npm test`, or any other validation commands is unnecessary if *only* this file (and/or `REFERENCES.md`) was modified.
 
-## Common Formatting Rules
+## Verification Expectations
 
--   Use `*` for list items.
--   Links are in `[Title](URL)` format.
--   Mention authors with "by [Name](Link)".
--   The Juice Shop version is mentioned as `(🧃`vX.x`)`.
--   For non-English content, add the language code in parentheses, e.g., `(:de:)`, `(:es:)`.
--   **Everything** in `SOLUTIONS.md` is considered a spoiler, so individual icons like `:godmode:` are generally not used for the entry itself (unless it's a sub-item in a list that needs distinguishing).
+- **Formatting Verification**: Manually check markdown syntax, link validity, author credit format (`by [Name](Link)`), and version badge notation (`(🧃`vX.x`)`).
+- **Challenge Key Alignment**: Cross-reference any mentioned challenge name against `data/static/challenges.yml` to prevent broken references.
+- **Validation Commands**: Skip `npm run lint`, `npm test`, or build commands when modifying only `SOLUTIONS.md` (and/or `REFERENCES.md`).

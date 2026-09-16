@@ -5,7 +5,33 @@ description: Instructions for adding new blog posts, talks, or other references 
 
 # Skill: Adding a new Reference to REFERENCES.md
 
-This skill provides instructions for Junie to analyze a new reference (blog post, podcast, conference talk, etc.), determine if it belongs in `REFERENCES.md` or `SOLUTIONS.md`, collect missing information, and add it to the correct section of `REFERENCES.md` following the existing format.
+This skill provides instructions for analyzing a new reference (blog post, podcast, conference talk, etc.), determining if it belongs in `REFERENCES.md` or `SOLUTIONS.md`, collecting missing information, and adding it to the correct section of `REFERENCES.md` following the existing format.
+
+## Repository Targets & Scope
+
+- **Primary Target**: `REFERENCES.md`
+- **Secondary Target (Redirect only)**: `SOLUTIONS.md` (when the entry represents a walkthrough, hacking video, or automated solve tool rather than a general reference)
+
+## Source-of-Truth & Data Handling Rules
+
+- **External Metadata**: The provided external URL / crawled web content is the primary source of truth for reference metadata (title, author, publication date, event name, talk slides/recordings).
+- **Section Structure & Ordering**: `REFERENCES.md` is the canonical source of truth for existing category headings, subcategory structure, and reverse-chronological ordering conventions (e.g., years and dates descending).
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Appending or inserting formatted list entries into existing sections of `REFERENCES.md`.
+  - Updating the Table of Contents in `REFERENCES.md` if a new year heading is created.
+  - Redirecting and adding an entry to `SOLUTIONS.md` instead if the resource qualifies as a solution/exploit tool.
+- **Forbidden Changes**:
+  - Modifying application source code (`server.ts`, `routes/`, `lib/`, `frontend/`).
+  - Modifying translation files, test suites, build configuration, or database files.
+  - Creating new top-level categories in `REFERENCES.md` without explicit user instruction.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Inaccessible or Paywalled Links**: If a link cannot be crawled or metadata cannot be confirmed from public page content, do not invent missing titles, authors, or dates. Prompt the user for the missing metadata.
+- **Unclear Categorization**: If a reference does not fit neatly into one of the established types (e.g. mixed podcast/article), categorize it by primary medium (e.g. audio/video vs text) or confirm with the user.
 
 ## Distinguishing Between SOLUTIONS.md and REFERENCES.md
 
@@ -59,10 +85,8 @@ Refer to the specific instructions for each type:
 - [Awards](types/award.md)
 - [Usage in Tools & Products](types/tools.md)
 
-## Common Formatting Rules
+## Verification Expectations
 
-- Use `*` for list items.
-- Links are in `[Title](URL)` format.
-- Mention authors/speakers with "by [Name](Link)" or "with [Name](Link)".
-- Use existing icons (:bulb:, :godmode:, :mega:, :dollar:) where appropriate.
-- For non-English content, add the language code in parentheses, e.g., `(:de:)`, `(:es:)`.
+- **Formatting Verification**: Manually verify markdown syntax, URL links, author credits, and icon formatting against existing entries in the target section.
+- **TOC Consistency**: Check that the Table of Contents matches all section headings and year entries in `REFERENCES.md`.
+- **Validation Commands**: Do not run `npm run lint`, `npm test`, or build commands when modifying only `REFERENCES.md` (and/or `SOLUTIONS.md`).
