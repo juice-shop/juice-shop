@@ -31,14 +31,15 @@ jobs:
     
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0 # Necessário para o Gitleaks analisar todo o histórico
 
       - name: 1. Secret Scanning (Gitleaks)
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
         continue-on-error: true
 
       - name: 2. SAST Scanning (Semgrep)
