@@ -15,6 +15,22 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+.reveal .warning-panel {
+    max-width: 80%;
+    margin: 1em auto;
+    padding: 0.6em 1em;
+    border: 2px solid #f0ad4e;
+    border-radius: 6px;
+    background-color: rgba(240, 173, 78, 0.15);
+    color: #fff;
+    font-size: 0.65em;
+    text-align: left;
+}
+
+.reveal .warning-panel p {
+    margin: 0.35em 0 0;
+}
+
 .reveal .rainbow {
     background-image: gradient(linear, left top, right top,
     color-stop(0, red),
