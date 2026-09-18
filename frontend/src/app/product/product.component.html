@@ -19,13 +19,12 @@
         <span>{{ "LABEL_SOLD_OUT" | translate }}</span>
       </aside>
     }
-    <section
+    <a
+      class="product-link"
+      [routerLink]="['/product', product.id]"
+      [queryParams]="q ? { q } : {}"
+      [attr.aria-label]="'Click for more information about ' + product.name"
       matTooltipTouchGestures="off"
-      tabindex="0"
-      (keydown.enter)="showDetail(product)"
-      role="button"
-      (click)="showDetail(product)"
-      aria-label="Click for more information about the product"
       matTooltip="Click for more information"
       matTooltipPosition="above"
     >
@@ -45,7 +44,7 @@
       <div class="info-box">
         <div class="name">{{ product.name }}</div>
       </div>
-    </section>
+    </a>
     <footer class="footer">
        <div class="price">
           @if (!isDeluxe() || product.price === product.deluxePrice) {
