@@ -251,17 +251,17 @@ void describe('insecurity', () => {
   void describe('isRedirectAllowed', () => {
     void it('returns true for allowed URLs', () => {
       for (const url of security.redirectAllowlist) {
-        assert.equal(security.isRedirectAllowed(url), true)
+        assert.equal(security.getAllowedRedirect(url) != null, true)
       }
     })
 
     void it('returns true for URLs containing allowed URLs', () => {
-      assert.equal(security.isRedirectAllowed('https://github.com/juice-shop/juice-shop/issues'), true)
+      assert.equal(security.getAllowedRedirect('https://github.com/juice-shop/juice-shop/issues') != null, true)
     })
 
     void it('returns false for disallowed URLs', () => {
-      assert.equal(security.isRedirectAllowed('https://google.com'), false)
-      assert.equal(security.isRedirectAllowed('https://owasp.org'), false)
+      assert.equal(security.getAllowedRedirect('https://google.com') != null, false)
+      assert.equal(security.getAllowedRedirect('https://owasp.org') != null, false)
     })
   })
 
