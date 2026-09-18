@@ -61,8 +61,9 @@ function checkUploadSize ({ file }: Request, res: Response, next: NextFunction) 
 
 function checkFileType ({ file }: Request, res: Response, next: NextFunction) {
   const fileType = file?.originalname.substr(file.originalname.lastIndexOf('.') + 1).toLowerCase()
+  const allowedFileTypes = ['pdf', 'xml', 'zip', 'yml', 'yaml']
   challengeUtils.solveIf(challenges.uploadTypeChallenge, () => {
-    return !(fileType === 'pdf' || fileType === 'xml' || fileType === 'zip' || fileType === 'yml' || fileType === 'yaml')
+    return !fileType || !allowedFileTypes.includes(fileType)
   })
   next()
 }

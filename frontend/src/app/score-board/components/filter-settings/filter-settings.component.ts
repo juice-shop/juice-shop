@@ -89,12 +89,15 @@ export class FilterSettingsComponent implements OnChanges {
   }
 
   public canBeReset (): boolean {
-    return this.filterSetting.difficulties.length > 0 ||
-      this.filterSetting.status !== null ||
-      this.filterSetting.tags.length > 0 ||
-      this.filterSetting.categories.length > 0 ||
-      !!this.filterSetting.searchQuery ||
+    const nonDefaultFilters = [
+      this.filterSetting.difficulties.length > 0,
+      this.filterSetting.status !== null,
+      this.filterSetting.tags.length > 0,
+      this.filterSetting.categories.length > 0,
+      !!this.filterSetting.searchQuery,
       !this.filterSetting.showDisabledChallenges
+    ]
+    return nonDefaultFilters.some(Boolean)
   }
 
   public openAdditionalSettingsDialog () {
