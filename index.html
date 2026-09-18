@@ -210,25 +210,73 @@
 		<section>
 
 			<section>
-				<h2>Juice Shop is CTF-ready</h2>
+				<h2>MultiJuicer Platform <small id="multiJuicerVersion"></small></h2>
 				<p>
-					Flag codes can optionally be displayed for solved challenges
+					<a href="https://github.com/juice-shop/multi-juicer">Official platform</a> to run separate Juice Shop instances for training or CTF participants on a central Kubernetes cluster
 				</p>
-				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/notification_with_flag.png"/>
+				<img src="https://raw.githubusercontent.com/juice-shop/multi-juicer/main/images/multijuicer-cover.svg" height="400" class="no-box"/>
 			</section>
 
 			<section>
-				<h2>Frictionless CTF-Events</h2>
+				<h2>Custom JuiceBalancer</h2>
 				<p>
-					All participants use individual Juice Shop instances anywhere, sharing only the flag code-<code>ctfKey</code> and a central score server.
+					Restricts number of users to team members and protects against illicit cross-team instance access
 				</p>
-				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/CTF_Infrastructure.png" height="420">
+				<img src="assets/JuicyCTF_Architecture.svg" height="400" class="no-box"/>
 			</section>
+
+			<section>
+				<h2>Simplicity &amp; convenience</h2>
+				<p>
+					Trivial registration, transparent instance stickiness, CTF-friendly score board out-of-the-box, automatic light/dark mode
+				</p>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/multi-juicer_register.png" height="220"/>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/multi-juicer_scoreboard.png" height="220"/>
+			</section>
+
+			<section>
+				<h2>"Wargames"-style CTF view</h2>
+				<p>
+					Projector-friendly, animated view of team scores for live events
+				</p>
+				<img src="assets/multi-juicer-ctf-view.jpg">
+			</section>
+
+			<section>
+				<h2>Various installation guides</h2>
+				<p>
+					Step-by-step guides for different platforms and cloud providers
+				</p>
+				<img src="assets/toppng.com-openshift-logo-553x512.png" height="200" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+				<img src="assets/Kubernetes_logo_without_workmark.svg.webp" height="300" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+				<img src="assets/k3s-icon-color-1.webp" height="200" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+				<br>
+				<br>
+				<img src="assets/DOCN.png" height="120" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+				<img src="assets/awslogo-e1680909935373.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/Azure.png" height="120" style="background: none; border:none; box-shadow:none;"/>
+				<img src="assets/Hetzner.png" height="120" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+				<img src="assets/Raspberry_Pi_Logo.svg.webp" height="120" style="background: none; border:none; box-shadow:none; padding-right: 50px;"/>
+			</section>
+
+			<section>
+				<h2>MultiJuicer-To-Go</h2>
+				<img src="assets/10th_anniversary/multijuicer_lego_cluster_1.jpg">
+				<img src="assets/10th_anniversary/multijuicer_lego_cluster_2.jpg">
+				<img src="assets/10th_anniversary/multijuicer_lego_cluster_3.jpg">
+				<small>
+					The specifically designed LEGO tower allows bringing a 4x Raspberry Pi cluster with PoE & cooling fans to any training and have MultiJuicer instances running literally out of the box! Also needed: PoE switch, WiFi router, and Internet uplink via cable e.g. through additional WISP router. Build your own with our <a href="https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/lego" target="_blank">part list and build manual</a>.
+				</small>
+			</section>
+
+		</section>
+
+		<section>
 
 			<section>
 				<h2>CTF Extension <small id="ctfExtensionVersion"></small></h2>
 				<p>
-					<a href="https://github.com/juice-shop/juice-shop-ctf">Utility project</a> to help you host a hacking event on <a href="https://ctfd.io">CTFd</a>, <a href="https://github.com/facebook/fbctf">FBCTF</a> or <a href="https://github.com/moloch--/RootTheBox">RootTheBox</a>
+					<a href="https://github.com/juice-shop/juice-shop-ctf">Utility</a> to host a hacking event on <a href="https://ctfd.io">CTFd</a>, <a href="https://github.com/facebook/fbctf">FBCTF</a> or <a href="https://github.com/moloch--/RootTheBox">RootTheBox</a>
 				</p>
 				<img src="https://raw.githubusercontent.com/OWASP/owasp-swag/refs/heads/master/projects/juice-shop/logos/JuiceShopCTF_Logo.svg" height="400" class="no-box"/>
 			</section>
@@ -266,9 +314,17 @@ insertHints: none | free | paid
 			</section>
 
 			<section>
+				<h2>Flag codes in notifications</h2>
+				<p>
+					Can be conveniently copy-pasted into the CTF score server
+				</p>
+				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/notification_with_flag.png"/>
+			</section>
+
+			<section>
 				<h2>Screenshots from CTF games</h2>
 				<p>
-					Your CTF score server instance will be ready-to-play in <5min
+					Your CTF score server instance will be ready-to-play in minutes
 				</p>
 				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/rtb_1.png" height="200"/> <img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/fbctf_1.png" height="200"/>
 				<br>
@@ -276,53 +332,6 @@ insertHints: none | free | paid
 			</section>
 
 		</section>
-
-		<section>
-
-			<section>
-				<h2>MultiJuicer Platform <small id="multiJuicerVersion"></small></h2>
-				<p>
-					<a href="https://github.com/juice-shop/multi-juicer">Official platform</a> to run separate Juice Shop instances for training or CTF participants on a central Kubernetes cluster
-				</p>
-				<img src="https://raw.githubusercontent.com/juice-shop/multi-juicer/main/images/multijuicer-cover.svg" height="400" class="no-box"/>
-			</section>
-
-			<section>
-				<h2>Custom JuiceBalancer</h2>
-				<p>
-					Restricts number of users to team members and protects against illicit cross-team instance access
-				</p>
-				<img src="assets/JuicyCTF_Architecture.svg" height="400" class="no-box"/>
-			</section>
-
-			<section>
-				<h2>Simplicity &amp; convenience</h2>
-				<p>
-					Trivial registration, transparent instance stickiness, CTF-friendly score board out-of-the-box, automatic light/dark mode
-				</p>
-				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/multi-juicer_register.png" height="220"/>
-				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part4/multi-juicer_scoreboard.png" height="220"/>
-			</section>
-
-			<section>
-				<h2>"Wargames"-style CTF view</h2>
-				<p>
-					Projector-friendly, animated view of team scores for live events
-				</p>
-				<img src="assets/multi-juicer-ctf-view.jpg">
-			</section>
-
-			<section>
-                <h2>MultiJuicer-To-Go</h2>
-                <img src="assets/10th_anniversary/multijuicer_lego_cluster_1.jpg">
-                <img src="assets/10th_anniversary/multijuicer_lego_cluster_2.jpg">
-                <img src="assets/10th_anniversary/multijuicer_lego_cluster_3.jpg">
-                <small>
-                    The specifically designed LEGO tower allows bringing a 4x Raspberry Pi cluster with PoE & cooling fans to any training and have MultiJuicer instances running literally out of the box! Also needed: PoE switch, WiFi router, and Internet uplink via cable e.g. through additional WISP router. Build your own with our <a href="https://github.com/OWASP/owasp-swag/tree/master/projects/juice-shop/lego" target="_blank">part list and build manual</a>.
-                </small>
-            </section>
-
-            </section>
 
 			<section>
 				<h2>Re-branding</h2>
