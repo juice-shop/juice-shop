@@ -183,7 +183,7 @@
 			<section>
 				<h2>Tutorial Mode</h2>
 				<p>
-					Gradually unlocking tutorials and the entire Score Board
+					Complete all <span id="numTutorialChallenges"></span> tutorials to unlock the entire Score Board
 				</p>
 				<img src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/part1/tutorial-mode2.png" height="450"/>
 			</section>
@@ -809,13 +809,17 @@ products:
 
 <!-- Challenges of current Juice Shop release -->
 <script>
-	fetch("https://demo.owasp-juice.shop/api/Challenges").then(async (res) => {
-		const challenges = await res.json();
-		document.getElementById('numChallenges').innerHTML = challenges.data.length
+	fetch("https://juice-shop.github.io/tab_challenges.html").then(async (res) => {
+		const html = await res.text();
+		const total = html.match(/Total\s*Σ<\/strong><\/td>\s*<td colspan="2">(\d+)<\/td>/)
+		document.getElementById('numChallenges').innerHTML = total ? total[1] : '?'
 	})
-	fetch("https://demo.owasp-juice.shop/snippets").then(async (res) => {
-		const snippets = await res.json();
-		document.getElementById('numCodingChallenges').innerHTML = snippets.challenges.length
+	fetch("https://juice-shop.github.io/tab_learning.html").then(async (res) => {
+		const html = await res.text();
+		const total = html.match(/Total\s*Σ<\/strong><\/td>\s*<td colspan="2">(\d+)<\/td>/)
+		document.getElementById('numCodingChallenges').innerHTML = total ? total[1] : '?'
+		const tutorials = html.match(/the (\d+) tutorial challenges/)
+		document.getElementById('numTutorialChallenges').innerHTML = tutorials ? tutorials[1] : '?'
 	})
 	fetch("https://raw.githubusercontent.com/juice-shop/juice-shop/master/package.json").then(async (res) => {
 		const juiceShopPackage = await res.json();
