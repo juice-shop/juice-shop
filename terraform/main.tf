@@ -115,7 +115,7 @@ resource "aws_ecs_service" "juice_shop" {
     container_port   = 3000
   }
 
-  depends_on = [aws_lb_listener.http]
+  depends_on = [aws_lb_listener.http_redirect, aws_lb_listener.https]
 
   tags = {
     Project     = var.project_name
