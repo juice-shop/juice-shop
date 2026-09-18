@@ -47,3 +47,8 @@ JSON
 JSON.map
 frontend/src/
 frontend/.angular/
+.junie/
+cypress/
+.ai/
+logs/
+.playwright-mcp/
