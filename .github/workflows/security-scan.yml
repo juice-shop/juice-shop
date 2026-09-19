@@ -1,1 +1,39 @@
+name: Juice Shop Security Pipeline
 
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  security-scan:
+    name: SAST and SCA Analysis
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Run Dependency Audit (SCA)
+      run: npm audit --audit-level=high
+      continue-on-error: true
+
+    - name: Run Semgrep Code Scan (SAST)
+      uses: semgrep/semgrep-action@v1
+      with:
+        config: auto
+      continue-on-error: true
