@@ -1,0 +1,13 @@
+rules:
+  - id: juice-shop-basket-missing-user-ownership-check
+    languages:
+      - typescript
+    message: >
+      Vérifier le contrôle de propriété : le panier est recherché par son ID
+      sans contrainte explicite reliant le panier à l'utilisateur authentifié.
+    severity: ERROR
+    patterns:
+      - pattern: |
+          await BasketModel.findOne({ where: { id: $ID }, ... })
+      - pattern-not: |
+          await BasketModel.findOne({ where: { id: $ID, UserId: $USER }, ... })

@@ -1,0 +1,30 @@
+name: Security Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run custom BOLA SAST rule
+        run: |
+          python -m pip install semgrep
+          semgrep --config=bola-rule-v3.yml routes/basket.ts --error
+
+      - name: Build application
+        run: npm run build
