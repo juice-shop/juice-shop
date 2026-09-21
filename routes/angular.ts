@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
- * SPDX-License-Identifier: MIT
+ * SPDX-License-Identifier: MIT test
  */
 
 import path from 'node:path'
