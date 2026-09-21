@@ -1,6 +1,7 @@
 pipeline:
   name: original scan harness
   identifier: original_scan_harness
+  description: Runs STO security scans (Semgrep, OWASP, OSV, Gitleaks) against the juice-shop repository.
   tags: {}
   projectIdentifier: juiceShop_bm
   orgIdentifier: default
@@ -32,6 +33,16 @@ pipeline:
               os: Linux
           execution:
             steps:
+              - step:
+                  type: Run
+                  name: Generate lockfiles
+                  identifier: generate_lockfiles
+                  spec:
+                    connectorRef: account.remediationagentdelegate
+                    image: node:18
+                    command: |
+                      npm install --package-lock-only
+                      cd frontend && npm install --package-lock-only
               - step:
                   type: Semgrep
                   name: Semgrep_1
