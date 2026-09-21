@@ -39,10 +39,10 @@ pipeline:
                   identifier: generate_lockfiles
                   spec:
                     connectorRef: account.remediationagentdelegate
-                    image: node:18
+                    image: node:22
                     command: |
-                      npm install --package-lock-only
-                      cd frontend && npm install --package-lock-only
+                      npm install --package-lock-only --ignore-scripts
+                      cd frontend && npm install --package-lock-only --ignore-scripts
               - step:
                   type: Semgrep
                   name: Semgrep_1
