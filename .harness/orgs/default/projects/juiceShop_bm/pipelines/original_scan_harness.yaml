@@ -58,7 +58,8 @@ pipeline:
                         advanced:
                           log:
                             level: info
-                          args: {}
+                          args:
+                            passthrough: --exclude /harness/test/files
                         mode: orchestration
                         config: default
                   - step:
