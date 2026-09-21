@@ -6,25 +6,49 @@ pipeline:
   orgIdentifier: default
   stages:
     - stage:
-        name: test
-        identifier: test
+        name: init
+        identifier: init
         description: ""
-        type: Custom
+        type: SecurityTests
         spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.remediationagentdelegate
+              namespace: harness-qa-delegate
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
           execution:
             steps:
               - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
+                  type: Semgrep
+                  name: Semgrep_1
+                  identifier: Semgrep_1
                   spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: ls -la
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-        tags: {}
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+                    resources:
+                      limits:
+                        memory: 2Gi
+                        cpu: 2000m
+                      requests:
+                        memory: 1Gi
+                        cpu: 1000m
+  properties:
+    ci:
+      codebase:
+        connectorRef: benchmarking
+        build: <+input>
