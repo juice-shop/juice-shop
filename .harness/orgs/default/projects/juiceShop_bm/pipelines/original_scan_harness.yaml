@@ -62,7 +62,7 @@ pipeline:
                           log:
                             level: info
                           args:
-                            cli: --exclude /harness/test/files
+                            cli: --exclude ".*test/files.*"
                         mode: orchestration
                         config: default
                   - step:
