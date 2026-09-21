@@ -13,6 +13,7 @@
   { "key": "el_GR", "icons": ["gr"], "shortKey": "EL", "lang": "Ελληνικά" },
   { "key": "es_ES", "icons": ["es"], "shortKey": "ES", "lang": "Español" },
   { "key": "et_EE", "icons": ["ee"], "shortKey": "ET", "lang": "Eesti" },
+  { "key": "fa_IR", "icons": ["ir"], "shortKey": "FA", "lang": "انگلیسی" },
   { "key": "fi_FI", "icons": ["fi"], "shortKey": "FI", "lang": "Suomalainen" },
   { "key": "fr_FR", "icons": ["fr"], "shortKey": "FR", "lang": "Français" },
   { "key": "ka_GE", "icons": ["ge"], "shortKey": "KA", "lang": "ქართული" },
