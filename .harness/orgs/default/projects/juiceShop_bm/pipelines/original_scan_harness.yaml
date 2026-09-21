@@ -37,6 +37,7 @@ pipeline:
                   type: Run
                   name: Generate lockfiles
                   identifier: generate_lockfiles
+                  timeout: 2h
                   spec:
                     connectorRef: account.remediationagentdelegate
                     image: node:22
@@ -47,6 +48,7 @@ pipeline:
                   type: Semgrep
                   name: Semgrep_1
                   identifier: Semgrep_1
+                  timeout: 2h
                   spec:
                     target:
                       detection: auto
@@ -62,6 +64,7 @@ pipeline:
                       type: Owasp
                       name: Owasp_1
                       identifier: Owasp_1
+                      timeout: 2h
                       spec:
                         target:
                           detection: auto
@@ -77,6 +80,7 @@ pipeline:
                       type: OsvScanner
                       name: OsvScanner_1
                       identifier: OsvScanner_1
+                      timeout: 2h
                       spec:
                         target:
                           detection: auto
@@ -91,6 +95,7 @@ pipeline:
                   type: Gitleaks
                   name: Gitleaks_1
                   identifier: Gitleaks_1
+                  timeout: 2h
                   spec:
                     target:
                       detection: auto
