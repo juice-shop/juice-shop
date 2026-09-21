@@ -34,18 +34,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Generate lockfiles
-                  identifier: generate_lockfiles
-                  timeout: 2h
-                  spec:
-                    connectorRef: account.remediationagentdelegate
-                    image: node:22
-                    command: |
-                      rm -f package-lock.json frontend/package-lock.json
-                      npm install --package-lock-only --ignore-scripts
-                      cd frontend && npm install --package-lock-only --ignore-scripts --legacy-peer-deps
-              - step:
                   type: Semgrep
                   name: Semgrep_1
                   identifier: Semgrep_1
