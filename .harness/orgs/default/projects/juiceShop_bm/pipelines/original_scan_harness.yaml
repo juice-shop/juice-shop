@@ -42,6 +42,7 @@ pipeline:
                     connectorRef: account.remediationagentdelegate
                     image: node:22
                     command: |
+                      rm -f package-lock.json frontend/package-lock.json
                       npm install --package-lock-only --ignore-scripts
                       cd frontend && npm install --package-lock-only --ignore-scripts
               - step:
