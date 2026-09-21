@@ -1,0 +1,226 @@
+pipeline:
+  name: buildvalidation
+  identifier: buildvalidation
+  tags: {}
+  projectIdentifier: juiceShop_bm
+  orgIdentifier: default
+  properties:
+    ci:
+      codebase:
+        connectorRef: juice_shop_benchmark
+        build: <+input>
+        sparseCheckout: []
+  stages:
+    - stage:
+        identifier: init
+        type: CI
+        name: init
+        description: Juice Shop build validation — lint, build + smoke/E2E, unit tests
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.remediationagentdelegate
+              namespace: harness-qa-delegate
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  identifier: Lint_Check
+                  type: Run
+                  name: Lint_Check
+                  timeout: 20m
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: node:24-bookworm
+                    shell: Sh
+                    command: |-
+                      #!/bin/sh
+                      set -e
+                      WORKSPACE="${HARNESS_WORKSPACE:-.}"
+                      cd "$WORKSPACE"
+                      export NODE_OPTIONS="--max_old_space_size=4096"
+
+                      echo "==> Install dependencies (minimal, for lint)"
+                      npm install --ignore-scripts
+                      cd frontend
+                      npm install --ignore-scripts
+                      cd "$WORKSPACE"
+
+                      echo "==> Lint source code"
+                      npm run lint
+                      echo "==> PASSED"
+                    resources:
+                      limits:
+                        memory: 4Gi
+                        cpu: "2"
+              - step:
+                  identifier: Build_and_E2E
+                  type: Run
+                  name: Build_and_E2E
+                  timeout: 60m
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: node:24-bookworm
+                    shell: Sh
+                    command: |-
+                      #!/bin/sh
+                      set -e
+                      WORKSPACE="${HARNESS_WORKSPACE:-.}"
+                      PORT="${JUICE_SHOP_PORT:-3000}"
+                      BASE_URL="http://127.0.0.1:${PORT}"
+                      APP_PID=""
+
+                      cleanup() {
+                        [ -n "$APP_PID" ] && kill "$APP_PID" 2>/dev/null || true
+                      }
+                      trap cleanup EXIT INT TERM
+
+                      assert_status() {
+                        _label="$1" _exp="$2" _got="$3"
+                        if [ "$_got" != "$_exp" ]; then
+                          echo "FAIL [$_label]: expected HTTP $_exp, got HTTP $_got"
+                          exit 1
+                        fi
+                        echo "PASS [$_label]: HTTP $_got"
+                      }
+
+                      echo "==> Install build toolchain for native modules (sqlite3)"
+                      apt-get update -qq
+                      DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+                        curl ca-certificates python3 make g++ >/dev/null
+
+                      cd "$WORKSPACE"
+                      export NODE_OPTIONS="--max_old_space_size=4096"
+
+                      echo "==> Install application"
+                      npm install
+
+                      # Lint step uses --ignore-scripts and CI cache can restore
+                      # node_modules without native .node binaries; npm then reports
+                      # "up to date" and skips sqlite3's install/rebuild.
+                      echo "==> Rebuild native modules (sqlite3)"
+                      npm rebuild sqlite3
+                      node -e "require('sqlite3'); console.log('sqlite3 bindings OK')"
+
+                      echo "==> Verify production build artifacts"
+                      test -f build/app.js || test -f build/app
+                      test -d frontend/dist/frontend || test -d frontend/dist
+
+                      echo "==> Start Juice Shop on $BASE_URL"
+                      PORT="$PORT" npm start >/tmp/juice-shop.log 2>&1 &
+                      APP_PID=$!
+
+                      for i in $(seq 1 90); do
+                        curl -fsS "$BASE_URL" >/dev/null 2>&1 && break
+                        kill -0 "$APP_PID" 2>/dev/null || {
+                          echo "Juice Shop exited early"
+                          tail -n 100 /tmp/juice-shop.log || true
+                          exit 1
+                        }
+                        sleep 3
+                      done
+                      curl -fsS "$BASE_URL" >/dev/null
+
+                      echo "==> Official smoke tests"
+                      chmod +x test/smoke/smoke-test.sh
+                      test/smoke/smoke-test.sh "$BASE_URL"
+
+                      echo "==> Runtime API regression"
+                      assert_status "index page" 200 "$(curl -s -o /dev/null -w '%{http_code}' "$BASE_URL/")"
+                      assert_status "challenges API" 200 "$(curl -s -o /dev/null -w '%{http_code}' "$BASE_URL/api/Challenges")"
+                      assert_status "products API" 200 "$(curl -s -o /dev/null -w '%{http_code}' "$BASE_URL/api/Products")"
+                      assert_status "quantity API" 200 "$(curl -s -o /dev/null -w '%{http_code}' "$BASE_URL/api/Quantitys")"
+
+                      LOGIN_RESP=$(curl -s -X POST "$BASE_URL/rest/user/login" \
+                        -H 'Content-Type: application/json' \
+                        -d '{"email":"admin@juice-sh.op","password":"admin123"}')
+                      TOKEN=$(printf '%s' "$LOGIN_RESP" | node -e "
+                        const data = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+                        if (!data.authentication || !data.authentication.token) {
+                          console.error('Login response missing token:', JSON.stringify(data));
+                          process.exit(1);
+                        }
+                        process.stdout.write(data.authentication.token);
+                      ")
+                      test -n "$TOKEN"
+                      echo "PASS [admin login]: token received"
+                      assert_status "whoami API" 200 "$(curl -s -o /dev/null -w '%{http_code}' \
+                        -H "Cookie: token=$TOKEN" \
+                        "$BASE_URL/rest/user/whoami")"
+                      assert_status "basket API" 200 "$(curl -s -o /dev/null -w '%{http_code}' \
+                        -H "Authorization: Bearer $TOKEN" \
+                        "$BASE_URL/rest/basket/1")"
+
+                      echo "==> Build + E2E PASSED"
+                    envVariables:
+                      JUICE_SHOP_PORT: "3000"
+                      NODE_OPTIONS: "--max_old_space_size=4096"
+                    resources:
+                      limits:
+                        memory: 8Gi
+                        cpu: "3"
+              - step:
+                  identifier: Unit_Tests
+                  type: Run
+                  name: Unit_Tests
+                  timeout: 45m
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: node:24-bookworm
+                    shell: Sh
+                    command: |-
+                      #!/bin/sh
+                      set -e
+                      WORKSPACE="${HARNESS_WORKSPACE:-.}"
+
+                      echo "==> Install build toolchain for native modules (sqlite3)"
+                      apt-get update -qq
+                      DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+                        python3 make g++ >/dev/null
+
+                      cd "$WORKSPACE"
+                      export NODE_OPTIONS="--max_old_space_size=4096"
+
+                      echo "==> Install application"
+                      npm install
+
+                      # Same cache/ignore-scripts issue as Build_and_E2E
+                      echo "==> Rebuild native modules (sqlite3)"
+                      npm rebuild sqlite3
+                      node -e "require('sqlite3'); console.log('sqlite3 bindings OK')"
+
+                      # postinstall rebuilds frontend/dist without owasp_promo.vtt (it lives
+                      # only in data/static). createApp() normally copies it via
+                      # restoreOverwrittenFilesWithOriginals, but that early-returns when
+                      # NODE_ENV=test AND i18n/en.json already exists (left by prior steps).
+                      echo "==> Restore promotion subtitles for API tests"
+                      mkdir -p frontend/dist/frontend/assets/public/videos
+                      cp -f data/static/owasp_promo.vtt \
+                        frontend/dist/frontend/assets/public/videos/owasp_promo.vtt
+                      test -f frontend/dist/frontend/assets/public/videos/owasp_promo.mp4
+
+                      echo "==> Server unit tests"
+                      npm run test:server
+
+                      echo "==> API integration tests"
+                      NODE_ENV=test npm run test:api
+
+                      echo "==> Frontend unit tests"
+                      npm run test:frontend
+
+                      echo "==> All unit tests PASSED"
+                    envVariables:
+                      NODE_OPTIONS: "--max_old_space_size=4096"
+                    resources:
+                      limits:
+                        memory: 6Gi
+                        cpu: "2"
