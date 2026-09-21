@@ -496,7 +496,7 @@
   "NFT_MINT_TEXT_AWAITING_APPROVAL": "Warte auf Freigabe",
   "NFT_MINT_TEXT_CONFIRM": "Prägung bestätigen...",
   "NFT_MINT_TEXT_IN_PROGRESS": "Prägung in Arbeit...",
-  "CHATBOT_SUBTITLE": "Delivering excellency one token at a time",
+  "CHATBOT_SUBTITLE": "Token für Token Exzellenz liefern",
   "SHOW_PREVIOUS_TOOL_CALLS": "{{count}} vorherige Werkzeugaufrufe anzeigen",
   "CHATBOT_SEND_MESSAGE": "Nachricht senden",
   "CHATBOT_SUGGESTION_RECOMMEND": "Einen Vorschlag erhalten",
