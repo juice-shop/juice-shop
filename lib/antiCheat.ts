@@ -61,9 +61,11 @@ const challengeSourceFiles: Record<string, string[]> = {
 }
 
 export const checkForPreSolveInteractions = () => ({ url }: Request, res: Response, next: NextFunction) => {
+  const normalizedPath = url.split('?')[0].toLowerCase()
   preSolveInteractions.forEach((preSolveInteraction) => {
     for (let i = 0; i < preSolveInteraction.urlFragments.length; i++) {
-      if (url.endsWith(preSolveInteraction.urlFragments[i])) {
+      const fragment = preSolveInteraction.urlFragments[i].toLowerCase()
+      if (normalizedPath.endsWith(fragment) || normalizedPath.endsWith(`${fragment}/`)) {
         preSolveInteraction.interactions[i] = true
       }
     }
