@@ -39,7 +39,7 @@ const trivialChallenges = ['errorHandlingChallenge', 'privacyPolicyChallenge', '
 const solves: Array<{ challenge: any, phase: string, timestamp: Date, cheatScore: number }> = [{ challenge: {}, phase: 'server start', timestamp: new Date(), cheatScore: 0 }] // seed with server start timestamp
 
 const preSolveInteractions: Array<{ challengeKey: ChallengeKey, urlFragments: string[], interactions: boolean[] }> = [
-  { challengeKey: 'missingEncodingChallenge', urlFragments: ['/assets/public/images/uploads/%F0%9F%98%BC-'], interactions: [false] },
+  { challengeKey: 'missingEncodingChallenge', urlFragments: ['/assets/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-'], interactions: [false] },
   { challengeKey: 'directoryListingChallenge', urlFragments: ['/ftp'], interactions: [false] },
   { challengeKey: 'easterEggLevelOneChallenge', urlFragments: ['/ftp', '/ftp/eastere.gg'], interactions: [false, false] },
   { challengeKey: 'easterEggLevelTwoChallenge', urlFragments: ['/ftp', '/gur/qrif/ner/fb/shaal/gurl/uvq/na/rnfgre/rtt/jvguva/gur/rnfgre/rtt'], interactions: [false, false] },
