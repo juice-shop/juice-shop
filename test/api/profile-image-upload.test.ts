@@ -144,8 +144,8 @@ void describe('/profile/image/url', () => {
       .attach('file', file)
       .redirects(0)
 
-        assert.equal(res.status, 302)
-        assert.ok(res.headers.location?.includes('/profile'))
+    assert.equal(res.status, 302)
+    assert.ok(res.headers.location?.includes('/profile'))
   })
 })
 
