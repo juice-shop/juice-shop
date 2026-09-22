@@ -16,4 +16,4 @@
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use(express.static(path.resolve('frontend/dist/frontend')))
-  app.use(cookieParser('kekse'))
+  app.use(cookieParser(crypto.randomBytes(32).toString('hex')))

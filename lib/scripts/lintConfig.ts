@@ -39,9 +39,13 @@ async function validateFile (file: string): Promise<boolean> {
   return true
 }
 
+export function sortConfigFileNames (names: string[]): string[] {
+  return [...names].sort((a, b) => a.localeCompare(b))
+}
+
 async function main () {
   const entries = await readdir(configDir)
-  const files = entries.filter(name => name.endsWith('.yml')).sort().map(name => path.join(configDir, name))
+  const files = sortConfigFileNames(entries.filter(name => name.endsWith('.yml'))).map(name => path.join(configDir, name))
 
   let success = true
   for (const file of files) {
@@ -53,7 +57,10 @@ async function main () {
   }
 }
 
-main().catch(error => {
-  console.error(error)
-  process.exit(1)
-})
+/* istanbul ignore next */
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error)
+    process.exit(1)
+  })
+}

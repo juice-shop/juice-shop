@@ -27,7 +27,7 @@ import { UserModelInit } from './user'
 import { WalletModelInit } from './wallet'
 import { Sequelize, Transaction } from 'sequelize'
 
-let sequelize = createSequelize()
+let sequelizeInstance = createSequelize()
 
 function createSequelize (options?: { inMemory?: boolean }) {
   return new Sequelize('database', 'username', 'password', {
@@ -69,9 +69,29 @@ function initModels (seq: Sequelize) {
 }
 
 function setSequelize (seq: Sequelize) {
-  sequelize = seq
+  sequelizeInstance = seq
 }
 
-initModels(sequelize)
+initModels(sequelizeInstance)
+
+// 'sequelize' is exported as an immutable 'const' Proxy that always forwards to the
+// current sequelizeInstance, so consumers keep observing live updates from
+// setSequelize (e.g. when tests swap in an in-memory database) without the export
+// binding itself ever being reassignable.
+const sequelize: Sequelize = new Proxy({} as Sequelize, {
+  get (_target, prop, receiver) {
+    const value = Reflect.get(sequelizeInstance as object, prop, receiver)
+    return typeof value === 'function' ? value.bind(sequelizeInstance) : value
+  },
+  set (_target, prop, value) {
+    return Reflect.set(sequelizeInstance as object, prop, value)
+  },
+  has (_target, prop) {
+    return Reflect.has(sequelizeInstance as object, prop)
+  },
+  getPrototypeOf () {
+    return Reflect.getPrototypeOf(sequelizeInstance as object)
+  }
+})
 
 export { sequelize, createSequelize, initModels, setSequelize }

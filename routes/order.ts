@@ -45,15 +45,7 @@ export function placeOrder () {
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
           fileWriter.on('finish', () => {
-            void (async () => {
-              try {
-                void basket.update({ coupon: null })
-                await BasketItemModel.destroy({ where: { BasketId: id } })
-                res.json({ orderConfirmation: orderId })
-              } catch (error: unknown) {
-                next(error)
-              }
-            })()
+            void finalizeOrder(basket, id, orderId, res, next)
           })
 
           doc.font('Times-Roman').fontSize(40).text(config.get<string>('application.name'), { align: 'center' })
@@ -184,6 +176,16 @@ export function placeOrder () {
       }).catch((error: unknown) => {
         next(error)
       })
+  }
+}
+
+async function finalizeOrder (basket: BasketModel, id: string, orderId: string, res: Response, next: NextFunction) {
+  try {
+    void basket.update({ coupon: null })
+    await BasketItemModel.destroy({ where: { BasketId: id } })
+    res.json({ orderConfirmation: orderId })
+  } catch (error: unknown) {
+    next(error)
   }
 }
 

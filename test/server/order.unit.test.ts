@@ -253,6 +253,31 @@ void describe('order', () => {
     assert.ok(true)
   })
 
+  void it('should resolve with an order confirmation and clear the basket coupon on success', async () => {
+    const basket = {
+      id: 1,
+      Products: [],
+      update: mock.fn(async () => {}),
+      coupon: 'SOME-COUPON'
+    }
+    mock.method(BasketModel, 'findOne', async () => basket)
+    mock.method(security.authenticatedUsers, 'from', () => ({ data: { email: 'test@juice-sh.op' } }))
+    mock.method(db.ordersCollection, 'insert', async () => {})
+    mock.method(BasketItemModel, 'destroy', async () => {})
+    mock.method(WalletModel, 'increment', async () => {})
+
+    const p = new Promise((resolve) => {
+      res.json = (data: any) => { resolve(data) }
+    })
+
+    placeOrder()(req, res, next)
+    const result = await p as { orderConfirmation: string }
+
+    assert.match(result.orderConfirmation, /^[a-f0-9]{4}-[a-f0-9]{16}$/)
+    assert.equal(basket.update.mock.callCount(), 1)
+    assert.deepEqual(basket.update.mock.calls[0].arguments, [{ coupon: null }])
+  })
+
   void it('should call next with error if wallet balance is insufficient', async () => {
     const basket = {
       id: 1,

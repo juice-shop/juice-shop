@@ -112,14 +112,14 @@ await new Promise((resolve, reject) => {
 
 console.log(`Created ${archivePath}`)
 
-// Generate MD5 checksums
+// Generate SHA-256 checksums
 for (const file of await fs.readdir('dist')) {
-  if (file.endsWith('.md5')) continue
+  if (file.endsWith('.sha256')) continue
   const filePath = path.join('dist', file)
   if (!(await fs.stat(filePath)).isFile()) continue
   const content = await fs.readFile(filePath)
-  const hash = crypto.createHash('md5').update(content).digest('hex')
-  const hashFile = `${filePath}.md5`
+  const hash = crypto.createHash('sha256').update(content).digest('hex')
+  const hashFile = `${filePath}.sha256`
   await fs.writeFile(hashFile, hash)
   console.log(`Checksum ${hash} written to ${hashFile}`)
 }

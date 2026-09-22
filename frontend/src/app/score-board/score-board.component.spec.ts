@@ -21,6 +21,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HintService } from '../Services/hint.service'
 import { SocketIoService } from '../Services/socket-io.service'
 import { Router } from '@angular/router'
+import { DomSanitizer } from '@angular/platform-browser'
+import { SecurityContext } from '@angular/core'
 
 // allows to easily create a challenge with some overwrites
 function createChallenge(challengeOverwrites: Partial<Challenge>): Challenge {
@@ -234,6 +236,28 @@ describe('ScoreBoardComponent', () => {
             component.lastUnlockedChallengeKey = 'previous'
             component.unlockHint(7)
             expect(component.lastUnlockedChallengeKey).toBeNull()
+        })
+    })
+
+    describe('challenge description sanitization', () => {
+        it('should trust the static, developer-authored description HTML while keeping the raw source available', () => {
+            challengeService.find.mockReturnValue(of([
+                createChallenge({
+                    name: 'Challenge 1',
+                    key: 'challenge-1',
+                    category: 'category-blue',
+                    difficulty: 1,
+                    solved: true,
+                    description: 'Perform a <i>persisted</i> XSS attack with <code>&lt;iframe&gt;</code>.'
+                })
+            ]))
+            component.ngOnInit()
+
+            const challenge = component.allChallenges.find((c) => c.key === 'challenge-1')
+            expect(challenge.originalDescription).toBe('Perform a <i>persisted</i> XSS attack with <code>&lt;iframe&gt;</code>.')
+
+            const sanitizer = TestBed.inject(DomSanitizer)
+            expect(sanitizer.sanitize(SecurityContext.HTML, challenge.description)).toBe(challenge.originalDescription)
         })
     })
 

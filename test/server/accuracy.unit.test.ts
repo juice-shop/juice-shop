@@ -76,8 +76,8 @@ void describe('accuracy', () => {
 
   void it('should return NaN for total accuracy when no challenges are solved', () => {
     accuracy.reset()
-    assert.ok(isNaN(accuracy.totalFindItAccuracy()))
-    assert.ok(isNaN(accuracy.totalFixItAccuracy()))
+    assert.equal(Number.isNaN(accuracy.totalFindItAccuracy()), true)
+    assert.equal(Number.isNaN(accuracy.totalFixItAccuracy()), true)
   })
 
   void it('should calculate accuracy as 0.2 for solved on fifth attempt', () => {

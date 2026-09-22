@@ -22,6 +22,7 @@ import compression from 'compression'
 // @ts-expect-error FIXME due to non-existing type definitions for express-robots-txt
 import robots from 'express-robots-txt'
 import cookieParser from 'cookie-parser'
+import crypto from 'node:crypto'
 import * as Prometheus from 'prom-client'
 import swaggerUi from 'swagger-ui-express'
 import featurePolicy from 'feature-policy'
@@ -305,7 +306,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   app.use(express.static(path.resolve('frontend/dist/frontend')))
-  app.use(cookieParser('kekse'))
+  app.use(cookieParser(crypto.randomBytes(32).toString('hex')))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 
   /* Serve vendor dependencies locally instead of from CDN */

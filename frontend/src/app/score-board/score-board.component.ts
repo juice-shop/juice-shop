@@ -80,6 +80,8 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
           hintsAvailable: hints.filter((hint) => hint.ChallengeId === challenge.id).length,
           tagList: challenge.tags ? challenge.tags.split(',').map((tag) => tag.trim()) : [],
           originalDescription: challenge.description as string,
+          // Safe: challenge descriptions are static, developer-authored content from data/static/challenges.yml,
+          // never derived from user input, so trusting this HTML does not expose an XSS vector.
           description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string)
         }
       })
