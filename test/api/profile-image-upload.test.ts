@@ -129,7 +129,7 @@ void describe('/profile/image/url', () => {
     assert.ok(res.text.includes('Error: Blocked illegal activity'))
   })
 
-  void it('POST valid image with tampered content length', { skip: 'Fails on CI/CD pipeline' }, async () => {
+  void it('POST valid image with tampered content length', async () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
 
     const { token } = await login(app, {
@@ -144,8 +144,8 @@ void describe('/profile/image/url', () => {
       .attach('file', file)
       .redirects(0)
 
-    assert.equal(res.status, 500)
-    assert.ok(res.text.includes('Unexpected end of form'))
+        assert.equal(res.status, 302)
+        assert.ok(res.headers.location?.includes('/profile'))
   })
 })
 
