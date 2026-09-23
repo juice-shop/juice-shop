@@ -48,6 +48,10 @@ pipeline:
                       args: {}
                     mode: orchestration
                     config: default
+                    resources:
+                      limits:
+                        cpu: "2"
+                        memory: 4Gi
               - step:
                   type: Owasp
                   name: Owasp_1
