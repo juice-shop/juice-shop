@@ -1,0 +1,48 @@
+pipeline:
+  name: original scan mythos
+  identifier: original_scan_mythos
+  tags: {}
+  projectIdentifier: juiceShop_bm
+  orgIdentifier: default
+  properties:
+    ci:
+      codebase:
+        connectorRef: final_js_bm
+        build: <+input>
+  stages:
+    - stage:
+        name: init
+        identifier: init
+        description: ""
+        type: SecurityTests
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.remediationagentdelegate
+              namespace: harness-qa-delegate
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: MythosAgent
+                  name: MythosAgent_1
+                  identifier: MythosAgent_1
+                  spec:
+                    mode: orchestration
+                    config: scan
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+                    privileged: false
