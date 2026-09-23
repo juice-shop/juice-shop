@@ -1,0 +1,54 @@
+pipeline:
+  name: original scan snyk
+  identifier: original_scan_snyk
+  tags: {}
+  projectIdentifier: juiceShop_bm
+  orgIdentifier: default
+  stages:
+    - stage:
+        name: init
+        identifier: init
+        description: ""
+        type: SecurityTests
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.remediationagentdelegate
+              namespace: harness-qa-delegate
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Semgrep
+                  name: Semgrep_1
+                  identifier: Semgrep_1
+                  spec:
+                    mode: orchestration
+                    config: default
+                    target:
+                      type: repository
+                      detection: auto
+                    advanced:
+                      log:
+                        level: info
+                    resources:
+                      limits:
+                        memory: 2Gi
+                        cpu: 2000m
+                      requests:
+                        memory: 1Gi
+                        cpu: 1000m
+  properties:
+    ci:
+      codebase:
+        connectorRef: benchmarking
+        build: <+input>
