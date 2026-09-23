@@ -65,7 +65,7 @@ pipeline:
                       log:
                         level: info
                       args:
-                        cli: --exclude .*test/files.* --disableArchive
+                        cli: --exclude "**/test/files/**" --exclude "**/*.exe" --disableArchive
                     mode: orchestration
                     config: default
               - step:
