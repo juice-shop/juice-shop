@@ -10,6 +10,8 @@ import assert from 'node:assert/strict'
 import * as security from '../../lib/insecurity'
 import type { UserModel } from '@juice-shop/models/user'
 import type { Request } from 'express'
+import crypto from 'node:crypto'
+import { loadJwtKeys } from '../../lib/jwtKeys'
 
 void describe('insecurity', () => {
   void describe('cutOffPoisonNullByte', () => {
@@ -206,7 +208,12 @@ void describe('insecurity', () => {
 
   void describe('deluxeToken', () => {
     void it('returns SHA-256 HMAC with private key as salt for email and deluxe role', () => {
-      assert.equal(security.deluxeToken('test@juice-sh.op'), '91e2b6493fda679d95ae05ac0d1cdce82c2ad4f7b518202a3ed54732531bc7e1')
+      const expected = crypto
+      .createHmac('sha256', loadJwtKeys(process.env.JWT_PRIVATE_KEY).privateKey)
+      .update('test@juice-sh.opdeluxe')
+      .digest('hex')
+
+    assert.equal(security.deluxeToken('test@juice-sh.op'), expected)
     })
   })
 

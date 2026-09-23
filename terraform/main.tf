@@ -58,6 +58,13 @@ resource "aws_ecs_task_definition" "juice_shop" {
           value = var.node_env
         }
       ]
+
+      secrets = [
+        {
+          name      = "JWT_PRIVATE_KEY"
+          valueFrom = var.jwt_private_key_secret_arn
+        }
+      ]
       mountPoints = [
         {
           sourceVolume  = "sqlite-data"
@@ -115,7 +122,11 @@ resource "aws_ecs_service" "juice_shop" {
     container_port   = 3000
   }
 
-  depends_on = [aws_lb_listener.http]
+  depends_on = [
+    aws_lb_listener.http,
+    aws_lb_listener.https,
+    aws_iam_role_policy.jwt_secret
+  ]
 
   tags = {
     Project     = var.project_name
@@ -131,4 +142,18 @@ resource "aws_cloudwatch_log_group" "juice_shop" {
     Project     = var.project_name
     Environment = var.environment
   }
+}
+
+resource "aws_iam_role_policy" "jwt_secret" {
+  name = "${var.project_name}-jwt-secret"
+  role = aws_iam_role.ecs_execution.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "secretsmanager:GetSecretValue"
+      Resource = var.jwt_private_key_secret_arn
+    }]
+  })
 }

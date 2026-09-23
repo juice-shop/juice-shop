@@ -69,3 +69,25 @@ variable "efs_encrypted" {
   type        = bool
   default     = true
 }
+
+variable "alb_certificate_arn" {
+  description = "ARN of an issued ACM certificate in the ALB region; provisioned outside this stack"
+  type        = string
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^arn:[a-z0-9-]+:acm:[a-z0-9-]+:[0-9]{12}:certificate/[a-f0-9-]+$", var.alb_certificate_arn))
+    error_message = "Provide an ACM certificate ARN."
+  }
+}
+
+variable "jwt_private_key_secret_arn" {
+  description = "ARN of a Secrets Manager secret containing a separate RSA private key as raw PEM, using the default Secrets Manager KMS key"
+  type        = string
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^arn:[a-z0-9-]+:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+$", var.jwt_private_key_secret_arn))
+    error_message = "Provide a Secrets Manager secret ARN."
+  }
+}
