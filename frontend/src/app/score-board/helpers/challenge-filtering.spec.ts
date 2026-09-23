@@ -61,17 +61,17 @@ describe('filterChallenges', () => {
 
     it('should filter challenges based on categories properly', () => {
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['foobar'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, categories: ['barfoo'] }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
     })
 
     it('should filter challenges based on difficulties properly', () => {
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [1, 6] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-3'].sort())
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [3] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-2'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, difficulties: [3] }).map((challenge) => challenge.key)).toEqual(['challenge-2'])
     })
 
     it('should filter challenges based on tags properly', () => {
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['easy'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, tags: ['hard'] }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
     })
 
     it('should filter challenges with "External Dependency" tag matching any "Requires ..." tag', () => {
@@ -112,14 +112,14 @@ describe('filterChallenges', () => {
     })
 
     it('should filter challenges based on status properly', () => {
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-2'].sort())
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
-       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key)).toEqual(['challenge-2'])
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
+       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
     })
 
     it('should filter challenges based on searchQuery properly', () => {
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'lorem' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
-        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }).map((challenge) => challenge.key).sort()).toEqual(['challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, searchQuery: 'challenge three' }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
     })
 
     it('should filter challenges based on disabled setting properly', () => {
@@ -128,11 +128,11 @@ describe('filterChallenges', () => {
     })
 
     it('should only show unsolved tutorial of first difficulty if no challenges are solved', () => {
-       expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
+       expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
     })
 
     it('should only show tutorial challenges when restrictToTutorialChallengesFirst is set', () => {
-        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1'].sort())
+        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false, difficulty: 1, tutorialOrder: null }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
     })
 
     it('should only show unsolved tutorial of first difficulty and solved ones of easier difficulties', () => {
