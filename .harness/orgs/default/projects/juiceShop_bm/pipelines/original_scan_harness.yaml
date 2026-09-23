@@ -1,0 +1,81 @@
+pipeline:
+  name: original scan harness
+  identifier: original_scan_harness
+  description: Runs STO security scans (Semgrep, OWASP, Gitleaks) against the juice-shop repository.
+  tags: {}
+  projectIdentifier: juiceShop_bm
+  orgIdentifier: default
+  properties:
+    ci:
+      codebase:
+        connectorRef: final_js_bm
+        build: <+input>
+  stages:
+    - stage:
+        name: init
+        identifier: init
+        description: ""
+        type: SecurityTests
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.remediationagentdelegate
+              namespace: harness-qa-delegate
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Semgrep
+                  name: Semgrep_1
+                  identifier: Semgrep_1
+                  timeout: 2h
+                  spec:
+                    target:
+                      detection: auto
+                      type: repository
+                    advanced:
+                      log:
+                        level: info
+                      args: {}
+                    mode: orchestration
+                    config: default
+              - step:
+                  type: Owasp
+                  name: Owasp_1
+                  identifier: Owasp_1
+                  timeout: 2h
+                  spec:
+                    target:
+                      detection: auto
+                      type: repository
+                    advanced:
+                      log:
+                        level: info
+                      args:
+                        cli: --exclude .*test/files.* --disableArchive
+                    mode: orchestration
+                    config: default
+              - step:
+                  type: Gitleaks
+                  name: Gitleaks_1
+                  identifier: Gitleaks_1
+                  timeout: 2h
+                  spec:
+                    target:
+                      detection: auto
+                      type: repository
+                    advanced:
+                      log:
+                        level: info
+                      args: {}
+                    mode: orchestration
+                    config: default
