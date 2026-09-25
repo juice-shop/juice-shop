@@ -11,7 +11,7 @@ import { provideZoneChangeDetection } from '@angular/core'
 
 import { ProductComponent } from './product.component'
 import { ProductDetailsComponent } from '../product-details/product-details.component'
-import { type Product, type ProductTableEntry } from '../Models/product.model'
+import { type AlternateImage, type Product, type ProductTableEntry } from '../Models/product.model'
 import { ProductService } from '../Services/product.service'
 import { BasketService } from '../Services/basket.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -353,6 +353,55 @@ describe('ProductComponent', () => {
             fixture.detectChanges()
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('aside.ribbon-sold')).toBeTruthy()
+        })
+    })
+
+    describe('backgroundImage', () => {
+        const avifCandidates = [
+            { file: 'apple_juice-1x.avif', format: 'image/avif', density: '1x' },
+            { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+            { file: 'apple_juice-3x.avif', format: 'image/avif', density: '3x' }
+        ] as AlternateImage[]
+
+        it('should fall back to a plain url when the product has no alternate images', () => {
+            expect(component.backgroundImage()).toBe('url("assets/public/images/products/apple_juice.jpg")')
+        })
+
+        it('should offer every alternate image ahead of the original as an image-set', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, alternateImages: avifCandidates })
+            expect(component.backgroundImage()).toBe(
+                'image-set(' +
+                'url("assets/public/images/products/apple_juice-1x.avif") type("image/avif") 1x, ' +
+                'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                'url("assets/public/images/products/apple_juice-3x.avif") type("image/avif") 3x, ' +
+                'url("assets/public/images/products/apple_juice.jpg") 1x)'
+            )
+        })
+
+        it('should pick the same candidates as the picture element so neither triggers an extra download', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, alternateImages: avifCandidates })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            const srcset = compiled.querySelector('picture source[type="image/avif"]')?.getAttribute('srcset')
+            for (const candidate of avifCandidates) {
+                expect(srcset).toContain(`assets/public/images/products/${candidate.file} ${candidate.density}`)
+                expect(component.backgroundImage()).toContain(`url("assets/public/images/products/${candidate.file}")`)
+            }
+        })
+
+        it('should skip width-based candidates that image-set cannot express', () => {
+            fixture.componentRef.setInput('item', {
+                ...testProduct,
+                alternateImages: [
+                    { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+                    { file: 'apple_juice-800.avif', format: 'image/avif', width: '800w' }
+                ] as AlternateImage[]
+            })
+            expect(component.backgroundImage()).toBe(
+                'image-set(' +
+                'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                'url("assets/public/images/products/apple_juice.jpg") 1x)'
+            )
         })
     })
 })

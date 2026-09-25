@@ -29,12 +29,7 @@
       matTooltip="Click for more information"
       matTooltipPosition="above"
     >
-      <div
-        class="image-container"
-        [style.background-image]="
-          'url(\'assets/public/images/products/' + product.image + '\')'
-        "
-      >
+      <div class="image-container" [style.background-image]="backgroundImage()">
         <app-product-image [alternateImages]="product.alternateImages">
           <img
             mat-card-image
