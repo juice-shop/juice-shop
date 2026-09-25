@@ -13,7 +13,8 @@ ngAfterViewInit () {
             deluxePrice: product.deluxePrice,
             id: product.id,
             image: product.image,
-            description: product.description
+            description: product.description,
+            alternateImages: product.alternateImages
           })
         }
         for (const quantity of quantities) {
