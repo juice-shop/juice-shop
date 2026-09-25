@@ -1,0 +1,119 @@
+#
+# Sonatype Guide — Agent P (AGP) Workflow
+# Learn more: https://links.sonatype.com/products/guide/docs/agent-p
+#
+# File: .github/workflows/agp-workflow.yml
+#
+# Authentication: Uses GitHub OIDC (id-token: write) to authenticate with
+# Sonatype Guide.
+#
+# How this works:
+#   1. The lightweight `gate` job calls Sonatype Guide over OIDC to fetch your
+#      organization's governed configuration and a run/pause directive. It runs no
+#      container, so it is fast and cheap.
+#   2. The `agp` job only runs when the gate says `run`. If your repository is paused
+#      in Guide — or Guide is unreachable — the `agp` job is skipped entirely, so no
+#      runner is allocated and no container image is pulled.
+#
+# Configuration is governed centrally in Sonatype Guide; there is no agp.yml to edit
+# in this repository — the gate writes the effective configuration at run time.
+#
+# Optional:
+#   - set variable AGP_API_URL to a specific Sonatype Guide Environment, if not provided
+#     defaults to the Production AGP API URL.
+
+name: Sonatype Guide - Agent P
+
+on:
+  schedule:
+    # Runs once a day. Change it to any schedule preferred.
+    - cron: '32 2 * * *'
+  workflow_dispatch:
+    inputs:
+      verbose:
+        description: 'Enable verbose output'
+        required: false
+        default: 'false'
+        type: boolean
+      # Declared so Sonatype Guide can start this workflow via the dispatch API: GitHub rejects a
+      # workflow_dispatch carrying inputs the workflow does not declare. Full runs send mode;
+      # targeted security-fix runs also send vulnerabilities; heal and resolve-failure runs also
+      # send repo_id.
+      #
+      # Deliberately `type: string` rather than `type: choice`. A choice input restricts the value to
+      # the enumerated list, so adding a mode later would make the dispatch fail with 422 on every
+      # repository still running an older copy of this template — and this file is generated per repo
+      # and never updated in place. A free-form string is what lets a new mode (resolve-failure was
+      # the last one) reach every governed repository without a template migration. The cost is that
+      # the manual "Run workflow" form shows a text box instead of a dropdown.
+      mode:
+        description: 'Run mode (full, security, heal, or resolve-failure)'
+        required: false
+        default: 'full'
+        type: string
+      repo_id:
+        description: 'Sonatype Guide repository id (required for heal and resolve-failure modes)'
+        required: false
+        type: number
+      vulnerabilities:
+        description: 'JSON array of vulnerabilities to target (security mode)'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write  # Required for Sonatype Guide OIDC authentication
+
+concurrency:
+  group: agp-workflow
+  cancel-in-progress: false
+
+jobs:
+  # Cheap, Docker-free gate. Determines whether AGP should run for this repo and, when
+  # it should, writes the governed effective agp.yml to the workspace (fail-closed).
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      directive: ${{ steps.gate.outputs.directive }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Sonatype Guide gate
+        id: gate
+        uses: sonatype/agp-action/gate@v1
+        with:
+          guide-url: ${{ vars.AGP_API_URL }}
+
+  agp:
+    needs: gate
+    if: needs.gate.outputs.directive == 'run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Fetch governed configuration
+        # GitHub jobs run separately and don't share files, so fetch the governed configuration
+        # again here for the AGP run below to use.
+        uses: sonatype/agp-action/gate@v1
+        with:
+          guide-url: ${{ vars.AGP_API_URL }}
+
+      - name: Run AGP
+        uses: sonatype/agp-action@v1
+        with:
+          # Forward the dispatch inputs so a backend-triggered run targets the right mode.
+          # A full/scheduled run sends mode=full; security-fix sends mode=security
+          # with a vulnerabilities payload; heal sends mode=heal with repo_id; and
+          # resolve-failure sends mode=resolve-failure with repo_id when CI fails on an
+          # open Agent P pull request.
+          mode: ${{ inputs.mode || 'full' }}
+          repo_id: ${{ inputs.repo_id || '' }}
+          vulnerabilities: ${{ inputs.vulnerabilities }}
+          verbose: ${{ inputs.verbose || 'false' }}
+        env:
+          AGP_API_URL: ${{ vars.AGP_API_URL }}
