@@ -5,16 +5,16 @@
 
 <main class="center-container">
   <mat-card appearance="outlined" class="mat-elevation-z6 mdc-card">
-    <h1 class="mat-headline-medium" translate>TITLE_LOGIN</h1>
+    <h1 class="mat-headline-medium">{{'TITLE_LOGIN' | translate}}</h1>
 
     @if (error()) {
-    <div class="error" role="alert">{{error()}}</div>
+    <p class="error" role="alert">{{error()}}</p>
     }
 
     <form class="form-container" id="login-form" (ngSubmit)="login()">
 
       <mat-form-field color="tertiary" appearance="outline">
-        <mat-label translate>LABEL_EMAIL</mat-label>
+        <mat-label>{{'LABEL_EMAIL' | translate}}</mat-label>
         <input id="email"
           [formField]="loginForm.email"
           (focus)="error.set(null)"
@@ -22,12 +22,12 @@
           aria-label="Text field for the login email"
         >
         @if (loginForm.email().getError('required')) {
-        <mat-error translate>MANDATORY_EMAIL</mat-error>
+        <mat-error>{{'MANDATORY_EMAIL' | translate}}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field color="tertiary" appearance="outline">
-        <mat-label translate>LABEL_PASSWORD</mat-label>
+        <mat-label>{{'LABEL_PASSWORD' | translate}}</mat-label>
         <input id="password"
           [formField]="loginForm.password"
           (focus)="error.set(null)"
@@ -42,11 +42,11 @@
           <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
         </button>
         @if (loginForm.password().getError('required')) {
-        <mat-error translate>MANDATORY_PASSWORD</mat-error>
+        <mat-error>{{'MANDATORY_PASSWORD' | translate}}</mat-error>
         }
       </mat-form-field>
 
-      <a class="primary-link forgot-pw" routerLink="/forgot-password" translate>FORGOT_PASSWORD</a>
+      <a class="primary-link forgot-pw" routerLink="/forgot-password">{{'FORGOT_PASSWORD' | translate}}</a>
 
       <button
         type="submit"
@@ -71,7 +71,7 @@
         <div class="line">
           <div></div>
         </div>
-        <div class="textOnLine" translate>LABEL_OR</div>
+        <div class="textOnLine">{{'LABEL_OR' | translate}}</div>
         <div class="line">
           <div></div>
         </div>
@@ -90,7 +90,7 @@
       }
 
       <div id="newCustomerLink">
-        <a class="primary-link" routerLink="/register" translate>NO_CUSTOMER</a>
+        <a class="primary-link" routerLink="/register">{{'NO_CUSTOMER' | translate}}</a>
       </div>
     </form>
   </mat-card>
