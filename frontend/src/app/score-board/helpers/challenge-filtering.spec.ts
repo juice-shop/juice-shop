@@ -108,13 +108,13 @@ describe('filterChallenges', () => {
             key: 'challenge-easy',
             tagList: ['easy']
         } as EnrichedChallenge
-       expect(filterChallenges([challengeWithRequires, challengeWithHardTag, challengeWithEasyTag], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-requires', 'challenge-hard'].sort())
+        expect(filterChallenges([challengeWithRequires, challengeWithHardTag, challengeWithEasyTag], { ...DEFAULT_FILTER_SETTING, tags: [EXTERNAL_DEPENDENCY_TAG, 'hard'] }).map((challenge) => challenge.key).sort()).toEqual(['challenge-requires', 'challenge-hard'].sort())
     })
 
     it('should filter challenges based on status properly', () => {
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'solved' }).map((challenge) => challenge.key)).toEqual(['challenge-2'])
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'unsolved' }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
-       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, status: 'partially-solved' }).map((challenge) => challenge.key)).toEqual(['challenge-3'])
     })
 
     it('should filter challenges based on searchQuery properly', () => {
@@ -123,12 +123,12 @@ describe('filterChallenges', () => {
     })
 
     it('should filter challenges based on disabled setting properly', () => {
-       expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
+        expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: true }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2', 'challenge-3'].sort())
         expect(filterChallenges([CHALLENGE_1, CHALLENGE_2, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, showDisabledChallenges: false }).map((challenge) => challenge.key).sort()).toEqual(['challenge-1', 'challenge-2'].sort())
     })
 
     it('should only show unsolved tutorial of first difficulty if no challenges are solved', () => {
-       expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
+        expect(filterChallenges([CHALLENGE_1, { ...CHALLENGE_2, solved: false }, CHALLENGE_3], { ...DEFAULT_FILTER_SETTING, restrictToTutorialChallengesFirst: true }).map((challenge) => challenge.key)).toEqual(['challenge-1'])
     })
 
     it('should only show tutorial challenges when restrictToTutorialChallengesFirst is set', () => {
