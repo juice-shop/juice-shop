@@ -60,6 +60,11 @@ describe('ChangePasswordComponent', () => {
         fixture.detectChanges()
     })
 
+    afterEach(() => {
+        localStorage.removeItem('email')
+        vi.restoreAllMocks()
+    })
+
     it('should create', () => {
         expect(component).toBeTruthy()
     })
@@ -210,8 +215,6 @@ describe('ChangePasswordComponent', () => {
         setModel({ currentPassword: 'old', newPassword: 'foobar', repeatNewPassword: 'foobar' })
         await submitForm()
         expect(log).toHaveBeenCalled()
-        localStorage.removeItem('email')
-        log.mockRestore()
     })
 
     it('should not warn when the new password of a support team account satisfies the corporate password policy', async () => {
@@ -220,7 +223,5 @@ describe('ChangePasswordComponent', () => {
         setModel({ currentPassword: 'old', newPassword: 'CorporateP0licy!23', repeatNewPassword: 'CorporateP0licy!23' })
         await submitForm()
         expect(log).not.toHaveBeenCalled()
-        localStorage.removeItem('email')
-        log.mockRestore()
     })
 })
