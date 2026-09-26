@@ -25,14 +25,13 @@ mat-card {
 }
 
 .error {
-  margin-bottom: $space-m;
+  margin-top: 0;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
   position: relative;
-
 }
 
 .forgot-pw {
@@ -58,7 +57,6 @@ mat-form-field {
   margin-left: 20%;
   margin-top: $space-xl;
   width: 60%;
-
 }
 
 .breakLine {
