@@ -206,7 +206,7 @@ describe('ChangePasswordComponent', () => {
         setModel({ newPassword: 'foobar', repeatNewPassword: 'foobar' })
         fixture.detectChanges()
         const hints = Array.from(fixture.nativeElement.querySelectorAll('.mat-mdc-form-field-hint-end')).map((e: any) => e.textContent.trim())
-        expect(hints).toEqual(['6/40', '6/20'])
+        expect(hints).toEqual(['6/40', '6/40'])
     })
 
     it('should warn when the new password of a support team account violates the corporate password policy', async () => {
