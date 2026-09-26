@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { describe, it } from 'node:test'
+import { describe, it, mock } from 'node:test'
 import assert from 'node:assert/strict'
 import type { ChallengeModel } from '@juice-shop/models/challenge'
 import fs from 'node:fs'
@@ -100,6 +100,22 @@ void describe('utils', () => {
       assert.equal(downloaded, true)
       assert.ok(agent instanceof ProxyAgent)
       assert.equal(await agent.getProxyForUrl('https://example.com/avatar.png', undefined as never), 'http://proxy.example:8080')
+    })
+  })
+
+  void describe('asyncHandler', () => {
+    void it('passes rejected handler promises to next', async () => {
+      const error = new Error('Route failed')
+      const next = mock.fn()
+      const handler = utils.asyncHandler(async () => {
+        throw error
+      })
+
+      handler({}, {}, next)
+      await new Promise(resolve => setImmediate(resolve))
+
+      assert.equal(next.mock.calls.length, 1)
+      assert.equal(next.mock.calls[0].arguments[0], error)
     })
   })
 
