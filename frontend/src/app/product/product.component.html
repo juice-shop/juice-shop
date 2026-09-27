@@ -9,9 +9,7 @@
   <article class="product">
     @if (product?.quantity <= 5 && product?.quantity > 0) {
       <aside class="ribbon">
-        <span translate [translateParams]="{ quantity: product.quantity }"
-          >LABEL_ONLY_QUANTITY_LEFT</span
-        >
+        <span>{{ 'LABEL_ONLY_QUANTITY_LEFT' | translate: { quantity: product.quantity } }}</span>
       </aside>
     }
     @if (product?.quantity <= 0) {
