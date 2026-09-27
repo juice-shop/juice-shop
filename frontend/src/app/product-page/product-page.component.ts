@@ -33,8 +33,11 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { DeluxeGuard } from '../app.guard'
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { ProductComponent } from '../product/product.component'
+import { ProductImageComponent } from '../product-image/product-image.component'
 import { type Product } from '../Models/product.model'
 import { type Review } from '../Models/review.model'
+
+const IMAGE_BASE_PATH = 'assets/public/images/products/'
 
 library.add(faCrown)
 
@@ -60,7 +63,8 @@ library.add(faCrown)
     MatLabel,
     MatHint,
     TranslateModule,
-    ProductComponent
+    ProductComponent,
+    ProductImageComponent
   ]
 })
 export class ProductPageComponent implements OnDestroy {
@@ -84,6 +88,26 @@ export class ProductPageComponent implements OnDestroy {
   readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
   readonly reviewsExpanded = signal(false)
   readonly quantity = signal(1)
+
+  /* Mirrors the candidates of <app-product-image> so the blurred backdrop reuses the image
+     already fetched by the <picture> instead of downloading the fallback on top of it */
+  readonly backgroundImage = computed(() => {
+    const product = this.productResource.value()
+    if (product == null) {
+      return ''
+    }
+    const fallback = `url("${IMAGE_BASE_PATH}${product.image}")`
+    /* image-set() only understands resolution descriptors, so width-based candidates are left out */
+    const candidates = (product.alternateImages ?? []).filter((image) => image.density)
+    if (candidates.length === 0) {
+      return fallback
+    }
+    return `image-set(${[
+      ...candidates.map((image) => `url("${IMAGE_BASE_PATH}${image.file}") type("${image.format}") ${image.density}`),
+      `${fallback} 1x`
+    ].join(', ')})`
+  })
+
   private resizeObserver?: ResizeObserver
   private observedGrid?: HTMLElement
 

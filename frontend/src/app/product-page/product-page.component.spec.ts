@@ -18,6 +18,7 @@ import { ProductReviewService } from '../Services/product-review.service'
 import { UserService } from '../Services/user.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { DeluxeGuard } from '../app.guard'
+import { type AlternateImage } from '../Models/product.model'
 
 if (typeof globalThis.ResizeObserver === 'undefined') {
     globalThis.ResizeObserver = class ResizeObserver {
@@ -392,6 +393,74 @@ describe('ProductPageComponent', () => {
         await vi.waitFor(() => {
             notFoundFixture.detectChanges()
             expect(notFoundFixture.nativeElement.querySelector('.status-message')).toBeTruthy()
+        })
+    })
+
+    describe('product images', () => {
+        const avifCandidates = [
+            { file: 'apple_juice-1x.avif', format: 'image/avif', density: '1x' },
+            { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+            { file: 'apple_juice-3x.avif', format: 'image/avif', density: '3x' }
+        ] as AlternateImage[]
+
+        const renderWithProduct = (product: any) => {
+            productService.get.mockReturnValue(of(product))
+            const imagesFixture = TestBed.createComponent(ProductPageComponent)
+            imagesFixture.detectChanges()
+            return imagesFixture
+        }
+
+        it('should fall back to a plain url when the product has no alternate images', async () => {
+            const imagesFixture = renderWithProduct(testProduct)
+            await vi.waitFor(() => {
+                imagesFixture.detectChanges()
+                expect(imagesFixture.componentInstance.backgroundImage()).toBe('url("assets/public/images/products/apple_juice.jpg")')
+            })
+        })
+
+        it('should offer every alternate image ahead of the original as an image-set', async () => {
+            const imagesFixture = renderWithProduct({ ...testProduct, alternateImages: avifCandidates })
+            await vi.waitFor(() => {
+                imagesFixture.detectChanges()
+                expect(imagesFixture.componentInstance.backgroundImage()).toBe(
+                    'image-set(' +
+                    'url("assets/public/images/products/apple_juice-1x.avif") type("image/avif") 1x, ' +
+                    'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                    'url("assets/public/images/products/apple_juice-3x.avif") type("image/avif") 3x, ' +
+                    'url("assets/public/images/products/apple_juice.jpg") 1x)'
+                )
+            })
+        })
+
+        it('should skip width-based candidates that image-set cannot express', async () => {
+            const imagesFixture = renderWithProduct({
+                ...testProduct,
+                alternateImages: [
+                    { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+                    { file: 'apple_juice-800.avif', format: 'image/avif', width: '800w' }
+                ]
+            })
+            await vi.waitFor(() => {
+                imagesFixture.detectChanges()
+                expect(imagesFixture.componentInstance.backgroundImage()).toBe(
+                    'image-set(' +
+                    'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                    'url("assets/public/images/products/apple_juice.jpg") 1x)'
+                )
+            })
+        })
+
+        it('should render the same alternate images that the backdrop reuses', async () => {
+            const imagesFixture = renderWithProduct({ ...testProduct, alternateImages: avifCandidates })
+            await vi.waitFor(() => {
+                imagesFixture.detectChanges()
+                const srcset = imagesFixture.nativeElement.querySelector('picture source[type="image/avif"]')?.getAttribute('srcset')
+                expect(srcset).toBeTruthy()
+                for (const candidate of avifCandidates) {
+                    expect(srcset).toContain(`assets/public/images/products/${candidate.file} ${candidate.density}`)
+                    expect(imagesFixture.componentInstance.backgroundImage()).toContain(`url("assets/public/images/products/${candidate.file}")`)
+                }
+            })
         })
     })
 })
