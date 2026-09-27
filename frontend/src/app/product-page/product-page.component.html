@@ -70,7 +70,7 @@
     <mat-expansion-panel #reviewsPanel class="reviews-panel mat-elevation-z0" [(expanded)]="reviewsExpanded" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span translate>LABEL_REVIEWS</span>
+          <span>{{ 'LABEL_REVIEWS' | translate }}</span>
           <span class="review-count">
             @if (reviewsResource.isLoading()) {
               <mat-spinner diameter="16" aria-label="Loading reviews"></mat-spinner>
@@ -115,12 +115,12 @@
           }
         </ul>
       } @else {
-        <p class="noResultText" translate>EMPTY_REVIEW_LIST</p>
+        <p class="noResultText">{{ 'EMPTY_REVIEW_LIST' | translate }}</p>
       }
 
       <form class="review-form" (ngSubmit)="addReview(textPut)"
         [style.display]="isLoggedIn() ? 'block' : 'none'">
-        <h3 class="write-review-title" translate>WRITE_REVIEW</h3>
+        <h3 class="write-review-title">{{ 'WRITE_REVIEW' | translate }}</h3>
         <mat-form-field appearance="outline" color="tertiary" floatLabel="always">
           <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
           <mat-hint>
@@ -144,7 +144,7 @@
     </mat-expansion-panel>
 
     <section aria-labelledby="related-title">
-      <h2 id="related-title" class="related-title" translate>LABEL_RELATED_PRODUCTS</h2>
+      <h2 id="related-title" class="related-title">{{ 'LABEL_RELATED_PRODUCTS' | translate }}</h2>
       @if (relatedProductsResource.isLoading()) {
         <div class="loading loading--compact" role="status" aria-live="polite">
           <mat-spinner diameter="40" aria-label="Loading related products"></mat-spinner>
@@ -158,6 +158,6 @@
       }
     </section>
   } @else if (productId() != null) {
-    <p class="status-message" translate>PRODUCT_NOT_FOUND</p>
+    <p class="status-message">{{ 'PRODUCT_NOT_FOUND' | translate }}</p>
   }
 </main>
