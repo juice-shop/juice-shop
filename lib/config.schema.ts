@@ -122,11 +122,27 @@ export const HackingInstructorSchema = z.object({
   hintPlaybackSpeed: z.enum(['faster', 'fast', 'normal', 'slow', 'slower'])
 })
 
+export const AlternateImageSchema = z.union([
+  z.object({
+    file: z.string(),
+    format: z.string(),
+    density: z.string()
+  }),
+  z.object({
+    file: z.string(),
+    format: z.string(),
+    width: z.string()
+  })
+], {
+  error: '"file" and "format" are required, plus exactly one of "density" (e.g. "1x") or "width" (e.g. "450w")'
+})
+
 export const ProductSchema = z.object({
   name: z.string(),
   price: z.number(),
   description: z.string(),
   image: z.string(),
+  alternateImages: z.array(AlternateImageSchema).optional(),
   deluxePrice: z.number().optional(),
   limitPerUser: z.number().optional(),
   reviews: z.array(z.object({ text: z.string(), author: z.string() })).optional(),
@@ -216,6 +232,7 @@ export type ApplicationConfig = z.infer<typeof ApplicationSchema>
 export type ChallengesConfig = z.infer<typeof ChallengesSchema>
 export type HackingInstructorConfig = z.infer<typeof HackingInstructorSchema>
 export type Product = z.infer<typeof ProductSchema>
+export type AlternateImage = z.infer<typeof AlternateImageSchema>
 export type Memory = z.infer<typeof MemorySchema>
 export type CtfConfig = z.infer<typeof CtfSchema>
 export type AppConfig = z.infer<typeof AppConfigSchema>

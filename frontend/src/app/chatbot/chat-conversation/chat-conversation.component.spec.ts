@@ -345,10 +345,8 @@ describe('ChatConversationComponent', () => {
         it('should keep default bot name and avatar when config has no chatBot section', () => {
             configurationService.getApplicationConfiguration.mockReturnValue(of({ application: {} } as any))
             component.chatBotName.set('Juicy')
-            component.chatBotAvatar.set('assets/public/images/JuicyBot.png')
             component.ngOnInit()
             expect(component.chatBotName()).toBe('Juicy')
-            expect(component.chatBotAvatar()).toBe('assets/public/images/JuicyBot.png')
         })
 
         it('should mark an assistant error message via the stream and break out of the loop', async () => {

@@ -6,7 +6,9 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import type { ChallengeModel } from '@juice-shop/models/challenge'
+import fs from 'node:fs'
 import * as utils from '../../lib/utils'
+import { ProxyAgent } from 'proxy-agent'
 
 void describe('utils', () => {
   void describe('toSimpleIpAddress', () => {
@@ -52,6 +54,52 @@ void describe('utils', () => {
 
     void it('also works for file:// URLs', () => {
       assert.equal(utils.extractFilename('file:///C//Bla/Blubb/test.exe'), 'test.exe')
+    })
+  })
+
+  void describe('downloadToFile', () => {
+    void it('uses the HTTPS proxy from the environment', async (t) => {
+      const originalProxy = process.env.HTTPS_PROXY
+      const originalLowercaseProxy = process.env.https_proxy
+      const originalNoProxy = process.env.NO_PROXY
+      const originalLowercaseNoProxy = process.env.no_proxy
+      process.env.HTTPS_PROXY = 'http://proxy.example:8080'
+      process.env.https_proxy = 'http://proxy.example:8080'
+      process.env.NO_PROXY = ''
+      process.env.no_proxy = ''
+      t.after(() => {
+        if (originalProxy === undefined) {
+          delete process.env.HTTPS_PROXY
+        } else {
+          process.env.HTTPS_PROXY = originalProxy
+        }
+        if (originalLowercaseProxy === undefined) {
+          delete process.env.https_proxy
+        } else {
+          process.env.https_proxy = originalLowercaseProxy
+        }
+        if (originalNoProxy === undefined) {
+          delete process.env.NO_PROXY
+        } else {
+          process.env.NO_PROXY = originalNoProxy
+        }
+        if (originalLowercaseNoProxy === undefined) {
+          delete process.env.no_proxy
+        } else {
+          process.env.no_proxy = originalLowercaseNoProxy
+        }
+      })
+      t.mock.method(fs, 'writeFileSync', () => undefined)
+
+      let agent: unknown
+      const downloaded = await utils.downloadToFile('https://example.com/avatar.png', 'unused', async (_url, options) => {
+        agent = options.agent
+        return Buffer.from('image')
+      })
+
+      assert.equal(downloaded, true)
+      assert.ok(agent instanceof ProxyAgent)
+      assert.equal(await agent.getProxyForUrl('https://example.com/avatar.png', undefined as never), 'http://proxy.example:8080')
     })
   })
 

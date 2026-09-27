@@ -47,8 +47,7 @@ export class ChatConversationComponent implements OnInit {
   showToolCalls = signal(false)
   isToolCallsCollapsed = signal(true)
   messageInput = signal('')
-  chatBotName = signal('Juicy')
-  chatBotAvatar = signal('assets/public/images/JuicyBot.png')
+  chatBotName = signal('Juicy the Smart Assistant')
 
   private conversationId = ''
 
@@ -57,9 +56,6 @@ export class ChatConversationComponent implements OnInit {
       next: (config) => {
         if (config?.application?.chatBot?.name) {
           this.chatBotName.set(config.application.chatBot.name)
-        }
-        if (config?.application?.chatBot?.avatar) {
-          this.chatBotAvatar.set('assets/public/images/' + config.application.chatBot.avatar)
         }
       },
       error: (err) => { console.log(err) }

@@ -4,7 +4,7 @@
  */
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core'
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core'
 import { ActivatedRoute, RouterLink } from '@angular/router'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
@@ -15,11 +15,14 @@ import { MatCardModule } from '@angular/material/card'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
+import { ProductImageComponent } from '../product-image/product-image.component'
+
+const IMAGE_BASE_PATH = 'assets/public/images/products/'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product',
-  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, RouterLink],
+  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, ProductImageComponent, RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -34,6 +37,22 @@ export class ProductComponent {
   isLoggedIn = input.required<boolean>()
   isDeluxe = input.required<boolean>()
 
+  /* Mirrors the candidates of <app-product-image> so the blurred backdrop reuses the image
+     already fetched by the <picture> instead of downloading the fallback on top of it */
+  readonly backgroundImage = computed(() => {
+    const product = this.item()
+    const fallback = `url("${IMAGE_BASE_PATH}${product.image}")`
+    /* image-set() only understands resolution descriptors, so width-based candidates are left out */
+    const candidates = (product.alternateImages ?? []).filter((image) => image.density)
+    if (candidates.length === 0) {
+      return fallback
+    }
+    return `image-set(${[
+      ...candidates.map((image) => `url("${IMAGE_BASE_PATH}${image.file}") type("${image.format}") ${image.density}`),
+      `${fallback} 1x`
+    ].join(', ')})`
+  })
+
   get q (): string {
     return this.route.snapshot.queryParams.q ?? ''
   }
@@ -44,6 +63,17 @@ export class ProductComponent {
     }
 
     if (!this.isLoggedIn()) {
+      const guestBasketQuantity = this.basketService.getGuestBasketItems()
+        .filter(item => item.ProductId === id)
+        .reduce((sum, item) => sum + item.quantity, 0)
+      const newQuantity = guestBasketQuantity + 1
+      const violation = this.basketService.getGuestBasketQuantityViolation(newQuantity, this.item(), this.isDeluxe())
+
+      if (violation != null) {
+        this.snackBarHelperService.openBasketQuantityViolation(violation)
+        return
+      }
+
       this.basketService.addToGuestBasket(id)
       this.productService.get(id).subscribe({
         next: (product) => {

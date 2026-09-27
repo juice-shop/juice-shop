@@ -74,7 +74,8 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
             deluxePrice: product.deluxePrice,
             id: product.id,
             image: product.image,
-            description: product.description
+            description: product.description,
+            alternateImages: product.alternateImages
           })
         }
         for (const quantity of quantities) {
@@ -85,6 +86,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
             continue
           }
           entry.quantity = quantity.quantity
+          entry.limitPerUser = quantity.limitPerUser
         }
         this.dataSource = new MatTableDataSource<ProductTableEntry>(dataTable)
         this.updatePageSizeOptions()

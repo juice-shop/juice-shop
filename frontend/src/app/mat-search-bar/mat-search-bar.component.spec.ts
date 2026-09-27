@@ -113,6 +113,25 @@ describe('MatSearchBarComponent', () => {
         expect(component.onClose.emit).toHaveBeenCalled()
     })
 
+    it('should write a value and notify the registered change callback', () => {
+        const onChange = vi.fn()
+        component.registerOnChange(onChange)
+
+        component.writeValue('query')
+
+        expect(component.value).toBe('query')
+        expect(onChange).toHaveBeenCalledWith('query')
+    })
+
+    it('should register and invoke the touched callback', () => {
+        const onTouched = vi.fn()
+        component.registerOnTouched(onTouched)
+
+        component.onTouched()
+
+        expect(onTouched).toHaveBeenCalled()
+    })
+
     it('should not close the search when set to be always open', () => {
         vi.spyOn(component.onClose, 'emit')
         fixture.componentRef.setInput('alwaysOpen', true)
