@@ -67,6 +67,13 @@
   transform: scale(1.08);
 }
 
+/* The wrapper only exists to add AVIF sources, so let it fill the flex slot like the raw <img> did */
+.details-image app-product-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .img-thumbnail {
   width: 100%;
   height: 100%;
