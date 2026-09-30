@@ -16,7 +16,22 @@ export function retrieveBasket () {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id
+      const authenticatedUser = security.authenticatedUsers.from(req)
+      
       const basket = await BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
+      
+      if (!basket) {
+        return res.status(404).json({ status: 'error', message: 'Basket not found' })
+      }
+
+      // Server-Side Authorization Check (IDOR Mitigation)
+      if (authenticatedUser && basket.UserId !== authenticatedUser.data.id) {
+        return res.status(403).json({ 
+          status: 'error', 
+          message: 'Access denied: You do not have permission to view this basket.' 
+        })
+      }
+
       /* jshint eqeqeq:false */
       challengeUtils.solveIf(challenges.basketAccessChallenge, () => {
         const user = security.authenticatedUsers.from(req)
