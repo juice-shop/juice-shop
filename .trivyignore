@@ -1,0 +1,15 @@
+# Known baseline vulnerabilities intentionally required for OWASP Juice Shop challenge suite
+# Documented and triaged as part of DevSecOps baseline suppression
+
+# crypto-js: Required for legacy client-side crypto challenges
+CVE-2023-46233
+CVE-2026-71851
+
+# jsonwebtoken: Deliberately ancient versions (0.1.0, 0.4.0) required for JWT bypass / signature forging challenges
+CVE-2015-9235
+
+# lodash: Outdated version (2.4.2) required for prototype pollution challenge
+CVE-2019-10744
+
+# tar: Baseline dependency artifact
+CVE-2026-59873
