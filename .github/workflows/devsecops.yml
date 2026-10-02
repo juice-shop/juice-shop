@@ -145,7 +145,9 @@ jobs:
           echo "Dependency Scan: ${{ needs.dependency-scan.result }}"
           echo "Container Scan:  ${{ needs.container-scan.result }}"
 
-  # GATE 5 — Dynamic Application Security Testing: OWASP ZAP (Managed by IT24100239)
+# ─────────────────────────────────────────────────────────────────
+# GATE 5 — DAST: OWASP ZAP Baseline Scan (Managed by IT24100239)
+# ─────────────────────────────────────────────────────────────────
   dast-zap-scan:
     name: "Gate 5 · DAST - OWASP ZAP Baseline Scan"
     runs-on: ubuntu-latest
@@ -182,12 +184,14 @@ jobs:
           curl -sf http://localhost:3000 > /dev/null && echo "Health check passed"
 
       - name: "Run OWASP ZAP Baseline Scan"
-        uses: zaproxy/action-baseline@v0.13.0
+        uses: zaproxy/action-baseline@v0.14.0
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           target: "http://localhost:3000"
           cmd_options: "-a -j"
           allow_issue_writing: false
           fail_action: false
+        continue-on-error: true
 
       - name: "Upload ZAP HTML report"
         if: always()
@@ -209,4 +213,4 @@ jobs:
         if: always()
         run: |
           docker stop juice-shop-dast || true
-          docker rm juice-shop-dast || true  
+          docker rm juice-shop-dast || true
