@@ -76,6 +76,7 @@ import { b2bOrder } from './routes/b2bOrder'
 import * as delivery from './routes/delivery'
 import * as recycles from './routes/recycles'
 import * as twoFactorAuth from './routes/2fa'
+import * as webauthn from './routes/webauthn'
 import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
@@ -501,6 +502,13 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     security.isAuthorized(),
     utils.asyncHandler(twoFactorAuth.disable)
   )
+  /* Passkey (WebAuthn) registration requires an authenticated session; sign-in must be public. */
+  app.get('/rest/webauthn/register-options', security.isAuthorized(), utils.asyncHandler(webauthn.registerOptions))
+  app.post('/rest/webauthn/register-verify', security.isAuthorized(), utils.asyncHandler(webauthn.registerVerify))
+  app.post('/rest/webauthn/login-options', utils.asyncHandler(webauthn.loginOptions))
+  app.post('/rest/webauthn/login-verify', utils.asyncHandler(webauthn.loginVerify))
+  app.get('/rest/webauthn/credentials', security.isAuthorized(), utils.asyncHandler(webauthn.listCredentials))
+  app.delete('/rest/webauthn/credentials/:id', security.isAuthorized(), utils.asyncHandler(webauthn.deleteCredential))
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 

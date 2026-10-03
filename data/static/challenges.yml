@@ -1591,3 +1591,27 @@
     - 'Not every outdated-looking version number is actually vulnerable. Do your research on official CVE databases or vendor advisories.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html'
   key: vulnerableDockerImageChallenge
+-
+  name: 'Passkey Signature Forgery'
+  category: 'Broken Authentication'
+  description: 'Log in as the passkey-protected user by submitting an authentication assertion whose signature the server never actually verifies.'
+  difficulty: 5
+  hints:
+    - 'As always, first learn how the feature under attack behaves under normal conditions. Register and use a passkey yourself.'
+    - 'The WebAuthn library the shop uses tells the application whether a signature is valid. But does the application actually listen to that answer?'
+    - 'You cannot forge a valid signature, but you do not have to. Capture a genuine assertion and tamper with its signature before sending it.'
+    - 'Craft a raw request to the passkey login-verify endpoint with a well-formed but invalid (e.g. bit-flipped) signature for the victim''s credential.'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
+  key: webauthnSignatureChallenge
+-
+  name: 'Passkey Credential Overwrite'
+  category: 'Broken Access Control'
+  description: "Overwrite another user's passkey by registering a credential whose ID collides with their existing one, then take over their account."
+  difficulty: 5
+  hints:
+    - 'A credential ID must belong to exactly one user. What does the registration endpoint do if you register one that is already taken?'
+    - 'The relying party reveals a user''s credential ID during the username-first login flow, without requiring authentication.'
+    - 'Register a passkey while authenticated as the attacker, but swap in the victim''s credential ID together with your own public key.'
+    - 'A secure implementation rejects a credential ID that is already registered for any user (WebAuthn §7.1.26).'
+  mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
+  key: webauthnCredentialOverwriteChallenge

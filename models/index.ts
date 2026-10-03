@@ -4,6 +4,7 @@
  */
 
 import { AddressModelInit } from './address'
+import { AuthenticatorModelInit } from './authenticator'
 import { BasketModelInit } from './basket'
 import { BasketItemModelInit } from './basketitem'
 import { CaptchaModelInit } from './captcha'
@@ -45,6 +46,7 @@ function createSequelize (options?: { inMemory?: boolean }) {
 
 function initModels (seq: Sequelize) {
   AddressModelInit(seq)
+  AuthenticatorModelInit(seq)
   BasketModelInit(seq)
   BasketItemModelInit(seq)
   CaptchaModelInit(seq)

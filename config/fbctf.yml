@@ -362,3 +362,9 @@ ctf:
     vulnerableDockerImageChallenge:
       name: Portugal
       code: PT
+    webauthnSignatureChallenge:
+      name: Fiji
+      code: FJ
+    webauthnCredentialOverwriteChallenge:
+      name: Maldives
+      code: MV
