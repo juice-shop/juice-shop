@@ -41,6 +41,20 @@ jobs:
           name: npm-audit-report
           path: npm-audit-report.json
 
+  #GATE 3 — Secrets scanning; Gitleaks (Managed by IT24100172)
+  secrets-scan:
+     name: "Gate 3 - Secrets Scan (Gitleaks)"
+     runs-on: ubuntu-latest
+     steps:
+     - name: "Checkout repository (full history)"
+       uses: actions/checkout@v4
+       with:
+          fetch-depth: 0 # scan full commit history
+     - name: "Run Gitleaks"
+       uses: gitleaks/gitleaks-action@v2
+       env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
 # Build Docker with runner swap space
   build-docker:
     name: "Build Docker Image"
