@@ -28,6 +28,13 @@ export interface StaticUser {
   feedback?: StaticUserFeedback
   address?: StaticUserAddress[]
   card?: StaticUserCard[]
+  passkeys?: StaticUserPasskey[]
+}
+export interface StaticUserPasskey {
+  credentialID: string
+  publicKey: string
+  counter?: number
+  transports?: string
 }
 export interface StaticUserSecurityQuestion {
   id: number

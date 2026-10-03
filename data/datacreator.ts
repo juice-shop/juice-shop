@@ -4,6 +4,7 @@
  */
 
 import { AddressModel } from '../models/address'
+import { AuthenticatorModel } from '../models/authenticator'
 import { BasketModel } from '../models/basket'
 import { BasketItemModel } from '../models/basketitem'
 import { CardModel } from '../models/card'
@@ -27,7 +28,7 @@ import { getCodeChallenges } from '../lib/codingChallenges'
 import type { Memory as MemoryConfig, Product as ProductConfig } from '../lib/config.schema'
 import config from 'config'
 import * as utils from '../lib/utils'
-import type { StaticUser, StaticUserAddress, StaticUserCard } from './staticData'
+import type { StaticUser, StaticUserAddress, StaticUserCard, StaticUserPasskey } from './staticData'
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
 import type { CreationAttributes } from 'sequelize'
 import { ordersCollection, reviewsCollection } from './mongodb'
@@ -187,7 +188,7 @@ async function createUsers () {
   const users = await loadStaticUserData()
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }) => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, passkeys, lastLoginIp = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({
@@ -206,6 +207,7 @@ async function createUsers () {
         if (deletedFlag) await deleteUser(user.id)
         if (address != null) await createAddresses(user.id, address)
         if (card != null) await createCards(user.id, card)
+        if (passkeys != null) await createPasskeys(user.id, passkeys)
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${utils.getErrorMessage(err)}`)
       }
@@ -276,6 +278,20 @@ async function createCards (UserId: number, cards: StaticUserCard[]) {
       expYear: card.expYear
     }).catch((err: unknown) => {
       logger.error(`Could not create card: ${utils.getErrorMessage(err)}`)
+    })
+  }))
+}
+
+async function createPasskeys (UserId: number, passkeys: StaticUserPasskey[]) {
+  return await Promise.all(passkeys.map(async (passkey) => {
+    return await AuthenticatorModel.create({
+      UserId,
+      credentialID: passkey.credentialID,
+      publicKey: passkey.publicKey,
+      counter: passkey.counter ?? 0,
+      transports: passkey.transports ?? ''
+    }).catch((err: unknown) => {
+      logger.error(`Could not create passkey: ${utils.getErrorMessage(err)}`)
     })
   }))
 }

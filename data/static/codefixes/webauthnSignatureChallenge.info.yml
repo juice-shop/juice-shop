@@ -1,0 +1,11 @@
+fixes:
+  - id: 1
+    explanation: 'This fix updates the stored signature counter only when the assertion verifies, which is good replay-attack hygiene. It still issues the session before (and regardless of) that check, so an assertion with an invalid signature logs the attacker in anyway.'
+  - id: 2
+    explanation: "Requiring `userVerified` only confirms the authenticator performed a user gesture (PIN, biometric, ...). It says nothing about whether the signature over the challenge is valid, so a forged-signature assertion with the UV flag set still authenticates."
+  - id: 3
+    explanation: 'Gating the whole sign-in on `verification.verified` is the critical step: the cryptographic signature over the challenge and authenticator data must be valid before any session is issued. An assertion with a forged or tampered signature is now rejected.'
+hints:
+  - 'The WebAuthn library already tells you whether the signature is valid. Find where that answer is produced.'
+  - 'Follow the `verification` result. Is the sign-in ever made conditional on it?'
+  - 'The most security-critical step of passkey authentication is verifying the signature. Make sure no session is issued unless it succeeded.'
