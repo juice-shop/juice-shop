@@ -6,11 +6,12 @@
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { Component, type OnDestroy, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, type OnDestroy, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { form, FormField, maxLength, minLength, required, submit } from '@angular/forms/signals'
+import { firstValueFrom } from 'rxjs'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
@@ -33,7 +34,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormsModule, ReactiveFormsModule, MatDialogActions, MatDialogClose, AsyncPipe, ProductImageComponent]
+  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormField, MatDialogActions, MatDialogClose, AsyncPipe, ProductImageComponent]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog)
@@ -48,7 +49,16 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author = 'Anonymous'
   public reviews$: any
   public userSubscription: any
-  public reviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.maxLength(160)])
+
+  private readonly initialModel = { message: '' }
+
+  public readonly reviewModel = signal({ ...this.initialModel })
+
+  public readonly reviewForm = form(this.reviewModel, (s) => {
+    required(s.message)
+    minLength(s.message, 1)
+    maxLength(s.message, 160)
+  })
 
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
@@ -71,17 +81,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  addReview (textPut: HTMLTextAreaElement) {
-    const review = { message: textPut.value, author: this.author }
-
-    textPut.value = ''
-    this.productReviewService.create(this.data.productData.id, review).subscribe({
-      next: () => {
+  addReview () {
+    return submit(this.reviewForm, async () => {
+      const review = { message: this.reviewModel().message, author: this.author }
+      this.reviewForm().reset({ ...this.initialModel })
+      try {
+        await firstValueFrom(this.productReviewService.create(this.data.productData.id, review))
         this.reviews$ = this.productReviewService.get(this.data.productData.id)
-      },
-      error: (err) => { console.log(err) }
+      } catch (err: any) {
+        console.log(err)
+      }
+      this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
     })
-    this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 
   editReview (review: Review) {
