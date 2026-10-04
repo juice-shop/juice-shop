@@ -39,7 +39,7 @@
     <mat-expansion-panel class="mat-elevation-z0" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span class="review-label-spacing" translate>LABEL_REVIEWS</span> <span>({{(reviews$| async)?.length}})</span>
+          <span class="review-label-spacing">{{ 'LABEL_REVIEWS' | translate }}</span> <span>({{(reviews$| async)?.length}})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <button mat-button class="auto-focus-absorber">
@@ -70,8 +70,8 @@
         </div>
       } @else {
         <div>
-          <span class="noResultText" translate>
-            EMPTY_REVIEW_LIST
+          <span class="noResultText">
+            {{ 'EMPTY_REVIEW_LIST' | translate }}
           </span>
         </div>
       }
@@ -80,7 +80,7 @@
 
     <mat-divider class="detail-divider"></mat-divider>
 
-    <h4 [style.display]="isLoggedIn() ? 'block' : 'none' " translate>WRITE_REVIEW</h4>
+    <h4 [style.display]="isLoggedIn() ? 'block' : 'none' ">{{ 'WRITE_REVIEW' | translate }}</h4>
     <mat-form-field appearance="outline" color="tertiary"
       [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
       <mat-label >{{"LABEL_REVIEW" | translate}}</mat-label>
@@ -88,11 +88,11 @@
         <i class="fas fa-exclamation-circle"></i>
         <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
       </mat-hint>
-      <textarea [formControl]="reviewControl" #textPut cols="50" matInput
+      <textarea [formField]="reviewForm.message" cols="50" matInput
         placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
-        matTextareaAutosize matAutosizeMinRows="2" maxlength="160"
+        matTextareaAutosize matAutosizeMinRows="2"
       matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
-      <mat-hint align="end">{{textPut.value?.length || 0}}/160</mat-hint>
+      <mat-hint align="end">{{reviewModel().message.length}}/160</mat-hint>
     </mat-form-field>
 
     <mat-dialog-actions align="end" class="dialogAction">
@@ -101,8 +101,8 @@
         <span>{{'BTN_CLOSE' | translate}}</span>
       </button>
 
-      <button type="submit" id="submitButton" [disabled]="!textPut.value.trim()" mat-raised-button color="primary"
-        (click)="addReview(textPut)" class="buttons submit-button-spacing"
+      <button type="submit" id="submitButton" [disabled]="reviewForm.message().invalid() || !reviewModel().message.trim()" mat-raised-button color="primary"
+        (click)="addReview()" class="buttons submit-button-spacing"
         aria-label="Send the review"
         [style.display]="isLoggedIn() ? 'flex' : 'none' ">
         <mat-icon>send</mat-icon>
