@@ -1,0 +1,127 @@
+name: CodeMender Autonomous Remediation
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write # Required for GCP Workload Identity Federation
+
+jobs:
+  remediate:
+    name: Remediate Wiz Finding with CodeMender
+    # Only run if:
+    # 1. Comment is on an Issue (not a Pull Request)
+    # 2. Comment contains '@codemender'
+    # 3. Comment author is an authorized repository contributor (prevents prompt injection & untrusted execution)
+    if: >-
+      !github.event.issue.pull_request &&
+      contains(github.event.comment.body, '@codemender') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Acknowledge Command
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+            -f content='eyes'
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git Identity
+        run: |
+          git config user.name "codemender-agent[bot]"
+          git config user.email "codemender-agent[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        id: gcp-auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: "access_token"
+
+      - name: Set up Google Cloud SDK & CodeMender CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Install CodeMender CLI
+        run: |
+          # If cm is distributed as a gcloud component or direct package:
+          if ! command -v cm &> /dev/null; then
+            echo "Installing CodeMender CLI component..."
+            # Production installation command (or fallback to binary release):
+            # gcloud components install codemender --quiet || true
+            # For environments with pre-packaged binary in Cloud Storage or artifact registry:
+            if [ -n "${{ secrets.CODEMENDER_CLI_URL }}" ]; then
+              curl -sSL "${{ secrets.CODEMENDER_CLI_URL }}" -o /usr/local/bin/cm
+              chmod +x /usr/local/bin/cm
+            fi
+          fi
+
+          if command -v cm &> /dev/null; then
+            cm --version || echo "cm CLI ready."
+          else
+            echo "::warning::'cm' binary not found on PATH. Simulation/dry-run mode active."
+          fi
+
+      - name: Fetch Finding, Import to CodeMender, and Apply Fix
+        id: orchestrate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+          WIZ_AUTH_URL: ${{ secrets.WIZ_AUTH_URL || 'https://auth.wiz.io/oauth/token' }}
+          WIZ_API_URL: ${{ secrets.WIZ_API_URL || 'https://api.us1.app.wiz.io/graphql' }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          # Write issue body to temporary file to avoid shell escaping issues
+          printf "%s" "$ISSUE_BODY" > /tmp/issue_body.md
+
+          # If cm CLI is not in PATH, use --skip-execution to test transformation and JSON export
+          CM_FLAGS=""
+          if ! command -v cm &> /dev/null; then
+            echo "cm binary not detected; running in extraction and transformation mode."
+            CM_FLAGS="--skip-execution"
+          fi
+
+          python3 scripts/wiz_cm_orchestrator.py \
+            --issue-number "${{ github.event.issue.number }}" \
+            --issue-body /tmp/issue_body.md \
+            --output-file "./codemender_finding.json" \
+            $CM_FLAGS
+
+      - name: Upload Converted Finding Artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: codemender-finding-json
+          path: ./codemender_finding.json
+          retention-days: 7
+
+      - name: Notify on Failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body \
+            "❌ **CodeMender Remediation Failed**
+
+            An error occurred while attempting to process this finding.
+            Please check the [GitHub Actions Run Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
