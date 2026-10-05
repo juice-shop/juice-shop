@@ -1,0 +1,45 @@
+name: Security Scans
+on:
+    pull_request:
+        branches:
+            - main
+    workflow_dispatch:
+        inputs:
+            zap_mode:
+                description: "Zap scan type (full=active attacks, local container only)"
+                type: choice
+                options: [baseline, full]
+                default: baseline
+permissions:
+    contents: read
+
+concurrency:
+    group: security-${{github.ref}}
+    cancel-in-progress: true
+
+jobs:
+    sast-semgrep:
+        name: SAST (Semgrep)
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Semgrep Scan
+              continue-on-error: ${{vars.ENFORCE_GATES != 'true'}}
+              run: |
+                  mkdir -p reports
+                  # Reports and gates on ERROR severity only; widen once triaged.
+                  docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep:latest \
+                  semgrep scan --metrics=off --error --severity ERROR \
+                  --config p/default --config p/javascript \
+                  --config p/typescript --config p/nodejs \
+                  --exclude node_modules --exclude test \
+                  --sarif-output=reports/semgrep.sarif .
+
+            - uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                  name: semgrep-report
+                  path: reports/
+                  if-no-files-found: warn
