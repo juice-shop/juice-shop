@@ -8,6 +8,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { isoBase64URL, isoCBOR } from '@simplewebauthn/server/helpers'
 
+type CBORType = Parameters<typeof isoCBOR.encode>[0]
+
 // Relying-party config derived from server.baseUrl (see routes/webauthn.ts).
 export const RP_ID = 'localhost'
 export const ORIGIN = 'http://localhost:3000'
@@ -113,9 +115,9 @@ export function buildAttestation (credentialID: string, challenge: string): { at
   const attested = Buffer.concat([aaguid, credIdLen, credId, cose])
   const ad = authData(0x45, 0, attested) // UP | UV | AT
 
-  const attestationObject = Buffer.from(isoCBOR.encode(new Map<string, unknown>([
+  const attestationObject = Buffer.from(isoCBOR.encode(new Map<string, CBORType>([
     ['fmt', 'none'],
-    ['attStmt', new Map()],
+    ['attStmt', new Map<string, CBORType>()],
     ['authData', ad]
   ])))
   const clientData = clientDataJSON('webauthn.create', challenge)
