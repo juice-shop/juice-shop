@@ -224,6 +224,9 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     expires: securityTxtExpiration.toUTCString()
   }))
 
+  /* Passkey Endpoints (W3C) for password managers */
+  app.get('/.well-known/passkey-endpoints', webauthn.passkeyEndpoints)
+
   /* robots.txt */
   app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
