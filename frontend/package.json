@@ -41,6 +41,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
+    "@simplewebauthn/browser": "^14.0.0",
     "@wagmi/core": "^0.5.8",
     "angularx-qrcode": "^21.0.5",
     "canvas-confetti": "^1.9.3",

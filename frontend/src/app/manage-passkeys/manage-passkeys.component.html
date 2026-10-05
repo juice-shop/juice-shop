@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+<main class="center-container">
+  <mat-card
+    appearance="outlined"
+    class="mat-elevation-z6"
+    role="region"
+    aria-labelledby="manage-passkeys-heading"
+  >
+    <h1 id="manage-passkeys-heading">{{ 'TITLE_MANAGE_PASSKEYS' | translate }}</h1>
+
+    <p id="manage-passkeys-description">{{ 'MANAGE_PASSKEYS_DESCRIPTION' | translate }}</p>
+
+    @if (error()) {
+      <p class="error" role="alert">{{ error() }}</p>
+    }
+
+    @if (credentials().length > 0) {
+      <mat-list id="passkey-list">
+        @for (credential of credentials(); track credential.id) {
+          <mat-list-item class="passkey-item">
+            <mat-icon matListItemIcon>key</mat-icon>
+            <span matListItemTitle class="credential-id">{{ credential.credentialID }}</span>
+            @if (credential.transports) {
+              <span matListItemLine>{{ credential.transports }}</span>
+            }
+            <button
+              matListItemMeta
+              mat-icon-button
+              type="button"
+              class="remove-passkey"
+              (click)="removePasskey(credential.id)"
+              [attr.aria-label]="'REMOVE_PASSKEY' | translate"
+              [matTooltip]="'REMOVE_PASSKEY' | translate"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        }
+      </mat-list>
+    } @else {
+      <p id="no-passkeys">{{ 'MANAGE_PASSKEYS_EMPTY' | translate }}</p>
+    }
+
+    <button
+      type="button"
+      id="addPasskey"
+      mat-raised-button
+      color="primary"
+      [disabled]="busy()"
+      (click)="addPasskey()"
+      aria-label="Button to register a new passkey"
+    >
+      <mat-icon>add</mat-icon>
+      {{ 'BTN_ADD_PASSKEY' | translate }}
+    </button>
+  </mat-card>
+</main>

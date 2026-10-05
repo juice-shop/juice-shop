@@ -178,6 +178,13 @@
         </mat-icon>
         <span translate>TITLE_TWO_FACTOR_AUTH_CONFIG</span>
       </button>
+      <button mat-menu-item [routerLink]="['privacy-security/passkeys']"
+        aria-label="Go to manage passkeys page">
+        <mat-icon>
+          key
+        </mat-icon>
+        <span>{{ 'TITLE_MANAGE_PASSKEYS' | translate }}</span>
+      </button>
       <button mat-menu-item [routerLink]="['privacy-security/last-login-ip']" aria-label="Go to last login ip page">
         <mat-icon>
           place
