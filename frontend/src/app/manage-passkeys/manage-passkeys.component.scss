@@ -10,8 +10,11 @@ mat-card {
   margin-left: auto;
   margin-right: auto;
   min-width: 320px;
-  padding: $space-l;
   width: 30%;
+}
+
+#manage-passkeys-description {
+  margin-top: 0;
 }
 
 .credential-id {
