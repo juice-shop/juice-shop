@@ -11,7 +11,7 @@ import {
   generateAuthenticationOptions,
   verifyAuthenticationResponse
 } from '@simplewebauthn/server'
-import { isoBase64URL, isoUint8Array } from '@simplewebauthn/server/helpers'
+import { COSEALG, isoBase64URL, isoUint8Array } from '@simplewebauthn/server/helpers'
 
 import { AuthenticatorModel } from '../models/authenticator'
 import { BasketModel } from '../models/basket'
@@ -21,10 +21,16 @@ import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 
-function relyingParty () {
-  const url = new URL(config.get<string>('server.baseUrl'))
-  return { rpID: url.hostname, origin: url.origin, rpName: config.get<string>('application.name') }
+// Derived per request (honoring X-Forwarded-* via `trust proxy`) so passkeys work on whatever
+// origin the shop is served from, not just the configured server.baseUrl.
+function relyingParty (req: Request) {
+  const host = (req.get('x-forwarded-host') ?? req.get('host') ?? '').split(',')[0].trim()
+  return { rpID: req.hostname, origin: `${req.protocol}://${host}`, rpName: config.get<string>('application.name') }
 }
+
+// Pinned instead of the library default, which probes the runtime for experimental ML-DSA-44
+// support and triggers Node's ExperimentalWarning. Must match between options and verification.
+const supportedAlgorithmIDs = [COSEALG.EdDSA, COSEALG.ES256, COSEALG.RS256]
 
 // A passkey sign-in mints the same JWT session a password login would, mirroring routes/login.ts.
 async function issuePasskeySession (user: UserModel, res: Response) {
@@ -46,7 +52,7 @@ export async function registerOptions (req: Request, res: Response) {
     return
   }
   const { data: user } = data
-  const { rpID, rpName } = relyingParty()
+  const { rpID, rpName } = relyingParty(req)
 
   const existing = await AuthenticatorModel.findAll({ where: { UserId: user.id } })
   const options = await generateRegistrationOptions({
@@ -59,7 +65,8 @@ export async function registerOptions (req: Request, res: Response) {
       id: authenticator.credentialID,
       transports: authenticator.transports ? authenticator.transports.split(',') : undefined
     })),
-    authenticatorSelection: { residentKey: 'required', userVerification: 'preferred' }
+    authenticatorSelection: { residentKey: 'required', userVerification: 'preferred' },
+    supportedAlgorithmIDs
   })
 
   const regToken = security.authorize({ userId: user.id, challenge: options.challenge, type: 'webauthn_reg' })
@@ -78,7 +85,7 @@ export async function registerVerify (req: Request, res: Response) {
   }
   const { data: user } = data
   const { attestation, regToken } = req.body
-  const { rpID, origin } = relyingParty()
+  const { rpID, origin } = relyingParty(req)
 
   const decoded = security.verify(regToken) && security.decode(regToken)
   if (!decoded || decoded.type !== 'webauthn_reg' || decoded.userId !== user.id) {
@@ -90,7 +97,9 @@ export async function registerVerify (req: Request, res: Response) {
     response: attestation,
     expectedChallenge: decoded.challenge,
     expectedOrigin: origin,
-    expectedRPID: rpID
+    expectedRPID: rpID,
+    requireUserVerification: false,
+    supportedAlgorithmIDs
   })
   if (!verification.verified || !verification.registrationInfo) {
     res.status(400).json({ error: 'not verified' })
@@ -134,7 +143,7 @@ function solveCredentialOverwrite (challenge: any, overwritingOtherUser: boolean
  */
 export async function loginOptions (req: Request, res: Response) {
   const { email } = req.body
-  const { rpID } = relyingParty()
+  const { rpID } = relyingParty(req)
 
   let allowCredentials
   if (email) {
@@ -148,7 +157,7 @@ export async function loginOptions (req: Request, res: Response) {
     }
   }
 
-  const options = await generateAuthenticationOptions({ rpID, allowCredentials })
+  const options = await generateAuthenticationOptions({ rpID, allowCredentials, userVerification: 'preferred' })
   const authToken = security.authorize({ challenge: options.challenge, type: 'webauthn_auth' })
   res.json({ options, authToken })
 }
@@ -159,7 +168,7 @@ export async function loginOptions (req: Request, res: Response) {
  */
 export async function loginVerify (req: Request, res: Response) {
   const { assertion, authToken } = req.body
-  const { rpID, origin } = relyingParty()
+  const { rpID, origin } = relyingParty(req)
 
   const decoded = security.verify(authToken) && security.decode(authToken)
   if (!decoded || decoded.type !== 'webauthn_auth') {
@@ -178,6 +187,7 @@ export async function loginVerify (req: Request, res: Response) {
     expectedChallenge: decoded.challenge,
     expectedOrigin: origin,
     expectedRPID: rpID,
+    requireUserVerification: false,
     credential: {
       id: authenticator.credentialID,
       publicKey: isoBase64URL.toBuffer(authenticator.publicKey),
@@ -239,4 +249,13 @@ export async function deleteCredential (req: Request, res: Response) {
   }
   await AuthenticatorModel.destroy({ where: { id: req.params.id, UserId: data.data.id } })
   res.status(204).send()
+}
+
+/**
+ * Passkey Endpoints well-known URL (https://w3c.github.io/webappsec-passkey-endpoints/) so password
+ * managers can deep-link users to passkey enrollment and management.
+ */
+export function passkeyEndpoints (req: Request, res: Response) {
+  const url = `${relyingParty(req).origin}/#/privacy-security/passkeys`
+  res.json({ enroll: url, manage: url })
 }

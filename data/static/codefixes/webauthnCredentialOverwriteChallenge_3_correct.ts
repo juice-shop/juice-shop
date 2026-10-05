@@ -9,7 +9,7 @@ export async function registerVerify (req: Request, res: Response) {
   }
   const { data: user } = data
   const { attestation, regToken } = req.body
-  const { rpID, origin } = relyingParty()
+  const { rpID, origin } = relyingParty(req)
 
   const decoded = security.verify(regToken) && security.decode(regToken)
   if (!decoded || decoded.type !== 'webauthn_reg' || decoded.userId !== user.id) {
@@ -21,7 +21,9 @@ export async function registerVerify (req: Request, res: Response) {
     response: attestation,
     expectedChallenge: decoded.challenge,
     expectedOrigin: origin,
-    expectedRPID: rpID
+    expectedRPID: rpID,
+    requireUserVerification: false,
+    supportedAlgorithmIDs
   })
   if (!verification.verified || !verification.registrationInfo) {
     res.status(400).json({ error: 'not verified' })

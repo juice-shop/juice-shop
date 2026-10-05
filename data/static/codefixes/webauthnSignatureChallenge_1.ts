@@ -3,7 +3,7 @@
  */
 export async function loginVerify (req: Request, res: Response) {
   const { assertion, authToken } = req.body
-  const { rpID, origin } = relyingParty()
+  const { rpID, origin } = relyingParty(req)
 
   const decoded = security.verify(authToken) && security.decode(authToken)
   if (!decoded || decoded.type !== 'webauthn_auth') {
@@ -22,6 +22,7 @@ export async function loginVerify (req: Request, res: Response) {
     expectedChallenge: decoded.challenge,
     expectedOrigin: origin,
     expectedRPID: rpID,
+    requireUserVerification: false,
     credential: {
       id: authenticator.credentialID,
       publicKey: isoBase64URL.toBuffer(authenticator.publicKey),

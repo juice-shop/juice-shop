@@ -10,9 +10,14 @@ import { isoBase64URL, isoCBOR } from '@simplewebauthn/server/helpers'
 
 type CBORType = Parameters<typeof isoCBOR.encode>[0]
 
-// Relying-party config derived from server.baseUrl (see routes/webauthn.ts).
-export const RP_ID = 'localhost'
+// The server derives the relying party from the request's Host/X-Forwarded-* headers (see
+// routes/webauthn.ts). Tests send `Host: localhost:3000` unless they exercise another origin.
 export const ORIGIN = 'http://localhost:3000'
+
+export interface CraftOptions {
+  origin?: string
+  flags?: number
+}
 
 export interface VictimCredential {
   credentialID: string
@@ -53,11 +58,11 @@ export function loadVictimCredential (): VictimCredential {
 }
 
 // authenticatorData = rpIdHash(32) | flags(1) | signCount(4) | [attestedCredentialData]
-export function authData (flags: number, counter: number, attested?: Buffer) {
+export function authData (rpID: string, flags: number, counter: number, attested?: Buffer) {
   const f = Buffer.from([flags])
   const c = Buffer.alloc(4)
   c.writeUInt32BE(counter)
-  return Buffer.concat([sha256(Buffer.from(RP_ID)), f, c, ...(attested ? [attested] : [])])
+  return Buffer.concat([sha256(Buffer.from(rpID)), f, c, ...(attested ? [attested] : [])])
 }
 
 // COSE EC2/ES256 public key from a Node JWK.
@@ -68,8 +73,8 @@ export function coseFromJwk (jwk: { x: string, y: string }) {
   return Buffer.from(b)
 }
 
-function clientDataJSON (type: 'webauthn.get' | 'webauthn.create', challenge: string) {
-  return Buffer.from(JSON.stringify({ type, challenge, origin: ORIGIN, crossOrigin: false }))
+function clientDataJSON (type: 'webauthn.get' | 'webauthn.create', challenge: string, origin: string) {
+  return Buffer.from(JSON.stringify({ type, challenge, origin, crossOrigin: false }))
 }
 
 /**
@@ -78,9 +83,9 @@ function clientDataJSON (type: 'webauthn.get' | 'webauthn.create', challenge: st
  * stored public key (the "Passkey Signature Forgery" exploit). A genuine assertion is signed with
  * the victim's own key.
  */
-export function buildAssertion (victim: VictimCredential, challenge: string, { tamper, counter = 1 }: { tamper: boolean, counter?: number }): WebAuthnAssertion {
-  const clientData = clientDataJSON('webauthn.get', challenge)
-  const ad = authData(0x05, counter) // UP | UV
+export function buildAssertion (victim: VictimCredential, challenge: string, { tamper, counter = 1, origin = ORIGIN, flags = 0x05 }: { tamper: boolean, counter?: number } & CraftOptions): WebAuthnAssertion {
+  const clientData = clientDataJSON('webauthn.get', challenge, origin)
+  const ad = authData(new URL(origin).hostname, flags, counter) // default flags: UP | UV
   const signed = Buffer.concat([ad, sha256(clientData)])
   const key = tamper
     ? crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' }).privateKey
@@ -104,7 +109,7 @@ export function buildAssertion (victim: VictimCredential, challenge: string, { t
  * (the "Passkey Credential Overwrite" exploit). Returns the attestation and the base64url COSE
  * public key the server is expected to persist.
  */
-export function buildAttestation (credentialID: string, challenge: string): { attestation: WebAuthnAttestation, publicKey: string } {
+export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45 }: CraftOptions = {}): { attestation: WebAuthnAttestation, publicKey: string } {
   const { publicKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' })
   const cose = coseFromJwk(publicKey.export({ format: 'jwk' }) as { x: string, y: string })
 
@@ -113,14 +118,14 @@ export function buildAttestation (credentialID: string, challenge: string): { at
   const credIdLen = Buffer.alloc(2)
   credIdLen.writeUInt16BE(credId.length)
   const attested = Buffer.concat([aaguid, credIdLen, credId, cose])
-  const ad = authData(0x45, 0, attested) // UP | UV | AT
+  const ad = authData(new URL(origin).hostname, flags, 0, attested) // default flags: UP | UV | AT
 
   const attestationObject = Buffer.from(isoCBOR.encode(new Map<string, CBORType>([
     ['fmt', 'none'],
     ['attStmt', new Map<string, CBORType>()],
     ['authData', ad]
   ])))
-  const clientData = clientDataJSON('webauthn.create', challenge)
+  const clientData = clientDataJSON('webauthn.create', challenge, origin)
 
   return {
     attestation: {
@@ -136,4 +141,12 @@ export function buildAttestation (credentialID: string, challenge: string): { at
     },
     publicKey: isoBase64URL.fromBuffer(cose)
   }
+}
+
+/** Flip a single bit of a base64url-encoded value (e.g. an assertion signature). */
+export function flipBit (value: string, byteIndex: number, mask = 0x01) {
+  const buf = Buffer.from(isoBase64URL.toBuffer(value))
+  const i = byteIndex < 0 ? buf.length + byteIndex : byteIndex
+  buf[i] ^= mask
+  return isoBase64URL.fromBuffer(buf)
 }
