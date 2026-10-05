@@ -4,6 +4,7 @@ import config from 'config'
 import type { Memory as MemoryConfig, Product as ProductConfig } from './lib/config.schema'
 import * as utils from './lib/utils'
 import { generateSync } from 'otplib'
+import { buildAssertion, buildAttestation, loadVictimCredential } from './test/api/helpers/webauthn'
 
 export default defineConfig({
   projectId: '3hrkhu',
@@ -74,6 +75,12 @@ export default defineConfig({
         },
         isWindows () {
           return utils.isWindows()
+        },
+        ForgePasskeyAssertion ({ challenge }: { challenge: string }) {
+          return buildAssertion(loadVictimCredential(), challenge, { tamper: true })
+        },
+        ForgePasskeyAttestation ({ challenge }: { challenge: string }) {
+          return buildAttestation(loadVictimCredential().credentialID, challenge)
         }
       })
     }
