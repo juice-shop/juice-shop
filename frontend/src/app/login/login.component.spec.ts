@@ -30,6 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
+import { PasskeyService } from '../Services/passkey.service'
 
 describe('LoginComponent', () => {
     let component: LoginComponent
@@ -38,6 +39,7 @@ describe('LoginComponent', () => {
     let configurationService: any
     let basketService: any
     let windowRefService: any
+    let passkeyService: any
     let location: Location
 
     beforeEach(async () => {
@@ -55,6 +57,11 @@ describe('LoginComponent', () => {
         basketService = {
             mergeGuestBasketIntoUserBasket: vi.fn().mockReturnValue(of(undefined)),
             updateNumberOfCartItems: vi.fn()
+        }
+        passkeyService = {
+            loginOptions: vi.fn().mockName('PasskeyService.loginOptions'),
+            loginVerify: vi.fn().mockName('PasskeyService.loginVerify'),
+            createAssertion: vi.fn().mockName('PasskeyService.createAssertion')
         }
         windowRefService = {
             nativeWindow: {
@@ -88,6 +95,7 @@ describe('LoginComponent', () => {
                 { provide: UserService, useValue: userService },
                 { provide: ConfigurationService, useValue: configurationService },
                 { provide: BasketService, useValue: basketService },
+                { provide: PasskeyService, useValue: passkeyService },
                 { provide: WindowRefService, useValue: windowRefService },
                 CookieService,
                 provideHttpClient(withInterceptorsFromDi()),
@@ -275,12 +283,20 @@ describe('LoginComponent', () => {
             expect(component.error()).toBeNull()
         })
 
-        it('should hide the OAuth login section when oauthUnavailable is true', () => {
+        it('should hide the Google login button but keep the passkey login when oauthUnavailable is true', () => {
             component.oauthUnavailable = true
             fixture.detectChanges()
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('#loginButtonGoogle')).toBeNull()
-            expect(compiled.querySelector('.breakLine')).toBeNull()
+            expect(compiled.querySelector('.breakLine')).toBeTruthy()
+            expect(compiled.querySelector('#loginButtonPasskey')).toBeTruthy()
+        })
+
+        it('should invoke passkeyLogin when the passkey button is clicked', () => {
+            const passkeySpy = vi.spyOn(component, 'passkeyLogin').mockResolvedValue(undefined)
+            const passkeyButton = (fixture.nativeElement as HTMLElement).querySelector('#loginButtonPasskey') as HTMLButtonElement
+            passkeyButton.click()
+            expect(passkeySpy).toHaveBeenCalled()
         })
 
         it('should invoke googleLogin when the Google button is clicked', () => {
@@ -422,6 +438,36 @@ describe('LoginComponent', () => {
             expect(localStorage.getItem('totp_tmp_token')).toBe('tmp')
             expect(navSpy).toHaveBeenCalledWith(['/2fa/enter'])
             localStorage.removeItem('totp_tmp_token')
+        })
+
+        it('should log in with a passkey and store the returned authentication', async () => {
+            passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
+            passkeyService.loginOptions.mockReturnValue(of({ options: { challenge: 'c' }, authToken: 'authToken' }))
+            passkeyService.loginVerify.mockReturnValue(of({ token: 'passkeyToken', bid: 42 }))
+            await component.passkeyLogin()
+            expect(passkeyService.loginOptions).toHaveBeenCalledWith()
+            expect(passkeyService.createAssertion).toHaveBeenCalledWith({ challenge: 'c' })
+            expect(passkeyService.loginVerify).toHaveBeenCalledWith({ id: 'cred' }, 'authToken')
+            expect(localStorage.getItem('token')).toBe('passkeyToken')
+            expect(sessionStorage.getItem('bid')).toBe('42')
+            expect(location.path()).toBe('/search')
+        })
+
+        it('should show the server error when passkey verification fails', async () => {
+            passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
+            passkeyService.loginOptions.mockReturnValue(of({ options: {}, authToken: 'authToken' }))
+            passkeyService.loginVerify.mockReturnValue(throwError({ error: 'Passkey rejected' }))
+            await component.passkeyLogin()
+            expect(component.error()).toBe('Passkey rejected')
+            expect(localStorage.getItem('token')).toBeNull()
+        })
+
+        it('should show the browser error when the passkey prompt is cancelled', async () => {
+            passkeyService.createAssertion.mockRejectedValue(new Error('The operation was not allowed'))
+            passkeyService.loginOptions.mockReturnValue(of({ options: {}, authToken: 'authToken' }))
+            await component.passkeyLogin()
+            expect(component.error()).toBe('The operation was not allowed')
+            expect(passkeyService.loginVerify).not.toHaveBeenCalled()
         })
 
         it('should redirect via window.location.replace on googleLogin', () => {

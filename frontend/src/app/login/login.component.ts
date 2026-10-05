@@ -15,6 +15,7 @@ import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
+import { PasskeyService } from '../Services/passkey.service'
 import { MatCheckbox } from '@angular/material/checkbox'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
@@ -47,6 +48,7 @@ export class LoginComponent implements OnInit {
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
   private readonly basketService = inject(BasketService)
+  private readonly passkeyService = inject(PasskeyService)
 
   public readonly loginModel = signal({
     email: '',
@@ -107,20 +109,7 @@ export class LoginComponent implements OnInit {
       try {
         const authentication: any = await firstValueFrom(this.userService.login(user))
         const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
-        localStorage.setItem('token', authentication.token)
-        const expires = new Date()
-        expires.setHours(expires.getHours() + 8)
-        this.cookieService.put('token', authentication.token, { expires })
-        sessionStorage.setItem('bid', authentication.bid)
-
-        await firstValueFrom(this.basketService.mergeGuestBasketIntoUserBasket(authentication.bid)
-          .pipe(
-            catchError((err) => {
-              console.log(err)
-              return of(void 0)
-            })
-          ))
-        await this.completeLogin(redirectUrl)
+        await this.handleAuthentication(authentication, redirectUrl)
       } catch (err: any) {
         const error = err?.error
         if (error?.status && error?.data && error.status === 'totp_token_required') {
@@ -137,6 +126,35 @@ export class LoginComponent implements OnInit {
         this.loginForm.password().reset()
       }
     })
+  }
+
+  async passkeyLogin () {
+    try {
+      const { options, authToken } = await firstValueFrom(this.passkeyService.loginOptions())
+      const assertion = await this.passkeyService.createAssertion(options)
+      const authentication = await firstValueFrom(this.passkeyService.loginVerify(assertion, authToken))
+      const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
+      await this.handleAuthentication(authentication, redirectUrl)
+    } catch (err: any) {
+      this.error.set(err?.error || err?.message)
+    }
+  }
+
+  private async handleAuthentication (authentication: any, redirectUrl: string) {
+    localStorage.setItem('token', authentication.token)
+    const expires = new Date()
+    expires.setHours(expires.getHours() + 8)
+    this.cookieService.put('token', authentication.token, { expires })
+    sessionStorage.setItem('bid', authentication.bid)
+
+    await firstValueFrom(this.basketService.mergeGuestBasketIntoUserBasket(authentication.bid)
+      .pipe(
+        catchError((err) => {
+          console.log(err)
+          return of(void 0)
+        })
+      ))
+    await this.completeLogin(redirectUrl)
   }
 
   private completeLogin (redirectUrl: string): Promise<boolean> {

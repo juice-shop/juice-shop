@@ -21,6 +21,7 @@ import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-
 import { ErrorPageComponent } from './error-page/error-page.component'
 import { PrivacySecurityComponent } from './privacy-security/privacy-security.component'
 import { TwoFactorAuthComponent } from './two-factor-auth/two-factor-auth.component'
+import { ManagePasskeysComponent } from './manage-passkeys/manage-passkeys.component'
 import { DataExportComponent } from './data-export/data-export.component'
 import { LastLoginIpComponent } from './last-login-ip/last-login-ip.component'
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component'
@@ -216,6 +217,11 @@ const routes: Routes = [
       {
         path: 'two-factor-authentication',
         component: TwoFactorAuthComponent
+      },
+      {
+        path: 'passkeys',
+        component: ManagePasskeysComponent,
+        canActivate: [LoginGuard]
       },
       {
         path: 'data-export',
