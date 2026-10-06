@@ -11,8 +11,8 @@ export async function registerVerify (req: Request, res: Response) {
   const { attestation, regToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = security.verify(regToken) && security.decode(regToken)
-  if (!decoded || decoded.type !== 'webauthn_reg' || decoded.userId !== user.id) {
+  const decoded = verifyCeremonyToken(regToken, 'webauthn_reg')
+  if (!decoded || decoded.userId !== user.id) {
     res.status(401).send()
     return
   }
@@ -36,7 +36,7 @@ export async function registerVerify (req: Request, res: Response) {
   const transports = (attestation.response?.transports ?? []).join(',')
 
   const existing = await AuthenticatorModel.findOne({ where: { credentialID } })
-  if (existing && existing.UserId !== user.id) {
+  if (existing) {
     res.status(409).json({ error: 'credentialID already registered' })
     return
   }

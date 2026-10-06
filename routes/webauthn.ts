@@ -3,13 +3,17 @@
  * SPDX-License-Identifier: MIT
  */
 
+import crypto from 'node:crypto'
 import config from 'config'
 import { type Request, type Response } from 'express'
+import jwt from 'jsonwebtoken'
+import jws from 'jws'
 import {
   generateRegistrationOptions,
   verifyRegistrationResponse,
   generateAuthenticationOptions,
-  verifyAuthenticationResponse
+  verifyAuthenticationResponse,
+  type AuthenticatorTransport
 } from '@simplewebauthn/server'
 import { COSEALG, isoBase64URL, isoUint8Array } from '@simplewebauthn/server/helpers'
 
@@ -18,7 +22,7 @@ import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
 import { challenges, users } from '../data/datacache'
-import { loadStaticUserData } from '../data/staticData'
+import { loadStaticUserData, type StaticUserPasskey } from '../data/staticData'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 
@@ -32,6 +36,27 @@ function relyingParty (req: Request) {
 // Pinned instead of the library default, which probes the runtime for experimental ML-DSA-44
 // support and triggers Node's ExperimentalWarning. Must match between options and verification.
 const supportedAlgorithmIDs = [COSEALG.EdDSA, COSEALG.ES256, COSEALG.RS256]
+
+// Ceremony tokens are signed with their own per-process key, so unlike security.authorize() tokens
+// they can never pass security.isAuthorized() as a session token.
+const ceremonySecret = crypto.randomBytes(32).toString('hex')
+const ceremonyTokenLifetime = 5 * 60
+
+function signCeremonyToken (payload: Record<string, unknown>) {
+  return jwt.sign({ ...payload, exp: Math.round(Date.now() / 1000) + ceremonyTokenLifetime }, ceremonySecret, { algorithm: 'HS256' })
+}
+
+function verifyCeremonyToken (token: unknown, type: string): Record<string, any> | undefined {
+  if (typeof token !== 'string' || jws.decode(token)?.header?.alg !== 'HS256') return undefined
+  let payload: Record<string, any> | undefined
+  // jsonwebtoken@0.4.0 invokes the callback synchronously
+  jwt.verify(token, ceremonySecret, (err: unknown, decoded: any) => { if (!err) payload = decoded })
+  return payload?.type === type ? payload : undefined
+}
+
+function toTransports (authenticator: AuthenticatorModel) {
+  return authenticator.transports ? authenticator.transports.split(',') as AuthenticatorTransport[] : undefined
+}
 
 // A passkey sign-in mints the same JWT session a password login would, mirroring routes/login.ts.
 async function issuePasskeySession (user: UserModel, res: Response) {
@@ -64,13 +89,13 @@ export async function registerOptions (req: Request, res: Response) {
     attestationType: 'none',
     excludeCredentials: existing.map((authenticator) => ({
       id: authenticator.credentialID,
-      transports: authenticator.transports ? authenticator.transports.split(',') : undefined
+      transports: toTransports(authenticator)
     })),
     authenticatorSelection: { residentKey: 'required', userVerification: 'preferred' },
     supportedAlgorithmIDs
   })
 
-  const regToken = security.authorize({ userId: user.id, challenge: options.challenge, type: 'webauthn_reg' })
+  const regToken = signCeremonyToken({ userId: user.id, challenge: options.challenge, type: 'webauthn_reg' })
   res.json({ options, regToken })
 }
 
@@ -88,8 +113,8 @@ export async function registerVerify (req: Request, res: Response) {
   const { attestation, regToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = security.verify(regToken) && security.decode(regToken)
-  if (!decoded || decoded.type !== 'webauthn_reg' || decoded.userId !== user.id) {
+  const decoded = verifyCeremonyToken(regToken, 'webauthn_reg')
+  if (!decoded || decoded.userId !== user.id) {
     res.status(401).send()
     return
   }
@@ -140,13 +165,13 @@ export async function loginOptions (req: Request, res: Response) {
       const authenticators = await AuthenticatorModel.findAll({ where: { UserId: user.id } })
       allowCredentials = authenticators.map((authenticator) => ({
         id: authenticator.credentialID,
-        transports: authenticator.transports ? authenticator.transports.split(',') : undefined
+        transports: toTransports(authenticator)
       }))
     }
   }
 
   const options = await generateAuthenticationOptions({ rpID, allowCredentials, userVerification: 'preferred' })
-  const authToken = security.authorize({ challenge: options.challenge, type: 'webauthn_auth' })
+  const authToken = signCeremonyToken({ challenge: options.challenge, type: 'webauthn_auth' })
   res.json({ options, authToken })
 }
 
@@ -158,8 +183,8 @@ export async function loginVerify (req: Request, res: Response) {
   const { assertion, authToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = security.verify(authToken) && security.decode(authToken)
-  if (!decoded || decoded.type !== 'webauthn_auth') {
+  const decoded = verifyCeremonyToken(authToken, 'webauthn_auth')
+  if (!decoded) {
     res.status(401).send()
     return
   }
@@ -180,7 +205,7 @@ export async function loginVerify (req: Request, res: Response) {
       id: authenticator.credentialID,
       publicKey: isoBase64URL.toBuffer(authenticator.publicKey),
       counter: authenticator.counter,
-      transports: authenticator.transports ? authenticator.transports.split(',') as any : undefined
+      transports: toTransports(authenticator)
     }
   })
 
@@ -192,19 +217,21 @@ export async function loginVerify (req: Request, res: Response) {
 
   challengeUtils.solveIf(challenges.webauthnSignatureChallenge, () => { return user.id === users.passkeyUser.id && !verification.verified }) // vuln-code-snippet hide-line
   await solvePasskeyHijack(user, authenticator, verification.verified) // vuln-code-snippet hide-line
-  await issuePasskeySession(user, res) // vuln-code-snippet vuln-line webauthnSignatureChallenge
-
   if (verification.verified) {
     authenticator.counter = verification.authenticationInfo.newCounter
     await authenticator.save()
   }
+  await issuePasskeySession(user, res) // vuln-code-snippet vuln-line webauthnSignatureChallenge
 }
 // vuln-code-snippet end webauthnSignatureChallenge
+
+let seededPasskeys: Promise<StaticUserPasskey[]> | undefined
 
 // Logging in with the original seeded passkey does not count, its public key must have been replaced.
 async function solvePasskeyHijack (user: UserModel, authenticator: AuthenticatorModel, verified: boolean) {
   if (!verified || user.id !== users.passkeyUser.id || !challengeUtils.notSolved(challenges.webauthnCredentialOverwriteChallenge)) return
-  const seeded = (await loadStaticUserData()).find(({ key }) => key === 'passkeyUser')?.passkeys ?? []
+  seededPasskeys ??= loadStaticUserData().then((staticUsers) => staticUsers.find(({ key }) => key === 'passkeyUser')?.passkeys ?? [])
+  const seeded = await seededPasskeys
   challengeUtils.solveIf(challenges.webauthnCredentialOverwriteChallenge, () => {
     return !seeded.some(({ credentialID, publicKey }) => credentialID === authenticator.credentialID && publicKey === authenticator.publicKey)
   })

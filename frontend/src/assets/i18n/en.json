@@ -17,7 +17,7 @@
   "BTN_LOGIN": "Log in",
   "BTN_GOOGLE_LOGIN": "Log in with Google",
   "BTN_PASSKEY_LOGIN": "Log in with Passkey",
-  "PASSKEY_LOGIN_FAILED": "Passkey login failed. No account was found for this passkey.",
+  "PASSKEY_LOGIN_FAILED": "Passkey login failed.",
   "REMEMBER_ME": "Remember me",
   "NO_CUSTOMER": "Not yet a customer?",
   "ALREADY_A_CUSTOMER": "Already a customer?",

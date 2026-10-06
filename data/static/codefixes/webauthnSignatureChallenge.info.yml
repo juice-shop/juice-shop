@@ -1,6 +1,6 @@
 fixes:
   - id: 1
-    explanation: 'This fix updates the stored signature counter only when the assertion verifies, which is good replay-attack hygiene. It still issues the session before (and regardless of) that check, so an assertion with an invalid signature logs the attacker in anyway.'
+    explanation: 'Rejecting assertions without a signature only checks that one is present, not that it is valid. An attacker simply sends a forged or tampered signature, and the session is still issued regardless of what the verification returned.'
   - id: 2
     explanation: "Requiring `userVerified` only confirms the authenticator performed a user gesture (PIN, biometric, ...). It says nothing about whether the signature over the challenge is valid, so a forged-signature assertion with the UV flag set still authenticates."
   - id: 3
