@@ -52,12 +52,27 @@ mat-form-field {
   margin-right: $space-s;
 }
 
-#loginButton,
-#loginButtonPasskey,
-#loginButtonGoogle {
+#loginButton {
   margin-left: 20%;
   margin-top: $space-xl;
   width: 60%;
+}
+
+.alternative-logins {
+  display: grid;
+  gap: $space-m;
+  grid-template-columns: minmax(60%, max-content);
+  justify-content: center;
+  margin-top: $space-xl;
+
+  button {
+    white-space: nowrap;
+  }
+}
+
+.google-button .fa-google {
+  margin-right: $space-xs;
+  vertical-align: middle;
 }
 
 .breakLine {
