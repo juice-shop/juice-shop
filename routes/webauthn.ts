@@ -176,9 +176,9 @@ export async function loginVerify (req: Request, res: Response) {
     return
   }
 
-  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion.id } })
+  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion?.id } })
   if (!authenticator) {
-    res.status(401).send()
+    res.status(401).send(res.__('No account found for this passkey.'))
     return
   }
 
@@ -198,7 +198,7 @@ export async function loginVerify (req: Request, res: Response) {
 
   const user = await UserModel.findByPk(authenticator.UserId)
   if (!user) {
-    res.status(401).send()
+    res.status(401).send(res.__('No account found for this passkey.'))
     return
   }
 

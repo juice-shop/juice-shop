@@ -21,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { HttpErrorResponse } from '@angular/common/http'
 import { MatFormFieldModule, MatLabel, MatError, MatSuffix } from '@angular/material/form-field'
 import { firstValueFrom, of } from 'rxjs'
 import { catchError } from 'rxjs/operators'
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
   private readonly route = inject(ActivatedRoute)
   private readonly basketService = inject(BasketService)
   private readonly passkeyService = inject(PasskeyService)
+  private readonly translate = inject(TranslateService)
 
   public readonly loginModel = signal({
     email: '',
@@ -136,7 +138,11 @@ export class LoginComponent implements OnInit {
       const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
       await this.handleAuthentication(authentication, redirectUrl)
     } catch (err: any) {
-      this.error.set(err?.error || err?.message)
+      if (err instanceof HttpErrorResponse) {
+        this.error.set(typeof err.error === 'string' && err.error ? err.error : this.translate.instant('PASSKEY_LOGIN_FAILED'))
+      } else {
+        this.error.set(err?.message || this.translate.instant('PASSKEY_LOGIN_FAILED'))
+      }
     }
   }
 

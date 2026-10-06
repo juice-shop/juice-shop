@@ -221,6 +221,7 @@ void describe('/rest/webauthn/login-verify', () => {
       .send({ assertion, authToken })
 
     assert.equal(res.status, 401)
+    assert.equal(res.text, 'No account found for this passkey.')
   })
 })
 
