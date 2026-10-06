@@ -27,7 +27,7 @@ import { MatDividerModule } from '@angular/material/divider'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { HttpErrorResponse, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { ConfigurationService } from '../Services/configuration.service'
 import { BasketService } from '../Services/basket.service'
 import { PasskeyService } from '../Services/passkey.service'
@@ -456,9 +456,18 @@ describe('LoginComponent', () => {
         it('should show the server error when passkey verification fails', async () => {
             passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
             passkeyService.loginOptions.mockReturnValue(of({ options: {}, authToken: 'authToken' }))
-            passkeyService.loginVerify.mockReturnValue(throwError({ error: 'Passkey rejected' }))
+            passkeyService.loginVerify.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 401, error: 'No account found for this passkey.' })))
             await component.passkeyLogin()
-            expect(component.error()).toBe('Passkey rejected')
+            expect(component.error()).toBe('No account found for this passkey.')
+            expect(localStorage.getItem('token')).toBeNull()
+        })
+
+        it('should show a generic error when passkey login fails without a server message', async () => {
+            passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
+            passkeyService.loginOptions.mockReturnValue(of({ options: {}, authToken: 'authToken' }))
+            passkeyService.loginVerify.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 401, error: null })))
+            await component.passkeyLogin()
+            expect(component.error()).toBe('PASSKEY_LOGIN_FAILED')
             expect(localStorage.getItem('token')).toBeNull()
         })
 
