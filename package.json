@@ -71,8 +71,8 @@
     "test:api": "node --import ./test/api/helpers/test-env.mjs --import tsx --test --test-force-exit \"test/api/**/*.test.ts\"",
     "test:api:coverage": "nyc --report-dir=./coverage/api-tests npm run test:api",
     "test:e2e": "npm run cypress:run",
-    "rsn": "tsx rsn/rsn.ts",
-    "rsn:update": "tsx rsn/rsn-update.ts",
+    "rsn": "node --import tsx rsn/rsn.ts",
+    "rsn:update": "node --import tsx rsn/rsn-update.ts",
     "vagrant": "cd vagrant && vagrant up",
     "sbom": "cyclonedx-npm --omit=dev --output-format=JSON --output-file=bom.json"
   },
