@@ -51,6 +51,19 @@ void describe('/rest/webauthn/login-options', () => {
     assert.equal(res.status, 200)
     assert.equal(res.body.options.allowCredentials, undefined)
   })
+
+  void it('POST returns an authToken that is not accepted as a session token', async () => {
+    const { body: { authToken } } = await request(app)
+      .post('/rest/webauthn/login-options')
+      .set(jsonHeader)
+      .send({})
+
+    const res = await request(app)
+      .get('/api/Users')
+      .set({ Authorization: 'Bearer ' + authToken })
+
+    assert.equal(res.status, 401)
+  })
 })
 
 void describe('/rest/webauthn/login-verify', () => {
@@ -199,10 +212,10 @@ void describe('/rest/webauthn/login-verify', () => {
     assert.equal(res.status, 401)
   })
 
-  void it('POST returns 401 for an authToken of the wrong type', async () => {
+  void it('POST returns 401 for an authToken signed like a session token', async () => {
     const { challenge } = await loginOptions()
     const assertion = buildAssertion(victim, challenge, { tamper: false })
-    const authToken = security.authorize({ challenge, type: 'not_webauthn_auth' })
+    const authToken = security.authorize({ challenge, type: 'webauthn_auth' })
 
     const res = await request(app)
       .post('/rest/webauthn/login-verify')
@@ -354,7 +367,10 @@ void describe('/rest/webauthn/register-verify', () => {
   void it('POST returns 401 for a regToken of the wrong type', async () => {
     const { token, challenge } = await attackerContext()
     const { attestation } = buildAttestation(victim.credentialID, challenge)
-    const regToken = security.authorize({ challenge, type: 'not_webauthn_reg' })
+    const { body: { authToken: regToken } } = await request(app)
+      .post('/rest/webauthn/login-options')
+      .set(jsonHeader)
+      .send({})
 
     const res = await request(app)
       .post('/rest/webauthn/register-verify')

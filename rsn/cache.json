@@ -1440,43 +1440,46 @@
 		],
 		"removed": [
 			41,
+			43,
+			44,
+			44
+		]
+	},
+	"webauthnSignatureChallenge_1.ts": {
+		"added": [
+			45
+		],
+		"removed": [
+			40,
+			41,
+			42,
+			43,
+			45
+		]
+	},
+	"webauthnSignatureChallenge_2.ts": {
+		"added": [
+			40,
+			41,
+			42,
+			45
+		],
+		"removed": [
+			40,
+			41,
+			42,
 			42,
 			43,
 			43
 		]
 	},
-	"webauthnSignatureChallenge_1.ts": {
+	"webauthnSignatureChallenge_3_correct.ts": {
 		"added": [
-			46
-		],
-		"removed": [
-			46
-		]
-	},
-	"webauthnSignatureChallenge_2.ts": {
-		"added": [
-			42,
-			43,
-			44,
-			45,
-			46
-		],
-		"removed": [
+			40,
 			41,
 			42,
 			43,
-			42,
-			43,
-			44
-		]
-	},
-	"webauthnSignatureChallenge_3_correct.ts": {
-		"added": [
-			42,
-			43,
-			44,
-			45,
-			46
+			45
 		],
 		"removed": [
 			34,
@@ -1484,9 +1487,9 @@
 			36,
 			37,
 			38,
-			42,
-			43,
-			44
+			40,
+			41,
+			42
 		]
 	},
 	"xssBonusChallenge_1_correct.ts": {
