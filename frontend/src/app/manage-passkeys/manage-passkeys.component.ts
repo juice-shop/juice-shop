@@ -37,8 +37,8 @@ export class ManagePasskeysComponent implements OnInit {
   async loadCredentials () {
     try {
       this.credentials.set(await firstValueFrom(this.passkeyService.listCredentials()))
-    } catch {
-      console.log('Failed to fetch passkeys')
+    } catch (err: any) {
+      this.error.set(err?.error?.error || err?.message)
     }
   }
 

@@ -53,11 +53,10 @@ describe('ManagePasskeysComponent', () => {
         expect(component.credentials()).toEqual([{ id: 1, credentialID: 'cred', transports: 'internal' }])
     })
 
-    it('should log when the credentials cannot be loaded', async () => {
-        console.log = vi.fn()
-        passkeyService.listCredentials.mockReturnValue(throwError(() => ({ status: 500 })))
+    it('should show an error when the credentials cannot be loaded', async () => {
+        passkeyService.listCredentials.mockReturnValue(throwError(() => ({ status: 500, message: 'Http failure response' })))
         await component.loadCredentials()
-        expect(console.log).toHaveBeenCalledWith('Failed to fetch passkeys')
+        expect(component.error()).toBe('Http failure response')
     })
 
     it('should register a new passkey, refresh the list and confirm via snackbar', async () => {

@@ -159,15 +159,12 @@ export async function loginOptions (req: Request, res: Response) {
   const { rpID } = relyingParty(req)
 
   let allowCredentials
-  if (email) {
-    const user = await UserModel.findOne({ where: { email } })
-    if (user) {
-      const authenticators = await AuthenticatorModel.findAll({ where: { UserId: user.id } })
-      allowCredentials = authenticators.map((authenticator) => ({
-        id: authenticator.credentialID,
-        transports: toTransports(authenticator)
-      }))
-    }
+  if (typeof email === 'string' && email) {
+    const authenticators = await AuthenticatorModel.findAll({ include: [{ model: UserModel, where: { email }, attributes: [] }] })
+    allowCredentials = authenticators.map((authenticator) => ({
+      id: authenticator.credentialID,
+      transports: toTransports(authenticator)
+    }))
   }
 
   const options = await generateAuthenticationOptions({ rpID, allowCredentials, userVerification: 'preferred' })
@@ -184,12 +181,12 @@ export async function loginVerify (req: Request, res: Response) {
   const { rpID, origin } = relyingParty(req)
 
   const decoded = verifyCeremonyToken(authToken, 'webauthn_auth')
-  if (!decoded) {
+  if (!decoded || typeof assertion?.id !== 'string') {
     res.status(401).send()
     return
   }
 
-  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion?.id } })
+  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion.id } })
   if (!authenticator) {
     res.status(401).send(res.__('No account found for this passkey.'))
     return
@@ -227,13 +224,13 @@ export async function loginVerify (req: Request, res: Response) {
 
 let seededPasskeys: Promise<StaticUserPasskey[]> | undefined
 
-// Logging in with the original seeded passkey does not count, its public key must have been replaced.
+// Only counts when a seeded credential ID now carries a different public key, i.e. it was overwritten.
 async function solvePasskeyHijack (user: UserModel, authenticator: AuthenticatorModel, verified: boolean) {
   if (!verified || user.id !== users.passkeyUser.id || !challengeUtils.notSolved(challenges.webauthnCredentialOverwriteChallenge)) return
   seededPasskeys ??= loadStaticUserData().then((staticUsers) => staticUsers.find(({ key }) => key === 'passkeyUser')?.passkeys ?? [])
   const seeded = await seededPasskeys
   challengeUtils.solveIf(challenges.webauthnCredentialOverwriteChallenge, () => {
-    return !seeded.some(({ credentialID, publicKey }) => credentialID === authenticator.credentialID && publicKey === authenticator.publicKey)
+    return seeded.some(({ credentialID, publicKey }) => credentialID === authenticator.credentialID && publicKey !== authenticator.publicKey)
   })
 }
 
