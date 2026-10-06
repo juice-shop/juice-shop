@@ -37,6 +37,8 @@ export interface PasskeyCredential {
   id: number
   credentialID: string
   transports: string
+  aaguid: string
+  createdAt: string
 }
 
 @Injectable({

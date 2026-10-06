@@ -30,7 +30,7 @@ export async function registerVerify (req: Request, res: Response) {
     return
   }
 
-  const { credential } = verification.registrationInfo
+  const { credential, aaguid } = verification.registrationInfo
   const credentialID = credential.id
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
@@ -40,9 +40,10 @@ export async function registerVerify (req: Request, res: Response) {
     existing.publicKey = publicKey
     existing.counter = credential.counter
     existing.transports = transports
+    existing.aaguid = aaguid
     await existing.save()
   } else {
-    await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports })
+    await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
   }
 
   res.json({ verified: true })

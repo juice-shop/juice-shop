@@ -132,7 +132,7 @@ export async function registerVerify (req: Request, res: Response) {
     return
   }
 
-  const { credential } = verification.registrationInfo
+  const { credential, aaguid } = verification.registrationInfo
   const credentialID = credential.id
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
@@ -142,9 +142,10 @@ export async function registerVerify (req: Request, res: Response) {
     existing.publicKey = publicKey // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
     existing.counter = credential.counter
     existing.transports = transports
+    existing.aaguid = aaguid
     await existing.save()
   } else {
-    await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports })
+    await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
   }
 
   res.json({ verified: true })
@@ -248,7 +249,9 @@ export async function listCredentials (req: Request, res: Response) {
     data: authenticators.map((authenticator) => ({
       id: authenticator.id,
       credentialID: authenticator.credentialID,
-      transports: authenticator.transports
+      transports: authenticator.transports,
+      aaguid: authenticator.aaguid,
+      createdAt: authenticator.createdAt
     }))
   })
 }

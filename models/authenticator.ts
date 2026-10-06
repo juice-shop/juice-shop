@@ -22,6 +22,8 @@ InferCreationAttributes<Authenticator>
   declare publicKey: string // base64url-encoded COSE public key
   declare counter: CreationOptional<number>
   declare transports: CreationOptional<string> // comma-separated list
+  declare aaguid: CreationOptional<string> // identifies the passkey provider, all zeros if not disclosed
+  declare createdAt: CreationOptional<Date>
 }
 
 const AuthenticatorModelInit = (sequelize: Sequelize) => {
@@ -48,7 +50,12 @@ const AuthenticatorModelInit = (sequelize: Sequelize) => {
       transports: {
         type: DataTypes.STRING,
         defaultValue: ''
-      }
+      },
+      aaguid: {
+        type: DataTypes.STRING,
+        defaultValue: '00000000-0000-0000-0000-000000000000'
+      },
+      createdAt: DataTypes.DATE
     },
     {
       tableName: 'Authenticators',

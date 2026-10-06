@@ -35,6 +35,7 @@ export interface StaticUserPasskey {
   publicKey: string
   counter?: number
   transports?: string
+  aaguid?: string
 }
 export interface StaticUserSecurityQuestion {
   id: number
