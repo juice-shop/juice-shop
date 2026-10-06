@@ -1592,26 +1592,29 @@
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html'
   key: vulnerableDockerImageChallenge
 -
-  name: 'Passkey Signature Forgery'
+  name: 'Passkey Bypass'
   category: 'Broken Authentication'
-  description: 'Log in as the passkey-protected user by submitting an authentication assertion whose signature the server never actually verifies.'
+  tags:
+    - Passkey
+  description: 'Log in as <i>passkey-user</i> with their passkey, but without ever having access to it.'
   difficulty: 5
   hints:
-    - 'As always, first learn how the feature under attack behaves under normal conditions. Register and use a passkey yourself.'
-    - 'The WebAuthn library the shop uses tells the application whether a signature is valid. But does the application actually listen to that answer?'
-    - 'You cannot forge a valid signature, but you do not have to. Capture a genuine assertion and tamper with its signature before sending it.'
-    - 'Craft a raw request to the passkey login-verify endpoint with a well-formed but invalid (e.g. bit-flipped) signature for the victim''s credential.'
+    - 'As always, first learn how the feature under attack is used and behaves under normal conditions. Register a passkey for your own account and use it to log in.'
+    - 'Make sure you understand which part of a passkey login actually proves that you hold the private key.'
+    - 'The shop relies on a well-established library to check what your authenticator sends. That alone does not guarantee the shop does anything with the result.'
+    - 'You will not be able to produce a valid signature. Maybe you do not have to.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: webauthnSignatureChallenge
 -
-  name: 'Passkey Credential Overwrite'
+  name: 'Passkey Hijack'
   category: 'Broken Access Control'
-  description: "Overwrite another user's passkey by registering a credential whose ID collides with their existing one, then take over their account."
+  tags:
+    - Passkey
+  description: 'Take over the passkey of <i>passkey-user</i> and use it to properly log in to their account.'
   difficulty: 5
   hints:
-    - 'A credential ID must belong to exactly one user. What does the registration endpoint do if you register one that is already taken?'
-    - 'The relying party reveals a user''s credential ID during the username-first login flow, without requiring authentication.'
-    - 'Register a passkey while authenticated as the attacker, but swap in the victim''s credential ID together with your own public key.'
-    - 'A secure implementation rejects a credential ID that is already registered for any user (WebAuthn §7.1.26).'
+    - 'As always, first learn how the feature under attack is used and behaves under normal conditions. Register a passkey for your own account and observe what is sent to the server.'
+    - 'Every passkey is identified by an ID. Some login flows are more talkative about these IDs than others.'
+    - 'What would the shop do if it was asked to register a passkey it already knows?'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
   key: webauthnCredentialOverwriteChallenge

@@ -18,8 +18,6 @@ InferCreationAttributes<Authenticator>
 > {
   declare id: CreationOptional<number>
   declare UserId: number
-  // credentialID is intentionally NOT declared unique: a UNIQUE constraint here would silently
-  // mitigate the "Passkey Credential Overwrite" challenge (CWE-639). See routes/webauthn.ts.
   declare credentialID: string
   declare publicKey: string // base64url-encoded COSE public key
   declare counter: CreationOptional<number>

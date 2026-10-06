@@ -1407,93 +1407,76 @@
 	},
 	"webauthnCredentialOverwriteChallenge_1.ts": {
 		"added": [
-			38,
-			39,
-			40,
+			41,
+			42,
 			43,
+			44,
 			45,
-			46,
-			47,
-			48,
-			49,
-			53
+			49
 		],
 		"removed": [
-			38,
-			40,
-			43
+			41,
+			43,
+			44,
+			44
 		]
 	},
 	"webauthnCredentialOverwriteChallenge_2.ts": {
 		"added": [
-			38,
-			39,
-			40,
-			43,
-			53
+			49
 		],
 		"removed": [
-			51
+			49
 		]
 	},
 	"webauthnCredentialOverwriteChallenge_3_correct.ts": {
 		"added": [
-			38,
-			39,
-			40,
+			41,
+			42,
 			43,
+			44,
 			45,
-			46,
-			47,
-			48,
-			49,
-			53
+			49
 		],
 		"removed": [
-			40,
+			41,
+			42,
+			43,
 			43
 		]
 	},
 	"webauthnSignatureChallenge_1.ts": {
 		"added": [
-			40,
-			41,
-			42,
-			49
+			46
 		],
 		"removed": [
-			47
+			46
 		]
 	},
 	"webauthnSignatureChallenge_2.ts": {
 		"added": [
-			40,
-			41,
 			42,
+			43,
+			44,
 			45,
-			46,
-			47,
-			48,
-			49
+			46
 		],
 		"removed": [
-			40,
 			41,
 			42,
-			44,
-			45
+			43,
+			42,
+			43,
+			44
 		]
 	},
 	"webauthnSignatureChallenge_3_correct.ts": {
 		"added": [
-			40,
-			41,
 			42,
+			43,
+			44,
 			45,
-			46,
-			47,
-			48,
-			49
+			46
 		],
 		"removed": [
 			34,
@@ -1501,8 +1484,9 @@
 			36,
 			37,
 			38,
-			44,
-			45
+			42,
+			43,
+			44
 		]
 	},
 	"xssBonusChallenge_1_correct.ts": {

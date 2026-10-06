@@ -17,7 +17,8 @@ import { AuthenticatorModel } from '../models/authenticator'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
-import { challenges } from '../data/datacache'
+import { challenges, users } from '../data/datacache'
+import { loadStaticUserData } from '../data/staticData'
 import * as security from '../lib/insecurity'
 import * as utils from '../lib/utils'
 
@@ -111,17 +112,12 @@ export async function registerVerify (req: Request, res: Response) {
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
 
-  // BUG (CWE-639): a secure implementation rejects a credentialID that is already registered for
-  // any other user (WebAuthn §7.1.26). Instead we upsert by credentialID, so an attacker who
-  // supplies a victim's credentialID overwrites the victim's stored public key and locks them out.
   const existing = await AuthenticatorModel.findOne({ where: { credentialID } }) // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
   if (existing) { // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
-    const overwritingOtherUser = existing.UserId !== user.id
     existing.publicKey = publicKey // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
     existing.counter = credential.counter
     existing.transports = transports
     await existing.save()
-    solveCredentialOverwrite(challenges.webauthnCredentialOverwriteChallenge, overwritingOtherUser) // vuln-code-snippet hide-line
   } else {
     await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports })
   }
@@ -130,16 +126,8 @@ export async function registerVerify (req: Request, res: Response) {
 }
 // vuln-code-snippet end webauthnCredentialOverwriteChallenge
 
-function solveCredentialOverwrite (challenge: any, overwritingOtherUser: boolean) {
-  challengeUtils.solveIf(challenge, () => overwritingOtherUser)
-}
-
 /**
- * Start a passkey sign-in.
- *
- * Without an email this is a discoverable-credential ("usernameless") flow and the browser lets the
- * user pick a passkey. With an email it is the classic username-first flow and the response reveals
- * the matching credential IDs.
+ * Start a passkey sign-in, either usernameless (discoverable credentials) or username-first.
  */
 export async function loginOptions (req: Request, res: Response) {
   const { email } = req.body
@@ -202,10 +190,8 @@ export async function loginVerify (req: Request, res: Response) {
     return
   }
 
-  // BUG (CWE-347): `verification.verified` is computed but never enforced. A correct implementation
-  // would do `if (!verification.verified) return res.status(401).send()` before issuing a session,
-  // so an assertion with a forged/invalid signature must not authenticate anyone.
-  solveSignatureForgery(challenges.webauthnSignatureChallenge, verification.verified) // vuln-code-snippet hide-line
+  challengeUtils.solveIf(challenges.webauthnSignatureChallenge, () => { return user.id === users.passkeyUser.id && !verification.verified }) // vuln-code-snippet hide-line
+  await solvePasskeyHijack(user, authenticator, verification.verified) // vuln-code-snippet hide-line
   await issuePasskeySession(user, res) // vuln-code-snippet vuln-line webauthnSignatureChallenge
 
   if (verification.verified) {
@@ -215,8 +201,13 @@ export async function loginVerify (req: Request, res: Response) {
 }
 // vuln-code-snippet end webauthnSignatureChallenge
 
-function solveSignatureForgery (challenge: any, verified: boolean) {
-  challengeUtils.solveIf(challenge, () => !verified)
+// Logging in with the original seeded passkey does not count, its public key must have been replaced.
+async function solvePasskeyHijack (user: UserModel, authenticator: AuthenticatorModel, verified: boolean) {
+  if (!verified || user.id !== users.passkeyUser.id || !challengeUtils.notSolved(challenges.webauthnCredentialOverwriteChallenge)) return
+  const seeded = (await loadStaticUserData()).find(({ key }) => key === 'passkeyUser')?.passkeys ?? []
+  challengeUtils.solveIf(challenges.webauthnCredentialOverwriteChallenge, () => {
+    return !seeded.some(({ credentialID, publicKey }) => credentialID === authenticator.credentialID && publicKey === authenticator.publicKey)
+  })
 }
 
 /**

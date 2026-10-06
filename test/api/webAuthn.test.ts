@@ -62,8 +62,9 @@ void describe('/rest/webauthn/login-verify', () => {
     return { challenge: res.body.options.challenge as string, authToken: res.body.authToken as string }
   }
 
-  void it('POST signs the user in for a genuine assertion without solving the challenge', async () => {
+  void it('POST signs the user in for a genuine assertion without solving any challenge', async () => {
     challenges.webauthnSignatureChallenge.solved = false
+    challenges.webauthnCredentialOverwriteChallenge.solved = false
     const { challenge, authToken } = await loginOptions()
     const assertion = buildAssertion(victim, challenge, { tamper: false })
 
@@ -76,6 +77,7 @@ void describe('/rest/webauthn/login-verify', () => {
     assert.equal(typeof res.body.authentication.token, 'string')
     assert.equal(res.body.authentication.umail, VICTIM_EMAIL)
     assert.equal(challenges.webauthnSignatureChallenge.solved, false)
+    assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, false)
   })
 
   void it('POST accepts a forged signature and solves webauthnSignatureChallenge', async () => {
@@ -248,7 +250,7 @@ void describe('/rest/webauthn/register-verify', () => {
     return { token, challenge: optionsRes.body.options.challenge as string, regToken: optionsRes.body.regToken as string }
   }
 
-  void it('POST overwrites the victim credential and solves webauthnCredentialOverwriteChallenge', async () => {
+  void it('POST overwrites the victim credential without solving webauthnCredentialOverwriteChallenge yet', async () => {
     challenges.webauthnCredentialOverwriteChallenge.solved = false
     const { token, challenge, regToken } = await attackerContext()
     const { attestation, publicKey } = buildAttestation(victim.credentialID, challenge)
@@ -264,7 +266,62 @@ void describe('/rest/webauthn/register-verify', () => {
     const row = await AuthenticatorModel.findOne({ where: { credentialID: victim.credentialID } })
     assert.ok(row)
     assert.equal(row.publicKey, publicKey)
+    assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, false)
+  })
+
+  void it('POST then signing in with the attacker key solves webauthnCredentialOverwriteChallenge', async () => {
+    challenges.webauthnCredentialOverwriteChallenge.solved = false
+    challenges.webauthnSignatureChallenge.solved = false
+    const { token, challenge, regToken } = await attackerContext()
+    const { attestation, privateKeyPem } = buildAttestation(victim.credentialID, challenge)
+    await request(app)
+      .post('/rest/webauthn/register-verify')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+      .send({ attestation, regToken })
+    assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, false)
+
+    // The stored public key now belongs to the attacker, so a genuinely signed login succeeds.
+    const optionsRes = await request(app)
+      .post('/rest/webauthn/login-options')
+      .set(jsonHeader)
+      .send({ email: VICTIM_EMAIL })
+    const assertion = buildAssertion({ ...victim, privateKeyPem }, optionsRes.body.options.challenge, { tamper: false })
+
+    const res = await request(app)
+      .post('/rest/webauthn/login-verify')
+      .set(jsonHeader)
+      .send({ assertion, authToken: optionsRes.body.authToken })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.authentication.umail, VICTIM_EMAIL)
     assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, true)
+    assert.equal(challenges.webauthnSignatureChallenge.solved, false)
+  })
+
+  void it('POST accepts a forged signature for a non-victim passkey without solving webauthnSignatureChallenge', async () => {
+    challenges.webauthnSignatureChallenge.solved = false
+    const { token, challenge, regToken } = await attackerContext()
+    const credentialID = isoBase64URL.fromBuffer(crypto.randomBytes(32))
+    const { attestation } = buildAttestation(credentialID, challenge)
+    await request(app)
+      .post('/rest/webauthn/register-verify')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+      .send({ attestation, regToken })
+
+    const optionsRes = await request(app)
+      .post('/rest/webauthn/login-options')
+      .set(jsonHeader)
+      .send({})
+    const assertion = buildAssertion({ ...victim, credentialID }, optionsRes.body.options.challenge, { tamper: true })
+
+    const res = await request(app)
+      .post('/rest/webauthn/login-verify')
+      .set(jsonHeader)
+      .send({ assertion, authToken: optionsRes.body.authToken })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.authentication.umail, 'jim@juice-sh.op')
+    assert.equal(challenges.webauthnSignatureChallenge.solved, false)
   })
 
   void it('POST registers a new passkey without the user-verification flag', async () => {

