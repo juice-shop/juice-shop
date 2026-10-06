@@ -52,6 +52,18 @@ void describe('/rest/webauthn/login-options', () => {
     assert.equal(res.body.options.allowCredentials, undefined)
   })
 
+  void it('POST ignores an email that is not a string', async () => {
+    for (const email of [[VICTIM_EMAIL, 'jim@juice-sh.op'], { foo: 1 }]) {
+      const res = await request(app)
+        .post('/rest/webauthn/login-options')
+        .set(jsonHeader)
+        .send({ email })
+
+      assert.equal(res.status, 200)
+      assert.equal(res.body.options.allowCredentials, undefined)
+    }
+  })
+
   void it('POST returns an authToken that is not accepted as a session token', async () => {
     const { body: { authToken } } = await request(app)
       .post('/rest/webauthn/login-options')
@@ -238,6 +250,17 @@ void describe('/rest/webauthn/login-verify', () => {
     assert.equal(res.status, 401)
     assert.equal(res.text, 'No account found for this passkey.')
   })
+
+  void it('POST returns 401 for a missing assertion', async () => {
+    const { authToken } = await loginOptions()
+
+    const res = await request(app)
+      .post('/rest/webauthn/login-verify')
+      .set(jsonHeader)
+      .send({ authToken })
+
+    assert.equal(res.status, 401)
+  })
 })
 
 void describe('/rest/webauthn/register-options', () => {
@@ -309,6 +332,35 @@ void describe('/rest/webauthn/register-verify', () => {
     assert.equal(res.body.authentication.umail, VICTIM_EMAIL)
     assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, true)
     assert.equal(challenges.webauthnSignatureChallenge.solved, false)
+  })
+
+  void it('POST then signing in with a newly added victim passkey does not solve webauthnCredentialOverwriteChallenge', async () => {
+    challenges.webauthnCredentialOverwriteChallenge.solved = false
+    const { token } = await login(app, { email: VICTIM_EMAIL, password: 'ei9shi3Aezohnuku' })
+    const optionsRes = await request(app)
+      .get('/rest/webauthn/register-options')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+    const credentialID = isoBase64URL.fromBuffer(crypto.randomBytes(32))
+    const { attestation, privateKeyPem } = buildAttestation(credentialID, optionsRes.body.options.challenge)
+    await request(app)
+      .post('/rest/webauthn/register-verify')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+      .send({ attestation, regToken: optionsRes.body.regToken })
+
+    const loginOptionsRes = await request(app)
+      .post('/rest/webauthn/login-options')
+      .set(jsonHeader)
+      .send({})
+    const assertion = buildAssertion({ ...victim, credentialID, privateKeyPem }, loginOptionsRes.body.options.challenge, { tamper: false })
+
+    const res = await request(app)
+      .post('/rest/webauthn/login-verify')
+      .set(jsonHeader)
+      .send({ assertion, authToken: loginOptionsRes.body.authToken })
+
+    assert.equal(res.status, 200)
+    assert.equal(res.body.authentication.umail, VICTIM_EMAIL)
+    assert.equal(challenges.webauthnCredentialOverwriteChallenge.solved, false)
   })
 
   void it('POST accepts a forged signature for a non-victim passkey without solving webauthnSignatureChallenge', async () => {

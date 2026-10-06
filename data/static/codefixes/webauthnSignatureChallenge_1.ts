@@ -6,12 +6,12 @@ export async function loginVerify (req: Request, res: Response) {
   const { rpID, origin } = relyingParty(req)
 
   const decoded = verifyCeremonyToken(authToken, 'webauthn_auth')
-  if (!decoded) {
+  if (!decoded || typeof assertion?.id !== 'string') {
     res.status(401).send()
     return
   }
 
-  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion?.id } })
+  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion.id } })
   if (!authenticator) {
     res.status(401).send(res.__('No account found for this passkey.'))
     return
