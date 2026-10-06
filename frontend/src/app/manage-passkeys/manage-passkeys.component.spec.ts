@@ -6,10 +6,15 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { TranslateModule } from '@ngx-translate/core'
 import { of, throwError } from 'rxjs'
+import { By } from '@angular/platform-browser'
+import { MatTooltip } from '@angular/material/tooltip'
 
 import { ManagePasskeysComponent } from './manage-passkeys.component'
 import { PasskeyService } from '../Services/passkey.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+
+const ONE_PASSWORD = 'bada5566-a7aa-401f-bd96-45619a55120d'
+const UNKNOWN = '00000000-0000-0000-0000-000000000000'
 
 describe('ManagePasskeysComponent', () => {
     let component: ManagePasskeysComponent
@@ -47,10 +52,10 @@ describe('ManagePasskeysComponent', () => {
     })
 
     it('should load the credentials of the current user on init', async () => {
-        passkeyService.listCredentials.mockReturnValue(of([{ id: 1, credentialID: 'cred', transports: 'internal' }]))
+        passkeyService.listCredentials.mockReturnValue(of([{ id: 1, credentialID: 'cred', transports: 'internal', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }]))
         component.ngOnInit()
         await fixture.whenStable()
-        expect(component.credentials()).toEqual([{ id: 1, credentialID: 'cred', transports: 'internal' }])
+        expect(component.credentials()).toEqual([{ id: 1, credentialID: 'cred', transports: 'internal', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }])
     })
 
     it('should show an error when the credentials cannot be loaded', async () => {
@@ -63,7 +68,7 @@ describe('ManagePasskeysComponent', () => {
         passkeyService.registerOptions.mockReturnValue(of({ options: { challenge: 'c' }, regToken: 'regToken' }))
         passkeyService.createAttestation.mockResolvedValue({ id: 'cred' })
         passkeyService.registerVerify.mockReturnValue(of(undefined))
-        passkeyService.listCredentials.mockReturnValue(of([{ id: 1, credentialID: 'cred', transports: 'internal' }]))
+        passkeyService.listCredentials.mockReturnValue(of([{ id: 1, credentialID: 'cred', transports: 'internal', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }]))
 
         await component.addPasskey()
 
@@ -97,7 +102,7 @@ describe('ManagePasskeysComponent', () => {
     })
 
     it('should remove a passkey, refresh the list and confirm via snackbar', async () => {
-        component.credentials.set([{ id: 1, credentialID: 'cred', transports: '' }])
+        component.credentials.set([{ id: 1, credentialID: 'cred', transports: '', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }])
         passkeyService.deleteCredential.mockReturnValue(of(undefined))
         passkeyService.listCredentials.mockReturnValue(of([]))
 
@@ -117,19 +122,34 @@ describe('ManagePasskeysComponent', () => {
 
         it('should render one list entry per registered passkey', () => {
             component.credentials.set([
-                { id: 1, credentialID: 'credA', transports: 'internal' },
-                { id: 2, credentialID: 'credB', transports: '' }
+                { id: 1, credentialID: 'credA', transports: 'internal', aaguid: ONE_PASSWORD, createdAt: '2026-10-06T12:00:00.000Z' },
+                { id: 2, credentialID: 'credB', transports: '', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }
             ])
             fixture.detectChanges()
             const items = (fixture.nativeElement as HTMLElement).querySelectorAll('.passkey-item')
             expect(items).toHaveLength(2)
-            expect(items[0].textContent).toContain('credA')
-            expect(items[0].textContent).toContain('internal')
+        })
+
+        it('should show the provider name and creation date for a known AAGUID', () => {
+            component.credentials.set([{ id: 1, credentialID: 'cred', transports: 'internal', aaguid: ONE_PASSWORD, createdAt: '2026-10-06T12:00:00.000Z' }])
+            fixture.detectChanges()
+            const item = (fixture.nativeElement as HTMLElement).querySelector('.passkey-item') as HTMLElement
+            expect(item.querySelector('.passkey-provider')?.textContent).toContain('1Password')
+            expect(item.querySelector('.unknown-provider')).toBeNull()
+            expect(item.querySelector('.passkey-created')?.textContent).toContain('PASSKEY_ADDED_ON')
+        })
+
+        it('should show an unknown provider with the AAGUID as tooltip for an unlisted AAGUID', () => {
+            component.credentials.set([{ id: 1, credentialID: 'cred', transports: '', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }])
+            fixture.detectChanges()
+            const provider = fixture.debugElement.query(By.css('.unknown-provider'))
+            expect(provider.nativeElement.textContent).toContain('PASSKEY_UNKNOWN_PROVIDER')
+            expect(provider.injector.get(MatTooltip).message).toBe(UNKNOWN)
         })
 
         it('should invoke removePasskey with the credential id when the remove button is clicked', () => {
             const removeSpy = vi.spyOn(component, 'removePasskey').mockResolvedValue(undefined)
-            component.credentials.set([{ id: 7, credentialID: 'cred', transports: '' }])
+            component.credentials.set([{ id: 7, credentialID: 'cred', transports: '', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }])
             fixture.detectChanges()
             const button = (fixture.nativeElement as HTMLElement).querySelector('.remove-passkey') as HTMLButtonElement
             button.click()

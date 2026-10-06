@@ -193,6 +193,8 @@
   "MANAGE_PASSKEYS_EMPTY": "You have not registered any passkeys yet.",
   "BTN_ADD_PASSKEY": "Add passkey",
   "REMOVE_PASSKEY": "Remove passkey",
+  "PASSKEY_UNKNOWN_PROVIDER": "Unknown provider",
+  "PASSKEY_ADDED_ON": "Added {{date}}",
   "CONFIRM_PASSKEY_ADDED": "Your passkey has been added.",
   "CONFIRM_PASSKEY_REMOVED": "Your passkey has been removed.",
   "INVALID_TWO_FACTOR_AUTH_TOKEN": "The token appears to be invalid.",

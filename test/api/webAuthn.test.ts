@@ -403,6 +403,27 @@ void describe('/rest/webauthn/register-verify', () => {
     assert.equal(res.body.verified, true)
   })
 
+  void it('POST stores the AAGUID of the passkey provider and lists it with the creation date', async () => {
+    const { token, challenge, regToken } = await attackerContext()
+    const credentialID = isoBase64URL.fromBuffer(crypto.randomBytes(32))
+    const aaguid = 'bada5566-a7aa-401f-bd96-45619a55120d'
+    const { attestation } = buildAttestation(credentialID, challenge, { aaguid })
+
+    await request(app)
+      .post('/rest/webauthn/register-verify')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+      .send({ attestation, regToken })
+      .expect(200)
+
+    const res = await request(app)
+      .get('/rest/webauthn/credentials')
+      .set({ Authorization: 'Bearer ' + token, ...jsonHeader })
+
+    const registered = res.body.data.find((c: { credentialID: string }) => c.credentialID === credentialID)
+    assert.equal(registered.aaguid, aaguid)
+    assert.ok(!Number.isNaN(Date.parse(registered.createdAt)))
+  })
+
   void it('POST returns 401 when unauthenticated', async () => {
     const { challenge } = await attackerContext()
     const { attestation } = buildAttestation(victim.credentialID, challenge)

@@ -1412,7 +1412,8 @@
 			43,
 			44,
 			45,
-			49
+			46,
+			50
 		],
 		"removed": [
 			41,
@@ -1423,10 +1424,10 @@
 	},
 	"webauthnCredentialOverwriteChallenge_2.ts": {
 		"added": [
-			49
+			50
 		],
 		"removed": [
-			49
+			50
 		]
 	},
 	"webauthnCredentialOverwriteChallenge_3_correct.ts": {
@@ -1436,7 +1437,8 @@
 			43,
 			44,
 			45,
-			49
+			46,
+			50
 		],
 		"removed": [
 			41,

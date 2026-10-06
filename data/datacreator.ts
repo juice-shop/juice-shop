@@ -289,7 +289,8 @@ async function createPasskeys (UserId: number, passkeys: StaticUserPasskey[]) {
       credentialID: passkey.credentialID,
       publicKey: passkey.publicKey,
       counter: passkey.counter ?? 0,
-      transports: passkey.transports ?? ''
+      transports: passkey.transports ?? '',
+      aaguid: passkey.aaguid
     }).catch((err: unknown) => {
       logger.error(`Could not create passkey: ${utils.getErrorMessage(err)}`)
     })

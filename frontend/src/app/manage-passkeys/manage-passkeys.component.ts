@@ -4,23 +4,24 @@
  */
 
 import { Component, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { DatePipe } from '@angular/common'
 import { firstValueFrom } from 'rxjs'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
-import { MatListModule } from '@angular/material/list'
 import { MatTooltip } from '@angular/material/tooltip'
 
 import { type PasskeyCredential, PasskeyService } from '../Services/passkey.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { passkeyProviders } from './passkey-providers'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-manage-passkeys',
   templateUrl: './manage-passkeys.component.html',
   styleUrls: ['./manage-passkeys.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatButtonModule, MatIconModule, MatListModule, MatTooltip]
+  imports: [MatCardModule, TranslateModule, MatButtonModule, MatIconModule, MatTooltip, DatePipe]
 })
 export class ManagePasskeysComponent implements OnInit {
   private readonly passkeyService = inject(PasskeyService)
@@ -29,6 +30,10 @@ export class ManagePasskeysComponent implements OnInit {
   public readonly credentials = signal<PasskeyCredential[]>([])
   public readonly error = signal<string | undefined>(undefined)
   public readonly busy = signal(false)
+
+  providerName (aaguid: string): string | undefined {
+    return passkeyProviders[aaguid]
+  }
 
   ngOnInit (): void {
     void this.loadCredentials()

@@ -21,16 +21,20 @@
       }
 
       @if (credentials().length > 0) {
-        <mat-list id="passkey-list">
+        <ul id="passkey-list">
           @for (credential of credentials(); track credential.id) {
-            <mat-list-item class="passkey-item">
-              <mat-icon matListItemIcon>key</mat-icon>
-              <span matListItemTitle class="credential-id">{{ credential.credentialID }}</span>
-              @if (credential.transports) {
-                <span matListItemLine>{{ credential.transports }}</span>
-              }
+            @let provider = providerName(credential.aaguid);
+            <li class="passkey-item">
+              <mat-icon class="passkey-icon">key</mat-icon>
+              <div class="passkey-details">
+                @if (provider) {
+                  <span class="passkey-provider">{{ provider }}</span>
+                } @else {
+                  <span class="passkey-provider unknown-provider" [matTooltip]="credential.aaguid">{{ 'PASSKEY_UNKNOWN_PROVIDER' | translate }}</span>
+                }
+                <span class="passkey-created">{{ 'PASSKEY_ADDED_ON' | translate: { date: (credential.createdAt | date:'mediumDate') } }}</span>
+              </div>
               <button
-                matListItemMeta
                 mat-icon-button
                 type="button"
                 class="remove-passkey"
@@ -40,9 +44,9 @@
               >
                 <mat-icon>delete</mat-icon>
               </button>
-            </mat-list-item>
+            </li>
           }
-        </mat-list>
+        </ul>
       } @else {
         <p id="no-passkeys">{{ 'MANAGE_PASSKEYS_EMPTY' | translate }}</p>
       }

