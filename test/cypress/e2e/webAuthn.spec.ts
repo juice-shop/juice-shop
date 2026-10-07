@@ -28,10 +28,18 @@ describe('/', () => {
 
   describe('challenge "webauthnCredentialOverwriteChallenge"', () => {
     it("should solve by overwriting the victim's credential and logging in with the attacker key", () => {
+      const attacker = { email: `passkey-attacker-${Date.now()}@juice-sh.op`, password: 'attacker123' }
+
+      cy.request({
+        method: 'POST',
+        url: '/api/Users',
+        body: { ...attacker, passwordRepeat: attacker.password }
+      })
+
       cy.request({
         method: 'POST',
         url: '/rest/user/login',
-        body: { email: 'jim@juice-sh.op', password: 'ncc-1701' }
+        body: attacker
       }).then((loginResponse) => {
         const attackerToken = loginResponse.body.authentication.token
 
