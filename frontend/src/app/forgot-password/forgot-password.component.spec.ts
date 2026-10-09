@@ -127,6 +127,19 @@ describe('ForgotPasswordComponent', () => {
         expect(component.forgotPasswordForm.password().valid()).toBe(true)
     })
 
+    it('should not allow a password longer than forty characters', () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        let password = ''
+        for (let i = 0; i < 41; i++) {
+            password += 'a'
+        }
+        setModel({ password })
+        expect(component.forgotPasswordForm.password().valid()).toBeFalsy()
+        password = password.slice(1)
+        setModel({ password })
+        expect(component.forgotPasswordForm.password().valid()).toBe(true)
+    })
+
     it('should be compulsory to repeat the password', () => {
         component.securityQuestion.set('What is your favorite test tool?')
         setModel({ password: 'a', repeatPassword: '' })

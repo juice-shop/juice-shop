@@ -5,7 +5,7 @@
 
 import { UserService } from '../Services/user.service'
 import { SecurityQuestionService } from '../Services/security-question.service'
-import { disabled, email, form, FormField, FormRoot, minLength, required, validate } from '@angular/forms/signals'
+import { disabled, email, form, FormField, FormRoot, maxLength, minLength, required, validate } from '@angular/forms/signals'
 import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -61,6 +61,7 @@ export class ForgotPasswordComponent {
     disabled(s.password, { when: () => !this.securityQuestion() })
     required(s.password)
     minLength(s.password, 5)
+    maxLength(s.password, 40)
     disabled(s.repeatPassword, { when: () => !this.securityQuestion() })
     required(s.repeatPassword)
     validate(s.repeatPassword, ({ value, valueOf }) => {
