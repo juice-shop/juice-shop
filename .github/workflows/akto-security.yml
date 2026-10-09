@@ -1,0 +1,20 @@
+name: Akto Security Testing
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  security-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run CI/CD tests
+        uses: akto-api-security/run-scan@v1.0.3
+        with:
+          AKTO_DASHBOARD_URL: ${{vars.AKTO_DASHBOARD_URL}}
+          GITHUB_COMMIT_ID: ${{github.event.pull_request.head.sha}}
+          AKTO_API_KEY: ${{vars.AKTO_API_KEY}}
+          AKTO_TEST_ID: ${{vars.AKTO_TEST_ID}}
+          START_TIME_DELAY: 180
