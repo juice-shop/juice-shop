@@ -453,6 +453,17 @@ describe('LoginComponent', () => {
             expect(location.path()).toBe('/search')
         })
 
+        it('should redirect to the URL provided via the redirectUrl query parameter after a passkey login', async () => {
+            const router = (component as any).router
+            const navSpy = vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true as any)
+            ;(component as any).route = { snapshot: { queryParamMap: { get: () => '/profile' } } }
+            passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
+            passkeyService.loginOptions.mockReturnValue(of({ options: { challenge: 'c' }, authToken: 'authToken' }))
+            passkeyService.loginVerify.mockReturnValue(of({ token: 'passkeyToken', bid: 42 }))
+            await component.passkeyLogin()
+            expect(navSpy).toHaveBeenCalledWith('/profile')
+        })
+
         it('should show the server error when passkey verification fails', async () => {
             passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
             passkeyService.loginOptions.mockReturnValue(of({ options: {}, authToken: 'authToken' }))

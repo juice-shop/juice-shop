@@ -113,6 +113,20 @@ describe('ManagePasskeysComponent', () => {
         expect(snackBarHelperService.open).toHaveBeenCalledWith('CONFIRM_PASSKEY_REMOVED', 'confirmBar')
     })
 
+    it('should show the server error and keep the list when a passkey cannot be removed', async () => {
+        const credentials = [{ id: 1, credentialID: 'cred', transports: '', aaguid: UNKNOWN, createdAt: '2026-10-06T12:00:00.000Z' }]
+        component.credentials.set(credentials)
+        passkeyService.deleteCredential.mockReturnValue(throwError(() => ({ status: 500, message: 'Http failure response' })))
+        passkeyService.listCredentials.mockClear()
+
+        await component.removePasskey(1)
+
+        expect(component.error()).toBe('Http failure response')
+        expect(component.credentials()).toEqual(credentials)
+        expect(passkeyService.listCredentials).not.toHaveBeenCalled()
+        expect(snackBarHelperService.open).not.toHaveBeenCalled()
+    })
+
     describe('template rendering', () => {
         it('should show the empty state when no passkeys are registered', () => {
             const compiled: HTMLElement = fixture.nativeElement
