@@ -34,7 +34,7 @@ describe('PasskeyService', () => {
         let res: any
         service.loginOptions().subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/login-options')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/login-options')
         req.flush({ options: { challenge: 'c' }, authToken: 'a' })
 
         expect(req.request.method).toBe('POST')
@@ -45,7 +45,7 @@ describe('PasskeyService', () => {
     it('should pass the email when requesting login options for a specific user', () => {
         service.loginOptions('a@a').subscribe()
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/login-options')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/login-options')
         req.flush({ options: {}, authToken: 'a' })
 
         expect(req.request.body).toEqual({ email: 'a@a' })
@@ -55,7 +55,7 @@ describe('PasskeyService', () => {
         let res: any
         service.loginVerify({ id: 'cred' } as any, 'authToken').subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/login-verify')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/login-verify')
         req.flush({ authentication: { token: 't', bid: 1, umail: 'a@a' } })
 
         expect(req.request.method).toBe('POST')
@@ -67,7 +67,7 @@ describe('PasskeyService', () => {
         let res: any
         service.registerOptions().subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/register-options')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/register-options')
         req.flush({ options: { challenge: 'c' }, regToken: 'r' })
 
         expect(req.request.method).toBe('GET')
@@ -78,7 +78,7 @@ describe('PasskeyService', () => {
         let res: any = 'unset'
         service.registerVerify({ id: 'cred' } as any, 'regToken').subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/register-verify')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/register-verify')
         req.flush({ verified: true })
 
         expect(req.request.method).toBe('POST')
@@ -90,7 +90,7 @@ describe('PasskeyService', () => {
         let res: any
         service.listCredentials().subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/credentials')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/credentials')
         req.flush({ data: [{ id: 1, credentialID: 'cred', transports: 'internal' }] })
 
         expect(req.request.method).toBe('GET')
@@ -101,7 +101,7 @@ describe('PasskeyService', () => {
         let res: any = 'unset'
         service.deleteCredential(42).subscribe((data) => (res = data))
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/credentials/42')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/credentials/42')
         req.flush(null, { status: 204, statusText: 'No Content' })
 
         expect(req.request.method).toBe('DELETE')
@@ -112,7 +112,7 @@ describe('PasskeyService', () => {
         let capturedError: any
         service.loginVerify({ id: 'cred' } as any, 'authToken').subscribe({ next: () => { throw new Error('expected error') }, error: (e) => { capturedError = e } })
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/login-verify')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/login-verify')
         req.error(new ErrorEvent('Unauthorized'), { status: 401, statusText: 'Unauthorized' })
 
         expect(capturedError.status).toBe(401)
@@ -130,7 +130,7 @@ describe('PasskeyService', () => {
         let capturedError: any
         service.listCredentials().subscribe({ next: () => { throw new Error('expected error') }, error: (e) => { capturedError = e } })
 
-        const req = httpMock.expectOne('http://localhost:3000/rest/webauthn/credentials')
+        const req = httpMock.expectOne('http://localhost:3000/rest/passkey/credentials')
         req.error(new ErrorEvent('Unauthorized'), { status: 401, statusText: 'Unauthorized' })
 
         expect(capturedError.status).toBe(401)

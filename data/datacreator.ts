@@ -4,7 +4,7 @@
  */
 
 import { AddressModel } from '../models/address'
-import { AuthenticatorModel } from '../models/authenticator'
+import { PasskeyModel } from '../models/passkey'
 import { BasketModel } from '../models/basket'
 import { BasketItemModel } from '../models/basketitem'
 import { CardModel } from '../models/card'
@@ -284,7 +284,7 @@ async function createCards (UserId: number, cards: StaticUserCard[]) {
 
 async function createPasskeys (UserId: number, passkeys: StaticUserPasskey[]) {
   return await Promise.all(passkeys.map(async (passkey) => {
-    return await AuthenticatorModel.create({
+    return await PasskeyModel.create({
       UserId,
       credentialID: passkey.credentialID,
       publicKey: passkey.publicKey,

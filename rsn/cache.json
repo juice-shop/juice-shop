@@ -1405,7 +1405,7 @@
 			24
 		]
 	},
-	"webauthnCredentialOverwriteChallenge_1.ts": {
+	"passkeyCredentialOverwriteChallenge_1.ts": {
 		"added": [
 			41,
 			42,
@@ -1422,7 +1422,7 @@
 			44
 		]
 	},
-	"webauthnCredentialOverwriteChallenge_2.ts": {
+	"passkeyCredentialOverwriteChallenge_2.ts": {
 		"added": [
 			50
 		],
@@ -1430,7 +1430,7 @@
 			50
 		]
 	},
-	"webauthnCredentialOverwriteChallenge_3_correct.ts": {
+	"passkeyCredentialOverwriteChallenge_3_correct.ts": {
 		"added": [
 			41,
 			42,
@@ -1447,7 +1447,7 @@
 			44
 		]
 	},
-	"webauthnSignatureChallenge_1.ts": {
+	"passkeySignatureChallenge_1.ts": {
 		"added": [
 			45
 		],
@@ -1459,7 +1459,7 @@
 			45
 		]
 	},
-	"webauthnSignatureChallenge_2.ts": {
+	"passkeySignatureChallenge_2.ts": {
 		"added": [
 			40,
 			41,
@@ -1475,7 +1475,7 @@
 			43
 		]
 	},
-	"webauthnSignatureChallenge_3_correct.ts": {
+	"passkeySignatureChallenge_3_correct.ts": {
 		"added": [
 			40,
 			41,

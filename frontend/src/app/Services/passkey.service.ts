@@ -46,7 +46,7 @@ export interface PasskeyCredential {
 })
 export class PasskeyService {
   private readonly http = inject(HttpClient)
-  private readonly host = `${environment.hostServer}/rest/webauthn`
+  private readonly host = `${environment.hostServer}/rest/passkey`
 
   loginOptions (email?: string): Observable<PasskeyLoginOptions> {
     return this.http.post<PasskeyLoginOptions>(`${this.host}/login-options`, email ? { email } : {})

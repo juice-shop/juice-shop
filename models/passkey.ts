@@ -12,9 +12,9 @@ import {
   type Sequelize
 } from 'sequelize'
 
-class Authenticator extends Model<
-InferAttributes<Authenticator>,
-InferCreationAttributes<Authenticator>
+class Passkey extends Model<
+InferAttributes<Passkey>,
+InferCreationAttributes<Passkey>
 > {
   declare id: CreationOptional<number>
   declare UserId: number
@@ -26,8 +26,8 @@ InferCreationAttributes<Authenticator>
   declare createdAt: CreationOptional<Date>
 }
 
-const AuthenticatorModelInit = (sequelize: Sequelize) => {
-  Authenticator.init(
+const PasskeyModelInit = (sequelize: Sequelize) => {
+  Passkey.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -58,10 +58,10 @@ const AuthenticatorModelInit = (sequelize: Sequelize) => {
       createdAt: DataTypes.DATE
     },
     {
-      tableName: 'Authenticators',
+      tableName: 'Passkeys',
       sequelize
     }
   )
 }
 
-export { Authenticator as AuthenticatorModel, AuthenticatorModelInit }
+export { Passkey as PasskeyModel, PasskeyModelInit }

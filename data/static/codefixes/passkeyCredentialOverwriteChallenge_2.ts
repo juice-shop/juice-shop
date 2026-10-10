@@ -11,7 +11,7 @@ export async function registerVerify (req: Request, res: Response) {
   const { attestation, regToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = verifyCeremonyToken(regToken, 'webauthn_reg')
+  const decoded = verifyCeremonyToken(regToken, 'passkey_reg')
   if (!decoded || decoded.userId !== user.id) {
     res.status(401).send()
     return
@@ -35,13 +35,16 @@ export async function registerVerify (req: Request, res: Response) {
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
 
-  const existing = await AuthenticatorModel.findOne({ where: { credentialID, UserId: user.id } })
+  const existing = await PasskeyModel.findOne({ where: { credentialID } })
   if (existing) {
-    res.status(409).json({ error: 'credentialID already registered' })
-    return
+    existing.publicKey = publicKey
+    existing.counter = credential.counter
+    existing.transports = transports
+    existing.aaguid = aaguid
+    await existing.save()
+  } else {
+    await PasskeyModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
   }
-
-  await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
 
   res.json({ verified: true })
 }

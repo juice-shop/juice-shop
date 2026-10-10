@@ -1604,7 +1604,7 @@
     - 'The shop relies on a well-established library to check what your authenticator sends. That alone does not guarantee the shop does anything with the result.'
     - 'You will not be able to produce a valid signature. Maybe you do not have to.'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
-  key: webauthnSignatureChallenge
+  key: passkeySignatureChallenge
 -
   name: 'Passkey Hijack'
   category: 'Broken Access Control'
@@ -1617,4 +1617,4 @@
     - 'Every passkey is identified by an ID. Some login flows are more talkative about these IDs than others.'
     - 'What would the shop do if it was asked to register a passkey it already knows?'
   mitigationUrl: 'https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html'
-  key: webauthnCredentialOverwriteChallenge
+  key: passkeyCredentialOverwriteChallenge
