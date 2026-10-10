@@ -217,15 +217,15 @@ void describe('utils', () => {
 
   void describe('toISO8601', () => {
     void it('converts date to ISO 8601 representation', () => {
-      assert.equal(utils.toISO8601(new Date('2025-12-15T00:00:00Z')), '2025-12-15')
+      assert.equal(utils.toISO8601(new Date(2025, 11, 15)), '2025-12-15')
     })
 
     void it('prepends single-digit months with a zero', () => {
-      assert.equal(utils.toISO8601(new Date('2025-03-15T00:00:00Z')), '2025-03-15')
+      assert.equal(utils.toISO8601(new Date(2025, 2, 15)), '2025-03-15')
     })
 
     void it('prepends single-digit days with a zero', () => {
-      assert.equal(utils.toISO8601(new Date('2025-12-01T00:00:00Z')), '2025-12-01')
+      assert.equal(utils.toISO8601(new Date(2025, 11, 1)), '2025-12-01')
     })
   })
 
