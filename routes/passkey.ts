@@ -137,13 +137,13 @@ export async function registerVerify (req: Request, res: Response) {
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
 
-  const existing = await PasskeyModel.findOne({ where: { credentialID } }) // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
-  if (existing) { // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
+  const existing = await PasskeyModel.findOne({ where: { credentialID } }) // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
+  if (existing) { // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
     existing.publicKey = publicKey // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
-    existing.counter = credential.counter
-    existing.transports = transports
-    existing.aaguid = aaguid
-    await existing.save()
+    existing.counter = credential.counter // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
+    existing.transports = transports // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
+    existing.aaguid = aaguid // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
+    await existing.save() // vuln-code-snippet neutral-line passkeyCredentialOverwriteChallenge
   } else {
     await PasskeyModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
   }
@@ -215,10 +215,10 @@ export async function loginVerify (req: Request, res: Response) {
 
   challengeUtils.solveIf(challenges.passkeySignatureChallenge, () => { return user.id === users.passkeyUser.id && !verification.verified }) // vuln-code-snippet hide-line
   await solvePasskeyHijack(user, passkey, verification.verified) // vuln-code-snippet hide-line
-  if (verification.verified) {
-    passkey.counter = verification.authenticationInfo.newCounter
-    await passkey.save()
-  }
+  if (verification.verified) { // vuln-code-snippet neutral-line passkeySignatureChallenge
+    passkey.counter = verification.authenticationInfo.newCounter // vuln-code-snippet neutral-line passkeySignatureChallenge
+    await passkey.save() // vuln-code-snippet neutral-line passkeySignatureChallenge
+  } // vuln-code-snippet neutral-line passkeySignatureChallenge
   await issuePasskeySession(user, res) // vuln-code-snippet vuln-line passkeySignatureChallenge
 }
 // vuln-code-snippet end passkeySignatureChallenge
