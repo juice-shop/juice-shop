@@ -70,7 +70,7 @@ export const accessControlChallenges = () => (req: Request, res: Response, next:
   challengeUtils.solveIf(challenges.tokenSaleChallenge, () => { return url.endsWith('/56px.png') }, false, uiBypassed)
   challengeUtils.solveIf(challenges.privacyPolicyChallenge, () => { return url.endsWith('/81px.png') }, false, uiBypassed)
   challengeUtils.solveIf(challenges.extraLanguageChallenge, () => { return url.endsWith('/tlh_AA.json') })
-  challengeUtils.solveIf(challenges.retrieveBlueprintChallenge, () => { return url.endsWith(retrieveBlueprintChallengeFile ?? '') })
+  challengeUtils.solveIf(challenges.retrieveBlueprintChallenge, () => { return Boolean(retrieveBlueprintChallengeFile && url.endsWith(retrieveBlueprintChallengeFile)) })
   challengeUtils.solveIf(challenges.securityPolicyChallenge, () => { return url.endsWith('/security.txt') })
   challengeUtils.solveIf(challenges.missingEncodingChallenge, () => { return url.toLowerCase().endsWith('%e1%93%9a%e1%98%8f%e1%97%a2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg') })
   challengeUtils.solveIf(challenges.accessLogDisclosureChallenge, () => { return url.match(/access\.log(0-9-)*/) })

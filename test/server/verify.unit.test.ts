@@ -125,6 +125,26 @@ void describe('verify', () => {
       assert.equal(challenges.retrieveBlueprintChallenge.solved, true)
     })
 
+    void it('"retrieveBlueprintChallenge" is not solved when blueprint file is null', () => {
+      challenges.retrieveBlueprintChallenge = { solved: false, save } as unknown as Challenge
+      setRetrieveBlueprintChallengeFile(null as unknown as string)
+      req.url = 'http://juice-sh.op/public/images/products/other.jpg'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.retrieveBlueprintChallenge.solved, false)
+    })
+
+    void it('"retrieveBlueprintChallenge" is not solved when a different product file is requested', () => {
+      challenges.retrieveBlueprintChallenge = { solved: false, save } as unknown as Challenge
+      setRetrieveBlueprintChallengeFile('test.dxf')
+      req.url = 'http://juice-sh.op/public/images/products/other.jpg'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.retrieveBlueprintChallenge.solved, false)
+    })
+
     void it('"missingEncodingChallenge" is solved when the crazy cat photo is requested', () => {
       challenges.missingEncodingChallenge = { solved: false, save } as unknown as Challenge
       req.url = 'http://juice-sh.op/public/images/uploads/%E1%93%9A%E1%98%8F%E1%97%A2-%23zatschi-%23whoneedsfourlegs-1572600969477.jpg'
