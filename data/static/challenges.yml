@@ -1610,7 +1610,7 @@
   category: 'Broken Access Control'
   tags:
     - Passkey
-  description: 'Take over the passkey of <i>passkey-user</i> and use it to properly log in to their account.'
+  description: 'Take over the existing passkey of <i>passkey-user</i> and use it to properly log in to their account.'
   difficulty: 5
   hints:
     - 'As always, first learn how the feature under attack is used and behaves under normal conditions. Register a passkey for your own account and observe what is sent to the server.'
