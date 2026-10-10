@@ -7,10 +7,6 @@ import { Component, NgZone, type OnInit, inject, ChangeDetectionStrategy } from 
 import { OrderHistoryService } from '../Services/order-history.service'
 import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { BasketService } from '../Services/basket.service'
-import { ProductDetailsComponent } from '../product-details/product-details.component'
-import { MatDialog } from '@angular/material/dialog'
-import { type Product } from '../Models/product.model'
-import { ProductService } from '../Services/product.service'
 import { Router } from '@angular/router'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltip } from '@angular/material/tooltip'
@@ -44,10 +40,8 @@ export interface Order {
 })
 export class OrderHistoryComponent implements OnInit {
   private readonly router = inject(Router)
-  private readonly dialog = inject(MatDialog)
   private readonly orderHistoryService = inject(OrderHistoryService)
   private readonly basketService = inject(BasketService)
-  private readonly productService = inject(ProductService)
   private readonly ngZone = inject(NgZone)
 
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
@@ -88,27 +82,7 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   showDetail (id: number) {
-    this.productService.get(id).subscribe({
-      next: (product) => {
-        const element: Product = {
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          image: product.image,
-          price: product.price,
-          deluxePrice: product.deluxePrice,
-          points: Math.round(product.price / 10)
-        }
-        this.dialog.open(ProductDetailsComponent, {
-          width: '500px',
-          height: 'max-content',
-          data: {
-            productData: element
-          }
-        })
-      },
-      error: (err) => { console.log(err) }
-    })
+    void this.router.navigate(['/product', id], { queryParams: { 'goto-reviews': 'true' } })
   }
 
   openConfirmationPDF (orderId: string) {
