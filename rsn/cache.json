@@ -906,6 +906,45 @@
 			6
 		]
 	},
+	"passkeyCredentialOverwriteChallenge_1.ts": {
+		"added": [
+			45,
+			46
+		],
+		"removed": []
+	},
+	"passkeyCredentialOverwriteChallenge_2.ts": {
+		"added": [
+			45,
+			46
+		],
+		"removed": []
+	},
+	"passkeyCredentialOverwriteChallenge_3_correct.ts": {
+		"added": [
+			45,
+			46
+		],
+		"removed": []
+	},
+	"passkeySignatureChallenge_1.ts": {
+		"added": [],
+		"removed": []
+	},
+	"passkeySignatureChallenge_2.ts": {
+		"added": [],
+		"removed": []
+	},
+	"passkeySignatureChallenge_3_correct.ts": {
+		"added": [],
+		"removed": [
+			34,
+			35,
+			36,
+			37,
+			38
+		]
+	},
 	"redirectChallenge_1.ts": {
 		"added": [],
 		"removed": []
@@ -1403,95 +1442,6 @@
 			23,
 			24,
 			24
-		]
-	},
-	"passkeyCredentialOverwriteChallenge_1.ts": {
-		"added": [
-			41,
-			42,
-			43,
-			44,
-			45,
-			46,
-			50
-		],
-		"removed": [
-			41,
-			43,
-			44,
-			44
-		]
-	},
-	"passkeyCredentialOverwriteChallenge_2.ts": {
-		"added": [
-			50
-		],
-		"removed": [
-			50
-		]
-	},
-	"passkeyCredentialOverwriteChallenge_3_correct.ts": {
-		"added": [
-			41,
-			42,
-			43,
-			44,
-			45,
-			46,
-			50
-		],
-		"removed": [
-			41,
-			43,
-			44,
-			44
-		]
-	},
-	"passkeySignatureChallenge_1.ts": {
-		"added": [
-			45
-		],
-		"removed": [
-			40,
-			41,
-			42,
-			43,
-			45
-		]
-	},
-	"passkeySignatureChallenge_2.ts": {
-		"added": [
-			40,
-			41,
-			42,
-			45
-		],
-		"removed": [
-			40,
-			41,
-			42,
-			42,
-			43,
-			43
-		]
-	},
-	"passkeySignatureChallenge_3_correct.ts": {
-		"added": [
-			40,
-			41,
-			42,
-			43,
-			45
-		],
-		"removed": [
-			34,
-			35,
-			36,
-			37,
-			38,
-			40,
-			41,
-			42
 		]
 	},
 	"xssBonusChallenge_1_correct.ts": {

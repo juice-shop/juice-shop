@@ -37,14 +37,10 @@ export async function registerVerify (req: Request, res: Response) {
 
   const existing = await PasskeyModel.findOne({ where: { credentialID } })
   if (existing) {
-    existing.publicKey = publicKey
-    existing.counter = credential.counter
-    existing.transports = transports
-    existing.aaguid = aaguid
-    await existing.save()
-  } else {
-    await PasskeyModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
+    await existing.destroy()
   }
+
+  await PasskeyModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
 
   res.json({ verified: true })
 }
