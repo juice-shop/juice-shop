@@ -129,8 +129,8 @@ export const CHALLENGE_KEYS = [
   'systemPromptExtractionChallenge',
   'iacLeakedKeyChallenge',
   'vulnerableDockerImageChallenge',
-  'webauthnSignatureChallenge',
-  'webauthnCredentialOverwriteChallenge'
+  'passkeySignatureChallenge',
+  'passkeyCredentialOverwriteChallenge'
 ] as const
 
 export type ChallengeKey = typeof CHALLENGE_KEYS[number]

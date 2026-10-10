@@ -76,7 +76,7 @@ import { b2bOrder } from './routes/b2bOrder'
 import * as delivery from './routes/delivery'
 import * as recycles from './routes/recycles'
 import * as twoFactorAuth from './routes/2fa'
-import * as webauthn from './routes/webauthn'
+import * as passkey from './routes/passkey'
 import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
@@ -225,7 +225,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   }))
 
   /* Passkey Endpoints (W3C) for password managers */
-  app.get('/.well-known/passkey-endpoints', webauthn.passkeyEndpoints)
+  app.get('/.well-known/passkey-endpoints', passkey.passkeyEndpoints)
 
   /* robots.txt */
   app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
@@ -506,12 +506,12 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     utils.asyncHandler(twoFactorAuth.disable)
   )
   /* Passkey (WebAuthn) registration requires an authenticated session; sign-in must be public. */
-  app.get('/rest/webauthn/register-options', security.isAuthorized(), utils.asyncHandler(webauthn.registerOptions))
-  app.post('/rest/webauthn/register-verify', security.isAuthorized(), utils.asyncHandler(webauthn.registerVerify))
-  app.post('/rest/webauthn/login-options', utils.asyncHandler(webauthn.loginOptions))
-  app.post('/rest/webauthn/login-verify', utils.asyncHandler(webauthn.loginVerify))
-  app.get('/rest/webauthn/credentials', security.isAuthorized(), utils.asyncHandler(webauthn.listCredentials))
-  app.delete('/rest/webauthn/credentials/:id', security.isAuthorized(), utils.asyncHandler(webauthn.deleteCredential))
+  app.get('/rest/passkey/register-options', security.isAuthorized(), utils.asyncHandler(passkey.registerOptions))
+  app.post('/rest/passkey/register-verify', security.isAuthorized(), utils.asyncHandler(passkey.registerVerify))
+  app.post('/rest/passkey/login-options', utils.asyncHandler(passkey.loginOptions))
+  app.post('/rest/passkey/login-verify', utils.asyncHandler(passkey.loginVerify))
+  app.get('/rest/passkey/credentials', security.isAuthorized(), utils.asyncHandler(passkey.listCredentials))
+  app.delete('/rest/passkey/credentials/:id', security.isAuthorized(), utils.asyncHandler(passkey.deleteCredential))
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 

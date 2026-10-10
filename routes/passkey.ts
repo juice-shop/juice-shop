@@ -17,7 +17,7 @@ import {
 } from '@simplewebauthn/server'
 import { COSEALG, isoBase64URL, isoUint8Array } from '@simplewebauthn/server/helpers'
 
-import { AuthenticatorModel } from '../models/authenticator'
+import { PasskeyModel } from '../models/passkey'
 import { BasketModel } from '../models/basket'
 import { UserModel } from '../models/user'
 import * as challengeUtils from '../lib/challengeUtils'
@@ -54,8 +54,8 @@ function verifyCeremonyToken (token: unknown, type: string): Record<string, any>
   return payload?.type === type ? payload : undefined
 }
 
-function toTransports (authenticator: AuthenticatorModel) {
-  return authenticator.transports ? authenticator.transports.split(',') as AuthenticatorTransport[] : undefined
+function toTransports (passkey: PasskeyModel) {
+  return passkey.transports ? passkey.transports.split(',') as AuthenticatorTransport[] : undefined
 }
 
 // A passkey sign-in mints the same JWT session a password login would, mirroring routes/login.ts.
@@ -80,26 +80,26 @@ export async function registerOptions (req: Request, res: Response) {
   const { data: user } = data
   const { rpID, rpName } = relyingParty(req)
 
-  const existing = await AuthenticatorModel.findAll({ where: { UserId: user.id } })
+  const existing = await PasskeyModel.findAll({ where: { UserId: user.id } })
   const options = await generateRegistrationOptions({
     rpName,
     rpID,
     userName: user.email,
     userID: isoUint8Array.fromUTF8String(String(user.id)),
     attestationType: 'none',
-    excludeCredentials: existing.map((authenticator) => ({
-      id: authenticator.credentialID,
-      transports: toTransports(authenticator)
+    excludeCredentials: existing.map((passkey) => ({
+      id: passkey.credentialID,
+      transports: toTransports(passkey)
     })),
     authenticatorSelection: { residentKey: 'required', userVerification: 'preferred' },
     supportedAlgorithmIDs
   })
 
-  const regToken = signCeremonyToken({ userId: user.id, challenge: options.challenge, type: 'webauthn_reg' })
+  const regToken = signCeremonyToken({ userId: user.id, challenge: options.challenge, type: 'passkey_reg' })
   res.json({ options, regToken })
 }
 
-// vuln-code-snippet start webauthnCredentialOverwriteChallenge
+// vuln-code-snippet start passkeyCredentialOverwriteChallenge
 /**
  * Verify a passkey registration and persist the new credential.
  */
@@ -113,7 +113,7 @@ export async function registerVerify (req: Request, res: Response) {
   const { attestation, regToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = verifyCeremonyToken(regToken, 'webauthn_reg')
+  const decoded = verifyCeremonyToken(regToken, 'passkey_reg')
   if (!decoded || decoded.userId !== user.id) {
     res.status(401).send()
     return
@@ -137,20 +137,20 @@ export async function registerVerify (req: Request, res: Response) {
   const publicKey = isoBase64URL.fromBuffer(credential.publicKey)
   const transports = (attestation.response?.transports ?? []).join(',')
 
-  const existing = await AuthenticatorModel.findOne({ where: { credentialID } }) // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
-  if (existing) { // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
-    existing.publicKey = publicKey // vuln-code-snippet vuln-line webauthnCredentialOverwriteChallenge
+  const existing = await PasskeyModel.findOne({ where: { credentialID } }) // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
+  if (existing) { // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
+    existing.publicKey = publicKey // vuln-code-snippet vuln-line passkeyCredentialOverwriteChallenge
     existing.counter = credential.counter
     existing.transports = transports
     existing.aaguid = aaguid
     await existing.save()
   } else {
-    await AuthenticatorModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
+    await PasskeyModel.create({ UserId: user.id, credentialID, publicKey, counter: credential.counter, transports, aaguid })
   }
 
   res.json({ verified: true })
 }
-// vuln-code-snippet end webauthnCredentialOverwriteChallenge
+// vuln-code-snippet end passkeyCredentialOverwriteChallenge
 
 /**
  * Start a passkey sign-in, either usernameless (discoverable credentials) or username-first.
@@ -161,19 +161,19 @@ export async function loginOptions (req: Request, res: Response) {
 
   let allowCredentials
   if (typeof email === 'string' && email) {
-    const authenticators = await AuthenticatorModel.findAll({ include: [{ model: UserModel, where: { email }, attributes: [] }] })
-    allowCredentials = authenticators.map((authenticator) => ({
-      id: authenticator.credentialID,
-      transports: toTransports(authenticator)
+    const passkeys = await PasskeyModel.findAll({ include: [{ model: UserModel, where: { email }, attributes: [] }] })
+    allowCredentials = passkeys.map((passkey) => ({
+      id: passkey.credentialID,
+      transports: toTransports(passkey)
     }))
   }
 
   const options = await generateAuthenticationOptions({ rpID, allowCredentials, userVerification: 'preferred' })
-  const authToken = signCeremonyToken({ challenge: options.challenge, type: 'webauthn_auth' })
+  const authToken = signCeremonyToken({ challenge: options.challenge, type: 'passkey_auth' })
   res.json({ options, authToken })
 }
 
-// vuln-code-snippet start webauthnSignatureChallenge
+// vuln-code-snippet start passkeySignatureChallenge
 /**
  * Verify a passkey assertion and sign the user in.
  */
@@ -181,14 +181,14 @@ export async function loginVerify (req: Request, res: Response) {
   const { assertion, authToken } = req.body
   const { rpID, origin } = relyingParty(req)
 
-  const decoded = verifyCeremonyToken(authToken, 'webauthn_auth')
+  const decoded = verifyCeremonyToken(authToken, 'passkey_auth')
   if (!decoded || typeof assertion?.id !== 'string') {
     res.status(401).send()
     return
   }
 
-  const authenticator = await AuthenticatorModel.findOne({ where: { credentialID: assertion.id } })
-  if (!authenticator) {
+  const passkey = await PasskeyModel.findOne({ where: { credentialID: assertion.id } })
+  if (!passkey) {
     res.status(401).send(res.__('No account found for this passkey.'))
     return
   }
@@ -200,38 +200,38 @@ export async function loginVerify (req: Request, res: Response) {
     expectedRPID: rpID,
     requireUserVerification: false,
     credential: {
-      id: authenticator.credentialID,
-      publicKey: isoBase64URL.toBuffer(authenticator.publicKey),
-      counter: authenticator.counter,
-      transports: toTransports(authenticator)
+      id: passkey.credentialID,
+      publicKey: isoBase64URL.toBuffer(passkey.publicKey),
+      counter: passkey.counter,
+      transports: toTransports(passkey)
     }
   })
 
-  const user = await UserModel.findByPk(authenticator.UserId)
+  const user = await UserModel.findByPk(passkey.UserId)
   if (!user) {
     res.status(401).send(res.__('No account found for this passkey.'))
     return
   }
 
-  challengeUtils.solveIf(challenges.webauthnSignatureChallenge, () => { return user.id === users.passkeyUser.id && !verification.verified }) // vuln-code-snippet hide-line
-  await solvePasskeyHijack(user, authenticator, verification.verified) // vuln-code-snippet hide-line
+  challengeUtils.solveIf(challenges.passkeySignatureChallenge, () => { return user.id === users.passkeyUser.id && !verification.verified }) // vuln-code-snippet hide-line
+  await solvePasskeyHijack(user, passkey, verification.verified) // vuln-code-snippet hide-line
   if (verification.verified) {
-    authenticator.counter = verification.authenticationInfo.newCounter
-    await authenticator.save()
+    passkey.counter = verification.authenticationInfo.newCounter
+    await passkey.save()
   }
-  await issuePasskeySession(user, res) // vuln-code-snippet vuln-line webauthnSignatureChallenge
+  await issuePasskeySession(user, res) // vuln-code-snippet vuln-line passkeySignatureChallenge
 }
-// vuln-code-snippet end webauthnSignatureChallenge
+// vuln-code-snippet end passkeySignatureChallenge
 
 let seededPasskeys: Promise<StaticUserPasskey[]> | undefined
 
 // Only counts when a seeded credential ID now carries a different public key, i.e. it was overwritten.
-async function solvePasskeyHijack (user: UserModel, authenticator: AuthenticatorModel, verified: boolean) {
-  if (!verified || user.id !== users.passkeyUser.id || !challengeUtils.notSolved(challenges.webauthnCredentialOverwriteChallenge)) return
+async function solvePasskeyHijack (user: UserModel, passkey: PasskeyModel, verified: boolean) {
+  if (!verified || user.id !== users.passkeyUser.id || !challengeUtils.notSolved(challenges.passkeyCredentialOverwriteChallenge)) return
   seededPasskeys ??= loadStaticUserData().then((staticUsers) => staticUsers.find(({ key }) => key === 'passkeyUser')?.passkeys ?? [])
   const seeded = await seededPasskeys
-  challengeUtils.solveIf(challenges.webauthnCredentialOverwriteChallenge, () => {
-    return seeded.some(({ credentialID, publicKey }) => credentialID === authenticator.credentialID && publicKey !== authenticator.publicKey)
+  challengeUtils.solveIf(challenges.passkeyCredentialOverwriteChallenge, () => {
+    return seeded.some(({ credentialID, publicKey }) => credentialID === passkey.credentialID && publicKey !== passkey.publicKey)
   })
 }
 
@@ -244,14 +244,14 @@ export async function listCredentials (req: Request, res: Response) {
     res.status(401).send()
     return
   }
-  const authenticators = await AuthenticatorModel.findAll({ where: { UserId: data.data.id } })
+  const passkeys = await PasskeyModel.findAll({ where: { UserId: data.data.id } })
   res.json({
-    data: authenticators.map((authenticator) => ({
-      id: authenticator.id,
-      credentialID: authenticator.credentialID,
-      transports: authenticator.transports,
-      aaguid: authenticator.aaguid,
-      createdAt: authenticator.createdAt
+    data: passkeys.map((passkey) => ({
+      id: passkey.id,
+      credentialID: passkey.credentialID,
+      transports: passkey.transports,
+      aaguid: passkey.aaguid,
+      createdAt: passkey.createdAt
     }))
   })
 }
@@ -265,7 +265,7 @@ export async function deleteCredential (req: Request, res: Response) {
     res.status(401).send()
     return
   }
-  await AuthenticatorModel.destroy({ where: { id: req.params.id, UserId: data.data.id } })
+  await PasskeyModel.destroy({ where: { id: req.params.id, UserId: data.data.id } })
   res.status(204).send()
 }
 

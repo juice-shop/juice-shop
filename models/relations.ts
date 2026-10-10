@@ -1,6 +1,6 @@
 import { type Sequelize } from 'sequelize'
 import { AddressModel } from './address'
-import { AuthenticatorModel } from './authenticator'
+import { PasskeyModel } from './passkey'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
 import { ChallengeModel } from './challenge'
@@ -143,8 +143,8 @@ const relationsInit = (_sequelize: Sequelize) => {
     }
   })
 
-  UserModel.hasMany(AuthenticatorModel)
-  AuthenticatorModel.belongsTo(UserModel, {
+  UserModel.hasMany(PasskeyModel)
+  PasskeyModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
     foreignKey: {
