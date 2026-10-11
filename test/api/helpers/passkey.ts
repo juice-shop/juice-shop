@@ -4,9 +4,9 @@
  */
 
 import crypto from 'node:crypto'
-import fs from 'node:fs'
-import path from 'node:path'
+import assert from 'node:assert/strict'
 import { isoBase64URL, isoCBOR } from '@simplewebauthn/server/helpers'
+import { loadStaticUserData } from '../../../data/staticData'
 
 type CBORType = Parameters<typeof isoCBOR.encode>[0]
 
@@ -51,10 +51,33 @@ export interface WebAuthnAttestation {
 
 const sha256 = (b: Buffer) => crypto.createHash('sha256').update(b).digest()
 
+// The private key of the passkey seeded for passkey-user in data/static/users.yml is the SHA-256 of
+// this seed, so it can be re-derived on every run instead of being committed alongside the tests.
+const VICTIM_KEY_SEED = '38d2908cb7950941e6445d6b9ff2e385dc07b6de48efe26897cc89f2f3c6d439'
+
 /** The seeded victim passkey plus its matching private key, for crafting raw assertions. */
-export function loadVictimCredential (): VictimCredential {
-  const file = path.resolve(__dirname, '../../files/passkeyVictimCredential.json')
-  return JSON.parse(fs.readFileSync(file, 'utf8'))
+export async function loadVictimCredential (): Promise<VictimCredential> {
+  const ecdh = crypto.createECDH('prime256v1')
+  ecdh.setPrivateKey(sha256(Buffer.from(VICTIM_KEY_SEED)))
+  const point = ecdh.getPublicKey() // 0x04 | x(32) | y(32)
+  const jwk = {
+    kty: 'EC',
+    crv: 'P-256',
+    d: isoBase64URL.fromBuffer(ecdh.getPrivateKey()),
+    x: isoBase64URL.fromBuffer(point.subarray(1, 33)),
+    y: isoBase64URL.fromBuffer(point.subarray(33))
+  }
+  const publicKeyCose = isoBase64URL.fromBuffer(coseFromJwk(jwk))
+
+  const users = await loadStaticUserData()
+  const [seeded] = users.find(({ key }) => key === 'passkeyUser')?.passkeys ?? []
+  assert.equal(seeded?.publicKey, publicKeyCose, 'publicKey of passkey-user in data/static/users.yml must be the one derived from VICTIM_KEY_SEED')
+
+  return {
+    credentialID: seeded.credentialID,
+    publicKeyCose,
+    privateKeyPem: crypto.createPrivateKey({ key: jwk, format: 'jwk' }).export({ format: 'pem', type: 'pkcs8' }).toString()
+  }
 }
 
 // authenticatorData = rpIdHash(32) | flags(1) | signCount(4) | [attestedCredentialData]

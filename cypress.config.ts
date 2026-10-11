@@ -76,14 +76,14 @@ export default defineConfig({
         isWindows () {
           return utils.isWindows()
         },
-        ForgePasskeyAssertion ({ challenge }: { challenge: string }) {
-          return buildAssertion(loadVictimCredential(), challenge, { tamper: true })
+        async ForgePasskeyAssertion ({ challenge }: { challenge: string }) {
+          return buildAssertion(await loadVictimCredential(), challenge, { tamper: true })
         },
-        ForgePasskeyAttestation ({ challenge }: { challenge: string }) {
-          return buildAttestation(loadVictimCredential().credentialID, challenge)
+        async ForgePasskeyAttestation ({ challenge }: { challenge: string }) {
+          return buildAttestation((await loadVictimCredential()).credentialID, challenge)
         },
-        SignPasskeyAssertion ({ challenge, privateKeyPem }: { challenge: string, privateKeyPem: string }) {
-          return buildAssertion({ ...loadVictimCredential(), privateKeyPem }, challenge, { tamper: false })
+        async SignPasskeyAssertion ({ challenge, privateKeyPem }: { challenge: string, privateKeyPem: string }) {
+          return buildAssertion({ ...await loadVictimCredential(), privateKeyPem }, challenge, { tamper: false })
         }
       })
     }

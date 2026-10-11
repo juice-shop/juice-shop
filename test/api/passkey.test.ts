@@ -22,7 +22,7 @@ const VICTIM = { email: 'passkey-user@juice-sh.op', password: 'FeuLJY3w9zXsGas9H
 const JIM = { email: 'jim@juice-sh.op', password: 'ncc-1701' }
 
 let app: Express
-const victim = loadVictimCredential()
+let victim: VictimCredential
 
 const bearer = (token: string) => ({ Authorization: 'Bearer ' + token, ...jsonHeader })
 const randomCredentialID = () => isoBase64URL.fromBuffer(crypto.randomBytes(32))
@@ -78,6 +78,7 @@ function listCredentials (token: string) {
 before(async () => {
   const result = await createTestApp()
   app = result.app
+  victim = await loadVictimCredential()
 }, { timeout: 60000 })
 
 void describe('/rest/passkey/login-options', () => {
