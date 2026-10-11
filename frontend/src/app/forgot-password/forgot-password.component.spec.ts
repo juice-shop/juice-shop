@@ -5,7 +5,6 @@
 
 import { TranslateModule } from '@ngx-translate/core'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { ReactiveFormsModule } from '@angular/forms'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { ForgotPasswordComponent } from './forgot-password.component'
 import { SecurityQuestionService } from '../Services/security-question.service'
@@ -27,11 +26,22 @@ describe('ForgotPasswordComponent', () => {
     let securityQuestionService: any
     let userService: any
 
+    const setModel = (values: { email?: string, securityQuestion?: string, password?: string, repeatPassword?: string }) => {
+        component.forgotPasswordModel.update((model) => ({ ...model, ...values }))
+    }
+
+    const submitForm = async () => {
+        const form = (fixture.nativeElement as HTMLElement).querySelector('#forgot-password-form') as HTMLFormElement
+        form.dispatchEvent(new Event('submit'))
+        await fixture.whenStable()
+        fixture.detectChanges()
+    }
+
     beforeEach(async () => {
         securityQuestionService = {
             findBy: vi.fn().mockName("SecurityQuestionService.findBy")
         }
-        securityQuestionService.findBy.mockReturnValue(of({}))
+        securityQuestionService.findBy.mockReturnValue(of(undefined))
         userService = {
             resetPassword: vi.fn().mockName("UserService.resetPassword")
         }
@@ -39,7 +49,6 @@ describe('ForgotPasswordComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(),
-                ReactiveFormsModule,
                 MatCardModule,
                 MatFormFieldModule,
                 MatInputModule,
@@ -69,131 +78,216 @@ describe('ForgotPasswordComponent', () => {
     })
 
     it('should be compulsory to fill the email field', () => {
-        component.emailControl.setValue('')
-        expect(component.emailControl.valid).toBeFalsy()
+        setModel({ email: '' })
+        expect(component.forgotPasswordForm.email().valid()).toBeFalsy()
     })
 
     it('should hold a valid email in the email field', () => {
-        component.emailControl.setValue('aa')
-        expect(component.emailControl.valid).toBeFalsy()
-        component.emailControl.setValue('a@a')
-        expect(component.emailControl.valid).toBe(true)
+        setModel({ email: 'aa' })
+        expect(component.forgotPasswordForm.email().valid()).toBeFalsy()
+        setModel({ email: 'user@test.test' })
+        expect(component.forgotPasswordForm.email().valid()).toBe(true)
     })
 
     it('should be compulsory to answer to the security question', () => {
-        vi.useFakeTimers()
-        component.emailControl.setValue('a@a')
-        vi.advanceTimersByTime(component.timeoutDuration)
-        component.securityQuestionControl.setValue('')
-        expect(component.securityQuestionControl.valid).toBeFalsy()
-        component.securityQuestionControl.setValue('Answer')
-        expect(component.securityQuestionControl.valid).toBe(true)
-        vi.useRealTimers()
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ securityQuestion: '' })
+        expect(component.forgotPasswordForm.securityQuestion().valid()).toBeFalsy()
+        setModel({ securityQuestion: 'Answer' })
+        expect(component.forgotPasswordForm.securityQuestion().valid()).toBe(true)
+    })
+
+    it('should disable the security question and password fields until a security question is found', () => {
+        expect(component.forgotPasswordForm.securityQuestion().disabled()).toBe(true)
+        expect(component.forgotPasswordForm.password().disabled()).toBe(true)
+        expect(component.forgotPasswordForm.repeatPassword().disabled()).toBe(true)
+        component.securityQuestion.set('What is your favorite test tool?')
+        expect(component.forgotPasswordForm.securityQuestion().disabled()).toBe(false)
+        expect(component.forgotPasswordForm.password().disabled()).toBe(false)
+        expect(component.forgotPasswordForm.repeatPassword().disabled()).toBe(false)
     })
 
     it('should be compulsory to fill the password field', () => {
-        component.passwordControl.setValue('')
-        expect(component.passwordControl.valid).toBeFalsy()
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ password: '' })
+        expect(component.forgotPasswordForm.password().valid()).toBeFalsy()
     })
 
     it('should have a password length of at least five characters', () => {
-        vi.useFakeTimers()
-        component.emailControl.setValue('a@a')
-        vi.advanceTimersByTime(component.timeoutDuration)
-        component.passwordControl.setValue('aaa')
-        expect(component.passwordControl.valid).toBeFalsy()
-        component.passwordControl.setValue('aaaaa')
-        expect(component.passwordControl.valid).toBe(true)
-        vi.useRealTimers()
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ password: 'aaa' })
+        expect(component.forgotPasswordForm.password().valid()).toBeFalsy()
+        setModel({ password: 'aaaaa' })
+        expect(component.forgotPasswordForm.password().valid()).toBe(true)
     })
 
     it('should allow password length of more than twenty characters', () => {
-        vi.useFakeTimers()
-        component.emailControl.setValue('a@a')
-        vi.advanceTimersByTime(component.timeoutDuration)
-        component.passwordControl.setValue('aaaaaaaaaaaaaaaaaaaaa')
-        expect(component.passwordControl.valid).toBe(true)
-        vi.useRealTimers()
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ password: 'aaaaaaaaaaaaaaaaaaaaa' })
+        expect(component.forgotPasswordForm.password().valid()).toBe(true)
     })
 
     it('should be compulsory to repeat the password', () => {
-        vi.useFakeTimers()
-        component.emailControl.setValue('a@a')
-        vi.advanceTimersByTime(component.timeoutDuration)
-        component.passwordControl.setValue('a')
-        component.repeatPasswordControl.setValue('')
-        expect(component.repeatPasswordControl.valid).toBeFalsy()
-        component.repeatPasswordControl.setValue('a')
-        expect(component.repeatPasswordControl.valid).toBe(true)
-        vi.useRealTimers()
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ password: 'a', repeatPassword: '' })
+        expect(component.forgotPasswordForm.repeatPassword().valid()).toBeFalsy()
+        setModel({ repeatPassword: 'a' })
+        expect(component.forgotPasswordForm.repeatPassword().valid()).toBe(true)
+    })
+
+    it('should reject a repeated password that does not match the password', () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ password: 'password', repeatPassword: 'different' })
+        expect(component.forgotPasswordForm.repeatPassword().getError('notSame')).toBeDefined()
     })
 
     it('should reset form on calling resetForm', () => {
-        component.emailControl.setValue('email')
-        component.securityQuestionControl.setValue('security question')
-        component.passwordControl.setValue('password')
-        component.repeatPasswordControl.setValue('repeat password')
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'email', securityQuestion: 'security answer', password: 'password', repeatPassword: 'password' })
+        component.forgotPasswordForm.email().markAsDirty()
+        component.forgotPasswordForm.email().markAsTouched()
         component.resetForm()
-        expect(component.emailControl.pristine).toBe(true)
-        expect(component.emailControl.untouched).toBe(true)
-        expect(component.emailControl.value).toBe('')
-        expect(component.securityQuestionControl.pristine).toBe(true)
-        expect(component.securityQuestionControl.untouched).toBe(true)
-        expect(component.securityQuestionControl.value).toBe('')
-        expect(component.passwordControl.pristine).toBe(true)
-        expect(component.passwordControl.untouched).toBe(true)
-        expect(component.passwordControl.value).toBe('')
-        expect(component.repeatPasswordControl.pristine).toBe(true)
-        expect(component.repeatPasswordControl.untouched).toBe(true)
-        expect(component.repeatPasswordControl.value).toBe('')
+        expect(component.securityQuestion()).toBeUndefined()
+        expect(component.forgotPasswordForm.password().disabled()).toBe(true)
+        expect(component.forgotPasswordForm.email().value()).toBe('')
+        expect(component.forgotPasswordForm.email().dirty()).toBe(false)
+        expect(component.forgotPasswordForm.email().touched()).toBe(false)
+        expect(component.forgotPasswordForm.securityQuestion().value()).toBe('')
+        expect(component.forgotPasswordForm.password().value()).toBe('')
+        expect(component.forgotPasswordForm.repeatPassword().value()).toBe('')
     })
 
-    it('should clear form and show confirmation after changing password', () => {
-        userService.resetPassword.mockReturnValue(of({}))
+    it('should clear form and show confirmation after changing password', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
         vi.spyOn(component, 'resetForm')
-        component.resetPassword()
-        expect(component.confirmation).toBeDefined()
+        await submitForm()
+        expect(component.confirmation()).toBeDefined()
         expect(component.resetForm).toHaveBeenCalled()
     })
 
-    it('should clear form and gracefully handle error on password change', () => {
-        userService.resetPassword.mockReturnValue(throwError({ error: 'Error' }))
+    it('should clear form and gracefully handle error on password change', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
         vi.spyOn(component, 'resetErrorForm')
-        component.resetPassword()
-        expect(component.error).toBe('Error')
+        await submitForm()
+        expect(component.error()).toBe('Error')
         expect(component.resetErrorForm).toHaveBeenCalled()
+        expect(component.forgotPasswordForm.email().value()).toBe('user@test.test')
+        expect(component.forgotPasswordForm.password().value()).toBe('')
+    })
+
+    it('should change the password when the form is submitted', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        fixture.detectChanges()
+        const resetButton: HTMLButtonElement = fixture.nativeElement.querySelector('#resetButton')
+        expect(resetButton.disabled).toBe(false)
+        await submitForm()
+        expect(userService.resetPassword).toHaveBeenCalledWith({
+            email: 'user@test.test',
+            answer: 'Answer',
+            new: 'password',
+            repeat: 'password'
+        })
+        expect(component.confirmation()).toBeDefined()
+    })
+
+    it('should show the confirmation once the password was changed and hide it again on further edits', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        await submitForm()
+        const confirmation: HTMLElement = fixture.nativeElement.querySelector('.confirmation')
+        expect(confirmation).toBeTruthy()
+        expect(confirmation.getAttribute('role')).toBe('status')
+
+        component.forgotPasswordForm.email().markAsDirty()
+        fixture.detectChanges()
+        expect(fixture.nativeElement.querySelector('.confirmation')).toBeNull()
+    })
+
+    it('should return the form to its initial state after the password was changed', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        fixture.detectChanges()
+        await submitForm()
+        expect(component.confirmation()).toBeDefined()
+        expect(component.securityQuestion()).toBeUndefined()
+        expect((fixture.nativeElement.querySelector('#email') as HTMLInputElement).disabled).toBe(false)
+        expect((fixture.nativeElement.querySelector('#securityAnswer') as HTMLInputElement).disabled).toBe(true)
+        expect((fixture.nativeElement.querySelector('#newPassword') as HTMLInputElement).disabled).toBe(true)
+        expect((fixture.nativeElement.querySelector('#newPasswordRepeat') as HTMLInputElement).disabled).toBe(true)
+        expect(fixture.nativeElement.querySelectorAll('mat-error').length).toBe(0)
+    })
+
+    it('should show the mandatory error when an empty form is submitted', async () => {
+        fixture.detectChanges()
+        await submitForm()
+        const errors = Array.from(fixture.nativeElement.querySelectorAll('mat-error')).map((e: any) => e.textContent.trim())
+        expect(errors).toEqual(['MANDATORY_EMAIL'])
+    })
+
+    it('should show the error and hide the confirmation when the password change failed', async () => {
+        component.securityQuestion.set('What is your favorite test tool?')
+        setModel({ email: 'user@test.test', securityQuestion: 'Answer', password: 'password', repeatPassword: 'password' })
+        userService.resetPassword.mockReturnValue(throwError(() => ({ error: 'Error' })))
+        await submitForm()
+        const error: HTMLElement = fixture.nativeElement.querySelector('.error')
+        expect(error).toBeTruthy()
+        expect(error.getAttribute('role')).toBe('alert')
+        expect(error.textContent).toContain('Error')
+        expect(fixture.nativeElement.querySelector('.confirmation')).toBeNull()
+    })
+
+    it('should look up the security question when an email address is entered', () => {
+        vi.useFakeTimers()
+        securityQuestionService.findBy.mockReturnValue(of({ question: 'What is your favorite test tool?' }))
+        const emailInput: HTMLInputElement = fixture.nativeElement.querySelector('#email')
+        emailInput.value = 'known@user.test'
+        emailInput.dispatchEvent(new Event('input'))
+        vi.advanceTimersByTime(component.timeoutDuration)
+        expect(securityQuestionService.findBy).toHaveBeenCalledWith('known@user.test')
+        expect(component.securityQuestion()).toBe('What is your favorite test tool?')
+        vi.useRealTimers()
     })
 
     it('should find the security question of a user with a known email address', () => {
         vi.useFakeTimers()
         securityQuestionService.findBy.mockReturnValue(of({ question: 'What is your favorite test tool?' }))
-        component.emailControl.setValue('known@user.test')
-        vi.advanceTimersByTime(component.timeoutDuration)
+        setModel({ email: 'known@user.test' })
         component.findSecurityQuestion()
-        expect(component.securityQuestion).toBe('What is your favorite test tool?')
+        vi.advanceTimersByTime(component.timeoutDuration)
+        expect(component.securityQuestion()).toBe('What is your favorite test tool?')
         vi.useRealTimers()
     })
 
     it('should not find the security question for an email address not bound to a user', () => {
-        securityQuestionService.findBy.mockReturnValue(of({}))
-        component.emailControl.setValue('unknown@user.test')
+        vi.useFakeTimers()
+        securityQuestionService.findBy.mockReturnValue(of(undefined))
+        setModel({ email: 'unknown@user.test' })
         component.findSecurityQuestion()
-        expect(component.securityQuestion).toBeUndefined()
+        vi.advanceTimersByTime(component.timeoutDuration)
+        expect(component.securityQuestion()).toBeUndefined()
+        vi.useRealTimers()
     })
 
     it('should not have a security question when lookup by email address failed', () => {
         vi.useFakeTimers()
-        securityQuestionService.findBy.mockReturnValue(throwError('Error'))
-        component.emailControl.setValue('some@user.test')
-        vi.advanceTimersByTime(component.timeoutDuration)
+        securityQuestionService.findBy.mockReturnValue(throwError(() => 'Error'))
+        setModel({ email: 'some@user.test' })
         component.findSecurityQuestion()
-        expect(component.securityQuestion).toBeUndefined()
+        vi.advanceTimersByTime(component.timeoutDuration)
+        expect(component.securityQuestion()).toBeUndefined()
         vi.useRealTimers()
     })
 
-    it('should find not attempt to find security question for empty email address', () => {
-        component.emailControl.setValue('')
+    it('should not attempt to find security question for empty email address', () => {
+        vi.useFakeTimers()
+        setModel({ email: '' })
         component.findSecurityQuestion()
+        vi.advanceTimersByTime(component.timeoutDuration)
         expect(securityQuestionService.findBy).not.toHaveBeenCalled()
+        vi.useRealTimers()
     })
 })

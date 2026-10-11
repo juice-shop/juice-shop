@@ -37,7 +37,6 @@ export class ChatWelcomeScreenComponent implements OnInit {
 
   conversations = signal<StoredConversation[]>(this.conversationStorage.getAll())
   chatBotName = signal('Juicy')
-  chatBotAvatar = signal('assets/public/images/JuicyBot.png')
   sampleQuestions = signal<string[]>([])
 
   ngOnInit () {
@@ -45,9 +44,6 @@ export class ChatWelcomeScreenComponent implements OnInit {
       next: (config) => {
         if (config?.application?.chatBot?.name) {
           this.chatBotName.set(config.application?.chatBot.name)
-        }
-        if (config?.application?.chatBot?.avatar) {
-          this.chatBotAvatar.set('assets/public/images/' + config.application?.chatBot?.avatar)
         }
         if (config?.application?.chatBot?.sampleQuestions) {
           this.sampleQuestions.set(config.application.chatBot.sampleQuestions)

@@ -369,6 +369,32 @@ describe('NavbarComponent', () => {
             const name = (fixture.nativeElement as HTMLElement).querySelector('.app-name')
             expect(name?.textContent).toContain('MyShop')
         })
+
+        it('should render the logged-in accounting account menu', async () => {
+            localStorage.setItem('token', 'token')
+            loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+            component.userEmail = 'accounting@juice-shop.local'
+            fixture.detectChanges()
+
+            const accountButton = (fixture.nativeElement as HTMLElement).querySelector('#navbarAccount') as HTMLButtonElement
+            accountButton.click()
+            await fixture.whenStable()
+
+            expect(document.body.querySelector('[aria-label="Go to user profile"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Go to accounting page"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Show Orders and Payment Menu"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Show Privacy and Security Menu"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Logout"]')).toBeTruthy()
+
+            const profileSpy = vi.spyOn(component, 'goToProfilePage')
+            const logoutSpy = vi.spyOn(component, 'logout')
+            ;(document.body.querySelector('[aria-label="Go to user profile"]') as HTMLButtonElement).click()
+            ;(document.body.querySelector('[aria-label="Logout"]') as HTMLButtonElement).click()
+
+            expect(profileSpy).toHaveBeenCalled()
+            expect(logoutSpy).toHaveBeenCalled()
+            localStorage.removeItem('token')
+        })
     })
 
     describe('language handling', () => {

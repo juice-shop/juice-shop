@@ -7,6 +7,43 @@ description: Instructions for verifying new challenges fulfill all project requi
 
 This skill provides a comprehensive workflow and checklist for verifying that a newly added challenge fulfills all necessary preconditions, metadata requirements, and project conventions in OWASP Juice Shop.
 
+## Repository Targets & Scope
+
+- `data/static/challenges.yml` (Challenge registry and metadata)
+- `models/challenge.ts` (`CHALLENGE_KEYS` array export)
+- `config/fbctf.yml` (`ctf.countryMapping` country allocations)
+- `frontend/src/assets/i18n/en.json` (Category and tag English labels/descriptions)
+- `frontend/src/hacking-instructor/challenges/*.ts` (Interactive tutorial scripts)
+- `data/static/codefixes/` (`.info.yml`, `_1_correct.ts`, and variation snippets)
+- `test/cypress/e2e/*.spec.ts` (E2E solve test specifications)
+
+## Source-of-Truth & Data Handling Rules
+
+- **Challenge Registry**: `data/static/challenges.yml` is the primary source of truth for challenge keys, categories, difficulties, and tags.
+- **Key Validation Schema**: `models/challenge.ts` (`CHALLENGE_KEYS`) is the authoritative source for valid challenge identifiers used across runtime schemas.
+- **External Mitigations**: OWASP Cheat Sheet Series documentation is the canonical external source of truth for mitigation links.
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Adding or correcting challenge entries in `data/static/challenges.yml`.
+  - Registering new challenge keys in `models/challenge.ts`.
+  - Adding country code mappings in `config/fbctf.yml`.
+  - Adding English translation keys for new categories/tags in `frontend/src/assets/i18n/en.json`.
+  - Adding tutorial scripts in `frontend/src/hacking-instructor/challenges/`.
+  - Adding codefix snippets in `data/static/codefixes/`.
+  - Adding and gating Cypress E2E solve tests.
+- **Forbidden Changes**:
+  - Renaming or removing existing challenges without explicit maintainer directive.
+  - Directly modifying non-English `i18n/*.json` files (must be managed via Crowdin).
+  - Weakening or disabling test assertions.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Key Format Standardization**: All challenge keys must be camelCase ending with `Challenge` (e.g. `forgedFeedbackChallenge`).
+- **Country Mapping Conflicts**: If an ISO country name or code is already allocated in `config/fbctf.yml`, select an unassigned ISO 3166-1 alpha-2 country.
+- **Missing Mitigation Sheet**: If no dedicated OWASP Cheat Sheet exists, link to the relevant OWASP Top 10 or OWASP ASVS section.
+
 ## General Workflow
 
 1.  **Analyze the Challenge Definition**: Review the new entry in `data/static/challenges.yml`.
@@ -114,6 +151,14 @@ If the challenge has an associated coding challenge:
 -   Import `utils` from `../../lib/utils` and `challenges` from `../../data/datacache` (or similar depending on the test type).
 
 ---
+
+## Verification Expectations
+
+- **Checklist Audit**: Must run through and verify against `.ai/skills/verify-challenge/checklists/challenge-checklist.md`.
+- **Linting Compliance**: Run `npm run lint` to ensure schema, script, and test code match JS Standard Style.
+- **Server and API Tests**: Run `npm run test:server` and `npm run test:api` to verify server-side challenge registration and logic.
+- **Cypress E2E Solve Verification**: Execute `npm start & npm run test:e2e` for the specific challenge test to verify that the challenge is solvable.
+- **RSN Verification (if codefixes included)**: Run `npm run rsn` to ensure codefix files accurately align with source code snippets.
 
 ## Inferred Rules & Best Practices
 

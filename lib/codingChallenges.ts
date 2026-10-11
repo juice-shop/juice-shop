@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import logger from './logger'
+import { customizeTerraformContent } from './terraformCustomization'
 
 export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './data/static/web3-snippets', './frontend/src/app', './models', './infrastructure'])
 
@@ -44,7 +45,7 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
 }
 
 function getCodeChallengesFromFile (file: FileMatch) {
-  const fileContent = file.content
+  const fileContent = file.path.endsWith('.tf') ? customizeTerraformContent(file.content) : file.content
 
   // get all challenges which are in the file by a regex capture group
   const challengeKeyRegex = /[/#]{0,2} vuln-code-snippet start (?<challenges>.*)/g

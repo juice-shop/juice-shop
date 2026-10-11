@@ -12,7 +12,6 @@ import replace from 'replace'
 const customizeApplication = async () => {
   if (config.get<string>('application.name')) {
     customizeTitle()
-    customizeTerraformFiles()
   }
   if (config.get('application.logo')) {
     void customizeLogo()
@@ -44,16 +43,23 @@ const customizeLogo = async () => {
 
 const customizeChatbotAvatar = async () => {
   const avatarImage = await retrieveCustomFile('application.chatBot.avatar', 'frontend/dist/frontend/assets/public/images')
-  fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/ChatbotAvatar.png')
+  if (avatarImage) {
+    fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/chatbotAvatar.png')
+  }
 }
 
 const customizeHackingInstructorAvatar = async () => {
   const avatarImage = await retrieveCustomFile('hackingInstructor.avatarImage', 'frontend/dist/frontend/assets/public/images')
-  fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/hackingInstructor.png')
+  if (avatarImage) {
+    fs.copyFileSync('frontend/dist/frontend/assets/public/images/' + avatarImage, 'frontend/dist/frontend/assets/public/images/hackingInstructor.png')
+  }
 }
 
 const customizeFavicon = async () => {
   const favicon = await retrieveCustomFile('application.favicon', 'frontend/dist/frontend/assets/public')
+  if (!favicon) {
+    return
+  }
   replace({
     regex: /type="image\/x-icon" href="assets\/public\/.*"/,
     replacement: `type="image/x-icon" href="assets/public/${favicon}"`,
@@ -71,12 +77,19 @@ const customizePromotionSubtitles = async () => {
   await retrieveCustomFile('application.promotion.subtitles', 'frontend/dist/frontend/assets/public/videos')
 }
 
-const retrieveCustomFile = async (sourceProperty: string, destinationFolder: string) => {
+export const retrieveCustomFile = async (
+  sourceProperty: string,
+  destinationFolder: string,
+  downloadFile = utils.downloadToFile
+): Promise<string | undefined> => {
   let file = config.get<string>(sourceProperty)
   if (utils.isUrl(file)) {
     const filePath = file
     file = utils.extractFilename(file)
-    await utils.downloadToFile(filePath, destinationFolder + '/' + file)
+    const downloaded = await downloadFile(filePath, destinationFolder + '/' + file)
+    if (!downloaded) {
+      return undefined
+    }
   }
   return file
 }
@@ -112,32 +125,6 @@ const customizeCookieConsentBanner = () => {
     recursive: false,
     silent: true
   })
-}
-
-const slugify = (name: string) => {
-  return name.toLowerCase().replace(/[^\w]+/g, '-').replace(/^-+|-+$/g, '')
-}
-
-const customizeTerraformFiles = () => {
-  const appName = config.get<string>('application.name')
-  if (appName !== 'OWASP Juice Shop') {
-    const slugName = slugify(appName)
-    const snakeName = slugName.replace(/-/g, '_')
-    replace({
-      regex: /juice-shop/g,
-      replacement: slugName,
-      paths: ['terraform'],
-      recursive: true,
-      silent: true
-    })
-    replace({
-      regex: /juice_shop/g,
-      replacement: snakeName,
-      paths: ['terraform'],
-      recursive: true,
-      silent: true
-    })
-  }
 }
 
 export default customizeApplication

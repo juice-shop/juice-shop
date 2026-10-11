@@ -13,5 +13,12 @@
   /* Swagger documentation for B2B v2 endpoints */
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-  app.use(express.static(path.resolve('frontend/dist/frontend')))
+  /* Express 4 ships mime@1.x which predates AVIF, so .avif would be served as application/octet-stream */
+  const setStaticFileHeaders = (res: http.ServerResponse, filePath: string) => {
+    if (path.extname(filePath) === '.avif') {
+      res.setHeader('Content-Type', 'image/avif')
+    }
+  }
+
+  app.use(express.static(path.resolve('frontend/dist/frontend'), { setHeaders: setStaticFileHeaders }))
   app.use(cookieParser('kekse'))
