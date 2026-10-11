@@ -3,15 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-import {
-  type AbstractControl,
-  UntypedFormControl,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { form, FormField, FormRoot, maxLength, minLength, required, validate } from '@angular/forms/signals'
+import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
@@ -40,8 +35,8 @@ library.add(faSave, faEdit)
     MatFormFieldModule,
     MatLabel,
     MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormRoot,
+    FormField,
     MatError,
     MatHint,
     MatButtonModule
@@ -51,33 +46,48 @@ export class ChangePasswordComponent {
   private readonly userService = inject(UserService)
   private readonly translate = inject(TranslateService)
 
-  public passwordControl: UntypedFormControl = new UntypedFormControl('', [
-    Validators.required
-  ])
+  private readonly initialModel = {
+    currentPassword: '',
+    newPassword: '',
+    repeatNewPassword: ''
+  }
 
-  public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-    Validators.maxLength(40)
-  ])
+  public readonly changePasswordModel = signal({ ...this.initialModel })
 
-  public repeatNewPasswordControl: UntypedFormControl = new UntypedFormControl(
-    '',
-    [
-      Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(40),
-      matchValidator(this.newPasswordControl)
-    ]
+  public readonly error = signal<string | undefined>(undefined)
+  public readonly confirmation = signal<string | undefined>(undefined)
+
+  public readonly changePasswordForm = form(this.changePasswordModel, (s) => {
+    required(s.currentPassword)
+    required(s.newPassword)
+    minLength(s.newPassword, 5)
+    maxLength(s.newPassword, 40)
+    required(s.repeatNewPassword)
+    minLength(s.repeatNewPassword, 5)
+    maxLength(s.repeatNewPassword, 40)
+    validate(s.repeatNewPassword, ({ value, valueOf }) => {
+      if (value() !== valueOf(s.newPassword)) {
+        return { kind: 'notSame' }
+      }
+      return undefined
+    })
+  }, {
+    submission: {
+      action: () => this.changePassword()
+    }
+  })
+
+  public readonly isPristine = computed(() =>
+    !this.changePasswordForm.currentPassword().dirty() &&
+    !this.changePasswordForm.newPassword().dirty() &&
+    !this.changePasswordForm.repeatNewPassword().dirty()
   )
 
-  public error: any
-  public confirmation: any
-
-  changePassword () {
+  private async changePassword (): Promise<void> {
+    const { currentPassword, newPassword, repeatNewPassword } = this.changePasswordModel()
     if (
       localStorage.getItem('email')?.match(/support@.*/) &&
-      !this.newPasswordControl.value.match(
+      !newPassword.match(
         /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,30}/
       )
     ) {
@@ -85,60 +95,40 @@ export class ChangePasswordComponent {
         'Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!'
       )
     }
-    this.userService
-      .changePassword({
-        current: this.passwordControl.value,
-        new: this.newPasswordControl.value,
-        repeat: this.repeatNewPasswordControl.value
-      })
-      .subscribe({
-        next: () => {
-          this.error = undefined
-          this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe({
-            next: (passwordSuccessfullyChanged) => {
-              this.confirmation = passwordSuccessfullyChanged
-            },
-            error: (translationId) => {
-              this.confirmation = { error: translationId }
-            }
-          })
-          this.resetForm()
-        },
-        error: (error) => {
-          console.log(error)
-          this.error = error
-          this.confirmation = undefined
-          this.resetPasswords()
-        }
-      })
+    try {
+      await firstValueFrom(
+        this.userService.changePassword({
+          current: currentPassword,
+          new: newPassword,
+          repeat: repeatNewPassword
+        })
+      )
+      this.error.set(undefined)
+      this.confirmation.set(await this.passwordChangedConfirmation())
+      this.resetForm()
+    } catch (err: any) {
+      console.log(err)
+      this.error.set(err)
+      this.confirmation.set(undefined)
+      this.resetErrorForm()
+    }
   }
 
   resetForm () {
-    this.passwordControl.setValue('')
-    this.resetPasswords()
+    this.changePasswordForm().reset({ ...this.initialModel })
   }
 
-  resetPasswords () {
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
-    this.newPasswordControl.setValue('')
-    this.newPasswordControl.markAsPristine()
-    this.newPasswordControl.markAsUntouched()
-    this.repeatNewPasswordControl.setValue('')
-    this.repeatNewPasswordControl.markAsPristine()
-    this.repeatNewPasswordControl.markAsUntouched()
+  resetErrorForm () {
+    this.changePasswordForm.currentPassword().reset()
+    this.changePasswordForm.newPassword().reset('')
+    this.changePasswordForm.repeatNewPassword().reset('')
   }
-}
 
-function matchValidator (newPasswordControl: AbstractControl) {
-  return function matchOtherValidate (
-    repeatNewPasswordControl: UntypedFormControl
-  ) {
-    const password = newPasswordControl.value
-    const passwordRepeat = repeatNewPasswordControl.value
-    if (password !== passwordRepeat) {
-      return { notSame: true }
+  private async passwordChangedConfirmation (): Promise<string | undefined> {
+    try {
+      return await firstValueFrom(this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED'))
+    } catch (translationId) {
+      return translationId as string
     }
-    return null
   }
 }

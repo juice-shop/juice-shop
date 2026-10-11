@@ -8,7 +8,9 @@
   <div class="container">
     <div class="details-row">
       <div class="no-shrink">
-        <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
+        <app-product-image [alternateImages]="data.productData.alternateImages">
+          <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
+        </app-product-image>
       </div>
 
       <div>

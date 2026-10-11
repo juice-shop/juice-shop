@@ -338,4 +338,41 @@ describe('BasketService', () => {
         expect(sessionStorage.getItem('guestBasket')).toBeNull()
         httpMock.verify()
     })
+
+    describe('getGuestBasketQuantityViolation', () => {
+        it('should return null when no quantity info is available', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(2, undefined)).toBeNull()
+        })
+
+        it('should return a stock violation when the requested quantity exceeds the available stock', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(3, { quantity: 2 })).toEqual({ type: 'stock' })
+        })
+
+        it('should return null when the requested quantity is within the available stock', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(2, { quantity: 2 })).toBeNull()
+        })
+
+        it('should return a limit violation when the requested quantity exceeds the per-user limit', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(2, { quantity: 10, limitPerUser: 1 })).toEqual({ type: 'limit', limitPerUser: 1 })
+        })
+
+        it('should return null when the requested quantity is within the per-user limit', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(1, { quantity: 10, limitPerUser: 1 })).toBeNull()
+        })
+
+        it('should ignore the per-user limit for deluxe users', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(2, { quantity: 10, limitPerUser: 1 }, true)).toBeNull()
+        })
+
+        it('should treat a zero per-user limit as unlimited', () => {
+            const service = TestBed.inject(BasketService)
+            expect(service.getGuestBasketQuantityViolation(2, { quantity: 10, limitPerUser: 0 })).toBeNull()
+        })
+    })
 })

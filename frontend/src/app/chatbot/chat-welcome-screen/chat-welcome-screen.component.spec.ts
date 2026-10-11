@@ -67,7 +67,7 @@ describe('ChatWelcomeScreenComponent', () => {
     it('should render the JuicyBot avatar', () => {
         const avatar = fixture.nativeElement.querySelector('.welcome-avatar')
         expect(avatar).toBeTruthy()
-        expect(avatar.getAttribute('alt')).toBe('CHATBOT_AVATAR_ALT')
+        expect(avatar.getAttribute('alt')).toContain('Juicy')
     })
 
     it('should render suggestion chips', () => {

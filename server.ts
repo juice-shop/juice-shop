@@ -54,6 +54,7 @@ import logger from './lib/logger'
 import * as utils from './lib/utils'
 import * as antiCheat from './lib/antiCheat'
 import * as security from './lib/insecurity'
+import { customizeTerraformContent } from './lib/terraformCustomization'
 import validateConfig from './lib/startup/validateConfig'
 import cleanupFtpFolder from './lib/startup/cleanupFtpFolder'
 import customizeEasterEgg from './lib/startup/customizeEasterEgg' // vuln-code-snippet hide-line
@@ -276,7 +277,8 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
       fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) return next()
         const cleaned = data.split('\n').filter(line => !line.trim().match(/^#\s*vuln-code-snippet\s/)).map(line => line.replace(/\s*#\s*vuln-code-snippet\s.*$/, '')).join('\n')
-        res.type('text/plain').send(cleaned)
+        const content = filePath.endsWith('.tf') ? customizeTerraformContent(cleaned) : cleaned
+        res.type('text/plain').send(content)
       })
     } else {
       express.static('infrastructure')(req, res, next)
@@ -304,7 +306,14 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Swagger documentation for B2B v2 endpoints */
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-  app.use(express.static(path.resolve('frontend/dist/frontend')))
+  /* Express 4 ships mime@1.x which predates AVIF, so .avif would be served as application/octet-stream */
+  const setStaticFileHeaders = (res: http.ServerResponse, filePath: string) => {
+    if (path.extname(filePath) === '.avif') {
+      res.setHeader('Content-Type', 'image/avif')
+    }
+  }
+
+  app.use(express.static(path.resolve('frontend/dist/frontend'), { setHeaders: setStaticFileHeaders }))
   app.use(cookieParser('kekse'))
   // vuln-code-snippet end directoryListingChallenge accessLogDisclosureChallenge
 

@@ -4,6 +4,7 @@ import { type NextFunction, type Request, type Response } from 'express'
 
 import * as accuracy from '../lib/accuracy'
 import * as challengeUtils from '../lib/challengeUtils'
+import { customizeTerraformContent } from '../lib/terraformCustomization'
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 const FixesDir = 'data/static/codefixes'
@@ -26,7 +27,8 @@ export const readFixes = (key: string) => {
   let correct: number = -1
   for (const file of files) {
     if (file.startsWith(`${key}_`)) {
-      const fix = fs.readFileSync(`${FixesDir}/${file}`).toString()
+      const content = fs.readFileSync(`${FixesDir}/${file}`).toString()
+      const fix = file.endsWith('.tf') ? customizeTerraformContent(content) : content
       const metadata = file.split('_')
       const number = metadata[1]
       fixes.push(fix)

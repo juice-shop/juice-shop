@@ -7,6 +7,38 @@ description: Instructions for creating and integrating a new Angular Material M3
 
 This skill provides instructions for creating and integrating a new Angular Material M3 theme into OWASP Juice Shop.
 
+## Repository Targets & Scope
+
+- `frontend/src/styles/theme.scss` (M3 theme definition and base style inclusion)
+- `frontend/src/styles.scss` (Component theme overrides and CSS variable declarations)
+- `lib/config.schema.ts` (Enum list of supported themes in `ApplicationSchema`)
+- `config/default.yml` (Documentation comments listing selectable theme names)
+- `views/themes/themes.ts` (Server-side rendered / legacy color palette definition)
+
+## Source-of-Truth & Data Handling Rules
+
+- **Design System**: Angular Material M3 theming specification and system tokens (`--mat-sys-*`) are the source of truth for UI color definitions.
+- **Theme Enum Registry**: `lib/config.schema.ts` is the authoritative source for valid application theme names accepted by configuration parsers.
+- **SSR Palette Baseline**: `views/themes/themes.ts` is the canonical source for server-rendered fallback palettes.
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Adding the new theme definition in `frontend/src/styles/theme.scss`.
+  - Adding class-scoped mixin invocations and variable overrides in `frontend/src/styles.scss`.
+  - Adding the theme key to the `theme` enum in `lib/config.schema.ts`.
+  - Adding the theme key to `# Options:` comment in `config/default.yml`.
+  - Adding matching hex colors to the `themes` dictionary in `views/themes/themes.ts`.
+- **Forbidden Changes**:
+  - Modifying or renaming existing theme configurations.
+  - Altering theme-switching services, navigation components, or local storage persistence logic.
+  - Modifying Angular build configuration or dependencies.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Non-Standard Palettes**: If requested colors do not align with standard Angular Material palettes (`mat.$<color>-palette`), use the complex theme pattern with manual CSS variable overrides (`--mat-sys-*`).
+- **Naming Conventions**: Use lowercase kebab-case or single-word identifiers (e.g. `deepsea`, `bluegrey-lightgreen`) consistent with existing theme keys.
+
 ## Steps
 
 ### 1. Define the M3 Theme in SCSS
@@ -89,6 +121,12 @@ Example:
   primDark: '#4A148C'
 }
 ```
+
+## Verification Expectations
+
+- **Code Style & Linting**: Run `npm run lint` to verify that all TypeScript and SCSS changes follow project style conventions.
+- **Frontend Test Suite**: Run `npm run test:frontend` to ensure the new theme integration does not cause compilation failures or regression in Angular unit tests.
+- **Identifier Consistency Check**: Verify that the exact theme name string matches across `theme.scss`, `styles.scss`, `lib/config.schema.ts`, `config/default.yml`, and `views/themes/themes.ts`.
 
 ## Note
 This skill is specifically for the application's UI themes and is unrelated to the internal Chatbot's skills.

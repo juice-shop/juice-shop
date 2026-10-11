@@ -13,6 +13,35 @@ This skill is the authoritative workflow for authoring automated tests in OWASP 
 
 It is based on the project's four test suites and the companion guide's [Testing](https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html#_testing) section.
 
+## Repository Targets & Scope
+
+- **Frontend Unit Tests**: `frontend/src/**/*.spec.ts` (evaluated via Vitest)
+- **Server Unit Tests**: `test/server/*.unit.test.ts` (Node.js built-in `node:test`)
+- **API Integration Tests**: `test/api/*.test.ts` (`node:test` + Supertest)
+- **Cypress E2E Tests**: `test/cypress/e2e/*.spec.ts` (Cypress)
+- **Coverage Files**: `coverage/server-tests/lcov.info`, `coverage/api-tests/lcov.info`, `frontend/coverage/lcov.info`
+
+## Source-of-Truth & Data Handling Rules
+
+- **Application Behavior**: Implementation code in `lib/`, `routes/`, `models/`, `server.ts`, and `frontend/src/` is the source of truth for application contracts and branch execution.
+- **Challenge Metadata**: `data/static/challenges.yml` is the canonical source of truth for challenge names and keys used in test assertions and describe blocks.
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Adding or modifying test specifications in the respective test suites.
+  - Updating test mocks, request payloads, and assertions to match intended behavior.
+  - Adding shared helpers to `test/api/helpers/` or `test/cypress/support/` when necessary.
+- **Forbidden Changes**:
+  - Weakening, skipping (`it.skip`), or deleting tests/assertions to fake a passing status.
+  - Modifying application code solely to bypass test requirements.
+  - Modifying test runner configurations (`cypress.config.ts`, `package.json` test scripts) without explicit authorization.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Ambiguous Test Requirements**: When expected edge-case behavior is unclear, check neighboring test cases in the same suite for established conventions before writing new assertions.
+- **Environment Gating**: Always wrap challenge-dependent tests with `utils.isChallengeEnabled` or Cypress environment checks if `disabledEnv` is specified in `data/static/challenges.yml`.
+
 > **Golden rule:** Never weaken, skip, `@Disabled`/`it.skip`, or delete assertions to make a suite pass. Fix the code or the test instead. Do not chase 100 % — prioritize meaningful behavior, branches, and error paths over trivial getters.
 
 ---
@@ -126,13 +155,12 @@ Full patterns and the available custom commands are in [`patterns/cypress.md`](.
 
 ---
 
-## 5. Before you finish (mandatory)
+## 5. Verification Expectations
 
-- [ ] New/changed logic has tests in the correct suite; targeted coverage gaps now show non-zero hits in the regenerated `lcov.info`.
-- [ ] All touched suites pass locally (`npm run test:server` / `test:api` / `test:frontend`, and `npm run test:e2e` for challenge work).
-- [ ] `npm run lint` passes (JS Standard Style). Skip only if you edited *just* `REFERENCES.md`/`SOLUTIONS.md`.
-- [ ] If you modified source inside a `// vuln-code-snippet` block, run `npm run rsn` (see [verify-rsn-fix skill](../verify-rsn-fix/SKILL.md)).
-- [ ] No AI noise: remove throwaway `console.log`, obvious comments, and dead code.
-- [ ] Each new test file starts with the standard copyright header used across the suite.
-
-See [`checklists/testing-checklist.md`](./checklists/testing-checklist.md) for the full checklist.
+- [ ] **Checklist Compliance**: Verify against [`checklists/testing-checklist.md`](./checklists/testing-checklist.md).
+- [ ] **Coverage Verification**: New/changed logic has tests in the correct suite; targeted coverage gaps now show non-zero hits in the regenerated `lcov.info`.
+- [ ] **Suite Execution**: All touched suites pass locally (`npm run test:server` / `test:api` / `test:frontend`, and `npm run test:e2e` for challenge work).
+- [ ] **Code Style**: `npm run lint` passes (JS Standard Style). Skip only if you edited *just* `REFERENCES.md`/`SOLUTIONS.md`.
+- [ ] **RSN Check**: If you modified source inside a `// vuln-code-snippet` block, run `npm run rsn` (see [verify-rsn-fix skill](../verify-rsn-fix/SKILL.md)).
+- [ ] **Clean Code**: No AI noise: remove throwaway `console.log`, obvious comments, and dead code.
+- [ ] **Header**: Each new test file starts with the standard copyright header used across the suite.

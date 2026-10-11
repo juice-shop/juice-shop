@@ -18,6 +18,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { PurchaseBasketComponent } from '../purchase-basket/purchase-basket.component'
 import { UserService } from '../Services/user.service'
 import { ProductService } from '../Services/product.service'
+import { QuantityService } from '../Services/quantity.service'
 import { DeluxeGuard } from '../app.guard'
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'
 import { EventEmitter } from '@angular/core'
@@ -29,6 +30,7 @@ describe('PurchaseBasketComponent', () => {
     let basketService
     let userService
     let productService
+    let quantityService
     let translateService: any
     let deluxeGuard
     let snackBar: any
@@ -42,7 +44,8 @@ describe('PurchaseBasketComponent', () => {
             updateNumberOfCartItems: vi.fn().mockName("BasketService.updateNumberOfCartItems"),
             getGuestBasketItems: vi.fn().mockName("BasketService.getGuestBasketItems"),
             removeGuestBasketItem: vi.fn().mockName("BasketService.removeGuestBasketItem"),
-            updateGuestBasketItemQuantity: vi.fn().mockName("BasketService.updateGuestBasketItemQuantity")
+            updateGuestBasketItemQuantity: vi.fn().mockName("BasketService.updateGuestBasketItemQuantity"),
+            getGuestBasketQuantityViolation: vi.fn().mockName("BasketService.getGuestBasketQuantityViolation")
         }
         basketService.find.mockReturnValue(of({ Products: [] }))
         basketService.del.mockReturnValue(of({}))
@@ -54,6 +57,7 @@ describe('PurchaseBasketComponent', () => {
         })
         basketService.updateGuestBasketItemQuantity.mockImplementation(() => {
         })
+        basketService.getGuestBasketQuantityViolation.mockReturnValue(null)
         userService = {
             whoAmI: vi.fn().mockName("UserService.whoAmI")
         }
@@ -62,6 +66,10 @@ describe('PurchaseBasketComponent', () => {
             get: vi.fn().mockName("ProductService.get")
         }
         productService.get.mockReturnValue(of({ id: 1, name: 'Product', price: 1, deluxePrice: 1 }))
+        quantityService = {
+            getAll: vi.fn().mockName("QuantityService.getAll")
+        }
+        quantityService.getAll.mockReturnValue(of([]))
         translateService = {
             get: vi.fn().mockName("TranslateService.get")
         }
@@ -94,6 +102,7 @@ describe('PurchaseBasketComponent', () => {
                 { provide: MatSnackBar, useValue: snackBar },
                 { provide: UserService, useValue: userService },
                 { provide: ProductService, useValue: productService },
+                { provide: QuantityService, useValue: quantityService },
                 { provide: DeluxeGuard, useValue: deluxeGuard },
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
@@ -355,6 +364,33 @@ describe('PurchaseBasketComponent', () => {
             basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 7, quantity: 2 }])
             component.dec(999)
             expect(basketService.updateGuestBasketItemQuantity).not.toHaveBeenCalled()
+        })
+
+        it('should not increase a guest basket item beyond its per-user limit', () => {
+            quantityService.getAll.mockReturnValue(of([{ ProductId: 7, quantity: 10, limitPerUser: 2 }]))
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 7, quantity: 2 }])
+            basketService.getGuestBasketQuantityViolation.mockReturnValue({ type: 'limit', limitPerUser: 2 })
+            component.load()
+            component.inc(7)
+            expect(basketService.updateGuestBasketItemQuantity).not.toHaveBeenCalled()
+        })
+
+        it('should not increase a guest basket item beyond the available stock', () => {
+            quantityService.getAll.mockReturnValue(of([{ ProductId: 7, quantity: 2, limitPerUser: null }]))
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 7, quantity: 2 }])
+            basketService.getGuestBasketQuantityViolation.mockReturnValue({ type: 'stock' })
+            component.load()
+            component.inc(7)
+            expect(basketService.updateGuestBasketItemQuantity).not.toHaveBeenCalled()
+        })
+
+        it('should allow deluxe users to increase a guest basket item beyond its per-user limit', () => {
+            deluxeGuard.isDeluxe.mockReturnValue(true)
+            quantityService.getAll.mockReturnValue(of([{ ProductId: 7, quantity: 10, limitPerUser: 2 }]))
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 7, quantity: 2 }])
+            component.load()
+            component.inc(7)
+            expect(basketService.updateGuestBasketItemQuantity).toHaveBeenCalledWith(7, 3)
         })
     })
 

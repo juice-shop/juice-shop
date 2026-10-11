@@ -14,6 +14,9 @@ export function searchProducts () {
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
           products[i].description = req.__(products[i].description)
+          if (typeof products[i].alternateImages === 'string') {
+            products[i].alternateImages = JSON.parse(products[i].alternateImages)
+          }
         }
         res.json(utils.queryResultToJson(products))
       }).catch((error: ErrorWithParent) => {
