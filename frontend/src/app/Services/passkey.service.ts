@@ -49,7 +49,7 @@ export class PasskeyService {
   private readonly host = `${environment.hostServer}/rest/passkey`
 
   loginOptions (email?: string): Observable<PasskeyLoginOptions> {
-    return this.http.post<PasskeyLoginOptions>(`${this.host}/login-options`, email ? { email } : {})
+    return this.http.post<PasskeyLoginOptions>(`${this.host}/login-options`, { email: email ?? null })
   }
 
   loginVerify (assertion: AuthenticationResponseJSON, authToken: string): Observable<AuthenticationPayload> {

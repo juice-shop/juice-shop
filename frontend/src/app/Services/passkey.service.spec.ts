@@ -38,7 +38,7 @@ describe('PasskeyService', () => {
         req.flush({ options: { challenge: 'c' }, authToken: 'a' })
 
         expect(req.request.method).toBe('POST')
-        expect(req.request.body).toEqual({})
+        expect(req.request.body).toEqual({ email: null })
         expect(res).toEqual({ options: { challenge: 'c' }, authToken: 'a' })
     })
 

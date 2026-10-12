@@ -445,12 +445,21 @@ describe('LoginComponent', () => {
             passkeyService.loginOptions.mockReturnValue(of({ options: { challenge: 'c' }, authToken: 'authToken' }))
             passkeyService.loginVerify.mockReturnValue(of({ token: 'passkeyToken', bid: 42 }))
             await component.passkeyLogin()
-            expect(passkeyService.loginOptions).toHaveBeenCalledWith()
+            expect(passkeyService.loginOptions).toHaveBeenCalledWith(undefined)
             expect(passkeyService.createAssertion).toHaveBeenCalledWith({ challenge: 'c' })
             expect(passkeyService.loginVerify).toHaveBeenCalledWith({ id: 'cred' }, 'authToken')
             expect(localStorage.getItem('token')).toBe('passkeyToken')
             expect(sessionStorage.getItem('bid')).toBe('42')
             expect(location.path()).toBe('/search')
+        })
+
+        it('should pass the typed email to loginOptions for a username-first passkey login', async () => {
+            component.loginModel.update((model) => ({ ...model, email: 'passkey-user@juice-sh.op' }))
+            passkeyService.createAssertion.mockResolvedValue({ id: 'cred' } as any)
+            passkeyService.loginOptions.mockReturnValue(of({ options: { challenge: 'c' }, authToken: 'authToken' }))
+            passkeyService.loginVerify.mockReturnValue(of({ token: 'passkeyToken', bid: 42 }))
+            await component.passkeyLogin()
+            expect(passkeyService.loginOptions).toHaveBeenCalledWith('passkey-user@juice-sh.op')
         })
 
         it('should redirect to the URL provided via the redirectUrl query parameter after a passkey login', async () => {

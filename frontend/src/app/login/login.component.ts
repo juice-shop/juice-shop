@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
 
   async passkeyLogin () {
     try {
-      const { options, authToken } = await firstValueFrom(this.passkeyService.loginOptions())
+      const { options, authToken } = await firstValueFrom(this.passkeyService.loginOptions(this.loginModel().email || undefined))
       const assertion = await this.passkeyService.createAssertion(options)
       const authentication = await firstValueFrom(this.passkeyService.loginVerify(assertion, authToken))
       const redirectUrl = this.route.snapshot.queryParamMap.get('redirectUrl') ?? '/search'
