@@ -137,6 +137,7 @@ mentioned or used!
 
 ### Blogs & Articles
 
+* Blog post on [brandon-t-elliott.github.io](https://brandon-t-elliott.github.io/) by [Brandon T. Elliott](https://brandon-t-elliott.github.io/): [Experimenting with Burp AT and Achieving RCE in Unintended Ways on the OWASP Juice Shop](https://brandon-t-elliott.github.io/achieving-rce-in-unintended-ways-owasp-juice-shop-burp-at)
 * Blog post on [Cycubix Docs](https://docs.cycubix.com) by [Cycubix Ltd](https://cycubix.com): [Deploy MultiJuicer on DigitalOcean](https://docs.cycubix.com/multijuicer-on-digitalocean/)
 * Blog post on [OWASP.org](https://owasp.org) by Björn Kimminich: [OWASP Juice Shop v20.0.0 — a fresh squeeze of features, now with AI](https://owasp.org/blog/2026/05/13/juice-shop-v20.html)
 * Article on [LinkedIn](https://www.linkedin.com) by [Avinash Mathew Varghese](https://www.linkedin.com/in/avinash-mathew-varghese/): [Deploying OWASP Juice Shop and DVWA as Persistent Attack Targets](https://www.linkedin.com/posts/avinash-mathew-varghese_chapter-13-deploying-vulnerable-web-applications-activity-7436923782453321729-U3QC)
