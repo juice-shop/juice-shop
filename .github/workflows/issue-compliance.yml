@@ -1,0 +1,379 @@
+name: 'Issue Compliance Check'
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  issues: write
+
+jobs:
+  check-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Initialize Issue Information"
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        id: init
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const author = issue.user.login;
+            const authorType = issue.user.type;
+            
+            const filteredIssue = {
+              number: issue.number,
+              body: issue.body,
+              title: issue.title,
+              user: { login: issue.user.login }
+            };
+            
+            core.setOutput('issue', JSON.stringify(filteredIssue));
+            core.setOutput('author', author);
+            core.setOutput('author_type', authorType);
+            console.log(`Initialized Issue information for #${issue.number} by ${author} (type: ${authorType}).`);
+
+      - name: "Check Org Membership"
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        id: membership
+        with:
+          script: |
+            const author = process.env.AUTHOR;
+            const authorType = process.env.AUTHOR_TYPE;
+
+            if (authorType === 'Bot') {
+              console.log(`${author} is a bot account, skipping checks.`);
+              core.setOutput('is_member', 'true');
+              return;
+            }
+
+            try {
+              await github.rest.orgs.checkPublicMembershipForUser({
+                org: 'juice-shop',
+                username: author
+              });
+              console.log(`${author} is a juice-shop org member, skipping checks.`);
+              core.setOutput('is_member', 'true');
+            } catch (e) {
+              console.log(`${author} is not a juice-shop org member, running checks.`);
+              core.setOutput('is_member', 'false');
+            }
+        env:
+          AUTHOR: ${{ steps.init.outputs.author }}
+          AUTHOR_TYPE: ${{ steps.init.outputs.author_type }}
+
+      - name: "Perform Spam Detection"
+        if: steps.membership.outputs.is_member == 'false'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        id: spam
+        with:
+          script: |
+            const issue = JSON.parse(process.env.ISSUE_JSON);
+            // Normalize Unicode smart quotes/apostrophes to their plain ASCII equivalents so phrase
+            // regexes (e.g. "i'm", "i'd") reliably match text copy-pasted from word processors or phones.
+            const normalizeQuotes = (s) => s.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+            const title = normalizeQuotes((issue.title || '').trim());
+            const rawBody = normalizeQuotes((issue.body || '').trim());
+            const titleLower = title.toLowerCase();
+            const bodyLower = rawBody.toLowerCase();
+            
+            let spamScore = 0;
+
+            // Helper to add score
+            const addScore = (points, reason) => {
+              spamScore += points;
+              console.log(`+${points} Score (${reason}) - Current: ${spamScore}`);
+            };
+
+            // 1. Template usage check
+            const hasTemplatePrefix = /^\[(🐛|⭐|🚀)\]/i.test(title);
+            const hasTemplateHeaders = /(?:bug report|challenge idea|feature request|minimal reproduction|your environment|underlying vulnerability|solution ideas)/i.test(rawBody);
+            const usesTemplate = hasTemplatePrefix || hasTemplateHeaders;
+
+            if (!usesTemplate) {
+              addScore(15, "Did not use issue template");
+            }
+
+            // 2. Untouched template placeholders (user left template placeholders untouched outside of HTML comments)
+            const bodyWithoutComments = rawBody.replace(/<!--[\s\S]*?-->/g, '');
+            const templatePlaceholders = [
+              /a clear and concise description of the (?:new hacking challenge|problem or missing capability|problem\.\.\.)/i,
+              /a clear and concise summary/i,
+              /security vulnerabilities or design flaws this challenge will be based on/i,
+              /have you considered how the challenge could be exploited by the attacker/i,
+              /the previous version in which this bug was not present was:\s*(?:`?x\.y\.z`?|x\.y\.z)/i,
+              /if you have a solution in mind, please describe it/i,
+              /have you considered any alternative solutions or workarounds/i
+            ];
+
+            let placeholderMatches = 0;
+            for (const ph of templatePlaceholders) {
+              if (ph.test(bodyWithoutComments)) {
+                placeholderMatches++;
+              }
+            }
+
+            if (placeholderMatches >= 2) {
+              addScore(50, `Default template instructions/placeholders not removed (${placeholderMatches} found)`);
+            } else if (placeholderMatches === 1) {
+              addScore(30, "Default template instruction/placeholder found");
+            }
+
+            // Challenge template difficulty table untouched (unmodified question marks)
+            if (/❔\s*⭐/i.test(bodyWithoutComments) || /:grey_question:\s*:star:/i.test(bodyWithoutComments)) {
+              addScore(25, "Challenge difficulty table unmodified");
+            }
+
+            // 3. Low quality / empty / trivial title
+            const cleanTitle = title.replace(/^\[(🐛|⭐|🚀)\]\s*/, '').trim();
+            if (cleanTitle.length === 0) {
+              addScore(45, "Title is empty or contains only emoji prefix");
+            } else if (cleanTitle.length <= 4 || /^(test|test\s+issue|test\s+from\s+here|hi|hello|update|fix|fixes|bug|routes|juice|a|problem|typo|homework|lab|please\s+(?:look(?:ing)?(?:\s+for\s+updates?)?|help|assist)|any\s+updates?|need\s+help)$/i.test(cleanTitle)) {
+              addScore(35, `Low quality or test title: "${cleanTitle}"`);
+            }
+
+            // 4. Low quality / empty / trivial body
+            const cleanBody = rawBody.replace(/^description\s+\S+\s+opened\s+/i, '').trim();
+            if (/^no description provided\.?$/i.test(cleanBody) || cleanBody.length === 0) {
+              addScore(60, "Empty issue body / No description provided");
+            } else if (cleanBody.length <= 10 || /^(fixed|update|hi|hello|done|check|fix|test|this is a test issue\.?|\.)$/i.test(cleanBody)) {
+              addScore(60, `Low quality/trivial body: "${cleanBody}"`);
+            }
+
+            // 5. Raw key block / Base64 armored dump / Raw CSS code dump without explanation
+            if (/-----BEGIN PGP PUBLIC KEY BLOCK-----|-----END PGP PUBLIC KEY BLOCK-----/i.test(rawBody) || /^mQENBF[A-Za-z0-9+/=]{100,}/m.test(cleanBody)) {
+              addScore(65, "PGP Public Key Block / Base64 armored dump");
+            }
+            if (/^body\s*\{\s*font-family:/i.test(cleanBody) || (/^[.#a-zA-Z0-9_-]+\s*\{[^}]+\}\s*$/s.test(cleanBody) && cleanBody.length > 30)) {
+              addScore(60, "Raw CSS pasted as entire issue body");
+            }
+
+            // 6. Issue body consists only of a permalink / code reference without context
+            if (/^juice-shop\/(?:frontend\/src|routes|lib)\/[^\s]+\s+line\s+\d+\s+in\s+[a-f0-9]+\s+/i.test(cleanBody) || (/^https:\/\/github\.com\/juice-shop\/juice-shop\/blob\/[^\s]+$/i.test(cleanBody))) {
+              addScore(60, "Code permalink pasted without issue description");
+            }
+
+            // 7. Automated vulnerability scanner / AI security audit reports (structural smell, not tied to a
+            // specific named tool or wording lifted from any single past report)
+            const sastDastTools = /\b(semgrep|snyk|sonar(?:qube)?|fortify|checkmarx|veracode|trivy|grype|zap|burp\s*suite|nessus|qualys)\b/i;
+            if (sastDastTools.test(titleLower) || sastDastTools.test(bodyLower)) {
+              addScore(30, "Named SAST/DAST/security scanner tool mentioned in title or body");
+            }
+
+            // A generic automated/AI-generated vulnerability report tends to (a) use several "field: value"
+            // style lines (Severity/Confidence/Target/Finding/Reporter/Tool), (b) cite multiple CWE/CVE IDs,
+            // or (c) claim an "automated scan/review found N findings" - all without any concrete reproduction
+            // evidence (a code block or stack trace).
+            // Strip markdown bold/underline emphasis (bots often render field names as "**Severity:**")
+            // and tolerate a leading markdown list bullet ("- Severity: ...") before matching field names.
+            const bodyForFieldMatch = rawBody.replace(/\*\*/g, '').replace(/__/g, '');
+            const scannerFieldMatches = (bodyForFieldMatch.match(/^\s*(?:[-*]\s*)?(?:severity|confidence|target|finding|reporter|tool|scanner|title|type)\s*:/img) || []).length;
+            const cweCveMatches = (rawBody.match(/\b(?:cwe-\d+|cve-\d{4}-\d+)\b/ig) || []).length;
+            const genericScanPhrase = /\b(?:ai[- ]?(?:native|generated|powered)|automat(?:ed|ically))\b.{0,30}\b(?:security\s+)?(?:scan|review|audit|scanner|generated|creat(?:ed|ion)|track(?:ing)?)\b/i.test(rawBody) ||
+              /\b(?:security|vulnerability)\s+(?:review|report|scan)\b\s*[:\-]?\s*\d+\s+findings?/i.test(rawBody) ||
+              /\bvulnerability\s+report\b/i.test(titleLower) ||
+              /\bfix\s+finding\s*:/i.test(titleLower) ||
+              /\bthis\s+issue\s+was\s+automatically\s+generated\b/i.test(rawBody);
+            const hasReproductionEvidence = /```[\s\S]*```|<pre>[\s\S]*<\/pre>/i.test(rawBody);
+
+            // A lone CWE/CVE reference inside a properly filled-out challenge idea template is expected
+            // (the template itself asks for it), so only count it as a scanner smell when combined with
+            // report-style fields/phrasing, or when the template was not used at all.
+            if ((scannerFieldMatches >= 2 || (cweCveMatches >= 2 && (scannerFieldMatches >= 1 || !usesTemplate)) || genericScanPhrase) && !hasReproductionEvidence) {
+              addScore(60, `Automated vulnerability scanner / AI security audit report fingerprint (fields: ${scannerFieldMatches}, CWE/CVE refs: ${cweCveMatches})`);
+            }
+
+            // 8. Commercial / promotional spam: superlative marketing language pitching an unrelated external
+            // tool, service, or walkthrough link
+            if (/(?:https?:\/\/)?(?:tryhackme\.com\/room\/[^\s]+|hackthebox\.com\/[^\s]+)/i.test(titleLower)) {
+              addScore(45, "Third-party CTF walkthrough link in title");
+            }
+            const promoSuperlatives = /\b(?:best|powerful|ultimate|leading|top-rated|industrial[- ]grade|free and open[- ]source)\b/i;
+            const promoSubjects = /\b(?:waf|firewall|scanner|vpn|proxy|antivirus|tool|solution|software|product|service)\b/i;
+            const titleAndBodyLower = `${titleLower} ${bodyLower}`;
+            if (promoSuperlatives.test(titleAndBodyLower) && promoSubjects.test(titleAndBodyLower) && !usesTemplate) {
+              addScore(65, "Commercial / product promotional language detected");
+            }
+
+            // 9. Unsolicited personal introduction / "let me contribute" message instead of an actionable report
+            const introPhrase = /\b(?:i'?m|i am)\s+(?:excited|interested|eager)\s+(?:to|about)\s+(?:start\s+)?contribut(?:e|ing)\b|(?<!not\s)(?<!not\sa\s)\bnew\s+contributor\b|\blooking\s+to\s+contribute\b|\bcan\s+i\s+(?:work\s+on|take)\s+this\b|\bplease\s+assign\s+(?:this|me)\b/i;
+            const hasActionableRef = /`[^`]*\.(?:ts|js|html|yml|md)[^`]*`|#\d+|\bline\s+\d+\b/i.test(rawBody);
+            if (introPhrase.test(bodyLower) && !usesTemplate && !hasActionableRef && cleanBody.length < 700) {
+              addScore(65, "Personal introduction / generic contribution inquiry instead of a bug or feature report");
+            }
+
+            // 10. Nonsense troll / unrealistic request
+            const rewriteTroll = /\brewrite\s+(?:all\s+of\s+|the\s+)?(?:entire\s+)?(?:juice[- ]?shop|project|codebase|app(?:lication)?)\b.{0,30}\b(?:in|using|with)\s+[a-z0-9#+.]+/i;
+            const repeatedWordSpam = /\b(\w+)\b(?:\s+\1\b){3,}/i;
+            // Repeated runs of whitespace or markdown/decorative characters (table borders, horizontal
+            // rules, emoji-based difficulty markers, etc.) are extremely common in well-formed markdown
+            // and must not be mistaken for gibberish spam.
+            const repeatedCharMatches = cleanBody.match(/(.)\1{5,}/g) || [];
+            const decorativeRepeatChar = /[\s\-=_*:|#~.>0-9^]/;
+            const repeatedCharSpam = repeatedCharMatches.some(m => !decorativeRepeatChar.test(m[0]));
+            if (rewriteTroll.test(bodyLower) || rewriteTroll.test(titleLower) || repeatedWordSpam.test(cleanBody) || repeatedCharSpam) {
+              addScore(60, "Nonsense request / troll or gibberish content");
+            }
+
+            // 11. Hallucinated tech stack claims / GSoC-style inquiries
+            const nonExistentTestingTools = /\b(?:jest|frisby|enzyme|karma|jasmine)\b/i;
+            if (nonExistentTestingTools.test(rawBody) && /\b(?:current(?:ly)?|existing)\b.{0,40}\b(?:test(?:ing)?|stack|framework)\b/i.test(bodyLower)) {
+              addScore(70, "References testing frameworks not actually used by the project (hallucinated tech stack)");
+            }
+            if (/\b(?:gsoc|google summer of code)\b/i.test(rawBody)) {
+              addScore(25, "GSoC / internship inquiry mentioned in issue");
+            }
+
+            // 12. Generic AI-generated maintenance/bug report smell: formal audit-style structure and vague
+            // corporate language without any concrete evidence (code snippet, log output or line reference)
+            const auditStructure = (bodyWithoutComments.match(/^#{1,3}\s*(?:root cause|impact|proposed fix|suggested solution|current (?:state|behavior)|problem statement)/img) || []).length;
+            const vagueCorporateLanguage = /\b(?:robustness|maintainability|scalability|resilience|enhance(?:s|d)?|ensure(?:s)?\s+consistency)\b/i.test(rawBody);
+            const hasConcreteEvidence = hasReproductionEvidence || /\bline\s+\d+\b/i.test(rawBody);
+            if (auditStructure >= 2 && vagueCorporateLanguage && !hasConcreteEvidence) {
+              addScore(65, "Generic AI-generated maintenance/report structure without concrete evidence");
+            }
+            if (/\b(?:leftover|stray|forgotten)\s+debug(?:ging)?\s+(?:log(?:ging)?(?:\s+statement)?|console\.log|print(?:ln)?)\b/i.test(rawBody) || /\bdebug\s+console\.log\s+left\s+in\s+production\b/i.test(bodyLower)) {
+              addScore(75, "Reporting a trivial leftover debug statement as a bug");
+            }
+            if (/\b(?:chat\s*bot|chatbot|support chat)\b(?:\s*\([^)]*\))?\s+(?:is|are|'s)\s+(?:currently\s+|completely\s+)?(?:malfunctioning|unusable|broken|ineffective|misleading|not\s+working)\b/i.test(bodyLower) && !hasConcreteEvidence) {
+              addScore(75, "Vague chatbot malfunction report without reproduction evidence");
+            }
+
+            // 13. Formulaic / bulk AI-generated challenge idea: lists several generic vulnerability buzzwords
+            // without pointing to any specific file, line, or code reference
+            const vulnBuzzwords = /\b(?:sql injection|xss|cross[- ]site scripting|csrf|race condition|business logic vulnerability|idor|ssrf|privilege escalation)\b/ig;
+            const buzzwordMatches = (rawBody.match(vulnBuzzwords) || []).length;
+            const hasFileOrLineRef = /`[^`]*\.(?:ts|js|html|yml|md)[^`]*`|\bline\s+\d+\b/i.test(rawBody);
+            const genericVulnPhrasing = /\bintroduce\s+a\b.{0,60}\bvulnerability\b/i.test(rawBody) || /\ballow(?:s)?\s+(?:an\s+)?attacker(?:s)?\s+to\b/i.test(rawBody);
+            if (buzzwordMatches >= 2 && !hasFileOrLineRef && !usesTemplate) {
+              addScore(65, `Generic, formulaic vulnerability/challenge suggestion without concrete code reference (${buzzwordMatches} buzzwords)`);
+              if (genericVulnPhrasing) {
+                addScore(20, "Generic vulnerability-injection phrasing typical of formulaic AI-generated submissions");
+              }
+            }
+
+            // 14. Formulaic AI-generated vulnerability narrative: boilerplate framing ("introduce a ...
+            // vulnerability" / "allows attacker(s) to ...") combined with CWE/CVE citation(s) but zero
+            // concrete, verifiable technical detail (no real file/code reference). Genuine proposals citing
+            // CWEs nearly always also point at an actual file, function or endpoint; purely abstract
+            // "narrative" proposals citing CWEs without any such detail are a strong fabrication smell,
+            // regardless of whether the official template was used.
+            if (genericVulnPhrasing && cweCveMatches >= 1 && !hasFileOrLineRef) {
+              addScore(75, "Formulaic AI-generated vulnerability narrative with CWE citation(s) but no concrete file/code reference");
+            }
+
+            const spamRating = Math.max(0, Math.min(100, spamScore));
+            core.setOutput('spamRating', spamRating);
+            console.log(`===================================`);
+            console.log(`Final Spam Score: ${spamRating}/100`);
+        env:
+          ISSUE_JSON: ${{ steps.init.outputs.issue }}
+
+      - name: "Finalize Compliance Check"
+        if: always() && steps.membership.outputs.is_member == 'false'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        id: check
+        with:
+          script: |
+            const issue = JSON.parse(process.env.ISSUE_JSON);
+            const author = process.env.AUTHOR;
+            const spamRating = parseInt(process.env.SPAM_RATING);
+            const isSpam = spamRating >= 75;
+            
+            const spamPrefix = isSpam ? '🚨 ' : (spamRating >= 40 ? '⚠️ ' : '✅ ');
+            core.setOutput('results', `${spamRating > 0 ? `(${spamPrefix}Spam Score: ${spamRating}/100) - ` : ''}${author}`);
+            
+            if (!isSpam) {
+              console.log('Issue compliance check passed.');
+              return;
+            }
+            
+            const comment = [
+              'Unfortunately, this issue does not meet our guidelines and has been closed:',
+              '',
+              '- 🚨 **Potential Spam Detected:** _This issue has been identified as potential spam (Rating: ' + spamRating + '/100) based on recurring indicators._ ' +
+              'We sincerely appreciate your interest in OWASP Juice Shop, but we must focus our limited maintainer ' +
+              'resources on meaningful issues that significantly improve the project. Thank you for your understanding. ' +
+              'See our [spam handling guide](https://pwning.owasp-juice.shop/companion-guide/latest/part3/contribution.html#_handling_of_spam_prs) for more details.'
+            ].join('\n');
+            
+            const labels = ['spam'];
+            
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: labels
+              });
+            } catch (e) {
+              console.log(`Failed to add labels to Issue #${issue.number}: ${e.message}`);
+            }
+            
+            try {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: comment
+              });
+            } catch (e) {
+              console.log(`Failed to create comment on Issue #${issue.number}: ${e.message}`);
+            }
+            
+            try {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            } catch (e) {
+              console.log(`Failed to close Issue #${issue.number}: ${e.message}`);
+            }
+            
+            console.log(`Issue #${issue.number} closed due to spam rating (${spamRating}/100). Applied labels: ${labels.join(', ')}`);
+        env:
+          ISSUE_JSON: ${{ steps.init.outputs.issue }}
+          AUTHOR: ${{ steps.init.outputs.author }}
+          SPAM_RATING: ${{ steps.spam.outputs.spamRating }}
+
+      - name: "Block Spammer"
+        if: always() && steps.membership.outputs.is_member == 'false' && steps.spam.outputs.spamRating >= 75
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v8.0.0
+        env:
+          AUTHOR: ${{ steps.init.outputs.author }}
+          ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
+        with:
+          script: |
+            const author = process.env.AUTHOR;
+            const orgAdminToken = process.env.ORG_ADMIN_TOKEN;
+            if (orgAdminToken) {
+              try {
+                const response = await fetch(`https://api.github.com/orgs/juice-shop/blocks/${encodeURIComponent(author)}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Authorization': `Bearer ${orgAdminToken}`,
+                    'Accept': 'application/vnd.github+json',
+                    'User-Agent': 'actions/github-script'
+                  }
+                });
+                if (response.ok) {
+                  console.log(`User ${author} blocked due to spam.`);
+                } else {
+                  const errorText = await response.text();
+                  console.log(`Failed to block user ${author}: ${response.status} ${errorText}`);
+                }
+              } catch (e) {
+                console.log(`Failed to block user ${author}: ${e.message}`);
+              }
+            } else {
+              console.log('ORG_ADMIN_TOKEN secret not configured, skipping user block.');
+            }
+
+      - name: "Slack Notification"
+        if: always() && steps.check.outputs.results
+        uses: Gamesight/slack-workflow-status@68bf00d0dbdbcb206c278399aa1ef6c14f74347a #v1.3.0
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          name: "Issue Compliance: ${{ steps.check.outputs.results }}"
