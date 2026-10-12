@@ -30,7 +30,8 @@ jobs:
               filename: f.filename,
               status: f.status,
               additions: f.additions,
-              deletions: f.deletions
+              deletions: f.deletions,
+              patch: f.patch
             }));
             
             // Fetch commits for DCO check
@@ -86,11 +87,31 @@ jobs:
         with:
           script: |
             const pr = JSON.parse(process.env.PR_JSON);
-            const wrongBranch = pr.base.ref === 'master';
+            const files = JSON.parse(process.env.FILES_JSON);
+            
+            const isDocListOnly = files.length > 0 && 
+              files.every(f => ['REFERENCES.md', 'SOLUTIONS.md'].includes(f.filename)) &&
+              files.every(f => {
+                if (f.deletions > 0 || f.additions === 0 || !f.patch) return false;
+                const addedLines = f.patch.replace(/\r/g, '').split('\n')
+                  .filter(line => line.startsWith('+') && !line.startsWith('+++'))
+                  .map(line => line.slice(1));
+                if (addedLines.length === 0) return false;
+                const firstNonEmpty = addedLines.find(line => line.trim() !== '');
+                if (!firstNonEmpty || !/^\s*(?:[*+-]|\d+\.)\s+/.test(firstNonEmpty)) return false;
+                return addedLines.every(line => 
+                  /^\s*(?:[*+-]|\d+\.)\s+/.test(line) || 
+                  /^\s+\S/.test(line) || 
+                  /^\s*$/.test(line)
+                );
+              });
+
+            const wrongBranch = pr.base.ref === 'master' && !isDocListOnly;
             core.setOutput('violation', wrongBranch ? 'true' : 'false');
             console.log(`Target branch check: ${wrongBranch ? '❌ FAILED' : '✅ PASSED'}`);
         env:
           PR_JSON: ${{ steps.init.outputs.pr }}
+          FILES_JSON: ${{ steps.init.outputs.files }}
 
       - name: "Check AI Tool Disclosure"
         if: steps.membership.outputs.is_member == 'false'
@@ -165,22 +186,41 @@ jobs:
             
             let spamScore = 0;
             
-            const sastDastTools = /semgrep|snyk|sonar|fortify|checkmarx|veracode|trivy|grype|zap|burp/i;
-            if (sastDastTools.test(title)) {
-              spamScore += 25;
-              console.log(`+25 Score (SAST/DAST tool name in title: "${title}") - Current: ${spamScore}`);
-            }
-            if (sastDastTools.test(body)) {
-              spamScore += 25;
-              console.log(`+25 Score (SAST/DAST tool name in body) - Current: ${spamScore}`);
-            }
-            if (commits.some(c => sastDastTools.test(c.commit.message))) {
-              spamScore += 25;
-              console.log(`+25 Score (SAST/DAST tool name in commit messages) - Current: ${spamScore}`);
-            }
-            if (files.some(f => sastDastTools.test(f.filename))) {
-              spamScore += 25;
-              console.log(`+25 Score (SAST/DAST tool name in filenames) - Current: ${spamScore}`);
+            const isDocListOnly = files.length > 0 && 
+              files.every(f => ['REFERENCES.md', 'SOLUTIONS.md'].includes(f.filename)) &&
+              files.every(f => {
+                if (f.deletions > 0 || f.additions === 0 || !f.patch) return false;
+                const addedLines = f.patch.replace(/\r/g, '').split('\n')
+                  .filter(line => line.startsWith('+') && !line.startsWith('+++'))
+                  .map(line => line.slice(1));
+                if (addedLines.length === 0) return false;
+                const firstNonEmpty = addedLines.find(line => line.trim() !== '');
+                if (!firstNonEmpty || !/^\s*(?:[*+-]|\d+\.)\s+/.test(firstNonEmpty)) return false;
+                return addedLines.every(line => 
+                  /^\s*(?:[*+-]|\d+\.)\s+/.test(line) || 
+                  /^\s+\S/.test(line) || 
+                  /^\s*$/.test(line)
+                );
+              });
+
+            if (!isDocListOnly) {
+              const sastDastTools = /semgrep|snyk|sonar|fortify|checkmarx|veracode|trivy|grype|zap|burp/i;
+              if (sastDastTools.test(title)) {
+                spamScore += 25;
+                console.log(`+25 Score (SAST/DAST tool name in title: "${title}") - Current: ${spamScore}`);
+              }
+              if (sastDastTools.test(body)) {
+                spamScore += 25;
+                console.log(`+25 Score (SAST/DAST tool name in body) - Current: ${spamScore}`);
+              }
+              if (commits.some(c => sastDastTools.test(c.commit.message))) {
+                spamScore += 25;
+                console.log(`+25 Score (SAST/DAST tool name in commit messages) - Current: ${spamScore}`);
+              }
+              if (files.some(f => sastDastTools.test(f.filename))) {
+                spamScore += 25;
+                console.log(`+25 Score (SAST/DAST tool name in filenames) - Current: ${spamScore}`);
+              }
             }
             
             if (title.length <= 5 || /^(update|fix|patch|docs|hi|hello|test|bug fix|typo|lab|homework|fixes|problem)$/i.test(title)) {
@@ -191,7 +231,8 @@ jobs:
               spamScore += 20;
               console.log(`+20 Score (Low quality body: "${body}") - Current: ${spamScore}`);
             }
-            if (body.includes('<!-- ✍️-->') || /### description\s+a clear and concise summary/i.test(body)) {
+            const bodyWithoutComments = prBody.replace(/<!--[\s\S]*?-->/g, '');
+            if (/a clear and concise summary/i.test(bodyWithoutComments)) {
               spamScore += 40;
               console.log(`+40 Score (Default template instructions not removed) - Current: ${spamScore}`);
             }
@@ -243,7 +284,8 @@ jobs:
               spamScore += 20;
               console.log(`+20 Score (Trivial README.md change) - Current: ${spamScore}`);
             }
-            if (files.length <= 2 && maintainerFileCount === 0) {
+            
+            if (files.length <= 2 && maintainerFileCount === 0 && !isDocListOnly) {
               const totalChanges = files.reduce((sum, f) => sum + f.additions + f.deletions, 0);
               if (totalChanges < 5) {
                 spamScore += 30;
