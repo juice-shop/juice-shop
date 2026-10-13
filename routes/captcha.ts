@@ -19,7 +19,7 @@ export function captchas () {
     const secondOperator = operators[Math.floor((Math.random() * 3))]
 
     const expression = firstTerm.toString() + firstOperator + secondTerm.toString() + secondOperator + thirdTerm.toString()
-    const answer = eval(expression).toString() // eslint-disable-line no-eval
+    const answer = calculate(firstTerm, firstOperator, secondTerm, secondOperator, thirdTerm).toString()
 
     const captcha = {
       captchaId,
@@ -30,6 +30,19 @@ export function captchas () {
     await captchaInstance.save()
     res.json(captcha)
   }
+}
+
+function applyOperator (x: number, operator: string, y: number): number {
+  if (operator === '*') return x * y
+  if (operator === '+') return x + y
+  return x - y
+}
+
+function calculate (a: number, op1: string, b: number, op2: string, c: number): number {
+  if (op2 === '*' && op1 !== '*') {
+    return applyOperator(a, op1, b * c)
+  }
+  return applyOperator(applyOperator(a, op1, b), op2, c)
 }
 
 export const verifyCaptcha = () => async (req: Request, res: Response, next: NextFunction) => {
