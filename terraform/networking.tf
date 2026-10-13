@@ -126,6 +126,12 @@ resource "aws_lb" "juice_shop" {
   security_groups    = [aws_security_group.alb.id]
   subnets            = aws_subnet.public[*].id
 
+  access_logs {
+    bucket  = "${var.project_name}-alb-logs"
+    prefix  = "alb-logs"
+    enabled = true
+  }
+
   tags = {
     Project     = var.project_name
     Environment = var.environment
@@ -159,11 +165,14 @@ resource "aws_lb_listener" "http" {
   port              = 80
   protocol          = "HTTP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.juice_shop.arn
+    default_action {
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
-}
 
 resource "aws_iam_server_certificate" "juice_shop_tls" {
   name             = "${var.project_name}-tls-cert"
