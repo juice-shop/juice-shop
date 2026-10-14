@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,7 +10,7 @@ import * as utils from '../utils'
 
 const cleanupFtpFolder = async () => {
   try {
-    const files = await glob('ftp/*.pdf')
+    const files = await glob('ftp/*.pdf', { windowsPathsNoEscape: true })
     for (const filename of files) {
       await fs.remove(filename)
     }

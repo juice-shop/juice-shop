@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import logger from './logger'
+import { customizeTerraformContent } from './terraformCustomization'
 
-export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './data/static/web3-snippets', './frontend/src/app', './models'])
+export const SNIPPET_PATHS = Object.freeze(['./server.ts', './routes', './lib', './data', './data/static/web3-snippets', './frontend/src/app', './models', './infrastructure'])
 
 interface FileMatch {
   path: string
@@ -18,14 +19,14 @@ interface CachedCodeChallenge {
 export const findFilesWithCodeChallenges = async (paths: readonly string[]): Promise<FileMatch[]> => {
   const matches = []
   for (const currPath of paths) {
-    if ((await fs.lstat(currPath)).isDirectory()) {
-      const files = await fs.readdir(currPath)
-      const moreMatches = await findFilesWithCodeChallenges(
-        files.map(file => path.resolve(currPath, file))
-      )
-      matches.push(...moreMatches)
-    } else {
-      try {
+    try {
+      if ((await fs.lstat(currPath)).isDirectory()) {
+        const files = await fs.readdir(currPath)
+        const moreMatches = await findFilesWithCodeChallenges(
+          files.map(file => path.resolve(currPath, file))
+        )
+        matches.push(...moreMatches)
+      } else {
         const code = await fs.readFile(currPath, 'utf8')
         if (
           // strings are split so that it doesn't find itself...
@@ -34,9 +35,9 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
         ) {
           matches.push({ path: currPath, content: code })
         }
-      } catch (e) {
-        logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
       }
+    } catch (e) {
+      logger.warn(`File ${currPath} could not be read. It might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
     }
   }
 
@@ -44,7 +45,7 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
 }
 
 function getCodeChallengesFromFile (file: FileMatch) {
-  const fileContent = file.content
+  const fileContent = file.path.endsWith('.tf') ? customizeTerraformContent(file.content) : file.content
 
   // get all challenges which are in the file by a regex capture group
   const challengeKeyRegex = /[/#]{0,2} vuln-code-snippet start (?<challenges>.*)/g
@@ -55,7 +56,7 @@ function getCodeChallengesFromFile (file: FileMatch) {
   return challenges.map((challengeKey) => getCodingChallengeFromFileContent(fileContent, challengeKey))
 }
 
-function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
+export function getCodingChallengeFromFileContent (source: string, challengeKey: string) {
   const snippets = source.match(`[/#]{0,2} vuln-code-snippet start.*${challengeKey}([^])*vuln-code-snippet end.*${challengeKey}`)
   if (snippets == null) {
     throw new BrokenBoundary('Broken code snippet boundaries for: ' + challengeKey)
@@ -84,7 +85,7 @@ function getCodingChallengeFromFileContent (source: string, challengeKey: string
   return { challengeKey, snippet, vulnLines, neutralLines }
 }
 
-class BrokenBoundary extends Error {
+export class BrokenBoundary extends Error {
   constructor (message: string) {
     super(message)
     this.name = 'BrokenBoundary'

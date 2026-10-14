@@ -1,12 +1,11 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import path from 'node:path'
 import { type Request, type Response, type NextFunction } from 'express'
 
-import * as utils from '../lib/utils'
 import * as security from '../lib/insecurity'
 import { challenges } from '../data/datacache'
 import * as challengeUtils from '../lib/challengeUtils'
@@ -44,12 +43,17 @@ export function servePublicFiles () {
     challengeUtils.solveIf(challenges.misplacedSignatureFileChallenge, () => { return file.toLowerCase() === 'suspicious_errors.yml' })
 
     challengeUtils.solveIf(challenges.nullByteChallenge, () => {
-      return challenges.easterEggLevelOneChallenge.solved || challenges.forgottenDevBackupChallenge.solved || challenges.forgottenBackupChallenge.solved ||
-        challenges.misplacedSignatureFileChallenge.solved || file.toLowerCase() === 'encrypt.pyc'
+      const previouslySolvedViaPoisonNullByte = [
+        challenges.easterEggLevelOneChallenge.solved,
+        challenges.forgottenDevBackupChallenge.solved,
+        challenges.forgottenBackupChallenge.solved,
+        challenges.misplacedSignatureFileChallenge.solved
+      ].some(Boolean)
+      return previouslySolvedViaPoisonNullByte || file.toLowerCase() === 'encrypt.pyc'
     })
   }
 
   function endsWithAllowlistedFileType (param: string) {
-    return utils.endsWith(param, '.md') || utils.endsWith(param, '.pdf')
+    return param.endsWith('.md') || param.endsWith('.pdf')
   }
 }

@@ -1,0 +1,221 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+/* eslint-disable @typescript-eslint/prefer-for-of */
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core'
+import { BasketService } from '../Services/basket.service'
+import { ProductService } from '../Services/product.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+import { Product, ProductTableEntry } from '../Models/product.model'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { MatCardModule } from '@angular/material/card'
+import { MatTooltip } from '@angular/material/tooltip'
+import { MatButton } from '@angular/material/button'
+import { MatIcon } from '@angular/material/icon'
+import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { ProductImageComponent } from '../product-image/product-image.component'
+import { MatDialog } from '@angular/material/dialog'
+
+const IMAGE_BASE_PATH = 'assets/public/images/products/'
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
+  selector: 'app-product',
+  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, ProductImageComponent],
+  templateUrl: './product.component.html',
+  styleUrl: './product.component.scss'
+})
+export class ProductComponent {
+  private readonly basketService = inject(BasketService)
+  private readonly productService = inject(ProductService)
+  private readonly translateService = inject(TranslateService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly dialog = inject(MatDialog)
+
+
+  item = input.required<ProductTableEntry>()
+  isLoggedIn = input.required<boolean>()
+  isDeluxe = input.required<boolean>()
+
+  /* Mirrors the candidates of <app-product-image> so the blurred backdrop reuses the image
+     already fetched by the <picture> instead of downloading the fallback on top of it */
+  readonly backgroundImage = computed(() => {
+    const product = this.item()
+    const fallback = `url("${IMAGE_BASE_PATH}${product.image}")`
+    /* image-set() only understands resolution descriptors, so width-based candidates are left out */
+    const candidates = (product.alternateImages ?? []).filter((image) => image.density)
+    if (candidates.length === 0) {
+      return fallback
+    }
+    return `image-set(${[
+      ...candidates.map((image) => `url("${IMAGE_BASE_PATH}${image.file}") type("${image.format}") ${image.density}`),
+      `${fallback} 1x`
+    ].join(', ')})`
+  })
+
+  addToBasket(id?: number) {
+    if (id == null) {
+      return
+    }
+
+    if (!this.isLoggedIn()) {
+      const guestBasketQuantity = this.basketService.getGuestBasketItems()
+        .filter(item => item.ProductId === id)
+        .reduce((sum, item) => sum + item.quantity, 0)
+      const newQuantity = guestBasketQuantity + 1
+      const violation = this.basketService.getGuestBasketQuantityViolation(newQuantity, this.item(), this.isDeluxe())
+
+      if (violation != null) {
+        this.snackBarHelperService.openBasketQuantityViolation(violation)
+        return
+      }
+
+      this.basketService.addToGuestBasket(id)
+      this.productService.get(id).subscribe({
+        next: (product) => {
+          this.translateService
+            .get('BASKET_ADD_PRODUCT', { product: product.name })
+            .subscribe({
+              next: (basketAddProduct) => {
+                this.snackBarHelperService.open(
+                  basketAddProduct,
+                  'confirmBar'
+                )
+              },
+              error: (translationId) => {
+                this.snackBarHelperService.open(
+                  translationId,
+                  'confirmBar'
+                )
+              }
+            })
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
+      return
+    }
+
+    this.basketService.find(Number(sessionStorage.getItem('bid'))).subscribe({
+      next: (basket) => {
+        const productsInBasket: any = basket.Products
+        let found = false
+        for (let i = 0; i < productsInBasket.length; i++) {
+          if (productsInBasket[i].id === id) {
+            found = true
+            this.basketService
+              .get(productsInBasket[i].BasketItem.id)
+              .subscribe({
+                next: (existingBasketItem) => {
+                  const newQuantity = existingBasketItem.quantity + 1
+                  this.basketService
+                    .put(existingBasketItem.id, { quantity: newQuantity })
+                    .subscribe({
+                      next: (updatedBasketItem) => {
+                        this.productService
+                          .get(updatedBasketItem.ProductId)
+                          .subscribe({
+                            next: (product) => {
+                              this.translateService
+                                .get('BASKET_ADD_SAME_PRODUCT', {
+                                  product: product.name
+                                })
+                                .subscribe({
+                                  next: (basketAddSameProduct) => {
+                                    this.snackBarHelperService.open(
+                                      basketAddSameProduct,
+                                      'confirmBar'
+                                    )
+                                    this.basketService.updateNumberOfCartItems()
+                                  },
+                                  error: (translationId) => {
+                                    this.snackBarHelperService.open(
+                                      translationId,
+                                      'confirmBar'
+                                    )
+                                    this.basketService.updateNumberOfCartItems()
+                                  }
+                                })
+                            },
+                            error: (err) => {
+                              console.log(err)
+                            }
+                          })
+                      },
+                      error: (err) => {
+                        this.snackBarHelperService.open(
+                          err.error?.error,
+                          'errorBar'
+                        )
+                        console.log(err)
+                      }
+                    })
+                },
+                error: (err) => {
+                  console.log(err)
+                }
+              })
+            break
+          }
+        }
+        if (!found) {
+          this.basketService
+            .save({
+              ProductId: id,
+              BasketId: sessionStorage.getItem('bid'),
+              quantity: 1
+            })
+            .subscribe({
+              next: (newBasketItem) => {
+                this.productService.get(newBasketItem.ProductId).subscribe({
+                  next: (product) => {
+                    this.translateService
+                      .get('BASKET_ADD_PRODUCT', { product: product.name })
+                      .subscribe({
+                        next: (basketAddProduct) => {
+                          this.snackBarHelperService.open(
+                            basketAddProduct,
+                            'confirmBar'
+                          )
+                          this.basketService.updateNumberOfCartItems()
+                        },
+                        error: (translationId) => {
+                          this.snackBarHelperService.open(
+                            translationId,
+                            'confirmBar'
+                          )
+                          this.basketService.updateNumberOfCartItems()
+                        }
+                      })
+                  },
+                  error: (err) => {
+                    console.log(err)
+                  }
+                })
+              },
+              error: (err) => {
+                this.snackBarHelperService.open(err.error?.error, 'errorBar')
+                console.log(err)
+              }
+            })
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  }
+
+  showDetail(product: Product) {
+    this.dialog.open(ProductDetailsComponent, {
+      width: '500px',
+      height: 'max-content',
+      data: {
+        productData: product
+      }
+    })
+  }
+}

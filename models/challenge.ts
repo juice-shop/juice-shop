@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import {
   Model,
   type InferAttributes,
@@ -13,7 +12,7 @@ import {
   type Sequelize
 } from 'sequelize'
 
-const CHALLENGE_KEYS = [
+export const CHALLENGE_KEYS = [
   'restfulXssChallenge',
   'accessLogDisclosureChallenge',
   'registerAdminChallenge',
@@ -110,19 +109,26 @@ const CHALLENGE_KEYS = [
   'missingEncodingChallenge',
   'svgInjectionChallenge',
   'exposedMetricsChallenge',
+  'misplacedIacFiles',
   'freeDeluxeChallenge',
   'csrfChallenge',
   'xssBonusChallenge',
   'resetPasswordUvoginChallenge',
   'geoStalkingMetaChallenge',
   'geoStalkingVisualChallenge',
-  'killChatbotChallenge',
   'nullByteChallenge',
-  'bullyChatbotChallenge',
   'lfrChallenge',
   'closeNotificationsChallenge',
   'csafChallenge',
-  'exposedCredentialsChallenge'
+  'exposedCredentialsChallenge',
+  'leakedApiKeyChallenge',
+  'passwordHashLeakChallenge',
+  'chatbotPromptInjectionChallenge',
+  'chatbotGreedyInjectionChallenge',
+  'aiDebuggingChallenge',
+  'systemPromptExtractionChallenge',
+  'iacLeakedKeyChallenge',
+  'vulnerableDockerImageChallenge'
 ] as const
 
 export type ChallengeKey = typeof CHALLENGE_KEYS[number]
@@ -136,8 +142,6 @@ InferCreationAttributes<Challenge>
   declare category: string
   declare description: string
   declare difficulty: number
-  declare hint: string | null
-  declare hintUrl: string | null
   declare mitigationUrl: CreationOptional<string> | null
   declare key: ChallengeKey
   declare disabledEnv: CreationOptional<string> | null
@@ -145,6 +149,7 @@ InferCreationAttributes<Challenge>
   declare tags: string | undefined
   declare solved: CreationOptional<boolean>
   declare codingChallengeStatus: CreationOptional<number>
+  declare hasCodingChallenge: boolean
 }
 
 const ChallengeModelInit = (sequelize: Sequelize) => {
@@ -164,13 +169,12 @@ const ChallengeModelInit = (sequelize: Sequelize) => {
       tags: DataTypes.STRING,
       description: DataTypes.STRING,
       difficulty: DataTypes.INTEGER,
-      hint: DataTypes.STRING,
-      hintUrl: DataTypes.STRING,
       mitigationUrl: DataTypes.STRING,
       solved: DataTypes.BOOLEAN,
       disabledEnv: DataTypes.STRING,
       tutorialOrder: DataTypes.NUMBER,
-      codingChallengeStatus: DataTypes.NUMBER
+      codingChallengeStatus: DataTypes.NUMBER,
+      hasCodingChallenge: DataTypes.BOOLEAN
     },
     {
       tableName: 'Challenges',

@@ -1,134 +1,136 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+@use '../../styles/variables' as *;
+
 .btn-pay {
   display: block;
-  margin-top: 10px;
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: $space-ml;
+  padding: $space-s;
   width: 100%;
-
 }
 
 mat-card {
   height: auto;
-  margin-bottom: -10px !important;
-  margin-top: 20px;
-
+  margin-bottom: -$space-s !important;
+  margin-top: $space-ml;
 }
 
 mat-cell {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: $space-s;
+  padding-right: $space-s;
 }
 
 .price:last-of-type {
-  padding-right: 10px;
+  padding-right: $space-s;
   text-align: right;
 }
 
 .label:first-of-type {
-  padding-left: 10px;
+  padding-left: $space-s;
 }
 
-table {
-  width: 100%;
-}
+table { width: 100%; }
 
-.mat-mdc-footer-cell {
-  font-weight: bold;
-}
+.mat-mdc-footer-cell { font-weight: bold; }
 
 .order-summary {
   font-size: x-large;
   font-weight: 500;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  
+  margin-bottom: $space-m;
+  padding-bottom: $space-s;
+  padding-left: $space-s;
 }
 
 .bonus-points {
-  margin-top: 5px;
+  color: var(--theme-text);
+  margin-top: $space-s;
   text-align: center;
 }
 
-
-.mdc-card { 
+.mdc-card {
   border: 0;
   border-bottom: 0;
-  margin-top: -5px;
-  padding: 5px;
+  margin-top: -$space-2xs;
+  padding: $space-2xs;
   width: 100%;
-
 }
 
 .mat-own-card {
   background-color: var(--theme-background);
   margin: auto;
   max-width: 1200px;
-  padding: 20px;
+  padding: $space-ml;
   width: 60% !important;
-
 }
 
 .mat-table .mat-row,
 .mat-table .mat-footer-cell {
   border-bottom: 1px solid var(--theme-background-light);
   border-radius: 5px !important;
-  padding: 10px 0;
-
+  padding: $space-s 0;
 }
-
-.mat-table {
-  border-collapse: collapse;
-    
-}
-  
-.mat-cell,
-.mat-footer-cell {
-  padding: 12px 0; 
-
-}
-
-::ng-deep .mat-mdc-cell.mdc-data-table__cell.cdk-cell {
-  border: 0 !important;
-
-}
-
 
 .mat-table {
   background: transparent;
+  border-collapse: collapse;
   width: 100%;
-}
-
-.mat-row {
-  border-bottom: 1px solid var(--theme-background-light);
 }
 
 .mat-cell,
 .mat-footer-cell {
   color: var(--theme-text);
-  padding: 12px 0;
+  padding: $space-s 0;
 }
 
 .mat-footer-cell.label {
   font-weight: bold;
   text-align: start;
-  text-indent: 10px;
+  text-indent: $space-s;
 }
 
 .mat-footer-cell.price {
   font-weight: bold;
-  padding-right: 10px !important;
+  padding-right: $space-s !important;
   text-align: end;
 }
 
-.bonus-points {
-  color: var(--theme-text);
-  margin-top: 10px;
-  text-align: center;
+.container {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  gap: $space-ml;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: $space-ml;
+}
+
+.flex-50 { flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0; }
+
+.flex-60 { flex: 0 0 60%;
+  max-width: 60%;
+  min-width: 0; }
+
+.flex-40 { flex: 0 0 40%;
+  max-width: 40%;
+  min-width: 0; }
+
+.fill { height: auto;
+  width: 100%; }
+
+@media (max-width: 959.98px) {
+  .container { flex-direction: column; }
+
+  .flex-50,
+  .flex-60,
+  .flex-40 { flex: 0 0 100%;
+    max-width: 100%; }
 }
 

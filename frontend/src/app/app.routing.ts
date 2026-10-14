@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TokenSaleComponent } from './token-sale/token-sale.component'
 import { OAuthComponent } from './oauth/oauth.component'
 import { BasketComponent } from './basket/basket.component'
 import { TrackResultComponent } from './track-result/track-result.component'
 import { ContactComponent } from './contact/contact.component'
-import { AboutComponent } from './about/about.component'
 import { RegisterComponent } from './register/register.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { SearchResultComponent } from './search-result/search-result.component'
@@ -16,8 +16,6 @@ import { LoginComponent } from './login/login.component'
 import { AdministrationComponent } from './administration/administration.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { ComplaintComponent } from './complaint/complaint.component'
-import { ChatbotComponent } from './chatbot/chatbot.component'
-import { RecycleComponent } from './recycle/recycle.component'
 import { RouterModule, type Routes, type UrlMatchResult, type UrlSegment } from '@angular/router'
 import { TwoFactorAuthEnterComponent } from './two-factor-auth-enter/two-factor-auth-enter.component'
 import { ErrorPageComponent } from './error-page/error-page.component'
@@ -42,6 +40,9 @@ import { DeluxeUserComponent } from './deluxe-user/deluxe-user.component'
 import { AccountingGuard, AdminGuard, LoginGuard } from './app.guard'
 import { NFTUnlockComponent } from './nft-unlock/nft-unlock.component'
 import { ScoreBoardComponent } from './score-board/score-board.component'
+import { ChatbotComponent } from './chatbot/chatbot.component'
+import { ChatWelcomePageComponent } from './chatbot/chat-welcome-page/chat-welcome-page.component'
+import { ChatConversationComponent } from './chatbot/chat-conversation/chat-conversation.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -56,6 +57,22 @@ const loadWeb3SandboxModule = async () => {
   const module = await import('./web3-sandbox/web3-sandbox.module')
   return module.Web3SandboxModule
 }
+
+const loadCodingChallenge = async () => {
+  const module = await import('./coding-challenge-page/coding-challenge-page.component')
+  return module.CodingChallengePageComponent
+}
+
+const loadRecycleComponent = async () => {
+  const module = await import('./recycle/recycle.component')
+  return module.RecycleComponent
+}
+
+const loadAboutComponent = async () => {
+  const module = await import('./about/about.component')
+  return module.AboutComponent
+}
+
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
   { // vuln-code-snippet neutral-line adminSectionChallenge
@@ -70,7 +87,7 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    loadComponent: async () => await loadAboutComponent()
   },
   {
     path: 'address/select',
@@ -126,10 +143,6 @@ const routes: Routes = [
     component: ComplaintComponent
   },
   {
-    path: 'chatbot',
-    component: ChatbotComponent
-  },
-  {
     path: 'order-summary',
     component: OrderSummaryComponent
   },
@@ -155,7 +168,7 @@ const routes: Routes = [
   },
   {
     path: 'recycle',
-    component: RecycleComponent
+    loadComponent: async () => await loadRecycleComponent()
   },
   {
     path: 'register',
@@ -227,6 +240,14 @@ const routes: Routes = [
     loadChildren: async () => await loadWeb3SandboxModule() // vuln-code-snippet neutral-line web3SandboxChallenge
   }, // vuln-code-snippet neutral-line web3SandboxChallenge
   {
+    path: 'chatbot',
+    component: ChatbotComponent,
+    children: [
+      { path: '', component: ChatWelcomePageComponent },
+      { path: 'conversation/:id', component: ChatConversationComponent }
+    ]
+  },
+  {
     path: 'bee-haven',
     loadChildren: async () => await loadFaucetModule()
   },
@@ -240,6 +261,10 @@ const routes: Routes = [
     matcher: tokenMatcher, // vuln-code-snippet vuln-line tokenSaleChallenge
     component: TokenSaleComponent // vuln-code-snippet neutral-line tokenSaleChallenge
   }, // vuln-code-snippet neutral-line tokenSaleChallenge
+  {
+    path: 'coding-challenge/:challengeKey',
+    loadComponent: async () => await loadCodingChallenge()
+  },
   {
     path: '403',
     component: ErrorPageComponent
@@ -269,13 +294,13 @@ export function tokenMatcher (url: UrlSegment[]): UrlMatchResult { // vuln-code-
   if (url.length === 0) { // vuln-code-snippet neutral-line tokenSaleChallenge
     return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
   } // vuln-code-snippet neutral-line tokenSaleChallenge
-  // vuln-code-snippet neutral-line tokenSaleChallenge
+ // vuln-code-snippet neutral-line tokenSaleChallenge
   const path = url[0].toString() // vuln-code-snippet neutral-line tokenSaleChallenge
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
   if (path.match((token1(25, 184, 174, 179, 182, 186) + (36669).toString(36).toLowerCase() + token2(13, 144, 87, 152, 139, 144, 83, 138) + (10).toString(36).toLowerCase()))) { // vuln-code-snippet vuln-line tokenSaleChallenge
     return ({ consumed: url }) // vuln-code-snippet neutral-line tokenSaleChallenge
   } // vuln-code-snippet neutral-line tokenSaleChallenge
-  // vuln-code-snippet neutral-line tokenSaleChallenge
+ // vuln-code-snippet neutral-line tokenSaleChallenge
   return null as unknown as UrlMatchResult // vuln-code-snippet neutral-line tokenSaleChallenge
 } // vuln-code-snippet neutral-line tokenSaleChallenge
 

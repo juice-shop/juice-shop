@@ -1,28 +1,26 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import packageJson from '../package.json'
 import fs from 'node:fs'
 import logger from './logger'
 import config from 'config'
-import jsSHA from 'jssha'
 import download from 'download'
+import { ProxyAgent } from 'proxy-agent'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
-import type { Challenge } from 'data/types'
+import type { Challenge } from '@juice-shop/data/types'
 
 import isHeroku from './is-heroku'
 import isDocker from './is-docker'
 import isWindows from './is-windows'
 export { default as isDocker } from './is-docker'
 export { default as isWindows } from './is-windows'
-// import isGitpod from 'is-gitpod') // FIXME Roll back to this when https://github.com/dword-design/is-gitpod/issues/94 is resolve
-const isGitpod = () => false
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+const proxyAgent = new ProxyAgent()
 
 export const queryResultToJson = <T>(
   data: T,
@@ -35,25 +33,19 @@ export const queryResultToJson = <T>(
 }
 
 export const isUrl = (url: string) => {
-  return startsWith(url, 'http')
+  return url.startsWith('http')
 }
 
-export const startsWith = (str: string, prefix: string) => str ? str.indexOf(prefix) === 0 : false
-
-export const endsWith = (str?: string, suffix?: string) => (str && suffix) ? str.includes(suffix, str.length - suffix.length) : false
-
-export const contains = (str: string, element: string) => str ? str.includes(element) : false // TODO Inline all usages as this function is not adding any functionality to String.includes
-
 export const containsEscaped = function (str: string, element: string) {
-  return contains(str, element.replace(/"/g, '\\"'))
+  return str ? str.includes(element.replace(/"/g, '\\"')) : false
 }
 
 export const containsOrEscaped = function (str: string, element: string) {
-  return contains(str, element) || containsEscaped(str, element)
+  return (str ? str.includes(element) : false) || containsEscaped(str, element)
 }
 
 export const unquote = function (str: string) {
-  if (str && startsWith(str, '"') && endsWith(str, '"')) {
+  if (str && str.startsWith('"') && str.endsWith('"')) {
     return str.substring(1, str.length - 1)
   } else {
     return str
@@ -87,10 +79,7 @@ const getCtfKey = () => {
   return cachedCtfKey
 }
 export const ctfFlag = (text: string) => {
-  const shaObj = new jsSHA('SHA-1', 'TEXT') // eslint-disable-line new-cap
-  shaObj.setHMACKey(getCtfKey(), 'TEXT')
-  shaObj.update(text)
-  return shaObj.getHMAC('HEX')
+  return crypto.createHmac('sha1', getCtfKey()).update(text).digest('hex')
 }
 
 export const toMMMYY = (date: Date) => {
@@ -112,18 +101,24 @@ export const toISO8601 = (date: Date) => {
 
 export const extractFilename = (url: string) => {
   let file = decodeURIComponent(url.substring(url.lastIndexOf('/') + 1))
-  if (contains(file, '?')) {
+  if (file ? file.includes('?') : false) {
     file = file.substring(0, file.indexOf('?'))
   }
   return file
 }
 
-export const downloadToFile = async (url: string, dest: string) => {
+export const downloadToFile = async (
+  url: string,
+  dest: string,
+  downloadData: (url: string, options: download.DownloadOptions) => Promise<Buffer> = download
+) => {
   try {
-    const data = await download(url)
+    const data = await downloadData(url, { agent: proxyAgent })
     fs.writeFileSync(dest, data)
+    return true
   } catch (err) {
     logger.warn('Failed to download ' + url + ' (' + getErrorMessage(err) + ')')
+    return false
   }
 }
 
@@ -161,8 +156,7 @@ export function getChallengeEnablementStatus (challenge: Challenge,
     isDocker: isEnvironmentFunction
     isHeroku: isEnvironmentFunction
     isWindows: isEnvironmentFunction
-    isGitpod: isEnvironmentFunction
-  } = { isDocker, isHeroku, isWindows, isGitpod }): ChallengeEnablementStatus {
+  } = { isDocker, isHeroku, isWindows }): ChallengeEnablementStatus {
   if (!challenge?.disabledEnv) {
     return { enabled: true, disabledBecause: null }
   }
@@ -179,9 +173,6 @@ export function getChallengeEnablementStatus (challenge: Challenge,
   }
   if (challenge.disabledEnv?.includes('Windows') && isEnvironmentFunctions.isWindows()) {
     return { enabled: false, disabledBecause: 'Windows' }
-  }
-  if (challenge.disabledEnv?.includes('Gitpod') && isEnvironmentFunctions.isGitpod()) {
-    return { enabled: false, disabledBecause: 'Gitpod' }
   }
   if (challenge.disabledEnv && safetyModeSetting === 'enabled') {
     return { enabled: false, disabledBecause: 'Safety Mode' }
@@ -209,7 +200,7 @@ export const parseJsonCustom = (jsonString: string) => {
 }
 
 export const toSimpleIpAddress = (ipv6: string) => {
-  if (startsWith(ipv6, '::ffff:')) {
+  if (ipv6?.startsWith('::ffff:')) {
     return ipv6.substr(7)
   } else if (ipv6 === '::1') {
     return '127.0.0.1'
@@ -231,4 +222,35 @@ export const matchesSystemIniFile = (text: string) => {
 export const matchesEtcPasswdFile = (text: string) => {
   const match = text.match(/(\w*:\w*:\d*:\d*:\w*:.*)|(Note that this file is consulted directly)/gi)
   return match !== null && match.length >= 1
+}
+
+export function diceCoefficient (s1: string, s2: string, n = 2): number {
+  if (s1 === s2) return 1
+  if (s1.length < n || s2.length < n) return 0
+
+  const nGrams1 = new Map<string, number>()
+  for (let i = 0; i <= s1.length - n; i++) {
+    const nGram = s1.substring(i, i + n)
+    nGrams1.set(nGram, (nGrams1.get(nGram) ?? 0) + 1)
+  }
+
+  let intersectionSize = 0
+  for (let i = 0; i <= s2.length - n; i++) {
+    const nGram = s2.substring(i, i + n)
+    const count = nGrams1.get(nGram) ?? 0
+    if (count > 0) {
+      nGrams1.set(nGram, count - 1)
+      intersectionSize++
+    }
+  }
+
+  return (2.0 * intersectionSize) / (s1.length + s2.length - 2 * (n - 1))
+}
+
+/**
+ * Wrapper for asynchronous Express route handlers to ensure any rejected promises are caught and passed to the next() function.
+ * TODO: Revisit the need for this wrapper once the project is migrated to Express 5 which supports async handlers natively.
+ */
+export const asyncHandler = (fn: (req: any, res: any, next: any) => Promise<any> | any) => (req: any, res: any, next: any) => {
+  void Promise.resolve(fn(req, res, next)).catch(next)
 }

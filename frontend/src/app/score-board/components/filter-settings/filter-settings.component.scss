@@ -1,9 +1,16 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../styles/variables' as *;
+
 .options-group {
   align-items: center;
-  column-gap: 16px;
+  column-gap: $space-m;
   display: grid;
   grid-template-columns: repeat(3, 1fr) min-content;
-  row-gap: 8px;
+  row-gap: $space-xs;
   width: max-content;
   @media (max-width: 1200px) {
     width: auto;
@@ -16,9 +23,9 @@
 
 .filter-row {
   display: grid;
-  gap: 16px;
+  gap: $space-m;
   grid-template-columns: auto min-content min-content;
-  margin-top: 16px;
+  margin-top: $space-m;
   @media (max-width: 1200px) {
     grid-template-columns: 1fr;
   }
@@ -32,6 +39,16 @@
 
 .search-icon {
   color: var(--theme-text-fade-30);
+}
+
+:host ::ng-deep .mat-mdc-form-field.mat-focused {
+  .mdc-floating-label {
+    color: var(--theme-accent) !important;
+  }
+
+  .mdc-line-ripple::after {
+    border-bottom-color: var(--theme-accent) !important;
+  }
 }
 
 .reset-filters-wrapper {
@@ -64,3 +81,4 @@
     width: 16px;
   }
 }
+

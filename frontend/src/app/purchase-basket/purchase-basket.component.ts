@@ -1,11 +1,14 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output } from '@angular/core'
-import { BasketService } from '../Services/basket.service'
+import { Component, EventEmitter, Input, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
+import { BasketService, type GuestBasketQuantityInfo } from '../Services/basket.service'
 import { UserService } from '../Services/user.service'
+import { ProductService } from '../Services/product.service'
+import { ProductImageComponent } from '../product-image/product-image.component'
+import { QuantityService } from '../Services/quantity.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { faMinusSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -13,23 +16,31 @@ import { DeluxeGuard } from '../app.guard'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconButton } from '@angular/material/button'
-import { NgIf } from '@angular/common'
-import { FlexModule } from '@angular/flex-layout/flex'
-import { ExtendedModule } from '@angular/flex-layout/extended'
+import { forkJoin, of } from 'rxjs'
+import { catchError, map } from 'rxjs/operators'
+
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table'
 
 library.add(faTrashAlt, faMinusSquare, faPlusSquare)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss'],
-  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, ExtendedModule, FlexModule, MatFooterCellDef, MatFooterCell, NgIf, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule]
+  imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow, TranslateModule, ProductImageComponent]
 })
 export class PurchaseBasketComponent implements OnInit {
-  @Input('allowEdit') public allowEdit: boolean = false
-  @Input('displayTotal') public displayTotal: boolean = false
-  @Input('totalPrice') public totalPrice: boolean = true
+  private readonly deluxeGuard = inject(DeluxeGuard)
+  private readonly basketService = inject(BasketService)
+  private readonly userService = inject(UserService)
+  private readonly productService = inject(ProductService)
+  private readonly quantityService = inject(QuantityService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+
+  @Input() public allowEdit = false
+  @Input() public displayTotal = false
+  @Input() public totalPrice = true
   @Output() emitTotal = new EventEmitter()
   @Output() emitProductCount = new EventEmitter()
   public tableColumns = ['image', 'product', 'quantity', 'price']
@@ -37,41 +48,114 @@ export class PurchaseBasketComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0
   public userEmail: string
-  constructor (private readonly deluxeGuard: DeluxeGuard, private readonly basketService: BasketService,
-    private readonly userService: UserService, private readonly snackBarHelperService: SnackBarHelperService) { }
+  private guestQuantityInfo = new Map<number, GuestBasketQuantityInfo>()
 
   ngOnInit (): void {
     if (this.allowEdit && !this.tableColumns.includes('remove')) {
       this.tableColumns.push('remove')
     }
     this.load()
-    this.userService.whoAmI().subscribe((data) => {
-      this.userEmail = data.email || 'anonymous'
-      this.userEmail = '(' + this.userEmail + ')'
-    }, (err) => { console.log(err) })
+
+    if (localStorage.getItem('token') == null) {
+      this.userEmail = '(anonymous)'
+      return
+    }
+
+    this.userService.whoAmI(['email']).subscribe({
+      next: (data) => {
+        this.userEmail = data.email || 'anonymous'
+        this.userEmail = '(' + this.userEmail + ')'
+      },
+      error: (err) => {
+        this.userEmail = '(anonymous)'
+        console.log(err)
+      }
+    })
   }
 
   load () {
-    this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe((basket) => {
-      if (this.isDeluxe()) {
-        basket.Products.forEach(product => {
-          product.price = product.deluxePrice
-        })
-      }
-      this.dataSource = basket.Products
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
+    if (localStorage.getItem('token') == null) {
+      this.loadGuestBasket()
+      return
+    }
+
+    this.basketService.find(parseInt(sessionStorage.getItem('bid'), 10)).subscribe({
+      next: (basket) => {
+        if (this.isDeluxe()) {
+          basket.Products.forEach(product => {
+            product.price = product.deluxePrice
+          })
+        }
+        this.dataSource = basket.Products
+
+        this.itemTotal = basket.Products.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
+
+        this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
+        this.sendToParent(this.dataSource.length)
+      },
+      error: (err) => { console.log(err) }
+    })
+  }
+
+  private loadGuestBasket () {
+    const guestBasketItems = this.basketService.getGuestBasketItems()
+    if (guestBasketItems.length === 0) {
+      this.dataSource = []
+      this.itemTotal = 0
+      this.bonus = 0
       this.sendToParent(this.dataSource.length)
-    }, (err) => { console.log(err) })
+      return
+    }
+
+    const guestProductRequests = guestBasketItems.map(item => {
+      return this.productService.get(item.ProductId).pipe(
+        map(product => ({ product, quantity: item.quantity })),
+        catchError(() => of(null))
+      )
+    })
+
+    forkJoin([this.quantityService.getAll().pipe(catchError(() => of([]))), ...guestProductRequests]).subscribe({
+      next: ([quantities, ...productResults]) => {
+        this.guestQuantityInfo = new Map(
+          quantities.map(quantity => [quantity.ProductId, { quantity: quantity.quantity, limitPerUser: quantity.limitPerUser }])
+        )
+
+        this.dataSource = productResults
+          .filter(result => result != null)
+          .map(result => {
+            const price = this.isDeluxe() ? result.product.deluxePrice : result.product.price
+            return {
+              ...result.product,
+              price,
+              BasketItem: {
+                id: result.product.id,
+                quantity: result.quantity
+              }
+            }
+          })
+
+        this.itemTotal = this.dataSource.reduce((itemTotal, product) => itemTotal + product.price * product.BasketItem.quantity, 0)
+        this.bonus = this.dataSource.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
+        this.sendToParent(this.dataSource.length)
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   delete (id) {
-    this.basketService.del(id).subscribe(() => {
+    if (localStorage.getItem('token') == null) {
+      this.basketService.removeGuestBasketItem(id)
       this.load()
-      this.basketService.updateNumberOfCartItems()
-    }, (err) => { console.log(err) })
+      return
+    }
+
+    this.basketService.del(id).subscribe({
+      next: () => {
+        this.load()
+        this.basketService.updateNumberOfCartItems()
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   inc (id) {
@@ -83,17 +167,39 @@ export class PurchaseBasketComponent implements OnInit {
   }
 
   addToQuantity (id, value) {
-    this.basketService.get(id).subscribe((basketItem) => {
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      const newQuantity = basketItem.quantity + value
-      this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
-        this.load()
-        this.basketService.updateNumberOfCartItems()
-      }, (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        console.log(err)
-      })
-    }, (err) => { console.log(err) })
+    if (localStorage.getItem('token') == null) {
+      const existingGuestItem = this.basketService.getGuestBasketItems().find(item => item.ProductId === id)
+      if (existingGuestItem == null) {
+        return
+      }
+
+      const newQuantity = existingGuestItem.quantity + value
+      if (value > 0 && !this.isWithinGuestQuantityLimits(id, newQuantity)) {
+        return
+      }
+
+      this.basketService.updateGuestBasketItemQuantity(id, newQuantity)
+      this.load()
+      return
+    }
+
+    this.basketService.get(id).subscribe({
+      next: (basketItem) => {
+
+        const newQuantity = basketItem.quantity + value
+        this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe({
+          next: () => {
+            this.load()
+            this.basketService.updateNumberOfCartItems()
+          },
+          error: (err) => {
+            this.snackBarHelperService.open(err.error?.error, 'errorBar')
+            console.log(err)
+          }
+        })
+      },
+      error: (err) => { console.log(err) }
+    })
   }
 
   sendToParent (count) {
@@ -103,5 +209,16 @@ export class PurchaseBasketComponent implements OnInit {
 
   isDeluxe () {
     return this.deluxeGuard.isDeluxe()
+  }
+
+  private isWithinGuestQuantityLimits (productId: number, quantity: number): boolean {
+    const violation = this.basketService.getGuestBasketQuantityViolation(quantity, this.guestQuantityInfo.get(productId), this.isDeluxe())
+
+    if (violation != null) {
+      this.snackBarHelperService.openBasketQuantityViolation(violation)
+      return false
+    }
+
+    return true
   }
 }

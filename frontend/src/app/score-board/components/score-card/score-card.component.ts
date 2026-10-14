@@ -1,25 +1,18 @@
-import { Component, Input } from '@angular/core'
-import { NgIf, DecimalPipe } from '@angular/common'
+import { Component, input, ChangeDetectionStrategy } from '@angular/core'
+import { DecimalPipe } from '@angular/common'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'score-card',
   templateUrl: './score-card.component.html',
   styleUrls: ['./score-card.component.scss'],
-  imports: [NgIf, DecimalPipe]
+  imports: [DecimalPipe]
 })
 export class ScoreCardComponent {
-  @Input()
-  public description: string
+  readonly description = input.required<string>()
+  readonly total = input.required<number>()
+  readonly score = input.required<number>()
 
-  @Input()
-  public total: number
-
-  @Input()
-  public score: number
-
-  @Input()
-  public showAsPercentage: boolean = true
-
-  @Input()
-  public showProgressBar: boolean = true
+  readonly showAsPercentage = input<boolean>(true)
+  readonly showProgressBar = input<boolean>(true)
 }

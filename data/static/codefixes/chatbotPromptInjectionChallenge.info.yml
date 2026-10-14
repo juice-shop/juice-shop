@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "Emphatic capitalization and exclamation marks in the tool description are still just prompt-based policy enforcement. An LLM can be convinced to ignore even the most emphatic instructions through prompt injection."
+  - id: 2
+    explanation: "Requiring an order ID and verifying it against the database is the correct approach. Server-side validation ensures coupons can only be generated for real, existing orders - regardless of what the LLM is tricked into believing."
+  - id: 3
+    explanation: "Anti-scam warnings in the tool description are still prompt-based defense. No instructional text can reliably prevent prompt injection, as the LLM can be manipulated into disregarding its own instructions."
+  - id: 4
+    explanation: "Regex-validating an order ID pattern in a reason string is security theater. The LLM constructs that string itself, so a prompt injection can make it include a plausible-looking but fake order ID. Only a server-side database lookup can verify order legitimacy."
+hints:
+  - "Look at what parameters the generateCoupon tool accepts and what verification happens before a coupon is generated."
+  - "The coupon policy exists only as text instructions. What happens if the LLM is convinced to ignore those instructions?"
+  - "Is there any server-side check that an order actually exists, or does the tool blindly trust whatever the LLM decides?"

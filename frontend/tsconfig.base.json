@@ -1,11 +1,14 @@
 {
   "compileOnSave": false,
+  "angularCompilerOptions": {
+    "strictTemplates": false
+  },
   "compilerOptions": {
-    "baseUrl": "./",
+    "strict": false,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2022",

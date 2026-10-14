@@ -1,7 +1,15 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
+
+.page-center {
+  display: flex;
+  justify-content: center;
+  padding: $space-l;
+}
 
 mat-card {
   height: auto;
@@ -19,16 +27,29 @@ mat-card {
   position: relative;
 }
 
+.form-container mat-form-field {
+  width: 100%;
+}
+
 .btn-return {
   float: left;
 }
 
+.actions {
+  margin-top: $space-l;
+}
+
+.actions::after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
   -webkit-appearance: none;
   -moz-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  margin: 0;
 }
 
 .mat-mdc-form-field-hint {
@@ -36,8 +57,8 @@ input::-webkit-inner-spin-button {
   color: var(--theme-text-fade-30);
   display: flex;
   font-size: 11px;
-  margin-left: -10px;
-  margin-right: -10px;
+  margin-left: -$space-s;
+  margin-right: -$space-s;
 }
 
 .mdc-card {
@@ -46,6 +67,10 @@ input::-webkit-inner-spin-button {
 
 mat-error {
   font-size: 10.5px;
-  margin-left: -10px;
-  margin-top: -3px; 
+  margin-left: -$space-s;
+  margin-top: -$space-3xs;
+}
+
+.hint-spacing {
+  margin-left: $space-2xs;
 }

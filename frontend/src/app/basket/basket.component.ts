@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, NgZone } from '@angular/core'
+import { Component, NgZone, inject, ChangeDetectionStrategy } from '@angular/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCartArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Router } from '@angular/router'
@@ -15,27 +15,38 @@ import { MatCardModule } from '@angular/material/card'
 library.add(faCartArrowDown)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.scss'],
   imports: [MatCardModule, PurchaseBasketComponent, MatButtonModule, TranslateModule]
 })
 export class BasketComponent {
-  public productCount: number = 0
-  public bonus: number = 0
+  private readonly router = inject(Router)
+  private readonly ngZone = inject(NgZone)
 
-  constructor (private readonly router: Router, private readonly ngZone: NgZone) {}
+  public productCount = 0
+  public bonus = 0
 
-  checkout () {
+  checkout (): void {
+    if (localStorage.getItem('token') == null) {
+      this.ngZone.run(async () => await this.router.navigate(['/login'], {
+        queryParams: {
+          redirectUrl: '/basket'
+        }
+      }))
+      return
+    }
+
     this.ngZone.run(async () => await this.router.navigate(['/address/select']))
   }
 
-  getProductCount (total) {
+  getProductCount (total: number): void {
     this.productCount = total
   }
 
-  getBonusPoints (total) {
-    sessionStorage.setItem('itemTotal', total[0])
+  getBonusPoints (total: [number, number]): void {
+    sessionStorage.setItem('itemTotal', total[0].toString())
     this.bonus = total[1]
   }
 }

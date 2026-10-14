@@ -1,0 +1,13 @@
+fixes:
+  - id: 1
+    explanation: "Moving user-controlled data out of the system prompt is a legitimate prompt injection hardening technique, but it does not enforce a maximum discount value. The LLM can still be convinced to pass any discount percentage to the generateCoupon tool."
+  - id: 2
+    explanation: "Adding schema validation with .max(10) enforces the discount limit server-side. Even if the LLM is tricked into requesting a higher discount, the validation will reject it before the coupon is generated. This is the correct approach because it does not rely on the LLM following instructions."
+  - id: 3
+    explanation: "A verification checklist in the tool description is still prompt-based enforcement. No matter how detailed the instructions are, a sufficiently creative prompt injection can manipulate the LLM into skipping the verification steps entirely."
+  - id: 4
+    explanation: "Making the maximum discount configurable via a parameter is an architectural improvement, but the limit is still only communicated as text in the system prompt. The LLM can be convinced to ignore the stated maximum since there is no server-side validation."
+hints:
+  - "The generateCoupon tool accepts any number as the discount. What prevents an attacker from getting a 50% or even 100% discount?"
+  - "The coupon policy and maximum discount are enforced only through prompt instructions. What happens when the LLM is manipulated into ignoring those instructions?"
+  - "Look at the schema for the discount parameter. Is there any actual validation constraint, or just a .describe() hint that the LLM can choose to ignore?"

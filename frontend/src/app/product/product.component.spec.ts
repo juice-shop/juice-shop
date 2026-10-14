@@ -1,0 +1,407 @@
+/*
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+import { type ComponentFixture, TestBed } from '@angular/core/testing'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { MatDialog } from '@angular/material/dialog'
+import { of, throwError } from 'rxjs'
+import { provideZoneChangeDetection } from '@angular/core'
+
+import { ProductComponent } from './product.component'
+import { ProductDetailsComponent } from '../product-details/product-details.component'
+import { type AlternateImage, type Product, type ProductTableEntry } from '../Models/product.model'
+import { ProductService } from '../Services/product.service'
+import { BasketService } from '../Services/basket.service'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
+
+describe('ProductComponent', () => {
+    let component: ProductComponent
+    let fixture: ComponentFixture<ProductComponent>
+    let productService: any
+    let basketService: any
+    let translateService: TranslateService
+    let translateServiceGetSpy: any
+    let dialog: any
+    let snackBarHelper: any
+
+    const testProduct: ProductTableEntry = {
+        id: 1,
+        name: 'Apple Juice',
+        description: 'test product',
+        image: 'apple_juice.jpg',
+        price: 1.99,
+        deluxePrice: 1.99,
+        quantity: 5
+    }
+
+    beforeEach(async () => {
+        dialog = {
+            open: vi.fn().mockName("MatDialog.open")
+        }
+        productService = {
+            search: vi.fn().mockName("ProductService.search"),
+            get: vi.fn().mockName("ProductService.get")
+        }
+        productService.search.mockReturnValue(of([]))
+        productService.get.mockReturnValue(of({ name: 'test' } as any))
+        basketService = {
+            find: vi.fn().mockName("BasketService.find"),
+            get: vi.fn().mockName("BasketService.get"),
+            put: vi.fn().mockName("BasketService.put"),
+            save: vi.fn().mockName("BasketService.save"),
+            updateNumberOfCartItems: vi.fn().mockName("BasketService.updateNumberOfCartItems"),
+            getGuestBasketItems: vi.fn().mockName("BasketService.getGuestBasketItems"),
+            getGuestBasketQuantityViolation: vi.fn().mockName("BasketService.getGuestBasketQuantityViolation")
+        }
+        basketService.find.mockReturnValue(of({ Products: [] } as any))
+        basketService.get.mockReturnValue(of({ id: 1, quantity: 1 } as any))
+        basketService.put.mockReturnValue(of({ ProductId: 1 } as any))
+        basketService.save.mockReturnValue(of({ ProductId: 1 } as any))
+        basketService.getGuestBasketItems.mockReturnValue([])
+        basketService.getGuestBasketQuantityViolation.mockReturnValue(null)
+        snackBarHelper = {
+            open: vi.fn().mockName("SnackBarHelperService.open"),
+            openBasketQuantityViolation: vi.fn().mockName("SnackBarHelperService.openBasketQuantityViolation")
+        }
+
+        await TestBed.configureTestingModule({
+            imports: [TranslateModule.forRoot(), ProductComponent],
+            providers: [
+                { provide: MatDialog, useValue: dialog },
+                { provide: ProductService, useValue: productService },
+                { provide: BasketService, useValue: basketService },
+                { provide: SnackBarHelperService, useValue: snackBarHelper },
+                provideZoneChangeDetection(),
+            ]
+        })
+            .compileComponents()
+
+        translateService = TestBed.inject(TranslateService)
+        translateServiceGetSpy = vi.spyOn(translateService, 'get').mockReturnValue(of('ok'))
+
+        fixture = TestBed.createComponent(ProductComponent)
+        component = fixture.componentInstance
+        fixture.componentRef.setInput('item', testProduct)
+        fixture.componentRef.setInput('isLoggedIn', true)
+        fixture.componentRef.setInput('isDeluxe', false)
+        fixture.detectChanges()
+    })
+
+    it('should open a modal dialog with product details', () => {
+        component.showDetail({ id: 42 } as Product)
+        expect(dialog.open).toHaveBeenCalledWith(ProductDetailsComponent, {
+            width: '500px',
+            height: 'max-content',
+            data: {
+                productData: { id: 42 }
+            }
+        })
+    })
+
+    it('should add new product to basket', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        productService.search.mockReturnValue(of([]))
+        basketService.save.mockReturnValue(of({ ProductId: 1 }))
+        productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(1)
+        expect(basketService.find).toHaveBeenCalled()
+        expect(basketService.save).toHaveBeenCalled()
+        expect(productService.get).toHaveBeenCalled()
+        expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
+    })
+
+    it('should translate BASKET_ADD_PRODUCT message', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        productService.search.mockReturnValue(of([]))
+        basketService.save.mockReturnValue(of({ ProductId: 1 }))
+        productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+        translateServiceGetSpy.mockReturnValue(of('Translation of BASKET_ADD_PRODUCT'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(1)
+        expect(basketService.find).toHaveBeenCalled()
+        expect(basketService.save).toHaveBeenCalled()
+        expect(productService.get).toHaveBeenCalled()
+        expect(snackBarHelper.open).toHaveBeenCalled()
+    })
+
+    it('should add similar product to basket', () => {
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        basketService.get.mockReturnValue(of({ id: 42, quantity: 5 }))
+        basketService.put.mockReturnValue(of({ ProductId: 2 }))
+        productService.get.mockReturnValue(of({ name: 'Tomato Juice' }))
+        translateServiceGetSpy.mockReturnValue(of(undefined))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(basketService.find).toHaveBeenCalled()
+        expect(basketService.get).toHaveBeenCalled()
+        expect(basketService.put).toHaveBeenCalled()
+        expect(productService.get).toHaveBeenCalled()
+        expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_SAME_PRODUCT', { product: 'Tomato Juice' })
+    })
+
+    it('should translate BASKET_ADD_SAME_PRODUCT message', () => {
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        basketService.get.mockReturnValue(of({ id: 42, quantity: 5 }))
+        basketService.put.mockReturnValue(of({ ProductId: 2 }))
+        productService.get.mockReturnValue(of({ name: 'Tomato Juice' }))
+        translateServiceGetSpy.mockReturnValue(of('Translation of BASKET_ADD_SAME_PRODUCT'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(basketService.find).toHaveBeenCalled()
+        expect(basketService.get).toHaveBeenCalled()
+        expect(basketService.put).toHaveBeenCalled()
+        expect(productService.get).toHaveBeenCalled()
+    })
+
+    it('should not add anything to basket on error retrieving basket', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
+        basketService.find.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '815')
+        component.addToBasket(undefined)
+        expect(snackBarHelper.open).not.toHaveBeenCalled()
+    })
+
+    it('should log errors retrieving basket directly to browser console', () => {
+        basketService.find.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '815')
+        console.log = vi.fn()
+        component.addToBasket(2)
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    it('should not add anything to basket on error retrieving existing basket item', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        basketService.get.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(snackBarHelper.open).not.toHaveBeenCalled()
+    })
+
+    it('should log errors retrieving basket item directly to browser console', () => {
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        basketService.get.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        console.log = vi.fn()
+        component.addToBasket(2)
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    it('should log errors updating basket directly to browser console', () => {
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        basketService.put.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        console.log = vi.fn()
+        component.addToBasket(2)
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    it('should not add anything to basket on error retrieving product associated with basket item', () => {
+        vi.spyOn(console, 'log').mockImplementation(() => {})
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        productService.get.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(snackBarHelper.open).not.toHaveBeenCalled()
+    })
+
+    it('should log errors retrieving product associated with basket item directly to browser console', () => {
+        basketService.find.mockReturnValue(of({ Products: [{ id: 1 }, { id: 2, name: 'Tomato Juice', BasketItem: { id: 42 } }] }))
+        productService.get.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        console.log = vi.fn()
+        component.addToBasket(2)
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    it('should not add anything on error creating new basket item', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.save.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(snackBarHelper.open).toHaveBeenCalled()
+    })
+
+    it('should log errors creating new basket item directly to browser console', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        basketService.save.mockReturnValue(throwError(() => 'Error'))
+        console.log = vi.fn()
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(snackBarHelper.open).toHaveBeenCalled()
+    })
+
+    it('should not add anything on error retrieving product after creating new basket item', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        productService.get.mockReturnValue(throwError(() => 'Error'))
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(snackBarHelper.open).not.toHaveBeenCalled()
+    })
+
+    it('should log errors retrieving product after creating new basket item directly to browser console', () => {
+        basketService.find.mockReturnValue(of({ Products: [] }))
+        productService.get.mockReturnValue(throwError(() => 'Error'))
+        console.log = vi.fn()
+        sessionStorage.setItem('bid', '4711')
+        component.addToBasket(2)
+        expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    describe('guest basket (logged out)', () => {
+        beforeEach(() => {
+            fixture.componentRef.setInput('isLoggedIn', false)
+            fixture.detectChanges()
+            basketService.addToGuestBasket = vi.fn().mockName('BasketService.addToGuestBasket')
+        })
+
+        it('should add the product to the guest basket and show a translated confirmation message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(of('Translation of BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(basketService.addToGuestBasket).toHaveBeenCalledWith(1)
+            expect(translateServiceGetSpy).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', { product: 'Cherry Juice' })
+            expect(snackBarHelper.open).toHaveBeenCalledWith('Translation of BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should fall back to the translation id when translation fails for the guest basket message', () => {
+            productService.get.mockReturnValue(of({ name: 'Cherry Juice' }))
+            translateServiceGetSpy.mockReturnValue(throwError(() => 'BASKET_ADD_PRODUCT'))
+            component.addToBasket(1)
+            expect(snackBarHelper.open).toHaveBeenCalledWith('BASKET_ADD_PRODUCT', 'confirmBar')
+        })
+
+        it('should log errors from the product lookup when adding to the guest basket', () => {
+            productService.get.mockReturnValue(throwError(() => 'Error'))
+            console.log = vi.fn()
+            component.addToBasket(1)
+            expect(console.log).toHaveBeenCalledWith('Error')
+        })
+
+        it('should not do anything when called without a product id', () => {
+            component.addToBasket(undefined)
+            expect(basketService.addToGuestBasket).not.toHaveBeenCalled()
+            expect(basketService.find).not.toHaveBeenCalled()
+        })
+
+        it('should not add more of a product to the guest basket than the per-user limit', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 5, limitPerUser: 1 })
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 1, quantity: 1 }])
+            basketService.getGuestBasketQuantityViolation.mockReturnValue({ type: 'limit', limitPerUser: 1 })
+            component.addToBasket(1)
+            expect(snackBarHelper.openBasketQuantityViolation).toHaveBeenCalledWith({ type: 'limit', limitPerUser: 1 })
+            expect(basketService.addToGuestBasket).not.toHaveBeenCalled()
+        })
+
+        it('should not add a product to the guest basket when it is out of stock', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 1 })
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 1, quantity: 1 }])
+            basketService.getGuestBasketQuantityViolation.mockReturnValue({ type: 'stock' })
+            component.addToBasket(1)
+            expect(snackBarHelper.openBasketQuantityViolation).toHaveBeenCalledWith({ type: 'stock' })
+            expect(basketService.addToGuestBasket).not.toHaveBeenCalled()
+        })
+
+        it('should add a product beyond its per-user limit to the guest basket for deluxe users', () => {
+            fixture.componentRef.setInput('isDeluxe', true)
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 5, limitPerUser: 1 })
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 1, quantity: 1 }])
+            component.addToBasket(1)
+            expect(basketService.addToGuestBasket).toHaveBeenCalledWith(1)
+        })
+
+        it('should not restrict guest basket additions when the per-user limit is zero', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 10, limitPerUser: 0 })
+            basketService.getGuestBasketItems.mockReturnValue([{ ProductId: 1, quantity: 4 }])
+            component.addToBasket(1)
+            expect(basketService.addToGuestBasket).toHaveBeenCalledWith(1)
+        })
+    })
+
+    describe('template rendering', () => {
+        it('should render the product name, image and add-to-basket button', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.name')?.textContent).toContain('Apple Juice')
+            const img = compiled.querySelector('img.img-thumbnail') as HTMLImageElement
+            expect(img).toBeTruthy()
+            expect(img.getAttribute('src')).toContain('apple_juice.jpg')
+            expect(compiled.querySelector('button.btn-basket')).toBeTruthy()
+        })
+
+        it('should render the price and call addToBasket when the basket button is clicked', () => {
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('.price')?.textContent).toContain('1.99')
+            const spy = vi.spyOn(component, 'addToBasket').mockImplementation(() => { })
+            const button = compiled.querySelector('button.btn-basket') as HTMLButtonElement
+            button.click()
+            expect(spy).toHaveBeenCalledWith(1)
+        })
+
+        it('should render the low-stock ribbon when quantity is between 1 and 5', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 3 })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('aside.ribbon')).toBeTruthy()
+            expect(compiled.querySelector('aside.ribbon-sold')).toBeNull()
+        })
+
+        it('should render the sold-out ribbon when quantity is zero or less', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, quantity: 0 })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('aside.ribbon-sold')).toBeTruthy()
+        })
+    })
+
+    describe('backgroundImage', () => {
+        const avifCandidates = [
+            { file: 'apple_juice-1x.avif', format: 'image/avif', density: '1x' },
+            { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+            { file: 'apple_juice-3x.avif', format: 'image/avif', density: '3x' }
+        ] as AlternateImage[]
+
+        it('should fall back to a plain url when the product has no alternate images', () => {
+            expect(component.backgroundImage()).toBe('url("assets/public/images/products/apple_juice.jpg")')
+        })
+
+        it('should offer every alternate image ahead of the original as an image-set', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, alternateImages: avifCandidates })
+            expect(component.backgroundImage()).toBe(
+                'image-set(' +
+                'url("assets/public/images/products/apple_juice-1x.avif") type("image/avif") 1x, ' +
+                'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                'url("assets/public/images/products/apple_juice-3x.avif") type("image/avif") 3x, ' +
+                'url("assets/public/images/products/apple_juice.jpg") 1x)'
+            )
+        })
+
+        it('should pick the same candidates as the picture element so neither triggers an extra download', () => {
+            fixture.componentRef.setInput('item', { ...testProduct, alternateImages: avifCandidates })
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            const srcset = compiled.querySelector('picture source[type="image/avif"]')?.getAttribute('srcset')
+            for (const candidate of avifCandidates) {
+                expect(srcset).toContain(`assets/public/images/products/${candidate.file} ${candidate.density}`)
+                expect(component.backgroundImage()).toContain(`url("assets/public/images/products/${candidate.file}")`)
+            }
+        })
+
+        it('should skip width-based candidates that image-set cannot express', () => {
+            fixture.componentRef.setInput('item', {
+                ...testProduct,
+                alternateImages: [
+                    { file: 'apple_juice-2x.avif', format: 'image/avif', density: '2x' },
+                    { file: 'apple_juice-800.avif', format: 'image/avif', width: '800w' }
+                ] as AlternateImage[]
+            })
+            expect(component.backgroundImage()).toBe(
+                'image-set(' +
+                'url("assets/public/images/products/apple_juice-2x.avif") type("image/avif") 2x, ' +
+                'url("assets/public/images/products/apple_juice.jpg") 1x)'
+            )
+        })
+    })
+})

@@ -1,7 +1,9 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
 
 $star-off: #c8c8c8;
 $star-on: #ffd700;
@@ -18,11 +20,34 @@ mat-card {
   position: relative;
 }
 
+.feedback-hint {
+  margin-left: $space-2xs;
+}
+
 .rating-container {
   align-items: center;
   display: flex;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: $space-m;
+  margin-top: $space-m;
+}
+
+.rating-label {
+  float: left;
+  font-weight: 500;
+  margin-right: $space-xs;
+}
+
+.captcha-info {
+  margin-bottom: $space-s;
+  margin-top: $space-s;
+}
+
+.captcha-label {
+  font-weight: 500;
+}
+
+.captcha-note {
+  font-size: small;
 }
 
 ::ng-deep .mat-mdc-slider {
@@ -51,7 +76,7 @@ mat-card {
 
 mat-hint {
   color: var(--theme-text-fade-40);
-  font-size: 0.85em; 
+  font-size: 0.85em;
 }
 
 .star {
@@ -72,6 +97,12 @@ mat-hint {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 30px;
+  margin-top: $space-xl;
   width: 60%;
+}
+
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
 }

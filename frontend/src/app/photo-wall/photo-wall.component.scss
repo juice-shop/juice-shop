@@ -1,7 +1,9 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
+
+@use '../../styles/variables' as *;
 
 mat-form-field {
   width: 100%;
@@ -15,8 +17,12 @@ mat-form-field {
 
 #submitButton {
   margin-left: 20%;
-  margin-top: 10px;
+  margin-top: $space-s;
   width: 60%;
+}
+
+.photo-wall-card {
+  margin-bottom: $space-s;
 }
 
 input {
@@ -27,7 +33,7 @@ input {
 
 .image-preview {
   height: 5rem;
-  margin: 1rem 0;
+  margin: $space-m 0;
 }
 
 .image-preview img {
@@ -47,21 +53,66 @@ input {
 .grid {
   align-items: center;
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: $space-ml;
+  grid-template-columns: repeat(auto-fill, minmax(510px, 1fr));
+
+  @media (min-width: 1530px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
 }
 
-.grid img {
+.share-memory-section {
+  margin-top: $space-s;
+}
+
+.grid .image {
   border-radius: 4px;
-  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.3);
   max-width: 100%;
 }
 
 .container {
   position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+  border: var(--theme-thumbnail-border);
+  box-sizing: border-box;
+
+  @media (max-width: 580px) {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: inherit;
+  background-position: inherit;
+  background-size: inherit;
+  filter: blur(8px);
+  transform: scale(1.08);
 }
 
 .image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
   display: block;
 }
 
@@ -70,11 +121,12 @@ input {
   font-size: 20px;
   left: 0;
   opacity: 0;
-  padding: 20px;
+  padding: $space-ml;
   position: absolute;
   right: 0;
   text-align: center;
   transition: 0.5s ease;
+  z-index: 2;
 }
 
 .container:hover .overlay {
@@ -84,7 +136,7 @@ input {
 .emptyState {
   display: block;
   height: auto !important;
-  margin: 20px auto;
+  margin: $space-ml auto;
   width: 50%;
 }
 
@@ -97,7 +149,7 @@ input {
 
 .noResultText {
   display: block;
-  margin-top: 10px;
+  margin-top: $space-s;
   text-align: center;
 }
 

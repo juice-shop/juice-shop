@@ -7,7 +7,7 @@ implements ControlValueAccessor {
   /**
    * Invoked when the model has been changed
    */
-  onChange: (_: any) => void = (_: any) => {}
+  onChange: (_: any) => void = () => {}
   /**
    * Invoked when the model has been touched
    */

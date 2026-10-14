@@ -1,11 +1,13 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
   -->
-
-<mat-card appearance="outlined" class="ipCard mat-elevation-z6" >
-  <div class="mdc-card">
+<main>
+  <mat-card appearance="outlined" class="ipCard mat-elevation-z6">
     <h1 translate>LAST_LOGIN_IP</h1>
-    <p style="margin-bottom: 15px;"><span translate>IP_ADDRESS</span>&nbsp;&nbsp;<span [innerHTML]="lastLoginIp"></span></p>
-  </div>
-</mat-card>
+    <dl>
+      <dt translate>IP_ADDRESS</dt>
+      <dd [innerHTML]="lastLoginIp"></dd>
+    </dl>
+  </mat-card>
+</main>

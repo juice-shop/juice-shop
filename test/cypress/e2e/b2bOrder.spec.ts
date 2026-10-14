@@ -1,5 +1,5 @@
 describe('/b2b/v2/order', () => {
-  describe('challenge "rce"', () => {
+  describe('challenge "rceChallenge"', () => {
     it('an infinite loop deserialization payload should not bring down the server', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
@@ -30,7 +30,7 @@ describe('/b2b/v2/order', () => {
     })
   })
 
-  describe('challenge "rceOccupy"', () => {
+  describe('challenge "rceOccupyChallenge"', () => {
     it('should be possible to cause request timeout using a recursive regular expression payload', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {

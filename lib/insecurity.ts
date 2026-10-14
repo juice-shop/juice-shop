@@ -1,12 +1,12 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
 import fs from 'node:fs'
 import crypto from 'node:crypto'
 import { type Request, type Response, type NextFunction } from 'express'
-import { type UserModel } from 'models/user'
+import { type UserModel } from '@juice-shop/models/user'
 import expressJwt from 'express-jwt'
 import jwt from 'jsonwebtoken'
 import jws from 'jws'
@@ -14,8 +14,6 @@ import sanitizeHtmlLib from 'sanitize-html'
 import sanitizeFilenameLib from 'sanitize-filename'
 import * as utils from './utils'
 
-/* jslint node: true */
-// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
 // @ts-expect-error FIXME no typescript definitions for z85 :(
 import * as z85 from 'z85'
 
@@ -45,7 +43,7 @@ export const hmac = (data: string) => crypto.createHmac('sha256', 'pa4qacea4VK9t
 
 export const cutOffPoisonNullByte = (str: string) => {
   const nullByte = '%00'
-  if (utils.contains(str, nullByte)) {
+  if (str.includes(nullByte)) {
     return str.substring(0, str.indexOf(nullByte))
   }
   return str
@@ -179,21 +177,19 @@ export const appendUserId = () => {
     try {
       req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
       next()
-    } catch (error: any) {
-      res.status(401).json({ status: 'error', message: error })
+    } catch (error: unknown) {
+      res.status(401).json({ status: 'error', message: utils.getErrorMessage(error) })
     }
   }
 }
 
 export const updateAuthenticatedUsers = () => (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.token || utils.jwtFrom(req)
-  if (token) {
+  if (token && authenticatedUsers.get(token) === undefined) {
     jwt.verify(token, publicKey, (err: Error | null, decoded: any) => {
-      if (err === null) {
-        if (authenticatedUsers.get(token) === undefined) {
-          authenticatedUsers.put(token, decoded)
-          res.cookie('token', token)
-        }
+      if (err === null && decoded?.data !== undefined) {
+        authenticatedUsers.put(token, decoded)
+        res.cookie('token', token)
       }
     })
   }

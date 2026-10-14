@@ -1,92 +1,134 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { type AbstractControl, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { UserService } from '../Services/user.service'
-import { Component } from '@angular/core'
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { form, FormField, FormRoot, maxLength, minLength, required, validate } from '@angular/forms/signals'
+import { firstValueFrom } from 'rxjs'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
-import { FormSubmitService } from '../Services/form-submit.service'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
-import { NgIf } from '@angular/common'
+
 import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
+import {
+  MatFormFieldModule,
+  MatLabel,
+  MatError,
+  MatHint
+} from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-import { FlexModule } from '@angular/flex-layout/flex'
 
 library.add(faSave, faEdit)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
-  imports: [FlexModule, MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, NgIf, MatError, MatHint, MatButtonModule]
+  imports: [
+    MatCardModule,
+    TranslateModule,
+    MatFormFieldModule,
+    MatLabel,
+    MatInputModule,
+    FormRoot,
+    FormField,
+    MatError,
+    MatHint,
+    MatButtonModule
+  ]
 })
 export class ChangePasswordComponent {
-  public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
-  public repeatNewPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40), matchValidator(this.newPasswordControl)])
-  public error: any
-  public confirmation: any
+  private readonly userService = inject(UserService)
+  private readonly translate = inject(TranslateService)
 
-  constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
-
-  ngOnInit (): void {
-    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
+  private readonly initialModel = {
+    currentPassword: '',
+    newPassword: '',
+    repeatNewPassword: ''
   }
 
-  changePassword () {
-    if (localStorage.getItem('email')?.match(/support@.*/) && !this.newPasswordControl.value.match(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,30}/)) {
-      console.error('Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!')
-    }
-    this.userService.changePassword({
-      current: this.passwordControl.value,
-      new: this.newPasswordControl.value,
-      repeat: this.repeatNewPasswordControl.value
-    }).subscribe((response: any) => {
-      this.error = undefined
-      this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
-        this.confirmation = passwordSuccessfullyChanged
-      }, (translationId) => {
-        this.confirmation = { error: translationId }
-      })
-      this.resetForm()
-    }, (error) => {
-      console.log(error)
-      this.error = error
-      this.confirmation = undefined
-      this.resetPasswords()
+  public readonly changePasswordModel = signal({ ...this.initialModel })
+
+  public readonly error = signal<string | undefined>(undefined)
+  public readonly confirmation = signal<string | undefined>(undefined)
+
+  public readonly changePasswordForm = form(this.changePasswordModel, (s) => {
+    required(s.currentPassword)
+    required(s.newPassword)
+    minLength(s.newPassword, 5)
+    maxLength(s.newPassword, 40)
+    required(s.repeatNewPassword)
+    minLength(s.repeatNewPassword, 5)
+    maxLength(s.repeatNewPassword, 40)
+    validate(s.repeatNewPassword, ({ value, valueOf }) => {
+      if (value() !== valueOf(s.newPassword)) {
+        return { kind: 'notSame' }
+      }
+      return undefined
     })
+  }, {
+    submission: {
+      action: () => this.changePassword()
+    }
+  })
+
+  public readonly isPristine = computed(() =>
+    !this.changePasswordForm.currentPassword().dirty() &&
+    !this.changePasswordForm.newPassword().dirty() &&
+    !this.changePasswordForm.repeatNewPassword().dirty()
+  )
+
+  private async changePassword (): Promise<void> {
+    const { currentPassword, newPassword, repeatNewPassword } = this.changePasswordModel()
+    if (
+      localStorage.getItem('email')?.match(/support@.*/) &&
+      !newPassword.match(
+        /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,30}/
+      )
+    ) {
+      console.error(
+        'Parola echipei de asistență nu respectă politica corporativă pentru conturile privilegiate! Vă rugăm să schimbați parola în consecință!'
+      )
+    }
+    try {
+      await firstValueFrom(
+        this.userService.changePassword({
+          current: currentPassword,
+          new: newPassword,
+          repeat: repeatNewPassword
+        })
+      )
+      this.error.set(undefined)
+      this.confirmation.set(await this.passwordChangedConfirmation())
+      this.resetForm()
+    } catch (err: any) {
+      console.log(err)
+      this.error.set(err)
+      this.confirmation.set(undefined)
+      this.resetErrorForm()
+    }
   }
 
   resetForm () {
-    this.passwordControl.setValue('')
-    this.resetPasswords()
+    this.changePasswordForm().reset({ ...this.initialModel })
   }
 
-  resetPasswords () {
-    this.passwordControl.markAsPristine()
-    this.passwordControl.markAsUntouched()
-    this.newPasswordControl.setValue('')
-    this.newPasswordControl.markAsPristine()
-    this.newPasswordControl.markAsUntouched()
-    this.repeatNewPasswordControl.setValue('')
-    this.repeatNewPasswordControl.markAsPristine()
-    this.repeatNewPasswordControl.markAsUntouched()
+  resetErrorForm () {
+    this.changePasswordForm.currentPassword().reset()
+    this.changePasswordForm.newPassword().reset('')
+    this.changePasswordForm.repeatNewPassword().reset('')
   }
-}
 
-function matchValidator (newPasswordControl: AbstractControl) {
-  return function matchOtherValidate (repeatNewPasswordControl: UntypedFormControl) {
-    const password = newPasswordControl.value
-    const passwordRepeat = repeatNewPasswordControl.value
-    if (password !== passwordRepeat) {
-      return { notSame: true }
+  private async passwordChangedConfirmation (): Promise<string | undefined> {
+    try {
+      return await firstValueFrom(this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED'))
+    } catch (translationId) {
+      return translationId as string
     }
-    return null
   }
 }

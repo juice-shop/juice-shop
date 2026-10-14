@@ -1,0 +1,56 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../../styles/variables' as *;
+
+.editor-host ::ng-deep {
+  .cm-editor {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--theme-text-fade-10);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .cm-scroller {
+    max-height: 817px; // intentionally a uneven number to have a partial line visible, hinting at the scrollability of the content
+    overflow-y: auto;
+  }
+}
+
+#code-area {
+  position: relative;
+}
+
+.keyboard-hint {
+  position: absolute;
+  bottom: $space-m;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: $space-xs $space-m;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  animation: fade-in 150ms ease-out;
+  z-index: 10;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+mat-card.primary-notification {
+  border-radius: 8px;
+  border-left: 3px solid var(--theme-primary);
+}

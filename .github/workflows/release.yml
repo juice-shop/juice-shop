@@ -4,36 +4,63 @@ on:
     tags:
       - v*
 env:
-  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0||^4.0.0'   # keep in sync with package.json
+  NPM_VERSION: 11.19.1
+  TYPESCRIPT_VERSION: '^6.0.3'                      # keep in sync with package.json
 jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check out Git repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+      - name: "Create Release"
+        uses: softprops/action-gh-release@da05d552573ad5aba039eaac05058a918a7bf631 #v2.2.2
+        with:
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   package:
-    runs-on: ${{ matrix.os }}
+    needs: create-release
+    runs-on: ${{ matrix.os.runner }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 21, 22]
+        os:
+          - runner: ubuntu-latest
+            pckg-os: linux
+            cpu-arch: x64
+            pckg-format: tgz
+          - runner: ubuntu-24.04-arm
+            pckg-os: linux
+            cpu-arch: arm64
+            pckg-format: tgz
+          - runner: windows-latest
+            pckg-os: win32
+            cpu-arch: x64
+            pckg-format: zip
+          - runner: macos-latest
+            pckg-os: darwin
+            cpu-arch: arm64
+            pckg-format: zip
+        node-version: [22, 24, 26]
       fail-fast: false
     steps:
       - name: "Check out Git repository"
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
       - name: "Use Node.js ${{ matrix.node-version }}"
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 #v7.0.0
         with:
           node-version: ${{ matrix.node-version }}
       - name: "Install CLI tools"
         run: |
-          npm install -g @cyclonedx/cyclonedx-npm@$CYCLONEDX_NPM_VERSION
-          npm install -g grunt-cli
-      - name: "Set packaging options for Grunt"
+          npm install --global npm@${{ env.NPM_VERSION }}
+          npm install -g typescript@${{ env.TYPESCRIPT_VERSION }}
+          npm install -g @cyclonedx/cyclonedx-npm@${{ env.CYCLONEDX_NPM_VERSION }}
+          npm install -g archiver
+      - name: "Set packaging options"
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-          echo "PCKG_OS_NAME=win32" >> $GITHUB_ENV
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "PCKG_OS_NAME=darwin" >> $GITHUB_ENV
-          else
-          echo "PCKG_OS_NAME=linux" >> $GITHUB_ENV
-          fi
-          echo "PCKG_CPU_ARCH=x64" >> $GITHUB_ENV
+          echo "PCKG_OS_NAME=${{ matrix.os.pckg-os }}" >> $GITHUB_ENV
+          echo "PCKG_CPU_ARCH=${{ matrix.os.cpu-arch }}" >> $GITHUB_ENV
+          echo "PCKG_FORMAT=${{ matrix.os.pckg-format }}" >> $GITHUB_ENV
           echo "PCKG_NODE_VERSION=${{ matrix.node-version }}" >> $GITHUB_ENV
         shell: bash
       - name: "Package application"
@@ -51,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 #v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
       - name: "Set up QEMU"
         uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf #v3.2.0
       - name: "Set up Docker Buildx"
@@ -61,9 +88,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: "Get tag name"
-        id: tag
-        uses: dawidd6/action-get-tag@727a6f0a561be04e09013531e73a3983a65e3479 #v1.1.0 TODO Action is archived and should be replaced eventually
       - name: "Set labels for ${{ github.ref }}"
         run: |
           echo "VCS_REF=`git rev-parse --short HEAD`" >> $GITHUB_ENV
@@ -76,7 +100,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            bkimminich/juice-shop:${{ steps.tag.outputs.tag }}
+            bkimminich/juice-shop:${{ github.ref_name }}
           build-args: |
             VCS_REF=${{ env.VCS_REF }}
             BUILD_DATE=${{ env.BUILD_DATE }}

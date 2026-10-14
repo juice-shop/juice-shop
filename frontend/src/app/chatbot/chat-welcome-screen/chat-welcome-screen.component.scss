@@ -1,0 +1,204 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../../styles/variables' as *;
+
+:host {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.welcome-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  padding: $space-xl 0;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+  }
+}
+
+.welcome-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-xs;
+  margin-bottom: $space-xl;
+}
+
+.welcome-avatar {
+  height: 100px;
+  margin-bottom: $space-xs;
+}
+
+.welcome-title {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.welcome-subtitle {
+  font-size: 16px;
+  opacity: 0.6;
+  margin: 0;
+}
+
+// History section
+
+.history-section {
+  width: 100%;
+  margin-bottom: $space-l;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $space-m;
+  margin-bottom: $space-xs;
+}
+
+.history-heading {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.6;
+  margin: 0;
+}
+
+.history-delete-all {
+  display: flex;
+  align-items: center;
+  gap: $space-2xs;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: $space-3xs $space-xs;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.15s;
+
+  &:hover {
+    opacity: 1;
+    background: var(--theme-background-lighter);
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xs;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: $space-s $space-m;
+  border-radius: 10px;
+  border: 1px solid var(--theme-background-darkest);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--theme-background-lighter);
+  }
+}
+
+.history-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3xs;
+  min-width: 0;
+}
+
+.history-title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.history-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.4;
+  cursor: pointer;
+  padding: $space-3xs;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.welcome-input-area {
+  width: 100%;
+}
+
+.suggestions {
+  display: flex;
+  gap: $space-s;
+  justify-content: center;
+  margin-top: $space-m;
+}
+
+.suggestion-chip {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-s $space-m;
+  border-radius: 20px;
+  border: 1px solid var(--theme-background-darkest);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--theme-background-lighter);
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+  }
+}

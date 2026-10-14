@@ -1,9 +1,8 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-/* jslint node: true */
 import config from 'config'
 import {
   type InferAttributes,
@@ -60,10 +59,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         set (email: string) {
           if (utils.isChallengeEnabled(challenges.persistedXssUserChallenge)) {
             challengeUtils.solveIf(challenges.persistedXssUserChallenge, () => {
-              return utils.contains(
-                email,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
+              return email?.includes('<iframe src="javascript:alert(`xss`)">') ?? false
             })
           } else {
             email = security.sanitizeSecure(email)

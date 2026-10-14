@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, Output } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
@@ -9,7 +9,7 @@ import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
 import { MatOption } from '@angular/material/core'
-import { NgIf, NgFor } from '@angular/common'
+
 import { MatSelect, MatSelectTrigger } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
 import { TranslateModule } from '@ngx-translate/core'
@@ -17,12 +17,15 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],
-  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, NgIf, MatOption, DifficultyStarsComponent, NgFor, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
 export class FilterSettingsComponent implements OnChanges {
+  private readonly dialog = inject(MatDialog)
+
   @Input()
   public allChallenges: EnrichedChallenge[]
 
@@ -35,14 +38,27 @@ export class FilterSettingsComponent implements OnChanges {
   @Input()
   public reset: () => void
 
-  constructor (private readonly dialog: MatDialog) { }
-
-  public tags = new Set<string>()
+  public static readonly EXTERNAL_DEPENDENCY_TAG = 'External Dependency'
+  public tags: string[] = []
   ngOnChanges () {
-    this.tags = new Set(this.allChallenges.flatMap((challenge) => challenge.tagList))
+    const rawTags = new Set(
+      this.allChallenges.flatMap((challenge) => challenge.tagList)
+    )
+    const hasRequiresTag = [...rawTags].some((tag) => tag.startsWith('Requires '))
+    const displayTags = new Set<string>()
+    for (const tag of rawTags) {
+      if (tag.startsWith('Requires ')) {
+        if (hasRequiresTag) {
+          displayTags.add(FilterSettingsComponent.EXTERNAL_DEPENDENCY_TAG)
+        }
+      } else {
+        displayTags.add(tag)
+      }
+    }
+    this.tags = [...displayTags].sort((a, b) => a.localeCompare(b))
   }
 
-  onDifficultyFilterChange (difficulties: Array<1 | 2 | 3 | 4 | 5 | 6>) {
+  onDifficultyFilterChange (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]) {
     const filterSettingCopy = structuredClone(this.filterSetting)
     filterSettingCopy.difficulties = difficulties
     this.filterSettingChange.emit(filterSettingCopy)
@@ -73,12 +89,15 @@ export class FilterSettingsComponent implements OnChanges {
   }
 
   public canBeReset (): boolean {
-    return this.filterSetting.difficulties.length > 0 ||
-      this.filterSetting.status !== null ||
-      this.filterSetting.tags.length > 0 ||
-      this.filterSetting.categories.length > 0 ||
-      !!this.filterSetting.searchQuery ||
+    const nonDefaultFilters = [
+      this.filterSetting.difficulties.length > 0,
+      this.filterSetting.status !== null,
+      this.filterSetting.tags.length > 0,
+      this.filterSetting.categories.length > 0,
+      !!this.filterSetting.searchQuery,
       !this.filterSetting.showDisabledChallenges
+    ]
+    return nonDefaultFilters.some(Boolean)
   }
 
   public openAdditionalSettingsDialog () {

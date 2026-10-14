@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,6 +10,7 @@ import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 import { UserModel } from '../models/user'
 import * as utils from '../lib/utils'
+import config from 'config'
 
 export function updateUserProfile () {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -28,8 +29,9 @@ export function updateUserProfile () {
       }
 
       challengeUtils.solveIf(challenges.csrfChallenge, () => {
-        return ((req.headers.origin?.includes('://htmledit.squarefree.com')) ??
-          (req.headers.referer?.includes('://htmledit.squarefree.com'))) &&
+        const url = config.get<string>('challenges.overwriteUrlForCsrfChallenge')
+        return ((req.headers.origin?.includes('://' + url.replace(/^https?:\/\//, ''))) ??
+          (req.headers.referer?.includes('://' + url.replace(/^https?:\/\//, '')))) &&
           req.body.username !== user.username
       })
 

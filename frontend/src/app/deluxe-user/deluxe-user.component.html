@@ -1,11 +1,13 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
 -->
 
-<div *ngIf="error" class="heading mat-elevation-z6">
-  <span class="error">{{error}}</span>
-</div>
+@if (error) {
+  <div class="heading mat-elevation-z6">
+    <span class="error">{{error}}</span>
+  </div>
+}
 
 <mat-card appearance="outlined" class="mat-elevation-z6 deluxe-membership">
   <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +25,7 @@
       <span>
         {{ membershipCost }}&curren;
       </span>
-      <button (click)="upgradeToDeluxe()" aria-label="Become deluxe member" class="btn-become-member" color="primary"
+      <button (click)="upgradeToDeluxe()" aria-label="Become deluxe member" color="primary"
         mat-button mat-raised-button>
         <span translate>LABEL_BECOME_MEMBER</span>
       </button>

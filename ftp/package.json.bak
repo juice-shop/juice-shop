@@ -116,17 +116,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bkimminich/juice-shop.git"
+    "url": "https://github.com/juice-shop/juice-shop.git"
   },
   "bugs": {
-    "url": "https://github.com/bkimminich/juice-shop/issues"
+    "url": "https://github.com/juice-shop/juice-shop/issues"
   },
   "license": "MIT",
   "scripts": {
     "postinstall": "npm --prefix ./app install ./app && grunt minify",
     "start": "node app",
-    "test": "standard && karma start karma.conf.js && nyc --report-dir=./build/reports/coverage/server-tests mocha test/server",
-    "frisby": "nyc --report-dir=./build/reports/coverage/api-tests node ./test/apiTests.js",
+    "test": "standard && karma start karma.conf.js && nyc --report-dir=./coverage/server-tests mocha test/server",
+    "frisby": "nyc --report-dir=./coverage/api-tests node ./test/apiTests.js",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "webdriver-manager update",
     "preprotractor": "npm run update-webdriver",

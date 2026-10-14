@@ -1,20 +1,22 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { inject, TestBed } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
 import { WindowRefService } from './window-ref.service'
 
 describe('WindowRefService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [WindowRefService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [WindowRefService]
+        })
     })
-  })
 
-  it('should be created', inject([WindowRefService], (service: WindowRefService) => {
-    expect(service).toBeTruthy()
-  }))
+    it('should be created', () => {
+        const service = TestBed.inject(WindowRefService)
+
+        expect(service).toBeTruthy()
+    })
 })

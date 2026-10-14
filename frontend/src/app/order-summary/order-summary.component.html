@@ -1,14 +1,15 @@
 <!--
-  ~ Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
-  -->
-<mat-card appearance="outlined" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" class=" container mat-elevation-z6 mat-own-card" >
-  <div class="mdc-card" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
-    <div fxLayout="column" fxLayoutGap="20px" fxFlex="50" fxFlex.lt-md="100%">
-            <div fxLayout="row" fxLayoutGap="20px" fxLayout.lt-md="column" *ngIf="address && paymentMethod">       
+-->
+<mat-card appearance="outlined" class="container mat-elevation-z6 mat-own-card">
+  <div class="mdc-card container">
+    <div class="column flex-50">
+      @if (address && paymentMethod) {
+        <div class="container">
           <!-- Delivery Address Card -->
-          <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="60" fxFlex.lt-md="100%">
-            <div fxFlex="1 1 auto" class="mdc-card">
+          <mat-card appearance="outlined" class="mat-elevation-z0 flex-60">
+            <div class="mdc-card">
               <div><b>{{"LABEL_DELIVERY_ADDRESS" | translate}}</b></div>
               <div>{{address?.fullName}}</div>
               <div>{{address?.streetAddress}}, {{address?.city}}, {{address?.state}}, {{address?.zipCode}}</div>
@@ -17,67 +18,63 @@
             </div>
           </mat-card>
           <!-- Payment Method Card -->
-          <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40" fxFlex.lt-md="100%" *ngIf="paymentMethod !== 'wallet'; else walletPayment">
-            <div class="mdc-card">
-              <div><b >{{"PAYMENT_METHOD" | translate}}</b></div>
-              <div><span >{{"CARD_ENDING_IN" | translate}}</span> {{paymentMethod?.cardNum}}</div>
-              <div><span >{{"CARD_HOLDER" | translate}}"</span> {{paymentMethod?.fullName}}</div>
-            </div>
-          </mat-card>
-  
-          <!-- Digital Wallet (Fallback) -->
-          <ng-template #walletPayment>
-            <mat-card appearance="outlined" class="mat-elevation-z0" fxFlex="40" fxFlex.lt-md="100%">
+          @if (paymentMethod !== 'wallet') {
+            <mat-card appearance="outlined" class="mat-elevation-z0 flex-40">
               <div class="mdc-card">
-                <div><b >{{"PAYMENT_METHOD" | translate}}</b></div>
-                <div><span >{{"DIGITAL_WALLET" | translate}}</span></div>
+                <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
+                <div><span>{{"CARD_ENDING_IN" | translate}}</span> {{paymentMethod?.cardNum}}</div>
+                <div><span>{{"CARD_HOLDER" | translate}}"</span> {{paymentMethod?.fullName}}</div>
               </div>
             </mat-card>
-          </ng-template>
+          } @else {
+          <!-- Digital Wallet (Fallback) -->
+            <mat-card appearance="outlined" class="mat-elevation-z0 flex-40">
+              <div class="mdc-card">
+                <div><b>{{"PAYMENT_METHOD" | translate}}</b></div>
+                <div><span>{{"DIGITAL_WALLET" | translate}}</span></div>
+              </div>
+            </mat-card>
+          }
         </div>
-        <!-- Purchase Basket -->
-      <app-purchase-basket id="app-purchase-basket" [allowEdit]="false" [totalPrice]="false" 
-         (emitTotal)="getMessage($event)"></app-purchase-basket>
-      </div> 
-      <!-- Order Summary Card -->
-      <div fxFlex="50" fxFlex.lt-md="100%">
-        <mat-card appearance="outlined" class="mat-elevation-z0" fxFlexFill>
-          <div class="mdc-card">
-            <div class="order-summary" >{{"ORDER_SUMMARY" | translate}}</div>
-            <table class="mat-table">
-              <tr class="mat-row">
-                <td class="mat-cell label" >{{"ITEMS" | translate}}</td>
-                <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}&curren;</td>
-              </tr>
-              <tr class="mat-row">
-                <td class="mat-cell label" >{{"DELIVERY" | translate}}</td>
-                <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}&curren;</td>
-              </tr>
-              <tr class="mat-row">
-                <td class="mat-cell label" >{{"PROMOTION" | translate}}</td>
-                <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}&curren;</td>
-              </tr>
-              <tr class="mat-row">
-                <td class="mat-footer-cell label" >{{"LABEL_TOTAL_PRICE" | translate}}</td>
-              <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2)
-                }}&curren;
-              </td>
-              </tr>
-            </table>
-            <!-- Checkout Button -->
-            <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase"
-                    id="checkoutButton" (click)="placeOrder()">
-              <mat-icon>
-                {{"monetization_on" | translate}}
-              </mat-icon>
-              <span >{{"PLACE_ORDER_AND_PAY" | translate}}</span>
-            </button>
-            <!-- Bonus Points -->
-            <div class="bonus-points">{{ "CHECKOUT_FOR_BONUS_POINTS" | translate:{ bonus: bonus } }}</div>
-          </div>
-        </mat-card>
-      </div>
-
+      }
+      <!-- Purchase Basket -->
+      <app-purchase-basket id="app-purchase-basket" [allowEdit]="false" [totalPrice]="false"
+      (emitTotal)="getMessage($event)"></app-purchase-basket>
     </div>
-  </mat-card>
-  
+
+    <!-- Order Summary Card -->
+    <div class="flex-50">
+      <mat-card appearance="outlined" class="mat-elevation-z0 fill">
+        <div class="mdc-card">
+          <div class="order-summary">{{"ORDER_SUMMARY" | translate}}</div>
+          <table class="mat-table">
+            <tr class="mat-row">
+              <td class="mat-cell label">{{"ITEMS" | translate}}</td>
+              <td class="mat-cell price">{{ itemTotal?.toFixed(2) }}&curren;</td>
+            </tr>
+            <tr class="mat-row">
+              <td class="mat-cell label">{{"DELIVERY" | translate}}</td>
+              <td class="mat-cell price">{{ deliveryPrice.toFixed(2) }}&curren;</td>
+            </tr>
+            <tr class="mat-row">
+              <td class="mat-cell label">{{"PROMOTION" | translate}}</td>
+              <td class="mat-cell price">{{ promotionalDiscount.toFixed(2) }}&curren;</td>
+            </tr>
+            <tr class="mat-row">
+              <td class="mat-footer-cell label">{{"LABEL_TOTAL_PRICE" | translate}}</td>
+              <td class="mat-footer-cell price">{{ (itemTotal + deliveryPrice - promotionalDiscount)?.toFixed(2) }}&curren;</td>
+            </tr>
+          </table>
+          <!-- Checkout Button -->
+          <button mat-raised-button mat-button class="btn btn-pay" color="primary" aria-label="Complete your purchase"
+            id="checkoutButton" (click)="placeOrder()">
+            <mat-icon>{{"monetization_on" | translate}}</mat-icon>
+            <span>{{"PLACE_ORDER_AND_PAY" | translate}}</span>
+          </button>
+          <!-- Bonus Points -->
+          <div class="bonus-points">{{ "CHECKOUT_FOR_BONUS_POINTS" | translate:{ bonus: bonus } }}</div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</mat-card>

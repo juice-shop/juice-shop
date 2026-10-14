@@ -1,50 +1,33 @@
 /*!
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-$bg-heading: rgba(0, 0, 0, 0.2);
+@use '../../styles/variables' as *;
 
-.table-container {
-  min-width: 350px;
+
+.container {
+  min-width: calc(360px - 2 * $space-m);
   width: 80%;
+  margin: 0 auto;
 }
 
 .heading {
-  background: $bg-heading;
-  font-size: x-large;
+  background: var(--mat-sys-surface-container);
   justify-content: center;
-  padding: 12px 20px;
-}
+  padding: $space-s $space-ml;
+  margin-bottom: $space-m;
 
-.img-thumbnail {
-  align-self: start;
-  width: 61% !important;
-}
-
-.heading {
-  margin-bottom: 10px;
 }
 
 .product {
-  cursor: pointer;
-}
-
-.item-price {
-  font-size: initial;
-  margin-top: 12px;
-  text-align: center;
-}
-
-.item-name {
-  font-size: large;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .emptyState {
   display: block;
-  height: auto !important;
-  margin: 20px auto;
+  margin: $space-ml auto;
   width: 50%;
 }
 
@@ -57,95 +40,46 @@ $bg-heading: rgba(0, 0, 0, 0.2);
 
 .noResultText {
   display: block;
-  margin-top: 10px;
+  margin-top: $space-s;
   text-align: center;
-}
-
-.ribbon-card {
-  position: relative;
-}
-
-.ribbon {
-  height: 150px;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  width: 150px;
-}
-
-.ribbon::before {
-  content: '';
-  display: block;
-  position: absolute;
-  z-index: -1;
-}
-
-.ribbon span {
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  display: block;
-  font: 700 18px/1 'Lato', sans-serif;
-  padding: 15px 0;
-  position: absolute;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  width: 225px;
-}
-
-.ribbon-top-left {
-  left: -10px;
-  top: -10px;
-  z-index: 1;
-}
-
-.ribbon-top-left::before {
-  border-left-color: transparent;
-  border-top-color: transparent;
-  right: 0;
-  top: 0;
-}
-
-.ribbon-top-left span {
-  right: -25px;
-  top: 30px;
-  transform: rotate(-45deg);
-}
-
-.img-responsive {
-  height: auto;
-  object-fit: cover;
-  width: 100%;
-}
-
-.btn-basket {
-  margin-top: 20px;
 }
 
 .mdc-card {
   border: 0;
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 20px);
-  justify-content: space-between;
-  overflow: hidden;
 }
 
-mat-card {
-  height: calc(100% - 70px);
-  width: 100%;
+.paginator {
+  margin-top: $space-m;
 }
 
-mat-grid-tile {
-  align-items: stretch;
-  height: auto !important;
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: $space-l;
+  justify-content: center;
 }
 
-.mat-divider.mat-divider-horizontal {
-  margin-top: 10px;
+@media (max-width: 959.98px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
-.product {
-  margin-left: -17px;
-  margin-right: 6px;
-  margin-top: -17px;
+@media (max-width: 580px) {
+  .container {
+    width: auto;
+    margin: 0 $space-m;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product {
+    flex-direction: column;
+  }
+
+  .emptyState {
+    width: 100%;
+  }
 }

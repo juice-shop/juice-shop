@@ -1,61 +1,75 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
 :host {
   align-items: center;
   display: flex;
-  flex-direction: row;
-  height: 24px;
   justify-content: flex-end;
-  position: relative;
-  width: 24px;
+  min-width: 0;
 }
-  
-.mat-search_field {
-  padding: 0 24px 0 0;
-  position: absolute;
-  z-index: 1;
 
-  ::ng-deep .mat-mdc-text-field-wrapper {
-    padding: 0;
-  }
-
-  ::ng-deep .mat-mdc-form-field-infix {
-    align-items: flex-end;
-    display: flex;
-    padding: 0.5em;
-  }
+:host(.search-expanded) {
+  flex: 1;
 }
-  
-.mat-search_icons {
-  display: block;
-  left: 0;
-  margin: 0;
+
+.search-toggle {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+}
+
+.search-container {
+  align-items: center;
+  background: var(--theme-background-lighter);
+  border-radius: 28px;
+  color: var(--theme-text);
+  display: flex;
+  height: 3rem;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
   padding: 0;
-  position: absolute;
-  top: 0;
+  transition: max-width 300ms ease-in-out, opacity 200ms ease-in-out, padding 300ms ease-in-out;
 
-  &:hover {
-    cursor: pointer;
-  }
-
-  .mat-search_icon-close,
-  .mat-search_icon-search {
-    border-radius: 50%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
-  }
-
-  .mat-search_icon-close,
-  &.mat-search_icons--active .mat-search_icon-search {
-    opacity: 0;
-    transform: rotate(225deg);
-  }
-
-  &.mat-search_icons--active .mat-search_icon-close {
+  &--visible {
+    flex: 1;
+    max-width: 1000px;
     opacity: 1;
-    transform: rotate(360deg);
-    visibility: visible;
-    z-index: 3;
+    padding: 0 $space-2xs 0 $space-m;
   }
+}
+
+.search-leading-icon {
+  flex-shrink: 0;
+  margin-right: $space-xs;
+  opacity: 0.6;
+}
+
+input {
+  background: transparent;
+  border: none;
+  caret-color: currentColor;
+  color: inherit;
+  flex: 1;
+  font-size: 16px;
+  height: 100%;
+  min-width: 0;
+  outline: none;
+
+  &::placeholder {
+    color: var(--theme-text-fade-40);
+  }
+}
+
+.search-close {
+  flex-shrink: 0;
+  height: 2.5rem;
+  width: 2.5rem;
 }

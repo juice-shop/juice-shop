@@ -1,15 +1,16 @@
 /*
- * Copyright (c) 2014-2025 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit } from '@angular/core'
+import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { mimeType } from './mime-type.validator'
 import { PhotoWallService } from '../Services/photo-wall.service'
 import { ConfigurationService } from '../Services/configuration.service'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter, faMastodon } from '@fortawesome/free-brands-svg-icons'
+import { faBold } from '@fortawesome/free-solid-svg-icons'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { catchError } from 'rxjs/operators'
 import { EMPTY } from 'rxjs'
@@ -17,30 +18,35 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError } from '@angular/material/form-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatIconButton, MatButtonModule } from '@angular/material/button'
-import { NgIf, NgFor } from '@angular/common'
+import { MatIconModule } from '@angular/material/icon'
+
 import { MatCardModule, MatCardTitle, MatCardContent } from '@angular/material/card'
 
-library.add(faTwitter)
+library.add(faTwitter, faMastodon, faBold)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss'],
-  imports: [MatCardModule, NgIf, NgFor, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
+  imports: [MatCardModule, MatIconModule, MatIconButton, MatCardTitle, TranslateModule, MatCardContent, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatLabel, MatInputModule, MatError]
 })
 export class PhotoWallComponent implements OnInit {
-  public emptyState: boolean = true
+  private readonly photoWallService = inject(PhotoWallService)
+  private readonly configurationService = inject(ConfigurationService)
+  private readonly snackBarHelperService = inject(SnackBarHelperService)
+
+  public emptyState = true
   public imagePreview: string
   public form: UntypedFormGroup = new UntypedFormGroup({
     image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
     caption: new UntypedFormControl('', [Validators.required])
   })
 
-  public slideshowDataSource: Array<{ url: string, caption: string }> = []
+  public slideshowDataSource: { url: string, caption: string }[] = []
   public twitterHandle = null
-
-  constructor (private readonly photoWallService: PhotoWallService, private readonly configurationService: ConfigurationService,
-    private readonly snackBarHelperService: SnackBarHelperService) { }
+  public blueSkyHandle = null
+  public mastodonHandle = null
 
   ngOnInit (): void {
     this.slideshowDataSource = []
@@ -56,7 +62,7 @@ export class PhotoWallComponent implements OnInit {
       }
       for (const memory of memories) {
         if (memory.User?.username) {
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
           memory.caption = `${memory.caption} (© ${memory.User.username})`
         }
         this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
@@ -71,6 +77,22 @@ export class PhotoWallComponent implements OnInit {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
+        }
+        if (config.application.social.blueSkyUrl) {
+          let blueSkyUrl = config.application.social.blueSkyUrl
+          if (blueSkyUrl.endsWith('/')) {
+            blueSkyUrl = blueSkyUrl.substring(0, blueSkyUrl.length - 1)
+          }
+          this.blueSkyHandle = blueSkyUrl.replace('https://bsky.app/profile/', '@')
+        }
+        if (config.application.social.mastodonUrl) {
+          let mastodonUrl = config.application.social.mastodonUrl
+          if (mastodonUrl.endsWith('/')) {
+            mastodonUrl = mastodonUrl.substring(0, mastodonUrl.length - 1)
+          }
+          const mastodonUser = mastodonUrl.substring(mastodonUrl.lastIndexOf('/') + 1)
+          const mastodonInstance = mastodonUrl.replace('https://', '').replace(/\/.*/, '')
+          this.mastodonHandle = `${mastodonUser}@${mastodonInstance}`
         }
       }
     })
@@ -88,13 +110,16 @@ export class PhotoWallComponent implements OnInit {
   }
 
   save () {
-    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe(() => {
-      this.resetForm()
-      this.ngOnInit()
-      this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
-    }, (err) => {
-      this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      console.log(err)
+    this.photoWallService.addMemory(this.form.value.caption, this.form.value.image).subscribe({
+      next: () => {
+        this.resetForm()
+        this.ngOnInit()
+        this.snackBarHelperService.open('IMAGE_UPLOAD_SUCCESS', 'confirmBar')
+      },
+      error: (err) => {
+        this.snackBarHelperService.open(err.error?.error, 'errorBar')
+        console.log(err)
+      }
     })
   }
 
