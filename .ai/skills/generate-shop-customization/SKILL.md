@@ -16,6 +16,9 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 ## Source-of-Truth & Data Handling Rules
 
 - **Schema is law**: Only emit keys that exist in `ApplicationSchema`/`ProductSchema`/`MemorySchema` in `lib/config.schema.ts`. Never invent new keys.
+- **Pure Server-Side URLs (Non-Browser Client Compatibility)**: All URLs for images, downloadable resources, and other referenced assets across the entire customization (`application.logo`, `application.favicon`, `chatBot.avatar`, `hackingInstructor.avatarImage`, product `image`, memory `image`, `recyclePage.topProductImage`, `recyclePage.bottomProductImage`, and challenge-related URLs) must be pure server-side URLs directly resolvable over HTTP/HTTPS by non-browser clients (e.g. backend scrapers, `curl`, Node.js request libraries).
+  - Never use URLs containing fragment identifiers (`#`) or client-side routing/anchor hashes (e.g. `https://example.com/assets#logo.png` or SPA routes), because non-browser clients do not evaluate client-side fragments and such requests will fail or return incorrect resources.
+  - Every resource and image URL must point directly to the pure server-side asset endpoint without requiring client-side JavaScript execution or anchor navigation.
 - **Product data**: Crawl the user-provided URL(s) (product catalog, brochure, wiki, etc.) for real product names, short descriptions, and prices. Never fabricate prices or descriptions not derivable from the source — if a price is missing, pick a plausible one only after telling the user you did so, or ask.
 - **Business context**: Name, domain, social handles, contact email, favicon, logo, avatar, chatbot persona, and challenge product overrides must come from what the user explicitly supplies. Do not invent social handles, emails, or domains.
 - **default.yml is the fallback library**: For every "special" product/memory the schema requires (see below), if the crawled source has no equivalent, reuse the exact `default.yml` entry for that special role rather than inventing new copy.
@@ -39,6 +42,7 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 
 ## Image Rules (this is where most manual fine-tuning was previously needed — get it right up front)
 
+- **Pure server-side URLs**: Every image and downloadable asset URL (`logo`, `favicon`, `avatar`, product images, memory images, recycle page images) must be a pure server-side URL with no `#` fragments or client-side anchor identifiers, guaranteeing that non-browser clients can download and process the asset directly.
 - **Square-only assets**: `application.logo`, `chatBot.avatar`, and `hackingInstructor.avatarImage` are rendered **circular** (`border-radius: 50%`) in the UI (navbar, chat widget, hacking-instructor tutorials, score-board challenge cards). Any non-square source image will look cropped/distorted.
   - Before selecting a logo/avatar URL, check the image's actual aspect ratio (fetch and inspect dimensions, or infer from context, e.g. `og:image`, favicon, square brand mark, profile picture). Prefer a square brand mark, app icon, or profile photo over a wide horizontal logo lockup.
   - If only a non-square logo is available, prefer a square crop/icon variant of the same brand (e.g. a favicon, app icon, or square social profile image) over the wide logo — do not just reuse the wide logo for `chatBot.avatar`/`hackingInstructor.avatarImage`.
@@ -57,11 +61,11 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 ## Steps
 
 1. **Gather inputs**: shop/company name, domain (for generated user emails), theme color pick (from `lib/config.schema.ts` theme enum), social handles/URLs, contact email(s), favicon source, logo source, chatbot persona name + sample questions, and the one-or-more product-source URL(s).
-2. **Crawl product source(s)**: Fetch each URL, extract a product catalog: name, short description, price, and a directly-linkable image URL for each item. Aim for enough real products to make the shop feel populated (default.yml ships ~30); at minimum meet the 4-product floor plus the mandatory specials.
+2. **Crawl product source(s)**: Fetch each URL, extract a product catalog: name, short description, price, and a directly-linkable image URL for each item (ensuring all URLs are pure server-side URLs without `#` or client-side fragments). Aim for enough real products to make the shop feel populated (default.yml ships ~30); at minimum meet the 4-product floor plus the mandatory specials.
 3. **Rebrand mandatory specials**: Take the 4 special products from `default.yml` and reskin name/description/image/price to fit the shop's theme while preserving their special key (and required extra keys) verbatim. Same for the 2 geo-stalking memories (reskin caption/image, keep question/answer keys, drop or keep-neutral the `user` field).
-4. **Select square images** for `application.logo`, `chatBot.avatar`, `hackingInstructor.avatarImage` per the Image Rules above.
+4. **Select square images** for `application.logo`, `chatBot.avatar`, `hackingInstructor.avatarImage` per the Image Rules above, verifying that all selected URLs are direct, pure server-side URLs without `#` fragments.
 5. **Fill `application` section**: `domain`, `name`, `logo`, `favicon`, `theme`, `altcoinName`, `privacyContactEmail`, `customMetricsPrefix` (lowercase single word), `chatBot`, `social` (only set handles the user actually provided; use `~` for the rest, matching `default.yml`'s null-able fields), `recyclePage`, `welcomeBanner` (optional), `cookieConsent`, `securityTxt`.
-5b. **`challenges.overwriteUrlForProductTamperingChallenge`**: point at a real, brand-relevant URL (e.g. company's GitHub org, careers page) if the user wants deeper theming; otherwise omit.
+5b. **`challenges.overwriteUrlForProductTamperingChallenge`**: point at a real, brand-relevant URL (e.g. company's GitHub org, careers page) if the user wants deeper theming; otherwise omit. Ensure any specified challenge URL is a pure server-side URL without `#` fragments.
 6. **Assemble `products:`** — real catalog items first, rebranded specials mixed in naturally (don't cluster them all at the bottom, but do preserve at least the "Required by ... challenge" comment style used in `default.yml` for traceability). Include the `jim`/`bender` homage reviews per the convention above.
 7. **Assemble `memories:`** — a few real/plausible photo-wall entries (with `user` if desired) plus the two rebranded geo-stalking entries (no `user`, or a neutral one not used elsewhere).
 8. **Write `config/<name>.yml`**, matching `default.yml`'s YAML formatting/quoting conventions (single-quoted strings with special chars, `~` for null, inline `{ text: ..., author: ... }` for reviews).
@@ -70,6 +74,7 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 
 - Missing price/description on the source page: ask the user rather than guessing a number that could mislead a training audience.
 - No usable square image for logo/avatar found anywhere: tell the user explicitly which asset needs a manual square crop, instead of silently using a stretched wide logo.
+- Source asset URL contains `#` or requires client-side routing/scripts: locate or construct the underlying direct server-side static asset URL, or select an alternative direct asset URL rather than using a URL with `#` fragments.
 - Source URL yields fewer than 4 usable products: supplement with default.yml's generic products (further rebranded, or left as-is) rather than inventing products with no real source backing.
 - Unclear which product should map to which mandatory special (Christmas box, tampering, blueprint, pastebin leak): pick the best thematic fit (e.g., a "limited/holiday" item for Christmas, a "security/tooling" item for Product Tampering) and state the mapping choice to the user.
 
@@ -79,5 +84,6 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 - Manually re-check: exactly one product per special key, exactly one memory per geo-stalking pair, ≥4 products, ≥2 memories.
 - Confirm at least one product review uses `author: jim` and at least one uses `author: bender` (Star Trek / Futurama homage).
 - Confirm logo/chatBot.avatar/hackingInstructor.avatarImage are square images (or explicitly flag to the user which ones are not and why).
+- Confirm all image, resource, and challenge URLs are pure server-side URLs (no `#` or client-side fragments) so that non-browser clients and automated scripts will not experience fetch or parsing errors.
 - Start the shop with `NODE_ENV=<name> npm start` (or point the user to this command) to visually confirm branding, then leave further visual polish to the user.
 - No frontend/server test suites need to run for a config-only change; skip `npm test` unless application code was also touched.
