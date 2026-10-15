@@ -52,6 +52,15 @@ void describe('utils', () => {
       assert.equal(utils.extractFilename('http://bla.blubb/test.exe?bla=blubb&a=b'), 'test.exe')
     })
 
+    void it('ignores fragments when extracting an asset filename', () => {
+      assert.equal(utils.extractFilename('https://example.com/logo.png#v1'), 'logo.png')
+      assert.equal(utils.extractFilename('https://example.com/logo.png?size=small#v1'), 'logo.png')
+    })
+
+    void it('does not mistake a slash in a fragment for a path separator', () => {
+      assert.equal(utils.extractFilename('https://example.com/logo.png#preview/v1'), 'logo.png')
+    })
+
     void it('also works for file:// URLs', () => {
       assert.equal(utils.extractFilename('file:///C//Bla/Blubb/test.exe'), 'test.exe')
     })
