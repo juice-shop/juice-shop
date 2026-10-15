@@ -60,26 +60,33 @@ void describe('accuracy', () => {
   })
 
   void it('should calculate total accuracy for multiple solved challenges', () => {
-    // Total accuracy = (sum of 1/attempts) / number of solved challenges
-    // We already have some solved in previous tests if they ran in the same process
-    // But let's assume a clean slate or just add more and check if it's correct.
-    // Given the previous tests:
-    // 1: 1/1 = 1
-    // 2: 1/2 = 0.5
-    // 3: 1/3 = 0.333...
-    // 4: 1/1 = 1
-    // 5 (fix it): 1/2 = 0.5
-    // totalFindItAccuracy = (1 + 0.5 + 0.333 + 1) / 4 = 2.8333 / 4 = 0.708333
-
-    // To be sure, let's use some specific ones
+    accuracy.reset()
     const c1 = 'totalAcc1' as ChallengeKey
     const c2 = 'totalAcc2' as ChallengeKey
-    accuracy.storeFindItVerdict(c1, true) // 1/1
+    accuracy.storeFindItVerdict(c1, true) // 1/1 = 1.0
     accuracy.storeFindItVerdict(c2, false)
-    accuracy.storeFindItVerdict(c2, true) // 1/2
+    accuracy.storeFindItVerdict(c2, true) // 1/2 = 0.5
+    assert.equal(accuracy.totalFindItAccuracy(), 0.75) // (1.0 + 0.5) / 2 = 0.75
 
-    // totalFindItAccuracy will include ALL solved challenges so far in this process.
-    // This makes it hard to test exact value if other tests ran.
-    // But calculateFindItAccuracy is for a single one.
+    accuracy.storeFixItVerdict(c1, false)
+    accuracy.storeFixItVerdict(c1, false)
+    accuracy.storeFixItVerdict(c1, true) // 1/3 = 0.333...
+    assert.equal(accuracy.totalFixItAccuracy(), 1 / 3)
+  })
+
+  void it('should return NaN for total accuracy when no challenges are solved', () => {
+    accuracy.reset()
+    assert.ok(isNaN(accuracy.totalFindItAccuracy()))
+    assert.ok(isNaN(accuracy.totalFixItAccuracy()))
+  })
+
+  void it('should calculate accuracy as 0.2 for solved on fifth attempt', () => {
+    const challengeKey = 'testChallenge5Attempts' as ChallengeKey
+    accuracy.storeFindItVerdict(challengeKey, false)
+    accuracy.storeFindItVerdict(challengeKey, false)
+    accuracy.storeFindItVerdict(challengeKey, false)
+    accuracy.storeFindItVerdict(challengeKey, false)
+    accuracy.storeFindItVerdict(challengeKey, true)
+    assert.equal(accuracy.calculateFindItAccuracy(challengeKey), 0.2)
   })
 })

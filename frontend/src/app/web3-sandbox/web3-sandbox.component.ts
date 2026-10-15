@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
+import { Component, ChangeDetectorRef, inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core'
 import { KeysService } from '../Services/keys.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { getDefaultProvider, ethers } from 'ethers'
@@ -41,6 +41,7 @@ const compilerReleases = {
   '0.1.7': 'soljson-v0.1.7+commit.b4e666cc.js'
 }
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-web3-sandbox',
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss'],

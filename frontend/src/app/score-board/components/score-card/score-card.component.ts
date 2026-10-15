@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core'
+import { Component, input, ChangeDetectionStrategy } from '@angular/core'
 import { DecimalPipe } from '@angular/common'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'score-card',
   templateUrl: './score-card.component.html',
   styleUrls: ['./score-card.component.scss'],

@@ -1,5 +1,4 @@
-import {
-  AfterViewChecked,
+import { AfterViewChecked,
   Component,
   ElementRef,
   forwardRef,
@@ -7,14 +6,14 @@ import {
   input,
   type OnInit,
   output,
-  viewChild
-} from '@angular/core'
+  viewChild, ChangeDetectionStrategy } from '@angular/core'
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms'
 import { AbstractControlValueAccessor } from './abstract-value-accessor'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-mat-search-bar',
   templateUrl: './mat-search-bar.component.html',
   styleUrls: ['./mat-search-bar.component.scss'],

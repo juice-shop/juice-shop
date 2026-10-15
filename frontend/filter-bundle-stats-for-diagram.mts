@@ -3,7 +3,7 @@
 
 import { readFile, writeFile } from 'fs/promises'
 
-const statsPath = './dist/frontend/stats.json'
+const statsPath = './dist/frontend/browser-stats.json'
 const outputPath = './dist/frontend/stats-filtered.json'
 
 const stats = JSON.parse(await readFile(statsPath, 'utf-8'))

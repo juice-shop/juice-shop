@@ -8,7 +8,7 @@
       "node"
     ],
     "paths": {
-      "ng-gallery": ["./src/mocks/ng-gallery.ts"]
+      "ng-gallery": ["./mocks/ng-gallery.ts"]
     }
   },
   "include": [

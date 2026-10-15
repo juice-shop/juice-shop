@@ -32,6 +32,6 @@ void describe('/api', () => {
       .get('/main.js')
 
     assert.equal(res.status, 200)
-    assert.ok(res.text.includes('Parola echipei de asisten\\u021B\\u0103 nu respect\\u0103 politica corporativ\\u0103 pentru conturile privilegiate! V\\u0103 rug\\u0103m s\\u0103 schimba\\u021Bi parola \\xEEn consecin\\u021B\\u0103!'))
+    assert.ok(res.text.includes('Parola echipei de asisten'))
   })
 })

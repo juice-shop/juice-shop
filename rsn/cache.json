@@ -747,6 +747,18 @@
 			6
 		]
 	},
+	"iacLeakedKeyChallenge_1.tf": {
+		"added": [],
+		"removed": []
+	},
+	"iacLeakedKeyChallenge_2.tf": {
+		"added": [],
+		"removed": []
+	},
+	"iacLeakedKeyChallenge_3_correct.tf": {
+		"added": [],
+		"removed": []
+	},
 	"localXssChallenge_1.ts": {
 		"added": [],
 		"removed": []
@@ -1214,8 +1226,8 @@
 	},
 	"restfulXssChallenge_1_correct.ts": {
 		"added": [
-			42,
-			43
+			44,
+			45
 		],
 		"removed": []
 	},
@@ -1296,6 +1308,30 @@
 			7,
 			8,
 			9
+		]
+	},
+	"vulnerableDockerImageChallenge_1.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
+		]
+	},
+	"vulnerableDockerImageChallenge_2.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
+		]
+	},
+	"vulnerableDockerImageChallenge_3_correct.yml": {
+		"added": [
+			62
+		],
+		"removed": [
+			62
 		]
 	},
 	"weakPasswordChallenge_1_correct.ts": {

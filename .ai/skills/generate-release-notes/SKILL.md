@@ -5,7 +5,34 @@ description: Instructions for generating or completing release notes based on th
 
 # Skill: Generating or Completing Release Notes
 
-This skill provides instructions for Junie to create release notes from scratch or complete existing draft release notes for OWASP Juice Shop. It follows the established structure, iconography, and formatting patterns of the project based on an analysis of the last 20 releases.
+This skill provides instructions for creating release notes from scratch or completing existing draft release notes for OWASP Juice Shop. It follows the established structure, iconography, and formatting patterns of the project based on an analysis of historical releases.
+
+## Repository Targets & Scope
+
+- **Primary Target**: Release notes Markdown files, draft notes text, or GitHub release draft bodies.
+- **Inspect-Only Sources**: Git tags and commit logs, `package.json`, `config/default.yml`, `data/static/challenges.yml`, `lib/config.schema.ts`, `frontend/src/app/`, and `i18n/`.
+
+## Source-of-Truth & Data Handling Rules
+
+- **Git History**: Git commit logs (`git log <last_tag>..HEAD`) and commit diffs are the primary source of truth for changes introduced since the last release.
+- **Impact Classification**: `data/static/challenges.yml` and `lib/config.schema.ts` are canonical sources for confirming challenge modifications and configuration schema breaks.
+- **Contributor Attribution**: Commit author names/handles and PR metadata are the source of truth for external contributor attribution.
+
+## Change Boundaries
+
+- **Allowed Changes**:
+  - Authoring or editing release notes Markdown documents and draft release payloads.
+- **Forbidden Changes**:
+  - Modifying application code, models, or views.
+  - Bumping versions in `package.json` or `frontend/package.json`.
+  - Creating or pushing git tags or committing release preparations during notes generation.
+  - Editing CI/CD workflows.
+
+## Ambiguity & Unmappable Source Handling
+
+- **Unclear Commits**: When commit subjects are ambiguous, inspect the diff (`git show <hash>`) or PR description to determine actual user impact.
+- **Breaking Change Criteria**: Mark with `⚠️` only changes that break end-user behavior or runtime environments (e.g., dropped Node.js version, removed config properties). Internal build/tooling changes must never be marked `⚠️`.
+- **Maintainer & Bot Exclusion**: Never add `(kudos to @...)` for project maintainers (`@bkimminich`, `@J12934`) or automation bots (`@dependabot`, `@crowdin`).
 
 ## Workflow
 
@@ -40,17 +67,20 @@ This skill provides instructions for Junie to create release notes from scratch 
         *   `👮 Startup Validations`: Boot/environment checks.
     *   Use **Status Icons** to mark specific types of changes:
         *   `⚡`: Significant changes to challenges that might break CTF setups or solutions.
-        *   `⚠️`: Technical breaking changes (Node.js version, renamings, config removal).
+        *   `⚠️`: Breaking changes that affect **end users** of Juice Shop (e.g., dropped Node.js version support, removed/renamed config options). Internal tooling changes (build scripts, TypeScript version, dev dependencies) are **never** ⚠️ because users do not interact with them.
         *   `📜`: Policy or licensing changes.
         *   `⭐`: Challenge difficulty levels (e.g., `⭐⭐-challenge`).
 3.  **Format the Notes**:
     *   Start with a blockquote disclaimer if there are `⚡`, `⚠️`, or `📜` changes.
     *   Use `*` for bullet points.
     *   Add `(kudos to @username)` at the end of lines for external contributors (check PR descriptions or commit logs). Neither `@J12934` nor `@bkimminich` should ever get a kudos suffix.
-    *   Reference PRs as `#number` and commits as hashes where appropriate. These must always be prefixed to the list item (e.g., `* #1234: Fixed ...` or `* abcdef: Added ...`), never suffixed.
+    *   Reference PRs as `#number` and commits as hashes where appropriate. These must always be prefixed to the list item (e.g., `* #1234: Fixed ...` or `* abcdef: Added ...`), never suffixed. Use these sparingly and only for significant or external contributions.
 4.  **Review and Refine**:
     *   Compare with the `release-notes-checklist.md`.
     *   Ensure all significant changes found in step 1 are covered.
+    *   Avoid over-detailing: Combine related changes into single bullet points (e.g., adding a challenge and its corresponding coding challenge).
+    *   Do not list bugfixes for features or challenges that were introduced in the same release.
+    *   Exclude event entries, workshop announcements, or other non-product references.
 
 ## Templates
 
@@ -72,3 +102,10 @@ When a user submits existing release notes to complete:
 If `gh` CLI is available and the environment has appropriate tokens, a draft release can be created or updated using:
 `gh release create <tag> --title "<tag>" --notes-file <file> --draft`
 Otherwise, provide the markdown content for manual creation on GitHub.
+
+## Verification Expectations
+
+- **Checklist Audit**: Must review the drafted release notes against `.ai/skills/generate-release-notes/checklists/release-notes-checklist.md`.
+- **Kudos Compliance**: Confirm that maintainers (`@bkimminich`, `@J12934`) and bot accounts are never awarded kudos.
+- **Icon and Prefix Verification**: Verify that every section has the designated emoji and that PR/commit references are correctly placed as prefixes (e.g. `* #1234: ...`).
+- **Validation Commands**: Code testing, linting, or build commands are not required when authoring release notes.

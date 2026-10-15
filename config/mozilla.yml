@@ -11,20 +11,20 @@ application:
   customMetricsPrefix: mozctf
   chatBot:
     name: 'Foxy'
-    avatar: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Fennec_Fox_Vulpes_zerda.jpg'
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/500px-Firefox_logo%2C_2019.svg.png'
   social:
-    blueSkyUrl: null
-    mastodonUrl: null
-    twitterUrl: 'https://twitter.com/mozcloudsec'
-    facebookUrl: null
+    blueSkyUrl: 'https://bsky.app/profile/mozilla.org'
+    mastodonUrl: 'https://mastodon.social/@mozillaofficial'
+    twitterUrl: 'https://twitter.com/mozilla'
+    facebookUrl: 'https://www.facebook.com/mozilla'
     slackUrl: null
-    redditUrl: null
-    pressKitUrl: 'https://blog.mozilla.org/press/kits'
+    redditUrl: 'https://www.reddit.com/r/firefox'
+    pressKitUrl: 'https://blog.mozilla.org/press/'
     nftUrl: null
     questionnaireUrl: null
   recyclePage:
-    topProductImage: Gear-200155340.jpg
-    bottomProductImage: Gear-200155753.jpg
+    topProductImage: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_Keychain_Dino1.png'
+    bottomProductImage: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_StickerPack1.png'
   welcomeBanner:
     showOnFirstStart: false
   cookieConsent:
@@ -43,120 +43,85 @@ hackingInstructor:
   isEnabled: false
 products:
   -
-    name: 'Champion Sweatshirt with a Drawstring Tote'
-    price: 68.89
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155415.jpg'
+    name: 'Mozilla flower t-shirt'
+    price: 32.00
+    description: 'A shirt you''ll reach for. A message you''ll feel good about. Pairs a playful, pixelated flower with the idea that the internet needs care to grow well.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Mozilla_02_WebProducts-MR26-21_ec0fbb20-50e9-49ef-806a-a3e2bcb9f52a.png'
     reviews:
       - { text: 'One of my favorites!', author: admin }
   -
-    name: 'Rickshaw Commuter 2.0 Laptop Bag'
-    price: 205
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155749.jpg'
+    name: 'Mozilla Dino t-shirt'
+    price: 30.00
+    description: 'Puts Mozilla''s bold, pixelated Dino front and center in support of an open, safe internet built for people, not profit.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Mozilla_02_WebProducts-MR26-19.png'
   -
-    name: 'Moleskine Notebook'
-    price: 33
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155752.jpg'
+    name: 'Mozilla bumper sticker'
+    price: 2.00
+    description: 'Not subtle. That''s the point. 11 x 3 inches, waterproof.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_Stickers_Bumper1.png'
     reviews:
-      - { text: 'I bought it, would buy again. 5/7', author: admin }
+      - { text: 'Slapped it right over the Ferengi "no refunds" decal.', author: jim }
   -
-    name: 'Special Package 1'
-    description: 'This Very Splendid Package includes a ladies navy t-shirt (not shown), a baseball cap, and a coffee mug in a drawstring tote.'
-    price: 34
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157452.jpg'
+    name: 'Give a fox sweatshirt'
+    price: 45.00
+    description: 'A small symbol of caring about the internet. Kit the fox rides along on the sleeve. Soft, relaxed, made by AS Colour.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Crew_GAF1_1.png'
   -
-    name: 'Special Package 2'
-    description: 'This Very Splendid Package includes a unisex navy t-shirt, a baseball cap, and a coffee mug in a drawstring tote.'
-    price: 37
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157454.jpg'
+    name: 'Mozilla build keychain'
+    price: 5.00
+    description: 'A small reminder, right where you need it: we''re here to build a better internet. Iron and soft enamel.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_Keychain_Build1.png'
   -
-    name: 'Special Package 3'
-    description: 'The Most Splendid Package includes a Champion sweatshirt in a drawstring tote, a Moleskine notebook, and a Rickshaw Commuter 2.0 Laptop Bag.'
-    price: 300.89
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200157451.jpg'
+    name: 'Mozilla heart keychain'
+    price: 5.00
+    description: 'Care is part of the build. A pixelated heart to clip to your keys, your bag, or wherever it fits.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_Keychain_Heart1.png'
   -
-    name: 'Unisex t-shirt, navy'
-    price: 13.51
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155342.jpg'
-  -
-    name: 'Ladies t-shirt, navy'
-    price: 10
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155413.jpg'
-  -
-    name: 'Unisex t-shirt, lapis'
-    price: 13.51
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-unisex-t-shirt-lapis.jpg'
-  -
-    name: 'Black cap w/tote'
-    price: 17.75
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155339.jpg'
-  -
-    name: Beanie
-    price: 5.5
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155340.jpg'
+    name: 'Firefox mechanical keyboard'
+    price: 198.00
+    description: 'Clean, clicky and finished in Firefox colors. Kit sits on the ESC key for when you need to get out of whatever you didn''t mean to open.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Keyboard1.png'
     reviews:
-      - { text: 'One of my favorites.', author: jim }
+      - { text: 'Clicky enough to drown out red alert klaxons.', author: jim }
   -
-    name: 'Drawstring tote'
-    price: 5.5
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155751.jpg'
+    name: 'Mozilla sticker pack'
+    price: 12.00
+    description: 'Bold, pixel-inspired designs carrying a shared belief: the internet should be open, accessible, and built for people, not profits.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_StickerPack1.png'
   -
-    name: 'Glossy finish ceramic mug'
-    price: 8.81
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155758.jpg'
-  -
-    name: '3 inch round Firefox sticker, individual'
-    price: 0.11
-    description: '1 roll = 500 stickers (please request 500 if you need a full roll)'
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155753.jpg'
-  -
-    name: 'Silicone wristband'
-    price: 0.32
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155756.jpg'
+    name: 'Firefox sticker pack'
+    price: 12.00
+    description: 'Pack of 8 vinyl stickers featuring Kit the fox in all their many moods. Peel, stick, repeat.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_StickerPack1.png'
     reviews:
-      - { text: 'Fry liked it too.', author: bender }
+      - { text: 'Put one on my chassis. Still the shiniest thing about me.', author: bender }
   -
-    name: 'Vertical laminated conference badge'
-    price: 2.33
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155755.jpg'
+    name: 'Mozilla Dino keychain'
+    price: 5.00
+    description: 'Mozilla''s mascot, a friendly Dino born from our flag symbol, championing our mission with a nod to our T-rex roots.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Moz_Keychain_Dino1.png'
   -
-    name: 'Mozilla lanyard with bulldog clip'
-    price: 1.65
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155754.jpg'
+    name: 'Firefox x Fellow Zen Kit water bottle'
+    price: 50.00
+    description: 'Leak-proof 20oz stainless steel bottle with a True Taste ceramic interior, made by Fellow''s Carter Carry.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Waterbottle_Zen1.png'
   -
-    name: 'Firefox tattoo, 50 pack'
-    price: 4
-    image: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/Gear-200155757.jpg'
-  -
-    name: '1.25 inch Firefox Button, 25 pack'
-    price: 7
-  -
-    name: 'Mozilla Cap'
-    price: 4.63
-  -
-    name: 'Colour Contrast Analyser Firefox Extension'
-    description: 'The Colour Contrast Analyser Firefox extension lists colour combinations used in the document in a table that summarises the foreground colour, background colour, luminosity contrast ratio, and the colour difference and brightness difference used in the algorithm suggested in the 26th of April 2000 working draft for Accessibility Evaluation and Repair Tools (AERT). Each element is also listed with its parent elements, and class and id attribute values when specified to make it easier to locate the elements. <br/><span style="color:red;">This extension has been removed because side-effects with other plugins.</span>'
-    price: 0.99
-    image: 'http://juicystudio.com/img/logo.gif'
-    keywordsForPastebinDataLeakChallenge:
-      - juicenote
-      - magische firefox suche
-  -
-    name: 'Fox Plush'
-    price: 8.6
-  -
-    name: 'Mozilla custom hoodie'
-    price: 19.66
+    name: 'Kit socks'
+    price: 20.00
+    description: 'Bright and bold, these socks bring a little main-character energy to your ankles. Soft, breathable, made in the USA.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Socks_Kit1.png'
     reviews:
-      - { text: 'You gotta get this.', author: jim }
+      - { text: 'Even a bending unit appreciates good ankle support.', author: bender }
   -
-    name: 'Woman''s Firefox Logo T-Shirt (grey)'
-    price: 4.31
+    name: '5-panel Kit hat'
+    price: 42.00
+    description: 'Clean, simple, and easy to wear on repeat — this one keeps things low-key, with just enough Kit to make it fiery.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Hat_5Panel_Kit1_1.png'
   -
-    name: 'Women''s Vertical T-Shirt'
-    price: 5.09
-  -
-    name: 'Mozilla Horizontal T-Shirt'
-    price: 5.94
+    name: 'Give a fox hat'
+    price: 30.00
+    description: 'A simple hat with a not-so-subtle point of view, made in a facility that follows sustainable manufacturing practices.'
+    image: 'https://cdn.shopify.com/s/files/1/0714/5956/9752/files/Fx_Hat_Dad_GAF1_1.png'
   -
     name: 'OWASP Zed Attack Proxy (ZAP)'
     description: 'ZAP is one of the world’s most popular free security tools and can help you automatically find security vulnerabilities while you are developing and testing your applications.'
@@ -164,19 +129,27 @@ products:
     image: zap.png
     urlForProductTamperingChallenge: 'https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project'
   -
-    name: 'Christmas Super-Surprise-Box (2014 Edition)'
-    description: 'Contains a random selection of stickers and three Unisex t-shirts (3XL) for an unbeatable price!'
+    name: 'Mozilla Store Super-Surprise-Box (2026 Edition)'
+    description: 'Contains a random selection of stickers, keychains, and a Firefox sticker pack for an unbeatable price!'
     price: 29.99
     image: undefined.jpg
     useForChristmasSpecialChallenge: true
   -
-    name: 'Mozilla Austin CTF Logo (3D-printed)'
+    name: 'Mozilla Flag Emblem (3D-printed)'
     description: 'This rare item was designed and handcrafted in Sweden. This is why it is so incredibly expensive despite its complete lack of purpose.'
     price: 99.99
     image: 3d_keychain.jpg
-    fileForRetrieveBlueprintChallenge: 'https://github.com/mozilla/ctf-austin/raw/master/app/public/images/products/3d_keychain.stl'
+    fileForRetrieveBlueprintChallenge: JuiceShop.stl
     exifForBlueprintChallenge:
-      - ~
+      - OpenSCAD
+  -
+    name: 'Refurbished Mozilla Store Gift Card'
+    description: 'A gently-used digital gift card someone forgot to redeem. <br/><span style="color:red;">This item has been made unavailable because of lack of safety standards.</span>'
+    price: 16.99
+    image: undefined.jpg
+    keywordsForPastebinDataLeakChallenge:
+      - hueteroneel
+      - eurogium edule
   -
     name: 'Global OWASP WASPY Award 2017 Nomination'
     description: 'Your chance to nominate up to three quiet pillars of the OWASP community ends 2017-06-30! <a href="https://www.owasp.org/index.php/WASPY_Awards_2017">Nominate now!</a>'

@@ -11,6 +11,8 @@ import config from 'config'
 import { createTestApp } from './helpers/setup'
 import { login } from './helpers/auth'
 import { type Product } from '../../data/types'
+import { challenges } from '../../data/datacache'
+import * as db from '../../data/mongodb'
 import * as security from '../../lib/insecurity'
 
 let app: Express
@@ -62,12 +64,14 @@ void describe('/rest/products/:id/reviews', () => {
 
 void describe('/rest/products/reviews', () => {
   let reviewId: string
+  let reviewAuthor: string
 
   before(async () => {
     const res = await request(app)
       .get('/rest/products/1/reviews')
     const response = res.body
     reviewId = response.data[0]._id
+    reviewAuthor = response.data[0].author
   })
 
   void it('PATCH single product review can be edited', async () => {
@@ -93,6 +97,71 @@ void describe('/rest/products/reviews', () => {
         message: 'Lorem Ipsum'
       })
     assert.equal(res.status, 401)
+  })
+
+  void it('PATCH single product review returns 500 when the update fails', async (t) => {
+    t.mock.method(db.reviewsCollection, 'update', async () => { throw new Error('Review update error') })
+
+    const res = await request(app)
+      .patch('/rest/products/reviews')
+      .set(authHeader)
+      .send({
+        id: reviewId,
+        message: 'Lorem Ipsum'
+      })
+
+    assert.equal(res.status, 500)
+    assert.deepEqual(res.body, {})
+  })
+
+  void it('PATCH single product review evaluates forged review criteria for an unauthenticated user', async () => {
+    challenges.forgedReviewChallenge.solved = false
+
+    const res = await request(app)
+      .patch('/rest/products/reviews')
+      .set(authHeader)
+      .send({
+        id: reviewId,
+        message: 'Lorem Ipsum'
+      })
+
+    assert.equal(res.status, 200)
+  })
+
+  void it('PATCH single product review evaluates forged review criteria for a different user', async () => {
+    challenges.forgedReviewChallenge.solved = false
+    const forgedAuthHeader = {
+      Authorization: `Bearer ${security.authorize({ data: { email: 'forged-user@juice-sh.op' } })}`,
+      'content-type': 'application/json'
+    }
+
+    const res = await request(app)
+      .patch('/rest/products/reviews')
+      .set(forgedAuthHeader)
+      .send({
+        id: reviewId,
+        message: 'Lorem Ipsum'
+      })
+
+    assert.equal(res.status, 200)
+  })
+
+  void it('PATCH missing product review evaluates forged review criteria without an original review', async () => {
+    challenges.forgedReviewChallenge.solved = false
+    const forgedAuthHeader = {
+      Authorization: `Bearer ${security.authorize({ data: { email: reviewAuthor } })}`,
+      'content-type': 'application/json'
+    }
+
+    const res = await request(app)
+      .patch('/rest/products/reviews')
+      .set(forgedAuthHeader)
+      .send({
+        id: 'does-not-exist',
+        message: 'Lorem Ipsum'
+      })
+
+    assert.equal(res.status, 200)
   })
 
   void it('POST non-existing product review cannot be liked', async () => {

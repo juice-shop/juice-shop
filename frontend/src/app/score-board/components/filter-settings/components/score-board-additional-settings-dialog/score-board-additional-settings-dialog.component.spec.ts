@@ -3,7 +3,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { ScoreBoardAdditionalSettingsDialogComponent } from './score-board-additional-settings-dialog.component'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatDialogModule } from '@angular/material/dialog'
-import { LocalBackupService } from 'src/app/Services/local-backup.service'
+import { LocalBackupService } from '../../../../../Services/local-backup.service'
 
 describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
     let component: ScoreBoardAdditionalSettingsDialogComponent

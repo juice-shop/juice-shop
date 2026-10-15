@@ -11,6 +11,7 @@ import { SnackBarHelperService } from './snack-bar-helper.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { firstValueFrom, forkJoin, from, of } from 'rxjs'
 import { ChallengeService } from './challenge.service'
+import { WindowRefService } from './window-ref.service'
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class LocalBackupService {
   private readonly challengeService = inject(ChallengeService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly snackBar = inject(MatSnackBar)
+  private readonly windowRefService = inject(WindowRefService)
 
   private readonly VERSION = 1
 
@@ -83,7 +85,7 @@ export class LocalBackupService {
           const fixItProgress = backup.continueCodeFixIt ? this.challengeService.restoreProgressFixIt(encodeURIComponent(backup.continueCodeFixIt)) : of(true)
           forkJoin([hackingProgress, findItProgress, fixItProgress]).subscribe({
             next: () => {
-              location.reload()
+              this.windowRefService.nativeWindow.location.reload()
             },
             error: (err) => { console.log(err) }
           })

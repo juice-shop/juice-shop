@@ -66,6 +66,13 @@ html(lang='en')
                      label(for='email') Email:
                      input#email(type='email', name='email', value=email, disabled=true, style='opacity: 0.7;', aria-label='Disabled - Text field for the email')
                    .profile-field
+                     label(for='role') Role:
+                     input#role(type='text', name='role', value=role, disabled=true, style='opacity: 0.7;', aria-label='Disabled - Text field for the role')
+                     if role === 'customer'
+                       a(href='./#/deluxe-membership', style='color: _textColor_; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;')
+                         i.material-icons diamond
+                         span Become a deluxe member
+                   .profile-field
                      label(for='username') Username:
                      input#username(type='text', name='username', value=username, placeholder='e.g. SuperUser', aria-label='Text field for the username')
                    button#submit.fill(type='submit', style='margin-top: 8px; text-transform: capitalize;', aria-label='Button to save/set the username') Set Username

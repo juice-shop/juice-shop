@@ -39,6 +39,7 @@ import { MatSearchBarComponent } from '../mat-search-bar/mat-search-bar.componen
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { LanguagesService } from '../Services/languages.service'
 import { BasketService } from '../Services/basket.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { Subject } from 'rxjs'
 import { environment } from '../../environments/environment'
 
@@ -63,6 +64,7 @@ describe('NavbarComponent', () => {
     let loginGuard
     let languagesService: any
     let basketService: any
+    let windowRefService: any
     let itemTotalSubject: Subject<number>
 
     beforeEach(async () => {
@@ -116,6 +118,14 @@ describe('NavbarComponent', () => {
         }
         basketService.getItemTotal.mockReturnValue(itemTotalSubject.asObservable())
 
+        windowRefService = {
+            nativeWindow: {
+                location: {
+                    reload: vi.fn().mockName("window.location.reload")
+                }
+            }
+        }
+
         TestBed.configureTestingModule({
             imports: [RouterTestingModule.withRoutes([
                     { path: 'search', component: SearchResultComponent }
@@ -149,6 +159,7 @@ describe('NavbarComponent', () => {
                 { provide: LoginGuard, useValue: loginGuard },
                 { provide: LanguagesService, useValue: languagesService },
                 { provide: BasketService, useValue: basketService },
+                { provide: WindowRefService, useValue: windowRefService },
                 TranslateService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
@@ -357,6 +368,32 @@ describe('NavbarComponent', () => {
             fixture.detectChanges()
             const name = (fixture.nativeElement as HTMLElement).querySelector('.app-name')
             expect(name?.textContent).toContain('MyShop')
+        })
+
+        it('should render the logged-in accounting account menu', async () => {
+            localStorage.setItem('token', 'token')
+            loginGuard.tokenDecode.mockReturnValue({ data: { role: 'accounting' } })
+            component.userEmail = 'accounting@juice-shop.local'
+            fixture.detectChanges()
+
+            const accountButton = (fixture.nativeElement as HTMLElement).querySelector('#navbarAccount') as HTMLButtonElement
+            accountButton.click()
+            await fixture.whenStable()
+
+            expect(document.body.querySelector('[aria-label="Go to user profile"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Go to accounting page"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Show Orders and Payment Menu"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Show Privacy and Security Menu"]')).toBeTruthy()
+            expect(document.body.querySelector('[aria-label="Logout"]')).toBeTruthy()
+
+            const profileSpy = vi.spyOn(component, 'goToProfilePage')
+            const logoutSpy = vi.spyOn(component, 'logout')
+            ;(document.body.querySelector('[aria-label="Go to user profile"]') as HTMLButtonElement).click()
+            ;(document.body.querySelector('[aria-label="Logout"]') as HTMLButtonElement).click()
+
+            expect(profileSpy).toHaveBeenCalled()
+            expect(logoutSpy).toHaveBeenCalled()
+            localStorage.removeItem('token')
         })
     })
 

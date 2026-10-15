@@ -4,26 +4,36 @@
  */
 
 import { TestBed } from '@angular/core/testing'
-import { firstValueFrom, of, throwError } from 'rxjs'
+import { firstValueFrom, of, Subject, throwError } from 'rxjs'
 
 import { LocalBackupService } from './local-backup.service'
 import { CookieModule, CookieService } from 'ngy-cookie'
 import { TranslateNoOpLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ChallengeService } from './challenge.service'
+import { SnackBarHelperService } from './snack-bar-helper.service'
+import { WindowRefService } from './window-ref.service'
 
 describe('LocalBackupService', () => {
     let snackBar: any
     let cookieService: any
     let challengeService: any
+    let windowRefService: any
+    let snackBarAction$: Subject<any>
 
     beforeEach(() => {
+        snackBarAction$ = new Subject()
         snackBar = {
             open: vi.fn().mockName("MatSnackBar.open")
         }
-        snackBar.open.mockReturnValue(null)
+        const snackBarRef = {
+            onAction: () => snackBarAction$.asObservable()
+        }
+        snackBar.open.mockReturnValue(snackBarRef)
         challengeService = {
             restoreProgress: vi.fn().mockName("ChallengeService.restoreProgress"),
+            restoreProgressFindIt: vi.fn().mockName("ChallengeService.restoreProgressFindIt"),
+            restoreProgressFixIt: vi.fn().mockName("ChallengeService.restoreProgressFixIt"),
             continueCode: vi.fn().mockName("ChallengeService.continueCode"),
             continueCodeFindIt: vi.fn().mockName("ChallengeService.continueCodeFindIt"),
             continueCodeFixIt: vi.fn().mockName("ChallengeService.continueCodeFixIt")
@@ -31,6 +41,17 @@ describe('LocalBackupService', () => {
         challengeService.continueCode.mockReturnValue(of('code'))
         challengeService.continueCodeFindIt.mockReturnValue(of('codeFindIt'))
         challengeService.continueCodeFixIt.mockReturnValue(of('codeFixIt'))
+        challengeService.restoreProgress.mockReturnValue(of(true))
+        challengeService.restoreProgressFindIt.mockReturnValue(of(true))
+        challengeService.restoreProgressFixIt.mockReturnValue(of(true))
+
+        windowRefService = {
+            nativeWindow: {
+                location: {
+                    reload: vi.fn().mockName("window.location.reload")
+                }
+            }
+        }
 
         TestBed.configureTestingModule({
             imports: [
@@ -45,6 +66,7 @@ describe('LocalBackupService', () => {
             providers: [
                 { provide: MatSnackBar, useValue: snackBar },
                 { provide: ChallengeService, useValue: challengeService },
+                { provide: WindowRefService, useValue: windowRefService },
                 CookieService,
                 LocalBackupService
             ]
@@ -107,4 +129,61 @@ describe('LocalBackupService', () => {
         expect(saveFileSpy).toHaveBeenCalled()
     })
 
+    it('should restore all cookies from backup file', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        const backupData = {
+            version: 1,
+            banners: { welcomeBannerStatus: 'dismiss', cookieConsentStatus: 'accept' },
+            language: 'en',
+            continueCode: 'C1',
+            continueCodeFindIt: 'C2',
+            continueCodeFixIt: 'C3'
+        }
+        await firstValueFrom(service.restore(new File([JSON.stringify(backupData)], 'test.json')))
+        expect(cookieService.get('welcomebanner_status')).toBe('dismiss')
+        expect(cookieService.get('cookieconsent_status')).toBe('accept')
+        expect(cookieService.get('language')).toBe('en')
+        expect(cookieService.get('continueCode')).toBe('C1')
+        expect(cookieService.get('continueCodeFindIt')).toBe('C2')
+        expect(cookieService.get('continueCodeFixIt')).toBe('C3')
+    })
+
+    it('should handle restore error and show snackbar', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+
+        await firstValueFrom(service.restore(new File(['invalid JSON'], 'test.json')))
+        expect(spy).toHaveBeenCalledWith(expect.stringContaining('Backup restore operation failed'), 'errorBar')
+    })
+
+    it('should restore progress when snackbar action is clicked', async () => {
+        const service = TestBed.inject(LocalBackupService)
+
+        const backupData = {
+            version: 1,
+            continueCode: 'C1',
+            continueCodeFindIt: 'C2',
+            continueCodeFixIt: 'C3'
+        }
+        await firstValueFrom(service.restore(new File([JSON.stringify(backupData)], 'test.json')))
+        snackBarAction$.next(null)
+
+        expect(challengeService.restoreProgress).toHaveBeenCalledWith(encodeURIComponent('C1'))
+        expect(challengeService.restoreProgressFindIt).toHaveBeenCalledWith(encodeURIComponent('C2'))
+        expect(challengeService.restoreProgressFixIt).toHaveBeenCalledWith(encodeURIComponent('C3'))
+        expect(windowRefService.nativeWindow.location.reload).toHaveBeenCalled()
+    })
+
+    it('should log error if progress restoration fails', async () => {
+        const service = TestBed.inject(LocalBackupService)
+        challengeService.restoreProgress.mockReturnValue(throwError(() => new Error('Restore failed')))
+        console.log = vi.fn()
+
+        const backupData = { version: 1, continueCode: 'C1' }
+        await firstValueFrom(service.restore(new File([JSON.stringify(backupData)], 'test.json')))
+        snackBarAction$.next(null)
+
+        expect(console.log).toHaveBeenCalledWith(new Error('Restore failed'))
+    })
 })

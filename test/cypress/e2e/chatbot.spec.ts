@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-describe('challenge "System Prompt Extraction"', () => {
+describe('challenge "systemPromptExtractionChallenge"', () => {
   beforeEach(() => {
     cy.login({ email: 'admin', password: 'admin123' })
   })

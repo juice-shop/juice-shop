@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
-import { LocalBackupService } from 'src/app/Services/local-backup.service'
+import { LocalBackupService } from '../../../Services/local-backup.service'
 
 describe('FilterSettingsComponent', () => {
     let component: FilterSettingsComponent

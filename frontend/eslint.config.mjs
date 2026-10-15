@@ -20,6 +20,10 @@ export default tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       'semi': ['error', 'never'],
+      // Angular 22 made OnPush the default change detection strategy. To keep the upgrade
+      // behavior-preserving, components explicitly opt back into the previous `Default`
+      // strategy, so this rule (which flags opting out of OnPush) is disabled for now.
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@typescript-eslint/prefer-nullish-coalescing': 'off', // requires the `strictNullChecks` compiler option
       // FIXME warnings below this line need to be checked and fixed.
       '@typescript-eslint/strict-boolean-expressions': 'off',

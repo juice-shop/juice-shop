@@ -15,6 +15,7 @@ import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { AddressCreateComponent } from '../address-create/address-create.component'
+import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatTableModule } from '@angular/material/table'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
@@ -76,6 +77,7 @@ describe('AddressComponent', () => {
                 { provide: AddressService, useValue: addressService },
                 { provide: TranslateService, useValue: translateService },
                 { provide: MatSnackBar, useValue: snackBar },
+                SnackBarHelperService,
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
             ]
@@ -208,5 +210,46 @@ describe('AddressComponent', () => {
             expect(compiled.querySelector('button [class*="fa-edit"]')).toBeTruthy()
             expect(compiled.querySelector('button [class*="fa-trash-alt"]')).toBeTruthy()
         })
+    })
+
+    it('should emit undefined when selection is cleared in emitSelectionToParent', () => {
+        component.selection.clear()
+        const spy = vi.spyOn(component.emitSelection, 'emit')
+        component.emitSelectionToParent(1)
+        expect(spy).toHaveBeenCalledWith(undefined)
+        expect(component.addressId).toBeUndefined()
+    })
+
+    it('should emit id when selection has value in emitSelectionToParent', () => {
+        component.selection.select({} as any)
+        const spy = vi.spyOn(component.emitSelection, 'emit')
+        component.emitSelectionToParent(1)
+        expect(spy).toHaveBeenCalledWith(1)
+        expect(component.addressId).toBe(1)
+    })
+
+    it('should show snackbar error when loading addresses fails', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        addressService.get.mockReturnValue(throwError({ error: { error: 'Load failed' } }))
+        component.load()
+        expect(spy).toHaveBeenCalledWith('Load failed', 'errorBar')
+    })
+
+    it('should show snackbar error when deleting address fails', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        addressService.del.mockReturnValue(throwError({ error: { error: 'Delete failed' } }))
+        component.deleteAddress(1)
+        expect(spy).toHaveBeenCalledWith('Delete failed', 'errorBar')
+    })
+
+    it('should show translationId on snackbar if translation fails after address deletion', () => {
+        const snackBarHelperService = TestBed.inject(SnackBarHelperService)
+        const spy = vi.spyOn(snackBarHelperService, 'open')
+        addressService.del.mockReturnValue(of({}))
+        translateService.get.mockReturnValue(throwError('ADDRESS_REMOVED'))
+        component.deleteAddress(1)
+        expect(spy).toHaveBeenCalledWith('ADDRESS_REMOVED', 'confirmBar')
     })
 })

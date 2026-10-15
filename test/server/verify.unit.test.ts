@@ -142,6 +142,33 @@ void describe('verify', () => {
 
       assert.equal(challenges.accessLogDisclosureChallenge.solved, true)
     })
+
+    void it('"misplacedIacFiles" is solved when a Terraform .tf file under /infrastructure is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/infrastructure/terraform/main.tf'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
+
+    void it('"misplacedIacFiles" is solved when a Dockerfile under /infrastructure is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/infrastructure/Dockerfile'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
+
+    void it('"misplacedIacFiles" is solved when a docker-compose.yml under /infrastructure is requested', () => {
+      challenges.misplacedIacFiles = { solved: false, save } as unknown as Challenge
+      req.url = 'http://juice-sh.op/infrastructure/docker-compose.yml'
+
+      verify.accessControlChallenges()(req, res, next)
+
+      assert.equal(challenges.misplacedIacFiles.solved, true)
+    })
   })
 
   void describe('"errorHandlingChallenge"', () => {
@@ -301,32 +328,35 @@ void describe('verify', () => {
 
       assert.equal(challenges.jwtForgedChallenge.solved, false)
     })
-  })
 
-  void describe('diceCoefficient', () => {
-    void it('should return 1 for identical strings', () => {
-      assert.equal(verify.diceCoefficient('abc', 'abc'), 1)
+    void it('"iacLeakedKeyChallenge" is solved when RS256-signed token has email cloud-admin@juice-sh.op in the payload', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'cloud-admin@juice-sh.op' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, true)
     })
 
-    void it('should return 1 for identical strings even if they are short', () => {
-      assert.equal(verify.diceCoefficient('a', 'a'), 1)
+    void it('"iacLeakedKeyChallenge" is solved when RS256-signed token has string "cloud-admin@" in the payload', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'cloud-admin@' } })
+      req.headers = { authorization: `Bearer ${token}` }
+
+      verify.jwtChallenges()(req, res, next)
+
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, true)
     })
 
-    void it('should return 0 for different strings if at least one is less than 2 characters', () => {
-      assert.equal(verify.diceCoefficient('a', 'b'), 0)
-      assert.equal(verify.diceCoefficient('a', 'abc'), 0)
-    })
+    void it('"iacLeakedKeyChallenge" is not solved when token has wrong email', () => {
+      challenges.iacLeakedKeyChallenge = { solved: false, save } as unknown as Challenge
+      const token = security.authorize({ data: { email: 'admin@juice-sh.op' } })
+      req.headers = { authorization: `Bearer ${token}` }
 
-    void it('should return 0 for completely different strings', () => {
-      assert.equal(verify.diceCoefficient('abc', 'def'), 0)
-    })
+      verify.jwtChallenges()(req, res, next)
 
-    void it('should return correct coefficient for partially overlapping strings', () => {
-      // 'night' bigrams: ni, ig, gh, ht
-      // 'nacht' bigrams: na, ac, ch, ht
-      // intersection: ht (1)
-      // score: 2 * 1 / (5 + 5 - 2) = 0.25
-      assert.equal(verify.diceCoefficient('night', 'nacht'), 0.25)
+      assert.equal(challenges.iacLeakedKeyChallenge.solved, false)
     })
   })
 

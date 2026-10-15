@@ -109,6 +109,7 @@ export const CHALLENGE_KEYS = [
   'missingEncodingChallenge',
   'svgInjectionChallenge',
   'exposedMetricsChallenge',
+  'misplacedIacFiles',
   'freeDeluxeChallenge',
   'csrfChallenge',
   'xssBonusChallenge',
@@ -125,7 +126,9 @@ export const CHALLENGE_KEYS = [
   'chatbotPromptInjectionChallenge',
   'chatbotGreedyInjectionChallenge',
   'aiDebuggingChallenge',
-  'systemPromptExtractionChallenge'
+  'systemPromptExtractionChallenge',
+  'iacLeakedKeyChallenge',
+  'vulnerableDockerImageChallenge'
 ] as const
 
 export type ChallengeKey = typeof CHALLENGE_KEYS[number]

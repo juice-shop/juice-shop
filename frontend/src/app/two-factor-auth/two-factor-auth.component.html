@@ -49,11 +49,11 @@
           >
           <span id="2fa-setup-instructions" translate>2FA_AUTH_SETUP_INSTRUCTIONS</span>
           <div class="two-factor-qr-code center-container">
-            <qr-code
-              [value]="totpUrl"
-              [size]="300"
+            <qrcode
+              [qrdata]="totpUrl"
+              [width]="300"
               [errorCorrectionLevel]="'L'"
-            ></qr-code>
+            ></qrcode>
           </div>
           <div class="error" [hidden]="!(errored && !twoFactorSetupForm.dirty)" translate>2FA_SETUP_ERROR</div>
           <mat-form-field appearance="outline" color="tertiary">

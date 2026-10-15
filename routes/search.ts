@@ -29,7 +29,7 @@ export function searchProducts () {
             const users = utils.queryResultToJson(data)
             if (users.data?.length) {
               for (let i = 0; i < users.data.length; i++) {
-                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && utils.contains(dataString, users.data[i].password)
+                solved = solved && utils.containsOrEscaped(dataString, users.data[i].email) && dataString.includes(users.data[i].password)
                 if (!solved) {
                   break
                 }
@@ -64,6 +64,9 @@ export function searchProducts () {
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
           products[i].description = req.__(products[i].description)
+          if (typeof products[i].alternateImages === 'string') {
+            products[i].alternateImages = JSON.parse(products[i].alternateImages)
+          }
         }
         res.json(utils.queryResultToJson(products))
       }).catch((error: ErrorWithParent) => {

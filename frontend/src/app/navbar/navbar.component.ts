@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, NgZone, type OnInit, Output, inject } from '@angular/core'
+import { Component, EventEmitter, NgZone, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { environment } from '../../environments/environment'
 import { ChallengeService } from '../Services/challenge.service'
 import { UserService } from '../Services/user.service'
@@ -16,6 +16,7 @@ import { SocketIoService } from '../Services/socket-io.service'
 import { LanguagesService } from '../Services/languages.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { BasketService } from '../Services/basket.service'
+import { WindowRefService } from '../Services/window-ref.service'
 import { FormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
@@ -60,6 +61,7 @@ import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar'
 library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, faTrophy, faInfoCircle, faShoppingCart, faUserSecret, faRecycle, faMapMarker, faUserCircle, faGithub, faComments, faThermometerEmpty, faThermometerQuarter, faThermometerHalf, faThermometerThreeQuarters, faThermometerFull)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
@@ -96,6 +98,7 @@ export class NavbarComponent implements OnInit {
   private readonly loginGuard = inject(LoginGuard)
   private readonly snackBar = inject(MatSnackBar)
   private readonly basketService = inject(BasketService)
+  private readonly windowRefService = inject(WindowRefService)
 
   public userEmail = ''
   public languages: any[] = []
@@ -260,7 +263,7 @@ export class NavbarComponent implements OnInit {
         panelClass: ['mat-body']
       })
       snackBarRef.onAction().subscribe(() => {
-        location.reload()
+        this.windowRefService.nativeWindow.location.reload()
       })
     }
   }

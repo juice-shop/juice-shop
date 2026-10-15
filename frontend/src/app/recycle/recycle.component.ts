@@ -6,7 +6,7 @@
 import { ConfigurationService } from '../Services/configuration.service'
 import { UserService } from '../Services/user.service'
 import { RecycleService } from '../Services/recycle.service'
-import { Component, type OnInit, ViewChild, inject } from '@angular/core'
+import { Component, type OnInit, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core'
 import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
@@ -25,6 +25,7 @@ import { MatCardModule, MatCardImage, MatCardContent } from '@angular/material/c
 library.add(faPaperPlane)
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss'],

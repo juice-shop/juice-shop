@@ -17,6 +17,14 @@ import { type BasketItemModel } from './basketitem'
 import { challenges } from '../data/datacache'
 import * as security from '../lib/insecurity'
 
+export type AlternateImage = {
+  file: string
+  format: string
+} & (
+  | { density: string, width?: never }
+  | { width: string, density?: never }
+)
+
 class Product extends Model<
 InferAttributes<Product>,
 InferCreationAttributes<Product>
@@ -27,6 +35,7 @@ InferCreationAttributes<Product>
   declare price: number
   declare deluxePrice: number
   declare image: string
+  declare alternateImages: CreationOptional<AlternateImage[] | null>
   declare BasketItem?: CreationOptional<BasketItemModel> // Note this is optional since it's only populated when explicitly requested in code
 }
 
@@ -44,10 +53,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
         set (description: string) {
           if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
             challengeUtils.solveIf(challenges.restfulXssChallenge, () => {
-              return utils.contains(
-                description,
-                '<iframe src="javascript:alert(`xss`)">'
-              )
+              return description?.includes('<iframe src="javascript:alert(`xss`)">') ?? false
             })
           } else {
             description = security.sanitizeSecure(description)
@@ -57,7 +63,8 @@ const ProductModelInit = (sequelize: Sequelize) => {
       },
       price: DataTypes.DECIMAL,
       deluxePrice: DataTypes.DECIMAL,
-      image: DataTypes.STRING
+      image: DataTypes.STRING,
+      alternateImages: DataTypes.JSON
     },
     {
       tableName: 'Products',

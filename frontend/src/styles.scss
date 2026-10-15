@@ -293,8 +293,21 @@
   .mat-mdc-button:disabled,
   .mat-mdc-raised-button:disabled,
   .mat-mdc-unelevated-button:disabled {
-    --mdc-filled-button-disabled-container-color: #{color.adjust($bg, $lightness: if(sass($is-dark): 15%; else: -15%))};
-    color: #{color.adjust($text, $lightness: if(sass($is-text-light): -40%; else: 40%))} !important;
+    --mdc-filled-button-disabled-container-color: #{if(sass($is-dark): rgba(255, 255, 255, 0.12); else: rgba(0, 0, 0, 0.12))};
+    color: #{if(sass($is-dark): rgba(255, 255, 255, 0.5); else: rgba(0, 0, 0, 0.5))} !important;
+  }
+
+  // Tertiary-colored raised/unelevated buttons (e.g. "Log in with Google")
+  .mat-mdc-raised-button.mat-tertiary,
+  .mat-mdc-unelevated-button.mat-tertiary {
+    --mdc-filled-button-container-color: #{$nav};
+    background-color: var(--mdc-filled-button-container-color);
+    color: #{if(sass(color.channel($nav, 'lightness', $space: hsl) > 60%): #000; else: #fff)};
+
+    .mat-icon,
+    i {
+      color: inherit;
+    }
   }
 
   // Slide toggles
@@ -465,7 +478,7 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 .blue-lightblue-theme {
   @include custom-components-theme($blue-lightblue-theme);
   @include css-vars($blue-lightblue-theme);
-  @include theme-overrides(#1976d2, #fafafa, #29b6f6, #000);
+  @include theme-overrides(#1976d2, #fafafa, #b3e5fc, #000);
 }
 
 .deeporange-indigo-theme {

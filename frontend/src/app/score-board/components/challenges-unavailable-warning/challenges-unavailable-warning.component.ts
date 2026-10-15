@@ -1,4 +1,4 @@
-import { Component, computed, input, model } from '@angular/core'
+import { Component, computed, input, model, ChangeDetectionStrategy } from '@angular/core'
 
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
@@ -8,6 +8,7 @@ import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgClass } from '@angular/common'
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'challenges-unavailable-warning',
   templateUrl: './challenges-unavailable-warning.component.html',
   styleUrls: ['./challenges-unavailable-warning.component.scss'],

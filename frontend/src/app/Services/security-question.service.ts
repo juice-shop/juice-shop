@@ -5,7 +5,7 @@
 
 import { HttpClient } from '@angular/common/http'
 import { Injectable, inject } from '@angular/core'
-import { environment } from 'src/environments/environment'
+import { environment } from '../../../src/environments/environment'
 import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
