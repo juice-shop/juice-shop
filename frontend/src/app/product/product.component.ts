@@ -5,25 +5,24 @@
 
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 import { BasketService } from '../Services/basket.service'
 import { ProductService } from '../Services/product.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
-import { Product, ProductTableEntry } from '../Models/product.model'
+import { ProductTableEntry } from '../Models/product.model'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatCardModule } from '@angular/material/card'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
-import { ProductDetailsComponent } from '../product-details/product-details.component'
 import { ProductImageComponent } from '../product-image/product-image.component'
-import { MatDialog } from '@angular/material/dialog'
 
 const IMAGE_BASE_PATH = 'assets/public/images/products/'
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product',
-  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, ProductImageComponent],
+  imports: [TranslateModule, MatCardModule, MatTooltip, MatButton, MatIcon, ProductImageComponent, RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'
 })
@@ -32,8 +31,7 @@ export class ProductComponent {
   private readonly productService = inject(ProductService)
   private readonly translateService = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
-  private readonly dialog = inject(MatDialog)
-
+  private readonly route = inject(ActivatedRoute)
 
   item = input.required<ProductTableEntry>()
   isLoggedIn = input.required<boolean>()
@@ -54,6 +52,10 @@ export class ProductComponent {
       `${fallback} 1x`
     ].join(', ')})`
   })
+
+  get q (): string {
+    return this.route.snapshot.queryParams.q ?? ''
+  }
 
   addToBasket(id?: number) {
     if (id == null) {
@@ -205,16 +207,6 @@ export class ProductComponent {
       },
       error: (err) => {
         console.log(err)
-      }
-    })
-  }
-
-  showDetail(product: Product) {
-    this.dialog.open(ProductDetailsComponent, {
-      width: '500px',
-      height: 'max-content',
-      data: {
-        productData: product
       }
     })
   }
