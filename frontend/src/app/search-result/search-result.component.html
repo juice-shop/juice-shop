@@ -1,3 +1,4 @@
+
 <!--
   ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
   ~ SPDX-License-Identifier: MIT
@@ -8,7 +9,7 @@
     @if (searchValue) {
       <div>
         <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
-        <span id="searchValue" [innerHTML]="searchValue"></span>
+        <span id="searchValue">{{ searchValue }}</span>
       </div>
     } @else {
       <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>
@@ -19,8 +20,13 @@
   @if (!emptyState) {
     <div class="products-grid">
       @for (item of gridDataSource | async; track item.id) {
-          <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
-        }
+        <app-product
+          class="product"
+          [item]="item"
+          [isLoggedIn]="isLoggedIn()"
+          [isDeluxe]="isDeluxe()">
+        </app-product>
+      }
     </div>
   } @else {
     <mat-card appearance="outlined" class="mat-elevation-z6 emptyState">
@@ -44,14 +50,12 @@
     </mat-card>
   }
 
-
   <mat-paginator
     #paginator
     [pageSize]="currentPageSize"
     [pageSizeOptions]="pageSizeOptions"
     [length]="resultsLength"
     class="paginator mat-elevation-z6"
-    color="tertiary"
-  >
+    color="tertiary">
   </mat-paginator>
 </main>
