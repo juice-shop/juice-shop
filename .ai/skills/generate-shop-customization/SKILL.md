@@ -43,12 +43,18 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 ## Image Rules (this is where most manual fine-tuning was previously needed — get it right up front)
 
 - **Pure server-side URLs**: Every image and downloadable asset URL (`logo`, `favicon`, `avatar`, product images, memory images, recycle page images) must be a pure server-side URL with no `#` fragments or client-side anchor identifiers, guaranteeing that non-browser clients can download and process the asset directly.
+- **Mandatory External Image URLs for Custom Catalog Products**:
+  - Every custom product in the catalog MUST have a real, publicly resolvable HTTP/HTTPS image URL (e.g. hosted on the target brand's CDN or public media storage).
+  - **NEVER** use local asset filenames (such as `orange_juice.jpg`, `fruit_press.jpg`, `banana_sub.jpg`, `apple_juice.jpg`, or `undefined.jpg`) for new/custom products.
+  - **NEVER** invent or guess nonexistent local image filenames.
+  - Local asset filenames (e.g., `3d_keychain.jpg`, `undefined.jpg`) are ONLY permissible for the specific built-in challenge special products (`useForChristmasSpecialChallenge`, `fileForRetrieveBlueprintChallenge`, `keywordsForPastebinDataLeakChallenge`, `urlForProductTamperingChallenge`) when retaining default challenge artifacts.
+- **`recyclePage.topProductImage` and `bottomProductImage`**: Must also use real public HTTP/HTTPS URLs from the crawled source catalog (e.g., equipment, presses, juicers, packaging, or raw produce photos) rather than default local filenames like `fruit_press.jpg` or `apple_pressings.jpg`.
 - **Square-only assets**: `application.logo`, `chatBot.avatar`, and `hackingInstructor.avatarImage` are rendered **circular** (`border-radius: 50%`) in the UI (navbar, chat widget, hacking-instructor tutorials, score-board challenge cards). Any non-square source image will look cropped/distorted.
   - Before selecting a logo/avatar URL, check the image's actual aspect ratio (fetch and inspect dimensions, or infer from context, e.g. `og:image`, favicon, square brand mark, profile picture). Prefer a square brand mark, app icon, or profile photo over a wide horizontal logo lockup.
   - If only a non-square logo is available, prefer a square crop/icon variant of the same brand (e.g. a favicon, app icon, or square social profile image) over the wide logo — do not just reuse the wide logo for `chatBot.avatar`/`hackingInstructor.avatarImage`.
-  - `application.favicon` must be a `.ico` file or a URL to one; if the company only has a `.png`/`.svg` icon, say so and ask the user to confirm, or fall back to Juice Shop's default favicon rather than guessing.
-- **Product images**: no shape constraint, but prefer images the source site already displays as product photos (consistent aspect ratio across the catalog looks best on the product grid).
-- **recyclePage.topProductImage / bottomProductImage**: any product-style photo from the source catalog works; no special shape requirement.
+  - `application.favicon` must be a `.ico` file or a URL to one; if the company only has a `.png`/`.svg` icon, say so and ask the user to confirm, or fall back to Juice Shop's default favicon rather than guessing. Prefer direct CDN or static media storage URLs (e.g. `https://cdn.example.com/favicon.ico`) rather than apex root domain URLs if the root domain has bot/WAF protections that return HTTP 403 Forbidden to automated downloaders.
+- **Wikimedia Commons Thumbnail URLs**: When using thumbnail image URLs from Wikimedia Commons, always use standard supported thumbnail pixel sizes (e.g. `500px-*.png` or `800px-*.png`). Non-standard widths (like `512px`) will be rejected by Wikimedia servers with HTTP 400.
+- **Product image aspect ratios**: No strict shape constraint, but prefer images the source site already displays as product photos (consistent aspect ratio across the catalog looks best on the product grid).
 
 ## Fictional-Reviewer Homage Convention
 
@@ -61,12 +67,12 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 ## Steps
 
 1. **Gather inputs**: shop/company name, domain (for generated user emails), theme color pick (from `lib/config.schema.ts` theme enum), social handles/URLs, contact email(s), favicon source, logo source, chatbot persona name + sample questions, and the one-or-more product-source URL(s).
-2. **Crawl product source(s)**: Fetch each URL, extract a product catalog: name, short description, price, and a directly-linkable image URL for each item (ensuring all URLs are pure server-side URLs without `#` or client-side fragments). Aim for enough real products to make the shop feel populated (default.yml ships ~30); at minimum meet the 4-product floor plus the mandatory specials.
+2. **Crawl product source(s)**: Fetch each URL, extract a product catalog: name, short description, price, and a direct, publicly downloadable HTTP/HTTPS image URL for each item (hosted on the site's CDN/media store, ensuring all URLs are pure server-side URLs without `#` or client-side fragments). Aim for enough real products to make the shop feel populated (default.yml ships ~30); at minimum meet the 4-product floor plus the mandatory specials.
 3. **Rebrand mandatory specials**: Take the 4 special products from `default.yml` and reskin name/description/image/price to fit the shop's theme while preserving their special key (and required extra keys) verbatim. Same for the 2 geo-stalking memories (reskin caption/image, keep question/answer keys, drop or keep-neutral the `user` field).
 4. **Select square images** for `application.logo`, `chatBot.avatar`, `hackingInstructor.avatarImage` per the Image Rules above, verifying that all selected URLs are direct, pure server-side URLs without `#` fragments.
-5. **Fill `application` section**: `domain`, `name`, `logo`, `favicon`, `theme`, `altcoinName`, `privacyContactEmail`, `customMetricsPrefix` (lowercase single word), `chatBot`, `social` (only set handles the user actually provided; use `~` for the rest, matching `default.yml`'s null-able fields), `recyclePage`, `welcomeBanner` (optional), `cookieConsent`, `securityTxt`.
+5. **Fill `application` section**: `domain`, `name`, `logo`, `favicon`, `theme`, `altcoinName`, `privacyContactEmail`, `customMetricsPrefix` (lowercase single word), `chatBot`, `social` (only set handles the user actually provided; use `~` for the rest, matching `default.yml`'s null-able fields), `recyclePage` (using valid external HTTP/HTTPS image URLs), `welcomeBanner` (optional), `cookieConsent`, `securityTxt`.
 5b. **`challenges.overwriteUrlForProductTamperingChallenge`**: point at a real, brand-relevant URL (e.g. company's GitHub org, careers page) if the user wants deeper theming; otherwise omit. Ensure any specified challenge URL is a pure server-side URL without `#` fragments.
-6. **Assemble `products:`** — real catalog items first, rebranded specials mixed in naturally (don't cluster them all at the bottom, but do preserve at least the "Required by ... challenge" comment style used in `default.yml` for traceability). Include the `jim`/`bender` homage reviews per the convention above.
+6. **Assemble `products:`** — real catalog items first with external HTTP/HTTPS image URLs, rebranded specials mixed in naturally (don't cluster them all at the bottom, but do preserve at least the "Required by ... challenge" comment style used in `default.yml` for traceability). Include the `jim`/`bender` homage reviews per the convention above.
 7. **Assemble `memories:`** — a few real/plausible photo-wall entries (with `user` if desired) plus the two rebranded geo-stalking entries (no `user`, or a neutral one not used elsewhere).
 8. **Write `config/<name>.yml`**, matching `default.yml`'s YAML formatting/quoting conventions (single-quoted strings with special chars, `~` for null, inline `{ text: ..., author: ... }` for reviews).
 
@@ -82,6 +88,7 @@ This skill produces a ready-to-run customization file in `/config/<name>.yml` th
 
 - Run `npm run lint:config` (validates all `config/*.yml`, including the new file, against `ValidationSchema`) and fix any reported schema errors.
 - Manually re-check: exactly one product per special key, exactly one memory per geo-stalking pair, ≥4 products, ≥2 memories.
+- Confirm all custom products and `recyclePage` entries have valid, downloadable external HTTP/HTTPS image URLs (never local filenames or made-up filenames).
 - Confirm at least one product review uses `author: jim` and at least one uses `author: bender` (Star Trek / Futurama homage).
 - Confirm logo/chatBot.avatar/hackingInstructor.avatarImage are square images (or explicitly flag to the user which ones are not and why).
 - Confirm all image, resource, and challenge URLs are pure server-side URLs (no `#` or client-side fragments) so that non-browser clients and automated scripts will not experience fetch or parsing errors.
