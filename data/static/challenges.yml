@@ -1594,8 +1594,6 @@
 -
   name: 'Passkey Bypass'
   category: 'Broken Authentication'
-  tags:
-    - Passkey
   description: 'Log in as <i>passkey-user</i> with their passkey, but without ever having access to it.'
   difficulty: 5
   hints:
@@ -1608,8 +1606,6 @@
 -
   name: 'Passkey Hijack'
   category: 'Broken Access Control'
-  tags:
-    - Passkey
   description: 'Take over the existing passkey of <i>passkey-user</i> and use it to properly log in to their account.'
   difficulty: 5
   hints:
