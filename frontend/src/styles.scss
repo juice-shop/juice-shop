@@ -490,7 +490,7 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
 .lime-green-theme {
   @include custom-components-theme($lime-green-theme);
   @include css-vars($lime-green-theme);
-  @include theme-overrides(#cddc39, #303030, #ddee48, #000);
+  @include theme-overrides(#a3b216, #3a3a3a, #c4d52b, #000);
 }
 
 .neon-fire-theme {
