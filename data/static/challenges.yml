@@ -1,4 +1,3 @@
----
 -
   name: 'Password Hash Leak'
   category: 'Sensitive Data Exposure'

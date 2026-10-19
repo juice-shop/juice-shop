@@ -50,9 +50,13 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
-      <mat-select multiple [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
-        @for (tag of tags; track tag) {
-          <mat-option [value]="tag" class="mat-body-medium">{{ tag }}</mat-option>
+      <mat-select multiple panelClass="tag-select-panel" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
+        @for (group of tagGroups; track group.name) {
+          <mat-optgroup [label]="group.name">
+            @for (tag of group.tags; track tag) {
+              <mat-option [value]="tag" class="mat-body-medium">{{ tag }}</mat-option>
+            }
+          </mat-optgroup>
         }
       </mat-select>
     </mat-form-field>

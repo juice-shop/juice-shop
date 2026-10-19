@@ -161,4 +161,31 @@ describe('FilterSettingsComponent', () => {
         component.ngOnChanges()
         expect(component.tags).toEqual(['Apple', 'External Dependency', 'Zebra'])
     })
+
+    it('should cluster tags into alphabetical groups with alphabetical tags within each group', () => {
+        component.allChallenges = [
+            { tagList: ['Web3', 'Danger Zone', 'OSINT'], category: 'cat1' },
+            { tagList: ['Tutorial', 'Shenanigans', 'Code Analysis'], category: 'cat1' },
+            { tagList: ['Requires SMTP', 'Contraption'], category: 'cat2' }
+        ] as any[]
+        component.ngOnChanges()
+        expect(component.tagGroups).toEqual([
+            { name: 'Constraints', tags: ['Danger Zone', 'External Dependency'] },
+            { name: 'Flavor', tags: ['Contraption', 'Shenanigans'] },
+            { name: 'Learning', tags: ['Tutorial'] },
+            { name: 'Technique', tags: ['Code Analysis', 'OSINT'] },
+            { name: 'Technology', tags: ['Web3'] }
+        ])
+    })
+
+    it('should put unknown tags into Other group sorted alphabetically', () => {
+        component.allChallenges = [
+            { tagList: ['Custom Tag B', 'Web3', 'Custom Tag A'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        expect(component.tagGroups).toEqual([
+            { name: 'Other', tags: ['Custom Tag A', 'Custom Tag B'] },
+            { name: 'Technology', tags: ['Web3'] }
+        ])
+    })
 })
