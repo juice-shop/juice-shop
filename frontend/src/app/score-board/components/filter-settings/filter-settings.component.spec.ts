@@ -1,6 +1,7 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { MatSelect } from '@angular/material/select'
+import { MatOptgroup } from '@angular/material/core'
 import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
 import { DEFAULT_FILTER_SETTING } from '../../filter-settings/FilterSetting'
@@ -8,7 +9,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
-import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
 import { LocalBackupService } from '../../../Services/local-backup.service'
@@ -254,5 +255,38 @@ describe('FilterSettingsComponent', () => {
         expect(externalDepOption).toBeTruthy()
         expect(externalDepOption!.viewValue.trim()).toBe('Erfordert Abhängigkeit')
         expect(externalDepOption!.value).toBe('External Dependency')
+    })
+
+    it('should attach tooltips with delay to tag options in the tags dropdown without group tooltips', () => {
+        translateService.setTranslation('en', {
+            TAG_DANGER_ZONE: 'Danger Zone',
+            TAG_DANGER_ZONE_DESCRIPTION: 'Danger Zone Description'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        tagSelect.open()
+        fixture.detectChanges()
+
+        const tooltips = fixture.debugElement.queryAll(By.directive(MatTooltip))
+        const messages = tooltips.map((t) => t.injector.get(MatTooltip).message)
+        expect(messages).toContain('Danger Zone Description')
+
+        const optionTooltip = tooltips.find((t) => t.injector.get(MatTooltip).message === 'Danger Zone Description')
+        expect(optionTooltip).toBeTruthy()
+        expect(optionTooltip!.injector.get(MatTooltip).showDelay).toBe(500)
+
+        const optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups.length).toBe(1)
+        const optgroupDebugEls = fixture.debugElement.queryAll(By.directive(MatOptgroup))
+        for (const optgroupEl of optgroupDebugEls) {
+            expect(optgroupEl.injector.get(MatTooltip, null)).toBeNull()
+        }
     })
 })
