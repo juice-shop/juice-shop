@@ -9,7 +9,7 @@
   <div class="options-group">
     <mat-form-field>
       <mat-label>{{ 'LABEL_DIFFICULTY' | translate }}</mat-label>
-      <mat-select multiple [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
+      <mat-select multiple panelClass="filter-select-panel" [value]="filterSetting.difficulties" (selectionChange)="onDifficultyFilterChange($event.value)">
         <mat-select-trigger>
           @if (filterSetting.difficulties.length === 0) {
             {{ 'LABEL_DIFFICULTY' | translate }}
@@ -50,7 +50,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
-      <mat-select multiple panelClass="tag-select-panel" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
+      <mat-select multiple panelClass="filter-select-panel" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
         @for (group of tagGroups; track group.name) {
           <mat-optgroup [label]="group.name">
             @for (tag of group.tags; track tag) {

@@ -82,7 +82,11 @@
   }
 }
 
-::ng-deep .tag-select-panel .mat-mdc-optgroup {
+::ng-deep .filter-select-panel.mat-mdc-select-panel {
+  max-height: min(80vh, 320px) !important;
+}
+
+::ng-deep .filter-select-panel .mat-mdc-optgroup {
   margin: $space-2xs $space-xs;
   padding-bottom: $space-2xs;
 
