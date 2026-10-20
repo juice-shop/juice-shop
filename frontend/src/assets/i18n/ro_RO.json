@@ -403,6 +403,7 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "Marchează provocările ca depinzând strict de un serviciu extern, un endpoint local sau o cheie API pentru a putea fi rezolvate.",
   "TAG_EXTERNAL_DEPENDENCY_PRESENT": "{{dependency}} era disponibil în timpul pornirii serverului. Această provocare ar trebui să funcționeze conform așteptărilor, cu excepția cazului în care {{dependency}} devine indisponibil în timpul rulării.",
   "TAG_EXTERNAL_DEPENDENCY_MISSING": "{{dependency}} nu era disponibil în timpul pornirii serverului. Este probabil ca această provocare să nu funcționeze. Apasă pentru a citi documentația despre configurarea acestei dependențe.",
+  "TAG_DEPENDENCY": "Dependency",
   "TAG_WITH_CODING_CHALLENGE": "Cu provocare de codare",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marchează o provocare care include un exercițiu de identificare a liniei vulnerabile și alegerea soluției corecte.",
   "TAG_AI/LLM": "AI / LLM",
