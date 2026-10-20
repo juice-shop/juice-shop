@@ -30,7 +30,13 @@ export const TAG_GROUPS: Record<string, string> = {
   'Code Analysis': 'Technique',
   OSINT: 'Technique',
   'AI/LLM': 'Technology',
-  Web3: 'Technology'
+  Web3: 'Technology',
+  'Passkey/WebAuthn': 'Technology',
+  'JWT': 'Technology',
+  'NoSQL/MongoDB': 'Technology',
+  'OAuth': 'Technology',
+  SQL: 'Technology',
+  '2FA/TOTP': 'Technology'
 }
 
 export interface TagGroup {

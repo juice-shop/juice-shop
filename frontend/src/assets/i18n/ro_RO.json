@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marchează o provocare care include un exercițiu de identificare a liniei vulnerabile și alegerea soluției corecte.",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "Marchează provocările care necesită utilizarea unui model AI pentru a fi rezolvate.",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Broken Access Control",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Broken Anti Automation",
   "CATEGORY_BROKEN_AUTHENTICATION": "Broken Authentication",

@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marks a challenge that contains an associated coding challenge.",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "Marks challenges that require the use of an AI language model to be solved.",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "不適當的存取控制",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "不適當的反自動化",
   "CATEGORY_BROKEN_AUTHENTICATION": "不適當的驗證機制",

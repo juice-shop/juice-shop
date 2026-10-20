@@ -205,6 +205,8 @@
 -
   name: 'Christmas Special'
   category: 'Injection'
+  tags:
+    - SQL
   description: 'Order the Christmas special offer of 2014.'
   difficulty: 4
   hints:
@@ -278,6 +280,8 @@
 -
   name: 'Database Schema'
   category: 'Injection'
+  tags:
+    - SQL
   description: 'Exfiltrate the entire DB schema definition via SQL Injection.'
   difficulty: 3
   hints:
@@ -343,6 +347,8 @@
 -
   name: 'Ephemeral Accountant'
   category: 'Injection'
+  tags:
+    - SQL
   description: 'Log in with the (non-existing) accountant <i>acc0unt4nt@juice-sh.op</i> without ever registering that user.'
   difficulty: 4
   hints:
@@ -435,6 +441,8 @@
 -
   name: 'Forged Review'
   category: 'Broken Access Control'
+  tags:
+    - NoSQL/MongoDB
   description: 'Post a product review as another user or edit any user''s existing review.'
   difficulty: 3
   hints:
@@ -447,6 +455,8 @@
 -
   name: 'Forged Signed JWT'
   category: 'Vulnerable Components'
+  tags:
+    - JWT
   description: 'Forge an almost properly RSA-signed JWT token that impersonates the (non-existing) user <i>rsa_lord@juice-sh.op</i>.'
   difficulty: 6
   hints:
@@ -605,6 +615,7 @@
   tags:
     - Tutorial
     - Good for Demos
+    - SQL
   description: 'Log in with the administrator''s user account.'
   difficulty: 2
   hints:
@@ -637,6 +648,7 @@
   category: 'Injection'
   tags:
     - Tutorial
+    - SQL
   description: 'Log in with Bender''s user account.'
   difficulty: 3
   hints:
@@ -653,6 +665,7 @@
   category: 'Broken Authentication'
   tags:
     - Code Analysis
+    - OAuth
   description: 'Log in with Bjoern''s Gmail account <i>without</i> previously changing his password, applying SQL Injection, or hacking his Google account.'
   difficulty: 4
   hints:
@@ -667,6 +680,7 @@
   category: 'Injection'
   tags:
     - Tutorial
+    - SQL
   description: 'Log in with Jim''s user account.'
   difficulty: 3
   hints:
@@ -734,6 +748,8 @@
 -
   name: 'Multiple Likes'
   category: 'Broken Anti Automation'
+  tags:
+    - NoSQL/MongoDB
   description: 'Like any review at least three times as the same user.'
   difficulty: 6
   hints:
@@ -762,6 +778,7 @@
   category: 'Injection'
   tags:
     - Danger Zone
+    - NoSQL/MongoDB
   description: 'Let the server sleep for some time. (It has done more than enough hard work for you)'
   difficulty: 4
   hints:
@@ -779,6 +796,7 @@
   category: 'Injection'
   tags:
     - Danger Zone
+    - NoSQL/MongoDB
   description: 'All your orders are belong to us! Even the ones which don''t.'
   difficulty: 5
   hints:
@@ -794,6 +812,8 @@
 -
   name: 'NoSQL Manipulation'
   category: 'Injection'
+  tags:
+    - NoSQL/MongoDB
   description: 'Update multiple product reviews at the same time.'
   difficulty: 4
   hints:
@@ -1122,6 +1142,8 @@
 -
   name: 'Two Factor Authentication'
   category: 'Broken Authentication'
+  tags:
+    - 2FA/TOTP
   description: 'Solve the 2FA challenge for user "wurstbrot". (Disabling, bypassing or overwriting his 2FA settings does not count as a solution)'
   difficulty: 5
   hints:
@@ -1134,6 +1156,8 @@
 -
   name: 'Unsigned JWT'
   category: 'Vulnerable Components'
+  tags:
+    - JWT
   description: 'Forge an essentially unsigned JWT token that impersonates the (non-existing) user <i>jwtn3d@juice-sh.op</i>.'
   difficulty: 5
   hints:
@@ -1168,6 +1192,8 @@
 -
   name: 'User Credentials'
   category: 'Injection'
+  tags:
+    - SQL
   description: 'Retrieve a list of all user credentials via SQL Injection.'
   difficulty: 4
   hints:
@@ -1569,6 +1595,8 @@
 -
   name: 'Login Cloud Admin'
   category: 'Sensitive Data Exposure'
+  tags:
+    - JWT
   description: 'Log in with the cloud admin''s user account <i>without</i> using SQL Injection.'
   difficulty: 4
   hints:
@@ -1594,7 +1622,7 @@
   name: 'Passkey Bypass'
   category: 'Broken Authentication'
   tags:
-    - Passkey
+    - Passkey/WebAuthn
   description: 'Log in as <i>passkey-user</i> with their passkey, but without ever having access to it.'
   difficulty: 5
   hints:
@@ -1608,7 +1636,7 @@
   name: 'Passkey Hijack'
   category: 'Broken Access Control'
   tags:
-    - Passkey
+    - Passkey/WebAuthn
   description: 'Take over the existing passkey of <i>passkey-user</i> and use it to properly log in to their account.'
   difficulty: 5
   hints:

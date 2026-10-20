@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Markerar en utmaning som har en tillhörande kodningsutmaning.",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "Markerar utmaningar som kräver att en AI-språkmodell används för att lösas.",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Bristande åtkomstkontroll",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Bristande skydd mot automatisering",
   "CATEGORY_BROKEN_AUTHENTICATION": "Bristande autentisering",

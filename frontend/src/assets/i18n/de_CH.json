@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Markiert eine Herausforderung, die eine zugehörige Programmierherausforderung enthält.",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "Markiert Herausforderungen, deren Lösung die Verwendung eines KI-Sprachmodells erfordert.",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Fehler in der Zugriffskontrolle",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Fehlerhafte Anti-Automatisierung",
   "CATEGORY_BROKEN_AUTHENTICATION": "Fehler in der Authentifizierung",

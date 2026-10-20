@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Oznacza wyzwanie, które zawiera powiązane wyzwanie programistyczne.",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "Zaznacza wyzwania, które wymagają rozwiązania z wykorzystaniem modelu języka ptasiej grypy.",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Zepsuta kontrola dostępu",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Zepsuta antyautomatyka",
   "CATEGORY_BROKEN_AUTHENTICATION": "Złamane uwierzytelnienie",

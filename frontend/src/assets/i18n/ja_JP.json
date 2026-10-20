@@ -407,8 +407,6 @@
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "コーディングチャレンジに関連するチャレンジをマークします。",
   "TAG_AI/LLM": "AI / LLM",
   "TAG_AI/LLM_DESCRIPTION": "解決に AI 言語モデルの使用が必要なチャレンジに付与されます。",
-  "TAG_PASSKEY": "Passkey",
-  "TAG_PASSKEY_DESCRIPTION": "Marks challenges that revolve around passwordless login with Passkeys (WebAuthn).",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "アクセス制御の不備 (Broken Access Control)",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "自動化された攻撃に対する防御の不備 (Broken Anti Automation)",
   "CATEGORY_BROKEN_AUTHENTICATION": "認証の失敗 (Broken Authentication)",
