@@ -403,6 +403,7 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "解決するために外部サービス、ローカルエンドポイント、またはAPIキーが必須となるチャレンジに付与されます。",
   "TAG_EXTERNAL_DEPENDENCY_PRESENT": "サーバー起動時に {{dependency}} が利用可能でした。実行中に {{dependency}} が利用不能にならない限り、このチャレンジは正常に動作します。",
   "TAG_EXTERNAL_DEPENDENCY_MISSING": "サーバー起動時に {{dependency}} が利用できませんでした。このチャレンジは正常に動作しない可能性があります。この依存関係の設定方法については、こちらをクリックしてドキュメントをご覧ください。",
+  "TAG_DEPENDENCY": "Dependency",
   "TAG_WITH_CODING_CHALLENGE": "コーディングチャレンジ付き",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "コーディングチャレンジに関連するチャレンジをマークします。",
   "TAG_AI/LLM": "AI / LLM",
