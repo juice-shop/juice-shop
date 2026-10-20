@@ -237,6 +237,51 @@ describe('ScoreBoardComponent', () => {
             component.reset()
             expect(navSpy).toHaveBeenCalled()
         })
+
+        it('should trigger highlightTutorial for 1 second when Tutorial tag is selected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['Tutorial'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(true)
+
+                vi.advanceTimersByTime(1000)
+                expect(component.highlightTutorial).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
+
+        it('should trigger highlightCodingChallenge for 1 second when With Coding Challenge tag is selected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['With Coding Challenge'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightCodingChallenge).toBe(true)
+
+                vi.advanceTimersByTime(1000)
+                expect(component.highlightCodingChallenge).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
+
+        it('should reset highlights immediately when tags are deselected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['Tutorial', 'With Coding Challenge'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(true)
+                expect(component.highlightCodingChallenge).toBe(true)
+
+                component.filterSetting = { ...component.filterSetting, tags: [] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(false)
+                expect(component.highlightCodingChallenge).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
     })
 
     describe('repeatChallengeNotification', () => {

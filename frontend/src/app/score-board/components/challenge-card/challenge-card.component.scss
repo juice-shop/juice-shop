@@ -231,4 +231,29 @@ $badge-size: 24px;
   }
 }
 
+.badge.highlight-button {
+  animation: badge-highlight 1s ease-in-out;
+}
+
+@keyframes badge-highlight {
+  0%,
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+
+  25%,
+  75% {
+    box-shadow: 0 0 6px 2px var(--theme-accent);
+    filter: brightness(1.35);
+    transform: scale(1.2);
+  }
+
+  50% {
+    box-shadow: none;
+    filter: brightness(0.85);
+    transform: scale(1);
+  }
+}
+
 

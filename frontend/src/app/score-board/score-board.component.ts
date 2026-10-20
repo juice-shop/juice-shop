@@ -58,10 +58,15 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   public filterSetting: FilterSetting = structuredClone(DEFAULT_FILTER_SETTING)
   public applicationConfiguration: Config | null = null
   public lastUnlockedChallengeKey: string | null = null
+  public highlightTutorial = false
+  public highlightCodingChallenge = false
 
   public isInitialized = false
 
   private readonly subscriptions: Subscription[] = []
+  private previousFilterTags: string[] = []
+  private tutorialHighlightTimeout: ReturnType<typeof setTimeout> | null = null
+  private codingChallengeHighlightTimeout: ReturnType<typeof setTimeout> | null = null
 
   ngOnInit (): void {
     const dataLoaderSubscription = combineLatest([
@@ -101,6 +106,12 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy (): void {
+    if (this.tutorialHighlightTimeout) {
+      clearTimeout(this.tutorialHighlightTimeout)
+    }
+    if (this.codingChallengeHighlightTimeout) {
+      clearTimeout(this.codingChallengeHighlightTimeout)
+    }
     this.io.socket().off('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
     this.io.socket().off('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
     for (const subscription of this.subscriptions) {
@@ -155,6 +166,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   }
 
   filterAndUpdateChallenges (): void {
+    this.checkTagHighlight()
     this.filteredChallenges = sortChallenges(
       filterChallenges(this.allChallenges, {
         ...this.filterSetting,
@@ -163,7 +175,45 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     )
   }
 
-  // angular helper to speed up challenge rendering
+  private checkTagHighlight (): void {
+    const currentTags = this.filterSetting?.tags ?? []
+    if (currentTags.includes('Tutorial') && !this.previousFilterTags.includes('Tutorial')) {
+      if (this.tutorialHighlightTimeout) {
+        clearTimeout(this.tutorialHighlightTimeout)
+      }
+      this.highlightTutorial = true
+      this.tutorialHighlightTimeout = setTimeout(() => {
+        this.highlightTutorial = false
+        this.tutorialHighlightTimeout = null
+      }, 1000)
+    } else if (!currentTags.includes('Tutorial')) {
+      if (this.tutorialHighlightTimeout) {
+        clearTimeout(this.tutorialHighlightTimeout)
+        this.tutorialHighlightTimeout = null
+      }
+      this.highlightTutorial = false
+    }
+
+    if (currentTags.includes('With Coding Challenge') && !this.previousFilterTags.includes('With Coding Challenge')) {
+      if (this.codingChallengeHighlightTimeout) {
+        clearTimeout(this.codingChallengeHighlightTimeout)
+      }
+      this.highlightCodingChallenge = true
+      this.codingChallengeHighlightTimeout = setTimeout(() => {
+        this.highlightCodingChallenge = false
+        this.codingChallengeHighlightTimeout = null
+      }, 1000)
+    } else if (!currentTags.includes('With Coding Challenge')) {
+      if (this.codingChallengeHighlightTimeout) {
+        clearTimeout(this.codingChallengeHighlightTimeout)
+        this.codingChallengeHighlightTimeout = null
+      }
+      this.highlightCodingChallenge = false
+    }
+
+    this.previousFilterTags = [...currentTags]
+  }
+
   getChallengeKey (index: number, challenge: EnrichedChallenge): string {
     return challenge.key
   }
