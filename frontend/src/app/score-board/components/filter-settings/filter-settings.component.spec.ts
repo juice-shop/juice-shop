@@ -1,8 +1,10 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
+import { By } from '@angular/platform-browser'
+import { MatSelect } from '@angular/material/select'
 import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
 import { DEFAULT_FILTER_SETTING } from '../../filter-settings/FilterSetting'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
@@ -15,6 +17,7 @@ describe('FilterSettingsComponent', () => {
     let component: FilterSettingsComponent
     let fixture: ComponentFixture<FilterSettingsComponent>
     let dialog: MatDialog
+    let translateService: TranslateService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -43,6 +46,8 @@ describe('FilterSettingsComponent', () => {
         fixture = TestBed.createComponent(FilterSettingsComponent)
         component = fixture.componentInstance
         dialog = TestBed.inject(MatDialog)
+        translateService = TestBed.inject(TranslateService)
+        translateService.use('en')
 
         component.allChallenges = []
         component.filterSetting = { ...DEFAULT_FILTER_SETTING }
@@ -187,5 +192,67 @@ describe('FilterSettingsComponent', () => {
             { name: 'Other', tags: ['Custom Tag A', 'Custom Tag B'] },
             { name: 'Technology', tags: ['Web3'] }
         ])
+    })
+
+    it('should translate tag options in the tags dropdown while maintaining raw tag values', () => {
+        translateService.setTranslation('en', {
+            TAG_DANGER_ZONE: 'Danger Zone Translated',
+            TAG_OSINT: 'OSINT Translated'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone', 'OSINT'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        const options = tagSelect.options.toArray()
+        const dangerZoneOption = options.find((opt) => opt.value === 'Danger Zone')
+        const osintOption = options.find((opt) => opt.value === 'OSINT')
+
+        expect(dangerZoneOption).toBeTruthy()
+        expect(dangerZoneOption!.viewValue.trim()).toBe('Danger Zone Translated')
+        expect(dangerZoneOption!.value).toBe('Danger Zone')
+
+        expect(osintOption).toBeTruthy()
+        expect(osintOption!.viewValue.trim()).toBe('OSINT Translated')
+        expect(osintOption!.value).toBe('OSINT')
+    })
+
+    it('should translate External Dependency tag option with injected dependency translation', () => {
+        translateService.setTranslation('en', {
+            TAG_EXTERNAL_DEPENDENCY: 'Requires {{dependency}}',
+            TAG_DEPENDENCY: 'Dependency'
+        }, true)
+        translateService.setTranslation('de', {
+            TAG_EXTERNAL_DEPENDENCY: 'Erfordert {{dependency}}',
+            TAG_DEPENDENCY: 'Abhängigkeit'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Requires SMTP'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        let options = tagSelect.options.toArray()
+        let externalDepOption = options.find((opt) => opt.value === 'External Dependency')
+
+        expect(externalDepOption).toBeTruthy()
+        expect(externalDepOption!.viewValue.trim()).toBe('Requires Dependency')
+        expect(externalDepOption!.value).toBe('External Dependency')
+
+        translateService.use('de')
+        fixture.detectChanges()
+
+        options = tagSelect.options.toArray()
+        externalDepOption = options.find((opt) => opt.value === 'External Dependency')
+        expect(externalDepOption).toBeTruthy()
+        expect(externalDepOption!.viewValue.trim()).toBe('Erfordert Abhängigkeit')
+        expect(externalDepOption!.value).toBe('External Dependency')
     })
 })

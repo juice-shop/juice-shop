@@ -54,7 +54,7 @@
         @for (group of tagGroups; track group.name) {
           <mat-optgroup [label]="group.name">
             @for (tag of group.tags; track tag) {
-              <mat-option [value]="tag" class="mat-body-medium">{{ tag }}</mat-option>
+              <mat-option [value]="tag" class="mat-body-medium">{{ ('TAG_' + tag.toUpperCase().split(' ').join('_')) | translate:{ dependency: ('TAG_DEPENDENCY' | translate) } }}</mat-option>
             }
           </mat-optgroup>
         }
