@@ -52,7 +52,7 @@
       <mat-label>{{ 'LABEL_TAGS' | translate }}</mat-label>
       <mat-select multiple panelClass="filter-select-panel" [value]="filterSetting.tags" (selectionChange)="onTagFilterChange($event.value)">
         @for (group of tagGroups; track group.name) {
-          <mat-optgroup [label]="group.name">
+          <mat-optgroup [label]="group.name | translate">
             @for (tag of group.tags; track tag) {
               <mat-option [value]="tag" class="mat-body-medium" [matTooltip]="('TAG_' + tag.toUpperCase().split(' ').join('_') + '_DESCRIPTION') | translate" [matTooltipShowDelay]="500">{{ ('TAG_' + tag.toUpperCase().split(' ').join('_')) | translate:{ dependency: ('TAG_DEPENDENCY' | translate) } }}</mat-option>
             }

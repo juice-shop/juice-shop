@@ -17,26 +17,26 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
 export const TAG_GROUPS: Record<string, string> = {
-  'Danger Zone': 'Constraints',
-  'External Dependency': 'Constraints',
-  'Prerequisite': 'Constraints',
-  Contraption: 'Flavor',
-  Shenanigans: 'Flavor',
-  'Good for Demos': 'Learning',
-  'Good Practice': 'Learning',
-  Tutorial: 'Learning',
-  'With Coding Challenge': 'Learning',
-  'Brute Force': 'Technique',
-  'Code Analysis': 'Technique',
-  OSINT: 'Technique',
-  'AI/LLM': 'Technology',
-  Web3: 'Technology',
-  'Passkey/WebAuthn': 'Technology',
-  'JWT': 'Technology',
-  'NoSQL/MongoDB': 'Technology',
-  'OAuth': 'Technology',
-  SQL: 'Technology',
-  '2FA/TOTP': 'Technology'
+  'Danger Zone': 'TAG_GROUP_CONSTRAINTS',
+  'External Dependency': 'TAG_GROUP_CONSTRAINTS',
+  'Prerequisite': 'TAG_GROUP_CONSTRAINTS',
+  Contraption: 'TAG_GROUP_FLAVOR',
+  Shenanigans: 'TAG_GROUP_FLAVOR',
+  'Good for Demos': 'TAG_GROUP_LEARNING',
+  'Good Practice': 'TAG_GROUP_LEARNING',
+  Tutorial: 'TAG_GROUP_LEARNING',
+  'With Coding Challenge': 'TAG_GROUP_LEARNING',
+  'Brute Force': 'TAG_GROUP_TECHNIQUE',
+  'Code Analysis': 'TAG_GROUP_TECHNIQUE',
+  OSINT: 'TAG_GROUP_TECHNIQUE',
+  'AI/LLM': 'TAG_GROUP_TECHNOLOGY',
+  Web3: 'TAG_GROUP_TECHNOLOGY',
+  'Passkey/WebAuthn': 'TAG_GROUP_TECHNOLOGY',
+  JWT: 'TAG_GROUP_TECHNOLOGY',
+  'NoSQL/MongoDB': 'TAG_GROUP_TECHNOLOGY',
+  OAuth: 'TAG_GROUP_TECHNOLOGY',
+  SQL: 'TAG_GROUP_TECHNOLOGY',
+  '2FA/TOTP': 'TAG_GROUP_TECHNOLOGY'
 }
 
 export interface TagGroup {

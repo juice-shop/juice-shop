@@ -176,11 +176,11 @@ describe('FilterSettingsComponent', () => {
         ] as any[]
         component.ngOnChanges()
         expect(component.tagGroups).toEqual([
-            { name: 'Constraints', tags: ['Danger Zone', 'External Dependency'] },
-            { name: 'Flavor', tags: ['Contraption', 'Shenanigans'] },
-            { name: 'Learning', tags: ['Tutorial'] },
-            { name: 'Technique', tags: ['Code Analysis', 'OSINT'] },
-            { name: 'Technology', tags: ['Web3'] }
+            { name: 'TAG_GROUP_CONSTRAINTS', tags: ['Danger Zone', 'External Dependency'] },
+            { name: 'TAG_GROUP_FLAVOR', tags: ['Contraption', 'Shenanigans'] },
+            { name: 'TAG_GROUP_LEARNING', tags: ['Tutorial'] },
+            { name: 'TAG_GROUP_TECHNIQUE', tags: ['Code Analysis', 'OSINT'] },
+            { name: 'TAG_GROUP_TECHNOLOGY', tags: ['Web3'] }
         ])
     })
 
@@ -191,7 +191,7 @@ describe('FilterSettingsComponent', () => {
         component.ngOnChanges()
         expect(component.tagGroups).toEqual([
             { name: 'Other', tags: ['Custom Tag A', 'Custom Tag B'] },
-            { name: 'Technology', tags: ['Web3'] }
+            { name: 'TAG_GROUP_TECHNOLOGY', tags: ['Web3'] }
         ])
     })
 
@@ -288,5 +288,39 @@ describe('FilterSettingsComponent', () => {
         for (const optgroupEl of optgroupDebugEls) {
             expect(optgroupEl.injector.get(MatTooltip, null)).toBeNull()
         }
+    })
+
+    it('should translate tag group labels in the tags dropdown', () => {
+        translateService.setTranslation('en', {
+            TAG_GROUP_CONSTRAINTS: 'Constraints English',
+            TAG_GROUP_TECHNOLOGY: 'Technology English'
+        }, true)
+        translateService.setTranslation('de', {
+            TAG_GROUP_CONSTRAINTS: 'Einschränkungen Deutsch',
+            TAG_GROUP_TECHNOLOGY: 'Technologie Deutsch'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone', 'Web3'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        tagSelect.open()
+        fixture.detectChanges()
+
+        let optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups.length).toBe(2)
+        expect(optgroups[0].label).toBe('Constraints English')
+        expect(optgroups[1].label).toBe('Technology English')
+
+        translateService.use('de')
+        fixture.detectChanges()
+
+        optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups[0].label).toBe('Einschränkungen Deutsch')
+        expect(optgroups[1].label).toBe('Technologie Deutsch')
     })
 })
