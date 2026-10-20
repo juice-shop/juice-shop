@@ -403,6 +403,7 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "标记挑战密切取决于外部服务、本地端点或 API 密钥，才能解决。",
   "TAG_EXTERNAL_DEPENDENCY_PRESENT": "服务器启动时{{dependency}}可用。除非{{dependency}}在运行时不可用，否则此挑战应能按预期进行。",
   "TAG_EXTERNAL_DEPENDENCY_MISSING": "在服务器启动期间，{{dependency}}不可用。此挑战可能无法进行。点击阅读关于设置此依赖项的文档。",
+  "TAG_DEPENDENCY": "Dependency",
   "TAG_WITH_CODING_CHALLENGE": "编程挑战",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "标记挑战中包含编码挑战。",
   "TAG_AI/LLM": "AI / LLM",
