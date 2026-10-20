@@ -403,6 +403,7 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "Markerar utmaningar som är helt beroende av en extern tjänst, lokal slutpunkt eller API-nyckel för att kunna lösas.",
   "TAG_EXTERNAL_DEPENDENCY_PRESENT": "{{dependency}} var tillgänglig när servern startade. Den här utmaningen bör fungera som avsett såvida inte {{dependency}} blir otillgänglig under körning.",
   "TAG_EXTERNAL_DEPENDENCY_MISSING": "{{dependency}} var inte tillgänglig när servern startade. Den här utmaningen kommer sannolikt inte att fungera. Klicka för att läsa dokumentationen om hur beroendet konfigureras.",
+  "TAG_DEPENDENCY": "Dependency",
   "TAG_WITH_CODING_CHALLENGE": "Med kodningsutmaning",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Markerar en utmaning som har en tillhörande kodningsutmaning.",
   "TAG_AI/LLM": "AI / LLM",
