@@ -403,6 +403,7 @@
   "TAG_EXTERNAL_DEPENDENCY_DESCRIPTION": "Identifica desafios que dependem estritamente de um serviço externo, endpoint local ou chave de uma API para serem resolvidos.",
   "TAG_EXTERNAL_DEPENDENCY_PRESENT": "{{dependency}} estava disponível durante o arranque do servidor. Este desafio deve funcionar como esperado, a menos que {{dependency}} fique indisponível em tempo de execução.",
   "TAG_EXTERNAL_DEPENDENCY_MISSING": "{{dependency}} não estava disponível durante o arranque do servidor. É provável que este desafio não funcione. Clique para ler a documentação sobre a configuração desta dependência.",
+  "TAG_DEPENDENCY": "Dependency",
   "TAG_WITH_CODING_CHALLENGE": "Com desafio de programação",
   "TAG_WITH_CODING_CHALLENGE_DESCRIPTION": "Marca um desafio que contém um desafio de programação associado.",
   "TAG_AI/LLM": "IA / LLM",
