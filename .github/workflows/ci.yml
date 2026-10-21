@@ -254,13 +254,13 @@ jobs:
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
         timeout-minutes: 75
-        uses: cypress-io/github-action@09090944bd8aaa2a517cefb6e38bf1aae336b42b #v7.4.3
+        uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
         with:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
           wait-on: http://127.0.0.1:3000
-          wait-on-timeout: 300
+          wait-on-timeout: 90
           record: true
           parallel: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
@@ -272,13 +272,13 @@ jobs:
       - name: "Execute end-to-end tests on Mac"
         if: ${{ matrix.os == 'macos-latest' }}
         timeout-minutes: 75
-        uses: cypress-io/github-action@09090944bd8aaa2a517cefb6e38bf1aae336b42b #v7.4.3
+        uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
         with:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
           wait-on: http://127.0.0.1:3000
-          wait-on-timeout: 300
+          wait-on-timeout: 90
           record: true
           parallel: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
