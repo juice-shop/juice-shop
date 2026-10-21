@@ -420,6 +420,8 @@
   "TAG_SQL_DESCRIPTION": "Markiert Herausforderungen, die eine relationale Datenbank betreffen, die über SQL abgefragt wird.",
   "TAG_2FA/TOTP": "2FA / TOTP",
   "TAG_2FA/TOTP_DESCRIPTION": "Markiert Herausforderungen, die sich um Zwei-Faktor-Authentifizierung mit zeitbasierten Einmal-Passwörtern (TOTP) drehen.",
+  "TAG_XML": "XML",
+  "TAG_XML_DESCRIPTION": "Marks challenges that involve Extensible Markup Language (XML) files.",
   "TAG_GROUP_CONSTRAINTS": "Constraints",
   "TAG_GROUP_FLAVOR": "Flavor",
   "TAG_GROUP_LEARNING": "Learning",
