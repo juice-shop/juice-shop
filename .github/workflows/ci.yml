@@ -232,6 +232,7 @@ jobs:
             NODE_ENV=unsafe npm run test:server
   e2e-test:
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
@@ -252,13 +253,16 @@ jobs:
         run: npm install
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
+        timeout-minutes: 75
         uses: cypress-io/github-action@09090944bd8aaa2a517cefb6e38bf1aae336b42b #v7.4.3
         with:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
-          wait-on: http://localhost:3000
+          wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 300
           record: true
+          parallel: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
@@ -267,13 +271,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: "Execute end-to-end tests on Mac"
         if: ${{ matrix.os == 'macos-latest' }}
+        timeout-minutes: 75
         uses: cypress-io/github-action@09090944bd8aaa2a517cefb6e38bf1aae336b42b #v7.4.3
         with:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
-          wait-on: http://localhost:3000
+          wait-on: http://127.0.0.1:3000
+          wait-on-timeout: 300
           record: true
+          parallel: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
           CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
