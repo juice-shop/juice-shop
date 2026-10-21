@@ -5,19 +5,16 @@
 
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { ReactiveFormsModule } from '@angular/forms'
-import { MatCardModule } from '@angular/material/card'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { FileItem, FileUploadModule } from 'ng2-file-upload'
-import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { MatInputModule } from '@angular/material/input'
-import { MatButtonModule } from '@angular/material/button'
-
+import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
 import { ComplaintComponent } from './complaint.component'
+import { FileItem, FileUploadModule } from 'ng2-file-upload'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { MatCardModule } from '@angular/material/card'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button'
+import { MatInputModule } from '@angular/material/input'
 import { of, throwError } from 'rxjs'
-
-import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { EventEmitter } from '@angular/core'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 
@@ -26,7 +23,7 @@ describe('ComplaintComponent', () => {
     let fixture: ComponentFixture<ComplaintComponent>
     let userService: any
     let complaintService: any
-    let translateService
+    let translateService: any
 
     beforeEach(async () => {
         userService = {
@@ -47,14 +44,15 @@ describe('ComplaintComponent', () => {
         translateService.onDefaultLangChange = new EventEmitter()
 
         await TestBed.configureTestingModule({
-            imports: [ReactiveFormsModule,
+            imports: [
                 FileUploadModule,
                 TranslateModule.forRoot(),
                 MatCardModule,
                 MatFormFieldModule,
                 MatInputModule,
                 MatButtonModule,
-                ComplaintComponent],
+                ComplaintComponent
+            ],
             providers: [
                 { provide: UserService, useValue: userService },
                 { provide: ComplaintService, useValue: complaintService },
@@ -76,35 +74,34 @@ describe('ComplaintComponent', () => {
         expect(component).toBeTruthy()
     })
 
-    it('should have customerControl as disabled', () => {
-        expect(component.customerControl.disabled).toBe(true)
+    it('should have customer field as disabled', () => {
+        expect(component.complaintForm.customer().disabled()).toBe(true)
     })
 
     it('should be compulsory to provide a message', () => {
-        component.messageControl.setValue('')
-        expect(component.messageControl.valid).toBeFalsy()
-        component.messageControl.setValue('aa')
-        expect(component.messageControl.valid).toBe(true)
+        component.complaintModel.update(m => ({ ...m, message: '' }))
+        expect(component.complaintForm.message().valid()).toBeFalsy()
+        component.complaintModel.update(m => ({ ...m, message: 'aa' }))
+        expect(component.complaintForm.message().valid()).toBe(true)
     })
 
     it('should have a message of maximum 4096 characters', () => {
-        component.messageControl.setValue('a'.repeat(4096 + 1))
-        expect(component.messageControl.valid).toBeFalsy()
-        component.messageControl.setValue("a")
-        expect(component.messageControl.valid).toBe(true)
+        component.complaintModel.update(m => ({ ...m, message: 'a'.repeat(4096 + 1) }))
+        expect(component.complaintForm.message().valid()).toBeFalsy()
+        component.complaintModel.update(m => ({ ...m, message: 'a' }))
+        expect(component.complaintForm.message().valid()).toBe(true)
     })
 
     it('should reset form by calling resetForm', () => {
-        component.messageControl.setValue('Message')
+        component.complaintModel.update(m => ({ ...m, message: 'Message' }))
         component.resetForm()
-        expect(component.messageControl.pristine).toBe(true)
-        expect(component.messageControl.untouched).toBe(true)
-        expect(component.messageControl.value).toBe('')
+        expect(component.complaintForm.message().dirty()).toBe(false)
+        expect(component.complaintModel().message).toBe('')
     })
 
     it('should miss complaint object if retrieving currently logged in user fails', () => {
         vi.spyOn(console, 'log').mockImplementation(() => {})
-        userService.whoAmI.mockReturnValue(throwError('Error'))
+        userService.whoAmI.mockReturnValue(throwError(() => 'Error'))
         component.ngOnInit()
         expect(component.complaint).toBeUndefined()
     })
@@ -113,13 +110,14 @@ describe('ComplaintComponent', () => {
         userService.whoAmI.mockReturnValue(of({ email: 'x@x.xx' }))
         component.ngOnInit()
         expect(component.userEmail).toBe('x@x.xx')
+        expect(component.complaintModel().customer).toBe('x@x.xx')
     })
 
     it('should hold no email if current user is not logged in', () => {
         userService.whoAmI.mockReturnValue(of({}))
         component.ngOnInit()
         expect(component.userEmail).toBeUndefined()
-        expect(component.customerControl.value).toBeUndefined()
+        expect(component.complaintModel().customer).toBe('')
     })
 
     it('should display support message with #id and reset complaint form on saving complaint', () => {
@@ -164,7 +162,7 @@ describe('ComplaintComponent', () => {
             complaintService.save.mockReturnValue(of({ id: 99 }))
             translateService.get.mockReturnValue(throwError(() => 'CUSTOMER_SUPPORT_COMPLAINT_REPLY'))
             component.complaint = {}
-            component.messageControl.setValue('a complaint message')
+            component.complaintModel.update(m => ({ ...m, message: 'a complaint message' }))
             component.saveComplaint()
             expect(component.confirmation).toBe('CUSTOMER_SUPPORT_COMPLAINT_REPLY')
         })
