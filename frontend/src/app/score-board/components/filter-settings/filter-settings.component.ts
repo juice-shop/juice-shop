@@ -36,7 +36,8 @@ export const TAG_GROUPS: Record<string, string> = {
   'NoSQL/MongoDB': 'TAG_GROUP_TECHNOLOGY',
   OAuth: 'TAG_GROUP_TECHNOLOGY',
   SQL: 'TAG_GROUP_TECHNOLOGY',
-  '2FA/TOTP': 'TAG_GROUP_TECHNOLOGY'
+  '2FA/TOTP': 'TAG_GROUP_TECHNOLOGY',
+  'XML': 'TAG_GROUP_TECHNOLOGY'
 }
 
 export interface TagGroup {

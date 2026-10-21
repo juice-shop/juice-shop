@@ -1279,6 +1279,7 @@
   category: 'XXE'
   tags:
     - Danger Zone
+    - XML
   description: 'Retrieve the content of <code>C:\Windows\system.ini</code> or <code>/etc/passwd</code> from the server.'
   difficulty: 3
   hints:
@@ -1295,6 +1296,7 @@
   category: 'XXE'
   tags:
     - Danger Zone
+    - XML
   description: 'Give the server something to chew on for quite a while.'
   difficulty: 5
   hints:
