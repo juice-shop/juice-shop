@@ -231,13 +231,7 @@ jobs:
             NODE_ENV=tutorial npm run test:server &&
             NODE_ENV=unsafe npm run test:server
   e2e-test:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 120
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        browser: [chrome] # FIXME Switch back to [chrome, firefox] after debugging extreme flakiness of Firefox on CI/CD
-      fail-fast: false
+    runs-on: ubuntu-latest
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
@@ -251,38 +245,17 @@ jobs:
           npm install --global @angular/cli
       - name: "Install application"
         run: npm install
-      - name: "Execute end-to-end tests on Ubuntu"
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        timeout-minutes: 75
+      - name: "Execute end-to-end tests"
         uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
         with:
           install: false
-          browser: ${{ matrix.browser }}
+          browser: chrome
           start: npm start
           wait-on: http://127.0.0.1:3000
           wait-on-timeout: 90
           record: true
-          group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
-          ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: "Execute end-to-end tests on Mac"
-        if: ${{ matrix.os == 'macos-latest' }}
-        timeout-minutes: 75
-        uses: cypress-io/github-action@c541a95ea92d9239347a2355f2e895cd4b3f8060 #v7.4.6
-        with:
-          install: false
-          browser: ${{ matrix.browser }}
-          start: npm start
-          wait-on: http://127.0.0.1:3000
-          wait-on-timeout: 90
-          record: true
-          parallel: true
-          group: ${{ matrix.browser }} @ ${{ matrix.os }}
-        env:
-          CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
           ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
