@@ -262,7 +262,6 @@ jobs:
           wait-on: http://127.0.0.1:3000
           wait-on-timeout: 90
           record: true
-          parallel: true
           group: ${{ matrix.browser }} @ ${{ matrix.os }}
         env:
           SOLUTIONS_WEBHOOK: ${{ secrets.E2E_SOLUTIONS_WEBHOOK }}
