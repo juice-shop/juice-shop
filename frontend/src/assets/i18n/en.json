@@ -542,5 +542,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Delete conversation",
   "CHATBOT_DELETE_ALL": "Delete all",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Delete all conversations",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Oops! Looks like our AI brain is taking a juice break. The AI endpoint is not configured or reachable. Please talk to the shop administrator to get it back on track!"
 }

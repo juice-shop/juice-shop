@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, signal, viewChild, ElementRef, afterNextRender, inject, Injector, runInInjectionContext, OnInit } from '@angular/core'
+import { Component, ChangeDetectionStrategy, signal, viewChild, viewChildren, ElementRef, afterNextRender, inject, Injector, runInInjectionContext, OnInit } from '@angular/core'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
+import { FormsModule } from '@angular/forms'
+import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
+import { TextFieldModule } from '@angular/cdk/text-field'
 import { TranslateModule } from '@ngx-translate/core'
 import { ChatService } from '../../Services/chat.service'
 import { ConversationStorageService } from '../../Services/conversation-storage.service'
@@ -23,7 +26,10 @@ import { type ChatMessage, type StoredConversation } from '../chat.model'
   styleUrls: ['./chat-conversation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    FormsModule,
+    MatButtonModule,
     MatIconModule,
+    TextFieldModule,
     ChatInputBoxComponent,
     TranslateModule,
     RouterLink
@@ -41,6 +47,8 @@ export class ChatConversationComponent implements OnInit {
   private readonly injector = inject(Injector)
   private readonly chatWindow = viewChild<ElementRef<HTMLDivElement>>('chatWindow')
   private readonly chatInput = viewChild(ChatInputBoxComponent)
+  private readonly editTextarea = viewChild<ElementRef<HTMLTextAreaElement>>('editTextarea')
+  private readonly editButtons = viewChildren<ElementRef<HTMLButtonElement>>('editButton')
 
   messages = signal<ChatMessage[]>([])
   isLoading = signal(false)
@@ -48,6 +56,8 @@ export class ChatConversationComponent implements OnInit {
   isToolCallsCollapsed = signal(true)
   messageInput = signal('')
   chatBotName = signal('Juicy the Smart Assistant')
+  editingIndex = signal<number | null>(null)
+  editDraft = signal('')
 
   private conversationId = ''
 
@@ -103,15 +113,73 @@ export class ChatConversationComponent implements OnInit {
     this.conversationStorage.save(conversation)
   }
 
+  private closeEditor () {
+    this.editingIndex.set(null)
+    this.editDraft.set('')
+  }
+
   toggleToolCalls () {
     this.isToolCallsCollapsed.update(prev => !prev)
+  }
+
+  startEdit (index: number) {
+    const message = this.messages()[index]
+    if (this.isLoading() || message?.role !== 'user') return
+
+    this.editingIndex.set(index)
+    this.editDraft.set(message.content)
+    runInInjectionContext(this.injector, () => {
+      afterNextRender(() => {
+        this.editTextarea()?.nativeElement.focus()
+      })
+    })
+  }
+
+  cancelEdit () {
+    const index = this.editingIndex()
+    this.closeEditor()
+    if (index === null) return
+
+    const editButtonPosition = this.messages().slice(0, index).filter(m => m.role === 'user').length
+    runInInjectionContext(this.injector, () => {
+      afterNextRender(() => {
+        this.editButtons()[editButtonPosition]?.nativeElement.focus()
+      })
+    })
+  }
+
+  onEditEnterKey (event: Event) {
+    if (!(event as KeyboardEvent).shiftKey) {
+      event.preventDefault()
+      void this.saveEdit()
+    }
+  }
+
+  async saveEdit () {
+    const index = this.editingIndex()
+    const content = this.editDraft().trim()
+    if (index === null || !content) return
+
+    if (content === this.messages()[index].content) {
+      this.cancelEdit()
+      return
+    }
+
+    this.closeEditor()
+    this.messages.update(prev => [...prev.slice(0, index), { role: 'user', content }])
+    await this.streamAssistantReply()
   }
 
   async sendMessage (content: string) {
     if (!content || this.isLoading()) return
 
+    this.closeEditor()
     this.messages.update(prev => [...prev, { role: 'user', content }])
     this.messageInput.set('')
+    await this.streamAssistantReply()
+  }
+
+  private async streamAssistantReply () {
     this.isLoading.set(true)
     this.scrollToBottom()
     this.chatInput()?.focus()

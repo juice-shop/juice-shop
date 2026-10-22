@@ -226,6 +226,80 @@ describe('ChatConversationComponent', () => {
         expect(component.showToolCalls()).toBe(false)
     })
 
+    describe('message editing', () => {
+        beforeEach(() => {
+            component.messages.set([
+                { role: 'user', content: 'First question' },
+                { role: 'assistant', content: 'First answer' },
+                { role: 'user', content: 'Second question' },
+                { role: 'assistant', content: 'Second answer' }
+            ])
+        })
+
+        it('should start editing a user message with its content as draft', () => {
+            component.startEdit(2)
+            expect(component.editingIndex()).toBe(2)
+            expect(component.editDraft()).toBe('Second question')
+        })
+
+        it('should not start editing an assistant message or while a response is loading', () => {
+            component.startEdit(1)
+            expect(component.editingIndex()).toBeNull()
+
+            component.isLoading.set(true)
+            component.startEdit(0)
+            expect(component.editingIndex()).toBeNull()
+        })
+
+        it('should replace the edited message, drop all later messages and regenerate the answer', async () => {
+            async function* contentStream() {
+                yield { deltaContent: 'New answer' }
+            }
+            chatService.streamMessages.mockReturnValue(contentStream())
+
+            component.startEdit(2)
+            component.editDraft.set('Changed question')
+            await component.saveEdit()
+
+            const history = [
+                { role: 'user', content: 'First question' },
+                { role: 'assistant', content: 'First answer' },
+                { role: 'user', content: 'Changed question' }
+            ]
+            expect(chatService.streamMessages).toHaveBeenCalledWith(history)
+            expect(component.messages()).toEqual([...history, { role: 'assistant', content: 'New answer' }])
+            expect(conversationStorage.save.mock.lastCall[0].messages).toEqual(component.messages())
+            expect(component.editingIndex()).toBeNull()
+        })
+
+        it('should not regenerate the answer for an empty or unchanged draft', async () => {
+            component.startEdit(0)
+            component.editDraft.set('   ')
+            await component.saveEdit()
+            expect(component.editingIndex()).toBe(0)
+
+            component.editDraft.set('First question')
+            await component.saveEdit()
+            expect(component.editingIndex()).toBeNull()
+
+            expect(chatService.streamMessages).not.toHaveBeenCalled()
+            expect(component.messages().length).toBe(4)
+        })
+
+        it('should close an open editor when a new message is sent', async () => {
+            async function* emptyStream() { }
+            chatService.streamMessages.mockReturnValue(emptyStream())
+
+            component.startEdit(0)
+            component.editDraft.set('Unsaved draft')
+            await component.sendMessage('Third question')
+
+            expect(component.editingIndex()).toBeNull()
+            expect(component.editDraft()).toBe('')
+            expect(component.messages()[0].content).toBe('First question')
+        })
+    })
+
     describe('template rendering', () => {
         it('should render the chat header with back link, avatar and bot title', () => {
             const compiled: HTMLElement = fixture.nativeElement
@@ -328,6 +402,86 @@ describe('ChatConversationComponent', () => {
             fixture.detectChanges()
             expect(compiled.querySelector('.previous-tool-calls')).toBeTruthy()
             expect(compiled.querySelectorAll('.tool-call-card.mini').length).toBe(1)
+        })
+
+        it('should render an edit button only for user messages and not while loading', () => {
+            component.messages.set([
+                { role: 'user', content: 'Hello bot' },
+                { role: 'assistant', content: 'Hi user' }
+            ])
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelectorAll('.edit-message').length).toBe(1)
+            expect(compiled.querySelector('.message-row.user .edit-message')).toBeTruthy()
+
+            component.isLoading.set(true)
+            fixture.detectChanges()
+            expect(compiled.querySelector('.edit-message')).toBeNull()
+        })
+
+        it('should open a focused, prefilled editor that only saves a changed draft', async () => {
+            component.messages.set([{ role: 'user', content: 'Hello bot' }])
+            fixture.detectChanges()
+
+            ;(fixture.nativeElement.querySelector('.edit-message') as HTMLElement).click()
+            fixture.detectChanges()
+            await fixture.whenStable()
+
+            const compiled: HTMLElement = fixture.nativeElement
+            const textarea = compiled.querySelector('.chat-edit-textarea') as HTMLTextAreaElement
+            const save = compiled.querySelector('.chat-edit-save') as HTMLButtonElement
+            expect(compiled.querySelector('.chat-bubble')).toBeNull()
+            expect(textarea.value).toBe('Hello bot')
+            expect(textarea.getAttribute('aria-label')).toBe('CHATBOT_EDIT_MESSAGE')
+            expect(document.activeElement).toBe(textarea)
+            expect(save.disabled).toBe(true)
+
+            component.editDraft.set('Hello there')
+            fixture.detectChanges()
+            expect(save.disabled).toBe(false)
+        })
+
+        it('should cancel via Escape or the cancel button and return focus to the edit button', async () => {
+            component.messages.set([
+                { role: 'user', content: 'First' },
+                { role: 'assistant', content: 'Answer' },
+                { role: 'user', content: 'Second' }
+            ])
+            fixture.detectChanges()
+            const compiled: HTMLElement = fixture.nativeElement
+            const secondEditButton = () => compiled.querySelectorAll('.edit-message')[1] as HTMLElement
+
+            secondEditButton().click()
+            fixture.detectChanges()
+            await fixture.whenStable()
+            fixture.nativeElement.querySelector('.chat-edit-textarea').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }))
+            fixture.detectChanges()
+            await fixture.whenStable()
+            expect(component.editingIndex()).toBeNull()
+            expect(document.activeElement).toBe(secondEditButton())
+
+            secondEditButton().click()
+            fixture.detectChanges()
+            ;(compiled.querySelector('.chat-edit-cancel') as HTMLElement).click()
+            fixture.detectChanges()
+            await fixture.whenStable()
+            expect(component.editingIndex()).toBeNull()
+            expect(document.activeElement).toBe(secondEditButton())
+            expect(compiled.querySelectorAll('.chat-bubble.user')[1].textContent).toContain('Second')
+        })
+
+        it('should save on Enter but not on Shift+Enter', () => {
+            const saveSpy = vi.spyOn(component, 'saveEdit').mockResolvedValue()
+            component.messages.set([{ role: 'user', content: 'Hello bot' }])
+            component.startEdit(0)
+            fixture.detectChanges()
+
+            const textarea = fixture.nativeElement.querySelector('.chat-edit-textarea') as HTMLTextAreaElement
+            textarea.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', shiftKey: true }))
+            expect(saveSpy).not.toHaveBeenCalled()
+
+            textarea.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }))
+            expect(saveSpy).toHaveBeenCalledTimes(1)
         })
     })
 
