@@ -5,9 +5,10 @@
 
 import packageJson from '../package.json'
 import fs from 'node:fs'
+import http from 'node:http'
+import https from 'node:https'
 import logger from './logger'
 import config from 'config'
-import download from 'download'
 import { ProxyAgent } from 'proxy-agent'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
@@ -107,13 +108,43 @@ export const extractFilename = (url: string) => {
   return file
 }
 
+export interface DownloadOptions {
+  agent?: ProxyAgent
+}
+
+export const downloadData = async (
+  url: string,
+  options: DownloadOptions = { agent: proxyAgent }
+): Promise<Buffer> => {
+  return await new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url)
+    const client = parsedUrl.protocol === 'https:' ? https : http
+    const req = client.get(url, { agent: options.agent }, (res) => {
+      if (res.statusCode && res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        const redirectUrl = new URL(res.headers.location, url).toString()
+        downloadData(redirectUrl, options).then(resolve, reject)
+        return
+      }
+      if (res.statusCode && (res.statusCode < 200 || res.statusCode >= 300)) {
+        reject(new Error(`Request failed with status code ${res.statusCode}`))
+        return
+      }
+      const chunks: Buffer[] = []
+      res.on('data', (chunk) => chunks.push(Buffer.from(chunk)))
+      res.on('end', () => { resolve(Buffer.concat(chunks)) })
+      res.on('error', reject)
+    })
+    req.on('error', reject)
+  })
+}
+
 export const downloadToFile = async (
   url: string,
   dest: string,
-  downloadData: (url: string, options: download.DownloadOptions) => Promise<Buffer> = download
+  download: (url: string, options: DownloadOptions) => Promise<Buffer> = downloadData
 ) => {
   try {
-    const data = await downloadData(url, { agent: proxyAgent })
+    const data = await download(url, { agent: proxyAgent })
     fs.writeFileSync(dest, data)
     return true
   } catch (err) {

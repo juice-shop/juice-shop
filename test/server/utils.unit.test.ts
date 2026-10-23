@@ -7,6 +7,7 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import type { ChallengeModel } from '@juice-shop/models/challenge'
 import fs from 'node:fs'
+import http from 'node:http'
 import * as utils from '../../lib/utils'
 import { ProxyAgent } from 'proxy-agent'
 
@@ -100,6 +101,42 @@ void describe('utils', () => {
       assert.equal(downloaded, true)
       assert.ok(agent instanceof ProxyAgent)
       assert.equal(await agent.getProxyForUrl('https://example.com/avatar.png', undefined as never), 'http://proxy.example:8080')
+    })
+
+    void it('returns false when download fails', async () => {
+      const downloaded = await utils.downloadToFile('https://example.com/fail.png', 'unused', async () => {
+        throw new Error('Network error')
+      })
+      assert.equal(downloaded, false)
+    })
+
+    void it('downloads data and follows redirects using downloadData', async () => {
+      const server = http.createServer((req, res) => {
+        if (req.url === '/redirect') {
+          res.writeHead(302, { Location: '/target' })
+          res.end()
+        } else if (req.url === '/target') {
+          res.writeHead(200, { 'Content-Type': 'text/plain' })
+          res.end('hello world')
+        } else {
+          res.writeHead(404)
+          res.end()
+        }
+      })
+
+      await new Promise<void>((resolve) => server.listen(0, resolve))
+      const port = (server.address() as any).port
+      try {
+        const data = await utils.downloadData(`http://127.0.0.1:${port}/redirect`, {})
+        assert.equal(data.toString(), 'hello world')
+
+        await assert.rejects(
+          async () => await utils.downloadData(`http://127.0.0.1:${port}/notfound`, {}),
+          /Request failed with status code 404/
+        )
+      } finally {
+        await new Promise<void>((resolve) => server.close(() => resolve()))
+      }
     })
   })
 

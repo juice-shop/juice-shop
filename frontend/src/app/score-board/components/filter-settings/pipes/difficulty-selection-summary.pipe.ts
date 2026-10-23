@@ -1,7 +1,5 @@
 import { Pipe, type PipeTransform } from '@angular/core'
 
-import sortBy from 'lodash-es/sortBy'
-
 interface DifficultyGroup {
   start: number
   end: number
@@ -18,7 +16,7 @@ export class DifficultySelectionSummaryPipe implements PipeTransform {
       return ''
     }
 
-    const sortedDifficulties = sortBy(selectedDifficulties)
+    const sortedDifficulties = [...selectedDifficulties].sort((a, b) => a - b)
     const difficultyGroups = breakDifficultiesIntoNeighboringGroups(sortedDifficulties)
     return convertDifficultyGroupsToString(difficultyGroups)
   }
