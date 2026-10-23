@@ -1,0 +1,26 @@
+Constraints:
+  - Danger Zone
+  - External Dependency
+  - Prerequisite
+Flavor:
+  - Contraption
+  - Shenanigans
+Learning:
+  - Good for Demos
+  - Good Practice
+  - Tutorial
+  - With Coding Challenge
+Technique:
+  - Brute Force
+  - Code Analysis
+  - OSINT
+Technology:
+  - AI/LLM
+  - Web3
+  - Passkey/WebAuthn
+  - JWT
+  - NoSQL/MongoDB
+  - OAuth
+  - SQL
+  - 2FA/TOTP
+  - XML
