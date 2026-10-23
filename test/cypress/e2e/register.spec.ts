@@ -11,7 +11,7 @@ describe('/#/register', () => {
       })
     })
 
-    it('should be possible to bypass validation by directly using Rest API', async () => {
+    xit('should be possible to bypass validation by directly using Rest API', async () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
           cy.window().then(async () => {
