@@ -103,7 +103,6 @@
     "compression": "^1.8.1",
     "config": "^3.3.12",
     "cookie-parser": "^1.4.7",
-    "cookieconsent": "^3.1.1",
     "cors": "^2.8.5",
     "download": "^8.0.0",
     "errorhandler": "^1.5.1",
@@ -159,14 +158,12 @@
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "^2.0.0||^3.0.0||^4.00",
-    "@eslint/js": "^9.33.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/clarinet": "^0.12.3",
     "@types/compression": "^1.8.1",
     "@types/config": "^3.3.5",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
-    "@types/cross-spawn": "^6.0.6",
     "@types/diff": "^7.0.1",
     "@types/download": "^8.0.5",
     "@types/errorhandler": "^1.5.3",
@@ -180,7 +177,6 @@
     "@types/js-yaml": "^3.12.10",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/jws": "^3.2.10",
-    "@types/lodash": "^4.17.14",
     "@types/morgan": "^1.9.9",
     "@types/multer": "^1.4.12",
     "@types/node": "^26.0.1",
@@ -206,8 +202,7 @@
     "socket.io-client": "^4.8.4",
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": "22 - 26"

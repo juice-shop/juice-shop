@@ -55,7 +55,6 @@
     "material-icons": "^1.13.14",
     "ng-gallery": "^12.0.0",
     "ng2-file-upload": "^10.0.0",
-    "ngx-window-token": "^7.0.0",
     "ngy-cookie": "^6.0.0",
     "rxjs": "7.8.2",
     "sass": "^1.86.3",
@@ -69,10 +68,7 @@
   "devDependencies": {
     "@angular/language-service": "^22.0.1",
     "@eslint/js": "9.33.0",
-    "@types/express-serve-static-core": "^4.17.9",
-    "@types/jwt-decode": "^2.2.1",
     "@types/node": "^26.0.1",
-    "@types/socket.io-client": "^1.4.33",
     "@vitest/coverage-v8": "^4.1.2",
     "angular-eslint": "^22.0.0",
     "esbuild-visualizer": "^0.7.0",
