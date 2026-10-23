@@ -196,7 +196,7 @@
     "@types/swagger-ui-express": "^4.1.6",
     "@types/unzipper": "^0.10.10",
     "concurrently": "^5.3.0",
-    "cypress": "^15.16.0",
+    "cypress": "^16.2.0",
     "diff": "^9.0.0",
     "eslint": "^9.39.4",
     "exif": "^0.6.0",
@@ -230,6 +230,6 @@
     "sqlite3@5.1.7": true,
     "esbuild@0.28.1": true,
     "@scarf/scarf": false,
-    "cypress@15.17.0": true
+    "cypress@16.2.0": true
   }
 }

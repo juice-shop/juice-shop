@@ -12,7 +12,6 @@ export default defineConfig({
   retries: {
     runMode: 2
   },
-  allowCypressEnv: false,
   e2e: {
     baseUrl: 'http://localhost:3000',
     specPattern: 'test/cypress/e2e/**.spec.ts',
