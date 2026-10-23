@@ -427,6 +427,7 @@
   "TAG_GROUP_LEARNING": "Learning",
   "TAG_GROUP_TECHNIQUE": "Technique",
   "TAG_GROUP_TECHNOLOGY": "Technology",
+  "TAG_GROUP_OTHER": "Other",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "Defekt Adgangskontrol",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "Defekt Anti Automatisering",
   "CATEGORY_BROKEN_AUTHENTICATION": "Defekt Autentificering",
