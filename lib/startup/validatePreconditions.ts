@@ -10,8 +10,8 @@ import path from 'node:path'
 import colors from 'colors/safe'
 import { access, readdir } from 'node:fs/promises'
 import process from 'node:process'
+import net from 'node:net'
 import semver from 'semver'
-import portscanner from 'portscanner'
 import validateDependencies from './validateDependencies'
 
 export interface Dependency {
@@ -175,21 +175,26 @@ export const checkIfDomainReachable = async (domain: string) => {
 }
 
 export const checkIfPortIsAvailable = async (port: number | string) => {
-  const portNumber = parseInt(port.toString())
-  return await new Promise((resolve, reject) => {
-    portscanner.checkPortStatus(portNumber, function (error: unknown, status: string) {
-      if (error) {
-        reject(error)
-      } else {
-        if (status === 'open') {
-          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('ERROR')})`)
-          resolve(false)
-        } else {
-          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('SUCCESS')})`)
-          resolve(true)
-        }
-      }
+  const portNumber = parseInt(port.toString(), 10)
+  return await new Promise<boolean>((resolve) => {
+    const socket = new net.Socket()
+    socket.setTimeout(1000)
+    socket.once('connect', () => {
+      socket.destroy()
+      logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('ERROR')})`)
+      resolve(false)
     })
+    socket.once('timeout', () => {
+      socket.destroy()
+      logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('SUCCESS')})`)
+      resolve(true)
+    })
+    socket.once('error', () => {
+      socket.destroy()
+      logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('SUCCESS')})`)
+      resolve(true)
+    })
+    socket.connect(portNumber, '127.0.0.1')
   })
 }
 

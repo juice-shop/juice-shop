@@ -14,8 +14,6 @@ import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 import { type NextFunction, type Request, type Response } from 'express'
 import * as utils from './utils'
-// @ts-expect-error FIXME due to non-existing type definitions for median
-import median from 'median'
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 const tightlyCoupledChallenges = {
@@ -150,8 +148,18 @@ export const calculateFixItCheatScore = async (challenge: Challenge) => {
   return cheatScore
 }
 
+const calculateMedian = (values: number[]) => {
+  if (values.length === 0) return 0
+  const sorted = [...values].sort((a, b) => a - b)
+  const half = Math.floor(sorted.length / 2)
+  if (sorted.length % 2 !== 0) {
+    return sorted[half]
+  }
+  return (sorted[half - 1] + sorted[half]) / 2
+}
+
 export const totalCheatScore = () => {
-  return solves.length > 1 ? median(solves.map(({ cheatScore }) => cheatScore)) : 0
+  return solves.length > 1 ? calculateMedian(solves.map(({ cheatScore }) => cheatScore)) : 0
 }
 
 function areTightlyCoupled (challenge: Challenge, previousChallenge: Challenge) {

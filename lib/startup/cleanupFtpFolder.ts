@@ -5,14 +5,14 @@
 
 import { glob } from 'glob'
 import logger from '../logger'
-import fs from 'fs-extra'
+import fs from 'node:fs/promises'
 import * as utils from '../utils'
 
 const cleanupFtpFolder = async () => {
   try {
     const files = await glob('ftp/*.pdf', { windowsPathsNoEscape: true })
     for (const filename of files) {
-      await fs.remove(filename)
+      await fs.rm(filename, { force: true, recursive: true })
     }
   } catch (err) {
     logger.warn('Error listing PDF files in /ftp folder: ' + utils.getErrorMessage(err))

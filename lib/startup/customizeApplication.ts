@@ -6,8 +6,6 @@
 import fs from 'node:fs'
 import config from 'config'
 import * as utils from '../utils'
-// @ts-expect-error FIXME due to non-existing type definitions for replace
-import replace from 'replace'
 
 const customizeApplication = async () => {
   if (config.get<string>('application.name')) {
@@ -55,18 +53,30 @@ const customizeHackingInstructorAvatar = async () => {
   }
 }
 
+const replaceInFile = (filePath: string, regex: RegExp | string, replacement: string) => {
+  try {
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf8')
+      const updated = content.replace(regex, replacement)
+      if (content !== updated) {
+        fs.writeFileSync(filePath, updated, 'utf8')
+      }
+    }
+  } catch {
+    // Ignore errors matching previous replace({ silent: true }) behavior
+  }
+}
+
 const customizeFavicon = async () => {
   const favicon = await retrieveCustomFile('application.favicon', 'frontend/dist/frontend/assets/public')
   if (!favicon) {
     return
   }
-  replace({
-    regex: /type="image\/x-icon" href="assets\/public\/.*"/,
-    replacement: `type="image/x-icon" href="assets/public/${favicon}"`,
-    paths: ['frontend/dist/frontend/index.html'],
-    recursive: false,
-    silent: true
-  })
+  replaceInFile(
+    'frontend/dist/frontend/index.html',
+    /type="image\/x-icon" href="assets\/public\/.*"/,
+    `type="image/x-icon" href="assets/public/${favicon}"`
+  )
 }
 
 const customizePromotionVideo = async () => {
@@ -96,35 +106,21 @@ export const retrieveCustomFile = async (
 
 const customizeTitle = () => {
   const title = `<title>${config.get<string>('application.name')}</title>`
-  replace({
-    regex: /<title>.*<\/title>/,
-    replacement: title,
-    paths: ['frontend/dist/frontend/index.html'],
-    recursive: false,
-    silent: true
-  })
+  replaceInFile('frontend/dist/frontend/index.html', /<title>.*<\/title>/, title)
 }
 
 const customizeTheme = () => {
   const bodyClass = '"' + config.get<string>('application.theme') + '-theme"'
-  replace({
-    regex: /".*-theme"/,
-    replacement: bodyClass,
-    paths: ['frontend/dist/frontend/index.html'],
-    recursive: false,
-    silent: true
-  })
+  replaceInFile('frontend/dist/frontend/index.html', /".*-theme"/, bodyClass)
 }
 
 const customizeCookieConsentBanner = () => {
   const contentProperty = '"content": { "message": "' + config.get<string>('application.cookieConsent.message') + '", "dismiss": "' + config.get<string>('application.cookieConsent.dismissText') + '", "link": "' + config.get<string>('application.cookieConsent.linkText') + '", "href": "' + config.get<string>('application.cookieConsent.linkUrl') + '" }'
-  replace({
-    regex: /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
-    replacement: contentProperty,
-    paths: ['frontend/dist/frontend/index.html'],
-    recursive: false,
-    silent: true
-  })
+  replaceInFile(
+    'frontend/dist/frontend/index.html',
+    /"content": { "message": ".*", "dismiss": ".*", "link": ".*", "href": ".*" }/,
+    contentProperty
+  )
 }
 
 export default customizeApplication
