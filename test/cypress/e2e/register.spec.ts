@@ -11,6 +11,7 @@ describe('/#/register', () => {
       })
     })
 
+    // FIXME Test is hanging in CI/CD pipeline. Needs dedicated troubleshooting.
     xit('should be possible to bypass validation by directly using Rest API', async () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
