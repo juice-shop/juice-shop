@@ -11,7 +11,7 @@ import expressJwt from 'express-jwt'
 import jwt from 'jsonwebtoken'
 import jws from 'jws'
 import sanitizeHtmlLib from 'sanitize-html'
-import sanitizeFilenameLib from 'sanitize-filename'
+import sanitizeFilenameLib from './sanitizeFilename'
 import * as utils from './utils'
 
 // @ts-expect-error FIXME no typescript definitions for z85 :(

@@ -6,7 +6,7 @@
 import fs from 'node:fs'
 import config from 'config'
 import { type Request, type Response } from 'express'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { AllHtmlEntities as Entities } from '../lib/htmlEntities'
 
 import * as challengeUtils from '../lib/challengeUtils'
 import { themes } from '../views/themes/themes'

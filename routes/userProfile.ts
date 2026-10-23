@@ -4,7 +4,7 @@
  */
 
 import { type Request, type Response, type NextFunction } from 'express'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { AllHtmlEntities as Entities } from '../lib/htmlEntities'
 import config from 'config'
 import fs from 'node:fs/promises'
 

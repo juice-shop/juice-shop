@@ -7,7 +7,7 @@ import path from 'node:path'
 import config from 'config'
 import { themes } from '../views/themes/themes'
 import * as utils from '../lib/utils'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { AllHtmlEntities as Entities } from '../lib/htmlEntities'
 
 import { SecurityQuestionModel } from '../models/securityQuestion'
 import { PrivacyRequestModel } from '../models/privacyRequests'

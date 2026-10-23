@@ -19,15 +19,13 @@ import bodyParser from 'body-parser'
 // @ts-expect-error FIXME due to non-existing type definitions for finale-rest
 import * as finale from 'finale-rest'
 import compression from 'compression'
-// @ts-expect-error FIXME due to non-existing type definitions for express-robots-txt
-import robots from 'express-robots-txt'
+import robots from './lib/robotsTxt'
 import cookieParser from 'cookie-parser'
 import * as Prometheus from 'prom-client'
 import swaggerUi from 'swagger-ui-express'
-import featurePolicy from 'feature-policy'
+import featurePolicy from './lib/featurePolicy'
 import { IpFilter } from 'express-ipfilter'
-// @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
-import securityTxt from 'express-security.txt'
+import securityTxt from './lib/securityTxt'
 import { rateLimit } from 'express-rate-limit'
 import { getStream } from 'file-stream-rotator'
 import type { Request, Response, NextFunction } from 'express'

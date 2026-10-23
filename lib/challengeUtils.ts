@@ -3,7 +3,7 @@ import { Op } from 'sequelize'
 import colors from 'colors/safe'
 import { type Server } from 'socket.io'
 import sanitizeHtml from 'sanitize-html'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { AllHtmlEntities as Entities } from './htmlEntities'
 
 import { type ChallengeKey, ChallengeModel } from '../models/challenge'
 import { challenges, notifications } from '../data/datacache'

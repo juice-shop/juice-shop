@@ -32,7 +32,7 @@ import type { StaticUser, StaticUserAddress, StaticUserCard, StaticUserPasskey }
 import { loadStaticChallengeData, loadStaticDeliveryData, loadStaticUserData, loadStaticSecurityQuestionsData } from './staticData'
 import type { CreationAttributes } from 'sequelize'
 import { ordersCollection, reviewsCollection } from './mongodb'
-import { AllHtmlEntities as Entities } from 'html-entities'
+import { AllHtmlEntities as Entities } from '../lib/htmlEntities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 import { variableDependencies, domainDependencies, preconditionResults } from '../lib/startup/validatePreconditions'
