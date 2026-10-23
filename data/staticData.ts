@@ -101,3 +101,8 @@ export interface StaticSecurityQuestions {
 export async function loadStaticSecurityQuestionsData (): Promise<StaticSecurityQuestions[]> {
   return await loadStaticData('securityQuestions') as StaticSecurityQuestions[]
 }
+
+export type StaticTagGroups = Record<string, string[]>
+export async function loadStaticTagGroupsData (): Promise<StaticTagGroups> {
+  return await loadStaticData('tags') as StaticTagGroups
+}

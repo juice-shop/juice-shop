@@ -5,6 +5,7 @@ on:
     branches: [ master, develop ]
     paths:
       - 'data/static/challenges.yml'
+      - 'data/static/tags.yml'
       - 'data/static/codefixes/*.info.yml'
   workflow_dispatch:
 
@@ -32,6 +33,15 @@ jobs:
         fi
         rm -f $DEST_FILE
         cp juice-shop/data/static/challenges.yml $DEST_FILE
+    - name: Update tags.yml
+      run: |
+        if [ "${{ github.ref_name }}" = "master" ]; then
+          DEST_FILE="_data/tags.yml"
+        else
+          DEST_FILE="_data/tags_dev.yml"
+        fi
+        rm -f $DEST_FILE
+        cp juice-shop/data/static/tags.yml $DEST_FILE
     - name: Update snippets
       run: |
         if [ "${{ github.ref_name }}" = "master" ]; then
@@ -44,8 +54,8 @@ jobs:
         echo $CHALLENGES > $DEST_FILE
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        file_pattern: '_data/challenges.yml _data/snippets.json _data/challenges_dev.yml _data/snippets_dev.json'
-        commit_message: "🤖 Auto-update challenges and snippets for ${{ github.ref_name }} from ${{ github.sha }}"
+        file_pattern: '_data/challenges.yml _data/tags.yml _data/snippets.json _data/challenges_dev.yml _data/tags_dev.yml _data/snippets_dev.json'
+        commit_message: "🤖 Auto-update challenges, tags and snippets for ${{ github.ref_name }} from ${{ github.sha }}"
         branch: master
         commit_options: '--signoff'
 

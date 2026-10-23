@@ -1,4 +1,5 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
+import { of } from 'rxjs'
 import { By } from '@angular/platform-browser'
 import { MatSelect } from '@angular/material/select'
 import { MatOptgroup } from '@angular/material/core'
@@ -13,6 +14,15 @@ import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
 import { LocalBackupService } from '../../../Services/local-backup.service'
+import { TagsService } from '../../../Services/tags.service'
+
+const TAG_GROUPS_FIXTURE = {
+    Constraints: ['Danger Zone', 'External Dependency', 'Prerequisite'],
+    Flavor: ['Contraption', 'Shenanigans'],
+    Learning: ['Good for Demos', 'Good Practice', 'Tutorial', 'With Coding Challenge'],
+    Technique: ['Brute Force', 'Code Analysis', 'OSINT'],
+    Technology: ['AI/LLM', 'Web3', 'Passkey/WebAuthn', 'JWT', 'NoSQL/MongoDB', 'OAuth', 'SQL', '2FA/TOTP', 'XML']
+}
 
 describe('FilterSettingsComponent', () => {
     let component: FilterSettingsComponent
@@ -39,6 +49,12 @@ describe('FilterSettingsComponent', () => {
                     useValue: {
                         save: () => null,
                         restore: () => null
+                    }
+                },
+                {
+                    provide: TagsService,
+                    useValue: {
+                        getTagGroups: () => of(TAG_GROUPS_FIXTURE)
                     }
                 }
             ]
@@ -176,11 +192,11 @@ describe('FilterSettingsComponent', () => {
         ] as any[]
         component.ngOnChanges()
         expect(component.tagGroups).toEqual([
-            { name: 'TAG_GROUP_CONSTRAINTS', tags: ['Danger Zone', 'External Dependency'] },
-            { name: 'TAG_GROUP_FLAVOR', tags: ['Contraption', 'Shenanigans'] },
-            { name: 'TAG_GROUP_LEARNING', tags: ['Tutorial'] },
-            { name: 'TAG_GROUP_TECHNIQUE', tags: ['Code Analysis', 'OSINT'] },
-            { name: 'TAG_GROUP_TECHNOLOGY', tags: ['Web3'] }
+            { name: 'Constraints', tags: ['Danger Zone', 'External Dependency'] },
+            { name: 'Flavor', tags: ['Contraption', 'Shenanigans'] },
+            { name: 'Learning', tags: ['Tutorial'] },
+            { name: 'Technique', tags: ['Code Analysis', 'OSINT'] },
+            { name: 'Technology', tags: ['Web3'] }
         ])
     })
 
@@ -191,7 +207,7 @@ describe('FilterSettingsComponent', () => {
         component.ngOnChanges()
         expect(component.tagGroups).toEqual([
             { name: 'Other', tags: ['Custom Tag A', 'Custom Tag B'] },
-            { name: 'TAG_GROUP_TECHNOLOGY', tags: ['Web3'] }
+            { name: 'Technology', tags: ['Web3'] }
         ])
     })
 
