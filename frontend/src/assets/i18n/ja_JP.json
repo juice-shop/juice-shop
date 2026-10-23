@@ -427,6 +427,7 @@
   "TAG_GROUP_LEARNING": "Learning",
   "TAG_GROUP_TECHNIQUE": "Technique",
   "TAG_GROUP_TECHNOLOGY": "Technology",
+  "TAG_GROUP_OTHER": "Other",
   "CATEGORY_BROKEN_ACCESS_CONTROL": "アクセス制御の不備 (Broken Access Control)",
   "CATEGORY_BROKEN_ANTI_AUTOMATION": "自動化された攻撃に対する防御の不備 (Broken Anti Automation)",
   "CATEGORY_BROKEN_AUTHENTICATION": "認証の失敗 (Broken Authentication)",
