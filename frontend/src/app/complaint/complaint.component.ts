@@ -6,8 +6,9 @@
 import { environment } from '../../environments/environment'
 import { ComplaintService } from '../Services/complaint.service'
 import { UserService } from '../Services/user.service'
-import { Component, ElementRef, type OnInit, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { Component, ElementRef, type OnInit, ViewChild, inject, ChangeDetectionStrategy, signal } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { FormField, form, maxLength, required, disabled } from '@angular/forms/signals'
 import { FileUploader, FileUploadModule } from 'ng2-file-upload'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBomb } from '@fortawesome/free-solid-svg-icons'
@@ -15,9 +16,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
-
 import { MatCardModule } from '@angular/material/card'
-
 import { MatIconModule } from '@angular/material/icon'
 
 library.add(faBomb)
@@ -27,7 +26,7 @@ library.add(faBomb)
   selector: 'app-complaint',
   templateUrl: './complaint.component.html',
   styleUrls: ['./complaint.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, FormField, MatHint, MatError, FileUploadModule, MatButtonModule, MatIconModule]
 })
 export class ComplaintComponent implements OnInit {
   private readonly userService = inject(UserService)
@@ -36,10 +35,19 @@ export class ComplaintComponent implements OnInit {
 
   public readonly maxMessageLength = 4096
 
-  public customerControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
-  public messageControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(this.maxMessageLength)])
-  @ViewChild('fileControl', { static: true }) fileControl!: ElementRef // For controlling the DOM Element for file input.
-  public fileUploadError: any = undefined // For controlling error handling related to file input.
+  public readonly complaintModel = signal({
+    customer: '',
+    message: ''
+  })
+
+  public readonly complaintForm = form(this.complaintModel, (s) => {
+    disabled(s.customer)
+    required(s.message)
+    maxLength(s.message, this.maxMessageLength)
+  })
+
+  @ViewChild('fileControl', { static: true }) fileControl!: ElementRef
+  public fileUploadError: any = undefined
   public uploader: FileUploader = new FileUploader({
     url: environment.hostServer + '/file-upload',
     authToken: `Bearer ${localStorage.getItem('token')}`,
@@ -55,7 +63,6 @@ export class ComplaintComponent implements OnInit {
     this.initComplaint()
     this.uploader.onWhenAddingFileFailed = (item, filter) => {
       this.fileUploadError = filter
-
       throw new Error(`Error due to : ${filter.name}`)
     }
     this.uploader.onAfterAddingFile = () => {
@@ -73,9 +80,9 @@ export class ComplaintComponent implements OnInit {
         this.complaint = {}
         this.complaint.UserId = user.id
         this.userEmail = user.email
-        this.customerControl.setValue(this.userEmail)
+        this.complaintModel.update(m => ({ ...m, customer: this.userEmail || '' }))
       },
-      error: (err) => {
+      error: (err: any) => {
         this.complaint = undefined
         console.log(err)
       }
@@ -85,21 +92,26 @@ export class ComplaintComponent implements OnInit {
   save () {
     if (this.uploader.queue[0]) {
       this.uploader.queue[0].upload()
-      this.fileControl.nativeElement.value = null
+      if (this.fileControl?.nativeElement) {
+        this.fileControl.nativeElement.value = null
+      }
     } else {
       this.saveComplaint()
     }
   }
 
   saveComplaint () {
-    this.complaint.message = this.messageControl.value
+    if (!this.complaint) {
+      this.complaint = {}
+    }
+    this.complaint.message = this.complaintModel().message
     this.complaintService.save(this.complaint).subscribe({
       next: (savedComplaint: any) => {
         this.translate.get('CUSTOMER_SUPPORT_COMPLAINT_REPLY', { ref: savedComplaint.id }).subscribe({
-          next: (customerSupportReply) => {
+          next: (customerSupportReply: string) => {
             this.confirmation = customerSupportReply
           },
-          error: (translationId) => {
+          error: (translationId: string) => {
             this.confirmation = translationId
           }
         })
@@ -107,14 +119,15 @@ export class ComplaintComponent implements OnInit {
         this.resetForm()
         this.fileUploadError = undefined
       },
-      error: (error) => error
+      error: (error: any) => error
     })
   }
 
   resetForm () {
-    this.messageControl.setValue('')
-    this.messageControl.markAsUntouched()
-    this.messageControl.markAsPristine()
-    this.fileControl.nativeElement.value = null
+    this.complaintModel.update(m => ({ ...m, message: '' }))
+    this.complaintForm.message().reset()
+    if (this.fileControl?.nativeElement) {
+      this.fileControl.nativeElement.value = null
+    }
   }
 }

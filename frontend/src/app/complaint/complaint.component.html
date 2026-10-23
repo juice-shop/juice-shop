@@ -8,7 +8,7 @@
     <h1>{{ "NAV_COMPLAIN" | translate }}</h1>
 
     <section aria-live="polite">
-      <p class="confirmation" [hidden]="!(confirmation && !messageControl.dirty)">
+      <p class="confirmation" [hidden]="!(confirmation && !complaintForm.message().dirty())">
         {{ confirmation }}
       </p>
 
@@ -28,7 +28,7 @@
       <mat-form-field appearance="outline" color="tertiary">
         <mat-label>{{ "LABEL_CUSTOMER" | translate }}</mat-label>
         <input
-          [formControl]="customerControl"
+          [formField]="complaintForm.customer"
           type="text"
           matInput
           aria-label="Text field for the mail address of the user"
@@ -44,20 +44,22 @@
         <textarea
           #complaintMessage
           id="complaintMessage"
-          [formControl]="messageControl"
+          [formField]="complaintForm.message"
           matAutosizeMinRows="4"
           matAutosizeMaxRows="4"
           matTextareaAutosize
           cols="50"
-          [maxlength]="maxMessageLength"
           matInput
           placeholder="{{ 'WRITE_MESSAGE_PLACEHOLDER' | translate }}"
           aria-label="Field for entering the complaint"
           aria-required="true"
           aria-describedby="messageCounter"
         ></textarea>
-        @if (messageControl.invalid && messageControl?.errors.required) {
+        @if (complaintForm.message().getError('required')) {
           <mat-error role="alert">{{ "MANDATORY_MESSAGE" | translate }} </mat-error>
+        }
+        @if (complaintForm.message().getError('maxLength')) {
+          <mat-error role="alert">{{ "MAX_TEXTAREA_LENGTH" | translate: { length: maxMessageLength } }}</mat-error>
         }
         <mat-hint align="end" id="messageCounter">
           <output>{{ complaintMessage.value?.length || 0 }}</output
@@ -81,7 +83,7 @@
       <button
         type="submit"
         id="submitButton"
-        [disabled]="messageControl.invalid || fileUploadError"
+        [disabled]="complaintForm().invalid() || fileUploadError"
         mat-raised-button
         color="primary"
         aria-label="Button to send the complaint"
