@@ -543,5 +543,7 @@
   "CHATBOT_DELETE_CONVERSATION": "チャットを削除",
   "CHATBOT_DELETE_ALL": "すべて削除",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "すべてのチャットを削除",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "おっと！AIの頭脳がジュース休憩に入ってしまったようです。AIエンドポイントが未設定か、接続できません。ショップの管理者に連絡して、復旧してもらいましょう！"
 }
