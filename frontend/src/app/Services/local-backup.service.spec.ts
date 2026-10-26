@@ -91,6 +91,29 @@ describe('LocalBackupService', () => {
         expect(saveFileSpy).toHaveBeenCalledWith(blob, `owasp_juice_shop-${new Date().toISOString().split('T')[0]}.json`)
     })
 
+    it('should trigger browser download on saveFile', () => {
+        const service = TestBed.inject(LocalBackupService)
+        const createObjectURLSpy = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:http://localhost/mock-url')
+        const revokeObjectURLSpy = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {})
+        const clickSpy = vi.fn()
+        const createElementSpy = vi.spyOn(document, 'createElement').mockReturnValue({
+            set href (val: string) {},
+            set download (val: string) {},
+            click: clickSpy
+        } as any)
+
+        const blob = new Blob(['test'], { type: 'text/plain' })
+        service.saveFile(blob, 'backup.json')
+
+        expect(createObjectURLSpy).toHaveBeenCalledWith(blob)
+        expect(clickSpy).toHaveBeenCalled()
+        expect(revokeObjectURLSpy).toHaveBeenCalledWith('blob:http://localhost/mock-url')
+
+        createObjectURLSpy.mockRestore()
+        revokeObjectURLSpy.mockRestore()
+        createElementSpy.mockRestore()
+    })
+
     it('should restore language from backup file', async () => {
         const service = TestBed.inject(LocalBackupService)
         cookieService.put('language', 'de')

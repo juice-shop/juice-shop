@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 
 import { of, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
+import { convertToParamMap } from '@angular/router'
 import { AddressService } from '../Services/address.service'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
@@ -82,6 +83,26 @@ describe('AddressCreateComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy()
+    })
+
+    it('should initialize form in edit mode when addressId route param is present', () => {
+        const address = {
+            country: 'US',
+            fullName: 'Jim Doe',
+            mobileNum: 9800000000,
+            zipCode: '10001',
+            streetAddress: '123 Main St',
+            city: 'NYC',
+            state: 'NY'
+        }
+        addressService.getById.mockReturnValue(of(address))
+        vi.spyOn(component.activatedRoute, 'paramMap', 'get').mockReturnValue(of(convertToParamMap({ addressId: '42' })))
+        component.ngOnInit()
+
+        expect(component.mode).toBe('edit')
+        expect(component.countryControl.value).toBe('US')
+        expect(component.nameControl.value).toBe('Jim Doe')
+        expect(component.cityControl.value).toBe('NYC')
     })
 
     it('should reinitizalise forms by calling resetForm', () => {

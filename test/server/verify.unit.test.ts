@@ -22,8 +22,8 @@ void describe('verify', () => {
   let err: any
 
   beforeEach(() => {
-    req = { body: {}, headers: {}, header: mock.fn(() => undefined) }
-    res = { json: mock.fn() }
+    req = { body: {}, headers: {}, header: mock.fn(() => undefined), app: { locals: {} }, query: {} }
+    res = { json: mock.fn(), status: mock.fn(() => res), send: mock.fn() }
     next = mock.fn()
     save = () => ({
       then () { }
@@ -371,6 +371,72 @@ void describe('verify', () => {
       const s1 = 'This is a test'
       const s2 = 'Something completely different'
       assert.ok(!verify.checkSystemPromptSimilarity(s1, s2, 0.9))
+    })
+  })
+
+  void describe('captchaBypassChallenge', () => {
+    beforeEach(() => {
+      challenges.captchaBypassChallenge = { solved: false, save } as unknown as Challenge
+      req.app.locals = {
+        captchaReqId: 10,
+        captchaBypassReqTimes: {
+          0: new Date().getTime() - 1000
+        }
+      }
+    })
+
+    void it('is solved when 10 requests occur within 20 seconds', () => {
+      verify.captchaBypassChallenge()(req, res, next)
+
+      assert.equal(challenges.captchaBypassChallenge.solved, true)
+      assert.equal(next.mock.calls.length, 1)
+    })
+
+    void it('is not solved when time between 10 requests exceeds 20 seconds', () => {
+      req.app.locals.captchaBypassReqTimes[0] = new Date().getTime() - 30000
+
+      verify.captchaBypassChallenge()(req, res, next)
+
+      assert.equal(challenges.captchaBypassChallenge.solved, false)
+      assert.equal(next.mock.calls.length, 1)
+    })
+  })
+
+  void describe('serverSideChallenges', () => {
+    beforeEach(() => {
+      challenges.sstiChallenge = { solved: false, save } as unknown as Challenge
+      challenges.ssrfChallenge = { solved: false, save } as unknown as Challenge
+      req.app.locals = {}
+    })
+
+    void it('solves sstiChallenge when key matches and abused_ssti_bug is set', () => {
+      req.query.key = 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3'
+      req.app.locals.abused_ssti_bug = true
+
+      verify.serverSideChallenges()(req, res, next)
+
+      assert.equal(challenges.sstiChallenge.solved, true)
+      assert.equal(res.status.mock.calls[0].arguments[0], 204)
+    })
+
+    void it('solves ssrfChallenge when key matches and abused_ssrf_bug is set', () => {
+      req.query.key = 'tRy_H4rd3r_n0thIng_iS_Imp0ssibl3'
+      req.app.locals.abused_ssrf_bug = true
+
+      verify.serverSideChallenges()(req, res, next)
+
+      assert.equal(challenges.ssrfChallenge.solved, true)
+      assert.equal(res.status.mock.calls[0].arguments[0], 204)
+    })
+
+    void it('calls next when key is missing or invalid', () => {
+      req.query.key = 'wrong_key'
+
+      verify.serverSideChallenges()(req, res, next)
+
+      assert.equal(challenges.sstiChallenge.solved, false)
+      assert.equal(challenges.ssrfChallenge.solved, false)
+      assert.equal(next.mock.calls.length, 1)
     })
   })
 })

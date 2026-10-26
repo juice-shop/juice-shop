@@ -156,6 +156,31 @@ describe('ServerStartedNotificationComponent', () => {
         expect(component.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
     })
 
+    it('should restore continueCodeFindIt and continueCodeFixIt on server start', () => {
+        vi.spyOn(mockSocket, 'on')
+        cookieService.put('continueCodeFindIt', 'FIND_IT_CODE')
+        cookieService.put('continueCodeFixIt', 'FIX_IT_CODE')
+        component.ngOnInit()
+        const callback = vi.mocked(mockSocket.on).mock.calls[0][1]
+        callback()
+        expect(challengeService.restoreProgressFindIt).toHaveBeenCalledWith('FIND_IT_CODE')
+        expect(challengeService.restoreProgressFixIt).toHaveBeenCalledWith('FIX_IT_CODE')
+    })
+
+    it('should log errors when continueCodeFindIt and continueCodeFixIt restore fails', () => {
+        vi.spyOn(mockSocket, 'on')
+        challengeService.restoreProgressFindIt.mockReturnValue(throwError('FindItError'))
+        challengeService.restoreProgressFixIt.mockReturnValue(throwError('FixItError'))
+        cookieService.put('continueCodeFindIt', 'FIND_IT_CODE')
+        cookieService.put('continueCodeFixIt', 'FIX_IT_CODE')
+        console.log = vi.fn()
+        component.ngOnInit()
+        const callback = vi.mocked(mockSocket.on).mock.calls[0][1]
+        callback()
+        expect(console.log).toHaveBeenCalledWith('FindItError')
+        expect(console.log).toHaveBeenCalledWith('FixItError')
+    })
+
     it('do nothing if continueCode cookie is not present', () => {
         vi.spyOn(mockSocket, 'on')
         component.ngOnInit()
