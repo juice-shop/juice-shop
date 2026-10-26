@@ -36,8 +36,6 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 import { variableDependencies, domainDependencies, preconditionResults } from '../lib/startup/validatePreconditions'
-// @ts-expect-error FIXME due to non-existing type definitions for replace
-import replace from 'replace'
 
 const entities = new Entities()
 
@@ -811,11 +809,5 @@ async function createOrders () {
 }
 
 async function prepareFilesystem () {
-  replace({
-    regex: 'http://localhost:3000',
-    replacement: config.get<string>('server.baseUrl'),
-    paths: ['.well-known/csaf/provider-metadata.json'],
-    recursive: true,
-    silent: true
-  })
+  utils.replaceInFile('.well-known/csaf/provider-metadata.json', 'http://localhost:3000', config.get<string>('server.baseUrl'))
 }

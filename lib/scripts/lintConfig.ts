@@ -10,7 +10,7 @@ import { readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import yaml from 'js-yaml'
-import colors from 'colors/safe'
+import colors from '../colors'
 
 import { ValidationSchema } from '../config.schema'
 

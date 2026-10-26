@@ -5,9 +5,10 @@
 
 import packageJson from '../package.json'
 import fs from 'node:fs'
+import http from 'node:http'
+import https from 'node:https'
 import logger from './logger'
 import config from 'config'
-import download from 'download'
 import { ProxyAgent } from 'proxy-agent'
 import crypto from 'node:crypto'
 import clarinet from 'clarinet'
@@ -107,10 +108,47 @@ export const extractFilename = (url: string) => {
   return file
 }
 
+interface DownloadOptions {
+  agent?: http.Agent
+}
+
+const download = async (url: string, options: DownloadOptions, redirectsLeft = 10): Promise<Buffer> => {
+  return await new Promise((resolve, reject) => {
+    const client = url.startsWith('https:') ? https : http
+    client.get(url, { agent: options.agent }, (res) => {
+      const status = res.statusCode ?? 0
+      if (status >= 300 && status < 400 && res.headers.location) {
+        res.resume()
+        if (redirectsLeft > 0) {
+          download(new URL(res.headers.location, url).toString(), options, redirectsLeft - 1).then(resolve, reject)
+        } else {
+          reject(new Error('Too many redirects'))
+        }
+      } else if (status < 200 || status >= 300) {
+        res.resume()
+        reject(new Error(`Response code ${status}`))
+      } else {
+        const chunks: Buffer[] = []
+        res.on('data', (chunk: Buffer) => chunks.push(chunk))
+        res.on('end', () => resolve(Buffer.concat(chunks)))
+        res.on('error', reject)
+      }
+    }).on('error', reject)
+  })
+}
+
+export const replaceInFile = (file: string, regex: string | RegExp, replacement: string) => {
+  const content = fs.readFileSync(file, 'utf8')
+  const replaced = content.replace(new RegExp(regex, 'gm'), replacement)
+  if (replaced !== content) {
+    fs.writeFileSync(file, replaced)
+  }
+}
+
 export const downloadToFile = async (
   url: string,
   dest: string,
-  downloadData: (url: string, options: download.DownloadOptions) => Promise<Buffer> = download
+  downloadData: (url: string, options: DownloadOptions) => Promise<Buffer> = download
 ) => {
   try {
     const data = await downloadData(url, { agent: proxyAgent })

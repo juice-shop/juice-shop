@@ -4,7 +4,7 @@
  */
 
 import config from 'config'
-import colors from 'colors/safe'
+import colors from './colors'
 import path from 'path'
 import fs from 'fs'
 import { retrieveCodeSnippet } from '../routes/vulnCodeSnippet'
@@ -14,8 +14,6 @@ import { getCodeChallenges } from './codingChallenges'
 import logger from './logger'
 import { type NextFunction, type Request, type Response } from 'express'
 import * as utils from './utils'
-// @ts-expect-error FIXME due to non-existing type definitions for median
-import median from 'median'
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 
 const tightlyCoupledChallenges = {
@@ -148,6 +146,12 @@ export const calculateFixItCheatScore = async (challenge: Challenge) => {
   logger.info(`Cheat score for "Fix it" phase of ${colors.cyan(challenge.key)} solved in ${Math.round(minutesSincePreviousSolve)}min (expected ~${minutesExpectedToSolve}min): ${cheatScore < 0.33 ? colors.green(cheatScore.toString()) : (cheatScore < 0.66 ? colors.yellow(cheatScore.toString()) : colors.red(cheatScore.toString()))}`)
   solves.push({ challenge, phase: 'fix it', timestamp, cheatScore })
   return cheatScore
+}
+
+const median = (values: number[]) => {
+  const sorted = [...values].sort((a, b) => a - b)
+  const middle = Math.floor(sorted.length / 2)
+  return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle]
 }
 
 export const totalCheatScore = () => {
