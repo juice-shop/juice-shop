@@ -8,7 +8,7 @@
     <div class="mdc-card">
       <h1 class="mat-headline-medium" translate>SECTION_CUSTOMER_FEEDBACK</h1>
 
-      <form class="form-container" id="feedback-form" (ngSubmit)="save()">
+      <form #feedbackForm="ngForm" class="form-container" id="feedback-form" (ngSubmit)="save()">
 
         <input hidden type="text" id="userId" ngDefaultControl [formControl]="userIdControl"/>
 

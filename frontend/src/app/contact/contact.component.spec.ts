@@ -241,5 +241,24 @@ describe('ContactComponent', () => {
             const submit = compiled.querySelector('button#submitButton') as HTMLButtonElement
             expect(submit.disabled).toBe(true)
         })
+
+        it('should not display error messages or render fields as invalid after submitting feedback', () => {
+            component.authorControl.setValue('anonymous')
+            component.feedbackControl.setValue('Great shop!')
+            component.captchaControl.setValue('42')
+            component.rating = 5
+            fixture.detectChanges()
+
+            const form = fixture.nativeElement.querySelector('form') as HTMLFormElement
+            form.dispatchEvent(new Event('submit'))
+            fixture.detectChanges()
+
+            const compiled: HTMLElement = fixture.nativeElement
+            expect(compiled.querySelector('mat-error')).toBeNull()
+            const commentField = compiled.querySelector('textarea#comment')
+            expect(commentField?.getAttribute('aria-invalid')).not.toBe('true')
+            const captchaField = compiled.querySelector('input#captchaControl')
+            expect(captchaField?.getAttribute('aria-invalid')).not.toBe('true')
+        })
     })
 })
