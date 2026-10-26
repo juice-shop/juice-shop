@@ -563,7 +563,8 @@ $bg-hacking-instructor: rgba(0, 0, 0, 0.3);
     font-family: var(--neon-readable-font);
   }
 
-  .chat-textarea {
+  .chat-textarea,
+  .chat-edit-textarea {
     font-family: var(--neon-readable-font) !important;
   }
 
