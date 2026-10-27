@@ -1,0 +1,26 @@
+name: SAST
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: "0 8 * * 1" # optional: weekly full scan every Monday at 8am
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for differential scanning
+
+      - uses: fluidattacks/sast-action@1.3.0 # Use latest released version
+        id: scan
+
+      # Optional: upload findings to the GitHub Security tab
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif_file }}
+          
