@@ -1,0 +1,61 @@
+version: 2.1
+
+# No package-lock.json is committed (.npmrc sets package-lock=false), so the
+# npm caches are keyed on the package.json files instead of a lockfile.
+
+executors:
+  node:
+    docker:
+      - image: cimg/node:24.11
+    resource_class: large
+    environment:
+      NODE_OPTIONS: --max_old_space_size=4096
+
+commands:
+  install:
+    description: Restore cache, install root and frontend dependencies, save cache
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-v1-{{ arch }}-{{ checksum "package.json" }}-{{ checksum "frontend/package.json" }}
+            - npm-v1-{{ arch }}-
+      # --ignore-scripts skips the postinstall frontend build; each job builds what it needs
+      - run: npm install --ignore-scripts
+      - run: cd frontend && npm install --ignore-scripts
+      - save_cache:
+          key: npm-v1-{{ arch }}-{{ checksum "package.json" }}-{{ checksum "frontend/package.json" }}
+          paths:
+            - ~/.npm
+
+jobs:
+  server:
+    executor: node
+    steps:
+      - install
+      - run:
+          name: Build server
+          command: npm run build:server
+      - run:
+          name: Server unit tests
+          command: npm run test:server
+
+  frontend:
+    executor: node
+    steps:
+      - install
+      - run:
+          name: Build frontend
+          command: npm run build:frontend
+      - run:
+          name: Frontend unit tests
+          command: npm run test:frontend:coverage
+      - run:
+          name: Lint (server, config and frontend)
+          command: npm run lint
+
+workflows:
+  build-test-lint:
+    jobs:
+      - server
+      - frontend
