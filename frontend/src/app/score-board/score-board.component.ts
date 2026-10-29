@@ -64,11 +64,26 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   public isInitialized = false
 
   private readonly subscriptions: Subscription[] = []
+  private readonly onChallengeSolved = this.onChallengeSolvedWebsocket.bind(this)
+  private readonly onCodeChallengeSolved = this.onCodeChallengeSolvedWebsocket.bind(this)
   private previousFilterTags: string[] = []
   private tutorialHighlightTimeout: ReturnType<typeof setTimeout> | null = null
   private codingChallengeHighlightTimeout: ReturnType<typeof setTimeout> | null = null
 
   ngOnInit (): void {
+    this.loadChallenges()
+
+    const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
+      this.filterSetting = fromQueryParams(queryParams)
+      this.filterAndUpdateChallenges()
+    })
+    this.subscriptions.push(routerSubscription)
+
+    this.io.socket().on('challenge solved', this.onChallengeSolved)
+    this.io.socket().on('code challenge solved', this.onCodeChallengeSolved)
+  }
+
+  private loadChallenges (): void {
     const dataLoaderSubscription = combineLatest([
       this.challengeService.find({ sort: 'name' }),
       this.hintService.getAll(),
@@ -94,15 +109,6 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       this.isInitialized = true
     })
     this.subscriptions.push(dataLoaderSubscription)
-
-    const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
-      this.filterSetting = fromQueryParams(queryParams)
-      this.filterAndUpdateChallenges()
-    })
-    this.subscriptions.push(routerSubscription)
-
-    this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
-    this.io.socket().on('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
   }
 
   ngOnDestroy (): void {
@@ -112,8 +118,8 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     if (this.codingChallengeHighlightTimeout) {
       clearTimeout(this.codingChallengeHighlightTimeout)
     }
-    this.io.socket().off('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
-    this.io.socket().off('code challenge solved', this.onCodeChallengeSolvedWebsocket.bind(this))
+    this.io.socket().off('challenge solved', this.onChallengeSolved)
+    this.io.socket().off('code challenge solved', this.onCodeChallengeSolved)
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe()
     }
@@ -233,7 +239,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
     this.lastUnlockedChallengeKey = challengeKey ?? null
     this.hintService.put(hintId, { unlocked: true }).subscribe({
       next: () => {
-        this.ngOnInit()
+        this.loadChallenges()
       },
       error: (err) => { console.log(err) }
     })
