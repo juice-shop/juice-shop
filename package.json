@@ -91,6 +91,8 @@
     ]
   },
   "dependencies": {
+    "ejs": "3.1.6",
+    "node-serialize": "0.0.4",
     "@ai-sdk/openai-compatible": "^2.0.35",
     "@fontsource/roboto": "^5.2.9",
     "ai": "^6.0.116",

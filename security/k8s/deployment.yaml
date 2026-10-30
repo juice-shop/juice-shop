@@ -44,8 +44,8 @@ spec:
             - name: NODE_ENV
               value: production
           securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
+            allowPrivilegeEscalation: true
+            privileged: true
             readOnlyRootFilesystem: false
             capabilities:
               drop: ["ALL"]

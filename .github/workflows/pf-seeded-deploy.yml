@@ -1,0 +1,9 @@
+# SEEDED: never runs automatically (manual trigger only)
+name: seeded-deploy
+on: workflow_dispatch
+permissions: write-all
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: some-vendor/deploy-action@v2
