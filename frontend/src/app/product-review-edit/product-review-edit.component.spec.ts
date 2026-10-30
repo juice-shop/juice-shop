@@ -68,6 +68,8 @@ describe('ProductReviewEditComponent', () => {
     it('should require a review message', () => {
         component.reviewModel.update((model) => ({ ...model, message: '' }))
         expect(component.reviewForm.message().valid()).toBe(false)
+        component.reviewModel.update((model) => ({ ...model, message: '   ' }))
+        expect(component.reviewForm.message().valid()).toBe(false)
         component.reviewModel.update((model) => ({ ...model, message: 'Another Review' }))
         expect(component.reviewForm.message().valid()).toBe(true)
     })
