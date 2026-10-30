@@ -1,0 +1,16 @@
+# PipelineFortress: paths Semgrep should not scan
+# Third-party / generated / test code: findings here are not shipped to users.
+node_modules/
+frontend/node_modules/
+frontend/src/assets/
+frontend/dist/
+build/
+dist/
+test/
+cypress/
+*.spec.ts
+*.min.js
+# Juice Shop "coding challenge" answer snippets: deliberately vulnerable text files, never executed
+data/static/codefixes/
+# our own tooling and its tests
+security/triage/tests/

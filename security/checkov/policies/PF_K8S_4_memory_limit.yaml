@@ -1,0 +1,13 @@
+metadata:
+  id: "PF_K8S_4"
+  name: "Containers must declare a memory limit (prevents one pod from starving the node)"
+  category: "KUBERNETES"
+  severity: "MEDIUM"
+  guideline: "Set resources.limits.memory on every container."
+scope:
+  provider: "kubernetes"
+definition:
+  cond_type: "attribute"
+  resource_types: ["Pod"]  # Checkov expands Deployment templates into Pod resources
+  attribute: "spec.containers.*.resources.limits.memory"
+  operator: "exists"

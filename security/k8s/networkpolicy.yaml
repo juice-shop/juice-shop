@@ -1,0 +1,36 @@
+# Default deny, then allow only HTTP into the app. Juice Shop needs no outbound connections
+# for the lab, so egress is denied except DNS (limits data exfiltration after an RCE).
+# Enforced only when the cluster CNI supports NetworkPolicy.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: juice-shop
+  labels:
+    owner: platform-security
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress", "Egress"]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: juice-shop-allow-http
+  namespace: juice-shop
+  labels:
+    owner: platform-security
+spec:
+  podSelector:
+    matchLabels:
+      app: juice-shop
+  policyTypes: ["Ingress", "Egress"]
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 3000
+  egress:
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53

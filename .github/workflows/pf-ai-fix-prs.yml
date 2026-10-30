@@ -1,0 +1,72 @@
+# PipelineFortress step 7: AI-drafted remediation PRs (manual, human approval required)
+#
+# Reads the triage report of the latest PipelineFortress run on the default branch, asks the LLM
+# to draft fixes for the top findings (dependency upgrades and IaC/Dockerfile policy fixes only;
+# application source code never leaves the runner), verifies each fix mechanically, and opens
+# them as DRAFT pull requests. Marking a draft "Ready for review" runs the full pipeline on it.
+#
+# Kept separate from the scanning workflow so the scanners never run with write permissions.
+name: PipelineFortress AI fix PRs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "22"
+  CHECKOV_VERSION: "3.3.30"
+  PYTHONPATH: security/triage
+  PF_LLM_PROVIDER: gemini
+
+jobs:
+  ai-fix-prs:
+    name: "7 · AI-drafted fix PRs (human approval required)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read          # download the latest triage report
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: pip install "checkov==${CHECKOV_VERSION}" -r security/triage/requirements.txt
+      - name: Download the latest triage report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          RUN_ID=$(gh run list --workflow pipelinefortress.yml --branch "$BASE" --status completed --limit 1 --json databaseId -q '.[0].databaseId')
+          echo "Using triage report from run $RUN_ID"
+          gh run download "$RUN_ID" -n pipelinefortress-report -D .
+      - name: Draft, verify and open fixes for the top findings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PF_LLM_MODEL: ${{ vars.PF_LLM_MODEL }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          python -m pftriage draft-prs --triage triage-out/triage.json --out triage-out --top 2 --open --base "$BASE"
+          cat triage-out/prs/*.md >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Verify redaction of the fix prompts (gitleaks)
+        run: |
+          docker run --rm -v "$PWD/triage-out:/t" zricethezav/gitleaks:v8.30.1 dir /t/llm_audit --no-banner --redact \
+            --report-format json --report-path /t/llm_audit_gitleaks.json --exit-code 1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: ai-fix-prs
+          path: |
+            triage-out/prs/
+            triage-out/llm_audit/
+          if-no-files-found: ignore

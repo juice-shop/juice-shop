@@ -1,0 +1,46 @@
+# PipelineFortress: open a PR that updates security/baseline.json (risk acceptance)
+#
+# The gates only block NEW findings compared with this baseline. Changing it is therefore a risk
+# decision, so it always goes through a reviewed pull request, never a direct commit.
+name: PipelineFortress baseline PR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  baseline-pr:
+    name: "Baseline update PR (risk acceptance)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Download the latest candidate baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          RUN_ID=$(gh run list --workflow pipelinefortress.yml --branch "$BASE" --status completed --limit 1 --json databaseId -q '.[0].databaseId')
+          gh run download "$RUN_ID" -n pipelinefortress-report -D report
+      - name: Open a PR with the new baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          cp report/triage-out/baseline.json security/baseline.json
+          git config user.name "pipelinefortress-bot"
+          git config user.email "pipelinefortress-bot@users.noreply.github.com"
+          git checkout -B pf/baseline-update
+          git add security/baseline.json
+          git commit -m "security: update finding baseline (risk acceptance, needs review)" || { echo "baseline unchanged"; exit 0; }
+          git push -f origin pf/baseline-update
+          gh pr create --base "$BASE" --head pf/baseline-update \
+            --title "[PipelineFortress] Update security baseline" \
+            --body "Accepting the current findings as the baseline means the gates stop blocking on them. Review the diff of security/baseline.json: every added entry is a risk you are accepting. Burn-down is tracked in the dashboard." \
+            || echo "PR already exists"

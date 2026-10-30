@@ -1,0 +1,20 @@
+metadata:
+  id: "PF_K8S_2"
+  name: "Containers must use images built by this pipeline or from the approved registry"
+  category: "SUPPLY_CHAIN"
+  severity: "HIGH"
+  guideline: "Only pipelinefortress/* (built and scanned here) or ghcr.io/<your-org>/* images may run. Blocks pulling random public images."
+scope:
+  provider: "kubernetes"
+definition:
+  or:
+    - cond_type: "attribute"
+      resource_types: ["Pod"]
+      attribute: "spec.containers.*.image"
+      operator: "starting_with"
+      value: "pipelinefortress/"
+    - cond_type: "attribute"
+      resource_types: ["Pod"]
+      attribute: "spec.containers.*.image"
+      operator: "starting_with"
+      value: "ghcr.io/"

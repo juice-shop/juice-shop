@@ -1,0 +1,14 @@
+# gitleaks configuration: default rules plus a few project allowlists.
+title = "PipelineFortress gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Lab-specific allowlist (each entry must be justified)"
+paths = [
+  # our redaction tests generate fake canary secrets at runtime; nothing secret is stored there
+  '''security/triage/tests/''',
+  # minified third-party bundles produce high-entropy false positives
+  '''frontend/src/assets/private/.*\.js$''',
+]

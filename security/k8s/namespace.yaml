@@ -1,0 +1,13 @@
+# Pod Security Admission "restricted" profile: the API server itself rejects pods that run as
+# root, escalate privileges, keep Linux capabilities or skip seccomp.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: juice-shop
+  labels:
+    owner: platform-security
+    app.kubernetes.io/part-of: pipelinefortress
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/audit: restricted

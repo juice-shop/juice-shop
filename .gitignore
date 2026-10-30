@@ -71,3 +71,10 @@ config/*.yml
 # Misc
 .playwright-mcp/
 cypress/screenshots/
+
+# PipelineFortress local output
+triage-out/
+scans/
+metrics-out/
+collected/
+zap/

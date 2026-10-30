@@ -31,3 +31,9 @@ scripts/
 terraform/
 test/
 vagrant/
+
+# PipelineFortress tooling, never shipped in the image
+security/
+triage-out/
+scans/
+metrics-out/

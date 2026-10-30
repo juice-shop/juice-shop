@@ -1,0 +1,17 @@
+metadata:
+  id: "PF_K8S_1"
+  name: "Workloads must carry an 'owner' label so every finding has an accountable team"
+  category: "GENERAL_SECURITY"
+  severity: "LOW"
+  guideline: "Add metadata.labels.owner (team name). Used to route findings and incidents."
+scope:
+  provider: "kubernetes"
+definition:
+  cond_type: "attribute"
+  resource_types:
+    - "Deployment"
+    - "StatefulSet"
+    - "DaemonSet"
+    - "Service"
+  attribute: "metadata.labels.owner"
+  operator: "exists"

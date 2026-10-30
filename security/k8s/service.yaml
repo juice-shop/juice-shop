@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: juice-shop
+  namespace: juice-shop
+  labels:
+    app: juice-shop
+    owner: platform-security
+    app.kubernetes.io/part-of: pipelinefortress
+spec:
+  # NodePort 30000 is mapped to localhost:3000 by kind/kind-config.yaml (lab only)
+  type: NodePort
+  selector:
+    app: juice-shop
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+      nodePort: 30000

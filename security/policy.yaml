@@ -1,0 +1,15 @@
+# PipelineFortress gate policy
+# A stage FAILS the build when a NEW finding (not in security/baseline.json) appears at or above
+# its threshold. Existing findings are tracked in the baseline and burned down over time.
+thresholds:
+  secrets: LOW        # any new secret blocks the merge
+  sast: HIGH          # Semgrep ERROR -> HIGH
+  sca: CRITICAL       # new critical dependency vulnerabilities...
+  container: CRITICAL
+  iac: HIGH
+  dast: HIGH
+blocking_stages: [secrets, sast, sca, container, iac]   # DAST runs after deploy: report-only for now
+only_fixable: [sca, container]   # ...only when a fixed version exists (otherwise nothing a dev can do)
+# Injection classes block at ANY severity in SAST/DAST (Semgrep rates some XSS rules as WARNING).
+# Added after the seeded test showed reflected XSS was detected but not blocked.
+block_cwes: [CWE-78, CWE-79, CWE-89, CWE-94]

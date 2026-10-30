@@ -1,0 +1,14 @@
+metadata:
+  id: "PF_K8S_3"
+  name: "Pods must set seccompProfile RuntimeDefault at pod level (CIS Kubernetes 5.7.2)"
+  category: "KUBERNETES"
+  severity: "MEDIUM"
+  guideline: "spec.template.spec.securityContext.seccompProfile.type: RuntimeDefault filters dangerous syscalls."
+scope:
+  provider: "kubernetes"
+definition:
+  cond_type: "attribute"
+  resource_types: ["Pod"]  # Checkov expands Deployment templates into Pod resources
+  attribute: "spec.securityContext.seccompProfile.type"
+  operator: "equals"
+  value: "RuntimeDefault"

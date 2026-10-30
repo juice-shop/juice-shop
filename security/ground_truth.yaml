@@ -1,0 +1,72 @@
+# Ground-truth labels for evaluating the LLM triage (pftriage evaluate).
+#
+# Label meaning, decided BEFORE looking at any LLM output:
+#   real            the finding describes a security weakness an attacker could plausibly exploit
+#                   in the deployed application or its build (Juice Shop challenges count as real)
+#   false_positive  the scanner is wrong for this context: the code path is not reachable with
+#                   attacker input, the vulnerable function is never used, or the rule flags
+#                   hygiene with no security impact
+# Only findings we could verify by reading the source are labelled. Unverified ones are left out
+# on purpose: a smaller honest set beats a large guessed one.
+#
+# Matching: rule_id (substring), file (substring of one of the cluster's files), package (exact).
+# Review these labels yourself before submitting: reviewed_by below must be a human.
+reviewed_by: "<your name>"
+
+labels:
+  # ---------------------------------------------------------------- SAST: real
+  - {match: {rule_id: sequelize, file: routes/login.ts}, label: real,
+     why: "Login SQL injection: email is interpolated into a raw query (Juice Shop 'Login Admin' challenge)."}
+  - {match: {rule_id: sql, file: routes/login.ts}, label: real, why: "Same login SQL injection, other rule."}
+  - {match: {rule_id: sequelize, file: routes/search.ts}, label: real,
+     why: "Product search UNION SQL injection via req.query.q (Juice Shop 'Database Schema' challenge)."}
+  - {match: {rule_id: sql, file: routes/search.ts}, label: real, why: "Same search SQL injection, other rule."}
+  - {match: {rule_id: code-string-concat, file: routes/userProfile.ts}, label: real,
+     why: "Username is evaluated as code (server-side template injection / RCE challenge)."}
+  - {match: {rule_id: template-explicit-unescape, file: views/promotionVideo.pug}, label: real,
+     why: "Unescaped subtitle content rendered into the page ('Video XSS' challenge)."}
+  - {match: {rule_id: script-tag, file: routes/videoHandler.ts}, label: real,
+     why: "Subtitles injected into a <script> tag without escaping (same Video XSS chain)."}
+  - {match: {rule_id: express-res-sendfile, file: routes/fileServer.ts}, label: real,
+     why: "File server allow-list can be bypassed with a poison null byte (FTP challenges)."}
+  - {match: {rule_id: open-redirect, file: routes/redirect.ts}, label: real,
+     why: "Redirect allow-list check uses includes() and can be bypassed ('Allowlist Bypass' challenge)."}
+  - {match: {rule_id: directory-listing, file: server.ts}, label: real,
+     why: "/ftp and other folders are browsable, exposing confidential documents."}
+
+  # ---------------------------------------------------------------- SAST: false positives
+  - {match: {rule_id: express-res-sendfile, file: routes/keyServer.ts}, label: false_positive,
+     why: "Path traversal is prevented: file names containing '/' are rejected before sendFile."}
+  - {match: {rule_id: express-res-sendfile, file: routes/logfileServer.ts}, label: false_positive,
+     why: "Same '/' check blocks traversal."}
+  - {match: {rule_id: express-res-sendfile, file: routes/quarantineServer.ts}, label: false_positive,
+     why: "Same '/' check blocks traversal."}
+  - {match: {rule_id: insecure-, file: frontend/src/hacking-instructor}, label: false_positive,
+     why: "Tutorial overlay renders static, developer-written hint text; no user input reaches it."}
+  - {match: {rule_id: non-literal-fs-filename, file: lib/antiCheat.ts}, label: false_positive,
+     why: "File paths come from the internal challenge registry, not from requests."}
+  - {match: {rule_id: path-join-resolve-traversal, file: lib/antiCheat.ts}, label: false_positive,
+     why: "Same internal paths; not attacker controlled."}
+  - {match: {rule_id: lazy-load-module, file: scripts/package.mjs}, label: false_positive,
+     why: "Code-style rule in a release packaging script; no security impact."}
+
+  # ---------------------------------------------------------------- SCA
+  - {match: {package: jsonwebtoken}, label: real,
+     why: "jsonwebtoken 0.4.0 accepts forged/unsigned tokens ('Forged Signed JWT', 'Unsigned JWT' challenges)."}
+  - {match: {package: jws}, label: real, why: "Signature verification library behind the same JWT bypasses."}
+  - {match: {package: express-jwt}, label: real, why: "express-jwt 0.1.3 authorization bypass in the auth middleware."}
+  - {match: {package: sanitize-html}, label: real,
+     why: "sanitize-html 1.4.2 is bypassable; used on user feedback ('Persisted XSS' challenges)."}
+  - {match: {package: marsdb}, label: real, why: "Product reviews use MarsDB $where queries (NoSQL injection challenges)."}
+  - {match: {package: notevil}, label: real, why: "B2B order endpoint evaluates input in notevil; sandbox escape leads to RCE / DoS."}
+  - {match: {package: crypto-js}, label: false_positive,
+     why: "Only pulled in by pdfkit for PDF encryption; order PDFs are generated without encryption, so the weak PBKDF2 path is never called."}
+
+  # ---------------------------------------------------------------- IaC
+  - {match: {rule_id: CKV_AWS_260}, label: false_positive,
+     why: "Internet-facing load balancer must accept port 80 from 0.0.0.0/0 by design (the HTTP->HTTPS issue is a separate check)."}
+  - {match: {rule_id: CKV_AWS_23}, label: false_positive, why: "Missing security-group descriptions: documentation hygiene, no security impact."}
+  - {match: {rule_id: CKV_AWS_91}, label: real, why: "No ALB access logging: attacks would leave no trace."}
+  - {match: {rule_id: PF_DOCKER_1, file: infrastructure/Dockerfile}, label: real,
+     why: "USER node is a name, so Kubernetes runAsNonRoot cannot verify it; image also uses EOL Node 20."}
+  - {match: {rule_id: CKV_AWS_2}, label: real, why: "ALB listener serves plain HTTP: credentials and tokens travel unencrypted."}

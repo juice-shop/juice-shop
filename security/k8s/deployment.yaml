@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: juice-shop
+  namespace: juice-shop
+  labels:
+    app: juice-shop
+    owner: platform-security
+    app.kubernetes.io/part-of: pipelinefortress
+  annotations:
+    # Accepted risks, documented instead of silently ignored (reviewed in the report):
+    checkov.io/skip1: CKV_K8S_22=Juice Shop writes its SQLite DB and logs under /juice-shop; an emptyDir over data/ would hide the static challenge files. Compensated by non-root UID, no capabilities, no privilege escalation.
+    checkov.io/skip2: CKV_K8S_43=Local kind lab loads the image built by this pipeline run; it has no registry digest. In a real registry the deploy step pins @sha256.
+    checkov.io/skip3: CKV_K8S_15=imagePullPolicy Never is required for images side-loaded into kind; there is no registry to pull from.
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: juice-shop
+  template:
+    metadata:
+      labels:
+        app: juice-shop
+        owner: platform-security
+        app.kubernetes.io/part-of: pipelinefortress
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: juice-shop
+          image: pipelinefortress/juice-shop:ci
+          imagePullPolicy: Never
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 250m
+              memory: 384Mi
+            limits:
+              cpu: "1"
+              memory: 768Mi
+          readinessProbe:
+            httpGet:
+              path: /rest/admin/application-version
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /rest/admin/application-version
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 20

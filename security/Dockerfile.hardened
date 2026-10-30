@@ -1,0 +1,45 @@
+# PipelineFortress hardened image for OWASP Juice Shop
+#
+# Hardening compared with the upstream Dockerfile:
+#   1. Base images are pinned (version tags here; security/scripts/pin_images.sh swaps them for
+#      immutable @sha256 digests). Never ":latest".
+#   2. Only the pinned TypeScript compiler is installed globally, in the build stage only.
+#      Upstream also installs cyclonedx-npm globally; it is dropped because Syft produces the
+#      SBOM in the pipeline. Fewer build-time packages = smaller supply-chain surface.
+#   3. Runtime is distroless "nonroot": no shell, no package manager, no curl. An attacker who
+#      gets code execution has very few tools to work with.
+#   4. Runs as a numeric non-root UID (65532) so Kubernetes can verify runAsNonRoot.
+#   5. HEALTHCHECK implemented with the bundled node binary (there is no curl in distroless).
+#   6. Build-only files (tests, docs, CI config, security tooling) are removed before copying.
+#
+# Build:  docker build -f security/Dockerfile.hardened -t pipelinefortress/juice-shop:ci .
+
+FROM node:24-bookworm AS installer
+WORKDIR /juice-shop
+COPY . /juice-shop
+RUN npm install -g typescript@6.0.3 --no-audit --no-fund \
+ && npm install --omit=dev --no-audit --no-fund \
+ && npm dedupe --omit=dev \
+ && test -f build/app.js \
+ && rm -rf frontend/node_modules frontend/.angular frontend/src/assets \
+    test cypress cypress.config.ts security terraform vagrant monitoring \
+ && rm -f ftp/legal.md i18n/*.json \
+ && mkdir -p logs \
+ && chown -R 65532:0 logs \
+ && chgrp -R 0 ftp/ frontend/dist/ logs/ data/ i18n/ \
+ && chmod -R g=u ftp/ frontend/dist/ logs/ data/ i18n/
+
+FROM gcr.io/distroless/nodejs24-debian13:nonroot
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.title="OWASP Juice Shop (PipelineFortress hardened build)" \
+      org.opencontainers.image.description="Deliberately vulnerable app, rebuilt for a DevSecOps lab. Never expose publicly." \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.revision=$VCS_REF
+ENV NODE_ENV=production
+WORKDIR /juice-shop
+COPY --from=installer --chown=65532:0 /juice-shop .
+USER 65532:0
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+  CMD ["/nodejs/bin/node", "-e", "require('http').get('http://127.0.0.1:3000/rest/admin/application-version',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+CMD ["/juice-shop/build/app.js"]

@@ -1,0 +1,30 @@
+# Redaction layer configuration (see security/triage/pftriage/redact.py)
+# Project / organisation identifiers that must never reach an external LLM.
+identifiers:
+  - juice-shop
+  - juice shop
+  - juiceshop
+  - bkimminich
+  - owasp-juice
+  - pipelinefortress
+  - futurense
+internal_host_suffixes: [".internal", ".corp", ".local", ".lan", ".svc.cluster.local"]
+alias_paths: true          # routes/login.ts -> FILE_03.ts in prompts
+max_field_len: 240
+# Only CONFIGURATION may be sent when drafting a fix. Application source never is.
+fix_context_allow:
+  - package.json
+  - security/k8s/*.yaml
+  - security/Dockerfile.hardened
+  - terraform/*.tf
+fix_context_deny:
+  - "*.ts"
+  - "*.js"
+  - "*.mjs"
+  - "*.cjs"
+  - "*.py"
+  - "*.html"
+  - "*.env"
+  - "*.pem"
+  - "*.key"
+  - "encryptionkeys/*"

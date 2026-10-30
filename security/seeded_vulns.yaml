@@ -1,0 +1,43 @@
+# Ground truth for the "seeded vulnerabilities" experiment (security/scripts/seed_vulns.sh).
+# The dashboard checks, for each item, which pipeline stages reported it and whether a blocking
+# gate would have stopped the merge. Target from the problem statement: catch >= 80% before merge.
+#
+# match: a finding counts when its file (or package) matches AND any keyword appears in its
+# rule id or title (case-insensitive). keywords: ["*"] means any finding on that file/package.
+seeded:
+  - id: SEED-1
+    title: SQL injection (template literal in sequelize.query)
+    category: sast
+    match: {file: routes/pfReport.ts, keywords: [sql, sequelize]}
+  - id: SEED-2
+    title: OS command injection (child_process.exec with request data)
+    category: sast
+    match: {file: routes/pfReport.ts, keywords: [child, exec, command, spawn]}
+  - id: SEED-3
+    title: Reflected XSS (request data written into HTML response)
+    category: sast
+    match: {file: routes/pfReport.ts, keywords: [xss, direct-response, html, res.send, response-write]}
+  - id: SEED-4
+    title: Hard-coded API key in source code
+    category: secrets
+    match: {file: routes/pfReport.ts, keywords: [api-key, api_key, secret, hardcoded, generic]}
+  - id: SEED-5
+    title: Credentials committed in an .env file
+    category: secrets
+    match: {file: security/demo/integration.env, keywords: ["*"]}
+  - id: SEED-6
+    title: Vulnerable dependency with fix available (ejs 3.1.6)
+    category: sca
+    match: {package: ejs, keywords: ["*"]}
+  - id: SEED-7
+    title: Vulnerable dependency without a fix (node-serialize 0.0.4)
+    category: sca
+    match: {package: node-serialize, keywords: ["*"]}
+  - id: SEED-8
+    title: Privileged container with privilege escalation
+    category: iac
+    match: {file: security/k8s/deployment.yaml, keywords: [privilege, CKV_K8S_16, CKV_K8S_20]}
+  - id: SEED-9
+    title: Unpinned third-party action and write-all token in a workflow
+    category: iac
+    match: {file: .github/workflows/pf-seeded-deploy.yml, keywords: ["*"]}

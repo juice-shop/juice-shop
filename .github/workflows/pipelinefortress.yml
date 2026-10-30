@@ -1,0 +1,344 @@
+# PipelineFortress: shift-left security pipeline for OWASP Juice Shop
+#
+#   1 Secrets (gitleaks) ─┐
+#   2 SAST (Semgrep)     ─┤
+#   3 SCA (Trivy fs)     ─┼─► 6 GenAI triage (redacted) ─► dashboard, PR comment
+#   4 IaC (Checkov)      ─┤
+#   5 Build ► Container scan (Trivy) ► SBOM (Syft) ► Deploy to kind ► DAST (ZAP baseline)
+#
+# Stages 1-4 run in parallel so developers get feedback in minutes. Each stage writes its own
+# gate result: it fails only on NEW findings above the threshold in security/policy.yaml, compared
+# with security/baseline.json (the reviewed register of existing findings).
+#
+# Supply-chain hygiene: every action is pinned to a full commit SHA (policy PF_GHA_1), scanner
+# images and packages are pinned to versions, and the token is read-only. Anything that WRITES to
+# the repository (AI fix PRs, baseline updates) lives in separate, manually triggered workflows
+# (pf-ai-fix-prs.yml, pf-baseline-pr.yml) so the scanning pipeline never holds write access.
+
+name: PipelineFortress
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:   # manual re-run; no inputs (SLSA: build output depends only on the source)
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pipelinefortress-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "22"
+  SEMGREP_VERSION: "1.182.1"
+  CHECKOV_VERSION: "3.3.30"
+  GITLEAKS_IMAGE: "zricethezav/gitleaks:v8.30.1"
+  TRIVY_IMAGE: "ghcr.io/aquasecurity/trivy:0.72.0"   # versions after the March 2026 compromise (CVE-2026-33634)
+  SYFT_IMAGE: "anchore/syft:v1.49.0"
+  ZAP_IMAGE: "ghcr.io/zaproxy/zaproxy:stable"
+  APP_IMAGE: "pipelinefortress/juice-shop:ci"
+  PYTHONPATH: security/triage
+  PF_LLM_PROVIDER: gemini
+
+jobs:
+  # ───────────────────────────────────────────────────────────── 1. secrets
+  secrets:
+    name: "1 · Secrets (gitleaks)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install -r security/triage/requirements.txt
+      - name: Scan the working tree for secrets
+        run: |
+          mkdir -p scans
+          docker run --rm -v "$PWD:/repo" -w /repo "$GITLEAKS_IMAGE" dir /repo \
+            --config /repo/security/gitleaks.toml --redact --no-banner \
+            --report-format json --report-path /repo/scans/gitleaks.json --exit-code 0
+      - name: Gate (new secrets of any severity block the merge)
+        run: python -m pftriage gate --stage secrets --tool gitleaks --input scans/gitleaks.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: scan-secrets
+          path: |
+            scans/
+            metrics-out/
+          if-no-files-found: ignore
+
+  # ───────────────────────────────────────────────────────────── 2. SAST
+  sast:
+    name: "2 · SAST (Semgrep)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write   # upload SARIF to the repository's Security tab
+    steps:
+      - run: echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "semgrep==${SEMGREP_VERSION}" -r security/triage/requirements.txt
+      - name: Semgrep (registry packs + PipelineFortress rules)
+        run: |
+          mkdir -p scans
+          semgrep scan --metrics=off --timeout 30 --max-target-bytes 1000000 \
+            --config p/javascript --config p/typescript --config p/nodejs --config p/owasp-top-ten \
+            --config security/semgrep/pipelinefortress.yml \
+            --json-output=scans/semgrep.json --sarif-output=semgrep.sarif
+      - name: Gate (new HIGH+ findings block the merge)
+        run: python -m pftriage gate --stage sast --tool semgrep --input scans/semgrep.json
+      - name: Show findings in the GitHub Security tab
+        if: always()
+        continue-on-error: true   # needs code scanning enabled (free for public repos)
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
+        with:
+          sarif_file: semgrep.sarif
+          category: semgrep
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: scan-sast
+          path: |
+            scans/
+            metrics-out/
+          if-no-files-found: ignore
+
+  # ───────────────────────────────────────────────────────────── 3. SCA
+  sca:
+    name: "3 · SCA (Trivy dependencies)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - run: echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: pip install -r security/triage/requirements.txt
+      - name: Resolve the dependency tree (Juice Shop does not commit lockfiles)
+        run: |
+          npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
+          (cd frontend && npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund --legacy-peer-deps)
+      - id: day
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ steps.day.outputs.day }}
+          restore-keys: trivy-db-
+      - name: Trivy filesystem scan of npm dependencies
+        run: |
+          mkdir -p scans ~/.cache/trivy
+          docker run --rm -v "$PWD:/src" -v "$HOME/.cache/trivy:/root/.cache/trivy" "$TRIVY_IMAGE" \
+            fs --scanners vuln --format json --output /src/scans/trivy-fs.json /src
+      - name: Gate (new CRITICAL with an available fix blocks the merge)
+        run: python -m pftriage gate --stage sca --tool trivy --input scans/trivy-fs.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: scan-sca
+          path: |
+            scans/
+            metrics-out/
+          if-no-files-found: ignore
+
+  # ───────────────────────────────────────────────────────────── 4. IaC + policy-as-code
+  iac:
+    name: "4 · IaC & policy-as-code (Checkov)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - run: echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install "checkov==${CHECKOV_VERSION}" -r security/triage/requirements.txt
+      - name: Checkov (Kubernetes, Dockerfiles, Terraform, GitHub Actions + custom PF_* policies)
+        run: |
+          mkdir -p scans
+          checkov -d . --framework kubernetes,dockerfile,terraform,github_actions \
+            --external-checks-dir security/checkov/policies \
+            --skip-path data/static/codefixes --skip-path node_modules --skip-path frontend --skip-path test \
+            --skip-download --soft-fail -o json > scans/checkov.json
+      - name: Gate (new HIGH+ misconfigurations block the merge)
+        run: python -m pftriage gate --stage iac --tool checkov --input scans/checkov.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: scan-iac
+          path: |
+            scans/
+            metrics-out/
+          if-no-files-found: ignore
+
+  # ───────────────────────────────────────────────────────────── 5. build, container, SBOM, deploy, DAST
+  container-dast:
+    name: "5 · Build, container scan, SBOM, deploy, DAST"
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - run: echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install -r security/triage/requirements.txt
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - name: Build the hardened image
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: security/Dockerfile.hardened
+          tags: ${{ env.APP_IMAGE }}
+          load: true
+          build-args: VCS_REF=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - id: day
+        run: echo "day=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ steps.day.outputs.day }}
+          restore-keys: trivy-db-
+      - name: Trivy image scan (OS + app packages, secrets baked into layers)
+        run: |
+          mkdir -p scans ~/.cache/trivy
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD/scans:/out" \
+            -v "$HOME/.cache/trivy:/root/.cache/trivy" "$TRIVY_IMAGE" \
+            image --scanners vuln,secret --format json --output /out/trivy-image.json "$APP_IMAGE"
+      - name: Generate SBOM (Syft, CycloneDX + SPDX)
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD/scans:/out" "$SYFT_IMAGE" \
+            "docker:${APP_IMAGE}" -o cyclonedx-json=/out/sbom.cdx.json -o spdx-json=/out/sbom.spdx.json
+          python3 -c "import json;d=json.load(open('scans/sbom.cdx.json'));print('SBOM components:',len(d.get('components',[])))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Gate (new CRITICAL with an available fix blocks the merge)
+        run: python -m pftriage gate --stage container --tool trivy --input scans/trivy-image.json
+      - name: Create kind cluster
+        uses: helm/kind-action@1544676c07bb3570fcb70166beaa07c4528fd4aa # v1.15.1
+        with:
+          cluster_name: pipelinefortress
+          config: security/kind/kind-config.yaml
+      - name: Deploy to staging (kind, Pod Security "restricted")
+        run: |
+          kind load docker-image "$APP_IMAGE" --name pipelinefortress
+          kubectl apply -f security/k8s/namespace.yaml
+          kubectl apply -f security/k8s/ 2>&1 | tee deploy.log
+          kubectl -n juice-shop rollout status deploy/juice-shop --timeout=300s
+          for _ in $(seq 1 60); do curl -fsS http://localhost:3000/rest/admin/application-version && break; sleep 5; done
+          kubectl -n juice-shop get pods -o wide | tee -a deploy.log
+      - name: DAST (OWASP ZAP baseline, passive scan of the staging deployment)
+        run: |
+          echo "PF_STAGE_START=$(date +%s)" >> "$GITHUB_ENV"
+          mkdir -p zap && cp security/zap/rules.tsv zap/ && chmod -R 777 zap
+          docker run --rm --network host -v "$PWD/zap:/zap/wrk:rw" "$ZAP_IMAGE" \
+            zap-baseline.py -t http://localhost:3000 -c rules.tsv -J zap.json -r zap.html -m 3 -I || true
+          cp zap/zap.json scans/zap.json
+          python3 security/scripts/zap_summary.py scans/zap.json scans/runtime_baseline.md
+          cat scans/runtime_baseline.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Gate (DAST is report-only in policy.yaml)
+        run: python -m pftriage gate --stage dast --tool zap --input scans/zap.json
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: scan-container-dast
+          path: |
+            scans/
+            metrics-out/
+            zap/zap.html
+            deploy.log
+          if-no-files-found: ignore
+
+  # ───────────────────────────────────────────────────────────── 6. GenAI triage + metrics
+  triage:
+    name: "6 · GenAI triage, metrics dashboard"
+    needs: [secrets, sast, sca, iac, container-dast]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write   # post the triage summary as a PR comment
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - run: pip install -r security/triage/requirements.txt
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: scan-*
+          path: collected
+          merge-multiple: true
+      - name: LLM triage (clustered, redacted, guarded)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PF_LLM_MODEL: ${{ vars.PF_LLM_MODEL }}
+        run: python -m pftriage triage --input collected/scans --out triage-out
+      - name: Verify redaction (re-scan every payload that was sent)
+        run: python -m pftriage verify-audit --dir triage-out/llm_audit
+      - name: Verify redaction independently (gitleaks over the LLM audit log)
+        run: |
+          docker run --rm -v "$PWD/triage-out:/t" "$GITLEAKS_IMAGE" dir /t/llm_audit --no-banner --redact \
+            --report-format json --report-path /t/llm_audit_gitleaks.json --exit-code 1
+          echo "### 🔒 gitleaks found no secrets in anything sent to the LLM" >> "$GITHUB_STEP_SUMMARY"
+      - name: Evaluate triage against ground truth (FP / FN analysis)
+        if: hashFiles('security/ground_truth.yaml') != ''
+        run: python -m pftriage evaluate --triage triage-out/triage.json --truth security/ground_truth.yaml --out triage-out/evaluation.md
+      - name: Policy bot (plain-English explanations of failed IaC policies)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PF_LLM_MODEL: ${{ vars.PF_LLM_MODEL }}
+        continue-on-error: true
+        run: python -m pftriage explain-policies --triage triage-out/triage.json --out triage-out
+      - name: Candidate baseline (commit only through a reviewed PR)
+        run: python -m pftriage baseline --input collected/scans --out triage-out/baseline.json
+      - name: Metrics dashboard
+        run: |
+          python security/metrics/build_dashboard.py --scans collected/scans --metrics collected/metrics-out \
+            --triage triage-out --seeded security/seeded_vulns.yaml --out triage-out/dashboard.html
+          cat triage-out/dashboard_summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Comment on the pull request
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat triage-out/dashboard_summary.md triage-out/triage.md > comment.md
+          [ -f triage-out/policy_explanations.md ] && cat triage-out/policy_explanations.md >> comment.md
+          gh pr comment "${{ github.event.pull_request.number }}" --body-file comment.md --edit-last --create-if-none \
+            || gh pr comment "${{ github.event.pull_request.number }}" --body-file comment.md
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: pipelinefortress-report
+          path: |
+            triage-out/
+            collected/
+          if-no-files-found: ignore

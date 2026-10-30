@@ -1,0 +1,101 @@
+# Organisation-specific Semgrep rules (run in addition to the public registry packs).
+# Each rule encodes a lesson learned from this codebase so it can never come back.
+rules:
+  - id: pf-sequelize-raw-sql-template
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: >-
+      Raw SQL is built by string interpolation and passed to sequelize.query(). An attacker
+      controls the query (SQL injection). Use `replacements` or `bind` parameters instead.
+    metadata:
+      cwe: ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command"]
+      owasp: ["A03:2021 - Injection"]
+      confidence: HIGH
+      category: security
+      references: ["https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"]
+    pattern-either:
+      - pattern: $DB.query(`...${$X}...`, ...)
+      - pattern: $DB.query("..." + $X, ...)
+      - pattern: $DB.query("..." + $X + "...", ...)
+
+  - id: pf-insecure-random-for-secrets
+    languages: [typescript, javascript]
+    severity: WARNING
+    message: >-
+      Math.random() is not cryptographically secure but is used where a secret, token, coupon
+      or code is generated. Use crypto.randomBytes() / crypto.randomInt().
+    metadata:
+      cwe: ["CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)"]
+      confidence: MEDIUM
+      category: security
+    patterns:
+      - pattern: Math.random()
+      - pattern-either:
+          - pattern-inside: |
+              function $FN(...) { ... }
+          - pattern-inside: |
+              $FN = (...) => { ... }
+          - pattern-inside: |
+              const $FN = (...) => { ... }
+          - pattern-inside: |
+              $FN(...) { ... }
+      - metavariable-regex:
+          metavariable: $FN
+          regex: (?i).*(token|secret|password|passwd|coupon|otp|nonce|salt|key|code).*
+
+  - id: pf-hardcoded-api-key-assignment
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: >-
+      A credential-like variable is assigned a string literal. Load it from the environment or
+      a secret store instead (and rotate it if this was ever committed).
+    metadata:
+      cwe: ["CWE-798: Use of Hard-coded Credentials"]
+      confidence: MEDIUM
+      category: security
+    patterns:
+      - pattern-either:
+          - pattern: const $K = "$V"
+          - pattern: let $K = "$V"
+          - pattern: var $K = "$V"
+      - metavariable-regex:
+          metavariable: $K
+          regex: (?i)^.*(api_?key|secret|password|passwd|access_?token|private_?key)$
+      - metavariable-regex:
+          metavariable: $V
+          regex: ^.{12,}$
+
+  # Added after the seeded-vulnerability test: the community rules missed exec() imported from
+  # 'node:child_process' (the node: scheme). A gap found by measurement, closed by policy-as-code.
+  - id: pf-command-injection-child-process
+    mode: taint
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: >-
+      Request data reaches a shell command (child_process exec/execSync). An attacker can run
+      arbitrary OS commands. Use execFile/spawn with an argument array and validate the input.
+    metadata:
+      cwe: ["CWE-78: Improper Neutralization of Special Elements used in an OS Command"]
+      owasp: ["A03:2021 - Injection"]
+      confidence: HIGH
+      category: security
+      references: ["https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html"]
+    pattern-sources:
+      - pattern: $REQ.query
+      - pattern: $REQ.body
+      - pattern: $REQ.params
+      - pattern: $REQ.headers
+      - pattern: $REQ.cookies
+    pattern-sinks:
+      - patterns:
+          - pattern-either:
+              - pattern: exec($CMD, ...)
+              - pattern: execSync($CMD, ...)
+              - patterns:
+                  - pattern-either:
+                      - pattern: $CP.exec($CMD, ...)
+                      - pattern: $CP.execSync($CMD, ...)
+                  - metavariable-regex:     # not RegExp.prototype.exec()
+                      metavariable: $CP
+                      regex: (?i)^(cp|child_?process|childprocess|proc)$
+          - focus-metavariable: $CMD
