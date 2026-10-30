@@ -39,15 +39,15 @@
     <mat-expansion-panel class="mat-elevation-z0" aria-label="Expand for Reviews">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <span class="review-label-spacing">{{ 'LABEL_REVIEWS' | translate }}</span> <span>({{(reviews$| async)?.length}})</span>
+          <span class="review-label-spacing">{{ 'LABEL_REVIEWS' | translate }}</span> <span>({{ reviews().length }})</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <button mat-button class="auto-focus-absorber">
         <!-- 'absorbs' the auto-focus behavior -->
       </button>
-      @if ((reviews$ | async)?.length >= 1) {
+      @if (reviews().length >= 1) {
         <ul class="review-list">
-          @for (review of reviews$ | async; track review; let last = $last) {
+          @for (review of reviews(); track review; let last = $last) {
             <li class="comment">
               <article>
                 <header class="review-header">

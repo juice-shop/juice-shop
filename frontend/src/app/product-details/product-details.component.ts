@@ -25,7 +25,6 @@ import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } fr
 import { MatButtonModule, MatIconButton } from '@angular/material/button'
 import { MatDivider } from '@angular/material/divider'
 import { MatTooltip } from '@angular/material/tooltip'
-import { AsyncPipe } from '@angular/common'
 
 library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
 
@@ -34,7 +33,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormField, MatDialogActions, MatDialogClose, AsyncPipe, ProductImageComponent]
+  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormField, MatDialogActions, MatDialogClose, ProductImageComponent]
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog)
@@ -47,7 +46,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public author = 'Anonymous'
-  public reviews$: any
+  public readonly reviews = signal<Review[]>([])
   public userSubscription: any
 
   private readonly initialModel = { message: '' }
@@ -62,7 +61,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
-    this.reviews$ = this.productReviewService.get(this.data.productData.id)
+    this.loadReviews()
     this.userSubscription = this.userService.whoAmI(['email']).subscribe({
       next: (user: any) => {
         if (user?.email) {
@@ -81,17 +80,24 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  private loadReviews (): void {
+    this.productReviewService.get(this.data.productData.id).subscribe({
+      next: (reviews: Review[]) => this.reviews.set(reviews),
+      error: (err) => console.log(err)
+    })
+  }
+
   addReview () {
     return submit(this.reviewForm, async () => {
       const review = { message: this.reviewModel().message, author: this.author }
       this.reviewForm().reset({ ...this.initialModel })
       try {
         await firstValueFrom(this.productReviewService.create(this.data.productData.id, review))
-        this.reviews$ = this.productReviewService.get(this.data.productData.id)
+        this.loadReviews()
+        this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
       } catch (err: any) {
         console.log(err)
       }
-      this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
     })
   }
 
@@ -102,14 +108,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       data: {
         reviewData: review
       }
-    }).afterClosed().subscribe(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)))
+    }).afterClosed().subscribe(() => this.loadReviews())
   }
 
   likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
     })
-    setTimeout(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)), 200)
+    setTimeout(() => this.loadReviews(), 200)
   }
 
   isLoggedIn () {
