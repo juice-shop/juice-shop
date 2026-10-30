@@ -73,8 +73,8 @@ config/*.yml
 cypress/screenshots/
 
 # PipelineFortress local output
-triage-out/
-scans/
-metrics-out/
-collected/
-zap/
+/triage-out/
+/scans/
+/metrics-out/
+/collected/
+/zap/
