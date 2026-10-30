@@ -6,7 +6,8 @@
 import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { UserService } from '../Services/user.service'
 import { ProductReviewService } from '../Services/product-review.service'
-import { Component, type OnDestroy, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { Component, DestroyRef, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
@@ -34,7 +35,7 @@ library.add(faCrown)
   styleUrls: ['./product-details.component.scss'],
   imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormField, MatDialogActions, MatDialogClose, ProductImageComponent]
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ProductDetailsComponent implements OnInit {
   private readonly dialog = inject(MatDialog)
   data = inject<{
     productData: Product;
@@ -42,11 +43,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private readonly productReviewService = inject(ProductReviewService)
   private readonly userService = inject(UserService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly destroyRef = inject(DestroyRef)
 
-  public author = 'Anonymous'
+  public readonly author = signal('Anonymous')
   public readonly reviews = signal<Review[]>([])
   public readonly likedReviewId = signal<string | null>(null)
-  public userSubscription: any
 
   private readonly initialModel = { message: '' }
 
@@ -61,22 +62,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
     this.loadReviews()
-    this.userSubscription = this.userService.whoAmI(['email']).subscribe({
-      next: (user: any) => {
-        if (user?.email) {
-          this.author = user.email
-        } else {
-          this.author = 'Anonymous'
-        }
-      },
-      error: (err) => { console.log(err) }
-    })
-  }
-
-  ngOnDestroy () {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe()
-    }
+    this.userService.whoAmI(['email'])
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (user: any) => this.author.set(user?.email ?? 'Anonymous'),
+        error: (err) => console.log(err)
+      })
   }
 
   private loadReviews (): void {
@@ -88,7 +79,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   addReview () {
     return submit(this.reviewForm, async () => {
-      const review = { message: this.reviewModel().message, author: this.author }
+      const review = { message: this.reviewModel().message, author: this.author() }
       try {
         await firstValueFrom(this.productReviewService.create(this.data.productData.id, review))
         this.reviewForm().reset({ ...this.initialModel })
