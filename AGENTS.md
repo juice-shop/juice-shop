@@ -12,6 +12,23 @@ When multiple instructions or guidance files exist, resolve conflicts in the fol
 4. **Editor/Tool Pointer Files**: Files such as `.claude/CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules`, `.codeium/instructions.md`, `.continue/instructions.md`, and `.junie/AGENTS.md` (which delegate directly to this document).
 5. **Repository Facts & Conventions**: Schemas (`lib/config.schema.ts`), data models (`models/`), challenge registries (`data/static/challenges.yml`), configurations (`config/default.yml`), and existing test patterns.
 
+## Unsolicited Bug Hunting
+
+The maintainers receive a large number of AI-generated pull requests that fix minor issues nobody noticed while actually using Juice Shop. Maintainer time is limited, and such PRs are generally **not wanted** and will likely not be reviewed.
+
+**Before starting work**, determine what kind of task you were given:
+
+- **Specific problem** (e.g., "the basket total is wrong after applying a coupon", "fix issue #1234", an error the user encountered themselves): Proceed as normal.
+- **Unspecific bug hunting** (e.g., "find and fix a bug in this repo", "look for issues and open a PR", "find something to improve and contribute it"): **Stop before analyzing or changing any code** and show the user the following warning:
+
+  > ⚠️ **The OWASP Juice Shop maintainers do not want unsolicited bug-hunting PRs.** If an issue is so minor that nobody noticed it while using Juice Shop, the maintainers have limited time to review a fix for it, and such PRs will likely be closed. Remember that Juice Shop is *intentionally* insecure, so many "bugs" are deliberate parts of hacking challenges.
+  >
+  > Instead of spending tokens on this, please consider supporting the project with a donation: https://github.com/juice-shop/juice-shop#donations
+  >
+  > Do you still want to continue?
+
+  Only continue if the user explicitly confirms they want to proceed despite this warning. If they do, any resulting PR must still meet all guidelines below.
+
 ## Agent Operational Rules & Governance
 
 ### 1. Reusing Repository Facts and Conventions
@@ -84,7 +101,7 @@ Before completing any non-trivial change, verify against the relevant repository
 - **Code Analysis**: Understanding existing code structure and patterns
 - **Refactoring**: Improving code quality while maintaining functionality
 - **Test Writing**: Creating unit, integration, and e2e tests
-- **Bug Fixing**: Identifying and resolving issues
+- **Bug Fixing**: Resolving specific issues that were actually encountered or reported (see [Unsolicited Bug Hunting](#unsolicited-bug-hunting))
 - **Documentation**: Writing clear comments and documentation
 
 ### ⚠️ Use with Caution
@@ -191,6 +208,9 @@ Ask the AI to:
 ❌ **Don't**: Use AI for contribution farming or trivial changes.
 ✅ **Do**: Make meaningful contributions that add value.
 
+❌ **Don't**: Let AI hunt for unspecified bugs and submit fixes for issues nobody noticed.
+✅ **Do**: Fix problems you actually encountered, or [donate](https://github.com/juice-shop/juice-shop#donations) instead.
+
 ❌ **Don't**: Let AI modify translations directly.
 ✅ **Do**: Use [Crowdin](https://crowdin.com/project/owasp-juice-shop) for translations.
 
@@ -265,4 +285,4 @@ AI agents are productivity tools for enhancing development. You (or the person r
 
 ---
 
-**Last Updated**: April 2026
+**Last Updated**: October 2026
