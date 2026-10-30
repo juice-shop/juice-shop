@@ -1,0 +1,2446 @@
+{
+ "version": 1,
+ "created": "2026-10-30T12:10:51+00:00",
+ "stages": [
+  "container",
+  "dast",
+  "iac",
+  "sast",
+  "sca",
+  "secrets"
+ ],
+ "counts": {
+  "005126a76360427d": 2,
+  "02ba66469a0d9ed1": 1,
+  "03ccd7d1b06c3632": 1,
+  "0586cedeb36c6227": 1,
+  "05e0faea046a2f4f": 1,
+  "06b0d4a56aa52dd1": 1,
+  "07a722b403753528": 1,
+  "07d3ed50333cf9c5": 1,
+  "0867a5bed012ccb9": 1,
+  "086f218357d5ccb7": 1,
+  "09cbafaf9426429c": 1,
+  "0b2996b47a686606": 1,
+  "0c27b217362168d4": 1,
+  "0c3db307af2015d2": 1,
+  "0c614b3a10800a46": 1,
+  "0c85f567e028a1cf": 1,
+  "0fd3f98dd44f997d": 1,
+  "0ffb0c6b5c5b2453": 3,
+  "101067ce61451314": 4,
+  "1138b663e3021c5d": 1,
+  "12812ce27a55bf06": 1,
+  "1468ce416c824dd4": 1,
+  "157104647dd12091": 1,
+  "1680086ccb18326a": 1,
+  "16ced0e41feaed38": 1,
+  "16df4e35c2472bdb": 2,
+  "173602c28d84c3f6": 1,
+  "175bcb7ba8ab485c": 1,
+  "1779f0977262b9f6": 1,
+  "17b92fecb53bff54": 1,
+  "18f9ca34ccff4607": 1,
+  "1aaaf321f0d45f13": 16,
+  "1ad1edb9d500dfd3": 1,
+  "1c241165d1d42cac": 1,
+  "1ca3fe6ca7c5af18": 1,
+  "1d03c8fc80eb78b6": 1,
+  "247b21083fae3e55": 1,
+  "25ae13a5149d8395": 1,
+  "26170db0920b3606": 1,
+  "2651e3c7bf42b6ee": 1,
+  "270a38e317fc4963": 2,
+  "28dd2af3682d7154": 1,
+  "2989d32531165f22": 1,
+  "29965b6e1a19fe42": 1,
+  "2ab13d41e4e2d698": 1,
+  "2b86c80a377d85b8": 1,
+  "2c8f9836c2966cf7": 1,
+  "2ceda547d2c726d3": 1,
+  "2d27ecec16554861": 1,
+  "2d8a5a1d53a3835b": 1,
+  "2e5af57ebf00868b": 1,
+  "2f2a13b8c765ee15": 1,
+  "3007830b8370f582": 2,
+  "302c5d52217348bf": 1,
+  "30f6e6a9686353a9": 1,
+  "31cdee70f5dab852": 1,
+  "34e455b9895973f1": 1,
+  "362517268a0e2030": 1,
+  "36b4bdc12da1170d": 1,
+  "373045f947b1d469": 4,
+  "374e0c49459f8217": 1,
+  "39d5304653d7e58e": 1,
+  "3a6c735a04653f66": 1,
+  "3aa26d475d8e262f": 1,
+  "3bc06d3032881556": 1,
+  "3c5493e103d3c07b": 2,
+  "3d1ccedcaf13f7a9": 1,
+  "3d59a6f4a3153334": 1,
+  "3ef493a4c3357d71": 1,
+  "429288c8f088376f": 1,
+  "44d625cc8be056d3": 1,
+  "453faca485933f6c": 1,
+  "474724f311b3ce6e": 1,
+  "4753c9f573580a88": 1,
+  "492916120164e226": 1,
+  "4a1dfcca253e462c": 1,
+  "4aa9898fcf9dd2be": 1,
+  "4b8bf7871b4f1dc2": 1,
+  "4b943f502266e0d6": 1,
+  "4c66d5bb0af6bc4d": 1,
+  "4c962d70f6130f4a": 1,
+  "4ca26e8b82414eae": 2,
+  "4db3c6a6d4c2f9e9": 1,
+  "4de144bf6019d26d": 1,
+  "4f64fccb499e1d16": 1,
+  "4fd2f4dc6cf351b4": 1,
+  "51ed567fb3a7574f": 2,
+  "53cfaf15c32af5d6": 1,
+  "543a6bb2824d2371": 1,
+  "546c3e94e0052941": 1,
+  "5513de29a0096cea": 1,
+  "553f68ac318e3cd7": 1,
+  "570095f5afdf4fed": 1,
+  "57395a840655f333": 1,
+  "576b921ab2de52a7": 1,
+  "57d9897e937d7ab6": 1,
+  "5833bcccd7048ff3": 1,
+  "58b7b5ebdc7c8528": 1,
+  "58e3b8f5b172603f": 1,
+  "5b94c47d72f6dad0": 2,
+  "5b9bc57b2d6596a2": 1,
+  "5c260586c46631a0": 1,
+  "5c3c9eb55cd9ec30": 1,
+  "5c53f77f5e065753": 1,
+  "5de3d434e4e0a8eb": 1,
+  "5e9efe9f78b74c4b": 1,
+  "5eead6064f0ea4a7": 1,
+  "6241cdda123b8c50": 1,
+  "634f8da31308ea35": 1,
+  "64933d618044df76": 1,
+  "64f8fc9b6268f571": 3,
+  "660b3aa6460e7b73": 1,
+  "6658f05993cecd79": 1,
+  "66e6a71bfaf6d09c": 1,
+  "691d375a840edf44": 1,
+  "6924fca0f6392e47": 2,
+  "69d637b00054d69c": 1,
+  "6ba476a79398c23e": 1,
+  "6bac8b1efd12a84d": 1,
+  "6c127eca9aed7f2f": 1,
+  "6d33c2e82b23afd4": 1,
+  "6d4d194120ef3b6e": 1,
+  "6d58da9a09eab3d4": 1,
+  "6d8f898da803b755": 1,
+  "6e1fb0756c1ea701": 1,
+  "6e715ebac3dbfeea": 1,
+  "727d3b89e8e9d958": 1,
+  "72a2f7661db4c40b": 2,
+  "74be5c3aa2c1e085": 2,
+  "7586e0b002872220": 1,
+  "76d3759b39555d74": 1,
+  "775ff88ddd441a3a": 1,
+  "778ac7314e33df20": 1,
+  "7860719ea5f0fb75": 1,
+  "786e55a1d53c6609": 1,
+  "7a72cc3dbaf4ba7b": 1,
+  "7aa62906b0c85d9f": 2,
+  "7b2bfe46915692ed": 1,
+  "7cf15245d52b686d": 1,
+  "7e4ec1ba2388edfa": 1,
+  "7ea9f9105a58fc4f": 2,
+  "7f527cd3bb8bae2f": 1,
+  "7fb5a2b64590e1c4": 1,
+  "8252453980863302": 1,
+  "8462d75cb1059cd0": 1,
+  "84e409273f1643f0": 2,
+  "8531de65e6352c40": 1,
+  "8713bbfd8f19eb6b": 1,
+  "8855d0f636cdd5f8": 1,
+  "89851eb6d6d75ca0": 1,
+  "8a3ad8e5841511b8": 1,
+  "8b75e3628609dbde": 1,
+  "8d2dcf0dff38fba8": 1,
+  "8dc4be2b34139056": 1,
+  "8dd2ad440cbab112": 1,
+  "8e552872dc0af4b3": 1,
+  "8ea12d678d0a07db": 1,
+  "8ec0598dc3dac5e4": 1,
+  "8f1dbe98b57b35d0": 1,
+  "909fdf68b75c0314": 1,
+  "9446d32a7e5f16d4": 1,
+  "96968c4b81611372": 1,
+  "97954f9904266294": 1,
+  "981b78b648f4f70d": 1,
+  "981c25550c815e34": 1,
+  "9837ea63f4a1ee31": 1,
+  "9894e274f0b6e8c0": 1,
+  "9932102b72604bab": 1,
+  "9a4d7a06c90840bc": 1,
+  "9bc68ab1b2dc2206": 1,
+  "9d075398a1827ff0": 1,
+  "9e9e88ee567d9a46": 1,
+  "9ee990fcdb74f44e": 1,
+  "a05a25a08593e068": 1,
+  "a22dd97cfa92a18f": 1,
+  "a233c32b3e7cbaa0": 1,
+  "a2ce0553a0694c4b": 1,
+  "a570131a410d437e": 1,
+  "a68fbbe2be167720": 1,
+  "a70a19624e47887b": 1,
+  "a7591f1c22fe66fd": 1,
+  "a7e24c196acb090d": 1,
+  "a88f456a5dc9f33a": 1,
+  "a9f1f44f1d0dd131": 1,
+  "aafbf8d92b285a6d": 2,
+  "abe8826f42c88c93": 3,
+  "ac3921c30ddfc485": 1,
+  "acd2240e3486eb4c": 1,
+  "ae03d1e2be8cf721": 1,
+  "ae17d42847636b65": 5,
+  "af441ebcd9ebc1c1": 6,
+  "af97d0c3ea2b1298": 1,
+  "afba355571d26d06": 1,
+  "b08b8d12c510b66a": 1,
+  "b0a365cfde6d3ad6": 1,
+  "b0a65b40c0e282ee": 1,
+  "b10ba0730aaf0b40": 1,
+  "b2d227d9c4cd682a": 1,
+  "b324fcdee6f5b6af": 1,
+  "b3de1d9e967a39e3": 1,
+  "b50e7a20f3d239f5": 1,
+  "b5b6d3059dc412f2": 1,
+  "ba24bf504b4d3206": 1,
+  "bbd9e4a96e3d486c": 1,
+  "bc55ea1e755e7bb3": 1,
+  "bca44da0f58a03a2": 1,
+  "bd407c19b112905b": 1,
+  "bd5a3ea1e43a67cb": 1,
+  "c1041ba675fd68e2": 1,
+  "c13d15c3b3d7bcfd": 5,
+  "c221b7d726b6c08a": 1,
+  "c3cd7f854bebe132": 1,
+  "c70fef47d4004f28": 1,
+  "c75c025d34d39c5e": 1,
+  "ca1a218751801978": 1,
+  "cbea70bd31a79fca": 1,
+  "ce90a86e1f4df95c": 1,
+  "ced7753f77269a90": 1,
+  "cf7741fa692718c7": 1,
+  "d05ed56aff94284d": 1,
+  "d1928db9ed20d24b": 1,
+  "d2d1a02ee7d75df8": 1,
+  "d2ffffcb42f4dc84": 1,
+  "d4a442a420de7657": 1,
+  "d53585bdb442fe1d": 1,
+  "d6059e0df7e1b71a": 1,
+  "da3fbdf60ec08bb4": 1,
+  "dbe093cb33b81c21": 1,
+  "dc1996c12ffad4b0": 1,
+  "dcf6e646bc151ce4": 1,
+  "de60c6d1de6ce953": 1,
+  "df4ed5cb3f7e03ff": 1,
+  "dfc2b382e27c7590": 1,
+  "e03c3517fabc9135": 1,
+  "e09b12d4bcf8da6f": 1,
+  "e17a6560f38b0ea0": 1,
+  "e2bebec3caf9b900": 1,
+  "e3ae626396e5ad5f": 1,
+  "e4c1114d711ddf10": 1,
+  "e54a853096a74f78": 1,
+  "e56e8111011987d4": 1,
+  "e5be9a1d6e644c04": 1,
+  "e7200fe4849aa9e9": 2,
+  "e93a0290ccbe7041": 1,
+  "eb332ac0124efb4a": 1,
+  "edfefaec0c9ac5ac": 1,
+  "ef037e84e72a942c": 1,
+  "f01ce927c5faab54": 3,
+  "f0e9a3bf8b9f9c68": 1,
+  "f1ff71280ce2fc50": 1,
+  "f2236fdb7b43dd31": 1,
+  "f2834a31e162f4f9": 1,
+  "f42a11f432baff8e": 1,
+  "f56a7a54bbfe08b6": 1,
+  "f68111cc4e7ef13a": 1,
+  "f6c5a072e20b5aff": 1,
+  "f7012e68cee6ac5b": 1,
+  "f7c5869cbbd8aac0": 1,
+  "f7c7ce46d5c61266": 1,
+  "f877428472cafbd2": 1,
+  "f9675e35c88112b1": 1,
+  "f9ec3c3cf928f73d": 1,
+  "f9f7e3c810ae744e": 1,
+  "fa575e4ca54e66ac": 1,
+  "fb11eda9df00337a": 1,
+  "fb29c9641a9fa68b": 1,
+  "fbc1d3fc564ecc9c": 1,
+  "fc5132284a8edf6f": 1,
+  "fe2563aee41f78e7": 1,
+  "ffccbf365eb08d68": 1
+ },
+ "meta": {
+  "005126a76360427d": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2015-9235",
+   "file": "package-lock.json",
+   "package": "jsonwebtoken",
+   "severity": "CRITICAL"
+  },
+  "02ba66469a0d9ed1": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-26960",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "03ccd7d1b06c3632": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "GHSA-rvg8-pwq2-xj7q",
+   "file": "Node.js",
+   "package": "base64url",
+   "severity": "MEDIUM"
+  },
+  "0586cedeb36c6227": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-29786",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "05e0faea046a2f4f": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-24842",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "06b0d4a56aa52dd1": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2010-4756",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "07a722b403753528": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-9192",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "07d3ed50333cf9c5": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102010",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libgcc-s1",
+   "severity": "MEDIUM"
+  },
+  "0867a5bed012ccb9": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-428",
+   "file": "package-lock.json",
+   "package": "base64url",
+   "severity": "HIGH"
+  },
+  "086f218357d5ccb7": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-4055",
+   "file": "Node.js",
+   "package": "moment",
+   "severity": "MEDIUM"
+  },
+  "09cbafaf9426429c": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_336",
+   "file": "infrastructure/terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "0b2996b47a686606": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2025-65945",
+   "file": "Node.js",
+   "package": "jws",
+   "severity": "HIGH"
+  },
+  "0c27b217362168d4": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.aws-subnet-has-public-ip-address.aws-subnet-has-public-ip-address",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "0c3db307af2015d2": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-33987",
+   "file": "package-lock.json",
+   "package": "got",
+   "severity": "MEDIUM"
+  },
+  "0c614b3a10800a46": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "npm.npm-missing-minimum-release-age.npm-missing-minimum-release-age",
+   "file": "frontend/.npmrc",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "0c85f567e028a1cf": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_130",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "0fd3f98dd44f997d": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/chat.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "0ffb0c6b5c5b2453": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/login.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "101067ce61451314": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "test/server/verify.unit.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "1138b663e3021c5d": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_130",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "12812ce27a55bf06": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-26996",
+   "file": "Node.js",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "1468ce416c824dd4": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-29786",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "157104647dd12091": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10049",
+   "file": "/robots.txt",
+   "package": "",
+   "severity": "INFO"
+  },
+  "1680086ccb18326a": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2020-15084",
+   "file": "package-lock.json",
+   "package": "express-jwt",
+   "severity": "HIGH"
+  },
+  "16ced0e41feaed38": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102010",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libstdc++6",
+   "severity": "MEDIUM"
+  },
+  "16df4e35c2472bdb": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-17",
+   "file": "package-lock.json",
+   "package": "jsonwebtoken",
+   "severity": "HIGH"
+  },
+  "173602c28d84c3f6": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59874",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "175bcb7ba8ab485c": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_2",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "1779f0977262b9f6": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_DOCKER_7",
+   "file": "Dockerfile",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "17b92fecb53bff54": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.code-string-concat.code-string-concat",
+   "file": "routes/userProfile.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "18f9ca34ccff4607": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-res-sendfile.express-res-sendfile",
+   "file": "routes/fileServer.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "1aaaf321f0d45f13": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/2fa.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "1ad1edb9d500dfd3": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_130",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "1c241165d1d42cac": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-95619",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "gcc-14-base",
+   "severity": "MEDIUM"
+  },
+  "1ca3fe6ca7c5af18": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "1d03c8fc80eb78b6": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-41907",
+   "file": "package-lock.json",
+   "package": "uuid",
+   "severity": "MEDIUM"
+  },
+  "247b21083fae3e55": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_DOCKER_2",
+   "file": "infrastructure/Dockerfile",
+   "package": "",
+   "severity": "LOW"
+  },
+  "25ae13a5149d8395": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59871",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "26170db0920b3606": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_150",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "2651e3c7bf42b6ee": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-95619",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libstdc++6",
+   "severity": "MEDIUM"
+  },
+  "270a38e317fc4963": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23539",
+   "file": "package-lock.json",
+   "package": "jsonwebtoken",
+   "severity": "HIGH"
+  },
+  "28dd2af3682d7154": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2018-3721",
+   "file": "Node.js",
+   "package": "lodash",
+   "severity": "LOW"
+  },
+  "2989d32531165f22": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "29965b6e1a19fe42": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_378",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "2ab13d41e4e2d698": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2025-57349",
+   "file": "package-lock.json",
+   "package": "messageformat",
+   "severity": "LOW"
+  },
+  "2b86c80a377d85b8": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-6791",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "2c8f9836c2966cf7": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "private-key",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "CRITICAL"
+  },
+  "2ceda547d2c726d3": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-27171",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "zlib1g",
+   "severity": "MEDIUM"
+  },
+  "2d27ecec16554861": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-10732",
+   "file": "package-lock.json",
+   "package": "decompress",
+   "severity": "MEDIUM"
+  },
+  "2d8a5a1d53a3835b": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2025-65945",
+   "file": "package-lock.json",
+   "package": "jws",
+   "severity": "HIGH"
+  },
+  "2e5af57ebf00868b": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-2950",
+   "file": "package-lock.json",
+   "package": "lodash",
+   "severity": "MEDIUM"
+  },
+  "2f2a13b8c765ee15": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-31802",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "3007830b8370f582": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23540",
+   "file": "Node.js",
+   "package": "jsonwebtoken",
+   "severity": "MEDIUM"
+  },
+  "302c5d52217348bf": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_336",
+   "file": "terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "30f6e6a9686353a9": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-31808",
+   "file": "package-lock.json",
+   "package": "file-type",
+   "severity": "MEDIUM"
+  },
+  "31cdee70f5dab852": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "routes/login.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "34e455b9895973f1": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_378",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "362517268a0e2030": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-27903",
+   "file": "package-lock.json",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "36b4bdc12da1170d": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_394",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "373045f947b1d469": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/data-export.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "374e0c49459f8217": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10098",
+   "file": "",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "39d5304653d7e58e": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2017-16016",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "3a6c735a04653f66": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "3aa26d475d8e262f": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-101894",
+   "file": "Node.js",
+   "package": "decompress",
+   "severity": "CRITICAL"
+  },
+  "3bc06d3032881556": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-85091",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "zlib1g",
+   "severity": "MEDIUM"
+  },
+  "3c5493e103d3c07b": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23541",
+   "file": "package-lock.json",
+   "package": "jsonwebtoken",
+   "severity": "MEDIUM"
+  },
+  "3d1ccedcaf13f7a9": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-27903",
+   "file": "Node.js",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "3d59a6f4a3153334": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59873",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "CRITICAL"
+  },
+  "3ef493a4c3357d71": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "GHSA-5mrr-rgp6-x4gr",
+   "file": "Node.js",
+   "package": "marsdb",
+   "severity": "CRITICAL"
+  },
+  "429288c8f088376f": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-res-sendfile.express-res-sendfile",
+   "file": "routes/logfileServer.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "44d625cc8be056d3": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-25881",
+   "file": "package-lock.json",
+   "package": "http-cache-semantics",
+   "severity": "HIGH"
+  },
+  "453faca485933f6c": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_DOCKER_2",
+   "file": "Dockerfile",
+   "package": "",
+   "severity": "LOW"
+  },
+  "474724f311b3ce6e": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-428",
+   "file": "Node.js",
+   "package": "base64url",
+   "severity": "HIGH"
+  },
+  "4753c9f573580a88": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-25225",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "492916120164e226": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2024-21501",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "4a1dfcca253e462c": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_11",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "4aa9898fcf9dd2be": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.semgrep.pf-hardcoded-api-key-assignment",
+   "file": "lib/insecurity.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "4b8bf7871b4f1dc2": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2023-46233",
+   "file": "Node.js",
+   "package": "crypto-js",
+   "severity": "CRITICAL"
+  },
+  "4b943f502266e0d6": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_131",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "4c66d5bb0af6bc4d": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-26960",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "4c962d70f6130f4a": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-89092",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "4ca26e8b82414eae": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2015-9235",
+   "file": "Node.js",
+   "package": "jsonwebtoken",
+   "severity": "CRITICAL"
+  },
+  "4db3c6a6d4c2f9e9": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-73566",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "4de144bf6019d26d": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/cypress/e2e/totpSetup.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "4f64fccb499e1d16": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-53655",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "4fd2f4dc6cf351b4": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10110",
+   "file": "/chunk-AkObRTpM.js",
+   "package": "",
+   "severity": "LOW"
+  },
+  "51ed567fb3a7574f": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-90004",
+   "file": "",
+   "package": "",
+   "severity": "LOW"
+  },
+  "53cfaf15c32af5d6": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102010",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libgomp1",
+   "severity": "MEDIUM"
+  },
+  "543a6bb2824d2371": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "private-key",
+   "file": "lib/insecurity.ts",
+   "package": "",
+   "severity": "CRITICAL"
+  },
+  "546c3e94e0052941": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-33987",
+   "file": "Node.js",
+   "package": "got",
+   "severity": "MEDIUM"
+  },
+  "5513de29a0096cea": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59873",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "CRITICAL"
+  },
+  "553f68ac318e3cd7": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "570095f5afdf4fed": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2020-15084",
+   "file": "Node.js",
+   "package": "express-jwt",
+   "severity": "HIGH"
+  },
+  "57395a840655f333": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "576b921ab2de52a7": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-5435",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "57d9897e937d7ab6": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-23745",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "5833bcccd7048ff3": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-26539",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "58b7b5ebdc7c8528": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_130",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "58e3b8f5b172603f": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-6368",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "5b94c47d72f6dad0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23540",
+   "file": "package-lock.json",
+   "package": "jsonwebtoken",
+   "severity": "MEDIUM"
+  },
+  "5b9bc57b2d6596a2": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-19499",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "5c260586c46631a0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59874",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "5c3c9eb55cd9ec30": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-63670",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "5c53f77f5e065753": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-118664",
+   "file": "Node.js",
+   "package": "decode-uri-component",
+   "severity": "HIGH"
+  },
+  "5de3d434e4e0a8eb": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/cypress/e2e/login.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "5e9efe9f78b74c4b": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-10732",
+   "file": "Node.js",
+   "package": "decompress",
+   "severity": "MEDIUM"
+  },
+  "5eead6064f0ea4a7": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-118664",
+   "file": "package-lock.json",
+   "package": "decode-uri-component",
+   "severity": "HIGH"
+  },
+  "6241cdda123b8c50": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-113654",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "634f8da31308ea35": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_91",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "64933d618044df76": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-71851",
+   "file": "package-lock.json",
+   "package": "crypto-js",
+   "severity": "CRITICAL"
+  },
+  "64f8fc9b6268f571": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/checkKeys.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "660b3aa6460e7b73": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-86805",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "6658f05993cecd79": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_103",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "66e6a71bfaf6d09c": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.sequelize-injection-express.express-sequelize-injection",
+   "file": "routes/login.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "691d375a840edf44": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-48779",
+   "file": "frontend/package-lock.json",
+   "package": "ws",
+   "severity": "HIGH"
+  },
+  "6924fca0f6392e47": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "data/static/users.yml",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "69d637b00054d69c": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-1010023",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "6ba476a79398c23e": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-19542",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "6bac8b1efd12a84d": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102990",
+   "file": "Node.js",
+   "package": "basic-ftp",
+   "severity": "HIGH"
+  },
+  "6c127eca9aed7f2f": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59871",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "6d33c2e82b23afd4": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "6d4d194120ef3b6e": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-154",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "6d58da9a09eab3d4": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-39243",
+   "file": "Node.js",
+   "package": "decompress",
+   "severity": "MEDIUM"
+  },
+  "6d8f898da803b755": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-open-redirect.express-open-redirect",
+   "file": "routes/redirect.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "6e1fb0756c1ea701": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2025-57349",
+   "file": "Node.js",
+   "package": "messageformat",
+   "severity": "LOW"
+  },
+  "6e715ebac3dbfeea": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-10744",
+   "file": "Node.js",
+   "package": "lodash",
+   "severity": "CRITICAL"
+  },
+  "727d3b89e8e9d958": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-26539",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "72a2f7661db4c40b": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-17",
+   "file": "Node.js",
+   "package": "jsonwebtoken",
+   "severity": "HIGH"
+  },
+  "74be5c3aa2c1e085": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/product-review.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "7586e0b002872220": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-53486",
+   "file": "package-lock.json",
+   "package": "decompress",
+   "severity": "CRITICAL"
+  },
+  "76d3759b39555d74": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_338",
+   "file": "infrastructure/terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "775ff88ddd441a3a": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_184",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "778ac7314e33df20": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_158",
+   "file": "infrastructure/terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "7860719ea5f0fb75": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10063",
+   "file": "",
+   "package": "",
+   "severity": "LOW"
+  },
+  "786e55a1d53c6609": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_12",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "7a72cc3dbaf4ba7b": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "7aa62906b0c85d9f": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23539",
+   "file": "Node.js",
+   "package": "jsonwebtoken",
+   "severity": "HIGH"
+  },
+  "7b2bfe46915692ed": {
+   "stage": "secrets",
+   "tool": "trivy",
+   "rule_id": "private-key",
+   "file": "/juice-shop/infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "7cf15245d52b686d": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2025-14505",
+   "file": "frontend/package-lock.json",
+   "package": "elliptic",
+   "severity": "LOW"
+  },
+  "7e4ec1ba2388edfa": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-6238",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "7ea9f9105a58fc4f": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "test/server/currentUser.unit.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "7f527cd3bb8bae2f": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-95818",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "7fb5a2b64590e1c4": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10038",
+   "file": "",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "8252453980863302": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2017-18214",
+   "file": "Node.js",
+   "package": "moment",
+   "severity": "HIGH"
+  },
+  "8462d75cb1059cd0": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-1010022",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "84e409273f1643f0": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/feedback.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "8531de65e6352c40": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_28",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "8713bbfd8f19eb6b": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-24785",
+   "file": "Node.js",
+   "package": "moment",
+   "severity": "HIGH"
+  },
+  "8855d0f636cdd5f8": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "npm.npm-missing-minimum-release-age.npm-missing-minimum-release-age",
+   "file": ".npmrc",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "89851eb6d6d75ca0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2017-16016",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "8a3ad8e5841511b8": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-1010025",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "8b75e3628609dbde": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "GHSA-rvg8-pwq2-xj7q",
+   "file": "package-lock.json",
+   "package": "base64url",
+   "severity": "MEDIUM"
+  },
+  "8d2dcf0dff38fba8": {
+   "stage": "secrets",
+   "tool": "trivy",
+   "rule_id": "jwt-token",
+   "file": "/juice-shop/frontend/src/app/app.guard.spec.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "8dc4be2b34139056": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-31808",
+   "file": "Node.js",
+   "package": "file-type",
+   "severity": "MEDIUM"
+  },
+  "8dd2ad440cbab112": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-53486",
+   "file": "Node.js",
+   "package": "decompress",
+   "severity": "CRITICAL"
+  },
+  "8e552872dc0af4b3": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-95619",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libgcc-s1",
+   "severity": "MEDIUM"
+  },
+  "8ea12d678d0a07db": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-23950",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "8ec0598dc3dac5e4": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_12",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "8f1dbe98b57b35d0": {
+   "stage": "secrets",
+   "tool": "trivy",
+   "rule_id": "private-key",
+   "file": "/juice-shop/build/lib/insecurity.js",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "909fdf68b75c0314": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-113654",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "9446d32a7e5f16d4": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-18374",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "96968c4b81611372": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.insecure-load-balancer-tls-version.insecure-load-balancer-tls-version",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "97954f9904266294": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-97399",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "981b78b648f4f70d": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_20",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "981c25550c815e34": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-53655",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "9837ea63f4a1ee31": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-32822",
+   "file": "package-lock.json",
+   "package": "hbs",
+   "severity": "MEDIUM"
+  },
+  "9894e274f0b6e8c0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-23771",
+   "file": "package-lock.json",
+   "package": "notevil",
+   "severity": "MEDIUM"
+  },
+  "9932102b72604bab": {
+   "stage": "secrets",
+   "tool": "trivy",
+   "rule_id": "jwt-token",
+   "file": "/juice-shop/frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "9a4d7a06c90840bc": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-10744",
+   "file": "package-lock.json",
+   "package": "lodash",
+   "severity": "CRITICAL"
+  },
+  "9bc68ab1b2dc2206": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-23771",
+   "file": "Node.js",
+   "package": "notevil",
+   "severity": "MEDIUM"
+  },
+  "9d075398a1827ff0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2024-21501",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "9e9e88ee567d9a46": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-1000237",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "9ee990fcdb74f44e": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_158",
+   "file": "terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "a05a25a08593e068": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_333",
+   "file": "infrastructure/terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "a22dd97cfa92a18f": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-25225",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "a233c32b3e7cbaa0": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-3449",
+   "file": "Node.js",
+   "package": "@tootallnate/once",
+   "severity": "LOW"
+  },
+  "a2ce0553a0694c4b": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-2950",
+   "file": "Node.js",
+   "package": "lodash",
+   "severity": "MEDIUM"
+  },
+  "a570131a410d437e": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_150",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "a68fbbe2be167720": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-24842",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "a70a19624e47887b": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-8674",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "a7591f1c22fe66fd": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-73566",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "a7e24c196acb090d": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "frontend/src/app/app.guard.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "a88f456a5dc9f33a": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-27904",
+   "file": "Node.js",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "a9f1f44f1d0dd131": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-4055",
+   "file": "package-lock.json",
+   "package": "moment",
+   "severity": "MEDIUM"
+  },
+  "aafbf8d92b285a6d": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-23541",
+   "file": "Node.js",
+   "package": "jsonwebtoken",
+   "severity": "MEDIUM"
+  },
+  "abe8826f42c88c93": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "test/cypress/e2e/forgedJwt.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "ac3921c30ddfc485": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-1000223",
+   "file": "package-lock.json",
+   "package": "jws",
+   "severity": "HIGH"
+  },
+  "acd2240e3486eb4c": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-24785",
+   "file": "package-lock.json",
+   "package": "moment",
+   "severity": "HIGH"
+  },
+  "ae03d1e2be8cf721": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2018-3721",
+   "file": "package-lock.json",
+   "package": "lodash",
+   "severity": "LOW"
+  },
+  "ae17d42847636b65": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-check-directory-listing.express-check-directory-listing",
+   "file": "server.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "af441ebcd9ebc1c1": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/erasure-request.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "af97d0c3ea2b1298": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2018-16487",
+   "file": "package-lock.json",
+   "package": "lodash",
+   "severity": "HIGH"
+  },
+  "afba355571d26d06": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-95619",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libgomp1",
+   "severity": "MEDIUM"
+  },
+  "b08b8d12c510b66a": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_260",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "b0a365cfde6d3ad6": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102010",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "gcc-14-base",
+   "severity": "MEDIUM"
+  },
+  "b0a65b40c0e282ee": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-1000237",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "b10ba0730aaf0b40": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-80489",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "b2d227d9c4cd682a": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2017-18214",
+   "file": "package-lock.json",
+   "package": "moment",
+   "severity": "HIGH"
+  },
+  "b324fcdee6f5b6af": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-31802",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "b3de1d9e967a39e3": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.semgrep.pf-sequelize-raw-sql-template",
+   "file": "routes/login.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "b50e7a20f3d239f5": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2019-1010024",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "b5b6d3059dc412f2": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2023-46233",
+   "file": "package-lock.json",
+   "package": "crypto-js",
+   "severity": "CRITICAL"
+  },
+  "ba24bf504b4d3206": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "bbd9e4a96e3d486c": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10109",
+   "file": "",
+   "package": "",
+   "severity": "INFO"
+  },
+  "bc55ea1e755e7bb3": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.sequelize-injection-express.express-sequelize-injection",
+   "file": "routes/search.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "bca44da0f58a03a2": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_91",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "bd407c19b112905b": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_103",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "bd5a3ea1e43a67cb": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-101894",
+   "file": "package-lock.json",
+   "package": "decompress",
+   "severity": "CRITICAL"
+  },
+  "c1041ba675fd68e2": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "private-key",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "CRITICAL"
+  },
+  "c13d15c3b3d7bcfd": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/user.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "c221b7d726b6c08a": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-39243",
+   "file": "package-lock.json",
+   "package": "decompress",
+   "severity": "MEDIUM"
+  },
+  "c3cd7f854bebe132": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-45822",
+   "file": "package-lock.json",
+   "package": "decode-uri-component",
+   "severity": "MEDIUM"
+  },
+  "c70fef47d4004f28": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "NSWG-ECO-154",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "c75c025d34d39c5e": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.insecure-load-balancer-tls-version.insecure-load-balancer-tls-version",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "ca1a218751801978": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-113661",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "cbea70bd31a79fca": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "PF_DOCKER_1",
+   "file": "infrastructure/Dockerfile",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "ce90a86e1f4df95c": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "frontend/src/app/faucet/faucet.component.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "ced7753f77269a90": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_11",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "cf7741fa692718c7": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-26540",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "d05ed56aff94284d": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-113661",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "d1928db9ed20d24b": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-23950",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "d2d1a02ee7d75df8": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2018-20796",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "LOW"
+  },
+  "d2ffffcb42f4dc84": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-3449",
+   "file": "package-lock.json",
+   "package": "@tootallnate/once",
+   "severity": "LOW"
+  },
+  "d4a442a420de7657": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-63670",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "d53585bdb442fe1d": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-25887",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "HIGH"
+  },
+  "d6059e0df7e1b71a": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.semgrep.pf-sequelize-raw-sql-template",
+   "file": "routes/search.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "da3fbdf60ec08bb4": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-res-sendfile.express-res-sendfile",
+   "file": "routes/keyServer.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "dbe093cb33b81c21": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_338",
+   "file": "terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "dc1996c12ffad4b0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-27904",
+   "file": "package-lock.json",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "dcf6e646bc151ce4": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-23337",
+   "file": "Node.js",
+   "package": "lodash",
+   "severity": "HIGH"
+  },
+  "de60c6d1de6ce953": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "df4ed5cb3f7e03ff": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "dfc2b382e27c7590": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-32822",
+   "file": "Node.js",
+   "package": "hbs",
+   "severity": "MEDIUM"
+  },
+  "e03c3517fabc9135": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_2",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "e09b12d4bcf8da6f": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_20",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "e17a6560f38b0ea0": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-45736",
+   "file": "frontend/package-lock.json",
+   "package": "ws",
+   "severity": "MEDIUM"
+  },
+  "e2bebec3caf9b900": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-26540",
+   "file": "Node.js",
+   "package": "sanitize-html",
+   "severity": "MEDIUM"
+  },
+  "e3ae626396e5ad5f": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "GHSA-5mrr-rgp6-x4gr",
+   "file": "package-lock.json",
+   "package": "marsdb",
+   "severity": "CRITICAL"
+  },
+  "e4c1114d711ddf10": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_131",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "e54a853096a74f78": {
+   "stage": "secrets",
+   "tool": "trivy",
+   "rule_id": "private-key",
+   "file": "/juice-shop/lib/insecurity.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "e56e8111011987d4": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-25881",
+   "file": "Node.js",
+   "package": "http-cache-semantics",
+   "severity": "HIGH"
+  },
+  "e5be9a1d6e644c04": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-102990",
+   "file": "package-lock.json",
+   "package": "basic-ftp",
+   "severity": "HIGH"
+  },
+  "e7200fe4849aa9e9": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "test/api/basket.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "e93a0290ccbe7041": {
+   "stage": "dast",
+   "tool": "zap",
+   "rule_id": "ZAP-10049",
+   "file": "",
+   "package": "",
+   "severity": "INFO"
+  },
+  "eb332ac0124efb4a": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "frontend/src/app/last-login-ip/last-login-ip.component.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "edfefaec0c9ac5ac": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_382",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "ef037e84e72a942c": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "jwt",
+   "file": "test/api/user.test.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "f01ce927c5faab54": {
+   "stage": "secrets",
+   "tool": "gitleaks",
+   "rule_id": "generic-api-key",
+   "file": "frontend/src/app/oauth/oauth.component.spec.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "f0e9a3bf8b9f9c68": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-45822",
+   "file": "Node.js",
+   "package": "decode-uri-component",
+   "severity": "MEDIUM"
+  },
+  "f1ff71280ce2fc50": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2016-1000223",
+   "file": "Node.js",
+   "package": "jws",
+   "severity": "HIGH"
+  },
+  "f2236fdb7b43dd31": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-77117",
+   "file": "pipelinefortress/juice-shop:ci (debian 13.7)",
+   "package": "libc6",
+   "severity": "MEDIUM"
+  },
+  "f2834a31e162f4f9": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "audit.express-res-sendfile.express-res-sendfile",
+   "file": "routes/quarantineServer.ts",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "f42a11f432baff8e": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2021-23337",
+   "file": "package-lock.json",
+   "package": "lodash",
+   "severity": "HIGH"
+  },
+  "f56a7a54bbfe08b6": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-41907",
+   "file": "Node.js",
+   "package": "uuid",
+   "severity": "MEDIUM"
+  },
+  "f68111cc4e7ef13a": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2018-16487",
+   "file": "Node.js",
+   "package": "lodash",
+   "severity": "HIGH"
+  },
+  "f6c5a072e20b5aff": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_333",
+   "file": "terraform/main.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "f7012e68cee6ac5b": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.jwt-hardcode.hardcoded-jwt-secret",
+   "file": "lib/insecurity.ts",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "f7c5869cbbd8aac0": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "f7c7ce46d5c61266": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-23745",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "HIGH"
+  },
+  "f877428472cafbd2": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2022-25887",
+   "file": "package-lock.json",
+   "package": "sanitize-html",
+   "severity": "HIGH"
+  },
+  "f9675e35c88112b1": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_260",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "HIGH"
+  },
+  "f9ec3c3cf928f73d": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-71851",
+   "file": "Node.js",
+   "package": "crypto-js",
+   "severity": "CRITICAL"
+  },
+  "f9f7e3c810ae744e": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_23",
+   "file": "terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "fa575e4ca54e66ac": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_394",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "fb11eda9df00337a": {
+   "stage": "sast",
+   "tool": "semgrep",
+   "rule_id": "security.aws-subnet-has-public-ip-address.aws-subnet-has-public-ip-address",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "fb29c9641a9fa68b": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV2_AWS_28",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  },
+  "fbc1d3fc564ecc9c": {
+   "stage": "container",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59875",
+   "file": "Node.js",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "fc5132284a8edf6f": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-59875",
+   "file": "package-lock.json",
+   "package": "tar",
+   "severity": "MEDIUM"
+  },
+  "fe2563aee41f78e7": {
+   "stage": "sca",
+   "tool": "trivy",
+   "rule_id": "CVE-2026-26996",
+   "file": "package-lock.json",
+   "package": "minimatch",
+   "severity": "HIGH"
+  },
+  "ffccbf365eb08d68": {
+   "stage": "iac",
+   "tool": "checkov",
+   "rule_id": "CKV_AWS_184",
+   "file": "infrastructure/terraform/networking.tf",
+   "package": "",
+   "severity": "MEDIUM"
+  }
+ }
+}
