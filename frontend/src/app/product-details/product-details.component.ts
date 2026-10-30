@@ -45,6 +45,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   public author = 'Anonymous'
   public readonly reviews = signal<Review[]>([])
+  public readonly likedReviewId = signal<string | null>(null)
   public userSubscription: any
 
   private readonly initialModel = { message: '' }
@@ -110,10 +111,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   likeReview (review: Review) {
-    this.productReviewService.like(review._id).subscribe(() => {
-      console.log('Liked ' + review._id)
+    this.productReviewService.like(review._id).subscribe({
+      next: () => {
+        this.reviews.update((reviews) =>
+          reviews.map((item) =>
+            item._id === review._id
+              ? { ...item, liked: true, likesCount: (item.likesCount ?? 0) + 1 }
+              : item
+          )
+        )
+        this.likedReviewId.set(review._id)
+      },
+      error: (err) => console.log(err)
     })
-    setTimeout(() => this.loadReviews(), 200)
   }
 
   isLoggedIn () {

@@ -42,10 +42,12 @@ describe('ProductDetailsComponent', () => {
         userService.whoAmI.mockReturnValue(of({}))
         productReviewService = {
             get: vi.fn().mockName("ProductReviewService.get"),
-            create: vi.fn().mockName("ProductReviewService.create")
+            create: vi.fn().mockName("ProductReviewService.create"),
+            like: vi.fn().mockName("ProductReviewService.like")
         }
         productReviewService.get.mockReturnValue(of([]))
         productReviewService.create.mockReturnValue(of({}))
+        productReviewService.like.mockReturnValue(of({}))
         dialog = {
             open: vi.fn().mockName("Dialog.open")
         }
@@ -146,6 +148,23 @@ describe('ProductDetailsComponent', () => {
         expect(productReviewService.create).toHaveBeenCalled()
         expect(productReviewService.get).toHaveBeenCalled()
         expect(component.reviewModel().message).toBe('')
+    })
+
+    it('should update the liked review locally without refetching the list', () => {
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        productReviewService.get.mockReturnValue(of([
+            { _id: '1', message: 'Great product!', author: 'jim@juice-sh.op', liked: false, likesCount: 2 }
+        ]))
+        fixture.detectChanges()
+
+        component.likeReview(component.reviews()[0])
+
+        expect(productReviewService.like).toHaveBeenCalledWith('1')
+        expect(component.reviews()[0].liked).toBe(true)
+        expect(component.reviews()[0].likesCount).toBe(3)
+        expect(component.likedReviewId()).toBe('1')
+        expect(productReviewService.get).toHaveBeenCalledTimes(1)
     })
 
     it('should open a modal dialog with review editor', () => {
