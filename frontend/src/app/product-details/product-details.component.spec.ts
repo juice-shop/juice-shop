@@ -131,6 +131,7 @@ describe('ProductDetailsComponent', () => {
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
         await component.addReview()
         expect(log).toHaveBeenCalledWith('Error')
+        expect(component.reviewModel().message).toBe('Great product!')
         log.mockRestore()
         fixture.destroy()
     })
@@ -145,6 +146,7 @@ describe('ProductDetailsComponent', () => {
         await component.addReview()
         expect(productReviewService.create).toHaveBeenCalled()
         expect(productReviewService.get).toHaveBeenCalled()
+        expect(component.reviewModel().message).toBe('')
     })
 
     it('should open a modal dialog with review editor', () => {

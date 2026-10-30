@@ -90,9 +90,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   addReview () {
     return submit(this.reviewForm, async () => {
       const review = { message: this.reviewModel().message, author: this.author }
-      this.reviewForm().reset({ ...this.initialModel })
       try {
         await firstValueFrom(this.productReviewService.create(this.data.productData.id, review))
+        this.reviewForm().reset({ ...this.initialModel })
         this.loadReviews()
         this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
       } catch (err: any) {
