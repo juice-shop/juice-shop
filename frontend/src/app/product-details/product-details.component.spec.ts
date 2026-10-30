@@ -115,6 +115,12 @@ describe('ProductDetailsComponent', () => {
         expect(vi.mocked(productReviewService.create).mock.calls[0][1]).toEqual(reviewObject)
     })
 
+    it('should treat a whitespace-only review as invalid', () => {
+        fixture.detectChanges()
+        component.reviewModel.set({ message: '   ' })
+        expect(component.reviewForm.message().valid()).toBe(false)
+    })
+
     it('should log errors when retrieving user directly to browser console', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(throwError(() => 'Error'))
@@ -171,6 +177,7 @@ describe('ProductDetailsComponent', () => {
     it('should open a modal dialog with review editor', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        vi.spyOn(component, 'isLoggedIn').mockReturnValue('token')
         productReviewService.get.mockReturnValue(of([{ _id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
@@ -183,6 +190,7 @@ describe('ProductDetailsComponent', () => {
     it('should refresh reviews of product after editing a review', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        vi.spyOn(component, 'isLoggedIn').mockReturnValue('token')
         productReviewService.get.mockReturnValue(of([{ _id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
@@ -232,6 +240,7 @@ describe('ProductDetailsComponent', () => {
         it('should only show the edit button on reviews authored by the current user', () => {
             component.data = { productData: { id: 42 } as Product }
             userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+            vi.spyOn(component, 'isLoggedIn').mockReturnValue('token')
             productReviewService.get.mockReturnValue(of([
                 { _id: '1', message: 'Mine', author: 'horst@juice-sh.op', liked: false, likesCount: 0 },
                 { _id: '2', message: 'Someone else', author: 'jim@juice-sh.op', liked: false, likesCount: 0 },
