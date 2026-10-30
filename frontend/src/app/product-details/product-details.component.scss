@@ -34,7 +34,6 @@ p {
 
 .rw-button {
   margin-left: $space-xs;
-  position: relative;
 }
 
 .comment {
@@ -83,14 +82,20 @@ p {
   position: relative;
 }
 
+.like-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+.like-icon > * {
+  grid-area: 1 / 1;
+}
+
 .like-counter {
   border-radius: 50%;
   font-size: 8px;
-  left: 50%;
+  line-height: 1;
   padding: $space-3xs $space-2xs;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 h1 {

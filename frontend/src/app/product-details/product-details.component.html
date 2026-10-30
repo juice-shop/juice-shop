@@ -62,8 +62,10 @@
                     }
                     <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
                       class="rw-button" aria-label="Rate a helpful review">
+                    <span class="like-icon">
                       <mat-icon>thumb_up</mat-icon>
                       <span class="like-counter accent-notification">{{ review.likesCount }}</span>
+                    </span>
                     </button>
                   </div>
                 </header>
