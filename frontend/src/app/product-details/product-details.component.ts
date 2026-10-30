@@ -10,7 +10,7 @@ import { Component, type OnDestroy, type OnInit, inject, signal, ChangeDetection
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
-import { form, FormField, maxLength, minLength, required, submit } from '@angular/forms/signals'
+import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
 import { firstValueFrom } from 'rxjs'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
@@ -54,7 +54,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   public readonly reviewForm = form(this.reviewModel, (s) => {
     required(s.message)
-    minLength(s.message, 1)
+    pattern(s.message, /\S/)
     maxLength(s.message, 160)
   })
 
