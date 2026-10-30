@@ -38,18 +38,22 @@ def _ver(s: str) -> tuple[int, int, int] | None:
 
 
 def _min_fixed(fixed_versions: list[str], installed: str) -> str | None:
-    """Trivy may list several fixed versions ("4.17.21, 5.0.0"): pick the lowest one that is
-    newer than what is installed, i.e. the smallest safe upgrade."""
+    """The smallest version that fixes EVERY advisory reported for the package.
+
+    Each entry of `fixed_versions` is one advisory's fix, possibly listing several release
+    lines ("4.17.21, 5.0.0"). Per advisory, take the lowest fix newer than what is installed;
+    across advisories, take the highest of those. (Taking the overall lowest, as an earlier
+    version did, closed only the oldest advisory: found in human review of the AI PRs.)
+    """
     inst = _ver(installed) or (0, 0, 0)
-    cands = []
+    per_advisory = []
     for fv in fixed_versions:
-        for part in re.split(r"[,\s|]+", fv):
-            v = _ver(part)
-            if v and v > inst:
-                cands.append(v)
-    if not cands:
+        cands = [v for v in (_ver(part) for part in re.split(r"[,\s|]+", fv)) if v and v > inst]
+        if cands:
+            per_advisory.append(min(cands))
+    if not per_advisory:
         return None
-    return ".".join(map(str, min(cands)))
+    return ".".join(map(str, max(per_advisory)))
 
 
 def _run(cmd: list[str], cwd: Path, timeout: int = 600) -> subprocess.CompletedProcess:
@@ -117,7 +121,8 @@ def draft_dependency(c: dict, repo: Path, provider: Provider, red: Redactor, aud
     want = _ver(spec)
     if not want or not min_fix or want < _ver(min_fix):
         return {"status": "rejected", "reason": f"spec {spec!r} is below scanner fixed version {min_fix}", "checks": checks}
-    checks.append(f"✅ version spec {spec} >= scanner fixed version {min_fix}")
+    checks.append(f"✅ version spec {spec} >= {min_fix}, the lowest version that fixes all "
+                  f"{len(c['fixed_versions'])} reported advisories")
     exact = ".".join(map(str, want))
     if shutil.which("npm"):
         r = _run(["npm", "view", f"{c['package']}@{exact}", "version", "--json"], repo, 120)
@@ -279,7 +284,9 @@ def draft_prs(triage_path: Path, repo: Path, provider: Provider, cfg: RedactionC
                 if push.returncode == 0 and shutil.which("gh"):
                     pr = _run(["gh", "pr", "create", "--draft", "--base", base, "--head", branch,
                                "--title", f"[AI-draft] {res['title']}"[:100], "--body", body], repo)
-                    pr_url = pr.stdout.strip() or pr.stderr.strip()[:200]
+                    pr_url = pr.stdout.strip() or ("PR NOT OPENED: " + pr.stderr.strip()[:300])
+                    if pr.returncode != 0:
+                        print(f"::error::gh pr create failed for {branch}: {pr.stderr.strip()[:300]}")
                 else:
                     pr_url = "push failed: " + push.stderr[-200:]
                 res["pr"] = pr_url
