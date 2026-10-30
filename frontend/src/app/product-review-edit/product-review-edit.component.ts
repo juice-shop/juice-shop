@@ -46,8 +46,6 @@ export class ProductReviewEditComponent {
     maxLength(s.message, 160)
   })
 
-  public readonly error = signal<string | undefined>(undefined)
-
   editReview () {
     return submit(this.reviewForm, async () => {
       try {
@@ -56,7 +54,6 @@ export class ProductReviewEditComponent {
         this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
       } catch (err: any) {
         console.log(err)
-        this.error.set(err)
       }
     })
   }
