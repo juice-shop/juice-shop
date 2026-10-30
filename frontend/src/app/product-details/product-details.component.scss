@@ -89,6 +89,30 @@ p {
   padding: $space-3xs $space-2xs;
 }
 
+.like-icon-pop {
+  animation: like-pop 350ms ease-out;
+}
+
+@keyframes like-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like-icon-pop {
+    animation: none;
+  }
+}
+
 h1 {
   color: var(--theme-text);
 }
