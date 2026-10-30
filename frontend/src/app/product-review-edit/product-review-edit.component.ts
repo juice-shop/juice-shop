@@ -5,7 +5,7 @@
 
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
-import { form, FormField, maxLength, minLength, required, submit } from '@angular/forms/signals'
+import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
 import { firstValueFrom } from 'rxjs'
 import { ProductReviewService } from '../Services/product-review.service'
 
@@ -46,7 +46,7 @@ export class ProductReviewEditComponent {
 
   public readonly reviewForm = form(this.reviewModel, (s) => {
     required(s.message)
-    minLength(s.message, 1)
+    pattern(s.message, /\S/)
     maxLength(s.message, 160)
   })
 

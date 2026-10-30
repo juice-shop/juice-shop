@@ -14,7 +14,7 @@
           matTextareaAutosize matAutosizeMinRows="2"
         matAutosizeMaxRows="4" aria-label="Text field to edit a product review"  (focus)="error.set(undefined)"></textarea>
         <mat-hint align="end">{{reviewModel().message.length}}/160</mat-hint>
-        @if (reviewForm.message().getError('required')) {
+        @if (reviewForm.message().getError('required') || reviewForm.message().getError('pattern')) {
           <mat-error>{{ 'MANDATORY_REVIEW' | translate }}</mat-error>
         }
         @if (reviewForm.message().getError('maxLength')) {
