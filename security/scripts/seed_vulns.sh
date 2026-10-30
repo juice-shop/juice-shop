@@ -47,23 +47,13 @@ DB_PASSWORD=$(rand 24)
 EOF
 
 # SEED-6 vulnerable dependency with a fix available, SEED-7 one with no fix (SCA)
-python3 - <<'PY'
-import json
-p = json.load(open("package.json"))
-p["dependencies"]["ejs"] = "3.1.6"            # CVE-2022-29078 (critical), fixed in 3.1.7
-p["dependencies"]["node-serialize"] = "0.0.4"  # CVE-2017-5941 (critical RCE), no fixed version
-json.dump(p, open("package.json", "w"), indent=2)
-open("package.json", "a").write("\n")
-PY
+# (sed instead of Python, so this also runs in Git Bash on Windows)
+sed -i 's/^  "dependencies": {$/  "dependencies": {\n    "ejs": "3.1.6",\n    "node-serialize": "0.0.4",/' package.json
+grep -q '"node-serialize": "0.0.4"' package.json || { echo "could not edit package.json" >&2; exit 1; }
 
 # SEED-8 privileged container (IaC) - Pod Security "restricted" will also refuse it at deploy time
-python3 - <<'PY'
-p = "security/k8s/deployment.yaml"
-s = open(p).read()
-s = s.replace("allowPrivilegeEscalation: false", "allowPrivilegeEscalation: true")
-s = s.replace("privileged: false", "privileged: true")
-open(p, "w").write(s)
-PY
+sed -i 's/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/; s/privileged: false/privileged: true/' security/k8s/deployment.yaml
+grep -q 'privileged: true' security/k8s/deployment.yaml || { echo "could not edit deployment.yaml" >&2; exit 1; }
 
 # SEED-9 unpinned third-party action with write-all token (supply chain, IaC stage)
 cat > .github/workflows/pf-seeded-deploy.yml <<'EOF'
@@ -82,7 +72,8 @@ git add routes/pfReport.ts security/demo/integration.env package.json security/k
 git commit -m "DEMO: seeded vulnerabilities for PipelineFortress catch-rate test (do not merge)"
 
 if [ "$PUSH" = 1 ]; then
-  git push -f origin "$BRANCH"
+  git push -f -u origin "$BRANCH"
+  command -v gh >/dev/null 2>&1 || { echo "Pushed. Now open your fork on GitHub and click 'Compare & pull request' for $BRANCH (base: master)."; exit 0; }
   gh pr create --head "$BRANCH" --title "DEMO: seeded vulnerabilities (do not merge)" \
     --body "Nine deliberately seeded vulnerabilities (see security/seeded_vulns.yaml). The PipelineFortress gates should block this PR. Close it after the demo." \
     || echo "PR exists already"
