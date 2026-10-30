@@ -9,10 +9,9 @@ import { ProductReviewService } from '../Services/product-review.service'
 import { Component, type OnDestroy, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowCircleLeft, faCrown, faPaperPlane, faThumbsUp, faUserEdit } from '@fortawesome/free-solid-svg-icons'
+import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { form, FormField, maxLength, minLength, required, submit } from '@angular/forms/signals'
 import { firstValueFrom } from 'rxjs'
-import { MatSnackBar } from '@angular/material/snack-bar'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
 import { type Product } from '../Models/product.model'
@@ -26,7 +25,7 @@ import { MatButtonModule, MatIconButton } from '@angular/material/button'
 import { MatDivider } from '@angular/material/divider'
 import { MatTooltip } from '@angular/material/tooltip'
 
-library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
+library.add(faCrown)
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -42,7 +41,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 }>(MAT_DIALOG_DATA)
   private readonly productReviewService = inject(ProductReviewService)
   private readonly userService = inject(UserService)
-  private readonly snackBar = inject(MatSnackBar)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
   public author = 'Anonymous'

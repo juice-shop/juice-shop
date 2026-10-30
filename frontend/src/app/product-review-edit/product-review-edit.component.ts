@@ -9,8 +9,6 @@ import { form, FormField, maxLength, pattern, required, submit } from '@angular/
 import { firstValueFrom } from 'rxjs'
 import { ProductReviewService } from '../Services/product-review.service'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { type Review } from '../Models/review.model'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
@@ -20,8 +18,6 @@ import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/materi
 import { TranslateModule } from '@ngx-translate/core'
 
 import { MatIconModule } from '@angular/material/icon'
-
-library.add(faPaperPlane, faArrowCircleLeft)
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
