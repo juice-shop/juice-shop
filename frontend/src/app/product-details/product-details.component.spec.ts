@@ -83,7 +83,6 @@ describe('ProductDetailsComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ProductDetailsComponent)
         component = fixture.componentInstance
-        fixture.autoDetectChanges()
     })
 
     it('should create', () => {
@@ -93,7 +92,7 @@ describe('ProductDetailsComponent', () => {
     it('should post anonymous review if no user email is returned', async () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({}))
-        component.ngOnInit()
+        fixture.detectChanges()
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
         await component.addReview()
         const reviewObject = { message: 'Great product!', author: 'Anonymous' }
@@ -105,7 +104,7 @@ describe('ProductDetailsComponent', () => {
     it('should post review with user email as author', async () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
-        component.ngOnInit()
+        fixture.detectChanges()
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
         await component.addReview()
         const reviewObject = { message: 'Great product!', author: 'horst@juice-sh.op' }
@@ -118,7 +117,7 @@ describe('ProductDetailsComponent', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(throwError('Error'))
         console.log = vi.fn()
-        component.ngOnInit()
+        fixture.detectChanges()
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
@@ -127,7 +126,7 @@ describe('ProductDetailsComponent', () => {
         userService.whoAmI.mockReturnValue(of({}))
         productReviewService.create.mockReturnValue(throwError(() => 'Error'))
         const log = vi.spyOn(console, 'log').mockImplementation(() => {})
-        component.ngOnInit()
+        fixture.detectChanges()
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
         await component.addReview()
         expect(log).toHaveBeenCalledWith('Error')
@@ -141,7 +140,7 @@ describe('ProductDetailsComponent', () => {
         productReviewService.create.mockReturnValue(of({}))
         productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Review 1', author: 'Anonymous' }]))
         userService.whoAmI.mockReturnValue(of({}))
-        component.ngOnInit()
+        fixture.detectChanges()
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
         await component.addReview()
         expect(productReviewService.create).toHaveBeenCalled()
@@ -153,7 +152,6 @@ describe('ProductDetailsComponent', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
         productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
-        component.ngOnInit()
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
@@ -166,7 +164,6 @@ describe('ProductDetailsComponent', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
         productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
-        component.ngOnInit()
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
@@ -193,12 +190,14 @@ describe('ProductDetailsComponent', () => {
         })
 
         it('should render the close dialog button and the review textarea', () => {
+            fixture.detectChanges()
             const compiled: HTMLElement = fixture.nativeElement
             expect(compiled.querySelector('button.close-dialog')).toBeTruthy()
             expect(compiled.querySelector('textarea')).toBeTruthy()
         })
 
         it('should keep the submit review button disabled while the textarea is empty', () => {
+            fixture.detectChanges()
             const button = (fixture.nativeElement as HTMLElement).querySelector('button#submitButton') as HTMLButtonElement
             expect(button.disabled).toBe(true)
         })
@@ -206,7 +205,6 @@ describe('ProductDetailsComponent', () => {
         it('should render the empty review placeholder when there are no reviews', () => {
             component.data = { productData: { id: 42 } as Product }
             productReviewService.get.mockReturnValue(of([]))
-            component.ngOnInit()
             fixture.detectChanges()
             expect((fixture.nativeElement as HTMLElement).querySelector('.noResultText')).toBeTruthy()
         })
@@ -219,7 +217,6 @@ describe('ProductDetailsComponent', () => {
                 { _id: '2', message: 'Someone else', author: 'jim@juice-sh.op', liked: false, likesCount: 0 },
                 { _id: '3', message: 'Anonymous review', author: 'Anonymous', liked: false, likesCount: 0 }
             ]))
-            component.ngOnInit()
             fixture.detectChanges()
             const editButtons = (fixture.nativeElement as HTMLElement).querySelectorAll('button.edit-review-button')
             expect(editButtons.length).toBe(1)
@@ -233,7 +230,6 @@ describe('ProductDetailsComponent', () => {
                 { _id: '1', message: 'Liked', author: 'jim@juice-sh.op', liked: true, likesCount: 3 },
                 { _id: '2', message: 'Not liked', author: 'jim@juice-sh.op', liked: false, likesCount: 0 }
             ]))
-            component.ngOnInit()
             fixture.detectChanges()
             const likeButtons = (fixture.nativeElement as HTMLElement).querySelectorAll('button.rw-button')
             expect((likeButtons[0] as HTMLButtonElement).disabled).toBe(true)
