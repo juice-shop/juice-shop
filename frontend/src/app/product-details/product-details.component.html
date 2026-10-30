@@ -53,7 +53,7 @@
                 <header class="review-header">
                   <cite>{{ review.author }}</cite>
                   <div class="review-actions">
-                    @if (isLoggedIn() && review.author === author) {
+                    @if (isLoggedIn() && review.author === author()) {
                       <button mat-icon-button (click)="editReview(review)" class="edit-review-button"
                         aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}"
                         matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}">
