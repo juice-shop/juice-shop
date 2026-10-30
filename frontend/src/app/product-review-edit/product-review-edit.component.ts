@@ -57,11 +57,11 @@ export class ProductReviewEditComponent {
       try {
         await firstValueFrom(this.productReviewService.patch({ id: this.data.reviewData._id, message: this.reviewModel().message }))
         this.dialogRef.close()
+        this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
       } catch (err: any) {
         console.log(err)
         this.error.set(err)
       }
-      this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
     })
   }
 }
