@@ -53,11 +53,14 @@ export class Web3SandboxComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly keysService = inject(KeysService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly changeDetectorRef = inject(ChangeDetectorRef)
+  private readonly onChainChanged = this.handleChainChanged.bind(this)
 
 
   ngOnInit (): void {
     this.handleAuth()
-    window.ethereum.on('chainChanged', this.handleChainChanged.bind(this))
+    if (window.ethereum?.on) {
+      window.ethereum.on('chainChanged', this.onChainChanged)
+    }
   }
 
   userData: object
@@ -105,6 +108,7 @@ contract HelloWorld {
 
   ngOnDestroy (): void {
     this.editorView?.destroy()
+    window.ethereum?.removeListener?.('chainChanged', this.onChainChanged)
   }
 
   async compileAndFetchContracts (code: string) {
