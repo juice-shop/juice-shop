@@ -117,10 +117,11 @@ describe('ProductDetailsComponent', () => {
 
     it('should log errors when retrieving user directly to browser console', () => {
         component.data = { productData: { id: 42 } as Product }
-        userService.whoAmI.mockReturnValue(throwError('Error'))
-        console.log = vi.fn()
+        userService.whoAmI.mockReturnValue(throwError(() => 'Error'))
+        const log = vi.spyOn(console, 'log').mockImplementation(() => {})
         fixture.detectChanges()
-        expect(console.log).toHaveBeenCalledWith('Error')
+        expect(log).toHaveBeenCalledWith('Error')
+        log.mockRestore()
     })
 
     it('should log errors when posting review directly to browser console', async () => {
