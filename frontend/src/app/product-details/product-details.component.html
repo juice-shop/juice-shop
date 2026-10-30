@@ -53,7 +53,7 @@
                 <header class="review-header">
                   <cite>{{ review.author }}</cite>
                   <div class="review-actions">
-                    @if (review.author !== 'Anonymous' && review.author === author) {
+                    @if (isLoggedIn() && review.author === author) {
                       <button mat-icon-button (click)="editReview(review)" class="edit-review-button"
                         aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}"
                         matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}">
@@ -107,7 +107,7 @@
         <span>{{'BTN_CLOSE' | translate}}</span>
       </button>
 
-      <button type="submit" id="submitButton" [disabled]="reviewForm.message().invalid() || !reviewModel().message.trim()" mat-raised-button color="primary"
+      <button type="submit" id="submitButton" [disabled]="reviewForm.message().invalid()" mat-raised-button color="primary"
         (click)="addReview()" class="buttons submit-button-spacing"
         aria-label="Send the review"
         [style.display]="isLoggedIn() ? 'flex' : 'none' ">
