@@ -47,7 +47,7 @@
       </button>
       @if (reviews().length >= 1) {
         <ul class="review-list">
-          @for (review of reviews(); track review; let last = $last) {
+          @for (review of reviews(); track review._id; let last = $last) {
             <li class="comment">
               <article>
                 <header class="review-header">

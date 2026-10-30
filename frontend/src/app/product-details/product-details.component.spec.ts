@@ -140,7 +140,7 @@ describe('ProductDetailsComponent', () => {
     it('should refresh reviews after posting a review', async () => {
         component.data = { productData: { id: 42 } as Product }
         productReviewService.create.mockReturnValue(of({}))
-        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Review 1', author: 'Anonymous' }]))
+        productReviewService.get.mockReturnValue(of([{ _id: '42', message: 'Review 1', author: 'Anonymous' }]))
         userService.whoAmI.mockReturnValue(of({}))
         fixture.detectChanges()
         component.reviewModel.update((model) => ({ ...model, message: 'Great product!' }))
@@ -170,19 +170,19 @@ describe('ProductDetailsComponent', () => {
     it('should open a modal dialog with review editor', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
-        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
+        productReviewService.get.mockReturnValue(of([{ _id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
         expect(vi.mocked(dialog.open).mock.calls.length).toBe(1)
         expect(vi.mocked(dialog.open).mock.calls[0][0]).toBe(ProductReviewEditComponent)
-        expect(vi.mocked(dialog.open).mock.calls[0][1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
+        expect(vi.mocked(dialog.open).mock.calls[0][1].data).toEqual({ reviewData: { _id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
     })
 
     it('should refresh reviews of product after editing a review', () => {
         component.data = { productData: { id: 42 } as Product }
         userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
-        productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
+        productReviewService.get.mockReturnValue(of([{ _id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         fixture.detectChanges()
         const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
