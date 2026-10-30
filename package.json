@@ -230,5 +230,8 @@
     "esbuild@0.28.1": true,
     "@scarf/scarf": false,
     "cypress@15.17.0": true
+  },
+  "overrides": {
+    "moment": "^2.29.2"
   }
 }
