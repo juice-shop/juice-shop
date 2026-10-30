@@ -1,0 +1,3 @@
+10096	IGNORE	(Timestamp Disclosure - Unix: Angular bundle numbers, known FP)
+10027	IGNORE	(Information Disclosure - Suspicious Comments: third-party JS)
+10049	IGNORE	(Storable and Cacheable Content: informational for a lab)
