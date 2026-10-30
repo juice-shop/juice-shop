@@ -543,5 +543,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Usuń rozmowę",
   "CHATBOT_DELETE_ALL": "Usuń wszystko",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Usuń wszystkie rozmowy",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Ups! Wygląda na to, że nasz mózg AI robi sobie przerwę. Punkt końcowy AI nie jest skonfigurowany ani osiągalny. Proszę porozmawiać z administratorem sklepu, aby wrócić na właściwe tory!"
 }

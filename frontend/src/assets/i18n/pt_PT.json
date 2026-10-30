@@ -543,5 +543,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Eliminar conversa",
   "CHATBOT_DELETE_ALL": "Eliminar tudo",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Eliminar todas as conversas",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Ops! Parece que o nosso cérebro de IA fez uma pausa para recarregar energias. O endpoint da IA ​​​​não está configurado e/ou não pode ser acedido. Fala com o administrador da loja para colocar tudo nos eixos!"
 }
