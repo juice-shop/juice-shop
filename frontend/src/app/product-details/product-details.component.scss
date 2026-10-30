@@ -34,6 +34,7 @@ p {
 
 .rw-button {
   margin-left: $space-xs;
+  position: relative;
 }
 
 .comment {
@@ -84,11 +85,12 @@ p {
 
 .like-counter {
   border-radius: 50%;
-  bottom: 14px;
   font-size: 8px;
+  left: 50%;
   padding: $space-3xs $space-2xs;
   position: absolute;
-  right: $space-xs;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 h1 {
@@ -130,15 +132,34 @@ div {
 }
 
 
-.review-row {
-  align-items: flex-start;
-  display: flex;
-  gap: $space-xs;
-}
-
-.like-container {
+.review-header {
   align-items: center;
   display: flex;
+  gap: $space-xs;
+  justify-content: space-between;
+}
+
+.review-message {
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.review-divider {
+  margin-top: $space-xs;
+}
+
+.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.review-actions {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: $space-3xs;
 }
 
 .warn-notification {

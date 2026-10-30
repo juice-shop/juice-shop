@@ -153,7 +153,7 @@ describe('ProductDetailsComponent', () => {
         productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         component.ngOnInit()
         fixture.detectChanges()
-        const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
+        const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
         expect(vi.mocked(dialog.open).mock.calls.length).toBe(1)
         expect(vi.mocked(dialog.open).mock.calls[0][0]).toBe(ProductReviewEditComponent)
@@ -166,7 +166,7 @@ describe('ProductDetailsComponent', () => {
         productReviewService.get.mockReturnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
         component.ngOnInit()
         fixture.detectChanges()
-        const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
+        const buttonDe = fixture.debugElement.query(By.css('button.edit-review-button'))
         buttonDe.triggerEventHandler('click', null)
         expect(productReviewService.get).toHaveBeenCalledWith(42)
     })
@@ -207,6 +207,35 @@ describe('ProductDetailsComponent', () => {
             component.ngOnInit()
             fixture.detectChanges()
             expect((fixture.nativeElement as HTMLElement).querySelector('.noResultText')).toBeTruthy()
+        })
+
+        it('should only show the edit button on reviews authored by the current user', () => {
+            component.data = { productData: { id: 42 } as Product }
+            userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+            productReviewService.get.mockReturnValue(of([
+                { _id: '1', message: 'Mine', author: 'horst@juice-sh.op', liked: false, likesCount: 0 },
+                { _id: '2', message: 'Someone else', author: 'jim@juice-sh.op', liked: false, likesCount: 0 },
+                { _id: '3', message: 'Anonymous review', author: 'Anonymous', liked: false, likesCount: 0 }
+            ]))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const editButtons = (fixture.nativeElement as HTMLElement).querySelectorAll('button.edit-review-button')
+            expect(editButtons.length).toBe(1)
+        })
+
+        it('should disable the like button for reviews that are already liked', () => {
+            vi.spyOn(component, 'isLoggedIn').mockReturnValue('token')
+            component.data = { productData: { id: 42 } as Product }
+            userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+            productReviewService.get.mockReturnValue(of([
+                { _id: '1', message: 'Liked', author: 'jim@juice-sh.op', liked: true, likesCount: 3 },
+                { _id: '2', message: 'Not liked', author: 'jim@juice-sh.op', liked: false, likesCount: 0 }
+            ]))
+            component.ngOnInit()
+            fixture.detectChanges()
+            const likeButtons = (fixture.nativeElement as HTMLElement).querySelectorAll('button.rw-button')
+            expect((likeButtons[0] as HTMLButtonElement).disabled).toBe(true)
+            expect((likeButtons[1] as HTMLButtonElement).disabled).toBe(false)
         })
     })
 })

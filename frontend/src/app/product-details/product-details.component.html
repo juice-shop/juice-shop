@@ -6,10 +6,10 @@
 <mat-dialog-content>
 
   <div class="container">
-    <div class="details-row">
+    <header class="details-row">
       <div class="no-shrink">
         <app-product-image [alternateImages]="data.productData.alternateImages">
-          <img class="img-thumbnail" [src]="'assets/public/images/products/'+data.productData.image" alt="{{data.productData.name}}">
+          <img class="img-thumbnail" [src]="'assets/public/images/products/' + data.productData.image" [alt]="data.productData.name">
         </app-product-image>
       </div>
 
@@ -20,17 +20,17 @@
         <div>
           <p class="item-price">{{data.productData.price}}&curren;</p>
           @if (data.productData.points > 0) {
-            <div matTooltip="{{'LABEL_BONUS' | translate}}"
+            <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
               aria-label="Bonus points when buying the product">
               <span class="fa-2x fa-layers fa-fw">
-                <i class="fas fa-crown"></i>
+                <i class="fas fa-crown" aria-hidden="true"></i>
                 <span class="fa-layers-counter fa-layers-bottom-left fa-2x warn-notification">{{ data.productData.points }}</span>
               </span>
             </div>
           }
         </div>
       </div>
-    </div>
+    </header>
 
     <mat-divider class="detail-divider"></mat-divider>
     <button mat-button class="auto-focus-absorber">
@@ -45,35 +45,38 @@
       <button mat-button class="auto-focus-absorber">
         <!-- 'absorbs' the auto-focus behavior -->
       </button>
-      @if ((reviews$| async)?.length >= 1) {
-        <div>
-          @for (review of reviews$|async; track review) {
-            <div class="comment">
-              <div class="review-row">
-                <div class="review-text"
-                  (click)="review.author !== 'Anonymous' && review.author === author && editReview(review)"
-                  matTooltipDisabled="{{review.author !== author}}" matTooltip="{{'LABEL_EDIT_REVIEW' | translate}}"
-                  matTooltipPosition="right">
-                  <cite>{{review.author}}</cite>
-                  <p>{{ review.message }}</p>
-                </div>
-                <div class="like-container">
-                  <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
-                    class="rw-button" aria-label="Rate a helpful review">
-                    <mat-icon>thumb_up</mat-icon>
-                    <span class="like-counter accent-notification">{{ review.likesCount }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+      @if ((reviews$ | async)?.length >= 1) {
+        <ul class="review-list">
+          @for (review of reviews$ | async; track review; let last = $last) {
+            <li class="comment">
+              <article>
+                <header class="review-header">
+                  <cite>{{ review.author }}</cite>
+                  <div class="review-actions">
+                    @if (review.author !== 'Anonymous' && review.author === author) {
+                      <button mat-icon-button (click)="editReview(review)" class="edit-review-button"
+                        aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}"
+                        matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                    }
+                    <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
+                      class="rw-button" aria-label="Rate a helpful review">
+                      <mat-icon>thumb_up</mat-icon>
+                      <span class="like-counter accent-notification">{{ review.likesCount }}</span>
+                    </button>
+                  </div>
+                </header>
+                <p class="review-message">{{ review.message }}</p>
+              </article>
+              @if (!last) {
+                <mat-divider class="review-divider"></mat-divider>
+              }
+            </li>
           }
-        </div>
+        </ul>
       } @else {
-        <div>
-          <span class="noResultText">
-            {{ 'EMPTY_REVIEW_LIST' | translate }}
-          </span>
-        </div>
+        <p class="noResultText">{{ 'EMPTY_REVIEW_LIST' | translate }}</p>
       }
 
     </mat-expansion-panel>
@@ -83,10 +86,10 @@
     <h4 [style.display]="isLoggedIn() ? 'block' : 'none' ">{{ 'WRITE_REVIEW' | translate }}</h4>
     <mat-form-field appearance="outline" color="tertiary"
       [style.display]="isLoggedIn() ? 'block' : 'none' " floatLabel="always">
-      <mat-label >{{"LABEL_REVIEW" | translate}}</mat-label>
+      <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
       <mat-hint>
-        <i class="fas fa-exclamation-circle"></i>
-        <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: {length: '160'} }}</em>
+        <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
+        <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
       </mat-hint>
       <textarea [formField]="reviewForm.message" cols="50" matInput
         placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
