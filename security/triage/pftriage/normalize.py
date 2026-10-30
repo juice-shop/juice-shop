@@ -28,6 +28,20 @@ def _cwes(values) -> list[str]:
     return out
 
 
+# Scanners run in Docker see the repo under a mount point (gitleaks: /repo, Trivy fs: /src).
+# Strip it so every scanner reports the same repo-relative path: findings then dedupe across
+# tools, and baseline fingerprints stay stable whichever way a scanner was invoked.
+_MOUNT_PREFIXES = ("/repo/", "/src/", "./")
+
+
+def repo_path(path: str) -> str:
+    p = (path or "").replace("\\", "/")
+    for pre in _MOUNT_PREFIXES:
+        if p.startswith(pre):
+            return p[len(pre):]
+    return p.lstrip("/") if p.startswith("/") and not p.startswith("/juice-shop/") else p
+
+
 def _strip_html(text: str) -> str:
     return re.sub(r"<[^>]+>", " ", text or "").replace("&nbsp;", " ").strip()
 
@@ -60,7 +74,7 @@ def parse_semgrep(data: dict) -> list[Finding]:
             # the semgrep message can quote code; keep only its first sentence, redact.py scrubs it again
             title=_first_line(extra.get("message", rule)).split(". ")[0],
             severity=sev if not is_secret_rule else "HIGH",
-            file=r.get("path", ""),
+            file=repo_path(r.get("path", "")),
             line=int(r.get("start", {}).get("line", 0) or 0),
             cwe=_cwes(meta.get("cwe")),
             url=(meta.get("references") or [""])[0] if isinstance(meta.get("references"), list) else "",
@@ -81,7 +95,7 @@ def parse_gitleaks(data: list) -> list[Finding]:
             rule_id=rule,
             title=r.get("Description", "Hard-coded secret"),
             severity="CRITICAL" if "private-key" in rule else "HIGH",
-            file=r.get("File", ""),
+            file=repo_path(r.get("File", "")),
             line=int(r.get("StartLine", 0) or 0),
             cwe=["CWE-798"],
         ))
@@ -96,7 +110,7 @@ def parse_trivy(data: dict) -> list[Finding]:
     stage = "container" if image else "sca"
     artifact = data.get("ArtifactName", "")
     for res in data.get("Results", []) or []:
-        target = res.get("Target", "")
+        target = res.get("Target", "") if image else repo_path(res.get("Target", ""))
         for v in res.get("Vulnerabilities", []) or []:
             vid = v.get("VulnerabilityID", "")
             out.append(Finding(
@@ -171,7 +185,7 @@ def parse_checkov(data) -> list[Finding]:
                 rule_id=cid,
                 title=c.get("check_name", cid),
                 severity=norm_severity(sev),
-                file=(c.get("repo_file_path") or c.get("file_path") or "").lstrip("/"),
+                file=repo_path(c.get("repo_file_path") or c.get("file_path") or ""),
                 line=int(rng[0] or 0),
                 resource=c.get("resource", ""),
                 url=c.get("guideline") or "",
