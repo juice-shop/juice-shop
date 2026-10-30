@@ -73,15 +73,6 @@ p {
   padding-right: $space-m;
 }
 
-.like-button {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-left: $space-xs;
-  margin-top: -$space-2xs;
-  position: relative;
-}
-
 .like-icon {
   display: inline-grid;
   place-items: center;
