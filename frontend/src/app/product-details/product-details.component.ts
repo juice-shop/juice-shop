@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDial
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
 import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
-import { firstValueFrom } from 'rxjs'
+import { finalize, firstValueFrom } from 'rxjs'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
 import { type Product } from '../Models/product.model'
@@ -48,6 +48,7 @@ export class ProductDetailsComponent implements OnInit {
   public readonly author = signal('Anonymous')
   public readonly reviews = signal<Review[]>([])
   public readonly likedReviewId = signal<string | null>(null)
+  public readonly pendingLikeIds = signal<string[]>([])
 
   private readonly initialModel = { message: '' }
 
@@ -102,19 +103,40 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   likeReview (review: Review) {
-    this.productReviewService.like(review._id).subscribe({
-      next: () => {
-        this.reviews.update((reviews) =>
-          reviews.map((item) =>
-            item._id === review._id
-              ? { ...item, liked: true, likesCount: (item.likesCount ?? 0) + 1 }
-              : item
-          )
-        )
-        this.likedReviewId.set(review._id)
-      },
-      error: (err) => console.log(err)
-    })
+    if (this.isLikePending(review._id)) {
+      return
+    }
+
+    this.setLikePending(review._id, true)
+    this.productReviewService.like(review._id)
+      .pipe(finalize(() => this.setLikePending(review._id, false)))
+      .subscribe({
+        next: () => this.markReviewAsLiked(review._id),
+        error: (err) => console.log(err)
+      })
+  }
+
+  private isLikePending (reviewId: string): boolean {
+    return this.pendingLikeIds().includes(reviewId)
+  }
+
+  private setLikePending (reviewId: string, pending: boolean): void {
+    this.pendingLikeIds.update((ids) =>
+      pending
+        ? [...ids, reviewId]
+        : ids.filter((id) => id !== reviewId)
+    )
+  }
+
+  private markReviewAsLiked (reviewId: string): void {
+    this.reviews.update((reviews) =>
+      reviews.map((review) =>
+        review._id === reviewId
+          ? { ...review, liked: true, likesCount: (review.likesCount ?? 0) + 1 }
+          : review
+      )
+    )
+    this.likedReviewId.set(reviewId)
   }
 
   isLoggedIn () {

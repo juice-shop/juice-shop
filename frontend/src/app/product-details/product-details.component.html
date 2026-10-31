@@ -60,7 +60,7 @@
                         <mat-icon>edit</mat-icon>
                       </button>
                     }
-                    <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn()"
+                    <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn() || pendingLikeIds().includes(review._id)"
                       class="rw-button" aria-label="Rate a helpful review">
                       <span class="like-icon" [class.like-icon-pop]="likedReviewId() === review._id"
                         (animationend)="likedReviewId.set(null)">
