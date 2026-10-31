@@ -1,0 +1,24 @@
+[
+  {
+    "context": [
+      "/api",
+      "/rest",
+      "/snippets",
+      "/file-upload",
+      "/ftp",
+      "/profile",
+      "/dataerasure",
+      "/redirect",
+      "/assets/public/images/uploads"
+    ],
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  {
+    "context": ["/socket.io"],
+    "target": "http://localhost:3000",
+    "secure": false,
+    "ws": true
+  }
+]
+

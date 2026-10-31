@@ -78,14 +78,23 @@
               "extractLicenses": true,
               "statsJson": true
             },
-            "development": {}
+            "development": {},
+            "development-serve": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
+            }
           },
           "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "buildTarget": "frontend:build"
+            "buildTarget": "frontend:build:development-serve",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
