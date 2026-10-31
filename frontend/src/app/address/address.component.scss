@@ -18,7 +18,7 @@ mat-card {
 }
 
 .mat-mdc-header-row {
-  display: none;
+  border-bottom: 1px solid var(--theme-background-light);
 }
 
 svg {
@@ -45,6 +45,7 @@ svg {
 }
 
 .mat-column-Name {
+  padding-left: $space-m;
   white-space: nowrap;
   width: 20%;
 }

@@ -25,21 +25,21 @@
     </ng-container>
 
     <ng-container matColumnDef="Name">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'LABEL_NAME' | translate }}</th>
       <td mat-cell *matCellDef="let element">
         {{ element?.fullName }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Address">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'LABEL_ADDRESS' | translate }}</th>
       <td mat-cell *matCellDef="let element">
         {{ element?.streetAddress }}, {{ element?.city }}, {{ element?.state }}, {{ element?.zipCode }}
       </td>
     </ng-container>
 
     <ng-container matColumnDef="Country">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'LABEL_COUNTRY' | translate }}</th>
       <td mat-cell *matCellDef="let element">
         {{ element?.country }}
       </td>
