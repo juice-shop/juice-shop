@@ -11,63 +11,63 @@
   }
 
   @if (addressExist) {
-  <mat-table [dataSource]="dataSource" class="address-table">
+  <div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="address-table">
     <ng-container matColumnDef="Selection">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element; let row">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element; let row">
         <mat-radio-button
           (click)="emitSelectionToParent(element.id)"
           [checked]="selection.isSelected(row)"
           (change)="$event ? selection.toggle(row) : null">
         </mat-radio-button>
-      </mat-cell>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Name">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
         {{ element?.fullName }}
-      </mat-cell>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Address">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
         {{ element?.streetAddress }}, {{ element?.city }}, {{ element?.state }}, {{ element?.zipCode }}
-      </mat-cell>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Country">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
         {{ element?.country }}
-      </mat-cell>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Edit">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
         <button mat-icon-button routerLink="/address/edit/{{ element.id }}">
           <i class="far fa-edit"></i>
         </button>
-      </mat-cell>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="Remove">
-      <mat-header-cell *matHeaderCellDef class="header-hidden"></mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
         <button mat-icon-button (click)="deleteAddress(element.id)">
           <i class="far fa-trash-alt"></i>
         </button>
-      </mat-cell>
+      </td>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row
-      *matRowDef="let row; columns: displayedColumns; let element"
-      (click)="selection.toggle(row); emitSelectionToParent(element.id)">
-    </mat-row>
-  </mat-table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns; let element"
+      (click)="selection.toggle(row); emitSelectionToParent(element.id)"></tr>
+  </table>
+  </div>
   }
 
   @if (addNewAddressDiv || showNextButton) {

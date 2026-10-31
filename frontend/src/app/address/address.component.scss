@@ -17,20 +17,7 @@ mat-card {
   padding: $space-l $space-xl;
 }
 
-mat-header-row {
-  min-height: 0 !important;
-}
-
-mat-table {
-  border-bottom: 1px solid var(--theme-background-light);
-  border-top: 1px solid var(--theme-background-light);
-}
-
-mat-cell {
-  padding: 0 !important;
-}
-
-.header-hidden {
+.mat-mdc-header-row {
   display: none;
 }
 
@@ -38,28 +25,51 @@ svg {
   font-size: 12.5px;
 }
 
+.table-container {
+  overflow-x: auto;
+}
+
 .address-table {
+  border-bottom: 1px solid var(--theme-background-light);
+  border-top: 1px solid var(--theme-background-light);
+  min-width: 600px;
+  table-layout: fixed;
   width: 100%;
 }
 
-.mat-column-Selection { width: 20%; }
-.mat-column-Name { width: 20%; }
-.mat-column-Address { width: 40%; }
-.mat-column-Country { width: 20%; }
+.mat-column-Name,
+.mat-column-Address,
+.mat-column-Country {
+  padding-left: 0;
+  padding-right: $space-m;
+}
 
-.mat-column-Edit,
-.mat-column-Remove {
-  text-align: right;
-  width: 48px;
+.mat-column-Name {
+  white-space: nowrap;
+  width: 20%;
+}
+
+.mat-column-Country {
+  white-space: nowrap;
+  width: 15%;
 }
 
 .mat-column-Address {
   word-break: break-word;
 }
 
+.mat-column-Selection,
+.mat-column-Edit,
+.mat-column-Remove {
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
 .actions {
   align-items: center;
   display: flex;
+  gap: $space-m;
   justify-content: space-between;
   margin-top: $space-m;
 }

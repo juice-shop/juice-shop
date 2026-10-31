@@ -158,7 +158,7 @@ describe('AddressComponent', () => {
 
         it('should not render the address table when there are no stored addresses', () => {
             const compiled: HTMLElement = fixture.nativeElement
-            expect(compiled.querySelector('mat-table.address-table')).toBeNull()
+            expect(compiled.querySelector('table.address-table')).toBeNull()
         })
 
         it('should render the address table with a row per stored address when addresses exist', () => {
@@ -167,8 +167,8 @@ describe('AddressComponent', () => {
                 { id: 2, fullName: 'Bob', streetAddress: 'S2', city: 'C2', state: 'ST', zipCode: 'Z2', country: 'CO' }
             ])
             const compiled: HTMLElement = f.nativeElement
-            expect(compiled.querySelector('mat-table.address-table')).toBeTruthy()
-            expect(compiled.querySelectorAll('mat-row').length).toBe(2)
+            expect(compiled.querySelector('table.address-table')).toBeTruthy()
+            expect(compiled.querySelectorAll('tr.mat-mdc-row').length).toBe(2)
             expect(compiled.textContent).toContain('Alice')
             expect(compiled.textContent).toContain('Bob')
         })
