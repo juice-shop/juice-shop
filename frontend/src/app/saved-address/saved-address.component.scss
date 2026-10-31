@@ -5,8 +5,22 @@
 
 @use '../../styles/variables' as *;
 
-.main-wrapper {
-  display: block;
-  margin-left: 20%;
-  margin-right: 20%;
+app-address {
+  min-width: 720px;
+  width: 50%;
+}
+
+@media (max-width: 720px) {
+  app-address {
+    margin-left: $space-m;
+    margin-right: $space-m;
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
 }

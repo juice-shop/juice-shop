@@ -5,18 +5,22 @@
 
 @use '../../styles/variables' as *;
 
-.btn-pay {
-  display: block;
-  width: 100%;
+app-address {
+  min-width: 720px;
+  width: 50%;
 }
 
-.mat-mdc-raised-button {
-  margin-right: $space-3xs;
-  margin-top: $space-3xs;
+@media (max-width: 720px) {
+  app-address {
+    margin-left: $space-m;
+    margin-right: $space-m;
+    min-width: auto;
+    width: 100%;
+  }
 }
 
-#card {
-  display: block;
-  margin-left: 20%;
-  margin-right: 20%;
+.center-container {
+  align-items: stretch;
+  display: flex;
+  justify-content: center;
 }

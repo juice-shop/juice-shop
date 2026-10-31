@@ -5,41 +5,20 @@
 
 @use '../../styles/variables' as *;
 
-.btn-new-address {
+:host {
   display: block;
-  margin-left: 0;
-  margin-right: auto;
 }
 
-.btn-next {
-  display: block;
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: -$space-2xl;
+mat-card {
+  padding: $space-m;
+}
+
+:host(.page-card) mat-card {
+  padding: $space-l $space-xl;
 }
 
 mat-header-row {
   min-height: 0 !important;
-}
-
-.heading {
-  background: rgba(0, 0, 0, 0.2);
-  font-size: x-large;
-}
-
-.heading-text {
-  justify-content: center;
-  padding: $space-s $space-ml;
-}
-
-.div-boundary {
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  box-shadow: 0 0 0 !important;
-}
-
-.mdc-card {
-  border: 0;
 }
 
 mat-table {
@@ -78,6 +57,15 @@ svg {
   word-break: break-word;
 }
 
-.add-new-address {
-  margin-top: $space-ml;
+.actions {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: $space-m;
+}
+
+.div-boundary {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  box-shadow: 0 0 0 !important;
 }
