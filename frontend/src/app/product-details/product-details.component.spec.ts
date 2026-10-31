@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatExpansionModule } from '@angular/material/expansion'
 
 import { ProductDetailsComponent } from './product-details.component'
-import { of, throwError } from 'rxjs'
+import { of, Subject, throwError } from 'rxjs'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { type Product } from '../Models/product.model'
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
@@ -172,6 +172,30 @@ describe('ProductDetailsComponent', () => {
         expect(component.reviews()[0].likesCount).toBe(3)
         expect(component.likedReviewId()).toBe('1')
         expect(productReviewService.get).toHaveBeenCalledTimes(1)
+    })
+
+    it('should ignore repeated like clicks while the request is pending', () => {
+        const likeSubject = new Subject<void>()
+        productReviewService.like.mockReturnValue(likeSubject.asObservable())
+        component.data = { productData: { id: 42 } as Product }
+        userService.whoAmI.mockReturnValue(of({ email: 'horst@juice-sh.op' }))
+        productReviewService.get.mockReturnValue(of([
+            { _id: '1', message: 'Great product!', author: 'jim@juice-sh.op', liked: false, likesCount: 2 }
+        ]))
+        fixture.detectChanges()
+
+        component.likeReview(component.reviews()[0])
+        component.likeReview(component.reviews()[0])
+        component.likeReview(component.reviews()[0])
+
+        expect(productReviewService.like).toHaveBeenCalledTimes(1)
+        expect(component.pendingLikeIds()).toEqual(['1'])
+
+        likeSubject.next()
+        likeSubject.complete()
+
+        expect(component.reviews()[0].liked).toBe(true)
+        expect(component.pendingLikeIds()).toEqual([])
     })
 
     it('should open a modal dialog with review editor', () => {
