@@ -3,16 +3,16 @@
   ~ SPDX-License-Identifier: MIT
 -->
 
-<mat-card appearance="outlined" [class.div-boundary]="!addNewAddressDiv" class="mat-elevation-z6">
-  @if (showNextButton) {
+<mat-card appearance="outlined" [class.div-boundary]="!addNewAddressDiv()" class="mat-elevation-z6">
+  @if (showNextButton()) {
   <h1>{{ 'TITLE_SELECT_ADDRESS' | translate }}</h1>
   } @else {
   <h1>{{ 'MY_SAVED_ADRESSES' | translate }}</h1>
   }
 
-  @if (addressExist) {
+  @if (addressExist()) {
   <div class="table-container">
-  <table mat-table [dataSource]="dataSource" class="address-table">
+  <table mat-table [dataSource]="addresses()" class="address-table">
     <ng-container matColumnDef="Selection">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element; let row">
@@ -63,16 +63,16 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns; let element"
-      (click)="selection.toggle(row); emitSelectionToParent(element.id)"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns()"
+      (click)="selection.toggle(row); emitSelectionToParent(row.id)"></tr>
   </table>
   </div>
   }
 
-  @if (addNewAddressDiv || showNextButton) {
+  @if (addNewAddressDiv() || showNextButton()) {
   <div class="actions">
-    @if (addNewAddressDiv) {
+    @if (addNewAddressDiv()) {
     <button mat-raised-button color="primary" class="btn btn-new-address" routerLink="/address/create"
       [attr.aria-label]="'ADD_NEW_ADDRESS' | translate">
       <mat-icon>add</mat-icon>
@@ -80,8 +80,8 @@
     </button>
     }
 
-    @if (showNextButton) {
-    <button mat-raised-button color="primary" class="btn btn-next" [disabled]="addressId === undefined"
+    @if (showNextButton()) {
+    <button mat-raised-button color="primary" class="btn btn-next" [disabled]="addressId() === undefined"
       (click)="chooseAddress()" [attr.aria-label]="'LABEL_CONTINUE' | translate">
       <mat-icon>navigate_next</mat-icon>
       <span>{{ 'LABEL_CONTINUE' | translate }}</span>

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, EventEmitter, Input, type OnInit, Output, NgZone, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, type OnInit, NgZone, ChangeDetectionStrategy, computed, inject, input, output, signal } from '@angular/core'
 import { AddressService } from '../Services/address.service'
-import { MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
+import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrashAlt } from '@fortawesome/free-regular-svg-icons/'
 import { TranslateService, TranslateModule } from '@ngx-translate/core'
@@ -34,34 +34,30 @@ export class AddressComponent implements OnInit {
   private readonly ngZone = inject(NgZone)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  @Output() emitSelection = new EventEmitter()
-  @Input() public allowEdit = false
-  @Input() public addNewAddressDiv = true
-  @Input() public showNextButton = false
-  public addressId: any = undefined
-  public displayedColumns = ['Name', 'Address', 'Country']
-  selection = new SelectionModel<Element>(false, [])
-  public storedAddresses: any[]
-  public dataSource
-  public confirmation: any
-  public error: any
-  public addressExist = false
+  public readonly allowEdit = input(false)
+  public readonly addNewAddressDiv = input(true)
+  public readonly showNextButton = input(false)
+
+  public readonly emitSelection = output<number | undefined>()
+
+  public readonly addresses = signal<any[]>([])
+  public readonly addressExist = computed(() => this.addresses().length > 0)
+  public readonly addressId = signal<number | undefined>(undefined)
+  public readonly selection = new SelectionModel<Element>(false, [])
+
+  public readonly displayedColumns = computed(() => {
+    const columns = ['Name', 'Address', 'Country']
+    return this.allowEdit() ? [...columns, 'Edit', 'Remove'] : ['Selection', ...columns]
+  })
 
   ngOnInit (): void {
-    if (this.allowEdit) {
-      this.displayedColumns.push('Edit', 'Remove')
-    } else {
-      this.displayedColumns.unshift('Selection')
-    }
     this.load()
   }
 
   load () {
     this.addressService.get().subscribe({
       next: (addresses) => {
-        this.addressExist = addresses.length
-        this.storedAddresses = addresses
-        this.dataSource = new MatTableDataSource<Element>(this.storedAddresses)
+        this.addresses.set(addresses)
       },
       error: (err) => {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
@@ -73,22 +69,21 @@ export class AddressComponent implements OnInit {
   emitSelectionToParent (id: number) {
     if (this.selection.hasValue()) {
       this.emitSelection.emit(id)
-      this.addressId = id
+      this.addressId.set(id)
     } else {
       this.emitSelection.emit(undefined)
-      this.addressId = undefined
+      this.addressId.set(undefined)
     }
   }
 
   chooseAddress () {
-    sessionStorage.setItem('addressId', this.addressId)
+    sessionStorage.setItem('addressId', String(this.addressId()))
     this.ngZone.run(async () => await this.router.navigate(['/delivery-method']))
   }
 
   deleteAddress (id: number) {
     this.addressService.del(id).subscribe({
       next: () => {
-        this.error = null
         this.translate.get('ADDRESS_REMOVED').subscribe({
           next: (addressRemoved) => {
             this.snackBarHelperService.open(addressRemoved, 'confirmBar')
