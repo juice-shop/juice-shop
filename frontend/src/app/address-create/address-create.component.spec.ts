@@ -241,7 +241,7 @@ describe('AddressCreateComponent', () => {
         fixture.detectChanges()
         expect(submitButton().disabled).toBe(false)
     })
-
+    
     it('should update the address model from the native form controls', async () => {
         const nativeElement = fixture.nativeElement as HTMLElement
         const inputs = nativeElement.querySelectorAll('input')
@@ -250,8 +250,8 @@ describe('AddressCreateComponent', () => {
             field.value = value
             field.dispatchEvent(new Event('input'))
         }
-        typeInto(inputs[0], 'US')
-        typeInto(inputs[1], 'Jim Doe')
+        typeInto(inputs[0], 'Jim Doe')
+        typeInto(inputs[1], 'US')
         typeInto(inputs[2], '9800000000')
         typeInto(inputs[3], '10001')
         typeInto(textarea, '123 Main St')
