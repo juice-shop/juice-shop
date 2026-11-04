@@ -543,5 +543,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Ta bort konversation",
   "CHATBOT_DELETE_ALL": "Ta bort alla",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Ta bort alla konversationer",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Hoppsan! Det verkar som om vår AI-hjärna har tagit en juicepaus. AI-slutpunkten är inte konfigurerad eller kan inte nås. Kontakta butiksadministratören så att den kommer på rätt spår igen!"
 }
