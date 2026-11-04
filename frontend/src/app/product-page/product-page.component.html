@@ -27,7 +27,6 @@
         <div class="details-info">
           <h1 id="product-name" class="product-name">{{ product.name }}</h1>
           <div class="product-description" [innerHTML]="product.description"></div>
-          <mat-divider class="description-divider"></mat-divider>
           <div class="price-row">
             <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
               @if (!isDeluxe() || product.price === product.deluxePrice) {
