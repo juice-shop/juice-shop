@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { form, FormField, FormRoot, max, maxLength, min, required } from '@angular/forms/signals'
+import { firstValueFrom } from 'rxjs'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
@@ -16,12 +17,22 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
 
+interface AddressFormModel {
+  country: string
+  fullName: string
+  mobileNum: number | null
+  zipCode: string
+  streetAddress: string
+  city: string
+  state: string
+}
+
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss'],
-  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatError, MatHint, MatButtonModule, MatIconModule]
+  imports: [MatCardModule, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormRoot, FormField, MatError, MatHint, MatButtonModule, MatIconModule]
 })
 export class AddressCreateComponent implements OnInit {
   private readonly location = inject(Location)
@@ -31,19 +42,39 @@ export class AddressCreateComponent implements OnInit {
   private readonly translate = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public numberControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(1111111), Validators.max(9999999999)])
-  public pinControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(8)])
-  public addressControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
-  public cityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
-  public stateControl: UntypedFormControl = new UntypedFormControl()
-  public address: any = undefined
+  private readonly initialModel: AddressFormModel = {
+    country: '',
+    fullName: '',
+    mobileNum: null,
+    zipCode: '',
+    streetAddress: '',
+    city: '',
+    state: ''
+  }
+
+  public readonly addressModel = signal<AddressFormModel>({ ...this.initialModel })
+
+  public readonly addressForm = form(this.addressModel, (s) => {
+    required(s.country)
+    required(s.fullName)
+    required(s.mobileNum)
+    min(s.mobileNum, 1111111)
+    max(s.mobileNum, 9999999999)
+    required(s.zipCode)
+    maxLength(s.zipCode, 8)
+    required(s.streetAddress)
+    maxLength(s.streetAddress, 160)
+    required(s.city)
+  }, {
+    submission: {
+      action: () => this.save()
+    }
+  })
+
   public mode = 'create'
   private addressId: string = undefined
 
   ngOnInit (): void {
-    this.address = {}
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('addressId')) {
         this.mode = 'edit'
@@ -58,69 +89,32 @@ export class AddressCreateComponent implements OnInit {
     })
   }
 
-  save () {
-    this.address.country = this.countryControl.value
-    this.address.fullName = this.nameControl.value
-    this.address.mobileNum = this.numberControl.value
-    this.address.zipCode = this.pinControl.value
-    this.address.streetAddress = this.addressControl.value
-    this.address.city = this.cityControl.value
-    this.address.state = this.stateControl.value
-    if (this.mode === 'edit') {
-      this.addressService.put(this.addressId, this.address).subscribe({
-        next: (savedAddress) => {
-          this.address = {}
-          this.ngOnInit()
-          this.resetForm()
-          this.routeToPreviousUrl()
-          this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe({
-            next: (addressUpdated) => {
-              this.snackBarHelperService.open(addressUpdated, 'confirmBar')
-            },
-            error: (translationId) => {
-              this.snackBarHelperService.open(translationId, 'confirmBar')
-            }
-          })
-        },
-        error: (err) => {
-          this.snackBarHelperService.open(err.error?.error, 'errorBar')
-          this.address = {}
-          this.resetForm()
-        }
-      })
-    } else {
-      this.addressService.save(this.address).subscribe({
-        next: (savedAddress) => {
-          this.address = {}
-          this.ngOnInit()
-          this.resetForm()
-          this.routeToPreviousUrl()
-          this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe({
-            next: (addressAdded) => {
-              this.snackBarHelperService.open(addressAdded, 'confirmBar')
-            },
-            error: (translationId) => {
-              this.snackBarHelperService.open(translationId, 'confirmBar')
-            }
-          })
-        },
-        error: (err) => {
-          this.snackBarHelperService.open(err.error?.error, 'errorBar')
-          this.address = {}
-          this.resetForm()
-        }
-      })
+  async save () {
+    const address = { ...this.addressModel() }
+    const confirmationKey = this.mode === 'edit' ? 'ADDRESS_UPDATED' : 'ADDRESS_ADDED'
+    try {
+      const savedAddress = this.mode === 'edit'
+        ? await firstValueFrom(this.addressService.put(this.addressId, address))
+        : await firstValueFrom(this.addressService.save(address))
+      this.resetForm()
+      this.routeToPreviousUrl()
+      this.snackBarHelperService.open(await this.confirmationMessage(confirmationKey, savedAddress?.city), 'confirmBar')
+    } catch (err: any) {
+      this.snackBarHelperService.open(err.error?.error, 'errorBar')
+      this.resetForm()
     }
   }
 
   initializeForm (address) {
-    this.countryControl.setValue(address.country)
-    this.nameControl.setValue(address.fullName)
-    this.numberControl.setValue(address.mobileNum)
-    this.pinControl.setValue(address.zipCode)
-    this.addressControl.setValue(address.streetAddress)
-    this.cityControl.setValue(address.city)
-    this.stateControl.setValue(address.state)
+    this.addressModel.set({
+      country: address.country,
+      fullName: address.fullName,
+      mobileNum: address.mobileNum ?? null,
+      zipCode: address.zipCode,
+      streetAddress: address.streetAddress,
+      city: address.city,
+      state: address.state ?? ''
+    })
   }
 
   routeToPreviousUrl () {
@@ -128,26 +122,14 @@ export class AddressCreateComponent implements OnInit {
   }
 
   resetForm () {
-    this.countryControl.markAsUntouched()
-    this.countryControl.markAsPristine()
-    this.countryControl.setValue('')
-    this.nameControl.markAsUntouched()
-    this.nameControl.markAsPristine()
-    this.nameControl.setValue('')
-    this.numberControl.markAsUntouched()
-    this.numberControl.markAsPristine()
-    this.numberControl.setValue('')
-    this.pinControl.markAsUntouched()
-    this.pinControl.markAsPristine()
-    this.pinControl.setValue('')
-    this.addressControl.markAsUntouched()
-    this.addressControl.markAsPristine()
-    this.addressControl.setValue('')
-    this.cityControl.markAsUntouched()
-    this.cityControl.markAsPristine()
-    this.cityControl.setValue('')
-    this.stateControl.markAsUntouched()
-    this.stateControl.markAsPristine()
-    this.stateControl.setValue('')
+    this.addressForm().reset({ ...this.initialModel })
+  }
+
+  private async confirmationMessage (key: string, city: string): Promise<string> {
+    try {
+      return await firstValueFrom(this.translate.get(key, { city }))
+    } catch (translationId) {
+      return translationId as string
+    }
   }
 }
