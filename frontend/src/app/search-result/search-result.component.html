@@ -4,17 +4,15 @@
 -->
 
 <main class="container">
-  <div class="heading mat-elevation-z6 mat-headline-small">
+  <h2 class="heading">
     @if (searchValue) {
-      <div>
-        <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
-        <span id="searchValue" [innerHTML]="searchValue"></span>
-      </div>
+      <span>{{ "TITLE_SEARCH_RESULTS" | translate }} - </span>
+      <span id="searchValue" [innerHTML]="searchValue"></span>
     } @else {
-      <div>{{ "TITLE_ALL_PRODUCTS" | translate }}</div>
+      <span>{{ "TITLE_ALL_PRODUCTS" | translate }}</span>
     }
-    <div id="search-result-heading"></div>
-  </div>
+  </h2>
+  <div id="search-result-heading"></div>
 
   @if (!emptyState) {
     <div class="products-grid">
