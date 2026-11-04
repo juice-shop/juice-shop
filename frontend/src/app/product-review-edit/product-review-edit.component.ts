@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
+import { firstValueFrom } from 'rxjs'
 import { ProductReviewService } from '../Services/product-review.service'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowCircleLeft, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { type Review } from '../Models/review.model'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
@@ -20,16 +19,14 @@ import { TranslateModule } from '@ngx-translate/core'
 
 import { MatIconModule } from '@angular/material/icon'
 
-library.add(faPaperPlane, faArrowCircleLeft)
-
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss'],
-  imports: [MatDialogContent, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatHint, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
+  imports: [MatDialogContent, TranslateModule, MatFormFieldModule, MatLabel, MatInputModule, FormField, MatHint, MatError, MatDialogActions, MatButtonModule, MatDialogClose, MatIconModule]
 })
-export class ProductReviewEditComponent implements OnInit {
+export class ProductReviewEditComponent {
   data = inject<{
     reviewData: Review;
 }>(MAT_DIALOG_DATA)
@@ -37,23 +34,27 @@ export class ProductReviewEditComponent implements OnInit {
   private readonly dialogRef = inject<MatDialogRef<ProductReviewEditComponent>>(MatDialogRef)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
 
-  public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
-  public error: string | null = null
-
-  ngOnInit (): void {
-    this.editReviewControl.setValue(this.data.reviewData.message)
+  private readonly initialModel = {
+    message: this.data.reviewData.message
   }
 
+  public readonly reviewModel = signal({ ...this.initialModel })
+
+  public readonly reviewForm = form(this.reviewModel, (s) => {
+    required(s.message)
+    pattern(s.message, /\S/)
+    maxLength(s.message, 160)
+  })
+
   editReview () {
-    this.productReviewService.patch({ id: this.data.reviewData._id, message: this.editReviewControl.value }).subscribe({
-      next: () => {
+    return submit(this.reviewForm, async () => {
+      try {
+        await firstValueFrom(this.productReviewService.patch({ id: this.data.reviewData._id, message: this.reviewModel().message }))
         this.dialogRef.close()
-      },
-      error: (err) => {
+        this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
+      } catch (err: any) {
         console.log(err)
-        this.error = err
       }
     })
-    this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
   }
 }
