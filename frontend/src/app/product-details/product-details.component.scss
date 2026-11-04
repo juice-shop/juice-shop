@@ -37,7 +37,7 @@ p {
 }
 
 .comment {
-  margin-bottom: $space-xs;
+  margin-bottom: $space-m;
 }
 
 .review-link {
@@ -163,10 +163,6 @@ div {
   margin: 0;
   overflow-wrap: anywhere;
   word-break: normal;
-}
-
-.review-divider {
-  margin-top: $space-xs;
 }
 
 .review-list {

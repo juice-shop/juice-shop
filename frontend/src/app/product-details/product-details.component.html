@@ -47,7 +47,7 @@
       </button>
       @if (reviews().length >= 1) {
         <ul class="review-list">
-          @for (review of reviews(); track review._id; let last = $last) {
+          @for (review of reviews(); track review._id) {
             <li class="comment">
               <article>
                 <header class="review-header">
@@ -72,9 +72,6 @@
                 </header>
                 <p class="review-message">{{ review.message }}</p>
               </article>
-              @if (!last) {
-                <mat-divider class="review-divider"></mat-divider>
-              }
             </li>
           }
         </ul>
