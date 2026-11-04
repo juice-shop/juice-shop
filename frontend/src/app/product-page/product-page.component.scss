@@ -90,11 +90,8 @@
 }
 
 .product-description {
+  margin-bottom: $space-xl;
   word-break: break-word;
-}
-
-.description-divider {
-  margin: $space-m 0;
 }
 
 .price-row {

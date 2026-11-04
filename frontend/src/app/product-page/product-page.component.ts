@@ -13,7 +13,6 @@ import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from
 import { MatDialog } from '@angular/material/dialog'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { MatDivider } from '@angular/material/divider'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatCardModule } from '@angular/material/card'
@@ -51,7 +50,6 @@ library.add(faCrown)
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    MatDivider,
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
