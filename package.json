@@ -148,7 +148,7 @@
     "sequelize": "^6.37.3",
     "serve-index": "^1.9.1",
     "socket.io": "^4.8.4",
-    "sqlite3": "^5.1.7",
+    "sqlite3": "^6.0.1",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1",
     "unzipper": "^0.12.3",
