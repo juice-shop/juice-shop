@@ -88,3 +88,24 @@ jobs:
 
       - name: Run server unit tests
         run: npm run test:server
+  
+  frontend_tests:
+    name: Frontend Tests - Juice Shop
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Run frontend tests
+        run: npm run test:frontend
