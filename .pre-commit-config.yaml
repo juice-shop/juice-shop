@@ -12,3 +12,4 @@ repos:
         entry: semgrep scan --config p/security-audit --error --skip-unknown-extensions
         language: system
         types_or: [javascript, jsx, ts, tsx]
+        require_serial: true
