@@ -64,3 +64,27 @@ jobs:
 
       - name: Build frontend and backend
         run: npm run build
+  
+  unit_tests:
+    name: Unit Tests - Juice Shop
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install backend dependencies
+        run: npm install --legacy-peer-deps --ignore-scripts
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Run server unit tests
+        run: npm run test:server
