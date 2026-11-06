@@ -1,0 +1,38 @@
+
+name: DevSecOps Juice Shop
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  environment-check:
+    name: Verify CI Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Verify installed tools
+        run: |
+          node --version
+          npm --version
+          git --version
+          docker --version
+
+      - name: Verify Juice Shop project
+        run: |
+          test -f package.json
+          test -f Dockerfile
+          test -f frontend/package.json
+          echo "Juice Shop project verified!"
