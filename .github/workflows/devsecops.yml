@@ -197,4 +197,35 @@ jobs:
           base: ""
           head: ${{ github.ref_name }}
           extra_args: --results=verified,unknown
+  
+  docker_scan:
+    name: Docker Image Scan - Trivy
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Juice Shop Docker image
+        run: docker build -t juice-shop:devsecops .
+
+      - name: Scan Docker image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'image'
+          image-ref: 'juice-shop:devsecops'
+          scanners: 'vuln'
+          vuln-type: 'os,library'
+          format: 'json'
+          output: 'trivy-docker-report.json'
+          severity: 'LOW,MEDIUM,HIGH,CRITICAL'
+          exit-code: '0'
+
+      - name: Upload Docker scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-docker-report
+          path: trivy-docker-report.json
+          if-no-files-found: error
 
