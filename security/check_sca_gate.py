@@ -6,7 +6,12 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-REPORT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "trivy-sca-report.json"
+REPORT_NAME = "trivy-sca-report.json"
+
+if len(sys.argv) > 2 or (len(sys.argv) == 2 and sys.argv[1] != REPORT_NAME):
+    raise SystemExit("Erreur : seul trivy-sca-report.json est autorise")
+
+REPORT = Path.cwd() / REPORT_NAME if len(sys.argv) == 2 else ROOT / REPORT_NAME
 
 def key(item):
     return (
