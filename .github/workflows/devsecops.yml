@@ -130,6 +130,10 @@ jobs:
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304
+        with:
+          args: >
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.timeout=300
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
