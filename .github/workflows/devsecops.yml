@@ -172,13 +172,40 @@ jobs:
           severity: 'LOW,MEDIUM,HIGH,CRITICAL'
           exit-code: '0'
 
-      - name: Upload SCA report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: trivy-sca-report
-          path: trivy-sca-report.json
-          if-no-files-found: error
+      
+      - name: Quality Gate - Block HIGH and CRITICAL
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+          from collections import Counter
+
+          with open("trivy-sca-report.json", encoding="utf-8") as f:
+              report = json.load(f)
+
+          if not report.get("Results"):
+              print("ERROR: No SCA analysis results found")
+              sys.exit(1)
+
+          counts = Counter()
+          for result in report["Results"]:
+              for vuln in result.get("Vulnerabilities", []):
+                  counts[vuln.get("Severity", "UNKNOWN")] += 1
+
+          print("SCA Quality Gate results:")
+          print("CRITICAL:", counts["CRITICAL"])
+          print("HIGH:", counts["HIGH"])
+          print("MEDIUM:", counts["MEDIUM"])
+          print("LOW:", counts["LOW"])
+
+          if counts["CRITICAL"] or counts["HIGH"]:
+              print("QUALITY GATE FAILED: HIGH/CRITICAL vulnerabilities detected")
+              sys.exit(1)
+
+          print("QUALITY GATE PASSED")
+          PY
+
 
     
   secrets_scan:
