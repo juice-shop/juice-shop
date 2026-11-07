@@ -294,4 +294,38 @@ jobs:
         run: |
           docker rm -f juice-shop-dast || true
           docker network rm zapnet || true
+  
+  iac_scan:
+    name: IaC Security - Checkov
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Checkov
+        run: python -m pip install checkov
+
+      - name: Scan Dockerfile and GitHub Actions
+        run: |
+          mkdir -p checkov-reports
+
+          checkov -d . \
+            --framework dockerfile github_actions \
+            --output json \
+            --output-file-path checkov-reports/checkov-report.json \
+            --soft-fail
+
+      - name: Upload Checkov report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-iac-report
+          path: checkov-reports/
+          if-no-files-found: error
 
