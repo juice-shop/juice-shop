@@ -133,3 +133,30 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
+  sca:
+    name: SCA - Trivy Dependencies
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Scan dependencies with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          scanners: 'vuln'
+          format: 'json'
+          output: 'trivy-sca-report.json'
+          severity: 'LOW,MEDIUM,HIGH,CRITICAL'
+          exit-code: '0'
+
+      - name: Upload SCA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sca-report
+          path: trivy-sca-report.json
+          if-no-files-found: error
+  
