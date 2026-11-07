@@ -167,7 +167,7 @@ jobs:
 
      
       - name: Scan dependencies with Trivy
-        uses: aquasecurity/trivy-action@v0.36.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with:
           scan-type: 'fs'
           scan-ref: '.'
@@ -203,7 +203,7 @@ jobs:
           fetch-depth: 0
 
       - name: Scan Git history with TruffleHog
-        uses: trufflesecurity/trufflehog@main
+        uses: trufflesecurity/trufflehog@f8221ca52ac51bf66228d6ec3691f3ea0782ae15
         with:
           base: ""
           head: ${{ github.ref_name }}
@@ -221,7 +221,7 @@ jobs:
         run: docker build -t juice-shop:devsecops .
 
       - name: Scan Docker image with Trivy
-        uses: aquasecurity/trivy-action@v0.36.0
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with:
           scan-type: 'image'
           image-ref: 'juice-shop:devsecops'
@@ -352,7 +352,7 @@ jobs:
         run: docker build -t juice-shop:devsecops .
 
       - name: Generate CycloneDX SBOM with Syft
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
         with:
           image: juice-shop:devsecops
           format: cyclonedx-json
