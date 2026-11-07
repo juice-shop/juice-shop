@@ -179,3 +179,22 @@ jobs:
           name: trivy-sca-report
           path: trivy-sca-report.json
           if-no-files-found: error
+
+    
+  secrets_scan:
+    name: Secrets Scan - TruffleHog
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan Git history with TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          base: ""
+          head: ${{ github.ref_name }}
+          extra_args: --results=verified,unknown
+
