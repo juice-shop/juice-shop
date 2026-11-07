@@ -133,6 +133,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
+  
   sca:
     name: SCA - Trivy Dependencies
     runs-on: ubuntu-24.04
@@ -140,6 +141,23 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Prepare backend dependencies
+        run: npm install --legacy-peer-deps --ignore-scripts
+
+      - name: Prepare frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Verify dependency lockfiles
+        run: |
+          test -f package-lock.json
+          test -f frontend/package-lock.json
 
       - name: Scan dependencies with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
@@ -159,4 +177,3 @@ jobs:
           name: trivy-sca-report
           path: trivy-sca-report.json
           if-no-files-found: error
-  
