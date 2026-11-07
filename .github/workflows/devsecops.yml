@@ -134,6 +134,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   
   
+  
   sca:
     name: SCA - Trivy Dependencies
     runs-on: ubuntu-24.04
@@ -147,17 +148,18 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Prepare backend dependencies
-        run: npm install --legacy-peer-deps --ignore-scripts
+      - name: Generate backend dependency lockfile
+        run: npm install --package-lock-only --package-lock=true --legacy-peer-deps --ignore-scripts
 
-      - name: Prepare frontend dependencies
+      - name: Generate frontend dependency lockfile
         working-directory: frontend
-        run: npm install --legacy-peer-deps
+        run: npm install --package-lock-only --package-lock=true --legacy-peer-deps --ignore-scripts
 
       - name: Verify dependency lockfiles
         run: |
           test -f package-lock.json
           test -f frontend/package-lock.json
+          echo "Both npm lockfiles generated successfully"
 
       - name: Scan dependencies with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
