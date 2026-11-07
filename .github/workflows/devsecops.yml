@@ -328,4 +328,29 @@ jobs:
           name: checkov-iac-report
           path: checkov-reports/
           if-no-files-found: error
+  
+  sbom:
+    name: SBOM - Syft CycloneDX
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Juice Shop Docker image
+        run: docker build -t juice-shop:devsecops .
+
+      - name: Generate CycloneDX SBOM with Syft
+        uses: anchore/sbom-action@v0
+        with:
+          image: juice-shop:devsecops
+          format: cyclonedx-json
+          output-file: juice-shop-sbom.cdx.json
+          artifact-name: juice-shop-sbom
+          upload-artifact: true
+
+      - name: Verify SBOM generation
+        run: |
+          test -s juice-shop-sbom.cdx.json
+          python3 -c "import json; d=json.load(open('juice-shop-sbom.cdx.json')); assert d['bomFormat']=='CycloneDX'; print('Components:', len(d.get('components', [])))"
 
