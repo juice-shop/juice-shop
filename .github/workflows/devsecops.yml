@@ -228,4 +228,70 @@ jobs:
           name: trivy-docker-report
           path: trivy-docker-report.json
           if-no-files-found: error
+  
+  dast:
+    name: DAST - OWASP ZAP
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Juice Shop Docker image
+        run: docker build -t juice-shop:devsecops .
+
+      - name: Create Docker test network
+        run: docker network create zapnet
+
+      - name: Start Juice Shop
+        run: |
+          docker run -d \
+            --name juice-shop-dast \
+            --network zapnet \
+            -p 127.0.0.1:3000:3000 \
+            juice-shop:devsecops
+
+      - name: Wait for Juice Shop to start
+        run: |
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ > /dev/null; then
+              echo "Juice Shop is ready"
+              exit 0
+            fi
+            sleep 5
+          done
+          docker logs juice-shop-dast
+          exit 1
+
+      - name: Prepare ZAP reports directory
+        run: |
+          mkdir -p zap-reports
+          chmod 777 zap-reports
+
+      - name: Run OWASP ZAP Baseline Scan
+        run: |
+          docker run --rm \
+            --network zapnet \
+            -v "${{ github.workspace }}/zap-reports:/zap/wrk" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-baseline.py \
+            -t http://juice-shop-dast:3000 \
+            -m 1 \
+            -I \
+            -r zap-report.html \
+            -J zap-report.json
+
+      - name: Upload DAST reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-dast-reports
+          path: zap-reports/
+          if-no-files-found: warn
+
+      - name: Stop Juice Shop
+        if: always()
+        run: |
+          docker rm -f juice-shop-dast || true
+          docker network rm zapnet || true
 
