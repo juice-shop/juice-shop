@@ -1,0 +1,298 @@
+[
+  {
+    "target": "frontend/package-lock.json",
+    "package": "ws",
+    "version": "8.18.0",
+    "vulnerability_id": "CVE-2026-48779",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "base64url",
+    "version": "0.0.6",
+    "vulnerability_id": "NSWG-ECO-428",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "basic-ftp",
+    "version": "5.3.1",
+    "vulnerability_id": "CVE-2026-102990",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "crypto-js",
+    "version": "3.3.0",
+    "vulnerability_id": "CVE-2023-46233",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "crypto-js",
+    "version": "3.3.0",
+    "vulnerability_id": "CVE-2026-71851",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "decode-uri-component",
+    "version": "0.2.2",
+    "vulnerability_id": "CVE-2026-118664",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "decompress",
+    "version": "4.2.1",
+    "vulnerability_id": "CVE-2026-101894",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "decompress",
+    "version": "4.2.1",
+    "vulnerability_id": "CVE-2026-53486",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "express-jwt",
+    "version": "0.1.3",
+    "vulnerability_id": "CVE-2020-15084",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "http-cache-semantics",
+    "version": "3.8.1",
+    "vulnerability_id": "CVE-2022-25881",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.1.0",
+    "vulnerability_id": "CVE-2015-9235",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.4.0",
+    "vulnerability_id": "CVE-2015-9235",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.1.0",
+    "vulnerability_id": "CVE-2022-23539",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.4.0",
+    "vulnerability_id": "CVE-2022-23539",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.1.0",
+    "vulnerability_id": "NSWG-ECO-17",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jsonwebtoken",
+    "version": "0.4.0",
+    "vulnerability_id": "NSWG-ECO-17",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jws",
+    "version": "0.2.6",
+    "vulnerability_id": "CVE-2016-1000223",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "jws",
+    "version": "0.2.6",
+    "vulnerability_id": "CVE-2025-65945",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "lodash",
+    "version": "2.4.2",
+    "vulnerability_id": "CVE-2018-16487",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "lodash",
+    "version": "2.4.2",
+    "vulnerability_id": "CVE-2019-10744",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "lodash",
+    "version": "2.4.2",
+    "vulnerability_id": "CVE-2021-23337",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "marsdb",
+    "version": "0.6.11",
+    "vulnerability_id": "GHSA-5mrr-rgp6-x4gr",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "minimatch",
+    "version": "3.0.5",
+    "vulnerability_id": "CVE-2026-26996",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "minimatch",
+    "version": "3.0.5",
+    "vulnerability_id": "CVE-2026-27903",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "minimatch",
+    "version": "3.0.5",
+    "vulnerability_id": "CVE-2026-27904",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "moment",
+    "version": "2.0.0",
+    "vulnerability_id": "CVE-2017-18214",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "moment",
+    "version": "2.0.0",
+    "vulnerability_id": "CVE-2022-24785",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "sanitize-html",
+    "version": "1.4.2",
+    "vulnerability_id": "CVE-2022-25887",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-23745",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-23950",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-24842",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-26960",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-29786",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-31802",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-59873",
+    "severity": "CRITICAL",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-59874",
+    "severity": "HIGH",
+    "status": "pending_review"
+  },
+  {
+    "target": "package-lock.json",
+    "package": "tar",
+    "version": "6.2.1",
+    "vulnerability_id": "CVE-2026-73566",
+    "severity": "HIGH",
+    "status": "pending_review"
+  }
+]
