@@ -129,6 +129,10 @@ import { orderHistory, allOrders, toggleDeliveryStatus } from './routes/orderHis
 import { continueCode, continueCodeFindIt, continueCodeFixIt } from './routes/continueCode'
 import { ensureFileIsPassed, handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload, handleYamlUpload } from './routes/fileUpload'
 
+interface RequestWithRawBody extends Request {
+  rawBody: string
+}
+
 const app = express()
 const server = new http.Server(app)
 
@@ -244,14 +248,13 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   /* Create middleware to change paths from the serve-index plugin from absolute to relative */
   const serveIndexMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const origEnd = res.end
-    // @ts-expect-error FIXME assignment broken due to seemingly void return value
-    res.end = function () {
-      if (arguments.length && typeof arguments[0] === 'string') {
+    const origEnd = res.end.bind(res)
+    res.end = function (...args: any[]) {
+      if (args.length > 0 && typeof args[0] === 'string') {
         const reqPath = req.originalUrl.replace(/\?.*$/, '')
 
         const currentFolder = reqPath.split('/').pop()!
-        arguments[0] = arguments[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
+        args[0] = args[0].replace(/a href="([^"]+?)"/gi, function (matchString: string, matchedUrl: string) {
           let relativePath = path.relative(reqPath, matchedUrl)
           if (relativePath === '') {
             relativePath = currentFolder
@@ -263,8 +266,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
           return 'a href="' + relativePath + '"'
         })
       }
-      // @ts-expect-error FIXME passed argument has wrong type
-      origEnd.apply(this, arguments)
+      return origEnd(...args)
     }
     next()
   }
@@ -345,8 +347,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   app.use(express.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
-    // @ts-expect-error FIXME intentionally saving original request in this property
-    req.rawBody = req.body
+    (req as RequestWithRawBody).rawBody = req.body
     if (req.headers['content-type']?.includes('application/json')) {
       if (!req.body) {
         req.body = {}
