@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
-import { form, FormField, FormRoot, max, maxLength, min, required } from '@angular/forms/signals'
-import { firstValueFrom } from 'rxjs'
+import { Component, type OnInit, DestroyRef, inject, signal, ChangeDetectionStrategy } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { form, FormField, FormRoot } from '@angular/forms/signals'
+import { catchError, EMPTY, firstValueFrom, of, switchMap } from 'rxjs'
+import { addressFormSchema, type AddressFormModel, MAX_MOBILE_NUMBER, MAX_STREET_ADDRESS_LENGTH, MAX_ZIP_CODE_LENGTH, MIN_MOBILE_NUMBER } from '../Models/address-form.schema'
 import { AddressService } from '../Services/address.service'
 import { ActivatedRoute, type ParamMap, Router } from '@angular/router'
 import { Location } from '@angular/common'
@@ -16,16 +18,6 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule, MatLabel, MatError, MatHint } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card'
-
-interface AddressFormModel {
-  country: string
-  fullName: string
-  mobileNum: number | null
-  zipCode: string
-  streetAddress: string
-  city: string
-  state: string
-}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -41,6 +33,11 @@ export class AddressCreateComponent implements OnInit {
   activatedRoute = inject(ActivatedRoute)
   private readonly translate = inject(TranslateService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly destroyRef = inject(DestroyRef)
+
+  public readonly maxZipCodeLength = MAX_ZIP_CODE_LENGTH
+  public readonly maxStreetAddressLength = MAX_STREET_ADDRESS_LENGTH
+  public readonly mobileNumberRange = `${MIN_MOBILE_NUMBER}-${MAX_MOBILE_NUMBER}`
 
   private readonly initialModel: AddressFormModel = {
     country: '',
@@ -54,18 +51,7 @@ export class AddressCreateComponent implements OnInit {
 
   public readonly addressModel = signal<AddressFormModel>({ ...this.initialModel })
 
-  public readonly addressForm = form(this.addressModel, (s) => {
-    required(s.country)
-    required(s.fullName)
-    required(s.mobileNum)
-    min(s.mobileNum, 1111111)
-    max(s.mobileNum, 9999999999)
-    required(s.zipCode)
-    maxLength(s.zipCode, 8)
-    required(s.streetAddress)
-    maxLength(s.streetAddress, 160)
-    required(s.city)
-  }, {
+  public readonly addressForm = form(this.addressModel, addressFormSchema, {
     submission: {
       action: () => this.save()
     }
@@ -75,18 +61,30 @@ export class AddressCreateComponent implements OnInit {
   private addressId: string = undefined
 
   ngOnInit (): void {
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('addressId')) {
-        this.mode = 'edit'
-        this.addressId = paramMap.get('addressId')
-        this.addressService.getById(this.addressId).subscribe((address) => {
+    this.activatedRoute.paramMap
+      .pipe(
+        switchMap((paramMap: ParamMap) => {
+          if (!paramMap.has('addressId')) {
+            this.mode = 'create'
+            this.addressId = null
+            return of(null)
+          }
+          this.mode = 'edit'
+          this.addressId = paramMap.get('addressId')
+          return this.addressService.getById(this.addressId).pipe(
+            catchError((err) => {
+              console.log(err)
+              return EMPTY
+            })
+          )
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((address) => {
+        if (address) {
           this.initializeForm(address)
-        })
-      } else {
-        this.mode = 'create'
-        this.addressId = null
-      }
-    })
+        }
+      })
   }
 
   async save () {
@@ -101,18 +99,17 @@ export class AddressCreateComponent implements OnInit {
       this.snackBarHelperService.open(await this.confirmationMessage(confirmationKey, savedAddress?.city), 'confirmBar')
     } catch (err: any) {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
-      this.resetForm()
     }
   }
 
   initializeForm (address) {
     this.addressModel.set({
-      country: address.country,
-      fullName: address.fullName,
+      country: address.country ?? '',
+      fullName: address.fullName ?? '',
       mobileNum: address.mobileNum ?? null,
-      zipCode: address.zipCode,
-      streetAddress: address.streetAddress,
-      city: address.city,
+      zipCode: address.zipCode ?? '',
+      streetAddress: address.streetAddress ?? '',
+      city: address.city ?? '',
       state: address.state ?? ''
     })
   }

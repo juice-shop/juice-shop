@@ -12,7 +12,7 @@ import { AddressCreateComponent } from './address-create.component'
 import { MatInputModule } from '@angular/material/input'
 
 import { Location } from '@angular/common'
-import { of, throwError } from 'rxjs'
+import { BehaviorSubject, of, Subject, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { convertToParamMap } from '@angular/router'
 import { AddressService } from '../Services/address.service'
@@ -215,15 +215,30 @@ describe('AddressCreateComponent', () => {
         expect(component.addressForm.streetAddress().valid()).toBe(true)
     })
 
-    it('number should be in the range [1111111, 9999999999]', () => {
-        setModel({ mobileNum: 1111110 })
+    it('number should be in the range [1000000, 9999999999]', () => {
+        setModel({ mobileNum: 999999 })
         expect(component.addressForm.mobileNum().valid()).toBeFalsy()
         setModel({ mobileNum: 10000000000 })
         expect(component.addressForm.mobileNum().valid()).toBeFalsy()
         setModel({ mobileNum: 9999999999 })
         expect(component.addressForm.mobileNum().valid()).toBe(true)
-        setModel({ mobileNum: 1111111 })
+        setModel({ mobileNum: 1000000 })
         expect(component.addressForm.mobileNum().valid()).toBe(true)
+    })
+
+    it('should show an error when the zip code exceeds the maximum length', () => {
+        setModel({ zipCode: 'x'.repeat(9) })
+        component.addressForm.zipCode().markAsTouched()
+        fixture.detectChanges()
+        expect(translateService.get).toHaveBeenCalledWith('MAX_TEXTAREA_LENGTH', { length: 8 })
+        expect((fixture.nativeElement as HTMLElement).querySelector('mat-error')).toBeTruthy()
+    })
+
+    it('should show an error when the street address exceeds the maximum length', () => {
+        setModel({ streetAddress: 'x'.repeat(161) })
+        component.addressForm.streetAddress().markAsTouched()
+        fixture.detectChanges()
+        expect((fixture.nativeElement as HTMLElement).querySelector('mat-error')).toBeTruthy()
     })
 
     it('should pass the range parameter when translating INVALID_MOBILE_NUMBER', async () => {
@@ -240,6 +255,23 @@ describe('AddressCreateComponent', () => {
         await fixture.whenStable()
         fixture.detectChanges()
         expect(submitButton().disabled).toBe(false)
+    })
+
+    it('should disable the submit button while the address is being saved', async () => {
+        const saveResult = new Subject<any>()
+        addressService.save.mockReturnValue(saveResult)
+        const submitButton = () => (fixture.nativeElement as HTMLElement).querySelector('#submitButton') as HTMLButtonElement
+        setModel({ ...completeAddress })
+        fixture.detectChanges()
+        const form = (fixture.nativeElement as HTMLElement).querySelector('#address-form') as HTMLFormElement
+        form.dispatchEvent(new Event('submit'))
+        fixture.detectChanges()
+        expect(submitButton().disabled).toBe(true)
+        form.dispatchEvent(new Event('submit'))
+        expect(addressService.save).toHaveBeenCalledTimes(1)
+        saveResult.next({ city: 'NYC' })
+        saveResult.complete()
+        await fixture.whenStable()
     })
     
     it('should update the address model from the native form controls', async () => {
@@ -295,20 +327,24 @@ describe('AddressCreateComponent', () => {
         expect(component.resetForm).toHaveBeenCalled()
     })
 
-    it('should clear the form and display error if saving address fails', async () => {
+    it('should keep the entered values and display error if saving address fails', async () => {
         addressService.save.mockReturnValue(throwError({ error: 'Error' }))
+        setModel({ ...completeAddress })
         vi.spyOn(component, 'resetForm')
         await component.save()
-        expect(component.resetForm).toHaveBeenCalled()
+        expect(component.resetForm).not.toHaveBeenCalled()
+        expect(component.addressModel()).toEqual(completeAddress)
         expect(snackBar.open).toHaveBeenCalled()
     })
 
-    it('should clear the form and display error if updating address fails', async () => {
+    it('should keep the entered values and display error if updating address fails', async () => {
         addressService.put.mockReturnValue(throwError({ error: 'Error' }))
         component.mode = 'edit'
+        setModel({ ...completeAddress })
         vi.spyOn(component, 'resetForm')
         await component.save()
-        expect(component.resetForm).toHaveBeenCalled()
+        expect(component.resetForm).not.toHaveBeenCalled()
+        expect(component.addressModel()).toEqual(completeAddress)
         expect(snackBar.open).toHaveBeenCalled()
     })
 
@@ -321,6 +357,27 @@ describe('AddressCreateComponent', () => {
         expect(component.addressModel().streetAddress).toBe('Bakers Street')
         expect(component.addressModel().city).toBe('NYC')
         expect(component.addressModel().state).toBe('NY')
+    })
+
+    it('should render the edit form for an address with missing optional values', () => {
+        component.initializeForm({ country: 'US', fullName: 'jim', mobileNum: null, zipCode: null, streetAddress: null, city: 'NYC', state: null })
+        expect(() => { fixture.detectChanges() }).not.toThrow()
+        expect(component.addressModel().zipCode).toBe('')
+        expect(component.addressModel().streetAddress).toBe('')
+        expect(component.addressModel().state).toBe('')
+    })
+
+    it('should only populate the form with the address of the latest route', () => {
+        const paramMap = new BehaviorSubject(convertToParamMap({ addressId: '1' }))
+        const firstAddress = new Subject<any>()
+        const secondAddress = new Subject<any>()
+        addressService.getById.mockImplementation((id: string) => id === '1' ? firstAddress : secondAddress)
+        component.activatedRoute = { paramMap } as any
+        component.ngOnInit()
+        paramMap.next(convertToParamMap({ addressId: '2' }))
+        secondAddress.next({ ...completeAddress, fullName: 'Second' })
+        firstAddress.next({ ...completeAddress, fullName: 'First' })
+        expect(component.addressModel().fullName).toBe('Second')
     })
 
     it('should show snackbar error when translation fails after address creation', async () => {
@@ -342,13 +399,11 @@ describe('AddressCreateComponent', () => {
         expect(spy).toHaveBeenCalledWith('ADDRESS_UPDATED', 'confirmBar')
     })
 
-    it('should show snackbar error and clear form when address creation fails', async () => {
+    it('should show snackbar error when address creation fails', async () => {
         const snackBarHelperService = TestBed.inject(SnackBarHelperService)
         const spy = vi.spyOn(snackBarHelperService, 'open')
         addressService.save.mockReturnValue(throwError({ error: { error: 'Save failed' } }))
-        vi.spyOn(component, 'resetForm')
         await component.save()
         expect(spy).toHaveBeenCalledWith('Save failed', 'errorBar')
-        expect(component.resetForm).toHaveBeenCalled()
     })
 })

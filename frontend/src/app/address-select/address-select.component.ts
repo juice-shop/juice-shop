@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core'
+import { Component, ChangeDetectionStrategy } from '@angular/core'
 import { AddressComponent } from '../address/address.component'
 
 @Component({
@@ -15,9 +15,4 @@ import { AddressComponent } from '../address/address.component'
 })
 export class AddressSelectComponent {
   public readonly showNextButton = true
-  public readonly addressId = signal<number | undefined>(undefined)
-
-  getMessage (id) {
-    this.addressId.set(id)
-  }
 }

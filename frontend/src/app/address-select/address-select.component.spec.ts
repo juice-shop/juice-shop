@@ -81,9 +81,4 @@ describe('AddressSelectComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy()
     })
-
-    it('should store address id on calling getMessage', () => {
-        component.getMessage(1)
-        expect(component.addressId()).toBe(1)
-    })
 })

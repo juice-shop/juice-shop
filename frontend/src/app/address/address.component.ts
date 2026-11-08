@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Component, type OnInit, NgZone, ChangeDetectionStrategy, computed, inject, input, output, signal } from '@angular/core'
+import { Component, type OnInit, DestroyRef, NgZone, ChangeDetectionStrategy, computed, inject, input, output, signal } from '@angular/core'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { catchError, EMPTY, Subject, switchMap } from 'rxjs'
 import { AddressService } from '../Services/address.service'
 import { MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -33,6 +35,9 @@ export class AddressComponent implements OnInit {
   private readonly router = inject(Router)
   private readonly ngZone = inject(NgZone)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
+  private readonly destroyRef = inject(DestroyRef)
+
+  private readonly reloadAddresses$ = new Subject<void>()
 
   public readonly allowEdit = input(false)
   public readonly addNewAddressDiv = input(true)
@@ -51,19 +56,23 @@ export class AddressComponent implements OnInit {
   })
 
   ngOnInit (): void {
+    this.reloadAddresses$
+      .pipe(
+        switchMap(() => this.addressService.get().pipe(
+          catchError((err) => {
+            this.snackBarHelperService.open(err.error?.error, 'errorBar')
+            console.log(err)
+            return EMPTY
+          })
+        )),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((addresses) => this.addresses.set(addresses))
     this.load()
   }
 
   load () {
-    this.addressService.get().subscribe({
-      next: (addresses) => {
-        this.addresses.set(addresses)
-      },
-      error: (err) => {
-        this.snackBarHelperService.open(err.error?.error, 'errorBar')
-        console.log(err)
-      }
-    })
+    this.reloadAddresses$.next()
   }
 
   emitSelectionToParent (id: number) {

@@ -11,7 +11,7 @@ import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { of, throwError } from 'rxjs'
+import { of, Subject, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { AddressCreateComponent } from '../address-create/address-create.component'
@@ -136,6 +136,26 @@ describe('AddressComponent', () => {
         component.deleteAddress(1)
         fixture.detectChanges()
         expect(console.log).toHaveBeenCalledWith('Error')
+    })
+
+    it('should ignore an older address response that arrives after a newer one', () => {
+        const olderResponse = new Subject<any[]>()
+        const newerResponse = new Subject<any[]>()
+        addressService.get.mockReturnValueOnce(olderResponse).mockReturnValueOnce(newerResponse)
+        component.load()
+        component.load()
+        newerResponse.next([{ id: 2 }])
+        olderResponse.next([{ id: 1 }, { id: 2 }])
+        expect(component.addresses()).toEqual([{ id: 2 }])
+    })
+
+    it('should keep reloading addresses after a failed reload', () => {
+        console.log = vi.fn()
+        addressService.get.mockReturnValue(throwError('Error'))
+        component.load()
+        addressService.get.mockReturnValue(of([{ id: 1 }]))
+        component.load()
+        expect(component.addresses()).toEqual([{ id: 1 }])
     })
 
     it('should delete an address on calling deleteAddress', () => {

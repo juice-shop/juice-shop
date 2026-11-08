@@ -13,6 +13,20 @@ mat-card {
   padding: $space-m;
 }
 
+:host(.page-card) {
+  min-width: 720px;
+  width: 50%;
+}
+
+@media (max-width: 720px) {
+  :host(.page-card) {
+    margin-left: $space-m;
+    margin-right: $space-m;
+    min-width: 0;
+    width: 100%;
+  }
+}
+
 :host(.page-card) mat-card {
   padding: $space-l $space-xl;
 }
