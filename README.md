@@ -90,18 +90,14 @@ For a detailed introduction, full list of features and architecture overview ple
 4. Run `npm start`
 5. Browse to <http://localhost:3000>
 
-> Each packaged distribution includes some binaries for `sqlite3` and
-> `libxmljs2` bound to the OS and node.js version which `npm install` was
-> executed on.
+> Each packaged distribution includes binaries for `sqlite3` bound to the OS and node.js version which `npm install` was
+> executed on. XML parsing relies on the platform-independent `libxml2-wasm` package, so no other native binaries
+> are bundled.
 
 ### Docker Container
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
 ![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
-[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
-"Get your own version badge on microbadger.com")
 
 1. Install [Docker](https://www.docker.com)
 2. Run `docker pull bkimminich/juice-shop`
@@ -220,7 +216,7 @@ Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and
 
 The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
 for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
-tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
+tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find out more
 about donations and how they are used here:
 
 <https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
