@@ -7,6 +7,8 @@ import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 import type { ChallengeModel } from '@juice-shop/models/challenge'
 import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import * as utils from '../../lib/utils'
 import { ProxyAgent } from 'proxy-agent'
 
@@ -377,6 +379,52 @@ void describe('utils', () => {
     void it('returns string representation if error is not an Error object', () => {
       assert.equal(utils.getErrorMessage('Test error'), 'Test error')
       assert.equal(utils.getErrorMessage({}), '[object Object]')
+    })
+  })
+
+  void describe('replaceInFile', () => {
+    const writeTempFile = (t: any, content: string) => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'replaceInFile-'))
+      t.after(() => {
+        fs.rmSync(dir, { recursive: true, force: true })
+      })
+      const file = path.join(dir, 'test.txt')
+      fs.writeFileSync(file, content)
+      return file
+    }
+
+    void it('replaces all occurrences of a string pattern', (t) => {
+      const file = writeTempFile(t, 'http://localhost:3000/a http://localhost:3000/b')
+
+      utils.replaceInFile(file, 'http://localhost:3000', 'https://example.com')
+
+      assert.equal(fs.readFileSync(file, 'utf8'), 'https://example.com/a https://example.com/b')
+    })
+
+    void it('replaces using a RegExp pattern', (t) => {
+      const file = writeTempFile(t, 'orangeTexture = THREE.ImageUtils.loadTexture("/assets/private/earth.jpg");')
+
+      utils.replaceInFile(file, /orangeTexture = .*;/, 'orangeTexture = THREE.ImageUtils.loadTexture("/assets/private/mars.jpg");')
+
+      assert.equal(fs.readFileSync(file, 'utf8'), 'orangeTexture = THREE.ImageUtils.loadTexture("/assets/private/mars.jpg");')
+    })
+
+    void it('replaces matches on multiple lines', (t) => {
+      const file = writeTempFile(t, 'version: 1\nversion: 2\n')
+
+      utils.replaceInFile(file, '^version:.*$', 'version: 3')
+
+      assert.equal(fs.readFileSync(file, 'utf8'), 'version: 3\nversion: 3\n')
+    })
+
+    void it('does not rewrite the file when nothing matches', (t) => {
+      const file = writeTempFile(t, 'nothing to replace here')
+      const writeFileSync = t.mock.method(fs, 'writeFileSync', () => undefined)
+
+      utils.replaceInFile(file, 'missing pattern', 'replacement')
+
+      assert.equal(writeFileSync.mock.calls.length, 0)
+      assert.equal(fs.readFileSync(file, 'utf8'), 'nothing to replace here')
     })
   })
 })
