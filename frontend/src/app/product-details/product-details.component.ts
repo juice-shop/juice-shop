@@ -11,14 +11,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { MAT_DIALOG_DATA, MatDialog, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCrown } from '@fortawesome/free-solid-svg-icons'
-import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
-import { finalize, firstValueFrom } from 'rxjs'
+import { form, FormField, submit } from '@angular/forms/signals'
+import { catchError, EMPTY, finalize, firstValueFrom, Subject, switchMap } from 'rxjs'
+import { MAX_REVIEW_LENGTH, reviewFormSchema } from '../Models/review-form.schema'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { type Review } from '../Models/review.model'
 import { type Product } from '../Models/product.model'
 import { ProductImageComponent } from '../product-image/product-image.component'
 import { MatInputModule } from '@angular/material/input'
-import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
+import { MatFormFieldModule, MatLabel, MatHint, MatError } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { TranslateModule } from '@ngx-translate/core'
 import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'
@@ -33,7 +34,7 @@ library.add(faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss'],
-  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatInputModule, FormField, MatDialogActions, MatDialogClose, ProductImageComponent]
+  imports: [MatDialogContent, MatTooltip, MatDivider, MatButtonModule, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle, TranslateModule, MatIconButton, MatIconModule, MatFormFieldModule, MatLabel, MatHint, MatError, MatInputModule, FormField, MatDialogActions, MatDialogClose, ProductImageComponent]
 })
 export class ProductDetailsComponent implements OnInit {
   private readonly dialog = inject(MatDialog)
@@ -45,37 +46,44 @@ export class ProductDetailsComponent implements OnInit {
   private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly destroyRef = inject(DestroyRef)
 
+  public readonly maxReviewLength = MAX_REVIEW_LENGTH
   public readonly author = signal('Anonymous')
   public readonly reviews = signal<Review[]>([])
   public readonly likedReviewId = signal<string | null>(null)
   public readonly pendingLikeIds = signal<string[]>([])
 
+  private readonly reloadReviews$ = new Subject<void>()
+
   private readonly initialModel = { message: '' }
 
   public readonly reviewModel = signal({ ...this.initialModel })
 
-  public readonly reviewForm = form(this.reviewModel, (s) => {
-    required(s.message)
-    pattern(s.message, /\S/)
-    maxLength(s.message, 160)
-  })
+  public readonly reviewForm = form(this.reviewModel, reviewFormSchema)
 
   ngOnInit (): void {
     this.data.productData.points = Math.round(this.data.productData.price / 10)
+    this.reloadReviews$
+      .pipe(
+        switchMap(() => this.productReviewService.get(this.data.productData.id).pipe(
+          catchError((err) => {
+            console.log(err)
+            return EMPTY
+          })
+        )),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((reviews: Review[]) => this.reviews.set(reviews))
     this.loadReviews()
     this.userService.whoAmI(['email'])
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (user: any) => this.author.set(user?.email ?? 'Anonymous'),
+        next: (user: any) => this.author.set(user?.email || 'Anonymous'),
         error: (err) => console.log(err)
       })
   }
 
   private loadReviews (): void {
-    this.productReviewService.get(this.data.productData.id).subscribe({
-      next: (reviews: Review[]) => this.reviews.set(reviews),
-      error: (err) => console.log(err)
-    })
+    this.reloadReviews$.next()
   }
 
   addReview () {
@@ -109,14 +117,21 @@ export class ProductDetailsComponent implements OnInit {
 
     this.setLikePending(review._id, true)
     this.productReviewService.like(review._id)
-      .pipe(finalize(() => this.setLikePending(review._id, false)))
+      .pipe(finalize(() => {
+        this.setLikePending(review._id, false)
+        this.loadReviews()
+      }))
       .subscribe({
         next: () => this.markReviewAsLiked(review._id),
         error: (err) => console.log(err)
       })
   }
 
-  private isLikePending (reviewId: string): boolean {
+  isOwnReview (review: Review): boolean {
+    return !!this.isLoggedIn() && this.author() !== 'Anonymous' && review.author === this.author()
+  }
+
+  isLikePending (reviewId: string): boolean {
     return this.pendingLikeIds().includes(reviewId)
   }
 
@@ -132,7 +147,7 @@ export class ProductDetailsComponent implements OnInit {
     this.reviews.update((reviews) =>
       reviews.map((review) =>
         review._id === reviewId
-          ? { ...review, liked: true, likesCount: (review.likesCount ?? 0) + 1 }
+          ? { ...review, liked: true }
           : review
       )
     )

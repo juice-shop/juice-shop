@@ -53,14 +53,14 @@
                 <header class="review-header">
                   <cite>{{ review.author }}</cite>
                   <div class="review-actions">
-                    @if (isLoggedIn() && review.author === author()) {
+                    @if (isOwnReview(review)) {
                       <button mat-icon-button (click)="editReview(review)" class="edit-review-button"
                         aria-label="{{ 'LABEL_EDIT_REVIEW' | translate }}"
                         matTooltip="{{ 'LABEL_EDIT_REVIEW' | translate }}">
                         <mat-icon>edit</mat-icon>
                       </button>
                     }
-                    <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn() || pendingLikeIds().includes(review._id)"
+                    <button mat-icon-button (click)="likeReview(review)" [disabled]="review.liked || !isLoggedIn() || isLikePending(review._id)"
                       class="rw-button" aria-label="Rate a helpful review">
                       <span class="like-icon" [class.like-icon-pop]="likedReviewId() === review._id"
                         (animationend)="likedReviewId.set(null)">
@@ -89,13 +89,16 @@
       <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
       <mat-hint>
         <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
-        <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: '160' } }}</em>
+        <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: maxReviewLength } }}</em>
       </mat-hint>
       <textarea [formField]="reviewForm.message" cols="50" matInput
         placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
         matTextareaAutosize matAutosizeMinRows="2"
       matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
-      <mat-hint align="end">{{reviewModel().message.length}}/160</mat-hint>
+      <mat-hint align="end">{{reviewModel().message.length}}/{{maxReviewLength}}</mat-hint>
+      @if (reviewForm.message().getError('maxLength')) {
+        <mat-error>{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: maxReviewLength } }}</mat-error>
+      }
     </mat-form-field>
 
     <mat-dialog-actions align="end" class="dialogAction">

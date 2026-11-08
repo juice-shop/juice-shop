@@ -5,11 +5,12 @@
 
 import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog'
-import { form, FormField, maxLength, pattern, required, submit } from '@angular/forms/signals'
+import { form, FormField, submit } from '@angular/forms/signals'
 import { firstValueFrom } from 'rxjs'
 import { ProductReviewService } from '../Services/product-review.service'
 
 import { type Review } from '../Models/review.model'
+import { MAX_REVIEW_LENGTH, reviewFormSchema } from '../Models/review-form.schema'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { MatButtonModule } from '@angular/material/button'
 
@@ -40,11 +41,9 @@ export class ProductReviewEditComponent {
 
   public readonly reviewModel = signal({ ...this.initialModel })
 
-  public readonly reviewForm = form(this.reviewModel, (s) => {
-    required(s.message)
-    pattern(s.message, /\S/)
-    maxLength(s.message, 160)
-  })
+  public readonly maxReviewLength = MAX_REVIEW_LENGTH
+
+  public readonly reviewForm = form(this.reviewModel, reviewFormSchema)
 
   editReview () {
     return submit(this.reviewForm, async () => {
