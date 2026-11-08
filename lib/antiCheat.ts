@@ -16,7 +16,7 @@ import { type NextFunction, type Request, type Response } from 'express'
 import * as utils from './utils'
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 
-const tightlyCoupledChallenges = {
+const tightlyCoupledChallenges: Record<string, string[]> = {
   loginAdminChallenge: ['weakPasswordChallenge'],
   nullByteChallenge: ['easterEggLevelOneChallenge', 'forgottenDevBackupChallenge', 'forgottenBackupChallenge', 'misplacedSignatureFileChallenge'],
   deprecatedInterfaceChallenge: ['uploadTypeChallenge', 'xxeFileDisclosureChallenge', 'xxeDosChallenge', 'yamlBombChallenge'],
@@ -159,7 +159,6 @@ export const totalCheatScore = () => {
 }
 
 function areTightlyCoupled (challenge: Challenge, previousChallenge: Challenge) {
-  // @ts-expect-error FIXME any type issues
   return tightlyCoupledChallenges[challenge.key]?.indexOf(previousChallenge.key) > -1 || tightlyCoupledChallenges[previousChallenge.key]?.indexOf(challenge.key) > -1
 }
 
