@@ -263,13 +263,170 @@ También queda pendiente revisar la configuración de los análisis para mejorar
 
 ## 5. SCA · Análisis de dependencias
 
-**Estado:** pendiente de implementación.
+### 5.1. Objetivo
 
-**Herramienta propuesta:** npm audit.
+Implementar un control automatizado de Software Composition Analysis (SCA) para identificar vulnerabilidades conocidas en las dependencias del backend y frontend de OWASP Juice Shop.
 
-El control SCA permitirá identificar vulnerabilidades conocidas en las dependencias utilizadas por Juice Shop.
+### 5.2. Herramienta utilizada
 
-Se documentarán aquí la configuración, los resultados, la severidad de las vulnerabilidades encontradas y el artefacto generado.
+- **Herramienta:** npm audit.
+- **Entorno:** GitHub Actions.
+- **Node.js:** 22.
+- **npm:** 11.19.1.
+- **Modo:** reporte.
+- **Workflow:** `.github/workflows/devsecops.yml`.
+
+### 5.3. Implementación
+
+Se incorporó el job `sca-npm-audit` al pipeline DevSecOps.
+
+Durante la revisión inicial se identificó que el proyecto establece `package-lock=false` en los archivos `.npmrc`, por lo que no dispone de archivos de bloqueo de dependencias.
+
+Para realizar el análisis sin modificar permanentemente la configuración del repositorio, se implementó la generación temporal de lockfiles mediante:
+
+`npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund`
+
+Posteriormente, se ejecutó `npm audit` de forma independiente para el backend y el frontend.
+
+Los resultados se generaron en formato JSON y se publicaron mediante `actions/upload-artifact@v4`.
+
+**Archivos generados:**
+
+- `npm-audit-backend.json`
+- `npm-audit-frontend.json`
+
+**Artefacto de GitHub Actions:** `npm-audit-reports`
+
+El análisis se configuró inicialmente en modo reporte, permitiendo registrar vulnerabilidades sin bloquear automáticamente el pipeline por los hallazgos de seguridad.
+
+### 5.4. Problema encontrado y solución aplicada
+
+Durante la ejecución inicial #4, el job SCA falló en el paso `Generate frontend lockfile`.
+
+**Error registrado:**
+
+`Cannot read properties of null (reading 'edgesOut')`
+
+El error ocurrió durante la resolución del árbol de dependencias del frontend y provocó que los pasos posteriores de auditoría no se ejecutaran.
+
+Para solucionarlo, se agregó un paso que actualiza npm a la versión 11.19.1 antes de generar los lockfiles.
+
+También se ajustó la ejecución de `npm audit` para permitir códigos de salida relacionados con vulnerabilidades, manteniendo una validación posterior de los reportes JSON.
+
+**Commit de corrección:**
+
+`9140af3` — `fix(ci): update npm and handle audit findings`
+
+La ejecución #5 finalizó correctamente, confirmando que el pipeline podía ejecutar ambos análisis y publicar los reportes.
+
+### 5.5. Resultados de GitHub Actions
+
+| Campo | Resultado |
+|---|---|
+| Workflow | H2 - DevSecOps |
+| Ejecución | #5 |
+| Commit | `9140af3` |
+| Rama | `h2-blue-team` |
+| Resultado | Success |
+| Duración total | 1 minuto y 59 segundos |
+| Job SCA | 1 minuto y 56 segundos |
+| Artefactos totales | 2 (SAST y SCA) |
+
+Los tres jobs del pipeline finalizaron exitosamente.
+
+### 5.6. Resultados del análisis SCA
+
+**Backend**
+
+Se identificaron 40 paquetes afectados por vulnerabilidades conocidas.
+
+| Severidad | Cantidad |
+|---|---:|
+| Critical | 6 |
+| High | 13 |
+| Moderate | 19 |
+| Low | 2 |
+| **Total** | **40** |
+
+Se analizaron 1,248 dependencias registradas por npm, incluyendo dependencias de producción, desarrollo y opcionales.
+
+De los 40 paquetes afectados, 14 corresponden a dependencias directas y 26 a dependencias transitivas.
+
+**Frontend**
+
+Se identificaron 22 paquetes afectados.
+
+| Severidad | Cantidad |
+|---|---:|
+| Critical | 0 |
+| High | 1 |
+| Moderate | 9 |
+| Low | 12 |
+| **Total** | **22** |
+
+Se analizaron 831 dependencias registradas, incluyendo dependencias de producción, desarrollo, opcionales y peer dependencies.
+
+De los 22 paquetes afectados, 2 corresponden a dependencias directas y 20 a transitivas.
+
+### 5.7. Principales vulnerabilidades identificadas
+
+| Dependencia | Componente | Severidad | Hallazgo |
+|---|---|---|---|
+| jsonwebtoken | Backend | Critical | Vulnerabilidades de verificación de tokens JWT |
+| marsdb | Backend | Critical | Command Injection |
+| crypto-js | Backend | Critical | Debilidades criptográficas |
+| lodash | Backend | Critical | Prototype Pollution y Command Injection |
+| pdfkit | Backend | Critical | Afectada por dependencia criptográfica vulnerable |
+| tar | Backend | Critical | Vulnerabilidades de manipulación de archivos y rutas |
+| express-jwt | Backend | High | Authorization Bypass |
+| sanitize-html | Backend | High | Vulnerabilidades relacionadas con sanitización y XSS |
+| ws | Frontend | High | Denegación de servicio por agotamiento de memoria |
+
+Los hallazgos corresponden a avisos de seguridad conocidos asociados con las dependencias analizadas.
+
+La severidad de npm audit no sustituye una evaluación específica del riesgo ni demuestra automáticamente que cada vulnerabilidad sea explotable en la aplicación.
+
+### 5.8. Disponibilidad de correcciones
+
+El reporte del backend indica:
+
+- 34 paquetes afectados con correcciones sugeridas que implican cambios de versión mayor.
+- 3 paquetes con correcciones sugeridas sin cambio mayor indicado.
+- 3 paquetes sin corrección automática disponible: `marsdb`, `hbs` y `notevil`.
+
+En el frontend, los 22 paquetes afectados tienen correcciones sugeridas que implican cambios de versión mayor.
+
+Estas recomendaciones requieren evaluación manual, debido a que una actualización importante puede introducir incompatibilidades funcionales.
+
+### 5.9. Acciones realizadas con los hallazgos
+
+Durante el H2 se realizaron las siguientes actividades:
+
+1. Se integró npm audit en GitHub Actions.
+2. Se implementó el análisis del backend y frontend.
+3. Se corrigió el error técnico que impedía generar el lockfile del frontend.
+4. Se verificó la ejecución exitosa de los tres jobs.
+5. Se generaron y conservaron ambos reportes JSON.
+6. Se clasificaron los resultados según severidad y tipo de dependencia.
+7. Se identificaron paquetes prioritarios para futuras revisiones.
+
+No se modificaron las dependencias vulnerables durante esta fase, ya que las remediaciones de seguridad deberán evaluarse y coordinarse con el H4.
+
+### 5.10. Limitaciones y consideraciones
+
+Los lockfiles se generan temporalmente durante cada ejecución y no se versionan en el repositorio.
+
+Por esta razón, las versiones resueltas y los resultados de auditoría pueden cambiar entre ejecuciones.
+
+El análisis incluye dependencias de desarrollo y transitivas, por lo que no todos los paquetes afectados representan exposición directa de la aplicación durante su ejecución.
+
+Las recomendaciones de actualización no deben aplicarse automáticamente sin verificar compatibilidad, dependencias relacionadas y pruebas funcionales.
+
+**Estado del control SCA:** implementado, ejecutado correctamente y documentado.
+
+**Evidencia:** `npm-audit-reports`, ejecución #5 de GitHub Actions.
+
+[Consultar ejecuciones](https://github.com/cmd-AJ/juice-shop/actions)
 
 ## 6. SBOM · Inventario de componentes
 
@@ -302,7 +459,7 @@ Los umbrales definitivos deberán ser acordados y justificados por los cuatro in
 | Control | Herramienta | Umbral o condición | Estado |
 |---|---|---|---|
 | SAST | Semgrep | Modo reporte; umbral definitivo pendiente | Implementado |
-| SCA | npm audit | Pendiente de definir | Pendiente |
+| SCA | npm audit | Modo reporte; umbral definitivo pendiente | Implementado |
 | SBOM | Syft / CycloneDX | Publicar `sbom.cdx.json` | Pendiente |
 | DAST | OWASP ZAP baseline | Pendiente de definir | Pendiente |
 
@@ -358,7 +515,9 @@ Este registro permitirá construir la línea de tiempo del informe final y relac
 | Integración SAST con Semgrep | Completada |
 | Generación del reporte SAST | Completada |
 | Revisión inicial de hallazgos SAST | Completada |
-| Integración SCA con npm audit | Pendiente |
+| Integración SCA con npm audit | Completada |
+| Generación de reportes SCA | Completada |
+| Análisis de hallazgos SCA | Completado |
 | Generación de SBOM | Pendiente |
 | Integración DAST | Pendiente |
 | Configuración del security gate | Pendiente |
@@ -377,7 +536,7 @@ Los resultados también evidenciaron la necesidad de distinguir entre vulnerabil
 
 El pipeline se mantiene inicialmente en modo reporte, permitiendo registrar los hallazgos sin bloquear el desarrollo.
 
-El siguiente paso consiste en incorporar los controles SCA, SBOM y DAST, establecer un security gate justificado e integrar las evidencias ofensivas del Red Team.
+Se integró adicionalmente el control SCA mediante npm audit, identificando 40 paquetes afectados en el backend y 22 en el frontend. Los resultados permiten priorizar vulnerabilidades conocidas en las dependencias de la aplicación. El siguiente paso consiste en incorporar SBOM y DAST, definir el security gate e integrar las evidencias del Red Team.
 
 ## 13. Referencias y evidencias
 
@@ -388,5 +547,7 @@ El siguiente paso consiste en incorporar los controles SCA, SBOM y DAST, estable
 - Reporte SAST: artefacto `semgrep-report`, ejecución #2.
 - [Documentación de Semgrep](https://semgrep.dev/docs/)
 - [Documentación de GitHub Actions](https://docs.github.com/en/actions)
+- Reportes SCA: artefacto `npm-audit-reports`, ejecución #5.
+- [Documentación de npm audit](https://docs.npmjs.com/cli/commands/npm-audit)
 
-La evidencia correspondiente a SCA, SBOM, DAST y las pruebas del Red Team se incorporará conforme se complete cada actividad.
+La evidencia correspondiente a SBOM, DAST y las pruebas del Red Team se incorporará conforme se complete cada actividad.
