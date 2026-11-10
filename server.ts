@@ -179,15 +179,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Compression for all requests */
   app.use(compression())
 
-// TEST DEVSECOPS DAST - divulgation fictive temporaire
-app.get('/sitemap.xml', (_req: Request, res: Response) => {
-  res.type('xml').send(
-    '<?xml version="1.0" encoding="UTF-8"?>' +
-    '<urlset>' +
-    '<testCard>4111111111111111</testCard>' +
-    '</urlset>'
-  )
-})
+
 
   /* Bludgeon solution for possible CORS problems: Allow everything! */
   app.options('*', cors())
