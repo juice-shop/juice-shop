@@ -292,47 +292,50 @@ Sus principales objetivos son los siguientes
 | **Datos sensibles dentro del JWT** (CWE-200; no lo marcó ZAP, sale de la cookie `token` en las peticiones del reporte). El payload incluye `password` (hash MD5), `role` y `totpSecret`. | Cookie `token` enviada en todas las peticiones autenticadas | P3 · autenticación. Token emitido con la clave de D3 (F12). Amenazas T-02 y T-08 |
 | **Archivos internos accesibles en `/ftp`** (CWE-538; ZAP los rastreó, aparecen en la alerta de CSP). | `/ftp/coupons_2013.md.bak`, `/ftp/encrypt.pyc`, `/ftp/package-lock.json.bak` | P7 · archivos. Lectura de D3 (F11, TB-2 → TB-3). Amenaza T-07 |
 
-Superficie de ataque
+## Superficie de ataque
 
-Elaborado por el Equipo rojo (Andre Jo, Pedro Guzmán).
+*Elaborado por el Equipo rojo (Andre Jo, Pedro Guzmán).*
 
-Toda la superficie se evalúa sobre la instancia local del grupo, en http://localhost:8080 (detrás del WAF). El puerto directo de la app (http://localhost:3000) se revisa solo para comprobar si existe un bypass del WAF (ver más abajo).
+Toda la superficie se evalúa sobre la instancia local del grupo, en `http://localhost:8080` (detrás del WAF). El puerto directo de la app (`http://localhost:3000`) se revisa solo para comprobar si existe un bypass del WAF (ver más abajo).
 
-Mapa de endpoints
-#	Endpoint	Método	Rol mínimo	Entra por (límite)	Proceso	Parámetros / entrada	Vulnerabilidad sospechada	Amenaza	→ PoC H2
-1	/rest/user/login	POST	Anónimo	TB-0 → TB-2	P3	email, password (JSON)	SQLi en el login	T-01 / V-13	Sí
-2	/rest/products/search	GET	Anónimo	TB-0 → TB-2 → TB-3	P4	q (query)	SQLi tipo UNION	T-01	Sí
-3	/rest/basket/:id	GET	Cliente	TB-0 → TB-2 → TB-3	P5	id en la ruta	IDOR (acceso a cesta ajena)	T-11	Sí
-4	/api/Users	POST	Anónimo	TB-0 → TB-2 → TB-3	P3	cuerpo JSON, incl. role	Registro como admin (mass assignment)	T-10 / V-14	Sí
-5	/rest/products/:id/reviews	PATCH/PUT	Cliente	TB-0 → TB-2 → TB-3	P6	id, cuerpo de la reseña	Editar reseña ajena (falta de autorización)	T-04 / V-12	Candidato
-6	/redirect?to=	GET	Anónimo	TB-0 → TB-2	P2	to (query)	Redirección abierta (phishing)	T-03 / V-01	Sí
-7	/dataerasure	POST	Cliente	TB-0 → TB-2	P3	formulario sin token	CSRF	T-05 / V-02	Candidato
-8	/file-upload	POST	Cliente	TB-0 → TB-2 → TB-3	P7	archivo (tipo/tamaño)	XXE / DoS por archivo	T-09	Candidato
-9	/ftp/	GET	Anónimo	TB-2 → TB-3	P7	ruta de archivo	Divulgación de archivos internos	T-07 / V-11	Sí
-10	/rest/admin/application-configuration	GET	Anónimo*	TB-2 → TB-3	P9	—	Divulgación de configuración / IP privada	T-08 / V-08	Candidato
-11	/socket.io/?...&sid=	GET	Cliente	TB-0 → TB-2	P8	sid en la URL	ID de sesión en la URL	T-02 / V-06	Soporte
+### Mapa de endpoints
 
-* El control de rol en /rest/admin/* es justamente lo que se debe verificar: si responde sin sesión privilegiada, es el hallazgo.
+| # | Endpoint | Método | Rol mínimo | Entra por (límite) | Proceso | Parámetros / entrada | Vulnerabilidad sospechada | Amenaza | → PoC H2 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | `/rest/user/login` | POST | Anónimo | TB-0 → TB-2 | P3 | `email`, `password` (JSON) | SQLi en el login | T-01 / V-13 | Sí |
+| 2 | `/rest/products/search` | GET | Anónimo | TB-0 → TB-2 → TB-3 | P4 | `q` (query) | SQLi tipo UNION | T-01 | Sí |
+| 3 | `/rest/basket/:id` | GET | Cliente | TB-0 → TB-2 → TB-3 | P5 | `id` en la ruta | IDOR (acceso a cesta ajena) | T-11 | Sí |
+| 4 | `/api/Users` | POST | Anónimo | TB-0 → TB-2 → TB-3 | P3 | cuerpo JSON, incl. `role` | Registro como admin (mass assignment) | T-10 / V-14 | Sí |
+| 5 | `/rest/products/:id/reviews` | PATCH/PUT | Cliente | TB-0 → TB-2 → TB-3 | P6 | `id`, cuerpo de la reseña | Editar reseña ajena (falta de autorización) | T-04 / V-12 | Candidato |
+| 6 | `/redirect?to=` | GET | Anónimo | TB-0 → TB-2 | P2 | `to` (query) | Redirección abierta (phishing) | T-03 / V-01 | Sí |
+| 7 | `/dataerasure` | POST | Cliente | TB-0 → TB-2 | P3 | formulario sin token | CSRF | T-05 / V-02 | Candidato |
+| 8 | `/file-upload` | POST | Cliente | TB-0 → TB-2 → TB-3 | P7 | archivo (tipo/tamaño) | XXE / DoS por archivo | T-09 | Candidato |
+| 9 | `/ftp/` | GET | Anónimo | TB-2 → TB-3 | P7 | ruta de archivo | Divulgación de archivos internos | T-07 / V-11 | Sí |
+| 10 | `/rest/admin/application-configuration` | GET | Anónimo* | TB-2 → TB-3 | P9 | — | Divulgación de configuración / IP privada | T-08 / V-08 | Candidato |
+| 11 | `/socket.io/?...&sid=` | GET | Cliente | TB-0 → TB-2 | P8 | `sid` en la URL | ID de sesión en la URL | T-02 / V-06 | Soporte |
 
-Hallazgos del DAST que pasan a PoC del Hito 2
+\* El control de rol en `/rest/admin/*` es justamente lo que se debe verificar: si responde sin sesión privilegiada, es el hallazgo.
+
+### Hallazgos del DAST que pasan a PoC del Hito 2
 
 De la Etapa 5, estos son los que el Equipo rojo convertirá en PoC reproducible (al menos 4, según el enunciado):
 
-V-xx	Hallazgo	CWE	Endpoint	Amenaza
-V-13	SQLi en login	CWE-89	/rest/user/login	T-01
-V-14	Registro como administrador	CWE-915	/api/Users	T-10
-V-01	Redirección abierta	CWE-601	/redirect?to=	T-03
-V-11	Archivos internos en /ftp	CWE-538	/ftp/*	T-07
+| V-xx | Hallazgo | CWE | Endpoint | Amenaza |
+|---|---|---|---|---|
+| V-13 | SQLi en login | CWE-89 | `/rest/user/login` | T-01 |
+| V-14 | Registro como administrador | CWE-915 | `/api/Users` | T-10 |
+| V-01 | Redirección abierta | CWE-601 | `/redirect?to=` | T-03 |
+| V-11 | Archivos internos en `/ftp` | CWE-538 | `/ftp/*` | T-07 |
 
-Reserva (si se necesita una quinta): IDOR en /rest/basket/:id (T-11) y edición de reseña ajena (T-04 / V-12).
+Reserva (si se necesita una quinta): IDOR en `/rest/basket/:id` (T-11) y edición de reseña ajena (T-04 / V-12).
 
-Bypass del WAF
+### Bypass del WAF
 
-El WAF (P1, ModSecurity + CRS) filtra en :8080, pero la app también escucha en :3000. Si :3000 responde a los mismos ataques sin bloquearlos, todo el filtrado del borde se evita apuntando al puerto directo.
+El WAF (P1, ModSecurity + CRS) filtra en `:8080`, pero la app también escucha en `:3000`. Si `:3000` responde a los mismos ataques sin bloquearlos, todo el filtrado del borde se evita apuntando al puerto directo.
 
-Verificación (a ejecutar contra localhost, documentar comando, hora y salida):
+**Verificación (a ejecutar contra localhost, documentar comando, hora y salida):**
 
-bash
+```bash
 # ¿Responde el puerto directo?
 curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/rest/admin/application-version
 
@@ -344,47 +347,49 @@ curl -s -X POST http://localhost:8080/rest/user/login \
 curl -s -X POST http://localhost:3000/rest/user/login \
   -H 'Content-Type: application/json' \
   -d '{"email":"'"'"' OR 1=1--","password":"x"}' -o /dev/null -w "3000 -> %{http_code}\n"
+```
 
-Resultado: (pegar aquí la salida real). Si :3000 acepta el payload que :8080 bloquea, se documenta como bypass del WAF y se recuerda que en H3 el WAF debe cubrir ese camino o cerrarse el puerto.
+> **Resultado:** _(pegar aquí la salida real)_. Si `:3000` acepta el payload que `:8080` bloquea, se documenta como **bypass del WAF** y se recuerda que en H3 el WAF debe cubrir ese camino o cerrarse el puerto.
 
-El mapa visual se guarda en esta carpeta como superficie.png (puede exportarse del site map de Burp o del spider de ZAP).
+*El mapa visual se guarda en esta carpeta como `superficie.png` (puede exportarse del site map de Burp o del spider de ZAP).*
 
-Casos de abuso
+---
 
-Cada caso deriva de una amenaza (T-xx) y su vulnerabilidad (V-xx) y será la base de un PoC del Hito 2.
+## Casos de abuso
 
-CA-01 · Suplantar al administrador con SQLi en el login
+*Cada caso deriva de una amenaza (T-xx) y su vulnerabilidad (V-xx) y será la base de un PoC del Hito 2.*
 
-(T-01 / V-13 / RS-01)
+### CA-01 · Suplantar al administrador con SQLi en el login
+*(T-01 / V-13 / RS-01)*
 
-Dado un atacante anónimo en la página de login, sin credenciales válidas.
-Cuando envía en el campo email una entrada como ' OR 1=1-- y una contraseña cualquiera.
-Entonces el sistema debe rechazar el intento y no emitir un JWT; además el evento debe quedar registrado (RS-01, RS-07). (Comportamiento vulnerable esperado: inicia sesión como el primer usuario, normalmente el administrador.)
-CA-02 · Leer la cesta de otro usuario (IDOR)
+- **Dado** un atacante anónimo en la página de login, sin credenciales válidas.
+- **Cuando** envía en el campo `email` una entrada como `' OR 1=1--` y una contraseña cualquiera.
+- **Entonces** el sistema debe rechazar el intento y no emitir un JWT; además el evento debe quedar registrado (RS-01, RS-07). *(Comportamiento vulnerable esperado: inicia sesión como el primer usuario, normalmente el administrador.)*
 
-(T-11 / RS-02)
+### CA-02 · Leer la cesta de otro usuario (IDOR)
+*(T-11 / RS-02)*
 
-Dado un cliente autenticado con su propio token y cesta (por ejemplo id = 1).
-Cuando solicita GET /rest/basket/2 cambiando el identificador por el de otro usuario.
-Entonces el sistema debe responder con un error de autorización y no devolver la cesta ajena (RS-02). (Comportamiento vulnerable esperado: devuelve el contenido de la cesta del otro usuario.)
-CA-03 · Registrarse como administrador
+- **Dado** un cliente autenticado con su propio token y cesta (por ejemplo `id = 1`).
+- **Cuando** solicita `GET /rest/basket/2` cambiando el identificador por el de otro usuario.
+- **Entonces** el sistema debe responder con un error de autorización y no devolver la cesta ajena (RS-02). *(Comportamiento vulnerable esperado: devuelve el contenido de la cesta del otro usuario.)*
 
-(T-10 / V-14 / RS-03)
+### CA-03 · Registrarse como administrador
+*(T-10 / V-14 / RS-03)*
 
-Dado un atacante anónimo con acceso al registro de usuarios.
-Cuando envía a POST /api/Users el cuerpo del registro agregando el campo "role": "admin".
-Entonces el servidor debe ignorar el campo role y crear la cuenta siempre como customer (RS-03). (Comportamiento vulnerable esperado: se crea una cuenta con privilegios de administrador.)
-CA-04 · Redirección abierta para phishing
+- **Dado** un atacante anónimo con acceso al registro de usuarios.
+- **Cuando** envía a `POST /api/Users` el cuerpo del registro agregando el campo `"role": "admin"`.
+- **Entonces** el servidor debe ignorar el campo `role` y crear la cuenta siempre como `customer` (RS-03). *(Comportamiento vulnerable esperado: se crea una cuenta con privilegios de administrador.)*
 
-(T-03 / V-01 / RS-09)
+### CA-04 · Redirección abierta para phishing
+*(T-03 / V-01 / RS-09)*
 
-Dado un atacante que distribuye un enlace que apunta al dominio legítimo de la tienda.
-Cuando la víctima abre GET /redirect?to=https://sitio-falso.example y la app refleja ese destino en la cabecera Location.
-Entonces la app debe redirigir solo a destinos de una lista exacta de permitidos y rechazar el externo (RS-09). (Comportamiento vulnerable esperado: redirige al sitio controlado por el atacante.)
-CA-05 · Editar la reseña de otro usuario
+- **Dado** un atacante que distribuye un enlace que apunta al dominio legítimo de la tienda.
+- **Cuando** la víctima abre `GET /redirect?to=https://sitio-falso.example` y la app refleja ese destino en la cabecera `Location`.
+- **Entonces** la app debe redirigir solo a destinos de una lista exacta de permitidos y rechazar el externo (RS-09). *(Comportamiento vulnerable esperado: redirige al sitio controlado por el atacante.)*
 
-(T-04 / V-12 / RS-02)
+### CA-05 · Editar la reseña de otro usuario
+*(T-04 / V-12 / RS-02)*
 
-Dado un cliente autenticado que no es el autor de una reseña.
-Cuando envía una petición para modificar esa reseña con el identificador de otro usuario.
-Entonces la app debe verificar que el token pertenece al autor y rechazar la edición (RS-02). (Comportamiento vulnerable esperado: la reseña ajena se modifica sin restricción.)
+- **Dado** un cliente autenticado que no es el autor de una reseña.
+- **Cuando** envía una petición para modificar esa reseña con el identificador de otro usuario.
+- **Entonces** la app debe verificar que el token pertenece al autor y rechazar la edición (RS-02). *(Comportamiento vulnerable esperado: la reseña ajena se modifica sin restricción.)*
