@@ -245,6 +245,7 @@ jobs:
         run: python3 security/check_sca_gate.py trivy-docker-report.json
 
   
+  
   dast:
     name: DAST - OWASP ZAP
     runs-on: ubuntu-24.04
@@ -305,12 +306,52 @@ jobs:
           path: zap-reports/
           if-no-files-found: warn
 
+      # NOUVEAU : Quality Gate DAST
+      - name: Quality Gate - OWASP ZAP
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("zap-reports/zap-report.json")
+
+          if not path.is_file():
+              sys.exit("QUALITY GATE ERROR: rapport ZAP absent")
+
+          try:
+              with path.open(encoding="utf-8") as f:
+                  report = json.load(f)
+          except (OSError, ValueError) as error:
+              sys.exit(f"QUALITY GATE ERROR: {error}")
+
+          if not isinstance(report, dict) or not isinstance(report.get("site"), list) or not report["site"]:
+              sys.exit("QUALITY GATE ERROR: aucun site analyse")
+
+          high = [
+              alert
+              for site in report["site"]
+              for alert in site.get("alerts", [])
+              if str(alert.get("riskcode")) == "3"
+          ]
+
+          print("Alertes HIGH :", len(high))
+
+          for alert in high:
+              print("BLOCKED:", alert.get("name"))
+
+          if high:
+              sys.exit("QUALITY GATE FAILED")
+
+          print("QUALITY GATE PASSED")
+          PY
+
       - name: Stop Juice Shop
         if: always()
         run: |
           docker rm -f juice-shop-dast || true
           docker network rm zapnet || true
-  
+
   iac_scan:
     name: IaC Security - Checkov
     runs-on: ubuntu-24.04
