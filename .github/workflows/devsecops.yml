@@ -409,8 +409,33 @@ jobs:
           artifact-name: juice-shop-sbom
           upload-artifact: true
 
-      - name: Verify SBOM generation
+      - name: Quality Gate - SBOM
         run: |
-          test -s juice-shop-sbom.cdx.json
-          python3 -c "import json; d=json.load(open('juice-shop-sbom.cdx.json')); assert d['bomFormat']=='CycloneDX'; print('Components:', len(d.get('components', [])))"
+          python3 - <<'PY'
+          import json
+          import sys
 
+          with open("juice-shop-sbom.cdx.json", encoding="utf-8") as f:
+              sbom = json.load(f)
+
+          components = sbom.get("components", [])
+          invalid = [
+              c for c in components
+              if not c.get("name") or not c.get("version")
+          ]
+
+          print("Format:", sbom.get("bomFormat"))
+          print("Components:", len(components))
+          print("Components missing name/version:", len(invalid))
+
+          if sbom.get("bomFormat") != "CycloneDX":
+              sys.exit("QUALITY GATE FAILED: invalid SBOM format")
+
+          if not components:
+              sys.exit("QUALITY GATE FAILED: empty SBOM")
+
+          if invalid:
+              sys.exit("QUALITY GATE FAILED: incomplete components")
+
+          print("QUALITY GATE PASSED")
+          PY
