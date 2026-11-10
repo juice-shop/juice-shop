@@ -53,7 +53,7 @@ jobs:
           node-version: '24'
 
       # Installation temporaire sans lockfile.
-      # Le postinstall du dépôt lance lui-même
+      # Le postinstall du dÃ©pÃ´t lance lui-mÃªme
       # une installation frontend.
       - name: Install backend dependencies
         run: npm install --legacy-peer-deps --ignore-scripts
@@ -109,6 +109,29 @@ jobs:
 
       - name: Run frontend tests
         run: npm run test:frontend
+  docker_build:
+    name: Build Docker Image
+    runs-on: ubuntu-24.04
+    needs: [unit_tests, frontend_tests]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:devsecops .
+
+      - name: Save Docker image
+        run: docker save juice-shop:devsecops | gzip > juice-shop-image.tar.gz
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: juice-shop-docker-image
+          path: juice-shop-image.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+
   
   
   sast:
@@ -212,13 +235,19 @@ jobs:
   docker_scan:
     name: Docker Image Scan - Trivy
     runs-on: ubuntu-24.04
+    needs: docker_build
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Build Juice Shop Docker image
-        run: docker build -t juice-shop:devsecops .
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: juice-shop-docker-image
+
+      - name: Load Docker image
+        run: gunzip -c juice-shop-image.tar.gz | docker load
 
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
@@ -249,13 +278,19 @@ jobs:
   dast:
     name: DAST - OWASP ZAP
     runs-on: ubuntu-24.04
+    needs: docker_build
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Build Juice Shop Docker image
-        run: docker build -t juice-shop:devsecops .
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: juice-shop-docker-image
+
+      - name: Load Docker image
+        run: gunzip -c juice-shop-image.tar.gz | docker load
 
       - name: Create Docker test network
         run: docker network create zapnet
@@ -392,13 +427,19 @@ jobs:
   sbom:
     name: SBOM - Syft CycloneDX
     runs-on: ubuntu-24.04
+    needs: docker_build
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Build Juice Shop Docker image
-        run: docker build -t juice-shop:devsecops .
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: juice-shop-docker-image
+
+      - name: Load Docker image
+        run: gunzip -c juice-shop-image.tar.gz | docker load
 
       - name: Generate CycloneDX SBOM with Syft
         uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
@@ -421,7 +462,7 @@ jobs:
 
           components = sbom.get("components", [])
 
-          # Les fichiers peuvent légitimement ne pas avoir de version.
+          # Les fichiers peuvent lÃ©gitimement ne pas avoir de version.
           invalid = [
               c for c in components
               if not c.get("name")
@@ -446,3 +487,41 @@ jobs:
 
           print("QUALITY GATE PASSED")
           PY
+  publish_image:
+    name: Publish Docker Image to Docker Hub
+    runs-on: ubuntu-24.04
+    needs:
+      - docker_build
+      - sast
+      - sca
+      - secrets_scan
+      - docker_scan
+      - dast
+      - iac_scan
+      - sbom
+
+    steps:
+      - name: Download validated Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: juice-shop-docker-image
+
+      - name: Load Docker image
+        run: gunzip -c juice-shop-image.tar.gz | docker load
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Tag and push validated image
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+        run: |
+          IMAGE="${DOCKERHUB_USERNAME}/juice-shop-devsecops:${GITHUB_SHA}"
+
+          docker tag juice-shop:devsecops "$IMAGE"
+          docker push "$IMAGE"
+
+          echo "Published: $IMAGE"
