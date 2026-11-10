@@ -1,0 +1,134 @@
+# Proyecto Final Integrador - Entorno WAF + SIEM (solo laboratorio local)
+#
+#   Navegador / Red Team ──► WAF :8080 (ModSecurity + OWASP CRS) ──► SU APLICACIÓN (APP_BACKEND)
+#                               │ access.log / modsec_audit.json
+#                               ▼
+#                           Filebeat ──► Elasticsearch ──► Kibana :5601 (Blue Team / SIEM)
+#
+# Su aplicación NO está en este archivo: córranla como siempre (npm run dev, docker compose, etc.)
+# y apunten el WAF a ella con APP_BACKEND en el archivo .env (copien .env.example a .env).
+#
+#   # Por etapas (recomendado la primera vez; cada comando espera a sus dependencias):
+#   docker compose up -d elasticsearch && ./scripts/verificar.sh elasticsearch
+#   docker compose up -d kibana        && ./scripts/verificar.sh kibana
+#   docker compose up -d waf           && ./scripts/verificar.sh waf
+#   docker compose up -d filebeat      && ./scripts/verificar.sh filebeat
+#   # O todo junto:
+#   docker compose up -d
+#   Aplicación a través del WAF:  http://localhost:8080   (WAF_PORT)
+#   Kibana:                       http://localhost:5601
+#
+# Modo del WAF (MODSEC_RULE_ENGINE en .env):
+#   DetectionOnly -> detecta y registra, NO bloquea (Red Team puede explotar)
+#   On            -> bloquea con HTTP 403 (Hito 3)  ->  docker compose up -d waf
+#
+# ADVERTENCIA: la seguridad de Elastic está deshabilitada. Solo para uso local.
+name: proyecto-final
+
+services:
+  # Prepara el volumen de logs para que el WAF (usuario no-root) pueda escribir
+  waf-logs-init:
+    image: busybox:1.36
+    command: ["sh", "-c", "chmod 0777 /logs"]
+    volumes:
+      - waf-logs:/logs
+
+  waf:
+    image: owasp/modsecurity-crs:nginx
+    restart: unless-stopped
+    depends_on:
+      waf-logs-init:
+        condition: service_completed_successfully
+    environment:
+      BACKEND: ${APP_BACKEND:-http://host.docker.internal:3000}
+      MODSEC_RULE_ENGINE: ${MODSEC_RULE_ENGINE:-DetectionOnly}
+      BLOCKING_PARANOIA: ${BLOCKING_PARANOIA:-1}
+      # Métodos HTTP permitidos. El CRS solo permite GET HEAD POST OPTIONS:
+      # si su API usa PUT, PATCH o DELETE, agréguenlos en .env o recibirán 403 (regla 911100)
+      ALLOWED_METHODS: ${ALLOWED_METHODS:-GET HEAD POST OPTIONS}
+      # Envía a la app el Host con puerto (localhost:8080) para que sus redirecciones funcionen
+      PROXY_HOST_HEADER: "$$http_host"
+      ACCESSLOG: /var/log/waf/access.log
+      MODSEC_AUDIT_LOG: /var/log/waf/modsec_audit.json
+      MODSEC_AUDIT_LOG_FORMAT: JSON
+    # Permite que el contenedor llegue a la app que corre en su máquina (necesario en Linux;
+    # en Docker Desktop para macOS/Windows no estorba)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "${WAF_BIND:-127.0.0.1}:${WAF_PORT:-8080}:8080"
+    volumes:
+      - waf-logs:/var/log/waf
+      # Ajuste de falsos positivos (Hito 3): editen estos archivos y reinicien el WAF
+      - ./waf/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:ro
+      - ./waf/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf:/etc/modsecurity.d/owasp-crs/rules/RESPONSE-999-EXCLUSION-RULES-AFTER-CRS.conf:ro
+
+  # ── Opción B (recomendada si su app ya tiene Dockerfile) ──────────────────
+  # Descomenten y ajusten. Sin "ports:", la app solo es accesible a través del WAF.
+  # En .env:  APP_BACKEND=http://app:3000
+  # build apunta a la carpeta de SU app. Si copiaron waf-siem/ dentro del repo
+  # de la app, ".." es esa raíz. Si la app está en otra ruta, cámbienlo.
+  # Secure CRM (opcional): https://github.com/locano-uvg/secure-crm
+  # app:
+  #   build: ..                         # o  image: su-imagen:tag
+  #   restart: unless-stopped
+  #   env_file: ../.env
+  #   expose:
+  #     - "3000"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-9.3.3}
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+    ports:
+      - "127.0.0.1:9200:9200"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health | grep -qE '\"status\":\"(green|yellow)\"'"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+      start_period: 40s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:${ELASTIC_VERSION:-9.3.3}
+    restart: unless-stopped
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "127.0.0.1:5601:5601"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:5601/api/status | grep -q '\"level\":\"available\"'"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 60s
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:${ELASTIC_VERSION:-9.3.3}
+    restart: unless-stopped
+    user: root
+    command: ["filebeat", "-e", "--strict.perms=false"]
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      waf:
+        condition: service_started
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - waf-logs:/var/log/waf:ro
+      # Opcional: logs de su aplicación (ver filebeat.yml y README, sección 7)
+      - ${APP_LOGS_DIR:-./app-logs}:/var/log/app:ro
+      - filebeat-data:/usr/share/filebeat/data
+
+volumes:
+  waf-logs:
+  es-data:
+  filebeat-data:
