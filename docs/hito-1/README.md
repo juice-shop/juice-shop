@@ -294,69 +294,102 @@ Sus principales objetivos son los siguientes
 
 ## Superficie de ataque
 
-*Instrucción: la aporta el Equipo rojo. Rutas y métodos, roles, límites de
-confianza (navegador, API, base de datos y el WAF) y los hallazgos del DAST que
-van a convertirse en PoC del Hito 2. Si el puerto original de la app responde,
-anótenlo aquí como bypass del WAF. Guarden el mapa en esta carpeta, por ejemplo
-como `superficie.png`.*
+*Elaborado por el Equipo rojo (Andre Jo, Pedro Guzmán).*
 
+Toda la superficie se evalúa sobre la instancia local del grupo, en `http://localhost:8080` (detrás del WAF). El puerto directo de la app (`http://localhost:3000`) se revisa solo para comprobar si existe un bypass del WAF (ver más abajo).
 
-La aplicación escucha en el puerto `3000` y el WAF en `8080`. Al consultar
-`http://localhost:3000` directamente, la aplicación responde `200`, así que el WAF
-se puede evadir por completo. Cualquier ataque enviado al puerto `3000` no pasa por
-ModSecurity ni por sus reglas.
+### Mapa de endpoints
 
-| Dato | Detalle |
-|---|---|
-| Hallazgo | Puerto de la aplicación expuesto, bypass del WAF |
-| Evidencia | `GET http://localhost:3000` → `200 OK`  |
-| CWE / OWASP | CWE-693 / A02 Security Misconfiguration (a validar) |
-| Impacto | Se anulan los controles del WAF y las reglas de detección basadas en sus logs (Hito 3) |
-| Control | Publicar solo el puerto del WAF; en Docker Compose usar `expose` en lugar de `ports` para la aplicación, dentro de una red interna |
+| # | Endpoint | Método | Rol mínimo | Entra por (límite) | Proceso | Parámetros / entrada | Vulnerabilidad sospechada | Amenaza | → PoC H2 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | `/rest/user/login` | POST | Anónimo | TB-0 → TB-2 | P3 | `email`, `password` (JSON) | SQLi en el login | T-01 / V-13 | Sí |
+| 2 | `/rest/products/search` | GET | Anónimo | TB-0 → TB-2 → TB-3 | P4 | `q` (query) | SQLi tipo UNION | T-01 | Sí |
+| 3 | `/rest/basket/:id` | GET | Cliente | TB-0 → TB-2 → TB-3 | P5 | `id` en la ruta | IDOR (acceso a cesta ajena) | T-11 | Sí |
+| 4 | `/api/Users` | POST | Anónimo | TB-0 → TB-2 → TB-3 | P3 | cuerpo JSON, incl. `role` | Registro como admin (mass assignment) | T-10 / V-14 | Sí |
+| 5 | `/rest/products/:id/reviews` | PATCH/PUT | Cliente | TB-0 → TB-2 → TB-3 | P6 | `id`, cuerpo de la reseña | Editar reseña ajena (falta de autorización) | T-04 / V-12 | Candidato |
+| 6 | `/redirect?to=` | GET | Anónimo | TB-0 → TB-2 | P2 | `to` (query) | Redirección abierta (phishing) | T-03 / V-01 | Sí |
+| 7 | `/dataerasure` | POST | Cliente | TB-0 → TB-2 | P3 | formulario sin token | CSRF | T-05 / V-02 | Candidato |
+| 8 | `/file-upload` | POST | Cliente | TB-0 → TB-2 → TB-3 | P7 | archivo (tipo/tamaño) | XXE / DoS por archivo | T-09 | Candidato |
+| 9 | `/ftp/` | GET | Anónimo | TB-2 → TB-3 | P7 | ruta de archivo | Divulgación de archivos internos | T-07 / V-11 | Sí |
+| 10 | `/rest/admin/application-configuration` | GET | Anónimo* | TB-2 → TB-3 | P9 | — | Divulgación de configuración / IP privada | T-08 / V-08 | Candidato |
+| 11 | `/socket.io/?...&sid=` | GET | Cliente | TB-0 → TB-2 | P8 | `sid` en la URL | ID de sesión en la URL | T-02 / V-06 | Soporte |
 
-![DFD de Juice Shop con límites de confianza](/docs/hito-1/hito-1-assets/superficie.png)
+\* El control de rol en `/rest/admin/*` es justamente lo que se debe verificar: si responde sin sesión privilegiada, es el hallazgo.
 
+### Hallazgos del DAST que pasan a PoC del Hito 2
 
-## Requisitos de seguridad
+De la Etapa 5, estos son los que el Equipo rojo convertirá en PoC reproducible (al menos 4, según el enunciado):
 
-*Instrucción: la columna «Control que lo comprueba» la llena el Equipo azul.
-Escriban pipeline, regla de Kibana o WAF, y en la última columna cómo se va a
-ver ese control en el Hito 2, 3 o 4.*
-
-| ID | Requisito | Amenaza que cubre | Control que lo comprueba | Cómo se comprueba después |
+| V-xx | Hallazgo | CWE | Endpoint | Amenaza |
 |---|---|---|---|---|
-| RS-01 |  |  |  |  |
+| V-13 | SQLi en login | CWE-89 | `/rest/user/login` | T-01 |
+| V-14 | Registro como administrador | CWE-915 | `/api/Users` | T-10 |
+| V-01 | Redirección abierta | CWE-601 | `/redirect?to=` | T-03 |
+| V-11 | Archivos internos en `/ftp` | CWE-538 | `/ftp/*` | T-07 |
+
+Reserva (si se necesita una quinta): IDOR en `/rest/basket/:id` (T-11) y edición de reseña ajena (T-04 / V-12).
+
+### Bypass del WAF
+
+El WAF (P1, ModSecurity + CRS) filtra en `:8080`, pero la app también escucha en `:3000`. Si `:3000` responde a los mismos ataques sin bloquearlos, todo el filtrado del borde se evita apuntando al puerto directo.
+
+**Verificación (a ejecutar contra localhost, documentar comando, hora y salida):**
+
+```bash
+# ¿Responde el puerto directo?
+curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/rest/admin/application-version
+
+# Mismo payload de SQLi contra el WAF (8080) y contra la app directa (3000)
+curl -s -X POST http://localhost:8080/rest/user/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"'"'"' OR 1=1--","password":"x"}' -o /dev/null -w "8080 -> %{http_code}\n"
+
+curl -s -X POST http://localhost:3000/rest/user/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"'"'"' OR 1=1--","password":"x"}' -o /dev/null -w "3000 -> %{http_code}\n"
+```
+
+> **Resultado:** _(pegar aquí la salida real)_. Si `:3000` acepta el payload que `:8080` bloquea, se documenta como **bypass del WAF** y se recuerda que en H3 el WAF debe cubrir ese camino o cerrarse el puerto.
+
+*El mapa visual se guarda en esta carpeta como `superficie.png` (puede exportarse del site map de Burp o del spider de ZAP).*
+
+---
 
 ## Casos de abuso
 
-*Instrucción: al menos cinco, en formato Dado / Cuando / Entonces.*
+*Cada caso deriva de una amenaza (T-xx) y su vulnerabilidad (V-xx) y será la base de un PoC del Hito 2.*
 
-### CA-01 ·
+### CA-01 · Suplantar al administrador con SQLi en el login
+*(T-01 / V-13 / RS-01)*
 
-- **Dado**
-- **Cuando**
-- **Entonces**
+- **Dado** un atacante anónimo en la página de login, sin credenciales válidas.
+- **Cuando** envía en el campo `email` una entrada como `' OR 1=1--` y una contraseña cualquiera.
+- **Entonces** el sistema debe rechazar el intento y no emitir un JWT; además el evento debe quedar registrado (RS-01, RS-07). *(Comportamiento vulnerable esperado: inicia sesión como el primer usuario, normalmente el administrador.)*
 
-### CA-02 ·
+### CA-02 · Leer la cesta de otro usuario (IDOR)
+*(T-11 / RS-02)*
 
-- **Dado**
-- **Cuando**
-- **Entonces**
+- **Dado** un cliente autenticado con su propio token y cesta (por ejemplo `id = 1`).
+- **Cuando** solicita `GET /rest/basket/2` cambiando el identificador por el de otro usuario.
+- **Entonces** el sistema debe responder con un error de autorización y no devolver la cesta ajena (RS-02). *(Comportamiento vulnerable esperado: devuelve el contenido de la cesta del otro usuario.)*
 
-### CA-03 ·
+### CA-03 · Registrarse como administrador
+*(T-10 / V-14 / RS-03)*
 
-- **Dado**
-- **Cuando**
-- **Entonces**
+- **Dado** un atacante anónimo con acceso al registro de usuarios.
+- **Cuando** envía a `POST /api/Users` el cuerpo del registro agregando el campo `"role": "admin"`.
+- **Entonces** el servidor debe ignorar el campo `role` y crear la cuenta siempre como `customer` (RS-03). *(Comportamiento vulnerable esperado: se crea una cuenta con privilegios de administrador.)*
 
-### CA-04 ·
+### CA-04 · Redirección abierta para phishing
+*(T-03 / V-01 / RS-09)*
 
-- **Dado**
-- **Cuando**
-- **Entonces**
+- **Dado** un atacante que distribuye un enlace que apunta al dominio legítimo de la tienda.
+- **Cuando** la víctima abre `GET /redirect?to=https://sitio-falso.example` y la app refleja ese destino en la cabecera `Location`.
+- **Entonces** la app debe redirigir solo a destinos de una lista exacta de permitidos y rechazar el externo (RS-09). *(Comportamiento vulnerable esperado: redirige al sitio controlado por el atacante.)*
 
-### CA-05 ·
+### CA-05 · Editar la reseña de otro usuario
+*(T-04 / V-12 / RS-02)*
 
-- **Dado**
-- **Cuando**
-- **Entonces**
+- **Dado** un cliente autenticado que no es el autor de una reseña.
+- **Cuando** envía una petición para modificar esa reseña con el identificador de otro usuario.
+- **Entonces** la app debe verificar que el token pertenece al autor y rechazar la edición (RS-02). *(Comportamiento vulnerable esperado: la reseña ajena se modifica sin restricción.)*
