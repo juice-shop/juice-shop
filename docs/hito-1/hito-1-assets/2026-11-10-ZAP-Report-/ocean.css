@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #000;
+	font-size: 1em;
+	background: linear-gradient(to bottom, rgba(240,253,250,1) 0%,rgba(255,255,255,1) 100%);
+	margin: 0; padding: 0 0 6em 0;
+}
+* { box-sizing: border-box; }
+.container { width: 100%; max-width: 1500px; margin: 0 auto; padding-left: 1em; padding-right: 1em; }
+
+a { color: #006699; text-decoration-skip-ink: auto; text-decoration-style: dotted; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #006699;
+	font-family: "Open Sans";
+	font-weight: 300;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: "Open Sans";
+	font-weight: 400;
+	color: #006699;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: "Open Sans";
+	font-weight: 400;
+	color: #006699;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+}
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word;
+}
+
+th {
+	font-weight: 300;
+	color: #003366;
+	background: #97DEE7;
+	background: linear-gradient(to bottom, rgba(183,236,234,1) 0%,rgba(151,222,231,1) 100%);
+}
+
+td {
+	background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) td { background-color: #fafafa; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #f8d7da !important;
+	color: #721c24 !important;
+}
+
+.risk-2 {
+	background: #fdeccc !important;
+	color: #7f5400 !important;
+}
+
+.risk-1 {
+	background: #f9fdcc !important;
+	color: #856404 !important;
+}
+
+.risk-0 {
+	background: #d1ecf1 !important;
+	color: #0c5460 !important;
+}
+
+.risk--1 {
+	background: #d4edda !important;
+	color: #0c5460 !important;
+}
+
+.risk-3-chart { background-color: #f8d7da; }
+.risk-2-chart { background-color: #fdeccc; }
+.risk-1-chart { background-color: #f9fdcc; } 
+.risk-0-chart { background-color: #d1ecf1; }
+.chart-text-color { color: #006699; }
+
+.summaryChartWrapper { display: block; padding: 2em; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary {
+	width: 100%;
+}
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

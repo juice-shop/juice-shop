@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Open+Sans:wght@300&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #000;
+	font-size: 1em;
+	background: #fff;
+	margin: 0; padding: 0;
+}
+* { box-sizing: border-box; }
+body,html { min-height: 100%; float: left; width: 100%; }
+.container { float: left; width: 100%; padding-left: 1em; padding-right: 1em; z-index: 1; position: relative; }
+.container .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; }
+
+header { float: left; width: 100%; position: relative; padding: 1em 0; background: #f4f4f4; }
+header .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  }
+
+section { float: left; width: 100%; position: relative; }
+section .inner { padding: 3em 0; }
+
+#segment-01 { background: #ebece8; }
+#segment-02 { background: #f4f4f4; }
+#segment-03 { background: #edf2ec; }
+#segment-04 { background: #f4f4f4; }
+
+a { color: #000; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #0d0d0c;
+	font-family: 'Crete Round', serif;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: 'Crete Round', serif;
+	font-weight: 400;
+	color: #5d7830;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: 'Crete Round', serif;
+	font-weight: 400;
+	color: #81a643;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	padding: 1em; 
+	position: relative; z-index: 1;
+}
+.tableWrapper { position: relative; background: #fff; }
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 500;
+	font-family: 'Crete Round', serif;
+	color: #fff;
+	background: #81a643; 
+	font-weight: 400;
+	position: relative; 
+}
+
+td { background-color: #ebece8; }
+tr:nth-child(odd) td { background-color: #f4f4f4; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #d17360 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Crete Round', serif;	
+}
+
+.risk-2 {
+	background: #d1ab60 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Crete Round', serif;
+}
+
+.risk-1 {
+	background: #d1c660 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Crete Round', serif;
+}
+
+.risk-0 {
+	background: #7e7fd2 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Crete Round', serif;
+}
+
+.risk--1 {
+	background: #81a643 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Crete Round', serif;	
+}
+
+.risk-3-chart { background-color: #d17360; }
+.risk-2-chart { background-color: #d1ab60; }
+.risk-1-chart { background-color: #d1c660; } 
+.risk-0-chart { background-color: #7e7fd2; }
+.chart-text-color { color: #0d0d0c; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary { width: 100%; }
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

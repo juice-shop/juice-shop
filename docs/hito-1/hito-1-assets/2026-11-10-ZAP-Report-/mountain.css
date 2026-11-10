@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Patua+One&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #000;
+	font-size: 1em;
+	background: #272b34;
+	margin: 0; padding: 0;
+}
+* { box-sizing: border-box; }
+body,html { min-height: 100%; float: left; width: 100%; }
+.container { float: left; width: 100%; padding-left: 1em; padding-right: 1em; z-index: 1; position: relative; }
+.container .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; }
+
+header { float: left; width: 100%; position: relative; padding: 1em 0; }
+header .wrap { max-width: 1500px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+
+.hero { position: relative; background: #fff; float: left; width: 100%; }
+.hero .image { position: absolute; width: 100%; height: 100%; overflow: hidden; left: 0; top: 0; }
+.hero .image img { position: absolute; width: 100%; height: 100%; object-position: center; object-fit: cover; opacity: 0.5; filter: blur(5px); transform: scale(1.1); }
+
+section { float: left; width: 100%; position: relative; }
+
+#segment-01 { padding-bottom: 3em; }
+#segment-02 { background: #333a4d; }
+#segment-02 h3 { color: #fff; }
+#segment-02:before { content: ""; transform: skewY(2deg); background: inherit; position: absolute; width: 50%; height: 3em; top: -1em; left: 0; z-index: 1; }
+#segment-02:after { content: ""; transform: skewY(-2deg); background: inherit; position: absolute; width: 50%; height: 3em; top: -1em; right: 0; z-index: 1; }
+#segment-02 .wrap:after { content: ""; transform: skewY(2deg); background: inherit; position: absolute; width: 100%; height: 6em; bottom: -3em; right: 0; z-index: 1; }
+#segment-02 .inner { padding: 3em 0 6em 0; }
+
+#segment-03 { background: rgb(255,253,253); background: linear-gradient(45deg, rgba(255,253,253,1) 0%,rgba(183,184,188,1) 100%); }
+#segment-03:before { content: ""; transform: skewY(2deg); background: inherit; position: absolute; width: 100%; height: 6em; top: -3em; right: 0; z-index: 1; background: #333a4d; }
+#segment-03 .inner { padding: 6em 0 9em 0; }
+
+#segment-04 { background: #fff; }
+#segment-04:after { content: ""; transform: skewY(-2deg); background: inherit; position: absolute; width: 100%; height: 6em; top: -3em; right: 0; z-index: 1; }
+#segment-04 .inner { padding: 3em 0 3em 0; }
+#segment-04 .tableWrapper { background: #f4f4f4; }
+
+a { color: #000; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #0d0d0c;
+	font-family: 'Patua One', cursive;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: 'Patua One', cursive;
+	font-weight: 400;
+	color: #343b4e;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: 'Patua One', cursive;
+	font-weight: 400;
+	color: #343b4e;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	padding: 1em; 
+	position: relative; z-index: 1;
+}
+.tableWrapper { position: relative; background: #fff; }
+.bgw .tableWrapper { position: relative; background: #f2f2f2; }
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 500;
+	font-family: 'Patua One', cursive;
+	color: #fff;
+	background: #343b4e; 
+	font-weight: 400;
+	position: relative; 
+}
+
+td { background-color: #e9e8ec; }
+tr:nth-child(odd) td { background-color: #f4f4f4; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #c84429 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Patua One', cursive;	
+}
+
+.risk-2 {
+	background: #c89329 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Patua One', cursive;
+}
+
+.risk-1 {
+	background: #c8b829 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Patua One', cursive;
+}
+
+.risk-0 {
+	background: #4a4ac0 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Patua One', cursive;
+}
+
+.risk--1 {
+	background: #65a029 !important;
+	color: #fff !important;
+	font-weight: 400;
+	font-family: 'Patua One', cursive;	
+}
+
+.risk-3-chart { background-color: #c84429; }
+.risk-2-chart { background-color: #c89329; }
+.risk-1-chart { background-color: #c8b829; } 
+.risk-0-chart { background-color: #4a4ac0; }
+.chart-text-color { color: #343b4e; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary { width: 100%; }
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

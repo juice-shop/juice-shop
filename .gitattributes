@@ -1,2 +1,5 @@
 # Handle line endings for .junie directory
 .junie/** text eol=lf
+
+# Shell scripts must keep LF endings to run in bash/containers
+*.sh text eol=lf

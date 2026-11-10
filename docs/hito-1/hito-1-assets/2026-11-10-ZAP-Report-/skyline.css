@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Shippori+Mincho&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #fff;
+	font-size: 1em;
+	background: #1b1b1b;
+	margin: 0; padding: 0;
+}
+* { box-sizing: border-box; }
+body,html { min-height: 100%; float: left; width: 100%; }
+.container { float: left; width: 100%; padding-left: 1em; padding-right: 1em; z-index: 1; position: relative; }
+.container .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; }
+
+header { float: left; width: 100%; position: relative; padding: 1em 0; }
+header .wrap { max-width: 1500px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+
+.hero { position: relative; background: #000; float: left; width: 100%; }
+.hero .image { position: absolute; width: 100%; height: 100%; overflow: hidden; left: 0; top: 0; }
+.hero .image:after { content: ""; display: block; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(4,4,4,0.65) 100%); position: absolute; }
+.hero .image img { position: absolute; width: 100%; height: 100%; object-position: center; object-fit: cover; filter: grayscale(100%); }
+
+section { float: left; width: 100%; position: relative; }
+section:not(:first-child):before { content: ""; width: calc(25% + 1em); left: -1em; top: -1em; height: 1em; z-index: 1; position: absolute; background: inherit; transform: skewX(45deg); }
+section .inner { padding: 3em 6em; }
+#segment-02 { background: #1b1b1b; }
+#segment-03 { background: #282828; }
+#segment-04 { background: #1b1b1b; }
+#segment-02 h3, #segment-04 h3 { color: #fff; }
+
+#segment-02 td, #segment-04 td  { background-color: #262626; }
+#segment-02 tr:nth-child(odd) td, #segment-04 tr:nth-child(odd) td  { background-color: #1a1a1a; }
+
+#segment-03 td { background-color: #323232; }
+#segment-03 tr:nth-child(odd) td { background-color: #262626; }
+
+a { color: #fff; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #fff;
+	font-family: 'Shippori Mincho', serif;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: 'Shippori Mincho', serif;
+	font-weight: 400;
+	color: #fff;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: 'Shippori Mincho', serif;
+	font-weight: 400;
+	color: #fff;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	position: relative; z-index: 1;
+}
+.tableWrapper { position: relative; }
+.tableWrapper:after { content: ""; position: absolute; bottom: 1em; left: 0; right: 0; margin: auto; width: 50%; border-radius: 100%; height: 3em; box-shadow: 0 1em 2em rgba(255,255,255,0.25); }
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-family: 'Shippori Mincho', serif;
+	color: #fff;
+	background: #c51230; 
+	font-weight: 700;
+	position: relative; 
+}
+
+td { background-color: #1b1b1b; }
+tr:nth-child(odd) td { background-color: #282828; }
+
+.spacer {
+	margin: 2em; float: left; width: 100%;
+}
+
+.spacer-lg {
+	margin: 2em; float: left; width: 100%;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #c22323 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Shippori Mincho', serif;	
+}
+
+.risk-2 {
+	background: #c25f23 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Shippori Mincho', serif;
+}
+
+.risk-1 {
+	background: #c28423 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Shippori Mincho', serif;
+}
+
+.risk-0 {
+	background: #4566bb !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Shippori Mincho', serif;
+}
+
+.risk--1 {
+	background: #819c24 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Shippori Mincho', serif;	
+}
+
+.risk-3-chart { background-color: #c22323; }
+.risk-2-chart { background-color: #c25f23; }
+.risk-1-chart { background-color: #c28423; } 
+.risk-0-chart { background-color: #4566bb; }
+.chart-text-color { color: #ffffff; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary { width: 100%; }
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

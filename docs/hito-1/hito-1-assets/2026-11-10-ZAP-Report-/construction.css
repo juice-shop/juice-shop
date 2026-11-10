@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Ubuntu:wght@500&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #000;
+	font-size: 1em;
+	background: rgb(237,237,237);
+	background: linear-gradient(to bottom, rgba(237,237,237,1) 0%,rgba(255,255,255,1) 100%);
+	margin: 0; padding: 0 0 6em 0;
+}
+* { box-sizing: border-box; }
+.container { width: 100%; max-width: 1500px; margin: 0 auto; padding-left: 1em; padding-right: 1em; }
+
+header { position: relative; box-shadow: 0 1px 4px rgba(0,0,0,.16); background: #fff; padding: 1em 0; }
+a { color: #24221F; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #24221F;
+	font-family: "Ubuntu";
+	font-weight: 500;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: "Ubuntu";
+	font-weight: 500;
+	color: #24221F;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: "Ubuntu";
+	font-weight: 500;
+	color: #24221F;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	box-shadow: 0 1px 4px rgba(0,0,0,.16); padding: 1em; background: #fff; border-radius: 0.25em; 
+}
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 500;
+	font-family: "Ubuntu";
+	color: #24221F;
+	background: repeating-linear-gradient(-45deg, #FEB41C, #FEB41C 10px, #ffb92a 10px, #ffb92a 20px);
+	position: relative; margin-bottom: 0.25em;
+}
+tr > th:first-child { border-top-left-radius: 0.25em; }
+tr > th:last-child { border-top-right-radius: 0.25em; }
+
+td {
+	background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) td { background-color: #fafafa; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: repeating-linear-gradient(-45deg, #ff0513, #ff0513 10px, #f30512 10px, #f30512 20px);
+	color: #fff !important;
+	font-weight: 500;
+	font-family: "Ubuntu";	
+}
+
+.risk-2 {
+	background: repeating-linear-gradient(-45deg, #FEB41C, #FEB41C 10px, #ffb92a 10px, #ffb92a 20px);
+	color: #24221F !important;
+	font-weight: 500;
+	font-family: "Ubuntu";
+}
+
+.risk-1 {
+	background: repeating-linear-gradient(-45deg, #ecff01, #ecff01 10px, #e0f301 10px, #e0f301 20px);
+	color: #24221F !important;
+	font-weight: 500;
+	font-family: "Ubuntu";
+}
+
+.risk-0 {
+	background: repeating-linear-gradient(-45deg, #00d2fc, #00d2fc 10px, #00c8f0 10px, #00c8f0 20px);
+	color: #24221F !important;
+	font-weight: 500;
+	font-family: "Ubuntu";
+}
+
+.risk--1 {
+	background: repeating-linear-gradient(-45deg, #00fc36, #00fc36 10px, #00f033 10px, #00f033 20px);
+	color: #24221F !important;
+	font-weight: 500;
+	font-family: "Ubuntu";	
+}
+
+.risk-3-chart { background-color: #ff0513; }
+.risk-2-chart { background-color: #feb41c; }
+.risk-1-chart { background-color: #ecff01; } 
+.risk-0-chart { background-color: #00d2fc; }
+.chart-text-color { color: #000000; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary {
+	width: 100%;
+}
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

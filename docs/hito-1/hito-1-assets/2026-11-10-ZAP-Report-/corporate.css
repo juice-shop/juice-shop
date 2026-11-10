@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Titillium+Web:wght@400;700&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #000;
+	font-size: 1em;
+	background: #ececec;
+	margin: 0; padding: 0;
+}
+* { box-sizing: border-box; }
+body,html { min-height: 100%; float: left; width: 100%; }
+.container { float: left; width: 100%; padding-left: 1em; padding-right: 1em; }
+.container:before { content: ""; position: fixed; height: 100%; left: 0; right: 0; top: 0; border-left: 1px solid #dddddd; width: 0; margin: auto; z-index: -1; }
+.container .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; }
+.container .wrap:before { content: ""; position: absolute; height: 100%; left: 0; top: 0; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; width: 25%; z-index: -1; }
+.container .wrap:after { content: ""; position: absolute; height: 100%; right: 0; top: 0; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; width: 25%; z-index: -1; }
+
+#header .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; overflow: auto; }
+#header .wrap:before { content: ""; position: absolute; height: 100%; left: 0; top: 0; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; width: 25%; z-index: -1; }
+#header .wrap:after { content: ""; position: absolute; height: 100%; right: 0; top: 0; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; width: 25%; z-index: -1; }
+#header .inner { float: left; width: 100%; }
+
+section { float: left; width: 100%; position: relative; }
+section .inner { padding: 1.5em 0; }
+
+header { float: left; width: 100%; position: relative; }
+header .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  }
+a { color: #164194; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #164194;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight: 400;
+	color: #164194;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: 'Titillium Web', sans-serif;
+	font-weight: 400;
+	color: #164194;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	padding: 1em; background: #fff;
+}
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 500;
+	font-family: 'Titillium Web', sans-serif;
+	color: #fff;
+	background: #164194; font-weight: 700;
+	position: relative; margin-bottom: 0.25em;
+}
+
+td {
+	background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) td { background-color: #fafafa; }
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #ed5033 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Titillium Web', sans-serif;	
+}
+
+.risk-2 {
+	background: #ffb900 !important;
+	color: #303030 !important;
+	font-weight: 700;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.risk-1 {
+	background: #ece04c !important;
+	color: #303030 !important;
+	font-weight: 700;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.risk-0 {
+	background: #278feb !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+.risk--1 {
+	background: #16cd71 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Titillium Web', sans-serif;	
+}
+
+.risk-3-chart { background-color: #ed5033; }
+.risk-2-chart { background-color: #ffb900; }
+.risk-1-chart { background-color: #ece04c; } 
+.risk-0-chart { background-color: #278feb; }
+.chart-text-color { color: #164194; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary {
+	width: 100%;
+}
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+.spacer-lg { margin: 0; }
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

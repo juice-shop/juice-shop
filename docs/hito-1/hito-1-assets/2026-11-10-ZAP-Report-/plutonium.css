@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Open+Sans:wght@300&display=swap');
+
+body {
+	font-family: "Open Sans";
+	font-weight: 300;
+	color: #fff;
+	font-size: 1em;
+	background: #272b34;
+	margin: 0; padding: 0;
+}
+* { box-sizing: border-box; }
+body,html { min-height: 100%; float: left; width: 100%; }
+.container { float: left; width: 100%; padding-left: 1em; padding-right: 1em; }
+.container .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  position: relative; }
+
+header { float: left; width: 100%; position: relative; padding: 1em 0; background: #1e2329; }
+header:before, section:before { content: ""; transform: skewY(2deg); background: inherit; position: absolute; width: 50%; height: 3em; bottom: -1em; left: 0; z-index: 1; }
+header:after, section:after { content: ""; transform: skewY(-2deg); background: inherit; position: absolute; width: 50%; height: 3em; bottom: -1em; right: 0; z-index: 1; }
+header .wrap { max-width: 1500px; margin: 0 auto; width: 100%;  }
+
+section { float: left; width: 100%; position: relative; }
+section .inner { padding: 3em 0; }
+
+body > section:last-child:before,
+body > section:last-child:after { display: none; }  
+
+a { color: #fff; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #99cc33;
+	font-family: 'Cairo', sans-serif;
+	font-weight: 700;
+	text-shadow: 0 0 0.5em rgba(153,204,51,0.5), 0px 1px 2px #000;
+}
+
+h2 {
+	font-size: 2em;
+	font-family: 'Cairo', sans-serif;
+	font-weight: 400;
+	color: #99cc33;
+	text-shadow: 0 0 0.5em rgba(153,204,51,0.5), 0px 1px 2px #000;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-family: 'Cairo', sans-serif;
+	font-weight: 400;
+	color: #99cc33;
+	text-shadow: 0 0 0.5em rgba(153,204,51,0.5), 0px 1px 2px #000;
+}
+
+table {
+	border: none;
+	font-size: 1em;
+	padding: 1em; 
+	position: relative; z-index: 1;
+}
+.tableWrapper { position: relative; }
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 500;
+	font-family: 'Cairo', sans-serif;
+	color: #fff;
+	background: #99cc33; font-weight: 700;
+	position: relative; margin-bottom: 0.25em;
+	text-shadow: 0px 1px 1px #336600;
+	box-shadow: 0 0em 1em rgba(153,204,51,0.5);
+}
+
+#segment-02, #segment-04 { background: #20252b; }
+#segment-02 td, #segment-04 td { background-color: #252932; }
+#segment-02 tr:nth-child(odd) td, #segment-04 tr:nth-child(odd) td{ background-color: #1e2329; }
+
+#segment-01, #segment-03 { background: #272b34; }
+#segment-01 td, #segment-03 td { background-color: #252932; }
+#segment-01 tr:nth-child(odd) td, #segment-03 tr:nth-child(odd) td { background-color: #1e2329; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #ff3333 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Cairo', sans-serif;	
+	text-shadow: 0px 1px 1px #660000 !important;
+}
+th.risk-3 { box-shadow: 0 0em 1em rgba(209,63,59,0.5); } 
+
+.risk-2 {
+	background: #ff9933 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Cairo', sans-serif;
+	text-shadow: 0px 1px 1px #663300 !important;
+}
+th.risk-2 { box-shadow: 0 0em 1em rgba(255,153,51,0.5); } 
+
+.risk-1 {
+	background: #ffcb33 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Cairo', sans-serif;
+	text-shadow: 0px 1px 1px #996600 !important;
+}
+th.risk-1 { box-shadow: 0 0em 1em rgba(255,204,51,0.5); } 
+
+.risk-0 {
+	background: #5C77F5 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Cairo', sans-serif;
+	text-shadow: 0px 1px 1px #000099 !important;
+}
+th.risk-0 { box-shadow: 0 0em 1em rgba(102,102,255,0.5); } 
+
+.risk--1 {
+	background: #99cc33 !important;
+	color: #fff !important;
+	font-weight: 700;
+	font-family: 'Cairo', sans-serif;	
+	text-shadow: 0px 1px 1px #336600 !important;
+}
+
+.risk-3-chart { background-color: #ff3333; }
+.risk-2-chart { background-color: #ff9933; }
+.risk-1-chart { background-color: #ffcb33; } 
+.risk-0-chart { background-color: #5C77F5; }
+.chart-text-color { color: #ffffff; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary {
+	width: 100%;
+}
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+
+body {
+	font-family: 'Inconsolata', monospace;
+	font-weight: 300;
+	color: #2df914;
+	font-size: 1em;
+	background: #181818;
+	margin: 0; padding: 0 0 6em 0;
+}
+* { box-sizing: border-box; }
+.container { width: 100%; max-width: 1500px; margin: 0 auto; padding-left: 1em; padding-right: 1em; }
+
+header { position: relative; background: #0f0f0f; padding: 1em 0; }
+a { color: #2df914; text-decoration-skip-ink: auto; text-decoration-style: dotted; opacity: 1; transition: all 0.2s ease-in-out 0s; }
+a:hover { opacity: 0.5; }
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 2.5em;
+	color: #afae25;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 2em;
+	font-weight: 700;
+	color: #2df914;
+}
+
+h3 {
+	font-size: 1.5em;
+	font-weight: 700;
+	color: #2df914;
+}
+
+table {
+	border: 1px dashed #2df914;
+	font-size: 1em;
+	padding: 1em;
+}
+
+td, th {
+	padding: 0.75em 1em;
+	word-break: break-word; cellpadding: 0; cellspacing: 0;
+}
+
+th {
+	font-weight: 700;
+	color: #2df914;
+	position: relative; margin-bottom: 0.25em;
+}
+
+tr:nth-child(odd) td { background-color: #0f0f0f; }
+
+.spacer {
+	margin: 1em;
+}
+
+.spacer-lg {
+	margin: 2em;
+}
+
+.indent1 {
+	padding: 1em 2em;
+}
+
+.indent2 {
+	padding: 1em 4em;
+}
+
+.risk-3 {
+	background: #bd0000 !important;
+	color: #fff !important;
+	font-weight: 700;
+}
+
+.risk-2 {
+	background: #abab00 !important;
+	color: #24221F !important;
+	font-weight: 700;
+}
+
+.risk-1 {
+	background: #00e900 !important;
+	color: #24221F !important;
+	font-weight: 700;
+}
+
+.risk-0 {
+	background: #00d5d5 !important;
+	color: #24221F !important;
+	font-weight: 700;
+}
+
+.risk--1 {
+	background: #ffffff !important;
+	color: #24221F !important;
+	font-weight: 700;
+}
+
+.risk-0-chart { background-color: #00d5d5; }
+.risk-1-chart { background-color: #00e900; } 
+.risk-2-chart { background-color: #abab00; }
+.risk-3-chart { background-color: #bd0000; }
+.chart-text-color { color: #2df914; }
+
+.summaryChartWrapper { display: block; width: 100%; max-width: 800px; margin: 0 auto; padding: 1em; }
+#summaryChart { display: block; margin: 0 auto; }
+
+.summary {
+	width: 100%;
+}
+
+.alerts {
+	width: 100%;
+}
+
+.results {
+	width: 100%;
+}
+
+.results th {
+	text-align: left;
+}
+
+.left-header {
+	display: inline-block;
+}
+
+footer { padding: 3em 3em; text-align: center; font-size: 0.9em; }

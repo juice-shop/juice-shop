@@ -1,8 +1,8 @@
 {
-  "canonical_url": "http://localhost:3000/.well-known/csaf/provider-metadata.json",
+  "canonical_url": "http://localhost:8000/.well-known/csaf/provider-metadata.json",
   "distributions": [
     {
-      "directory_url": "http://localhost:3000/.well-known/csaf/"
+      "directory_url": "http://localhost:8000/.well-known/csaf/"
     }
   ],
   "last_updated": "2024-03-05T20:20:56.169Z",
