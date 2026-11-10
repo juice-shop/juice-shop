@@ -239,6 +239,11 @@ jobs:
           name: trivy-docker-report
           path: trivy-docker-report.json
           if-no-files-found: error
+
+      # NOUVEAU : Quality Gate Docker
+      - name: Quality Gate - Trivy Docker
+        run: python3 security/check_sca_gate.py trivy-docker-report.json
+
   
   dast:
     name: DAST - OWASP ZAP

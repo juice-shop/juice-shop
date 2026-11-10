@@ -6,20 +6,30 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-REPORT_NAME = "trivy-sca-report.json"
 
-if len(sys.argv) > 2 or (len(sys.argv) == 2 and sys.argv[1] != REPORT_NAME):
-    raise SystemExit("Erreur : seul trivy-sca-report.json est autorise")
+ALLOWED_REPORTS = (
+    "trivy-sca-report.json",
+    "trivy-docker-report.json",
+)
 
-REPORT = Path.cwd() / REPORT_NAME if len(sys.argv) == 2 else ROOT / REPORT_NAME
+if len(sys.argv) > 2 or (
+    len(sys.argv) == 2 and sys.argv[1] not in ALLOWED_REPORTS
+):
+    raise SystemExit("Erreur : nom de rapport non autorise")
+
+report_name = sys.argv[1] if len(sys.argv) == 2 else ALLOWED_REPORTS[0]
+REPORT = Path.cwd() / report_name if len(sys.argv) == 2 else ROOT / report_name
+DOCKER_MODE = report_name == "trivy-docker-report.json"
+
 
 def key(item):
     return (
         item["target"],
         item["package"],
         item["version"],
-        item["vulnerability_id"]
+        item["vulnerability_id"],
     )
+
 
 try:
     with open(ROOT / "trivy-sca-baseline.json", encoding="utf-8") as f:
@@ -35,7 +45,8 @@ try:
         raise ValueError("Rapport Trivy vide ou sans resultats")
 
     baseline_keys = {key(v) for v in baseline}
-    accepted = set()
+    accepted_sca = set()
+    accepted_packages = set()
 
     for row in decisions:
         if row["decision"].strip() != "accepted":
@@ -53,26 +64,42 @@ try:
         if expiry < date.today():
             raise ValueError("Exception expiree")
 
-        accepted.add(k)
+        accepted_sca.add(k)
+        accepted_packages.add(k[1:])
 
     findings = set()
+    authorized = set()
 
     for result in report["Results"]:
         for vuln in result.get("Vulnerabilities", []):
             if vuln.get("Severity") not in ("HIGH", "CRITICAL"):
                 continue
 
-            findings.add((
+            finding = (
                 result["Target"],
                 vuln["PkgName"],
                 vuln["InstalledVersion"],
-                vuln["VulnerabilityID"]
-            ))
+                vuln["VulnerabilityID"],
+            )
 
-    blocked = findings - accepted
+            findings.add(finding)
 
+            if DOCKER_MODE:
+                # Reutiliser les exceptions SCA uniquement
+                # pour les dependances applicatives.
+                if (
+                    result.get("Class") == "lang-pkgs"
+                    and finding[1:] in accepted_packages
+                ):
+                    authorized.add(finding)
+            elif finding in accepted_sca:
+                authorized.add(finding)
+
+    blocked = findings - authorized
+
+    print("Scan :", "Docker" if DOCKER_MODE else "SCA")
     print("Alertes HIGH/CRITICAL :", len(findings))
-    print("Occurrences acceptees :", len(findings & accepted))
+    print("Occurrences acceptees :", len(authorized))
     print("Occurrences bloquantes :", len(blocked))
 
     for target, package, version, cve in sorted(blocked):
