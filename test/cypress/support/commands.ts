@@ -45,7 +45,22 @@ Cypress.Commands.add(
     }
     cy.get('#password').type(context.password)
     cy.get('#loginButton').click()
-    cy.wait(500)
+    if (context.totpSecret) {
+      cy.location('hash').should('include', '/2fa/enter')
+      cy.task<string>('GenerateAuthenticator', context.totpSecret).then(
+        (totpToken: string) => {
+          cy.get('#totpToken').type(totpToken)
+          cy.get('#totpSubmitButton').click()
+        }
+      )
+      cy.location('hash').should('include', '/search')
+    } else {
+      cy.location('hash').should('include', '/search')
+    }
+    cy.getCookie('token').should((cookie) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      expect(cookie?.value).to.be.ok
+    })
   }
 )
 

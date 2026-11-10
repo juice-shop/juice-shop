@@ -5,7 +5,7 @@
 
 import os from 'node:os'
 import config from 'config'
-import colors from 'colors/safe'
+import colors from './colors'
 
 import logger from './logger'
 import * as utils from './utils'

@@ -5,7 +5,7 @@
 
 import { type ChallengeKey } from '@juice-shop/models/challenge'
 import logger from './logger'
-import colors from 'colors/safe'
+import colors from './colors'
 const solves: Record<string, { 'find it': boolean, 'fix it': boolean, attempts: { 'find it': number, 'fix it': number } }> = {}
 
 type Phase = 'find it' | 'fix it'

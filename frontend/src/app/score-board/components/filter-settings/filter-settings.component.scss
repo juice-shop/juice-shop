@@ -82,3 +82,21 @@
   }
 }
 
+::ng-deep .filter-select-panel.mat-mdc-select-panel {
+  max-height: min(80vh, 320px) !important;
+}
+
+::ng-deep .filter-select-panel .mat-mdc-optgroup {
+  margin: $space-2xs $space-xs;
+  padding-bottom: $space-2xs;
+
+  .mat-mdc-optgroup-label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+    min-height: 36px;
+    height: 36px;
+  }
+}
+

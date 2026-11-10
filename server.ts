@@ -13,9 +13,8 @@ import helmet from 'helmet'
 import http from 'node:http'
 import path from 'node:path'
 import express from 'express'
-import colors from 'colors/safe'
+import colors from './lib/colors'
 import serveIndex from 'serve-index'
-import bodyParser from 'body-parser'
 // @ts-expect-error FIXME due to non-existing type definitions for finale-rest
 import * as finale from 'finale-rest'
 import compression from 'compression'
@@ -76,6 +75,7 @@ import { b2bOrder } from './routes/b2bOrder'
 import * as delivery from './routes/delivery'
 import * as recycles from './routes/recycles'
 import * as twoFactorAuth from './routes/2fa'
+import * as passkey from './routes/passkey'
 import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
@@ -89,6 +89,7 @@ import * as basketItems from './routes/basketItems'
 import { performRedirect } from './routes/redirect'
 import { serveEasterEgg } from './routes/easterEgg'
 import { getLanguageList } from './routes/languages'
+import { getTagGroups } from './routes/tags'
 import { getUserProfile } from './routes/userProfile'
 import { serveAngularClient } from './routes/angular'
 import { resetPassword } from './routes/resetPassword'
@@ -223,6 +224,9 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     expires: securityTxtExpiration.toUTCString()
   }))
 
+  /* Passkey Endpoints (W3C) for password managers */
+  app.get('/.well-known/passkey-endpoints', passkey.passkeyEndpoints)
+
   /* robots.txt */
   app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
@@ -332,14 +336,14 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   })
   app.use(i18n.init)
 
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(express.urlencoded({ extended: true }))
   /* File Upload */
   app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), checkUploadSize, checkFileType, handleZipFileUpload, handleXmlUpload, handleYamlUpload)
   app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(profileImageFileUpload()))
   app.post('/profile/image/url', uploadToMemory.single('file'), utils.asyncHandler(profileImageUrlUpload()))
   app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), utils.asyncHandler(addMemory()))
 
-  app.use(bodyParser.text({ type: '*/*' }))
+  app.use(express.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
     // @ts-expect-error FIXME intentionally saving original request in this property
     req.rawBody = req.body
@@ -501,6 +505,13 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
     security.isAuthorized(),
     utils.asyncHandler(twoFactorAuth.disable)
   )
+  /* Passkey (WebAuthn) registration requires an authenticated session; sign-in must be public. */
+  app.get('/rest/passkey/register-options', security.isAuthorized(), utils.asyncHandler(passkey.registerOptions))
+  app.post('/rest/passkey/register-verify', security.isAuthorized(), utils.asyncHandler(passkey.registerVerify))
+  app.post('/rest/passkey/login-options', utils.asyncHandler(passkey.loginOptions))
+  app.post('/rest/passkey/login-verify', utils.asyncHandler(passkey.loginVerify))
+  app.get('/rest/passkey/credentials', security.isAuthorized(), utils.asyncHandler(passkey.listCredentials))
+  app.delete('/rest/passkey/credentials/:id', security.isAuthorized(), utils.asyncHandler(passkey.deleteCredential))
   /* Verifying DB related challenges can be postponed until the next request for challenges is coming via finale */
   app.use(verify.databaseRelatedChallenges())
 
@@ -648,6 +659,7 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(verifyImageCaptcha()))
   app.post('/rest/user/data-export', security.appendUserId(), utils.asyncHandler(dataExport()))
   app.get('/rest/languages', utils.asyncHandler(getLanguageList()))
+  app.get('/rest/tags', utils.asyncHandler(getTagGroups()))
   app.get('/rest/order-history', utils.asyncHandler(orderHistory()))
   app.get('/rest/order-history/orders', security.isAccounting(), utils.asyncHandler(allOrders()))
   app.put('/rest/order-history/:id/delivery-status', security.isAccounting(), utils.asyncHandler(toggleDeliveryStatus()))
@@ -746,7 +758,7 @@ const uploadToDisk = multer({
   })
 })
 
-const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'ChallengeDependency', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint']
+const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'ChallengeDependency', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint', 'Passkey']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
   logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }

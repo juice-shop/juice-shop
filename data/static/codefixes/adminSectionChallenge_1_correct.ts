@@ -145,6 +145,11 @@ const routes: Routes = [
         component: TwoFactorAuthComponent
       },
       {
+        path: 'passkeys',
+        component: ManagePasskeysComponent,
+        canActivate: [LoginGuard]
+      },
+      {
         path: 'data-export',
         component: DataExportComponent
       },

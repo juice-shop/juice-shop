@@ -12,8 +12,8 @@ We provide security patches for the latest released minor version.
 
 | Version | Supported          |
 |:--------|:-------------------|
-| 20.3.x  | :white_check_mark: |
-| <20.3   | :x:                |
+| 20.4.x  | :white_check_mark: |
+| <20.4   | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -21,9 +21,7 @@ For vulnerabilities which are **not** part of any hacking challenge please conta
 other cases please contact our shop's "security team" at the address mentioned in the
 `security.txt` accessible through the running application.
 
-> Instead of fixing reported vulnerabilities we might turn them into
-> hacking challenges! You might receive a reward for reporting a
-> vulnerability that makes it into one of our challenges!
+> Please do not send any attachments** with your email! For security reasons we will not open _any_ attachments and will likely just discard your email. Make sure to include all necessary information in the email body itself.
 
 ### Encrypted communication
 

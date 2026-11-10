@@ -49,6 +49,7 @@ describe('ScoreBoardComponent', () => {
     let challengeService
     let hintService
     let configService
+    let socket
 
     beforeEach(async () => {
         challengeService = {
@@ -61,6 +62,7 @@ describe('ScoreBoardComponent', () => {
         configService = {
             getApplicationConfiguration: vi.fn().mockName("ConfigurationService.getApplicationConfiguration")
         }
+        socket = { on: vi.fn(), off: vi.fn() }
         await TestBed.configureTestingModule({
             imports: [TranslateModule.forRoot(),
                 RouterTestingModule,
@@ -78,6 +80,7 @@ describe('ScoreBoardComponent', () => {
                 { provide: ChallengeService, useValue: challengeService },
                 { provide: HintService, useValue: hintService },
                 { provide: ConfigurationService, useValue: configService },
+                { provide: SocketIoService, useValue: { socket: () => socket } },
                 provideHttpClient(withInterceptorsFromDi()),
                 provideHttpClientTesting()
             ]
@@ -237,6 +240,51 @@ describe('ScoreBoardComponent', () => {
             component.reset()
             expect(navSpy).toHaveBeenCalled()
         })
+
+        it('should trigger highlightTutorial for 1 second when Tutorial tag is selected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['Tutorial'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(true)
+
+                vi.advanceTimersByTime(1000)
+                expect(component.highlightTutorial).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
+
+        it('should trigger highlightCodingChallenge for 1 second when With Coding Challenge tag is selected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['With Coding Challenge'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightCodingChallenge).toBe(true)
+
+                vi.advanceTimersByTime(1000)
+                expect(component.highlightCodingChallenge).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
+
+        it('should reset highlights immediately when tags are deselected', () => {
+            vi.useFakeTimers()
+            try {
+                component.filterSetting = { ...component.filterSetting, tags: ['Tutorial', 'With Coding Challenge'] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(true)
+                expect(component.highlightCodingChallenge).toBe(true)
+
+                component.filterSetting = { ...component.filterSetting, tags: [] }
+                component.filterAndUpdateChallenges()
+                expect(component.highlightTutorial).toBe(false)
+                expect(component.highlightCodingChallenge).toBe(false)
+            } finally {
+                vi.useRealTimers()
+            }
+        })
     })
 
     describe('repeatChallengeNotification', () => {
@@ -248,12 +296,14 @@ describe('ScoreBoardComponent', () => {
     })
 
     describe('unlockHint', () => {
-        it('should re-run ngOnInit and remember the unlocked challenge key on success', () => {
+        it('should refresh challenges without re-running initialization on success', () => {
             hintService.put.mockReturnValue(of({}))
             const spy = vi.spyOn(component, 'ngOnInit')
             component.unlockHint(7, 'challenge-3')
             expect(component.lastUnlockedChallengeKey).toBe('challenge-3')
-            expect(spy).toHaveBeenCalled()
+            expect(spy).not.toHaveBeenCalled()
+            expect(challengeService.find).toHaveBeenCalledTimes(2)
+            expect(socket.on).toHaveBeenCalledTimes(2)
         })
 
         it('should clear the last unlocked challenge key when no key is provided', () => {
@@ -265,16 +315,13 @@ describe('ScoreBoardComponent', () => {
     })
 
     describe('ngOnDestroy', () => {
-        it('should unsubscribe data and route subscriptions and detach socket handlers', () => {
-            const socket = { off: vi.fn() }
-            const ioService = TestBed.inject(SocketIoService) as any
-            // SocketIoService may not be provided as mock; guard:
-            if (ioService && ioService.socket) {
-                vi.spyOn(ioService, 'socket').mockReturnValue(socket as any)
-            }
+        it('should unsubscribe data and route subscriptions and detach the registered socket handlers', () => {
             const spies = (component as any).subscriptions.map((s: any) => vi.spyOn(s, 'unsubscribe'))
             component.ngOnDestroy()
             spies.forEach((spy: any) => expect(spy).toHaveBeenCalled())
+            expect(socket.off).toHaveBeenCalledTimes(2)
+            expect(socket.off.mock.calls[0]).toEqual(socket.on.mock.calls[0])
+            expect(socket.off.mock.calls[1]).toEqual(socket.on.mock.calls[1])
         })
     })
 })

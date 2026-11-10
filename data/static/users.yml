@@ -290,3 +290,15 @@
   securityQuestion:
     id: 14
     answer: 'English Riviera'
+-
+  email: passkey-user
+  username: passkey-user
+  password: 'FeuLJY3w9zXsGas9HeDNK2aDYARxc42HaKinEyZnqLcdqi8E'
+  key: passkeyUser
+  role: 'customer'
+  passkeys:
+    -
+      credentialID: VfPGsco9UbQv4890ndfO6Go1PCtZ9yEFGWyseVvk4-Y
+      publicKey: pQECAyYgASFYICdISWKC7Mr6wsaotwAhPSmkI9VYOdwpZ2Jkz91Z3QvLIlgg6xFosS504iKBgaI71rqsqEG8220VzwcE9H786P2Z3QY
+      transports: internal
+      aaguid: fbfc3007-154e-4ecc-8c0b-6e020557d7bd

@@ -26,6 +26,8 @@ export class ChallengeCardComponent {
   readonly applicationConfiguration = input.required<Config>()
   readonly lastUnlockedChallengeKey = input<string | null>(null)
   readonly challengeId = input<string>()
+  readonly highlightTutorial = input<boolean>(false)
+  readonly highlightCodingChallenge = input<boolean>(false)
 
   readonly hintTooltip = viewChild<MatTooltip>('hintTooltip')
 

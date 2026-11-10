@@ -54,10 +54,10 @@ export const themes = {
     primDark: '#BF360C'
   },
   'lime-green': {
-    bgColor: '#303030',
+    bgColor: '#3a3a3a',
     textColor: '#000000',
-    navColor: '#cddc39',
-    primLight: '#ddee48',
+    navColor: '#a3b216',
+    primLight: '#c4d52b',
     primDark: '#97a621'
   },
   'neon-fire': {

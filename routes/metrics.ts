@@ -20,7 +20,7 @@ import * as accuracy from '../lib/accuracy'
 import { reviewsCollection, ordersCollection } from '../data/mongodb'
 import { challenges } from '../data/datacache'
 import * as Prometheus from 'prom-client'
-import onFinished from 'on-finished'
+import { finished } from 'node:stream'
 
 const register = Prometheus.register
 
@@ -62,7 +62,7 @@ export function reRegisterMetrics () {
 
 export function observeRequestMetricsMiddleware () {
   return (req: Request, res: Response, next: NextFunction) => {
-    onFinished(res, () => {
+    finished(res, () => {
       const statusCode = `${Math.floor(res.statusCode / 100)}XX`
       httpRequestsMetric.labels(statusCode).inc()
     })
@@ -72,7 +72,7 @@ export function observeRequestMetricsMiddleware () {
 
 export function observeFileUploadMetricsMiddleware () {
   return ({ file }: Request, res: Response, next: NextFunction) => {
-    onFinished(res, () => {
+    finished(res, () => {
       if (file != null) {
         res.statusCode < 400 ? fileUploadsCountMetric.labels(file.mimetype).inc() : fileUploadErrorsMetric.labels(file.mimetype).inc()
       }

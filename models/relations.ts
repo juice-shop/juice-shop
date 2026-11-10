@@ -1,5 +1,6 @@
 import { type Sequelize } from 'sequelize'
 import { AddressModel } from './address'
+import { PasskeyModel } from './passkey'
 import { BasketModel } from './basket'
 import { BasketItemModel } from './basketitem'
 import { ChallengeModel } from './challenge'
@@ -135,6 +136,15 @@ const relationsInit = (_sequelize: Sequelize) => {
   })
 
   WalletModel.belongsTo(UserModel, {
+    constraints: true,
+    foreignKeyConstraint: true,
+    foreignKey: {
+      name: 'UserId'
+    }
+  })
+
+  UserModel.hasMany(PasskeyModel)
+  PasskeyModel.belongsTo(UserModel, {
     constraints: true,
     foreignKeyConstraint: true,
     foreignKey: {

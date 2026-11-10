@@ -188,6 +188,15 @@
           </a>
         }
         @if (isLoggedIn()) {
+          <a mat-list-item routerLink="privacy-security/passkeys"
+            (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to manage passkeys page">
+            <mat-icon>
+              key
+            </mat-icon>
+            <span class="menu-text truncate">{{ 'TITLE_MANAGE_PASSKEYS' | translate }}</span>
+          </a>
+        }
+        @if (isLoggedIn()) {
           <a mat-list-item routerLink="privacy-security/last-login-ip"
             (click)="onToggleSidenav(); showPrivacySubmenu = !showPrivacySubmenu" aria-label="Go to last login ip page">
             <mat-icon>

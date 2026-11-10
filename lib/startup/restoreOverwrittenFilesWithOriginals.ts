@@ -6,8 +6,7 @@
 import path from 'node:path'
 import * as utils from '../utils'
 import logger from '../logger'
-import { copyFileSync, existsSync } from 'node:fs'
-import { globSync } from 'glob'
+import { copyFileSync, existsSync, readdirSync } from 'node:fs'
 
 let restorationPromise: Promise<void> | null = null
 
@@ -29,9 +28,10 @@ const restoreOverwrittenFilesWithOriginals = async () => {
         )
       }
 
-      const files = globSync(path.resolve('data/static/i18n/*.json').replace(/\\/g, '/'))
+      const sourceFolder = path.resolve('data/static/i18n')
+      const files = readdirSync(sourceFolder).filter((filename) => filename.endsWith('.json'))
       for (const filename of files) {
-        copyFileSync(filename, path.resolve('i18n/', path.basename(filename)))
+        copyFileSync(path.join(sourceFolder, filename), path.resolve('i18n/', filename))
       }
     } catch (err) {
       logger.warn('Error restoring i18n files: ' + utils.getErrorMessage(err))

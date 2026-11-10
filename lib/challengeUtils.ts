@@ -1,6 +1,6 @@
 import config from 'config'
 import { Op } from 'sequelize'
-import colors from 'colors/safe'
+import colors from './colors'
 import { type Server } from 'socket.io'
 import sanitizeHtml from 'sanitize-html'
 import { AllHtmlEntities as Entities } from 'html-entities'

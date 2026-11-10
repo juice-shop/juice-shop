@@ -84,6 +84,15 @@
   }
 }
 
+.message-row {
+  display: flex;
+  gap: $space-2xs;
+
+  &.user {
+    justify-content: flex-end;
+  }
+}
+
 .tool-calls-container {
   display: flex;
   flex-direction: column;
@@ -209,6 +218,74 @@
 
   40% { opacity: 1;
     transform: scale(1); }
+}
+
+// Message editing
+
+.edit-message {
+  align-self: center;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.4;
+  cursor: pointer;
+  padding: $space-2xs;
+  border-radius: 4px;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.chat-edit {
+  align-self: flex-end;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.chat-edit-field {
+  padding: $space-s $space-m;
+  border: 1px solid var(--theme-background-darkest);
+  border-radius: 12px;
+  background: var(--theme-background-lighter);
+  transition: border-color 0.15s;
+
+  &:focus-within {
+    border-color: var(--theme-primary);
+  }
+}
+
+.chat-edit-textarea {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+}
+
+.chat-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-xs;
 }
 
 // Input area

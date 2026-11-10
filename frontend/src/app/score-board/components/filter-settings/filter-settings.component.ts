@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, type OnChanges, Output, inject, ChangeDetectionStrategy } from '@angular/core'
+import { Component, EventEmitter, Input, type OnChanges, type OnInit, Output, inject, ChangeDetectionStrategy } from '@angular/core'
 import { FilterSetting } from '../../filter-settings/FilterSetting'
 import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
 import { MatDialog } from '@angular/material/dialog'
@@ -8,7 +8,8 @@ import { CategoryFilterComponent } from './components/category-filter/category-f
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatIconButton } from '@angular/material/button'
 import { DifficultyStarsComponent } from '../difficulty-stars/difficulty-stars.component'
-import { MatOption } from '@angular/material/core'
+import { MatOption, MatOptgroup } from '@angular/material/core'
+import { TagsService } from '../../../Services/tags.service'
 
 import { MatSelect, MatSelectTrigger } from '@angular/material/select'
 import { MatInputModule } from '@angular/material/input'
@@ -16,15 +17,23 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule, MatPrefix, MatLabel } from '@angular/material/form-field'
 
+export const OTHER_TAG_GROUP = 'Other'
+
+export interface TagGroup {
+  name: string
+  tags: string[]
+}
+
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,
   selector: 'filter-settings',
   templateUrl: './filter-settings.component.html',
   styleUrls: ['./filter-settings.component.scss'],
-  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
+  imports: [MatFormFieldModule, MatIconModule, MatPrefix, MatLabel, TranslateModule, MatInputModule, MatSelect, MatSelectTrigger, MatOption, MatOptgroup, DifficultyStarsComponent, MatIconButton, MatTooltip, CategoryFilterComponent, DifficultySelectionSummaryPipe]
 })
-export class FilterSettingsComponent implements OnChanges {
+export class FilterSettingsComponent implements OnChanges, OnInit {
   private readonly dialog = inject(MatDialog)
+  private readonly tagsService = inject(TagsService)
 
   @Input()
   public allChallenges: EnrichedChallenge[]
@@ -40,6 +49,23 @@ export class FilterSettingsComponent implements OnChanges {
 
   public static readonly EXTERNAL_DEPENDENCY_TAG = 'External Dependency'
   public tags: string[] = []
+  public tagGroups: TagGroup[] = []
+  private tagToGroupName: Record<string, string> = {}
+
+  ngOnInit () {
+    this.tagsService.getTagGroups().subscribe((tagGroups) => {
+      this.tagToGroupName = {}
+      for (const [groupName, tags] of Object.entries(tagGroups)) {
+        for (const tag of tags) {
+          this.tagToGroupName[tag] = groupName
+        }
+      }
+      if (this.allChallenges) {
+        this.ngOnChanges()
+      }
+    })
+  }
+
   ngOnChanges () {
     const rawTags = new Set(
       this.allChallenges.flatMap((challenge) => challenge.tagList)
@@ -56,6 +82,22 @@ export class FilterSettingsComponent implements OnChanges {
       }
     }
     this.tags = [...displayTags].sort((a, b) => a.localeCompare(b))
+
+    const groupsMap = new Map<string, string[]>()
+    for (const tag of displayTags) {
+      const groupName = this.tagToGroupName[tag] ?? OTHER_TAG_GROUP
+      if (!groupsMap.has(groupName)) {
+        groupsMap.set(groupName, [])
+      }
+      groupsMap.get(groupName)!.push(tag)
+    }
+
+    this.tagGroups = [...groupsMap.entries()]
+      .map(([name, tags]) => ({
+        name,
+        tags: tags.sort((a, b) => a.localeCompare(b))
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name))
   }
 
   onDifficultyFilterChange (difficulties: (1 | 2 | 3 | 4 | 5 | 6)[]) {

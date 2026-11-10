@@ -1,20 +1,34 @@
 import { type ComponentFixture, TestBed } from '@angular/core/testing'
+import { of } from 'rxjs'
+import { By } from '@angular/platform-browser'
+import { MatSelect } from '@angular/material/select'
+import { MatOptgroup } from '@angular/material/core'
 import { FilterSettingsComponent } from './filter-settings.component'
 import { CategoryFilterComponent } from './components/category-filter/category-filter.component'
 import { DEFAULT_FILTER_SETTING } from '../../filter-settings/FilterSetting'
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select'
-import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatTooltipModule, MatTooltip } from '@angular/material/tooltip'
 import { MatDialogModule, MatDialog } from '@angular/material/dialog'
 import { DifficultySelectionSummaryPipe } from './pipes/difficulty-selection-summary.pipe'
 import { LocalBackupService } from '../../../Services/local-backup.service'
+import { TagsService } from '../../../Services/tags.service'
+
+const TAG_GROUPS_FIXTURE = {
+    Constraints: ['Danger Zone', 'External Dependency', 'Prerequisite'],
+    Flavor: ['Contraption', 'Shenanigans'],
+    Learning: ['Good for Demos', 'Good Practice', 'Tutorial', 'With Coding Challenge'],
+    Technique: ['Brute Force', 'Code Analysis', 'OSINT'],
+    Technology: ['AI/LLM', 'Web3', 'Passkey/WebAuthn', 'JWT', 'NoSQL/MongoDB', 'OAuth', 'SQL', '2FA/TOTP', 'XML']
+}
 
 describe('FilterSettingsComponent', () => {
     let component: FilterSettingsComponent
     let fixture: ComponentFixture<FilterSettingsComponent>
     let dialog: MatDialog
+    let translateService: TranslateService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -36,6 +50,12 @@ describe('FilterSettingsComponent', () => {
                         save: () => null,
                         restore: () => null
                     }
+                },
+                {
+                    provide: TagsService,
+                    useValue: {
+                        getTagGroups: () => of(TAG_GROUPS_FIXTURE)
+                    }
                 }
             ]
         }).compileComponents()
@@ -43,6 +63,8 @@ describe('FilterSettingsComponent', () => {
         fixture = TestBed.createComponent(FilterSettingsComponent)
         component = fixture.componentInstance
         dialog = TestBed.inject(MatDialog)
+        translateService = TestBed.inject(TranslateService)
+        translateService.use('en')
 
         component.allChallenges = []
         component.filterSetting = { ...DEFAULT_FILTER_SETTING }
@@ -160,5 +182,161 @@ describe('FilterSettingsComponent', () => {
         ] as any[]
         component.ngOnChanges()
         expect(component.tags).toEqual(['Apple', 'External Dependency', 'Zebra'])
+    })
+
+    it('should cluster tags into alphabetical groups with alphabetical tags within each group', () => {
+        component.allChallenges = [
+            { tagList: ['Web3', 'Danger Zone', 'OSINT'], category: 'cat1' },
+            { tagList: ['Tutorial', 'Shenanigans', 'Code Analysis'], category: 'cat1' },
+            { tagList: ['Requires SMTP', 'Contraption'], category: 'cat2' }
+        ] as any[]
+        component.ngOnChanges()
+        expect(component.tagGroups).toEqual([
+            { name: 'Constraints', tags: ['Danger Zone', 'External Dependency'] },
+            { name: 'Flavor', tags: ['Contraption', 'Shenanigans'] },
+            { name: 'Learning', tags: ['Tutorial'] },
+            { name: 'Technique', tags: ['Code Analysis', 'OSINT'] },
+            { name: 'Technology', tags: ['Web3'] }
+        ])
+    })
+
+    it('should put unknown tags into Other group sorted alphabetically', () => {
+        component.allChallenges = [
+            { tagList: ['Custom Tag B', 'Web3', 'Custom Tag A'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        expect(component.tagGroups).toEqual([
+            { name: 'Other', tags: ['Custom Tag A', 'Custom Tag B'] },
+            { name: 'Technology', tags: ['Web3'] }
+        ])
+    })
+
+    it('should translate tag options in the tags dropdown while maintaining raw tag values', () => {
+        translateService.setTranslation('en', {
+            TAG_DANGER_ZONE: 'Danger Zone Translated',
+            TAG_OSINT: 'OSINT Translated'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone', 'OSINT'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        const options = tagSelect.options.toArray()
+        const dangerZoneOption = options.find((opt) => opt.value === 'Danger Zone')
+        const osintOption = options.find((opt) => opt.value === 'OSINT')
+
+        expect(dangerZoneOption).toBeTruthy()
+        expect(dangerZoneOption!.viewValue.trim()).toBe('Danger Zone Translated')
+        expect(dangerZoneOption!.value).toBe('Danger Zone')
+
+        expect(osintOption).toBeTruthy()
+        expect(osintOption!.viewValue.trim()).toBe('OSINT Translated')
+        expect(osintOption!.value).toBe('OSINT')
+    })
+
+    it('should translate External Dependency tag option with injected dependency translation', () => {
+        translateService.setTranslation('en', {
+            TAG_EXTERNAL_DEPENDENCY: 'Requires {{dependency}}',
+            TAG_DEPENDENCY: 'Dependency'
+        }, true)
+        translateService.setTranslation('de', {
+            TAG_EXTERNAL_DEPENDENCY: 'Erfordert {{dependency}}',
+            TAG_DEPENDENCY: 'Abhängigkeit'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Requires SMTP'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        let options = tagSelect.options.toArray()
+        let externalDepOption = options.find((opt) => opt.value === 'External Dependency')
+
+        expect(externalDepOption).toBeTruthy()
+        expect(externalDepOption!.viewValue.trim()).toBe('Requires Dependency')
+        expect(externalDepOption!.value).toBe('External Dependency')
+
+        translateService.use('de')
+        fixture.detectChanges()
+
+        options = tagSelect.options.toArray()
+        externalDepOption = options.find((opt) => opt.value === 'External Dependency')
+        expect(externalDepOption).toBeTruthy()
+        expect(externalDepOption!.viewValue.trim()).toBe('Erfordert Abhängigkeit')
+        expect(externalDepOption!.value).toBe('External Dependency')
+    })
+
+    it('should attach tooltips with delay to tag options in the tags dropdown without group tooltips', () => {
+        translateService.setTranslation('en', {
+            TAG_DANGER_ZONE: 'Danger Zone',
+            TAG_DANGER_ZONE_DESCRIPTION: 'Danger Zone Description'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        tagSelect.open()
+        fixture.detectChanges()
+
+        const tooltips = fixture.debugElement.queryAll(By.directive(MatTooltip))
+        const messages = tooltips.map((t) => t.injector.get(MatTooltip).message)
+        expect(messages).toContain('Danger Zone Description')
+
+        const optionTooltip = tooltips.find((t) => t.injector.get(MatTooltip).message === 'Danger Zone Description')
+        expect(optionTooltip).toBeTruthy()
+        expect(optionTooltip!.injector.get(MatTooltip).showDelay).toBe(500)
+
+        const optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups.length).toBe(1)
+        const optgroupDebugEls = fixture.debugElement.queryAll(By.directive(MatOptgroup))
+        for (const optgroupEl of optgroupDebugEls) {
+            expect(optgroupEl.injector.get(MatTooltip, null)).toBeNull()
+        }
+    })
+
+    it('should translate tag group labels in the tags dropdown', () => {
+        translateService.setTranslation('en', {
+            TAG_GROUP_CONSTRAINTS: 'Constraints English',
+            TAG_GROUP_TECHNOLOGY: 'Technology English'
+        }, true)
+        translateService.setTranslation('de', {
+            TAG_GROUP_CONSTRAINTS: 'Einschränkungen Deutsch',
+            TAG_GROUP_TECHNOLOGY: 'Technologie Deutsch'
+        }, true)
+
+        component.allChallenges = [
+            { tagList: ['Danger Zone', 'Web3'], category: 'cat1' }
+        ] as any[]
+        component.ngOnChanges()
+        fixture.detectChanges()
+
+        const selects = fixture.debugElement.queryAll(By.directive(MatSelect))
+        const tagSelect = selects[2].componentInstance as MatSelect
+        tagSelect.open()
+        fixture.detectChanges()
+
+        let optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups.length).toBe(2)
+        expect(optgroups[0].label).toBe('Constraints English')
+        expect(optgroups[1].label).toBe('Technology English')
+
+        translateService.use('de')
+        fixture.detectChanges()
+
+        optgroups = tagSelect.optionGroups.toArray()
+        expect(optgroups[0].label).toBe('Einschränkungen Deutsch')
+        expect(optgroups[1].label).toBe('Technologie Deutsch')
     })
 })

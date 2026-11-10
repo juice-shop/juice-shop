@@ -66,7 +66,6 @@
         {{'REMEMBER_ME' | translate}}
       </mat-checkbox>
 
-      @if (!oauthUnavailable) {
       <div class="breakLine">
         <div class="line">
           <div></div>
@@ -76,18 +75,27 @@
           <div></div>
         </div>
       </div>
-      }
 
-      @if (!oauthUnavailable) {
-      <button type="button" id="loginButtonGoogle"
-        mat-raised-button color="tertiary"
-        (click)="googleLogin()"
-        aria-label="Login with Google"
-        class="google-button"
-      >
-        <i class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
-      </button>
-      }
+      <div class="alternative-logins">
+        <button type="button" id="loginButtonPasskey"
+          mat-stroked-button color="primary"
+          (click)="passkeyLogin()"
+          aria-label="Login with Passkey"
+        >
+          <mat-icon>key</mat-icon> {{'BTN_PASSKEY_LOGIN' | translate}}
+        </button>
+
+        @if (!oauthUnavailable) {
+        <button type="button" id="loginButtonGoogle"
+          mat-raised-button color="tertiary"
+          (click)="googleLogin()"
+          aria-label="Login with Google"
+          class="google-button"
+        >
+          <i class="fab fa-google fa-lg"></i> {{'BTN_GOOGLE_LOGIN' | translate}}
+        </button>
+        }
+      </div>
 
       <div id="newCustomerLink">
         <a class="primary-link" routerLink="/register">{{'NO_CUSTOMER' | translate}}</a>

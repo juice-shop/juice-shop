@@ -5,6 +5,7 @@ on:
     branches: [ master, develop ]
     paths:
       - 'data/static/challenges.yml'
+      - 'data/static/tags.yml'
   workflow_dispatch:
 
 jobs:
@@ -23,9 +24,15 @@ jobs:
         cd docs/modules/ROOT/assets/data
         rm challenges.yml
         wget https://raw.githubusercontent.com/juice-shop/juice-shop/${{ github.ref_name }}/data/static/challenges.yml
+    - name: Update tags.yml
+      run: |
+        cd docs/modules/ROOT/assets/data
+        rm -f tags.yml
+        wget https://raw.githubusercontent.com/juice-shop/juice-shop/${{ github.ref_name }}/data/static/tags.yml
     - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 #v5.0.1
       with:
-        commit_message: "Auto-update challenges.yml from ${{ github.sha }}"
+        file_pattern: 'docs/modules/ROOT/assets/data/challenges.yml docs/modules/ROOT/assets/data/tags.yml'
+        commit_message: "Auto-update challenges.yml and tags.yml from ${{ github.sha }}"
         branch: ${{ github.ref_name }}
         commit_options: '--signoff'
 

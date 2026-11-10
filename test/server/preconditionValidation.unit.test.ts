@@ -120,6 +120,7 @@ void describe('preconditionValidation', () => {
 
   void describe('checkIfOllamaModelAvailable', () => {
     let fetchStub: any
+    const originalLlmApiKey = process.env.LLM_API_KEY
 
     beforeEach(() => {
       fetchStub = mock.method(global, 'fetch')
@@ -127,6 +128,7 @@ void describe('preconditionValidation', () => {
 
     afterEach(() => {
       fetchStub.mock.restore()
+      process.env.LLM_API_KEY = originalLlmApiKey
     })
 
     void it('should succeed when model is listed in Ollama response', async () => {
@@ -163,6 +165,22 @@ void describe('preconditionValidation', () => {
       fetchStub.mock.mockImplementation(async () => { throw new Error('Connection refused') })
       await checkIfLlmModelAvailable('http://localhost:11434/v1')
       assert.equal(fetchStub.mock.calls.length, 1)
+    })
+
+    void it('should attach Authorization header when LLM_API_KEY environment variable is present', async () => {
+      process.env.LLM_API_KEY = 'test-token'
+      fetchStub.mock.mockImplementation(async () => ({ ok: true, json: async () => ({ data: [{ id: 'qwen3.5:9b' }] }) }))
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      assert.equal(fetchStub.mock.calls.length, 1)
+      assert.equal(fetchStub.mock.calls[0].arguments[1]?.headers?.Authorization, 'Bearer test-token')
+    })
+
+    void it('should not attach Authorization header when LLM_API_KEY environment variable is absent', async () => {
+      delete process.env.LLM_API_KEY
+      fetchStub.mock.mockImplementation(async () => ({ ok: true, json: async () => ({ data: [{ id: 'qwen3.5:9b' }] }) }))
+      await checkIfLlmModelAvailable('http://localhost:11434/v1')
+      assert.equal(fetchStub.mock.calls.length, 1)
+      assert.equal(fetchStub.mock.calls[0].arguments[1]?.headers?.Authorization, undefined)
     })
   })
 

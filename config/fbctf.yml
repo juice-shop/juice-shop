@@ -362,3 +362,9 @@ ctf:
     vulnerableDockerImageChallenge:
       name: Portugal
       code: PT
+    passkeySignatureChallenge:
+      name: Fiji
+      code: FJ
+    passkeyCredentialOverwriteChallenge:
+      name: Maldives
+      code: MV

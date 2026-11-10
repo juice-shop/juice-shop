@@ -6,6 +6,10 @@ import { TranslateModule } from '@ngx-translate/core'
 import { MatButtonModule } from '@angular/material/button'
 import { WarningCardComponent } from '../warning-card/warning-card.component'
 import { NgClass } from '@angular/common'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faWindows } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faWindows)
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Eager,

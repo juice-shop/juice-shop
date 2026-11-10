@@ -56,6 +56,31 @@ void describe('b2bOrder', () => {
     assert.equal(challenges.rceChallenge.solved, false)
   })
 
+  void it('returns order details when evaluation succeeds', () => {
+    req.body.cid = 'B2B-123'
+    req.body.orderLinesData = '({ productId: 12, quantity: 1 })'
+
+    b2bOrder()(req, res, next)
+
+    assert.equal(res.json.mock.calls.length, 1)
+    assert.equal(res.json.mock.calls[0].arguments[0].cid, 'B2B-123')
+    assert.ok(res.json.mock.calls[0].arguments[0].orderNo)
+    assert.ok(res.json.mock.calls[0].arguments[0].paymentDue)
+  })
+
+  void it('processes order directly when RCE challenges are disabled', () => {
+    challenges.rceChallenge = { solved: false, save, disabledEnv: (process.env.NODE_ENV || 'test') } as unknown as Challenge
+    challenges.rceOccupyChallenge = { solved: false, save, disabledEnv: (process.env.NODE_ENV || 'test') } as unknown as Challenge
+    req.body.cid = 'B2B-123'
+
+    b2bOrder()(req, res, next)
+
+    assert.equal(res.json.mock.calls.length, 1)
+    assert.equal(res.json.mock.calls[0].arguments[0].cid, 'B2B-123')
+    assert.ok(res.json.mock.calls[0].arguments[0].orderNo)
+    assert.ok(res.json.mock.calls[0].arguments[0].paymentDue)
+  })
+
   void it('deserializing broken JSON should not solve "rceChallenge"', () => {
     req.body.orderLinesData = '{ "productId: 28'
 

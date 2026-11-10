@@ -1,0 +1,96 @@
+name: H2 - DevSecOps
+
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  verify-repository:
+    name: Verify repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify project structure
+        run: |
+          echo "Starting H2 DevSecOps pipeline"
+          test -f package.json
+          test -d frontend
+          echo "Repository structure verified"
+
+  sast-semgrep:
+    name: SAST - Semgrep
+    runs-on: ubuntu-latest
+
+    container:
+      image: semgrep/semgrep
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep scan
+        run: semgrep scan --config auto --json --output semgrep-report.json .
+
+      - name: Upload Semgrep report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep-report.json
+          if-no-files-found: warn
+  
+  sca-npm-audit:
+    name: SCA - npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Update npm
+        run: |
+          npm install --global npm@11.19.1 --ignore-scripts --no-audit --no-fund
+          npm --version
+
+      - name: Generate backend lockfile
+        run: |
+          npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
+
+      - name: Generate frontend lockfile
+        working-directory: frontend
+        run: |
+          npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
+
+      - name: Audit backend dependencies
+        run: |
+          npm audit --package-lock=true --json > npm-audit-backend.json || true
+          node -e 'const r = require("./npm-audit-backend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
+
+      - name: Audit frontend dependencies
+        working-directory: frontend
+        run: |
+          npm audit --package-lock=true --json > npm-audit-frontend.json || true
+          node -e 'const r = require("./npm-audit-frontend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
+
+      - name: Upload SCA reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-reports
+          path: |
+            npm-audit-backend.json
+            frontend/npm-audit-frontend.json
+          if-no-files-found: warn
+

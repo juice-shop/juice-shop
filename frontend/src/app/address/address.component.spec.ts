@@ -11,7 +11,7 @@ import { AddressComponent } from './address.component'
 import { MatInputModule } from '@angular/material/input'
 import { ReactiveFormsModule } from '@angular/forms'
 
-import { of, throwError } from 'rxjs'
+import { of, Subject, throwError } from 'rxjs'
 import { RouterTestingModule } from '@angular/router/testing'
 import { AddressService } from '../Services/address.service'
 import { AddressCreateComponent } from '../address-create/address-create.component'
@@ -99,11 +99,27 @@ describe('AddressComponent', () => {
         expect(component).toBeTruthy()
     })
 
+    it('should derive the displayed columns from the layout mode', () => {
+        expect(component.displayedColumns()).toEqual(['Selection', 'Name', 'Address', 'Country'])
+
+        fixture.componentRef.setInput('allowEdit', true)
+
+        expect(component.displayedColumns()).toEqual(['Name', 'Address', 'Country', 'Edit', 'Remove'])
+    })
+
+    it('should derive addressExist from the loaded addresses', () => {
+        expect(component.addressExist()).toBe(false)
+
+        component.addresses.set([{ id: 1, fullName: 'Alice' }])
+
+        expect(component.addressExist()).toBe(true)
+    })
+
     it('should hold no addresses when get API call fails', () => {
         addressService.get.mockReturnValue(throwError('Error'))
         component.ngOnInit()
         fixture.detectChanges()
-        expect(component.storedAddresses).toEqual([])
+        expect(component.addresses()).toEqual([])
     })
 
     it('should log error from get address API call directly to browser console', () => {
@@ -122,6 +138,26 @@ describe('AddressComponent', () => {
         expect(console.log).toHaveBeenCalledWith('Error')
     })
 
+    it('should ignore an older address response that arrives after a newer one', () => {
+        const olderResponse = new Subject<any[]>()
+        const newerResponse = new Subject<any[]>()
+        addressService.get.mockReturnValueOnce(olderResponse).mockReturnValueOnce(newerResponse)
+        component.load()
+        component.load()
+        newerResponse.next([{ id: 2 }])
+        olderResponse.next([{ id: 1 }, { id: 2 }])
+        expect(component.addresses()).toEqual([{ id: 2 }])
+    })
+
+    it('should keep reloading addresses after a failed reload', () => {
+        console.log = vi.fn()
+        addressService.get.mockReturnValue(throwError('Error'))
+        component.load()
+        addressService.get.mockReturnValue(of([{ id: 1 }]))
+        component.load()
+        expect(component.addresses()).toEqual([{ id: 1 }])
+    })
+
     it('should delete an address on calling deleteAddress', () => {
         addressService.get.mockReturnValue(of([]))
         addressService.del.mockReturnValue(of([]))
@@ -132,17 +168,19 @@ describe('AddressComponent', () => {
     })
 
     it('should store address id in session storage', () => {
-        component.addressId = 1
+        component.addressId.set(1)
         const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
         component.chooseAddress()
-        expect(setItemSpy).toHaveBeenCalledWith('addressId', 1 as any)
+        expect(setItemSpy).toHaveBeenCalledWith('addressId', '1')
     })
 
     describe('template rendering', () => {
-        const renderWith = (addresses: any[], inputs: Partial<AddressComponent> = {}) => {
+        const renderWith = (addresses: any[], inputs: Record<string, unknown> = {}) => {
             addressService.get.mockReturnValue(of(addresses))
             const f = TestBed.createComponent(AddressComponent)
-            Object.assign(f.componentInstance, inputs)
+            for (const [name, value] of Object.entries(inputs)) {
+                f.componentRef.setInput(name, value)
+            }
             f.detectChanges()
             return f
         }
@@ -158,7 +196,7 @@ describe('AddressComponent', () => {
 
         it('should not render the address table when there are no stored addresses', () => {
             const compiled: HTMLElement = fixture.nativeElement
-            expect(compiled.querySelector('mat-table.address-table')).toBeNull()
+            expect(compiled.querySelector('table.address-table')).toBeNull()
         })
 
         it('should render the address table with a row per stored address when addresses exist', () => {
@@ -167,8 +205,8 @@ describe('AddressComponent', () => {
                 { id: 2, fullName: 'Bob', streetAddress: 'S2', city: 'C2', state: 'ST', zipCode: 'Z2', country: 'CO' }
             ])
             const compiled: HTMLElement = f.nativeElement
-            expect(compiled.querySelector('mat-table.address-table')).toBeTruthy()
-            expect(compiled.querySelectorAll('mat-row').length).toBe(2)
+            expect(compiled.querySelector('table.address-table')).toBeTruthy()
+            expect(compiled.querySelectorAll('tr.mat-mdc-row').length).toBe(2)
             expect(compiled.textContent).toContain('Alice')
             expect(compiled.textContent).toContain('Bob')
         })
@@ -186,14 +224,14 @@ describe('AddressComponent', () => {
             const next = f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement
             expect(next.disabled).toBe(true)
 
-            f.componentInstance.addressId = 5
+            f.componentInstance.addressId.set(5)
             f.detectChanges()
             expect((f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement).disabled).toBe(false)
         })
 
         it('should invoke chooseAddress when the next button is clicked', () => {
             const f = renderWith([], { showNextButton: true })
-            f.componentInstance.addressId = 1
+            f.componentInstance.addressId.set(1)
             f.detectChanges()
             const spy = vi.spyOn(f.componentInstance, 'chooseAddress').mockImplementation(() => { })
             const next = f.nativeElement.querySelector('button.btn-next') as HTMLButtonElement
@@ -217,7 +255,7 @@ describe('AddressComponent', () => {
         const spy = vi.spyOn(component.emitSelection, 'emit')
         component.emitSelectionToParent(1)
         expect(spy).toHaveBeenCalledWith(undefined)
-        expect(component.addressId).toBeUndefined()
+        expect(component.addressId()).toBeUndefined()
     })
 
     it('should emit id when selection has value in emitSelectionToParent', () => {
@@ -225,7 +263,7 @@ describe('AddressComponent', () => {
         const spy = vi.spyOn(component.emitSelection, 'emit')
         component.emitSelectionToParent(1)
         expect(spy).toHaveBeenCalledWith(1)
-        expect(component.addressId).toBe(1)
+        expect(component.addressId()).toBe(1)
     })
 
     it('should show snackbar error when loading addresses fails', () => {
