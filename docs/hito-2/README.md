@@ -492,6 +492,106 @@ De acuerdo con los requisitos del proyecto final, deben documentarse al menos cu
 
 Los resultados del Red Team deberán compararse con los hallazgos de SAST y con las futuras detecciones del SIEM y bloqueos del WAF.
 
+### PoC-01 · Redirección abierta (Off-site Redirect)
+
+- **Método y ruta (:8080):** `GET /redirect?to=<url externa>`
+- **OWASP Top 10:2025 / CWE:** A05 Injection · CWE-601 — *(revisar: A05 no es Injection; la redirección abierta encaja en A01. Confirmar con el equipo.)*
+- **Vector CVSS v3.1:** `AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N` — **4.3 (Media)**
+- **Amenaza / requisito:** T-03 / V-01 / RS-09
+- **Reporte de ZAP (archivo en esta carpeta):** `___`
+
+**Alerta de ZAP (nombre y URL del reporte):** `___` — "Off-site Redirect" (riesgo Alto, CWE-601) sobre `/redirect`.
+
+**Cómo replicarlo en Repeater:**
+1. Captura cualquier `GET /redirect?to=...` (o crea la petición a mano).
+2. En Repeater, deja la petición así:
+   ```
+   GET /redirect?to=http://sitio-falso.example/?x=https://github.com/juice-shop/juice-shop HTTP/1.1
+   Host: localhost:8080
+   ```
+3. *Send*. En la respuesta, revisa la cabecera `Location`.
+
+> La clave es el `?x=...github.com/juice-shop/juice-shop`: la app valida con `includes()`, así que basta con que la URL *contenga* un destino permitido para que acepte el redirect al dominio del atacante. Esto es lo que RS-09 exige corregir (comparación exacta).
+
+**Captura de Burp Repeater (petición y respuesta):** `___` (debe verse `HTTP/1.1 302` con `Location: http://sitio-falso.example/...`).
+
+**Cómo repetirlo en Postman:** método `GET`, misma URL; en *Settings* desactiva "Automatically follow redirects" y observa la cabecera `Location`.
+
+**Resultado observado:** `___` *(esperado: 302 hacia el dominio externo no permitido).*
+
+**Justificación del CVSS, métrica por métrica:**
+
+| Métrica | Valor | Razón |
+|---|---|---|
+| AV | N | Se explota remotamente con una URL HTTP. |
+| AC | L | Sin condiciones especiales; el enlace se arma una vez. |
+| PR | N | El endpoint no exige sesión. |
+| UI | R | La víctima debe abrir el enlace. |
+| S | U | El impacto no cruza a otro componente. |
+| C | N | El redirect no expone datos. |
+| I | L | Permite phishing (engaño parcial a la víctima). |
+| A | N | No afecta disponibilidad. |
+
+---
+
+### PoC-02 · Ausencia de token anti-CSRF
+
+- **Método y ruta (:8080):** `POST /dataerasure`
+- **OWASP Top 10:2025 / CWE:** A01 Broken Access Control · CWE-352
+- **Vector CVSS v3.1:** `AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N` — **6.5 (Media)**
+- **Amenaza / requisito:** T-05 / V-02 / RS-10
+- **Reporte de ZAP (archivo en esta carpeta):** `___`
+
+**Alerta de ZAP (nombre y URL del reporte):** `___` — "Absence of Anti-CSRF Tokens" (riesgo Medio, CWE-352) sobre el formulario de `/dataerasure`.
+
+**Cómo replicarlo en Repeater:**
+Repeater confirma la *causa* (el endpoint acepta el POST sin token anti-CSRF). El CSRF real necesita el navegador de la víctima (ver abajo).
+1. Autentícate en la app y captura un `POST /dataerasure`.
+2. Envíalo a Repeater. Verás algo como:
+   ```
+   POST /dataerasure HTTP/1.1
+   Host: localhost:8080
+   Cookie: token=<jwt-de-la-victima>
+   Content-Type: application/x-www-form-urlencoded
+   Content-Length: 8
+
+   layout=x
+   ```
+3. Comprueba que **no hay** ningún campo ni cabecera de token CSRF.
+4. *Send*. Si responde correctamente, el endpoint no exige token impredecible → es vulnerable a CSRF.
+5. **Prueba adicional:** elimina la cabecera `Origin`/`Referer` (si están) y reenvía; si sigue aceptándola, confirma que no valida el origen.
+
+**PoC real (página auto-enviada).** Abrir en el navegador donde la víctima tiene sesión:
+```html
+<!-- csrf-dataerasure.html -->
+<body onload="document.forms[0].submit()">
+  <form action="http://localhost:8080/dataerasure" method="POST">
+    <input type="hidden" name="layout" value="x">
+  </form>
+</body>
+```
+
+> **Depende de que la sesión viaje por cookie.** El reporte del DAST confirma la cookie `token`. Si la app solo aceptara el JWT por cabecera `Authorization` (desde `localStorage`), el CSRF no aplicaría. Verifícalo en la captura de Repeater.
+
+**Captura de Burp Repeater (petición y respuesta):** `___`
+
+**Cómo repetirlo en Postman:** autenticarse, enviar `POST /dataerasure` con el cuerpo del formulario y sin token CSRF; observar que responde con éxito.
+
+**Resultado observado:** `___` *(esperado: la acción de borrado se procesa sin token anti-CSRF).*
+
+**Justificación del CVSS, métrica por métrica:**
+
+| Métrica | Valor | Razón |
+|---|---|---|
+| AV | N | Se dispara desde una web remota. |
+| AC | L | El formulario no usa valor impredecible; se replica directo. |
+| PR | N | Abusa de la sesión de la víctima, sin privilegios propios. |
+| UI | R | La víctima debe visitar la página maliciosa autenticada. |
+| S | U | El efecto queda dentro de la app. |
+| C | N | No se filtran datos al atacante. |
+| I | H | Acción sensible no consentida (borrado de datos de la cuenta). |
+| A | N | No afecta disponibilidad. |
+
 
 
 ### PoC-03
