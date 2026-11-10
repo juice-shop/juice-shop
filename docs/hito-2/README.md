@@ -482,14 +482,88 @@ De acuerdo con los requisitos del proyecto final, deben documentarse al menos cu
 - Herramientas utilizadas.
 - Resultado observado.
 
-| ID | Vulnerabilidad | Método y ruta | OWASP Top 10:2025 | CWE | CVSS v3.1 |
-|---|---|---|---|---|---|
-| PoC-01 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
-| PoC-02 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
-| PoC-03 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
-| PoC-04 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| ID | Vulnerabilidad | Dónde (método y ruta por :8080) | OWASP Top 10:2025 | CWE | Vector CVSS v3.1 | Puntaje |
+|---|---|---|---|---|---|---|
+| PoC-01 | Redirección abierta (Off-site Redirect) | GET /redirect?to=<url externa> | A05 Injection | CWE-601 | AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N | 4.3 (Media) |
+| PoC-02 | Ausencia de token anti-CSRF | POST /dataerasure | A01 Broken Access Control | CWE-352 | AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N | 6.5 (Media) |
+| PoC-03 | Creación de reseña sin autenticación (suplantación de autor) | PUT /rest/products/:id/reviews | A01 Broken Access Control | CWE-862 | AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N | 5.3 (Media) |
+| PoC-04 | Bypass del WAF: el puerto de la aplicación (3000) queda expuesto junto al del WAF (8080) | GET http://localhost:3000/ (cualquier ruta, sin pasar por 8080) | A02 Security Misconfiguration | CWE-693 | AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N | 5.3 (Media, componente base; ver nota) |
+
 
 Los resultados del Red Team deberán compararse con los hallazgos de SAST y con las futuras detecciones del SIEM y bloqueos del WAF.
+
+
+
+### PoC-03
+ 
+- **Alerta de ZAP (nombre y URL del reporte):** No aplica — ZAP no generó ninguna alerta sobre esta ruta (`PUT /rest/products/:id/reviews`). El 96 % del tráfico que ZAP rastreó automáticamente fue `GET`; esta falla solo se detecta probando manualmente una petición `PUT` sin autenticación. Hallazgo identificado por revisión de código (`server.ts`, `routes/createProductReviews.ts`) y confirmado con PoC en Burp/Postman.
+
+- **Captura de Burp Repeater (petición y respuesta):**
+  **Antes** (petición enviada sin ninguna cookie de sesión ni modificación):
+
+![Juice Shop](/docs/hito-2/hito-2-assets/Hito2POC3.png)
+ 
+  **Después** (Subplantación de otro usuario):
+![Juice Shop](/docs/hito-2/hito-2-assets/Hito2POC3Despues.png)
+ 
+
+ 
+- **Cómo repetirlo en Postman:**
+  1. Nueva petición → método `PUT` → URL `http://localhost:8080/rest/products/1/reviews`.
+  2. Pestaña **Headers** → agregar `Content-Type: application/json`. **No** incluir ningún header `Cookie` ni `Authorization`.
+  3. Pestaña **Body** → `raw` → tipo `JSON` → pegar:
+```
+     {"message":"Compren este producto, es excelente","author":"example@juice-sh.op"}
+```
+  4. Send.
+  5. Verificar con `GET http://localhost:8080/rest/products/1/reviews` que la reseña aparece publicada con el `author` falsificado.
+- **Resultado observado:** el servidor responde `201 Created` y guarda la reseña aunque la petición no llevó ninguna credencial. El campo `author` se tomó literalmente del cuerpo enviado por el atacante, no de una sesión autenticada, por lo que la reseña queda atribuida a `admin@juice-sh.op` sin que esa cuenta haya participado. Confirmado también al consultar `GET /rest/products/1/reviews`, donde la reseña aparece con el autor falsificado.
+- **Justificación del CVSS, métrica por métrica** (`AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N` → 5.3, Media):
+  | Métrica | Valor | Justificación |
+  |---|---|---|
+  | AV (Vector de ataque) | `N` (Network) | La ruta `/rest/products/:id/reviews` se alcanza por HTTP desde cualquier red, sin acceso físico ni local |
+  | AC (Complejidad de ataque) | `L` (Low) | No requiere condiciones especiales ni información previa; basta con conocer la ruta y el `id` del producto |
+  | PR (Privilegios requeridos) | `N` (None) | La ruta no exige ninguna autenticación: la petición se envió sin cookie ni token y fue aceptada |
+  | UI (Interacción del usuario) | `N` (None) | El atacante ejecuta el ataque directamente contra la API; no depende de que otra persona haga clic en nada |
+  | S (Alcance) | `U` (Unchanged) | El impacto queda dentro del mismo componente (la base de reseñas de la aplicación); no cruza hacia otro sistema |
+  | C (Confidencialidad) | `N` (None) | No se expone información confidencial; el ataque es de integridad, no de lectura de datos |
+  | I (Integridad) | `L` (Low) | Se modifica el contenido legítimo de la aplicación (se inserta una reseña falsa atribuida a otro usuario), pero el atacante no controla todos los datos del sistema ni puede borrar o alterar reseñas ajenas con esta ruta específica |
+  | A (Disponibilidad) | `N` (None) | El servicio sigue funcionando con normalidad; no hay denegación de servicio |
+ 
+
+
+## PoC-04
+ 
+- **Alerta de ZAP (nombre y URL del reporte):** No aplica — ZAP ejecutó la regla activa **"XML External Entity Attack"** (ver sección *Passing Rules* del reporte) y no generó ninguna alerta. Vulnerabilidad identificada por revisión de código (`lib/xml.ts`, comentario del propio código que documenta la XXE como intencional) y confirmada mediante PoC manual subiendo un archivo `.xml` malicioso a `POST /file-upload`.
+- **Captura de Burp Repeater (petición y respuesta):**
+  **Antes** (petición: archivo `.xml` con una entidad externa apuntando a un archivo real del servidor):
+  ![Juice Shop](/docs/hito-2/hito-2-assets/POC4.png)
+
+ 
+- **Cómo repetirlo en Postman:**
+  1. Crear un archivo local `poc.xml` con el payload de arriba (ajustar la ruta del `SYSTEM` a un archivo que exista en el servidor objetivo).
+  2. Nueva petición → método `POST` → URL `http://localhost:8080/file-upload`.
+  3. Pestaña **Headers**: no agregar `Content-Type` a mano (Postman lo genera solo con el boundary correcto).
+  4. Pestaña **Body** → `form-data` → una sola fila: `KEY = file` (minúsculas, exacto), cambiar el tipo de `Text` a **File**, y seleccionar `poc.xml`.
+  5. Send.
+  6. Revisar el cuerpo de la respuesta (`410 Gone`) en busca de fragmentos del archivo real del servidor (en este caso, `bjoern.kimminich`, del campo `author` de `package.json`).
+  7. **Prueba complementaria más limpia:** repetir el mismo payload apuntando a `file:///C:/Windows/win.ini` (archivo sin caracteres `&` ni `<`), para obtener una lectura completa y legible sin errores de parseo, como evidencia adicional.
+
+    ![Juice Shop](/docs/hito-2/hito-2-assets/POC4postman.png)
+
+- **Resultado observado:** el servidor cargó y procesó el contenido del archivo `package.json` del propio código fuente del proyecto, confirmado porque el mensaje de error refleja el fragmento `bjoern.kimminich` (el campo `author` real de ese archivo). El error de parseo posterior (`xmlParseEntityRef: no name`, repetido 57 veces) es solo un efecto secundario de que el contenido JSON no es XML válido (contiene `&` y `<` sin escapar), no una señal de que el ataque falló. La ruta `/file-upload` tampoco exige autenticación: la petición se probó sin cookie de sesión y fue procesada igual.
+- **Justificación del CVSS, métrica por métrica** (`AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N` → 7.5, Alta):
+  | Métrica | Valor | Justificación |
+  |---|---|---|
+  | AV (Vector de ataque) | `N` (Network) | `/file-upload` se alcanza por HTTP desde cualquier red, sin acceso físico ni local al servidor |
+  | AC (Complejidad de ataque) | `L` (Low) | El payload XML es estándar y no depende de condiciones de carrera ni de información secreta previa |
+  | PR (Privilegios requeridos) | `N` (None) | La ruta `app.post('/file-upload', ...)` en `server.ts` no incluye `security.isAuthorized()`; la petición se probó sin cookie de sesión y fue aceptada igual |
+  | UI (Interacción del usuario) | `N` (None) | El atacante envía la petición directamente contra la API; no depende de que otra persona haga clic en nada |
+  | S (Alcance) | `U` (Unchanged) | El impacto queda dentro del mismo proceso del servidor de la aplicación; no se demostró salto hacia otro componente o sistema |
+  | C (Confidencialidad) | `H` (High) | El atacante puede leer cualquier archivo del sistema de archivos del servidor al que el proceso de Node tenga acceso (código fuente, configuración, claves), sin ninguna restricción demostrada |
+  | I (Integridad) | `N` (None) | La vulnerabilidad probada es de lectura (disclosure); no se demostró escritura ni modificación de archivos con esta técnica |
+  | A (Disponibilidad) | `N` (None) | No se demostró impacto en disponibilidad con esta PoC (la variante de bomba de entidades, si se prueba, se documentaría aparte como una PoC de denegación de servicio) |
+
 
 ## 10. Registro de ataques
 

