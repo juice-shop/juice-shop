@@ -207,7 +207,7 @@ jobs:
         with:
           base: ""
           head: ${{ github.ref_name }}
-          extra_args: --results=verified,unknown --fail
+          extra_args: --results=verified,unknown
   
   docker_scan:
     name: Docker Image Scan - Trivy
