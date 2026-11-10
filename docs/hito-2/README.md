@@ -487,7 +487,7 @@ De acuerdo con los requisitos del proyecto final, deben documentarse al menos cu
 | PoC-01 | Redirección abierta (Off-site Redirect) | GET /redirect?to=<url externa> | A05 Injection | CWE-601 | AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N | 4.3 (Media) |
 | PoC-02 | Ausencia de token anti-CSRF | POST /dataerasure | A01 Broken Access Control | CWE-352 | AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N | 6.5 (Media) |
 | PoC-03 | Creación de reseña sin autenticación (suplantación de autor) | PUT /rest/products/:id/reviews | A01 Broken Access Control | CWE-862 | AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N | 5.3 (Media) |
-| PoC-04 | Bypass del WAF: el puerto de la aplicación (3000) queda expuesto junto al del WAF (8080) | GET http://localhost:3000/ (cualquier ruta, sin pasar por 8080) | A02 Security Misconfiguration | CWE-693 | AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N | 5.3 (Media, componente base; ver nota) |
+| PoC-04 | Bypass del WAF: el puerto de la aplicación (3000) queda expuesto junto al del WAF (8080) | GET http://localhost:3000/ (cualquier ruta, sin pasar por 8080) | A02 Security Misconfiguration | CWE-693 | AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N | 5.3 (Media) |
 
 
 Los resultados del Red Team deberán compararse con los hallazgos de SAST y con las futuras detecciones del SIEM y bloqueos del WAF.
@@ -571,9 +571,14 @@ Los resultados del Red Team deberán compararse con los hallazgos de SAST y con 
 
 Se registrará cada intento realizado mediante ZAP, Burp Suite o Postman, incluyendo fecha, hora, solicitud, payload y respuesta.
 
-| Fecha | Hora | Responsable | Herramienta | Método y ruta | Payload | Respuesta |
+## Bitácora de pruebas
+
+| Fecha | Hora | Quién | Herramienta | Método y ruta | Payload | Respuesta |
 |---|---|---|---|---|---|---|
-| Pendiente | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| 10/11/2026 | 11:37 (hora local, GT) | ZAP (escaneo automatizado) | ZAP 2.17.0 | `GET /redirect?to=https://github.com/juice-shop/juice-shop` | Parámetro `to` con una URL externa | `302 Found`, `Location: https://github.com/juice-shop/juice-shop` |
+| 10/11/2026 | 15:27  | `Andre Jo` | Postman | `POST /file-upload` | Archivo `poc.xml` con entidad externa apuntando a `file:///etc/passwd` | `410 Gone`; entidad vacía (`<text/>`) — el servidor corre en Windows, el archivo no existe |
+| 10/11/2026 | 15:28 | `Andre Jo` | Postman | `POST /file-upload` | Archivo `poc.xml` con entidad externa apuntando a `package.json` del proyecto | `410 Gone`; error de parseo que refleja `bjoern.kimminich` (campo `author` real del archivo) — confirma la lectura |
+| 10/11/2026 | `15:45` | `Andre Jo` | Burp Repeater / Postman | `PUT /rest/products/1/reviews` | `{"message":"...","author":"admin@juice-sh.op"}`, sin cookie de sesión | `201 Created`, `{"status":"success"}` |
 
 Este registro permitirá construir la línea de tiempo del informe final y relacionar los ataques con los eventos de detección y respuesta del H3.
 
