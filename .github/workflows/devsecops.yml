@@ -59,6 +59,11 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Update npm
+        run: |
+          npm install --global npm@11.19.1 --ignore-scripts --no-audit --no-fund
+          npm --version
+
       - name: Generate backend lockfile
         run: |
           npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
@@ -70,13 +75,13 @@ jobs:
 
       - name: Audit backend dependencies
         run: |
-          npm audit --package-lock=true --audit-level=none --json > npm-audit-backend.json
+          npm audit --package-lock=true --json > npm-audit-backend.json || true
           node -e 'const r = require("./npm-audit-backend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
 
       - name: Audit frontend dependencies
         working-directory: frontend
         run: |
-          npm audit --package-lock=true --audit-level=none --json > npm-audit-frontend.json
+          npm audit --package-lock=true --json > npm-audit-frontend.json || true
           node -e 'const r = require("./npm-audit-frontend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
 
       - name: Upload SCA reports
