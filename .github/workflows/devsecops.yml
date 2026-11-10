@@ -45,3 +45,47 @@ jobs:
           name: semgrep-report
           path: semgrep-report.json
           if-no-files-found: warn
+  
+  sca-npm-audit:
+    name: SCA - npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate backend lockfile
+        run: |
+          npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
+
+      - name: Generate frontend lockfile
+        working-directory: frontend
+        run: |
+          npm install --package-lock-only --package-lock=true --ignore-scripts --no-audit --no-fund
+
+      - name: Audit backend dependencies
+        run: |
+          npm audit --package-lock=true --audit-level=none --json > npm-audit-backend.json
+          node -e 'const r = require("./npm-audit-backend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
+
+      - name: Audit frontend dependencies
+        working-directory: frontend
+        run: |
+          npm audit --package-lock=true --audit-level=none --json > npm-audit-frontend.json
+          node -e 'const r = require("./npm-audit-frontend.json"); if (!r.metadata?.vulnerabilities) process.exit(1)'
+
+      - name: Upload SCA reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-reports
+          path: |
+            npm-audit-backend.json
+            frontend/npm-audit-frontend.json
+          if-no-files-found: warn
+
