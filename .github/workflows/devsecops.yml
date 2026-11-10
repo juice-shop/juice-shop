@@ -378,6 +378,9 @@ jobs:
             --output-file-path checkov-reports/checkov-report.json \
             --soft-fail
 
+      - name: Quality Gate - Checkov IaC
+        run: python3 security/check_checkov_gate.py
+
       - name: Upload Checkov report
         if: always()
         uses: actions/upload-artifact@v4
@@ -385,7 +388,7 @@ jobs:
           name: checkov-iac-report
           path: checkov-reports/
           if-no-files-found: error
-  
+
   sbom:
     name: SBOM - Syft CycloneDX
     runs-on: ubuntu-24.04
