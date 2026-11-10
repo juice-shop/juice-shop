@@ -179,6 +179,17 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   /* Compression for all requests */
   app.use(compression())
 
+  // TEST DEVSECOPS DAST - divulgation fictive temporaire
+app.get('/sitemap.xml', (_req: Request, res: Response) => {
+  res.type('xml').send(
+    '<?xml version="1.0" encoding="UTF-8"?>' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
+    '<url><loc>http://juice-shop-dast:3000/</loc></url>' +
+    '</urlset>' +
+    '<!-- TEST ONLY: 4111111111111111 -->'
+  )
+})
+
   /* Bludgeon solution for possible CORS problems: Allow everything! */
   app.options('*', cors())
   app.use(cors())
