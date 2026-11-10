@@ -1,0 +1,26 @@
+
+name: H2 - DevSecOps
+
+on:
+  push: {}
+  pull_request: {}
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  verify-repository:
+    name: Verify repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify project structure
+        run: |
+          echo "Starting H2 DevSecOps pipeline"
+          test -f package.json
+          test -d frontend
+          echo "Repository structure verified"
