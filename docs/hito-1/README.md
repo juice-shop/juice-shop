@@ -20,7 +20,7 @@ confianza marcados. Guarden la imagen en esta carpeta, por ejemplo como
 `dfd.png`, y péguenla debajo.*
 -->
 
-![DFD de Juice Shop con límites de confianza](/docs/hito-1/assets/dfd_juice_shop.png)
+![DFD de Juice Shop con límites de confianza](/docs/hito-1/hito-1-assets/dfd_juice_shop.png)
 
 ## STRIDE
 
@@ -299,6 +299,23 @@ confianza (navegador, API, base de datos y el WAF) y los hallazgos del DAST que
 van a convertirse en PoC del Hito 2. Si el puerto original de la app responde,
 anótenlo aquí como bypass del WAF. Guarden el mapa en esta carpeta, por ejemplo
 como `superficie.png`.*
+
+
+La aplicación escucha en el puerto `3000` y el WAF en `8080`. Al consultar
+`http://localhost:3000` directamente, la aplicación responde `200`, así que el WAF
+se puede evadir por completo. Cualquier ataque enviado al puerto `3000` no pasa por
+ModSecurity ni por sus reglas.
+
+| Dato | Detalle |
+|---|---|
+| Hallazgo | Puerto de la aplicación expuesto, bypass del WAF |
+| Evidencia | `GET http://localhost:3000` → `200 OK`  |
+| CWE / OWASP | CWE-693 / A02 Security Misconfiguration (a validar) |
+| Impacto | Se anulan los controles del WAF y las reglas de detección basadas en sus logs (Hito 3) |
+| Control | Publicar solo el puerto del WAF; en Docker Compose usar `expose` en lugar de `ports` para la aplicación, dentro de una red interna |
+
+![DFD de Juice Shop con límites de confianza](/docs/hito-1/hito-1-assets/superficie.png)
+
 
 ## Requisitos de seguridad
 
