@@ -1,4 +1,3 @@
-
 name: H2 - DevSecOps
 
 on:
@@ -24,3 +23,25 @@ jobs:
           test -f package.json
           test -d frontend
           echo "Repository structure verified"
+
+  sast-semgrep:
+    name: SAST - Semgrep
+    runs-on: ubuntu-latest
+
+    container:
+      image: semgrep/semgrep
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep scan
+        run: semgrep scan --config auto --json --output semgrep-report.json .
+
+      - name: Upload Semgrep report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep-report.json
+          if-no-files-found: warn
