@@ -1,0 +1,39 @@
+# Filebeat: envía los logs del WAF (y opcionalmente los de su app) a Elasticsearch
+filebeat.inputs:
+  # Log de acceso de nginx: una línea por request (URL con payloads codificados)
+  - type: filestream
+    id: waf-access
+    paths:
+      - /var/log/waf/access.log
+    fields:
+      fuente: waf-access
+
+  # Log de auditoría de ModSecurity (JSON): requests que dispararon reglas del OWASP CRS
+  - type: filestream
+    id: waf-audit
+    paths:
+      - /var/log/waf/modsec_audit.json
+    parsers:
+      - ndjson:
+          target: "modsec"
+          add_error_key: true
+    fields:
+      fuente: waf-audit
+
+  # Opcional (README, sección 7): logs de su aplicación, por ejemplo logins fallidos.
+  # Si su app escribe una línea JSON por evento, dejen el parser ndjson; si escribe
+  # texto plano, borren el bloque "parsers".
+  - type: filestream
+    id: app
+    enabled: false          # cámbienlo a true cuando su app escriba en APP_LOGS_DIR
+    paths:
+      - /var/log/app/*.log
+    parsers:
+      - ndjson:
+          target: "app"
+          add_error_key: true
+    fields:
+      fuente: app
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]

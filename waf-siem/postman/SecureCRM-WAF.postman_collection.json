@@ -1,0 +1,118 @@
+{
+  "info": {
+    "_postman_id": "be035f5e-3e06-448f-a3cc-e819577f3a62",
+    "name": "Juice Shop — WAF + SIEM (Proyecto Final)",
+    "description": "Peticiones a OWASP Juice Shop a traves del WAF (localhost:8080). Carpeta 0: verificacion. Carpeta 1: trafico legitimo (el login guarda el token y el id de la canasta automaticamente). Carpeta 2: ataques — cada peticion tiene un slot donde pegas el PoC que ya documentaste en el Proyecto DAST. Usa el environment 'SecureCRM-WAF'.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Verificacion",
+      "item": [
+        {
+          "name": "Version de la app a traves del WAF (debe dar 200)",
+          "request": { "method": "GET", "url": "{{base_url}}/rest/admin/application-version" }
+        },
+        {
+          "name": "Version directo a la app (saltando el WAF)",
+          "request": { "method": "GET", "url": "{{base_url_directo}}/rest/admin/application-version" },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "// Si esto responde 200, Juice Shop sigue expuesto en su puerto original:",
+              "// el Red Team puede ir directo sin pasar por el WAF. Es un HALLAZGO.",
+              "// Se cierra con la opcion B del README (app como servicio de Docker)."
+            ] } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1. Trafico legitimo",
+      "item": [
+        {
+          "name": "Login (guarda el token y la canasta)",
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "pm.test('login 200', () => pm.response.to.have.status(200));",
+              "const a = (pm.response.json() || {}).authentication || {};",
+              "if (a.token) { pm.environment.set('token', a.token); console.log('token guardado'); }",
+              "if (a.bid) { pm.environment.set('bid', String(a.bid)); console.log('canasta:', a.bid, '| usuario:', a.umail); }"
+            ] } }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{base_url}}/rest/user/login",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"jim@juice-sh.op\",\n  \"password\": \"ncc-1701\"\n}" }
+          }
+        },
+        {
+          "name": "Ver mi canasta (usa el token)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": "{{base_url}}/rest/basket/{{bid}}"
+          }
+        },
+        {
+          "name": "Buscar productos (termino normal)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/rest/products/search?q=apple",
+              "host": [ "{{base_url}}" ],
+              "path": [ "rest", "products", "search" ],
+              "query": [ { "key": "q", "value": "apple" } ]
+            }
+          }
+        },
+        {
+          "name": "Listar feedback (publico)",
+          "request": { "method": "GET", "url": "{{base_url}}/api/Feedbacks" }
+        }
+      ]
+    },
+    {
+      "name": "2. Ataques (pega tu PoC del lab DAST)",
+      "description": "El WAF esta en DetectionOnly: estas peticiones NO se bloquean, solo se registran. Cambia los valores poc_* del environment por el PoC que documentaste en el Proyecto DAST. Despues de enviarlas, revisa el SIEM.",
+      "item": [
+        {
+          "name": "SQLi en el login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "url": "{{base_url}}/rest/user/login",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"{{poc_sqli_login}}\",\n  \"password\": \"x\"\n}" }
+          }
+        },
+        {
+          "name": "SQLi / XSS en la busqueda de productos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/rest/products/search?q={{poc_busqueda}}",
+              "host": [ "{{base_url}}" ],
+              "path": [ "rest", "products", "search" ],
+              "query": [ { "key": "q", "value": "{{poc_busqueda}}" } ]
+            }
+          }
+        },
+        {
+          "name": "Metodo no permitido (DELETE) — prueba del modo On",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": "{{base_url}}/api/Products/1"
+          },
+          "event": [
+            { "listen": "test", "script": { "type": "text/javascript", "exec": [
+              "// En DetectionOnly: pasa y Juice Shop responde 401 (la ruta tiene denyAll, no borra nada).",
+              "// En modo On: el WAF responde 403 (regla 911100) porque DELETE no esta en",
+              "// ALLOWED_METHODS. Asi se ve el falso positivo de metodos en el Hito 3."
+            ] } }
+          ]
+        }
+      ]
+    }
+  ]
+}
