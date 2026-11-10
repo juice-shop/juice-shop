@@ -409,6 +409,7 @@ jobs:
           artifact-name: juice-shop-sbom
           upload-artifact: true
 
+
       - name: Quality Gate - SBOM
         run: |
           python3 - <<'PY'
@@ -419,23 +420,29 @@ jobs:
               sbom = json.load(f)
 
           components = sbom.get("components", [])
+
+          # Les fichiers peuvent légitimement ne pas avoir de version.
           invalid = [
               c for c in components
-              if not c.get("name") or not c.get("version")
+              if not c.get("name")
+              or (c.get("type") == "library" and not c.get("version"))
           ]
 
           print("Format:", sbom.get("bomFormat"))
           print("Components:", len(components))
-          print("Components missing name/version:", len(invalid))
+          print("Invalid components:", len(invalid))
 
           if sbom.get("bomFormat") != "CycloneDX":
               sys.exit("QUALITY GATE FAILED: invalid SBOM format")
+
+          if sbom.get("specVersion") != "1.6":
+              sys.exit("QUALITY GATE FAILED: unexpected CycloneDX version")
 
           if not components:
               sys.exit("QUALITY GATE FAILED: empty SBOM")
 
           if invalid:
-              sys.exit("QUALITY GATE FAILED: incomplete components")
+              sys.exit("QUALITY GATE FAILED: invalid component metadata")
 
           print("QUALITY GATE PASSED")
           PY
