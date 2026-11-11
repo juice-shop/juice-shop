@@ -538,3 +538,75 @@ jobs:
       - name: Remove staging container
         if: always()
         run: docker rm -f juice-shop-staging || true
+  notify_slack:
+    name: Slack - Pipeline Notification
+    runs-on: ubuntu-24.04
+    if: ${{ always() }}
+
+    needs:
+      - secrets_scan
+      - sast
+      - sca
+      - iac_scan
+      - build
+      - unit_tests
+      - frontend_tests
+      - docker_build
+      - docker_scan
+      - sbom
+      - dast
+      - publish_image
+      - deploy_staging
+
+    steps:
+      - name: Send Slack notification
+        continue-on-error: true
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          jobs = json.loads(os.environ["NEEDS_JSON"])
+
+          failed = [
+              name for name, data in jobs.items()
+              if data["result"] in ("failure", "cancelled")
+          ]
+
+          success = all(
+              data["result"] == "success"
+              for data in jobs.values()
+          )
+
+          status = "SUCCESS" if success else "FAILED"
+          symbol = ":white_check_mark:" if success else ":x:"
+
+          message = (
+              f"{symbol} *DevSecOps Pipeline: {status}*\n"
+              f"Repository: {os.environ['REPOSITORY']}\n"
+              f"Failed jobs: {', '.join(failed) if failed else 'None'}\n"
+              f"Details: {os.environ['RUN_URL']}"
+          )
+
+          webhook = os.environ["SLACK_WEBHOOK_URL"]
+
+          payload = json.dumps({"text": message}).encode("utf-8")
+
+          request = urllib.request.Request(
+              webhook,
+              data=payload,
+              headers={"Content-Type": "application/json"},
+              method="POST"
+          )
+
+          with urllib.request.urlopen(request, timeout=15) as response:
+              print("Slack notification sent:", response.status)
+          PY
+
+
