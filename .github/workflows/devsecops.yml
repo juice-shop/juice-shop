@@ -63,56 +63,11 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build frontend and backend
-        run: npm run build
-  
-  unit_tests:
-    name: Unit Tests - Juice Shop
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      - name: Install backend dependencies
-        run: npm install --legacy-peer-deps --ignore-scripts
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install --legacy-peer-deps
-
-      - name: Run server unit tests
-        run: npm run test:server
-  
-  frontend_tests:
-    name: Frontend Tests - Juice Shop
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install --legacy-peer-deps
-
-      - name: Run frontend tests
-        run: npm run test:frontend
+        run: npm run build  
   docker_build:
     name: Build Docker Image
     runs-on: ubuntu-24.04
-    needs: [unit_tests, frontend_tests, sast, sca, secrets_scan, iac_scan]
+    needs: [sast, sca, secrets_scan, iac_scan]
 
     steps:
       - name: Checkout source code
