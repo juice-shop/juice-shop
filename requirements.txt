@@ -1,0 +1,13 @@
+certifi==2021.10.8
+charset-normalizer==2.0.12
+click==8.0.1
+Flask==2.0.1
+idna==3.3
+itsdangerous==2.0.1
+Jinja2==3.0.1
+lxml==4.8.0
+MarkupSafe==2.0.1
+requests==2.27.1
+urllib3==1.26.8
+waitress==2.1.1
+Werkzeug==2.0.1
