@@ -198,6 +198,7 @@
     "cypress": "^15.16.0",
     "diff": "^9.0.0",
     "eslint": "^9.39.4",
+    "eslint-plugin-security": "^4.2.1",
     "exif": "^0.6.0",
     "globals": "^17.4.0",
     "neostandard": "^0.13.0",

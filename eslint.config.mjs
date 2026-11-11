@@ -8,6 +8,7 @@ import neostandard from 'neostandard'
 import globals from 'globals'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import security from 'eslint-plugin-security'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -23,6 +24,7 @@ export default [
       'node_modules/**'
     ]
   },
+  security.configs.recommended,
   ...neostandard({ ts: true }),
   {
     languageOptions: {

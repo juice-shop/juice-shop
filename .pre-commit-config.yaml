@@ -13,3 +13,9 @@ repos:
         language: system
         types_or: [javascript, jsx, ts, tsx]
         require_serial: true
+      - id: eslint
+        name: ESLint Security
+        entry: cmd /c node_modules\\.bin\\eslint.cmd
+        language: system
+        files: \.(js|jsx|ts|tsx)$
+        pass_filenames: true
