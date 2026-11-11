@@ -1,4 +1,3 @@
-
 name: DevSecOps Juice Shop
 
 on:
@@ -11,87 +10,27 @@ permissions:
   contents: read
 
 jobs:
-  environment-check:
-    name: Verify CI Environment
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      - name: Verify installed tools
-        run: |
-          node --version
-          npm --version
-          git --version
-          docker --version
-
-      - name: Verify Juice Shop project
-        run: |
-          test -f package.json
-          test -f Dockerfile
-          test -f frontend/package.json
-          echo "Juice Shop project verified!"
-  
-  build:
-    name: Build Juice Shop
-    runs-on: ubuntu-latest
-    needs: environment-check
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js 24
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      # Installation temporaire sans lockfile.
-      # Le postinstall du dÃ©pÃ´t lance lui-mÃªme
-      # une installation frontend.
-      - name: Install backend dependencies
-        run: npm install --legacy-peer-deps --ignore-scripts
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install --legacy-peer-deps
-
-      - name: Build frontend and backend
-        run: npm run build  
-  docker_build:
-    name: Build Docker Image
+  secrets_scan:
+    name: Secrets Scan - TruffleHog
     runs-on: ubuntu-24.04
-    needs: [sast, sca, secrets_scan, iac_scan]
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-
-      - name: Build Docker image
-        run: docker build -t juice-shop:devsecops .
-
-      - name: Save Docker image
-        run: docker save juice-shop:devsecops | gzip > juice-shop-image.tar.gz
-
-      - name: Upload Docker image artifact
-        uses: actions/upload-artifact@v4
         with:
-          name: juice-shop-docker-image
-          path: juice-shop-image.tar.gz
-          retention-days: 1
-          if-no-files-found: error
+          fetch-depth: 0
 
-  
-  
+      - name: Scan Git history with TruffleHog
+        uses: trufflesecurity/trufflehog@f8221ca52ac51bf66228d6ec3691f3ea0782ae15
+        with:
+          base: ""
+          head: ${{ github.ref_name }}
+          extra_args: --results=verified,unknown
+
   sast:
     name: SAST - SonarQube
     runs-on: ubuntu-24.04
+    needs: secrets_scan
 
     steps:
       - name: Checkout source code
@@ -114,12 +53,11 @@ jobs:
             -Dsonar.qualitygate.timeout=300
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  
-  
-  
+
   sca:
     name: SCA - Trivy Dependencies
     runs-on: ubuntu-24.04
+    needs: secrets_scan
 
     steps:
       - name: Checkout source code
@@ -143,7 +81,7 @@ jobs:
           test -f frontend/package-lock.json
           echo "Both npm lockfiles generated successfully"
 
-     
+
       - name: Scan dependencies with Trivy
         uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
         with:
@@ -167,26 +105,139 @@ jobs:
         run: |
           python3 security/check_sca_gate.py trivy-sca-report.json
 
-
-
-    
-  secrets_scan:
-    name: Secrets Scan - TruffleHog
+  iac_scan:
+    name: IaC Security - Checkov
     runs-on: ubuntu-24.04
+    needs: secrets_scan
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Scan Git history with TruffleHog
-        uses: trufflesecurity/trufflehog@f8221ca52ac51bf66228d6ec3691f3ea0782ae15
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          base: ""
-          head: ${{ github.ref_name }}
-          extra_args: --results=verified,unknown
-  
+          python-version: '3.13'
+
+      - name: Install Checkov
+        run: python -m pip install checkov
+
+      - name: Scan Dockerfile and GitHub Actions
+        run: |
+          mkdir -p checkov-reports
+
+          checkov -d . \
+            --framework dockerfile github_actions \
+            --output json \
+            --output-file-path checkov-reports/checkov-report.json \
+            --soft-fail
+
+      - name: Quality Gate - Checkov IaC
+        run: python3 security/check_checkov_gate.py
+
+      - name: Upload Checkov report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-iac-report
+          path: checkov-reports/
+          if-no-files-found: error
+
+  build:
+    name: Build Juice Shop
+    runs-on: ubuntu-latest
+    needs: [sast, sca, iac_scan]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # Installation temporaire sans lockfile.
+      # Le postinstall du dépôt lance lui-mÃªme
+      # une installation frontend.
+      - name: Install backend dependencies
+        run: npm install --legacy-peer-deps --ignore-scripts
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Build frontend and backend
+        run: npm run build
+
+  unit_tests:
+    name: Unit Tests - Juice Shop
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install backend dependencies
+        run: npm install --legacy-peer-deps --ignore-scripts
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Run server unit tests
+        run: npm run test:server
+
+  frontend_tests:
+    name: Frontend Tests - Juice Shop
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install --legacy-peer-deps
+
+      - name: Run frontend tests
+        run: npm run test:frontend
+
+  docker_build:
+    name: Build Docker Image
+    runs-on: ubuntu-24.04
+    needs: [unit_tests, frontend_tests]
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t juice-shop:devsecops .
+
+      - name: Save Docker image
+        run: docker save juice-shop:devsecops | gzip > juice-shop-image.tar.gz
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: juice-shop-docker-image
+          path: juice-shop-image.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+
   docker_scan:
     name: Docker Image Scan - Trivy
     runs-on: ubuntu-24.04
@@ -228,8 +279,70 @@ jobs:
       - name: Quality Gate - Trivy Docker
         run: python3 security/check_sca_gate.py trivy-docker-report.json
 
-  
-  
+  sbom:
+    name: SBOM - Syft CycloneDX
+    runs-on: ubuntu-24.04
+    needs: docker_build
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: juice-shop-docker-image
+
+      - name: Load Docker image
+        run: gunzip -c juice-shop-image.tar.gz | docker load
+
+      - name: Generate CycloneDX SBOM with Syft
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
+        with:
+          image: juice-shop:devsecops
+          format: cyclonedx-json
+          output-file: juice-shop-sbom.cdx.json
+          artifact-name: juice-shop-sbom
+          upload-artifact: true
+
+
+      - name: Quality Gate - SBOM
+        run: |
+          python3 - <<'PY'
+          import json
+          import sys
+
+          with open("juice-shop-sbom.cdx.json", encoding="utf-8") as f:
+              sbom = json.load(f)
+
+          components = sbom.get("components", [])
+
+          # Les fichiers peuvent légitimement ne pas avoir de version.
+          invalid = [
+              c for c in components
+              if not c.get("name")
+              or (c.get("type") == "library" and not c.get("version"))
+          ]
+
+          print("Format:", sbom.get("bomFormat"))
+          print("Components:", len(components))
+          print("Invalid components:", len(invalid))
+
+          if sbom.get("bomFormat") != "CycloneDX":
+              sys.exit("QUALITY GATE FAILED: invalid SBOM format")
+
+          if sbom.get("specVersion") != "1.6":
+              sys.exit("QUALITY GATE FAILED: unexpected CycloneDX version")
+
+          if not components:
+              sys.exit("QUALITY GATE FAILED: empty SBOM")
+
+          if invalid:
+              sys.exit("QUALITY GATE FAILED: invalid component metadata")
+
+          print("QUALITY GATE PASSED")
+          PY
+
   dast:
     name: DAST - OWASP ZAP
     runs-on: ubuntu-24.04
@@ -342,118 +455,10 @@ jobs:
           docker rm -f juice-shop-dast || true
           docker network rm zapnet || true
 
-  iac_scan:
-    name: IaC Security - Checkov
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-
-      - name: Install Checkov
-        run: python -m pip install checkov
-
-      - name: Scan Dockerfile and GitHub Actions
-        run: |
-          mkdir -p checkov-reports
-
-          checkov -d . \
-            --framework dockerfile github_actions \
-            --output json \
-            --output-file-path checkov-reports/checkov-report.json \
-            --soft-fail
-
-      - name: Quality Gate - Checkov IaC
-        run: python3 security/check_checkov_gate.py
-
-      - name: Upload Checkov report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: checkov-iac-report
-          path: checkov-reports/
-          if-no-files-found: error
-
-  sbom:
-    name: SBOM - Syft CycloneDX
-    runs-on: ubuntu-24.04
-    needs: docker_build
-
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Download Docker image
-        uses: actions/download-artifact@v4
-        with:
-          name: juice-shop-docker-image
-
-      - name: Load Docker image
-        run: gunzip -c juice-shop-image.tar.gz | docker load
-
-      - name: Generate CycloneDX SBOM with Syft
-        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
-        with:
-          image: juice-shop:devsecops
-          format: cyclonedx-json
-          output-file: juice-shop-sbom.cdx.json
-          artifact-name: juice-shop-sbom
-          upload-artifact: true
-
-
-      - name: Quality Gate - SBOM
-        run: |
-          python3 - <<'PY'
-          import json
-          import sys
-
-          with open("juice-shop-sbom.cdx.json", encoding="utf-8") as f:
-              sbom = json.load(f)
-
-          components = sbom.get("components", [])
-
-          # Les fichiers peuvent lÃ©gitimement ne pas avoir de version.
-          invalid = [
-              c for c in components
-              if not c.get("name")
-              or (c.get("type") == "library" and not c.get("version"))
-          ]
-
-          print("Format:", sbom.get("bomFormat"))
-          print("Components:", len(components))
-          print("Invalid components:", len(invalid))
-
-          if sbom.get("bomFormat") != "CycloneDX":
-              sys.exit("QUALITY GATE FAILED: invalid SBOM format")
-
-          if sbom.get("specVersion") != "1.6":
-              sys.exit("QUALITY GATE FAILED: unexpected CycloneDX version")
-
-          if not components:
-              sys.exit("QUALITY GATE FAILED: empty SBOM")
-
-          if invalid:
-              sys.exit("QUALITY GATE FAILED: invalid component metadata")
-
-          print("QUALITY GATE PASSED")
-          PY
   publish_image:
     name: Publish Docker Image to Docker Hub
     runs-on: ubuntu-24.04
-    needs:
-      - docker_build
-      - sast
-      - sca
-      - secrets_scan
-      - docker_scan
-      - dast
-      - iac_scan
-      - sbom
+    needs: [docker_scan, sbom, dast]
 
     steps:
       - name: Download validated Docker image
@@ -480,3 +485,44 @@ jobs:
           docker push "$IMAGE"
 
           echo "Published: $IMAGE"
+
+  deploy_staging:
+    name: Deploy Staging - Docker Smoke Test
+    runs-on: ubuntu-24.04
+    needs: publish_image
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull validated image from Docker Hub
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+        run: |
+          docker pull "${DOCKERHUB_USERNAME}/juice-shop-devsecops:${GITHUB_SHA}"
+
+      - name: Start isolated staging container
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+        run: |
+          docker run -d --name juice-shop-staging \
+            -p 127.0.0.1:3000:3000 \
+            "${DOCKERHUB_USERNAME}/juice-shop-devsecops:${GITHUB_SHA}"
+
+      - name: Smoke test deployed application
+        run: |
+          for i in {1..36}; do
+            if curl --fail --silent --show-error http://127.0.0.1:3000/ -o /dev/null; then
+              echo "STAGING SMOKE TEST PASSED"
+              exit 0
+            fi
+            sleep 5
+          done
+          docker logs juice-shop-staging
+          exit 1
+
+      - name: Remove staging container
+        if: always()
+        run: docker rm -f juice-shop-staging || true
