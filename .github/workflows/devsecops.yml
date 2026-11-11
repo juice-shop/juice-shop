@@ -112,7 +112,7 @@ jobs:
   docker_build:
     name: Build Docker Image
     runs-on: ubuntu-24.04
-    needs: [unit_tests, frontend_tests]
+    needs: [unit_tests, frontend_tests, sast, sca, secrets_scan, iac_scan]
 
     steps:
       - name: Checkout source code
