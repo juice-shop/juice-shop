@@ -226,7 +226,7 @@ jobs:
   
   
   docker_build:
-    name: Build Docker Image
+    name: Package
     runs-on: ubuntu-24.04
     needs: [unit_tests, frontend_tests]
 
