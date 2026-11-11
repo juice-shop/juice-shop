@@ -543,5 +543,7 @@
   "CHATBOT_DELETE_CONVERSATION": "Delete conversation",
   "CHATBOT_DELETE_ALL": "Odstranit vše",
   "CHATBOT_DELETE_ALL_CONVERSATIONS": "Odstranit všechny konverzace",
+  "CHATBOT_EDIT_MESSAGE": "Edit message",
+  "CHATBOT_CANCEL_EDIT": "Cancel",
   "CHATBOT_ERROR_LLM_UNREACHABLE": "Jejda! Vypadá to, že náš AI engine má šťavnatou přestávku. Koncový bod AI není nakonfigurovaný nebo dosažitelný. Pokud chcete pokračovat kontaktujte správce obchodu!"
 }
