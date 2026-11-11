@@ -78,7 +78,7 @@ const metricToolCalls = new Counter({
   labelNames: ['tool'],
 })
 
-// vuln-code-snippet start chatbotGreedyInjectionChallenge
+// vuln-code-snippet start chatbotGreedyInjectionChallenge updating a comment to trigger webhook
 export function buildSystemPrompt (userName?: string) { // vuln-code-snippet neutral-line chatbotGreedyInjectionChallenge
   const userIdentifier = userName ? `\nThe customer you are currently chatting with is ${userName}.` : ''
   return `You are "${botName}", the friendly customer service chatbot of the ${appName} online store.
