@@ -224,6 +224,7 @@ jobs:
         run: npm run test:frontend
 
   
+  
   docker_build:
     name: Build Docker Image
     runs-on: ubuntu-24.04
@@ -233,18 +234,8 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build Docker image with cache
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: false
-          load: true
-          tags: juice-shop:devsecops
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      - name: Build Docker image
+        run: docker build -t juice-shop:devsecops .
 
       - name: Save Docker image
         run: docker save juice-shop:devsecops | gzip > juice-shop-image.tar.gz
@@ -256,6 +247,7 @@ jobs:
           path: juice-shop-image.tar.gz
           retention-days: 1
           if-no-files-found: error
+
 
 
   docker_scan:
