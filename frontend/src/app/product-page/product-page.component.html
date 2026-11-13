@@ -1,0 +1,88 @@
+<!--
+  ~ Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+  ~ SPDX-License-Identifier: MIT
+-->
+
+<main class="container">
+  <div class="back-row">
+    <button mat-button type="button" (click)="goBack()">
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      <span>{{ 'LABEL_BACK' | translate }}</span>
+    </button>
+  </div>
+
+  @if (productResource.isLoading()) {
+    <div class="loading" role="status" aria-live="polite">
+      <mat-spinner diameter="60" aria-label="Loading"></mat-spinner>
+    </div>
+  } @else if (productResource.value(); as product) {
+    <mat-card class="details" aria-labelledby="product-name">
+      <mat-card-content class="details-content">
+        <div class="details-image" [style.background-image]="backgroundImage()">
+          <app-product-image [alternateImages]="product.alternateImages">
+            <img class="img-thumbnail" [src]="'assets/public/images/products/' + product.image" [alt]="product.name">
+          </app-product-image>
+        </div>
+
+        <div class="details-info">
+          <h1 id="product-name" class="product-name">{{ product.name }}</h1>
+          <div class="product-description" [innerHTML]="product.description"></div>
+          <div class="price-row">
+            <p class="item-price" matTooltip="{{ 'LABEL_PRICE' | translate }}">
+              @if (!isDeluxe() || product.price === product.deluxePrice) {
+                {{ product.price }}&curren;
+              }
+              @if (isDeluxe() && product.price !== product.deluxePrice) {
+                <s class="expired">{{ product.price }}</s>
+                {{ product.deluxePrice }}&curren;
+              }
+            </p>
+            @if (points() > 0) {
+              <div matTooltip="{{ 'LABEL_BONUS' | translate }}"
+                aria-label="Bonus points when buying the product">
+                <span class="bonus-points" aria-hidden="true">
+                  <i class="fas fa-crown bonus-crown"></i>
+                  <span class="bonus-counter warn-notification">{{ points() }}</span>
+                </span>
+              </div>
+            }
+          </div>
+          <div class="purchase-row">
+            <div class="quantity-stepper" role="group" aria-label="Quantity">
+              <button mat-icon-button type="button" (click)="decrementQuantity()" aria-label="Decrease quantity">
+                <mat-icon aria-hidden="true">remove</mat-icon>
+              </button>
+              <span class="quantity-value" aria-live="polite">{{ quantity() }}</span>
+              <button mat-icon-button type="button" (click)="incrementQuantity()" aria-label="Increase quantity">
+                <mat-icon aria-hidden="true">add</mat-icon>
+              </button>
+            </div>
+            <button mat-raised-button color="primary" class="add-to-basket-button" (click)="addToBasket()" aria-label="{{ 'ADD_BASKET' | translate }}">
+              <mat-icon aria-hidden="true">add_shopping_cart</mat-icon>
+              <span>{{ 'ADD_BASKET' | translate }}</span>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <app-product-reviews [productId]="product.id" [(expanded)]="reviewsExpanded"></app-product-reviews>
+
+    <section aria-labelledby="related-title">
+      <h2 id="related-title" class="related-title">{{ 'LABEL_RELATED_PRODUCTS' | translate }}</h2>
+      @if (relatedProductsResource.isLoading()) {
+        <div class="loading loading--compact" role="status" aria-live="polite">
+          <mat-spinner diameter="40" aria-label="Loading related products"></mat-spinner>
+        </div>
+      } @else if (relatedProducts().length > 0) {
+        <div class="products-grid" #relatedGrid>
+          @for (item of relatedProducts(); track item.id) {
+            <app-product class="product" [item]="item" [isLoggedIn]="isLoggedIn()" [isDeluxe]="isDeluxe()"></app-product>
+          }
+        </div>
+      }
+    </section>
+  } @else if (productId() != null) {
+    <p class="status-message">{{ 'PRODUCT_NOT_FOUND' | translate }}</p>
+  }
+</main>

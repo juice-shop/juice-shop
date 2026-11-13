@@ -21,6 +21,19 @@
   height: 100%;
 }
 
+.product-link {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.product-link:link,
+.product-link:visited {
+  color: inherit;
+}
+
 .info-box {
   text-align: center;
 }

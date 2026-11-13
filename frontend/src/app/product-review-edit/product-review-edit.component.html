@@ -9,10 +9,9 @@
     <div>
       <mat-form-field appearance="outline" color="tertiary" hintLabel="{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: maxReviewLength } }}" floatLabel="always">
         <mat-label>{{ 'LABEL_REVIEW' | translate }}</mat-label>
-        <textarea [formField]="reviewForm.message" matInput
+        <textarea [formField]="reviewForm.message" matInput rows="4"
           placeholder="{{'WRITE_REVIEW_PLACEHOLDER' | translate}}"
-          matTextareaAutosize matAutosizeMinRows="2"
-        matAutosizeMaxRows="4" aria-label="Text field to edit a product review"></textarea>
+          aria-label="Text field to edit a product review"></textarea>
         <mat-hint align="end">{{reviewModel().message.length}}/{{maxReviewLength}}</mat-hint>
         @if (reviewForm.message().getError('required') || reviewForm.message().getError('pattern')) {
           <mat-error>{{ 'MANDATORY_REVIEW' | translate }}</mat-error>
