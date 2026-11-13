@@ -9,16 +9,11 @@ import { Location } from '@angular/common'
 import { ActivatedRoute, Router } from '@angular/router'
 import { catchError, map } from 'rxjs/operators'
 import { firstValueFrom, of } from 'rxjs'
-import { UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatDialog } from '@angular/material/dialog'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatCardModule } from '@angular/material/card'
-import { MatInputModule } from '@angular/material/input'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatFormFieldModule, MatLabel, MatHint } from '@angular/material/form-field'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -26,15 +21,12 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons'
 
 import { ProductService } from '../Services/product.service'
 import { BasketService } from '../Services/basket.service'
-import { ProductReviewService } from '../Services/product-review.service'
-import { UserService } from '../Services/user.service'
 import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
 import { DeluxeGuard } from '../app.guard'
-import { ProductReviewEditComponent } from '../product-review-edit/product-review-edit.component'
 import { ProductComponent } from '../product/product.component'
 import { ProductImageComponent } from '../product-image/product-image.component'
+import { ProductReviewsComponent } from '../product-reviews/product-reviews.component'
 import { type Product } from '../Models/product.model'
-import { type Review } from '../Models/review.model'
 
 const IMAGE_BASE_PATH = 'assets/public/images/products/'
 
@@ -46,41 +38,30 @@ library.add(faCrown)
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
     MatTooltip,
     MatCardModule,
-    MatInputModule,
     MatProgressSpinnerModule,
-    MatFormFieldModule,
-    MatLabel,
-    MatHint,
     TranslateModule,
     ProductComponent,
-    ProductImageComponent
+    ProductImageComponent,
+    ProductReviewsComponent
   ]
 })
 export class ProductPageComponent implements OnDestroy {
   private readonly route = inject(ActivatedRoute)
   private readonly router = inject(Router)
   private readonly location = inject(Location)
-  private readonly dialog = inject(MatDialog)
   private readonly productService = inject(ProductService)
   private readonly basketService = inject(BasketService)
   private readonly translateService = inject(TranslateService)
-  private readonly productReviewService = inject(ProductReviewService)
-  private readonly userService = inject(UserService)
   private readonly snackBarHelperService = inject(SnackBarHelperService)
   private readonly deluxeGuard = inject(DeluxeGuard)
   private readonly ngZone = inject(NgZone)
 
   readonly relatedGrid = viewChild<ElementRef<HTMLElement>>('relatedGrid')
-  readonly reviewsPanel = viewChild('reviewsPanel', { read: ElementRef })
+  readonly reviewsSection = viewChild(ProductReviewsComponent, { read: ElementRef })
   readonly columnCount = signal(4)
   readonly relatedDisplayCount = computed(() => Math.max(1, this.columnCount()))
   readonly relatedProducts = computed(() => (this.relatedProductsResource.value() ?? []).slice(0, this.relatedDisplayCount()))
@@ -113,9 +94,9 @@ export class ProductPageComponent implements OnDestroy {
     effect(() => {
       if (this.reviewsQuery() === 'true') {
         this.reviewsExpanded.set(true)
-        const panel = this.reviewsPanel()
-        if (this.productResource.value() != null && panel) {
-          this.scrollToReviewsSection(panel.nativeElement)
+        const section = this.reviewsSection()
+        if (this.productResource.value() != null && section) {
+          this.scrollToReviewsSection(section.nativeElement)
         }
       }
     })
@@ -156,16 +137,6 @@ export class ProductPageComponent implements OnDestroy {
       )
   })
 
-  readonly reviewsResource = resource({
-    params: () => this.productId(),
-    loader: ({ params: id }) =>
-      firstValueFrom(
-        this.productReviewService.get(id).pipe(
-          catchError(() => of([]))
-        )
-      )
-  })
-
   readonly relatedProductsResource = resource({
     params: () => {
       const id = this.productId()
@@ -185,20 +156,6 @@ export class ProductPageComponent implements OnDestroy {
       )
   })
 
-  readonly author = toSignal(
-    this.userService.whoAmI(['email']).pipe(
-      map((user: { email?: string }) => (user?.email ? user.email : 'Anonymous')),
-      catchError(() => of('Anonymous'))
-    ),
-    { initialValue: 'Anonymous' }
-  )
-
-  readonly reviewControl = new UntypedFormControl('', [Validators.maxLength(160)])
-  readonly reviewText = toSignal(
-    this.reviewControl.valueChanges.pipe(map((value: string) => value ?? '')),
-    { initialValue: '' }
-  )
-
   readonly points = computed(() => {
     const price = this.productResource.value()?.price
     return price != null ? Math.round(price / 10) : 0
@@ -210,37 +167,6 @@ export class ProductPageComponent implements OnDestroy {
     } else {
       void this.router.navigate(['/search'])
     }
-  }
-
-  addReview (textPut: HTMLTextAreaElement): void {
-    const id = this.productId()
-    if (id == null) {
-      return
-    }
-    const review = { message: textPut.value, author: this.author() }
-    this.reviewControl.setValue('')
-    this.productReviewService.create(id, review).subscribe({
-      next: () => this.reviewsResource.reload(),
-      error: (err) => { console.log(err) }
-    })
-    this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
-  }
-
-  editReview (review: Review): void {
-    this.dialog.open(ProductReviewEditComponent, {
-      width: '500px',
-      height: 'max-content',
-      data: {
-        reviewData: review
-      }
-    }).afterClosed().subscribe(() => this.reviewsResource.reload())
-  }
-
-  likeReview (review: Review): void {
-    this.productReviewService.like(review._id).subscribe(() => {
-      console.log('Liked ' + review._id)
-    })
-    setTimeout(() => this.reviewsResource.reload(), 200)
   }
 
   isLoggedIn (): boolean {

@@ -282,26 +282,14 @@ describe('ProductPageComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/search'])
     })
 
-    it('should add a review for the current product', () => {
-        const textPut = { value: 'Great juice' } as HTMLTextAreaElement
-        component.addReview(textPut)
-        expect(productReviewService.create).toHaveBeenCalledWith(12, { message: 'Great juice', author: 'user@example.com' })
-        expect(snackBarHelper.open).toHaveBeenCalledWith('CONFIRM_REVIEW_SAVED')
+    it('should render the product reviews section for the loaded product', async () => {
+        const reviewsFixture = TestBed.createComponent(ProductPageComponent)
+        reviewsFixture.detectChanges()
+        await vi.waitFor(() => {
+            reviewsFixture.detectChanges()
+            expect(reviewsFixture.nativeElement.querySelector('app-product-reviews')).toBeTruthy()
+        })
     })
-
-    it('should like a review', () => {
-        vi.useFakeTimers()
-        component.likeReview({ _id: 'abc', message: 'Nice', author: 'someone' })
-        expect(productReviewService.like).toHaveBeenCalledWith('abc')
-        vi.advanceTimersByTime(200)
-        vi.useRealTimers()
-    })
-
-    it('should open the edit review dialog', () => {
-        component.editReview({ _id: 'abc', message: 'Nice', author: 'someone' })
-        expect(dialog.open).toHaveBeenCalled()
-    })
-
     it('should load related products excluding the current product', async () => {
         productService.search.mockReturnValue(of([
             { id: 12, name: 'Current' },
@@ -343,26 +331,6 @@ describe('ProductPageComponent', () => {
             loadingFixture.detectChanges()
             expect(loadingFixture.nativeElement.querySelector('.details')).toBeTruthy()
             expect(loadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading"]')).toBeNull()
-        })
-    })
-
-    it('should show a spinner while reviews are loading', async () => {
-        const pending = new Subject<any[]>()
-        productReviewService.get.mockReturnValue(pending)
-        const reviewsLoadingFixture = TestBed.createComponent(ProductPageComponent)
-        reviewsLoadingFixture.detectChanges()
-        await vi.waitFor(() => {
-            reviewsLoadingFixture.detectChanges()
-            expect(reviewsLoadingFixture.nativeElement.querySelector('.details')).toBeTruthy()
-        })
-        expect(reviewsLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading reviews"]')).toBeTruthy()
-        expect(reviewsLoadingFixture.nativeElement.querySelector('.review-item')).toBeNull()
-
-        pending.next([])
-        pending.complete()
-        await vi.waitFor(() => {
-            reviewsLoadingFixture.detectChanges()
-            expect(reviewsLoadingFixture.nativeElement.querySelector('mat-spinner[aria-label="Loading reviews"]')).toBeNull()
         })
     })
 
