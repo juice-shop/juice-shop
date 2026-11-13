@@ -52,10 +52,9 @@
       <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
       <em class="hint-spacing">{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: maxReviewLength } }}</em>
     </mat-hint>
-    <textarea [formField]="reviewForm.message" cols="50" matInput
+    <textarea [formField]="reviewForm.message" matInput rows="2"
       placeholder="{{ 'WRITE_REVIEW_PLACEHOLDER' | translate }}"
-      matTextareaAutosize matAutosizeMinRows="2"
-      matAutosizeMaxRows="4" aria-label="Text field to review a product"></textarea>
+      aria-label="Text field to review a product"></textarea>
     <mat-hint align="end">{{ reviewModel().message.length }}/{{ maxReviewLength }}</mat-hint>
     @if (reviewForm.message().getError('maxLength')) {
       <mat-error>{{ 'MAX_TEXTAREA_LENGTH' | translate: { length: maxReviewLength } }}</mat-error>
