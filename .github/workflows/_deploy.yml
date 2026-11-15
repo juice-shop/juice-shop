@@ -1,0 +1,14 @@
+# Despliegue
+# Responsable: persona B
+name: Despliegue
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'deploy' pendiente de implementar (persona B)"

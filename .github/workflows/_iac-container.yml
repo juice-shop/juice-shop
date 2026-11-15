@@ -1,0 +1,20 @@
+# IaC e imagen
+# Responsable: persona B
+name: IaC e imagen
+
+on:
+  workflow_call:
+
+jobs:
+  iac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'iac' pendiente de implementar (persona B)"
+  image-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'image-scan' pendiente de implementar (persona B)"

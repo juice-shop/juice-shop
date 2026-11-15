@@ -1,0 +1,14 @@
+# Quality gate final
+# Responsable: persona B
+name: Quality gate final
+
+on:
+  workflow_call:
+
+jobs:
+  security-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'security-gate' pendiente de implementar (persona B)"

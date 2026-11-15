@@ -1,0 +1,55 @@
+# Pipeline DevSecOps del Security Team ST-30 (PAI-4 SSII)
+# Orquestador: define cuándo se ejecuta el pipeline y en qué orden van las etapas.
+# Cada etapa es un workflow reutilizable (_*.yml) con un único responsable:
+#   A -> _build.yml, _sast-sca.yml
+#   B -> _iac-container.yml, _security-gate.yml, _deploy.yml
+#   C -> _dast.yml, .github/actions/defectdojo-import
+# Cualquier cambio en ESTE fichero se avisa antes al grupo (contrato, sección 3).
+name: DevSecOps
+
+on:
+  push:
+    branches: [master, 'feature/**']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: devsecops-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/_build.yml
+    secrets: inherit
+
+  sast-sca:
+    needs: build
+    uses: ./.github/workflows/_sast-sca.yml
+    secrets: inherit
+
+  iac-container:
+    needs: build
+    uses: ./.github/workflows/_iac-container.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      packages: write   # publicar la imagen en GHCR
+
+  dast:
+    needs: [sast-sca, iac-container]
+    uses: ./.github/workflows/_dast.yml
+    secrets: inherit
+
+  security-gate:
+    needs: [sast-sca, iac-container, dast]
+    uses: ./.github/workflows/_security-gate.yml
+    secrets: inherit
+
+  deploy:
+    needs: security-gate
+    uses: ./.github/workflows/_deploy.yml
+    secrets: inherit

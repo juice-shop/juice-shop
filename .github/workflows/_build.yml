@@ -1,0 +1,14 @@
+# Build
+# Responsable: persona A
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'build' pendiente de implementar (persona A)"

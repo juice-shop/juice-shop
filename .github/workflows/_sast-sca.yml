@@ -1,0 +1,20 @@
+# SAST y SCA
+# Responsable: persona A
+name: SAST y SCA
+
+on:
+  workflow_call:
+
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'sast' pendiente de implementar (persona A)"
+  sca:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'sca' pendiente de implementar (persona A)"

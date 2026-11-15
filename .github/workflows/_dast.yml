@@ -1,0 +1,14 @@
+# DAST
+# Responsable: persona C
+name: DAST
+
+on:
+  workflow_call:
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pendiente de implementar
+        run: echo "Etapa 'dast' pendiente de implementar (persona C)"
