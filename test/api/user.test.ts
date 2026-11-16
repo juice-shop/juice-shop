@@ -12,6 +12,9 @@ import { login } from './helpers/auth'
 import { challenges } from '../../data/datacache'
 import * as security from '../../lib/insecurity'
 import * as utils from '../../lib/utils'
+import logger from '../../lib/logger'
+import { SecurityAnswerModel } from '../../models/securityAnswer'
+import { UserModel } from '../../models/user'
 
 let app: Express
 let authHeader: Record<string, string>
@@ -193,6 +196,195 @@ void describe('/api/Users', () => {
       assert.equal(res.body.data.email, '<iframe src="javascript:alert(`xss`)">')
     })
   }
+})
+
+void describe('/api/Users with security question and answer', () => {
+  const registration = (email: string, extra: Record<string, unknown> = {}) => ({
+    email,
+    password: 'hooooorst',
+    passwordRepeat: 'hooooorst',
+    securityQuestion: { id: 1, question: 'Your eldest siblings middle name?' },
+    securityAnswer: 'Horst',
+    ...extra
+  })
+
+  const usersWithEmail = async (email: string) => await UserModel.count({ where: { email }, paranoid: false })
+
+  void it('POST new user with security question and answer creates exactly one user and one security answer for it', async () => {
+    const email = 'sa-create@horstma.nn'
+    const answersBefore = await SecurityAnswerModel.count()
+    const res = await request(app)
+      .post('/api/Users/')
+      .set(jsonHeader)
+      .send(registration(email))
+    assert.equal(res.status, 201)
+    assert.equal(await usersWithEmail(email), 1)
+    const answers = await SecurityAnswerModel.findAll({ where: { UserId: res.body.data.id } })
+    assert.equal(answers.length, 1)
+    assert.equal(answers[0].SecurityQuestionId, 1)
+    assert.equal(answers[0].answer, security.hmac('Horst'))
+    assert.equal(await SecurityAnswerModel.count(), answersBefore + 1)
+  })
+
+  void it('POST new user without security question and answer still succeeds and creates no security answer', async () => {
+    const answersBefore = await SecurityAnswerModel.count()
+    const withoutRes = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send({ email: 'sa-none@horstma.nn', password: 'hooooorst', passwordRepeat: 'hooooorst' })
+    const withNullsRes = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send({ email: 'sa-null@horstma.nn', password: 'hooooorst', passwordRepeat: 'hooooorst', securityQuestion: null, securityAnswer: null })
+    assert.equal(withoutRes.status, 201)
+    assert.equal(withNullsRes.status, 201)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: withoutRes.body.data.id } }), 0)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: withNullsRes.body.data.id } }), 0)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore)
+  })
+
+  void it('POST new user with security answer of exactly the maximum length succeeds', async () => {
+    const res = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration('sa-maxlength@horstma.nn', { securityAnswer: 'a'.repeat(255) }))
+    assert.equal(res.status, 201)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: res.body.data.id } }), 1)
+  })
+
+  const invalidRegistrations: Array<[string, Record<string, unknown>, string]> = [
+    ['non-existing security question id', { securityQuestion: { id: 9999 } }, 'securityQuestion'],
+    ['non-numeric security question id', { securityQuestion: { id: '1' } }, 'securityQuestion'],
+    ['security question without id', { securityQuestion: {} }, 'securityQuestion'],
+    ['missing security question', { securityQuestion: undefined }, 'securityQuestion'],
+    ['empty security answer', { securityAnswer: '' }, 'securityAnswer'],
+    ['whitespace-only security answer', { securityAnswer: '   ' }, 'securityAnswer'],
+    ['non-string security answer', { securityAnswer: 42 }, 'securityAnswer'],
+    ['missing security answer', { securityAnswer: undefined }, 'securityAnswer'],
+    ['too long security answer', { securityAnswer: 'a'.repeat(256) }, 'securityAnswer']
+  ]
+  for (const [description, extra, field] of invalidRegistrations) {
+    void it(`POST new user with ${description} is rejected and leaves neither user nor security answer`, async () => {
+      const email = `sa-invalid-${field}-${invalidRegistrations.findIndex(([d]) => d === description)}@horstma.nn`
+      const answersBefore = await SecurityAnswerModel.count()
+      const res = await request(app)
+        .post('/api/Users')
+        .set(jsonHeader)
+        .send(registration(email, extra))
+      assert.equal(res.status, 400)
+      assert.ok(res.headers['content-type']?.includes('application/json'))
+      assert.equal(res.body.message, 'Validation error')
+      assert.equal(res.body.errors[0].field, field)
+      assert.equal(await usersWithEmail(email), 0)
+      assert.equal(await SecurityAnswerModel.count(), answersBefore)
+    })
+  }
+
+  void it('POST new user removes the created user again when the security answer cannot be created', async (t) => {
+    const email = 'sa-compensation@horstma.nn'
+    const answersBefore = await SecurityAnswerModel.count()
+    t.mock.method(SecurityAnswerModel, 'create', async () => { throw new Error('simulated security answer failure') })
+    const loggedErrors = t.mock.method(logger, 'error', () => logger)
+    const res = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration(email))
+    t.mock.restoreAll()
+    assert.equal(res.status, 500)
+    assert.equal(res.body.message, 'User registration could not be completed')
+    assert.ok(!JSON.stringify(res.body).includes('simulated'))
+    assert.equal(await usersWithEmail(email), 0)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore)
+    assert.ok(loggedErrors.mock.calls.some(call => String(call.arguments[0]).includes('simulated security answer failure')))
+  })
+
+  void it('POST new user logs both errors and responds safely when removing the user after a failed security answer also fails', async (t) => {
+    const email = 'sa-compensation-failure@horstma.nn'
+    t.mock.method(SecurityAnswerModel, 'create', async () => { throw new Error('simulated security answer failure') })
+    t.mock.method(UserModel, 'destroy', async () => { throw new Error('simulated user removal failure') })
+    const loggedErrors = t.mock.method(logger, 'error', () => logger)
+    const res = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration(email))
+    t.mock.restoreAll()
+    assert.equal(res.status, 500)
+    assert.equal(res.body.message, 'User registration could not be completed')
+    assert.ok(!JSON.stringify(res.body).includes('simulated'))
+    const messages = loggedErrors.mock.calls.map(call => String(call.arguments[0]))
+    assert.ok(messages.some(message => message.includes('simulated security answer failure')))
+    assert.ok(messages.some(message => message.includes('simulated user removal failure')))
+  })
+
+  void it('POST new user ignores a client-supplied UserId for the security answer', async () => {
+    const email = 'sa-userid@horstma.nn'
+    const adminAnswerBefore = await SecurityAnswerModel.findOne({ where: { UserId: 1 } })
+    const res = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration(email, { UserId: 1, securityAnswer: 'NotTheAdminsAnswer' }))
+    assert.equal(res.status, 201)
+    assert.notEqual(res.body.data.id, 1)
+    const answer = await SecurityAnswerModel.findOne({ where: { UserId: res.body.data.id } })
+    assert.equal(answer?.answer, security.hmac('NotTheAdminsAnswer'))
+    const adminAnswerAfter = await SecurityAnswerModel.findOne({ where: { UserId: 1 } })
+    assert.equal(adminAnswerAfter?.answer, adminAnswerBefore?.answer)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: 1 } }), 1)
+  })
+
+  void it('POST new user while logged in as another user binds the security answer to the new user', async () => {
+    const { token } = await login(app, { email: 'jim@juice-sh.op', password: 'ncc-1701' })
+    const jim = await UserModel.findOne({ where: { email: 'jim@juice-sh.op' } })
+    const jimsAnswerBefore = await SecurityAnswerModel.findOne({ where: { UserId: jim?.id } })
+    const res = await request(app)
+      .post('/api/Users')
+      .set({ ...jsonHeader, Authorization: `Bearer ${token}` })
+      .send(registration('sa-loggedin@horstma.nn'))
+    assert.equal(res.status, 201)
+    assert.notEqual(res.body.data.id, jim?.id)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: res.body.data.id } }), 1)
+    const jimsAnswerAfter = await SecurityAnswerModel.findOne({ where: { UserId: jim?.id } })
+    assert.equal(jimsAnswerAfter?.answer, jimsAnswerBefore?.answer)
+  })
+
+  void it('POST password reset succeeds with the security answer given during registration', async () => {
+    const email = 'sa-reset@horstma.nn'
+    const registerRes = await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration(email, { securityAnswer: 'My registration answer' }))
+    assert.equal(registerRes.status, 201)
+
+    const wrongRes = await request(app)
+      .post('/rest/user/reset-password')
+      .set(jsonHeader)
+      .send({ email, answer: 'Wrong answer', new: 'newPassw0rd', repeat: 'newPassw0rd' })
+    assert.equal(wrongRes.status, 401)
+
+    const resetRes = await request(app)
+      .post('/rest/user/reset-password')
+      .set(jsonHeader)
+      .send({ email, answer: 'My registration answer', new: 'newPassw0rd', repeat: 'newPassw0rd' })
+    assert.equal(resetRes.status, 200)
+
+    const { token } = await login(app, { email, password: 'newPassw0rd' })
+    assert.equal(typeof token, 'string')
+  })
+
+  void it('POST concurrent registrations with the same email create only one user and one security answer', async () => {
+    const email = 'sa-concurrent@horstma.nn'
+    const answersBefore = await SecurityAnswerModel.count()
+    const results = await Promise.all(Array.from({ length: 5 }, async (_, i) => await request(app)
+      .post('/api/Users')
+      .set(jsonHeader)
+      .send(registration(email, { securityAnswer: `Answer ${i}` }))))
+    const created = results.filter(res => res.status === 201)
+    assert.equal(created.length, 1)
+    assert.ok(results.filter(res => res.status !== 201).every(res => res.status === 400))
+    assert.equal(await usersWithEmail(email), 1)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: created[0].body.data.id } }), 1)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore + 1)
+  })
 })
 
 void describe('/api/Users/:id', () => {

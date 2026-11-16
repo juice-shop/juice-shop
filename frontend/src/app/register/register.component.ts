@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { SecurityAnswerService } from '../Services/security-answer.service'
 import { UserService } from '../Services/user.service'
 import { FormField, email, form, maxLength, minLength, required, submit, validate } from '@angular/forms/signals'
 import { Component, inject, signal, ChangeDetectionStrategy, type OnInit } from '@angular/core'
@@ -43,7 +42,6 @@ library.add(faUserPlus, faExclamationCircle)
 export class RegisterComponent implements OnInit {
   private readonly securityQuestionService = inject(SecurityQuestionService)
   private readonly userService = inject(UserService)
-  private readonly securityAnswerService = inject(SecurityAnswerService)
   private readonly router = inject(Router)
   private readonly translateService = inject(TranslateService)
   private readonly snackBar = inject(MatSnackBar)
@@ -103,12 +101,8 @@ export class RegisterComponent implements OnInit {
       }
 
       try {
-        const response: any = await firstValueFrom(this.userService.save(user))
-        await firstValueFrom(this.securityAnswerService.save({
-          UserId: response.id,
-          answer: this.registerModel().securityAnswer,
-          SecurityQuestionId: this.registerModel().securityQuestion
-        }))
+        // security question & answer are part of the user registration and get stored server-side
+        await firstValueFrom(this.userService.save(user))
         await this.router.navigate(['/login'])
         this.snackBarHelperService.open('CONFIRM_REGISTER')
       } catch (err: any) {

@@ -9,8 +9,12 @@ import request from 'supertest'
 import type { Express } from 'express'
 import { createTestApp } from './helpers/setup'
 import * as security from '../../lib/insecurity'
+import { login } from './helpers/auth'
+import { SecurityAnswerModel } from '../../models/securityAnswer'
+import { UserModel } from '../../models/user'
 
 let app: Express
+const jsonHeader = { 'content-type': 'application/json' }
 const authHeader = { Authorization: `Bearer ${security.authorize()}`, 'content-type': 'application/json' }
 
 before(async () => {
@@ -27,7 +31,23 @@ void describe('/api/SecurityAnswers', () => {
     assert.equal(res.status, 401)
   })
 
-  void it('POST new security answer for existing user fails from unique constraint', async () => {
+  void it('POST new security answer is forbidden via public API', async () => {
+    const answersBefore = await SecurityAnswerModel.count()
+    const res = await request(app)
+      .post('/api/SecurityAnswers')
+      .set(jsonHeader)
+      .send({
+        UserId: 1,
+        SecurityQuestionId: 1,
+        answer: 'Horst'
+      })
+
+    assert.equal(res.status, 401)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore)
+  })
+
+  void it('POST new security answer is forbidden via public API even when authenticated', async () => {
+    const answersBefore = await SecurityAnswerModel.count()
     const res = await request(app)
       .post('/api/SecurityAnswers')
       .set(authHeader)
@@ -37,9 +57,42 @@ void describe('/api/SecurityAnswers', () => {
         answer: 'Horst'
       })
 
-    assert.equal(res.status, 400)
-    assert.ok(res.headers['content-type']?.includes('application/json'))
-    assert.equal(res.body.message, 'Validation error')
+    assert.equal(res.status, 401)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore)
+  })
+
+  void it('POST new security answer is forbidden via public API even when logged in as a real user', async () => {
+    const { token } = await login(app, { email: 'jim@juice-sh.op', password: 'ncc-1701' })
+    const answersBefore = await SecurityAnswerModel.count()
+    const res = await request(app)
+      .post('/api/SecurityAnswers/')
+      .set({ ...jsonHeader, Authorization: `Bearer ${token}` })
+      .send({
+        SecurityQuestionId: 1,
+        answer: 'Horst'
+      })
+
+    assert.equal(res.status, 401)
+    assert.equal(await SecurityAnswerModel.count(), answersBefore)
+  })
+
+  void it('POST does not add a security answer to an existing user without one', async () => {
+    const user = await UserModel.findOne({ where: { email: 'testing@juice-sh.op' } })
+    assert.ok(user)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: user.id } }), 0)
+
+    const anonymousRes = await request(app)
+      .post('/api/SecurityAnswers')
+      .set(jsonHeader)
+      .send({ UserId: user.id, SecurityQuestionId: 1, answer: 'Horst' })
+    const authenticatedRes = await request(app)
+      .post('/api/SecurityAnswers')
+      .set(authHeader)
+      .send({ UserId: user.id, SecurityQuestionId: 1, answer: 'Horst' })
+
+    assert.equal(anonymousRes.status, 401)
+    assert.equal(authenticatedRes.status, 401)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: user.id } }), 0)
   })
 })
 
@@ -52,10 +105,10 @@ void describe('/api/SecurityAnswers/:id', () => {
     assert.equal(res.status, 401)
   })
 
-  void it('POST security answer for a newly registered user', async () => {
+  void it('POST security answer for a newly registered user is forbidden via public API', async () => {
     const userRes = await request(app)
       .post('/api/Users')
-      .set({ 'content-type': 'application/json' })
+      .set(jsonHeader)
       .send({
         email: 'new.user@te.st',
         password: '12345'
@@ -67,16 +120,13 @@ void describe('/api/SecurityAnswers/:id', () => {
       .post('/api/SecurityAnswers')
       .set(authHeader)
       .send({
-        UserId: userRes.body.id,
+        UserId: userRes.body.data.id,
         SecurityQuestionId: 1,
         answer: 'Horst'
       })
 
-    assert.equal(res.status, 201)
-    assert.ok(res.headers['content-type']?.includes('application/json'))
-    assert.equal(typeof res.body.data.id, 'number')
-    assert.equal(typeof res.body.data.createdAt, 'string')
-    assert.equal(typeof res.body.data.updatedAt, 'string')
+    assert.equal(res.status, 401)
+    assert.equal(await SecurityAnswerModel.count({ where: { UserId: userRes.body.data.id } }), 0)
   })
 
   void it('PUT update existing security answer is forbidden via public API even when authenticated', async () => {

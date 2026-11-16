@@ -486,6 +486,11 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.get('/api/Deliverys/:id', utils.asyncHandler(delivery.getDeliveryMethod()))
   // vuln-code-snippet end changeProductChallenge
 
+  /* SecurityAnswers: Never created directly via public API but only server-side as part of user registration */
+  app.post('/api/SecurityAnswers', security.denyAll())
+  /* Validate optional security question & answer of a user registration before the user gets created */
+  app.post('/api/Users', utils.asyncHandler(validateRegistrationSecurityAnswer))
+
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
     rateLimit({ windowMs: 5 * 60 * 1000, max: 100, validate: false }),
@@ -555,6 +560,11 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
       }) // vuln-code-snippet neutral-line registerAdminChallenge
     } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
+
+    // create the security answer of a newly registered user, always bound to the id of the user that was just created
+    if (name === 'User') {
+      resource.create.write.after(createRegistrationSecurityAnswer)
+    }
 
     // translate challenge descriptions on-the-fly
     if (name === 'Challenge') {
@@ -757,6 +767,63 @@ const uploadToDisk = multer({
     }
   })
 })
+
+/* Upper bound for security answers, aligned with the VARCHAR(255) (DataTypes.STRING) column of the SecurityAnswer model */
+const MAX_SECURITY_ANSWER_LENGTH = 255
+
+const registrationValidationError = (res: Response, field: string, message: string) => {
+  res.status(400).json({ message: 'Validation error', errors: [{ field, message }] })
+}
+
+/* Validates the optional security question & answer of a registration and stores them in res.locals for the User create hook.
+ * Registrations without any security question & answer (e.g. via OAuth or plain API calls) remain possible. */
+async function validateRegistrationSecurityAnswer (req: Request, res: Response, next: NextFunction) {
+  delete res.locals.registrationSecurityAnswer
+  if (res.headersSent) { // an earlier registration middleware already responded
+    next()
+    return
+  }
+  const { securityQuestion, securityAnswer } = req.body ?? {}
+  if (securityQuestion == null && securityAnswer == null) {
+    next()
+    return
+  }
+  if (typeof securityAnswer !== 'string' || securityAnswer.trim().length === 0 || securityAnswer.length > MAX_SECURITY_ANSWER_LENGTH) {
+    registrationValidationError(res, 'securityAnswer', `Security answer must be a non-empty text of at most ${MAX_SECURITY_ANSWER_LENGTH} characters`)
+    return
+  }
+  const questionId = securityQuestion?.id
+  if (!Number.isInteger(questionId) || questionId <= 0 || await SecurityQuestionModel.findByPk(questionId) == null) {
+    registrationValidationError(res, 'securityQuestion', 'Security question does not exist')
+    return
+  }
+  res.locals.registrationSecurityAnswer = { SecurityQuestionId: questionId, answer: securityAnswer }
+  next()
+}
+
+/* finale "create.write.after" hook for User: finale-rest creates the user without exposing a transaction to its hooks,
+ * so user and security answer cannot share a Sequelize transaction. Instead, the created user is removed again
+ * (compensation) when the security answer cannot be created, so no user without its requested security answer remains. */
+async function createRegistrationSecurityAnswer (req: Request, res: Response, context: { instance: { id: number }, continue: any, error: (status: number, message: string) => any }) {
+  const pending = res.locals.registrationSecurityAnswer
+  if (pending == null) {
+    return context.continue
+  }
+  const UserId = context.instance.id
+  try {
+    await SecurityAnswerModel.create({ UserId, SecurityQuestionId: pending.SecurityQuestionId, answer: pending.answer })
+    return context.continue
+  } catch (answerError: unknown) {
+    try {
+      await UserModel.destroy({ where: { id: UserId }, force: true })
+      logger.error(`Could not create security answer for newly registered user ${UserId}, so the user was removed again: ${utils.getErrorMessage(answerError)}`)
+    } catch (deleteError: unknown) {
+      logger.error(`Could not create security answer for newly registered user ${UserId}: ${utils.getErrorMessage(answerError)}`)
+      logger.error(`Could not remove newly registered user ${UserId} after failed security answer creation: ${utils.getErrorMessage(deleteError)}`)
+    }
+    return context.error(500, 'User registration could not be completed')
+  }
+}
 
 const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'ChallengeDependency', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet', 'Hint', 'Passkey']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {

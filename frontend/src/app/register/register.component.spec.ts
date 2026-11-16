@@ -154,7 +154,6 @@ describe('RegisterComponent', () => {
 
     it('redirects to login page after user registration', async () => {
         userService.save.mockReturnValue(of({ id: 1, question: 'Wat is?' }))
-        securityAnswerService.save.mockReturnValue(of({}))
         component.securityQuestions.set([{ id: 1, question: 'Wat is?' }])
         component.registerModel.update((model) => ({
             ...model,
@@ -165,13 +164,48 @@ describe('RegisterComponent', () => {
             securityAnswer: 'Answer'
         }))
         const user = { email: 'x@x.xx', password: 'password', passwordRepeat: 'password', securityQuestion: { id: 1, question: 'Wat is?' }, securityAnswer: 'Answer' }
-        const securityAnswerObject = { UserId: 1, answer: 'Answer', SecurityQuestionId: 1 }
         await component.save()
         await fixture.whenStable()
+        expect(userService.save).toHaveBeenCalledTimes(1)
         expect(vi.mocked(userService.save).mock.calls[0][0]).toEqual(user)
-        expect(vi.mocked(securityAnswerService.save).mock.calls[0][0]).toEqual(securityAnswerObject)
         expect(location.path()).toBe('/login')
         fixture.destroy()
+    })
+
+    it('sends security question and answer only as part of the user registration', async () => {
+        userService.save.mockReturnValue(of({ id: 1 }))
+        component.securityQuestions.set([{ id: 1, question: 'Wat is?' }])
+        component.registerModel.update((model) => ({
+            ...model,
+            email: 'x@x.xx',
+            password: 'password',
+            repeatPassword: 'password',
+            securityQuestion: 1,
+            securityAnswer: 'Answer'
+        }))
+        await component.save()
+        await fixture.whenStable()
+        expect(securityAnswerService.save).not.toHaveBeenCalled()
+        fixture.destroy()
+    })
+
+    it('does not redirect and shows the server validation error when registration fails', async () => {
+        userService.save.mockReturnValue(throwError(() => ({ error: { message: 'Validation error', errors: [{ field: 'securityQuestion', message: 'security question does not exist' }] } })))
+        console.log = vi.fn()
+        component.securityQuestions.set([{ id: 1, question: 'Wat is?' }])
+        component.registerModel.update((model) => ({
+            ...model,
+            email: 'x@x.xx',
+            password: 'password',
+            repeatPassword: 'password',
+            securityQuestion: 1,
+            securityAnswer: 'Answer'
+        }))
+        await component.save()
+        await fixture.whenStable()
+        expect(securityAnswerService.save).not.toHaveBeenCalled()
+        expect(component.error()).toBe('Security question does not exist')
+        expect(location.path()).not.toBe('/login')
     })
 
     it('loading secret questions', () => {

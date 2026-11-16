@@ -93,6 +93,38 @@ describe('/#/register', () => {
     })
   })
 
+  describe('user registration with security question', () => {
+    it('should store the security answer server-side so that it can be used to reset the password', () => {
+      const email = `sa-e2e-${Date.now()}@juice-sh.op`
+      cy.intercept('POST', '/api/Users/').as('registerUser')
+      cy.intercept('POST', '/api/SecurityAnswers*', cy.spy().as('postSecurityAnswer'))
+
+      cy.get('#emailControl').type(email)
+      cy.get('#passwordControl').focus().type('e2ePassw0rd')
+      cy.get('#repeatPasswordControl').focus().type('e2ePassw0rd')
+      cy.get('#securityQuestionControl').click()
+      cy.get('.mat-mdc-option')
+        .contains('Your eldest siblings middle name?')
+        .click()
+      cy.get('#securityAnswerControl').focus().type('E2E Answer')
+      cy.get('#registerButton').click()
+
+      cy.wait('@registerUser').its('response.statusCode').should('eq', 201)
+      cy.location('hash').should('eq', '#/login')
+      cy.get('@postSecurityAnswer').should('not.have.been.called')
+
+      cy.intercept('GET', '/rest/user/security-question?email=*').as('securityQuestion')
+      cy.visit('/#/forgot-password')
+      cy.get('#email').type(email)
+      cy.wait('@securityQuestion')
+      cy.get('#securityAnswer').should('not.be.disabled').focus().type('E2E Answer')
+      cy.get('#newPassword').focus().type('n3wE2ePassw0rd')
+      cy.get('#newPasswordRepeat').focus().type('n3wE2ePassw0rd')
+      cy.get('#resetButton').click()
+      cy.get('.confirmation').should('not.be.hidden')
+    })
+  })
+
   describe('challenge "emptyUserRegistration"', () => {
     it('should be possible to register a user with blank email/password', () => {
       cy.window().then(async () => {
