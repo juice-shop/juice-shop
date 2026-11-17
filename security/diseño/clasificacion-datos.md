@@ -1,10 +1,12 @@
-# Clasificación de datos de OWASP Juice Shop
+# Clasificación de Datos
 
-| Tipo de dato | Ejemplo en Juice Shop | Sensibilidad | Tratamiento requerido |
+Identificar la sensibilidad de la información es fundamental para aplicar los controles de seguridad correctos. Se clasifica en Baja, Media, Alta y Crítica.
+
+| Tipo de Dato | Ejemplo en Juice Shop | Nivel de Sensibilidad | Tratamiento Requerido |
 | :--- | :--- | :--- | :--- |
-| Credenciales | Email y contraseña | **Alta** | Hashing fuerte (bcrypt/Argon2), no registrar en logs. |
-| Tokens de sesión | JWT en localStorage y cookies | **Alta** | Cookies HttpOnly y Secure, expiración corta. |
-| Datos personales | Nombre, dirección de envío | **Media-Alta** | Cifrado en tránsito (TLS), acceso restringido. |
-| Datos de pago | Tarjetas de crédito (ficticias) | **Alta** | No almacenar datos reales, tokenización. |
-| Historial de pedidos | Órdenes y facturas | **Media** | Acceso solo al dueño de la orden o admin. |
-| Catálogo | Productos y precios | **Baja** | Público, pero protegido contra modificaciones no autorizadas. |
+| **Credenciales** | Email y contraseña de usuarios | **Crítica** | Hash seguro (bcrypt), nunca registrar en logs, forzar HTTPS. |
+| **Tokens de Sesión** | JWT guardados en el navegador | **Alta** | Uso de cookies `HttpOnly` y `Secure`, expiración corta. |
+| **Datos Personales** | Nombres, direcciones de envío | **Alta** | Cifrado en tránsito (TLS), acceso restringido solo al dueño. |
+| **Datos de Pago** | Tarjetas de crédito (ficticias) | **Crítica** | No almacenar datos reales. Tokenización (PCI-DSS). |
+| **Historial y Facturas**| Órdenes de compra, facturas PDF | **Media** | Validar que el usuario solo vea sus propias órdenes (Control de acceso). |
+| **Catálogo** | Productos, precios, reseñas | **Baja** | Información pública, pero protegida contra modificaciones. |
