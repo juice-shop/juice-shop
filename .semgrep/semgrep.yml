@@ -1,0 +1,9 @@
+rules:
+  - id: no-hardcoded-secrets
+    patterns:
+      - pattern-either:
+          - pattern: $KEY = "..."
+          - pattern: $KEY = '...'
+    message: "Posible secreto hardcodeado detectado."
+    languages: [javascript, typescript]
+    severity: ERROR
