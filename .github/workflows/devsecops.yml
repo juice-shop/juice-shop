@@ -30,30 +30,34 @@ jobs:
         if: always()
 
   sca:
-    name: SCA - SBOM & Vulnerabilidades
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Generate SBOM (CycloneDX) with Syft
-        uses: anchore/sbom-action@v0
-        with:
-          path: .
-          format: cyclonedx-json
-          output-file: security/sbom/sbom.cdx.json
-          
-      - name: Scan SBOM with Grype
-        uses: anchore/scan-action@v3
-        with:
-          sbom: security/sbom/sbom.cdx.json
-          fail-build: true
-          severity-cutoff: high
-          
-      - name: Upload SBOM as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom-cyclonedx
-          path: security/sbom/sbom.cdx.json
+      name: SCA - SBOM & Vulnerabilidades
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        security-events: write
+      steps:
+        - uses: actions/checkout@v4
+        
+        
+        - name: Generate SBOM (CycloneDX) with Syft
+          uses: anchore/sbom-action@v0
+          with:
+            path: .
+            format: cyclonedx-json
+            output-file: security/sbom/sbom.cdx.json
+            
+        - name: Scan with Grype
+          uses: anchore/scan-action@v7.4.2
+          with:
+            path: "."                 
+            fail-build: true
+            severity-cutoff: high
+          env:
+            GRYPE_DB_AUTO_UPDATE: "true"  
+            
+
+        - name: Upload SBOM as artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: sbom-cyclonedx
+            path: security/sbom/sbom.cdx.json
