@@ -2,9 +2,9 @@ name: DevSecOps Pipeline (Preentrega)
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master]
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 permissions:
   contents: read
