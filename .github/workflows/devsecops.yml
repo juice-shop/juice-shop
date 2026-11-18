@@ -28,6 +28,12 @@ jobs:
         with:
           sarif_file: semgrep.sarif
         if: always()
+      - name: Guardar SARIF como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+            name: semgrep-sarif
+            path: semgrep.sarif
+        if: always()
 
   sca:
       name: SCA - SBOM & Vulnerabilidades
