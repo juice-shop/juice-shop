@@ -32,6 +32,8 @@ jobs:
             name: semgrep-sarif
             path: semgrep.sarif
         if: always()
+      - name: Gate SAST (bloquea si hay hallazgos ERROR)
+        run: semgrep scan --config p/default --severity ERROR --error
 
   sca:
       name: SCA - SBOM & Vulnerabilidades
