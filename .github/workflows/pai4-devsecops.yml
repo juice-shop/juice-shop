@@ -1,0 +1,34 @@
+
+name: PAI4 - DevSecOps
+
+# Ejecutar con cada push, pull request o manualmente
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  base:
+    name: Verificar repositorio
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Comprobar archivos del proyecto
+        run: |
+          echo "Comprobando estructura de Juice Shop..."
+          test -f package.json
+          test -f Dockerfile
+          echo "Repositorio preparado correctamente"
+
+# Proximas tareas:
+# T05: SAST - Semgrep (Alejandro)
+# T06: SCA e IaC - Trivy (Daniel)
+# T07: DAST - ZAP (Alejandro)
+# T08: Importacion a DefectDojo (Raul)
+# T09: Quality gates (Raul)
