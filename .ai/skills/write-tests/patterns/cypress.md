@@ -43,7 +43,7 @@ The `challenge` value passed to `cy.expectChallengeSolved` is the **exact `name`
 
 ## `disabledEnv` gating
 
-If the challenge sets `disabledEnv` in `challenges.yml`, guard the test so it does not run where the challenge is disabled (same idea as the API `utils.isChallengeEnabled` guard). Mirror how an existing spec for a similarly-gated challenge does it, and confirm gating with the [verify-challenge skill](../verify-challenge/SKILL.md).
+If the challenge sets `disabledEnv` in `challenges.yml`, guard the test so it does not run where the challenge is disabled (same idea as the API `utils.isChallengeEnabled` guard). Mirror how an existing spec for a similarly-gated challenge does it, and confirm gating with the [verify-challenge skill](../../verify-challenge/SKILL.md).
 
 ## Group tests by attack type — pick the closest existing spec to mirror
 
