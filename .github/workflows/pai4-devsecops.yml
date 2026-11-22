@@ -25,6 +25,44 @@ jobs:
           test -f package.json
           test -f Dockerfile
           echo "Repositorio preparado correctamente"
+  
+  # T05 - Analisis SAST con Semgrep
+  semgrep:
+    name: Analisis SAST - Semgrep
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar Semgrep
+        run: |
+          python -m pip install semgrep
+          semgrep --version
+
+      - name: Ejecutar analisis SAST
+        run: |
+          mkdir -p reports
+          semgrep scan --config p/security-audit --json --output reports/semgrep-report.json --metrics=off .
+
+      - name: Mostrar numero de hallazgos
+        run: |
+          python -c "import json; data=json.load(open('reports/semgrep-report.json',encoding='utf-8')); print('Hallazgos Semgrep:',len(data.get('results',[])))"
+
+      - name: Guardar informe como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: reports/semgrep-report.json
+          if-no-files-found: error
+          retention-days: 30
+
 
 # Proximas tareas:
 # T05: SAST - Semgrep (Alejandro)
