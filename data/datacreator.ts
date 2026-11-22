@@ -36,6 +36,7 @@ import { AllHtmlEntities as Entities } from 'html-entities'
 import * as datacache from './datacache'
 import * as security from '../lib/insecurity'
 import { variableDependencies, domainDependencies, preconditionResults } from '../lib/startup/validatePreconditions'
+import { randomBytes } from 'node:crypto'
 
 const entities = new Entities()
 
@@ -188,11 +189,15 @@ async function createUsers () {
   await Promise.all(
     users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, passkeys, lastLoginIp = '' }) => {
       try {
+        let effectivePassword = password
+        if (key === 'admin') {
+          effectivePassword = process.env.JUICE_SHOP_ADMIN_PASSWORD ?? (process.env.NODE_ENV === 'test' ? 'admin123' : randomBytes(32).toString('hex'))
+        }
         const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({
           username,
           email: completeEmail,
-          password,
+          password: effectivePassword,
           role,
           deluxeToken: role === security.roles.deluxe ? security.deluxeToken(completeEmail) : '',
           profileImage: `assets/public/images/uploads/${profileImage ?? (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,

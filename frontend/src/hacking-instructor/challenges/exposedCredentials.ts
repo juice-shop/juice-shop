@@ -48,16 +48,16 @@ export const ExposedCredentialsInstruction: ChallengeInstruction = {
       resolved: waitForAngularRouteToBeVisited('login')
     },
     {
-      text: 'Write the email address in the **email field**.',
+      text: 'Write the account email in the **email field**.',
       fixture: '#email',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#email', 'testing@juice-sh.op', { replacement: ['juice-sh.op', 'application.domain'] })
+      resolved: waitInMs(10000)
     },
     {
-      text: 'Now write the password in the **password field**.',
+      text: 'Enter the account password in the **password field**.',
       fixture: '#password',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#password', 'IamUsedForTesting')
+      resolved: waitInMs(10000)
     },
     {
       text: 'Press the _Log in_ button.',

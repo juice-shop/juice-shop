@@ -67,10 +67,10 @@ export const PasswordStrengthInstruction: ChallengeInstruction = {
       resolved: waitForInputToHaveValue('#password', 'admin12')
     },
     {
-      text: "🧯 It's getting hot! Just one more digit...",
+      text: "🧯 The old weak password should not be usable. Enter a configured administrator credential instead.",
       fixture: '#password',
       unskippable: true,
-      resolved: waitForInputToHaveValue('#password', 'admin123')
+      resolved: waitInMs(10000)
     },
     {
       text: 'Okay, now press the _Log in_ button.',
