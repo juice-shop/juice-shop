@@ -1,0 +1,16 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 [ui] › tests/ui/integrante3.spec.js:197:1 › UI-01 | login válido mostra a conta autenticada (5.5s)
+  ✓  2 [ui] › tests/ui/integrante3.spec.js:208:1 › UI-02 | senha incorreta é rejeitada (2.0s)
+  ✓  3 [ui] › tests/ui/integrante3.spec.js:220:1 › UI-03 | busca pela interface encontra um produto do catálogo (1.7s)
+  ✓  4 [ui] › tests/ui/integrante3.spec.js:233:1 › UI-04 | carrinho permite adicionar, alterar quantidade e remover (4.8s)
+  ✓  5 [ui] › tests/ui/integrante3.spec.js:288:1 › UI-05 | mock de catálogo vazio mostra ausência de resultados (1.4s)
+  ✓  6 [ui] › tests/ui/pagina-inicial.spec.js:3:1 › UI - a página inicial do Juice Shop carrega (1.6s)
+
+  6 passed (30.0s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report reports/html[39m
+[36m[39m

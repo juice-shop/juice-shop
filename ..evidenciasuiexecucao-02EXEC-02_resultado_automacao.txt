@@ -1,0 +1,8 @@
+npm error Missing script: "test:ui"
+npm error
+npm error Did you mean this?
+npm error   npm run test:api # run the "test:api" package script
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/codespace/.npm/_logs/2026-11-22T19_32_41_710Z-debug-0.log

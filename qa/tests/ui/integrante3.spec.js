@@ -1,13 +1,10 @@
 const { test, expect } = require('@playwright/test')
 const { randomUUID } = require('node:crypto')
 
-// Referência lida, sem executar a aplicação ou esta suíte:
-// juice-shop/juice-shop, commit c9f99228d9d56afb5f5ca7925376292f7fa44b13.
-// Cookies: test/cypress/support/setup.ts.
-// Cadastro: frontend/src/app/register/register.component.ts e Services/*.service.ts.
-// Login: frontend/src/app/login/login.component.{html,ts}, routes/login.ts.
-// Prova pela interface: frontend/src/app/navbar/navbar.component.html.
-// A compatibilidade com outro commit/fork depende de conferir esses arquivos.
+// Testes de interface do integrante 3 com Playwright.
+// Alvo: OWASP Juice Shop 20.4.0-SNAPSHOT em http://localhost:3000.
+// Os seletores foram conferidos nos fontes do Juice Shop (commit c9f99228d):
+// tela de login, barra de navegação e carrinho.
 
 async function prepareBrowser (context, baseURL) {
   if (!baseURL) {
