@@ -112,7 +112,7 @@
     answer: 'Brd?j8sEMziOvvBf§Be?jFZ77H?hgm'
 -
   email: support
-  password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+  password: ''
   key: support
   role: 'admin'
   securityQuestion:
@@ -269,7 +269,7 @@
     answer: "Used Emporium"
 -
   email: cloud-admin
-  password: 'DVKH3gn7G$2Rk!f5Tz@9Lm&Qp4Wx#Yj8Bc0Ns6Ue1Io7Ah2Sd4Fg6Hj8Kl0Zx3Cv5Bn7Mq9Wr1Et3Yu5Ip'
+  password: ''
   key: cloudAdmin
   role: 'admin'
   profileImage: 'default.svg'

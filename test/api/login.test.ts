@@ -81,7 +81,21 @@ void describe('/rest/user/login', () => {
     assert.equal(typeof res.body.authentication.token, 'string')
   })
 
-  void it('POST login with support-team credentials', async () => {
+  void it('POST login with configured support-team credentials', async () => {
+    const res = await request(app)
+      .post('/rest/user/login')
+      .set({ 'content-type': 'application/json' })
+      .send({
+        email: 'support@' + config.get<string>('application.domain'),
+        password: 'test-support-password'
+      })
+
+    assert.equal(res.status, 200)
+    assert.ok(res.headers['content-type']?.includes('application/json'))
+    assert.equal(typeof res.body.authentication.token, 'string')
+  })
+
+  void it('POST login rejects legacy support-team credentials', async () => {
     const res = await request(app)
       .post('/rest/user/login')
       .set({ 'content-type': 'application/json' })
@@ -90,9 +104,19 @@ void describe('/rest/user/login', () => {
         password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
       })
 
-    assert.equal(res.status, 200)
-    assert.ok(res.headers['content-type']?.includes('application/json'))
-    assert.equal(typeof res.body.authentication.token, 'string')
+    assert.equal(res.status, 401)
+  })
+
+  void it('POST login rejects legacy cloud-admin credentials', async () => {
+    const res = await request(app)
+      .post('/rest/user/login')
+      .set({ 'content-type': 'application/json' })
+      .send({
+        email: 'cloud-admin@' + config.get<string>('application.domain'),
+        password: 'DVKH3gn7G$2Rk!f5Tz@9Lm&Qp4Wx#Yj8Bc0Ns6Ue1Io7Ah2Sd4Fg6Hj8Kl0Zx3Cv5Bn7Mq9Wr1Et3Yu5Ip'
+      })
+
+    assert.equal(res.status, 401)
   })
 
   void it('POST login with MC SafeSearch credentials', async () => {

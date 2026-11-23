@@ -190,8 +190,14 @@ async function createUsers () {
     users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, passkeys, lastLoginIp = '' }) => {
       try {
         let effectivePassword = password
-        if (key === 'admin') {
-          effectivePassword = process.env.JUICE_SHOP_ADMIN_PASSWORD ?? (process.env.NODE_ENV === 'test' ? 'admin123' : randomBytes(32).toString('hex'))
+        const privilegedPasswords: Record<string, { environmentName: string, testPassword: string }> = {
+          admin: { environmentName: 'JUICE_SHOP_ADMIN_PASSWORD', testPassword: 'admin123' },
+          support: { environmentName: 'JUICE_SHOP_SUPPORT_PASSWORD', testPassword: 'test-support-password' },
+          cloudAdmin: { environmentName: 'JUICE_SHOP_CLOUD_ADMIN_PASSWORD', testPassword: 'test-cloud-admin-password' }
+        }
+        const privilegedPassword = privilegedPasswords[key]
+        if (privilegedPassword) {
+          effectivePassword = process.env[privilegedPassword.environmentName] ?? (process.env.NODE_ENV === 'test' ? privilegedPassword.testPassword : randomBytes(32).toString('hex'))
         }
         const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({

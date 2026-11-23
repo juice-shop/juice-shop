@@ -48,29 +48,39 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "weakPasswordChallenge"', () => {
-    it('should be able to log in with original (weak) admin credentials', () => {
+  describe('secured default admin account', () => {
+    it('should reject the legacy admin password', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
-          cy.get('#email').type(`admin@${appDomain}`)
-          cy.get('#password').type('admin123')
-          cy.get('#loginButton').click()
+          cy.request({
+            method: 'POST',
+            url: '/rest/user/login',
+            body: {
+              email: `admin@${appDomain}`,
+              password: 'admin123'
+            },
+            failOnStatusCode: false
+          }).its('status').should('eq', 401)
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Password Strength' })
     })
   })
 
-  describe('challenge "loginSupportChallenge"', () => {
-    it('should be able to log in with original support-team credentials', () => {
+  describe('secured support-team account', () => {
+    it('should reject the legacy support-team credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
-          cy.get('#email').type(`support@${appDomain}`)
-          cy.get('#password').type('J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P')
-          cy.get('#loginButton').click()
+          cy.request({
+            method: 'POST',
+            url: '/rest/user/login',
+            body: {
+              email: `support@${appDomain}`,
+              password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE@RF$P'
+            },
+            failOnStatusCode: false
+          }).its('status').should('eq', 401)
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Support Team' })
     })
   })
 
@@ -174,16 +184,21 @@ describe('/#/login', () => {
     })
   })
 
-  describe('challenge "exposedCredentialsChallenge"', () => {
-    it('should be able to log in with testing credentials that are leaked on client', () => {
+  describe('secured testing account', () => {
+    it('should reject leaked testing credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
         (appDomain: string) => {
-          cy.get('#email').type(`testing@${appDomain}`)
-          cy.get('#password').type('IamUsedForTesting')
-          cy.get('#loginButton').click()
+          cy.request({
+            method: 'POST',
+            url: '/rest/user/login',
+            body: {
+              email: `testing@${appDomain}`,
+              password: 'IamUsedForTesting'
+            },
+            failOnStatusCode: false
+          }).its('status').should('eq', 401)
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Exposed Credentials' })
     })
   })
 })
