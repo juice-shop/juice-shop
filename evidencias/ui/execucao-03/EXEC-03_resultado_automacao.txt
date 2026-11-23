@@ -1,0 +1,20 @@
+
+Running 10 tests using 1 worker
+
+  ✓   1 [ui] › tests/ui/integrante3-casos-manuais.spec.js:67:1 › UI-06 | e-mail nao cadastrado e rejeitado com a mesma mensagem (CT-03) (5.9s)
+  ✓   2 [ui] › tests/ui/integrante3-casos-manuais.spec.js:90:1 › UI-07 | busca por termo inexistente nao mostra produtos (CT-05) (1.7s)
+  ✓   3 [ui] › tests/ui/integrante3-casos-manuais.spec.js:102:1 › UI-08 | cadastro com senhas diferentes e bloqueado (CT-10) (1.6s)
+  ✓   4 [ui] › tests/ui/integrante3-casos-manuais.spec.js:115:1 › UI-09 | carrinho: + duas vezes e - uma vez deixa 2 unidades e total correto (CT-07, BUG-02) (4.3s)
+  ✓   5 [ui] › tests/ui/integrante3.spec.js:197:1 › UI-01 | login válido mostra a conta autenticada (2.5s)
+  ✓   6 [ui] › tests/ui/integrante3.spec.js:208:1 › UI-02 | senha incorreta é rejeitada (1.7s)
+  ✓   7 [ui] › tests/ui/integrante3.spec.js:220:1 › UI-03 | busca pela interface encontra um produto do catálogo (1.5s)
+  ✓   8 [ui] › tests/ui/integrante3.spec.js:233:1 › UI-04 | carrinho permite adicionar, alterar quantidade e remover (4.5s)
+  ✓   9 [ui] › tests/ui/integrante3.spec.js:288:1 › UI-05 | mock de catálogo vazio mostra ausência de resultados (1.3s)
+  ✓  10 [ui] › tests/ui/pagina-inicial.spec.js:3:1 › UI - a página inicial do Juice Shop carrega (1.8s)
+
+  10 passed (40.3s)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report reports/html[39m
+[36m[39m
