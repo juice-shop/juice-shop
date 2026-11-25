@@ -1,4 +1,3 @@
-
 name: PAI4 - DevSecOps
 
 # Ejecutar con cada push, pull request o manualmente
@@ -25,7 +24,7 @@ jobs:
           test -f package.json
           test -f Dockerfile
           echo "Repositorio preparado correctamente"
-  
+
   # T05 - Analisis SAST con Semgrep
   semgrep:
     name: Analisis SAST - Semgrep
@@ -63,10 +62,115 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  # T08 - Importacion automatica de informes a DefectDojo
+  import-defectdojo:
+    name: Importar resultados a DefectDojo (T08)
+    # Cuando se integren T06 y T07, añadir aqui: [base, semgrep, trivy, zap]
+    needs: [base, semgrep]
+    if: always()
+    runs-on: self-hosted
 
-# Proximas tareas:
-# T05: SAST - Semgrep (Alejandro)
+    steps:
+      - name: Descargar artefactos de seguridad
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Importar Semgrep (SAST) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FILE="artifacts/semgrep-report/semgrep-report.json"
+          if [ -f "$FILE" ]; then
+            HTTP_CODE=$(curl -s -S -o /tmp/dd_semgrep.json -w "%{http_code}" \
+              -X POST "${BASE_URL}/api/v2/import-scan/" \
+              -H "Authorization: Token ${DD_TOKEN}" \
+              -F "engagement=${DD_ENGAGEMENT}" \
+              -F "scan_type=Semgrep JSON Report" \
+              -F "test_title=SAST - Semgrep" \
+              -F "active=true" \
+              -F "verified=false" \
+              -F "close_old_findings=true" \
+              -F "file=@${FILE}")
+            echo "Respuesta DefectDojo (Semgrep): HTTP ${HTTP_CODE}"
+            if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+              cat /tmp/dd_semgrep.json
+              exit 1
+            fi
+          else
+            echo "No se encontro informe de Semgrep; se omite."
+          fi
+
+      - name: Importar Trivy (SCA / IaC) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FOUND=0
+          for FILE in artifacts/trivy-report/*.json; do
+            if [ -f "$FILE" ]; then
+              FOUND=1
+              HTTP_CODE=$(curl -s -S -o /tmp/dd_trivy.json -w "%{http_code}" \
+                -X POST "${BASE_URL}/api/v2/import-scan/" \
+                -H "Authorization: Token ${DD_TOKEN}" \
+                -F "engagement=${DD_ENGAGEMENT}" \
+                -F "scan_type=Trivy Scan" \
+                -F "test_title=SCA/IaC - $(basename "$FILE")" \
+                -F "active=true" \
+                -F "verified=false" \
+                -F "close_old_findings=true" \
+                -F "file=@${FILE}")
+              echo "Respuesta DefectDojo ($(basename "$FILE")): HTTP ${HTTP_CODE}"
+              if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+                cat /tmp/dd_trivy.json
+                exit 1
+              fi
+            fi
+          done
+          [ "$FOUND" -eq 0 ] && echo "Informe de Trivy aun no disponible en esta rama."
+
+      - name: Importar ZAP (DAST) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FILE=""
+          if [ -f "artifacts/zap-report/zap-report.xml" ]; then
+            FILE="artifacts/zap-report/zap-report.xml"
+          elif [ -f "artifacts/zap-report/zap-report.json" ]; then
+            FILE="artifacts/zap-report/zap-report.json"
+          fi
+          if [ -n "$FILE" ]; then
+            HTTP_CODE=$(curl -s -S -o /tmp/dd_zap.json -w "%{http_code}" \
+              -X POST "${BASE_URL}/api/v2/import-scan/" \
+              -H "Authorization: Token ${DD_TOKEN}" \
+              -F "engagement=${DD_ENGAGEMENT}" \
+              -F "scan_type=ZAP Scan" \
+              -F "test_title=DAST - OWASP ZAP" \
+              -F "active=true" \
+              -F "verified=false" \
+              -F "close_old_findings=true" \
+              -F "file=@${FILE}")
+            echo "Respuesta DefectDojo (ZAP): HTTP ${HTTP_CODE}"
+            if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+              cat /tmp/dd_zap.json
+              exit 1
+            fi
+          else
+            echo "Informe de ZAP aun no disponible en esta rama."
+          fi
+
+# Proximas tareas pendientes de integracion:
 # T06: SCA e IaC - Trivy (Daniel)
 # T07: DAST - ZAP (Alejandro)
-# T08: Importacion a DefectDojo (Raul)
 # T09: Quality gates (Raul)
