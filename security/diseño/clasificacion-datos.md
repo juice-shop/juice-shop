@@ -1,5 +1,13 @@
 # Clasificación de Datos
 
+**Proyecto:** OWASP Juice Shop - Ciclo de Desarrollo Seguro (SSDLC)
+**Autoras:** Gabriela Navarro y Sandra Soria
+**Fecha:** Noviembre 2026
+**Versión:** 1.0
+**Fase:** Fase 1 - Diseño de la Aplicación
+
+---
+
 Identificar la sensibilidad de la información es fundamental para aplicar los controles de seguridad correctos. Se clasifica en Baja, Media, Alta y Crítica.
 
 | Tipo de Dato | Ejemplo en Juice Shop | Nivel de Sensibilidad | Tratamiento Requerido |

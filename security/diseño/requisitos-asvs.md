@@ -1,5 +1,13 @@
 # Requisitos de Seguridad (OWASP ASVS v4.0.3)
 
+**Proyecto:** OWASP Juice Shop - Ciclo de Desarrollo Seguro (SSDLC)
+**Autoras:** Gabriela Navarro y Sandra Soria
+**Fecha:** Noviembre 2026
+**Versión:** 1.0
+**Fase:** Fase 1 - Diseño de la Aplicación
+
+---
+
 Basado en el Nivel 1 y 2 de OWASP ASVS, estos son los requisitos mínimos que el equipo buscará verificar y que servirán como base para el modelo de amenazas.
 
 | ID | Categoría ASVS | Requisito Técnico | Justificación en Juice Shop |

@@ -1,8 +1,12 @@
-# Diagnóstico de madurez inicial (OWASP SAMM)
+# Diagnóstico de Madurez Inicial
 
-Aplicación: OWASP Juice Shop (fork: proyecto-final-juice-shop)
-Marco: OWASP SAMM 2.0 — 5 funciones, 15 prácticas, escala 0–3.
+**Proyecto:** OWASP Juice Shop - Ciclo de Desarrollo Seguro (SSDLC)
+**Autoras:** Gabriela Navarro y Sandra Soria
+**Fecha:** Noviembre 2026
+**Versión:** 1.0
+**Fase:** Fase 0 - Diagnóstico de Madurez (OWASP SAMM)
 
+---
 Se revisaron los archivos del repositorio uno por uno: workflows (`.github/workflows/`), Dockerfile, `SECURITY.md`, `threat-model.json`, `.dependabot/config.yml`, `CONTRIBUTING.md`, `test/` y `monitoring/`. Cuando no se encontró evidencia o no cumplía el criterio de SAMM para nivel 1, se asignó 0. Las prácticas con objetivo 0 quedan fuera del alcance del proyecto.
 
 | Práctica SAMM | Nivel actual | Nivel objetivo | Evidencia del nivel actual |

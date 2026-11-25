@@ -1,5 +1,13 @@
 # Arquitectura de la Aplicación
 
+**Proyecto:** OWASP Juice Shop - Ciclo de Desarrollo Seguro (SSDLC)
+**Autoras:** Gabriela Navarro y Sandra Soria
+**Fecha:** Noviembre 2026
+**Versión:** 1.0
+**Fase:** Fase 1 - Diseño de la Aplicación
+
+---
+
 OWASP Juice Shop es una aplicación web moderna construida bajo una arquitectura cliente-servidor (Monolito). A continuación se detallan sus componentes principales y cómo se comunican.
 
 ## Diagrama de Componentes

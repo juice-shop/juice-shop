@@ -1,4 +1,12 @@
-# Diagrama de Flujo de Datos (DFD) y Límites de Confianza
+# Diagrama de Flujo de Datos (DFD)
+
+**Proyecto:** OWASP Juice Shop - Ciclo de Desarrollo Seguro (SSDLC)
+**Autoras:** Gabriela Navarro y Sandra Soria
+**Fecha:** Noviembre 2026
+**Versión:** 1.0
+**Fase:** Fase 1 - Diseño de la Aplicación
+
+---
 
 Este DFD de Nivel 1 ilustra cómo fluye la información desde el usuario hasta los almacenes de datos, identificando las fronteras donde la confianza cambia (Trust Boundaries). Los datos que cruzan un límite de confianza son los puntos de mayor riesgo y donde se enfocará el análisis STRIDE.
 
