@@ -63,11 +63,62 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  # T06 - Configuración de Trivy
+  sca-iac-trivy:
+    name: SCA + IaC (Trivy)
+    needs: [base]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Trivy
+        uses: aquasecurity/setup-trivy@v0.2.5
+
+      - name: Análisis SCA (Dependencias npm - package-lock.json)
+        run: |
+          trivy fs \
+            --scanners vuln \
+            --format json \
+            --output trivy-sca.json \
+            package-lock.json
+
+      - name: Análisis IaC (Contenedor - Dockerfile)
+        run: |
+          trivy config \
+            --format json \
+            --output trivy-iac.json \
+            Dockerfile
+
+      - name: Subir informes de Trivy como artefactos
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: trivy-report
+          path: |
+            trivy-sca.json
+            trivy-iac.json
+
+      - name: Quality Gate A - Modo Aviso (>= 1 CRITICAL o HIGH)
+        continue-on-error: true
+        run: |
+          SCA_HC=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL" or .Severity == "HIGH")] | length' trivy-sca.json)
+          IAC_HC=$(jq '[.Results[]?.Misconfigurations[]? | select(.Severity == "CRITICAL" or .Severity == "HIGH")] | length' trivy-iac.json)
+          TOTAL_HC=$((SCA_HC + IAC_HC))
+
+          echo "Hallazgos CRITICAL/HIGH detectados -> SCA: $SCA_HC | IaC: $IAC_HC"
+
+          if [ "$TOTAL_HC" -ge 1 ]; then
+            echo "::warning title=Quality Gate A (Trivy)::Se han detectado $TOTAL_HC hallazgos CRITICAL o HIGH (SCA: $SCA_HC, IaC: $IAC_HC). El pipeline continúa en modo aviso."
+            exit 1
+          fi
+
   # T09 - Quality Gates (modo aviso y modo bloqueante)
   quality-gates:
     name: Quality Gates (T09)
     # Al integrar T06 y T07, actualizar a: [semgrep, trivy, zap]
-    needs: [semgrep]
+    needs: [semgrep, sca-iac-trivy]
     if: always()
     runs-on: ubuntu-latest
 
@@ -159,7 +210,7 @@ jobs:
   import-defectdojo:
     name: Importar resultados a DefectDojo (T08)
     # Al integrar T06 y T07, actualizar a: [base, semgrep, trivy, zap, quality-gates]
-    needs: [base, semgrep, quality-gates]
+    needs: [base, semgrep, sca-iac-trivy, quality-gates]
     if: always()
     runs-on: self-hosted
 

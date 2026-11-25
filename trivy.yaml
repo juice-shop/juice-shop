@@ -1,0 +1,7 @@
+timeout: 5m
+quiet: false
+vulnerability:
+  type:
+    - library
+misconfiguration:
+  include-non-failures: false
