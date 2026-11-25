@@ -1,4 +1,3 @@
-
 name: PAI4 - DevSecOps
 
 # Ejecutar con cada push, pull request o manualmente
@@ -25,10 +24,11 @@ jobs:
           test -f package.json
           test -f Dockerfile
           echo "Repositorio preparado correctamente"
-  
+
   # T05 - Analisis SAST con Semgrep
   semgrep:
     name: Analisis SAST - Semgrep
+    needs: [base]
     runs-on: ubuntu-latest
 
     steps:
@@ -63,10 +63,204 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+  # T09 - Quality Gates (modo aviso y modo bloqueante)
+  quality-gates:
+    name: Quality Gates (T09)
+    # Al integrar T06 y T07, actualizar a: [semgrep, trivy, zap]
+    needs: [semgrep]
+    if: always()
+    runs-on: ubuntu-latest
 
-# Proximas tareas:
-# T05: SAST - Semgrep (Alejandro)
-# T06: SCA e IaC - Trivy (Daniel)
-# T07: DAST - ZAP (Alejandro)
-# T08: Importacion a DefectDojo (Raul)
-# T09: Quality gates (Raul)
+    steps:
+      - name: Descargar artefactos para evaluacion
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Gate 1 (Modo Aviso) - Umbral SAST Semgrep (WARNING >= 1)
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+
+          path = "artifacts/semgrep-report/semgrep-report.json"
+          if not os.path.isfile(path):
+              print("Informe Semgrep no encontrado.")
+              sys.exit(0)
+
+          data = json.load(open(path, encoding="utf-8"))
+          results = data.get("results", [])
+          warnings = sum(1 for r in results if r.get("extra", {}).get("severity", "").upper() == "WARNING")
+          errors = sum(1 for r in results if r.get("extra", {}).get("severity", "").upper() == "ERROR")
+
+          print(f"[Gate 1 - Aviso] Semgrep -> ERROR (High): {errors}, WARNING (Medium): {warnings}, Total: {len(results)}")
+          if warnings >= 1:
+              print(f"::warning title=Quality Gate SAST (Aviso)::Se detectaron {warnings} hallazgos WARNING en Semgrep (umbral aviso >= 1). El pipeline continua.")
+              sys.exit(1)
+          PY
+
+      - name: Gate 2 (Bloqueante) - Cero vulnerabilidades CRITICAL o HIGH
+        run: |
+          python3 - <<'PY'
+          import glob, json, os, sys
+
+          critical = 0
+          high = 0
+
+          # 1. Semgrep (SAST): ERROR equivale a HIGH
+          semgrep_file = "artifacts/semgrep-report/semgrep-report.json"
+          if os.path.isfile(semgrep_file):
+              data = json.load(open(semgrep_file, encoding="utf-8"))
+              s_high = sum(1 for r in data.get("results", []) if r.get("extra", {}).get("severity", "").upper() == "ERROR")
+              high += s_high
+              print(f"Semgrep -> HIGH: {s_high}")
+
+          # 2. OWASP ZAP (DAST): riskcode "4" = CRITICAL, "3" = HIGH
+          zap_candidates = [
+              "artifacts/zap-report/zap/zap-report-local.json",
+              "artifacts/zap-report/zap/zap-report.json",
+          ]
+          for zf in zap_candidates:
+              if os.path.isfile(zf):
+                  data = json.load(open(zf, encoding="utf-8"))
+                  alerts = [a for s in data.get("site", []) for a in s.get("alerts", [])]
+                  z_crit = sum(1 for a in alerts if str(a.get("riskcode")) == "4")
+                  z_high = sum(1 for a in alerts if str(a.get("riskcode")) == "3")
+                  critical += z_crit
+                  high += z_high
+                  print(f"OWASP ZAP ({os.path.basename(zf)}) -> CRITICAL: {z_crit}, HIGH: {z_high}")
+                  break
+
+          # 3. Trivy (SCA / IaC): Severity CRITICAL / HIGH
+          for tf in glob.glob("artifacts/trivy-report/*.json"):
+              data = json.load(open(tf, encoding="utf-8"))
+              t_crit = 0
+              t_high = 0
+              for res in data.get("Results", []):
+                  for item in res.get("Vulnerabilities", []) + res.get("Misconfigurations", []):
+                      sev = item.get("Severity", "").upper()
+                      if sev == "CRITICAL":
+                          t_crit += 1
+                      elif sev == "HIGH":
+                          t_high += 1
+              critical += t_crit
+              high += t_high
+              print(f"Trivy ({os.path.basename(tf)}) -> CRITICAL: {t_crit}, HIGH: {t_high}")
+
+          print(f"=== RESUMEN GATE BLOQUEANTE === CRITICAL: {critical} | HIGH: {high} (Umbral permitido: 0)")
+          if critical >= 1 or high >= 1:
+              print(f"::error title=Quality Gate Bloqueante::Pipeline detenido por superar el umbral (CRITICAL={critical}, HIGH={high}).")
+              sys.exit(1)
+
+          print("Quality Gate Bloqueante SUPERADO.")
+          PY
+
+  # T08 - Importacion automatica de informes a DefectDojo
+  import-defectdojo:
+    name: Importar resultados a DefectDojo (T08)
+    # Al integrar T06 y T07, actualizar a: [base, semgrep, trivy, zap, quality-gates]
+    needs: [base, semgrep, quality-gates]
+    if: always()
+    runs-on: self-hosted
+
+    steps:
+      - name: Descargar artefactos de seguridad
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Importar Semgrep (SAST) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FILE="artifacts/semgrep-report/semgrep-report.json"
+          if [ -f "$FILE" ]; then
+            HTTP_CODE=$(curl -s -S -o /tmp/dd_semgrep.json -w "%{http_code}" \
+              -X POST "${BASE_URL}/api/v2/import-scan/" \
+              -H "Authorization: Token ${DD_TOKEN}" \
+              -F "engagement=${DD_ENGAGEMENT}" \
+              -F "scan_type=Semgrep JSON Report" \
+              -F "test_title=SAST - Semgrep" \
+              -F "active=true" \
+              -F "verified=false" \
+              -F "close_old_findings=true" \
+              -F "file=@${FILE}")
+            echo "Respuesta DefectDojo (Semgrep): HTTP ${HTTP_CODE}"
+            if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+              cat /tmp/dd_semgrep.json
+              exit 1
+            fi
+          else
+            echo "No se encontro informe de Semgrep; se omite."
+          fi
+
+      - name: Importar Trivy (SCA / IaC) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FOUND=0
+          for FILE in artifacts/trivy-report/*.json; do
+            if [ -f "$FILE" ]; then
+              FOUND=1
+              HTTP_CODE=$(curl -s -S -o /tmp/dd_trivy.json -w "%{http_code}" \
+                -X POST "${BASE_URL}/api/v2/import-scan/" \
+                -H "Authorization: Token ${DD_TOKEN}" \
+                -F "engagement=${DD_ENGAGEMENT}" \
+                -F "scan_type=Trivy Scan" \
+                -F "test_title=SCA/IaC - $(basename "$FILE")" \
+                -F "active=true" \
+                -F "verified=false" \
+                -F "close_old_findings=true" \
+                -F "file=@${FILE}")
+              echo "Respuesta DefectDojo ($(basename "$FILE")): HTTP ${HTTP_CODE}"
+              if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+                cat /tmp/dd_trivy.json
+                exit 1
+              fi
+            fi
+          done
+          [ "$FOUND" -eq 0 ] && echo "Informe de Trivy aun no disponible en esta rama."
+
+      - name: Importar ZAP (DAST) a DefectDojo
+        if: always()
+        env:
+          DD_URL: ${{ secrets.DEFECTDOJO_URL }}
+          DD_TOKEN: ${{ secrets.DEFECTDOJO_TOKEN }}
+          DD_ENGAGEMENT: ${{ secrets.DEFECTDOJO_ENGAGEMENT_ID }}
+        run: |
+          BASE_URL="${DD_URL%/}"
+          FILE=""
+          if [ -f "artifacts/zap-report/zap/zap-report-local.json" ]; then
+            FILE="artifacts/zap-report/zap/zap-report-local.json"
+          elif [ -f "artifacts/zap-report/zap/zap-report.json" ]; then
+            FILE="artifacts/zap-report/zap/zap-report.json"
+          elif [ -f "artifacts/zap-report/zap-report.xml" ]; then
+            FILE="artifacts/zap-report/zap-report.xml"
+          fi
+          if [ -n "$FILE" ]; then
+            HTTP_CODE=$(curl -s -S -o /tmp/dd_zap.json -w "%{http_code}" \
+              -X POST "${BASE_URL}/api/v2/import-scan/" \
+              -H "Authorization: Token ${DD_TOKEN}" \
+              -F "engagement=${DD_ENGAGEMENT}" \
+              -F "scan_type=ZAP Scan" \
+              -F "test_title=DAST - OWASP ZAP" \
+              -F "active=true" \
+              -F "verified=false" \
+              -F "close_old_findings=true" \
+              -F "file=@${FILE}")
+            echo "Respuesta DefectDojo (ZAP): HTTP ${HTTP_CODE}"
+            if [ "$HTTP_CODE" -ne 201 ] && [ "$HTTP_CODE" -ne 200 ]; then
+              cat /tmp/dd_zap.json
+              exit 1
+            fi
+          else
+            echo "Informe de ZAP aun no disponible en esta rama."
+          fi
