@@ -1,0 +1,8 @@
+version: '3'
+services:
+  modsec-proxy:
+    image: owasp/modsecurity-crs:apache
+    ports:
+      - "8090:80"
+    environment:
+      - BACKEND=http://host.docker.internal:3000
