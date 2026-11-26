@@ -125,7 +125,7 @@ resource "aws_ecs_service" "juice_shop" {
 
 resource "aws_cloudwatch_log_group" "juice_shop" {
   name              = "/ecs/${var.project_name}"
-  retention_in_days = 30
+  retention_in_days = 7
 
   tags = {
     Project     = var.project_name
