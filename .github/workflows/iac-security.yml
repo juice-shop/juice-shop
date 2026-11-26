@@ -1,0 +1,53 @@
+name: Seguridad IaC
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  iac:
+    name: Escaneo IaC
+    runs-on: ubuntu-latest
+    env:
+      CHECKOV_VERSION: '3.2.495'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar Checkov
+        run: python -m pip install "checkov==$CHECKOV_VERSION"
+
+      - name: Preparar archivos para el escaneo
+        run: |
+          mkdir -p "$RUNNER_TEMP/iac"
+          cp -r terraform Dockerfile politicas "$RUNNER_TEMP/iac/"
+
+      - name: Generar SARIF
+        run: |
+          cd "$RUNNER_TEMP/iac"
+          checkov -d . --framework terraform dockerfile \
+            --external-checks-dir politicas \
+            --output sarif --output-file-path reportes --soft-fail
+          test -s reportes/results_sarif.sarif
+
+      - name: Publicar SARIF como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-sarif
+          path: ${{ runner.temp }}/iac/reportes/results_sarif.sarif
+          if-no-files-found: error
+
+      - name: Gate de Checkov
+        run: |
+          cd "$RUNNER_TEMP/iac"
+          checkov -d . --framework terraform dockerfile \
+            --external-checks-dir politicas --compact --quiet
