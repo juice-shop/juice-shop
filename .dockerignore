@@ -28,6 +28,7 @@ node_modules/
 rsn/
 screenshots/
 scripts/
+!scripts/install-frontend.mjs
 terraform/
 test/
 vagrant/
