@@ -36,6 +36,13 @@ void describe('HTTP', () => {
     assert.equal(res.headers['x-content-type-options'], 'nosniff')
   })
 
+  void it('response must contain permissions policy header restricting payment to same origin', async () => {
+    const res = await request(app).get('/')
+    assert.equal(res.status, 200)
+    assert.equal(res.headers['permissions-policy'], 'payment=(self)')
+    assert.equal(res.headers['feature-policy'], undefined)
+  })
+
   void it('response must not contain recruiting header', async () => {
     const res = await request(app).get('/')
     assert.equal(res.status, 200)

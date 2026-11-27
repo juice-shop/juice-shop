@@ -23,7 +23,6 @@ import robots from 'express-robots-txt'
 import cookieParser from 'cookie-parser'
 import * as Prometheus from 'prom-client'
 import swaggerUi from 'swagger-ui-express'
-import featurePolicy from 'feature-policy'
 import { IpFilter } from 'express-ipfilter'
 // @ts-expect-error FIXME due to non-existing type definitions for express-security.txt
 import securityTxt from 'express-security.txt'
@@ -189,11 +188,10 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
   app.use(helmet.frameguard())
   // app.use(helmet.xssFilter()); // = no protection from persisted XSS via RESTful API
   app.disable('x-powered-by')
-  app.use(featurePolicy({
-    features: {
-      payment: ["'self'"]
-    }
-  }))
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    res.setHeader('Permissions-Policy', 'payment=(self)')
+    next()
+  })
 
   /* Hiring header */
   app.use((req: Request, res: Response, next: NextFunction) => {
