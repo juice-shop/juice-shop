@@ -1,0 +1,117 @@
+/*!
+ * Copyright (c) 2014-2026 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
+@use '../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.review-label-spacing {
+  margin-right: $space-3xs;
+}
+
+.reviews-panel {
+  margin-block-start: $space-l;
+  margin-block-end: $space-l;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.review-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.comment {
+  margin-bottom: $space-m;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-s;
+}
+
+.review-actions {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.review-message {
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.rw-button {
+  margin-left: 0;
+}
+
+.like-icon {
+  display: inline-grid;
+  place-items: center;
+}
+
+.like-icon > * {
+  grid-area: 1 / 1;
+}
+
+.like-counter {
+  border-radius: 50%;
+  font-size: 8px;
+  line-height: 1;
+  padding: $space-3xs $space-2xs;
+}
+
+.like-icon-pop {
+  animation: like-pop 350ms ease-out;
+}
+
+@keyframes like-pop {
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .like-icon-pop {
+    animation: none;
+  }
+}
+
+.noResultText {
+  display: block;
+  margin-top: $space-s;
+  text-align: center;
+}
+
+.write-review-title {
+  margin-bottom: $space-m;
+}
+
+.hint-spacing {
+  margin-left: $space-2xs;
+}
+
+.submit-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2xs;
+  margin-top: $space-m;
+}
